@@ -46,3 +46,31 @@ work to be done. At a high level, this is the approach Tommy Sullivan recommends
         4. Perform a Pull Request from branch to origin/master and let repository owners pull in changes
 4. Integration / Stress / Longevity / Release Testing
 5. Roll up information into existing Project Plan tools / documents in non-disruptive manner
+
+## Scope
+
+While we will link to grafana and kibana from MCS, we will not have links to specific time periods, metrics, logs.
+We will replace the UI with the new MCS (Monet). Prashant would like to have the metrics available on the dashboard 
+of Monet. There are two things Prashant wants to achieve with phase one: packaging everything except for the UI to get
+a robust data layer with documentation and all that. The UI is just like a "community release" to demonstrate the
+power of the underlying data system.
+
+The following systems will be out of scope for Spyglass:
+
+MapReduce v1
+Spark Standalone
+
+## Releases
+
+May timeframe and fall timeframe. Probably Spyglass would be released in May; but it depends on if Monet is there. If
+we were to release Spyglass prior to Monet, we would link to it in a not-so-visible manner (such as where MCS
+links to Resource Manager). Prashant believes that mid-January we should finalize the Spyglass plan. There is 
+some installer decisions being made tomorrow. 
+
+Dave Tucker has a python library that can call the UI installer in order to set up environments. There is a question of
+whether or not the "quick installer" CLI should be deprecated with the 5.1 release. But then again there are not any
+changes to quick installer for 5.1 release so it may be ok to leave it in the next release.
+
+## Customers
+
+UHG, Cisco, Rubicon, Comscore, MachineZone

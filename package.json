@@ -1,0 +1,25 @@
+{
+  "name": "spyglass",
+  "version": "1.0.0",
+  "description": "cluster logs and metrics collection and presentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/cucumber/bin/cucumber.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapr/private-spyglass.git"
+  },
+  "keywords": [
+    "spyglass"
+  ],
+  "author": "Tommy Sullivan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mapr/private-spyglass/issues"
+  },
+  "homepage": "https://github.com/mapr/private-spyglass#readme",
+  "devDependencies": {
+    "cucumber": "latest"
+  }
+}
