@@ -74,3 +74,16 @@ changes to quick installer for 5.1 release so it may be ok to leave it in the ne
 ## Customers
 
 UHG, Cisco, Rubicon, Comscore, MachineZone
+
+## Risks
+
+* Significant amount of log traffic might congest the network. perhaps we should isolate log / metrics reporting nodes 
+  from the rest or ensure there are reasonable throttle limits on those computing tasks
+* collectd / fluentd collect metrics from filesystem, maprdb, elastic but then send records to those systems, 
+  potentially causing a loop if not careful
+* querying across log and metric data and joining will not be possible under current architecture - it will be browser
+  clicking back and forth and no unified view / reports / alerts. perhaps with drill in future we can offer a more 
+  robust query / ui / alert engine while still allowing kibana / grafana ui and other pluggable consumers
+* What are the security implications for a tool like this that shows log and metrics data that could include personal
+  or sensitive data?
+* What kind of scale can we expect Spyglass to support?
