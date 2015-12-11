@@ -5,8 +5,6 @@ Spyglass is a product for collecting logs and metrics from a MapR cluster
 and enabling historical and realtime querying and reporting of those data
 in order to answer MapR cluster administrators' questions around cluster,
 node and application health, performance, stability and scalability.
- 
-[Spyglass Google Docs & Spreadsheets](https://docs.google.com/document/d/1LR8kv0MMymI6UZ7_gnwfM_PH4LnGN9W8GM3kDz_4tf4/edit),
 
 ## Intent of this Repository
 
@@ -18,12 +16,56 @@ This repository is proposed to be the official home of:
 4. The [wiki](https://github.com/mapr/private-spyglass/wiki) that contains supporting documentation
 5. The [code](#) that prepares a Spyglass environment for testing purposes
 
-## How to Run Tests
+## Team Roles & Responsibilities
+
+Role               | Person / Team / Company
+-------------------|-------------------------------------------
+Customers          | UHG, Cisco, Rubicno, Comscore, MachineZone
+Project Sponsor    | Suresh
+Product Manager    | Prashant Rathi
+Project Manager    | Leslie
+Solution Architect | Todd
+Developers         | Naveen
+QA                 | Tommy, Vivian, Terry He
+
+## Dependencies
+
+* [collectd](https://github.com/mapr/private-collectd/tree/master/ext-conf)
+* [kibana](https://github.com/mapr/private-kibana)
+* [grafana](https://github.com/mapr/private-grafana)
+* [fluentd](https://github.com/mapr/private-fluentd)
+* [elasticsearch](https://github.com/mapr/private-elasticsearch)
+* packaging / release repositories (?)
+* installer (?)
+
+## Links to Project Information / Status
+
+* [Product Requirements Document (PRD)](https://docs.google.com/document/d/11EU6l3wc_yaGWgloaXjJIzhpnQicgdRlmR7C-pJJoJA/edit#heading=h.3tsrqayzbm1)
+* [Technical Specification and Details](https://docs.google.com/document/d/1ZyrtCg9SexR-k_VGIo6dEU5e9wd1BrlNzFJep7k87rs/edit#heading=h.c6l8pz106k6r)	
+* [Feature Status List](https://docs.google.com/spreadsheets/d/13gyxRlhiB6d_dKQc6H_i0O-nRHF19bbVjwsCd_sKXPs/edit#gid=0&vpid=A1)
+* [EStaff Engg Status Update](https://docs.google.com/spreadsheets/d/1xJyr7fsCRdwZb6ZxLZ7XaulX_GXcUNyuRePxVPgtkTE/edit#gid=288618273&vpid=B2)
+* [Architecture Diagrams](https://drive.google.com/open?id=0B7EWOFmgXzOZS0J3NHMtdUo5cEE)
+* [Todd’s Task List](https://docs.google.com/document/d/1zae1Ie3xHLXZ7nspo5e1LvppgLd2OrDijqvUzeuRdaY/edit)
+* [Leslie’s Smartsheet for Spyglass Project](https://app.smartsheet.com/b/home)
+
+## Presentation(s)
+
+* [Demo Presentation](https://docs.google.com/a/maprtech.com/presentation/d/1xXE0lf5Gmb-IPYF3RU5yjDgtvqysDsGn-i3bAyt8JW0/edit?usp=sharing_eid&ts=565f7cee)
+
+## Testing
+
+### Run the cucumber tests in this repository
 
 After cloning this repository, and ensuring you have installed 'npm' on your system:
 
     npm install
     npm test
+    
+### Terry's Team Testing Links
+
+* [QA Testing Effort Timeline](https://docs.google.com/spreadsheets/d/1Bn3a8WpNcYoflH9H59vvYthAzQuReYenkv07PQaso6o/edit?ts=565e1cb5#gid=0&vpid=A1)
+* [QA Test Plan](https://docs.google.com/spreadsheets/d/1ymN1LxxvuPyUgf8dC6SFgu_pjDYneKodsVY6KTQol0E/edit?ts=565e1cbf#gid=0&vpid=A1)
+* [Terry’s Smoke Test Setup Guide](https://docs.google.com/document/d/12VBKeMgXKhWm0qIcRlrxpSJ-1GPUq463KlaWKrDB3qU/edit?ts=56685b1a#heading=h.vgktbnvy3cxo)
 
 ## Project Delivery Plan
 
