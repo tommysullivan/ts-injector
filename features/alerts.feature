@@ -13,3 +13,6 @@ Feature: Alerts
 
   @p3
   Scenario: Log triggers - Users should be able to define a pattern expression that will trigger an alert/alarm.
+
+  # Are alarms and alerts the same thing? I see both words being used throughout documentation and not sure if they mean
+  # to differentiate?

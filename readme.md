@@ -87,3 +87,26 @@ UHG, Cisco, Rubicon, Comscore, MachineZone
 * What are the security implications for a tool like this that shows log and metrics data that could include personal
   or sensitive data?
 * What kind of scale can we expect Spyglass to support?
+
+## Frequently Asked Questions
+
+* Q: Why are we building components from source or forking repositories if we are only configuring those items for the
+  particular purpose of spyglass? 
+* A: This is not an answer yet but just some thoughts on the question:  
+  If we need to vary code (for example, open source code has a bug and we cannot
+  afford to wait for the fix), we can always fork at that instant (it takes a few seconds), then go through the process
+  of building an artifact and deploying it to an artifact store using a unique branch / version identifier. Is it just
+  so that if we do find such a bug, we do not have to go through the preparatory steps at that time? Even if we do
+  fork and build from source in order to be prepared for such a situation, we still need not put the configuration 
+  which is specific to spyglass into the forked repo for the OSS. Though perhaps there is a rationale around that? It
+  seems to me it would still be better to have our configuration in a spyglass repository and then pull in a built 
+  version of the OSS components, even if we build them ourselves, using something like artifactory and some dependency
+  management tool like gradle or maven or what have you.
+
+## Notes
+
+* User Story 2 (is utilization evenly distributed?)
+  This is really a workflow that helps a user try one thing then the next. I would recommend it ends up
+  getting translated into either a wizard or that we at least add it to documentation as a recommended approach to 
+  solving the problem. I don't think we would actually call this out in a test plan or in automation but it is a
+  high level user story so it does make sense to include it in the requirements.

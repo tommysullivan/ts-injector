@@ -39,3 +39,12 @@ Feature: Node Health
 
   @p1
   Scenario: Node syslog - /var/log/messages, others?
+
+  # From "node" image in the PRD
+  Scenario: Node name, ID, IP, Uptime and heartbeat
+  Scenario: Alarms and Alerts per node - either "No Alarms" or list with name, metric, and time duration (maybe how long ago it was?)
+  Scenario: Graphs of CPU, Memtory, Disk I/O (read vs. write), RPCs (in vs. out) which is right clickable.
+  Scenario: Upon right click of RPC we can choose "Set alert" or "zoom..." If we set alert we get popup "send alert if" dropdown with higher vs. lower, than [number] for [time duration] plus [time unit dropdown] with OK button
+  Scenario: If they click more under the graphs, they see Network I/O, YARN Containers, Storage Space, DB Get, Put, Scan (do we have reason to believe this list is definitive and exhaustive?)
+  Scenario: Table of disks with rows and columns which are not specified
+  Scenario: Table of Services with name (ie. Hue), status (up), button for stopping or restarting service, and an arrow that presumably does something (perhaps jump to the service page?)

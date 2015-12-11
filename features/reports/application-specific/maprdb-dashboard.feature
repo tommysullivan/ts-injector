@@ -10,3 +10,8 @@ Feature: MapR-FS & MapR-DB metrics
     * DB cache
     * rsf (memory reserved for puts)
     * db gets/puts/scans
+
+  #Taken from US6 in PRD
+  Scenario: Admin has received report of DB slowness and wants to troubleshoot
+    Given there is a poorly designed application, disk issues, MFS is bottlenecked or there are bugs
+

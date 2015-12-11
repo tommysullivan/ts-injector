@@ -37,5 +37,27 @@ Feature: Cluster Utilization
     Pre-built third-party dashboard with identical configuration to that described in ‘Global Dashboard’. Global dashboard in MCS should link to this.
     This will be used by users that want to customize their global dashboard.
 
+  # From whiteboard capture
+  Scenario: Dashboard
+    * Cluster Heatmap
+    * CPU trend
+    * Memory trend
+    * Storage Trend
+    * YARN containers
+    * more
+    * Alarms and Alerts - name (container under and threshold - cpu cited), time interval (30s, 1m), nodename (single node?)
+
+  # From US3 in PRD
+  Scenario: Administrator has been alerted to service not running and wants to troubleshoot
+    Given administrator has been alerted via mapr node aralm, 3rd party alert, or an outlier discovered in global dashboard
+    When administrator browses to affected node dashboard (would they need to do this for each node service is running on?)
+    Then administrator sees a "memory utilization per service" chart with maybe other services hogging memory
+    And can click "logs" next to the affected service
+    And this results in viewing the logs dashboard, pre-filtered for that node+service combination. (why wouldn't they want to see all logs since the issue might be happening across multiple nodes?)
+
+
+
+
+
 
 

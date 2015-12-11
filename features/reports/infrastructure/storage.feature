@@ -21,3 +21,18 @@ Feature: Storage
     * Volume Size
     * Snapshot Size
     * Total Size
+
+  # Taken from User Stories US1 in the PRD
+  Scenario: Understand storage utilization trends and whether cluster expansion or file deletion is necessary
+    Given I am an administrator within MCS
+    When I navigate to Storage Utilization Trend dashboard
+    Then I can see how closely the total storage utilization is to the top line of cluster capacity
+
+  # Expanding on US1 for sub cases
+  Scenario: Sudden spike in storage utilization
+    Given I am an administrator within MCS
+    And I have navigated to Storage Utilization Trend dashboard
+    And I have seen a large spike in storage utilization
+    And one of the volumes represented in the stacked area chart also grew the same amount
+    When I click on the volume name in the chart
+    Then I am taken to the volume page where I can see "Accountable Entity"

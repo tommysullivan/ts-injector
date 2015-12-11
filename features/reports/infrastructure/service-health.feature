@@ -33,3 +33,5 @@ Feature: Service Health
   @p1
   Scenario: Each service page in new MCS should include a prominent link called ‘Logs’ which takes the user (in a new tab) to a service-specific dashboard in the logs GUI.
 
+  Scenario: Each service shows status and uptime as well as an arrow icon that probably goes somewhere.
+  Scenario: There are alarms and alerts table, some unspecified graphs, and a list of nodes on which the service is running.

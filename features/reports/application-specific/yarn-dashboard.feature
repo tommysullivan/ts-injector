@@ -36,3 +36,19 @@ Feature: YARN Dashboard
 
   @p1.5
   Scenario: YARN stdout - (P1 unless significant technical challenge) - Catch/store stdout from of all YARN applications.
+
+  #From US4 in PRD
+  Scenario: Job / App slowness for a given user (Hadoop / YARN)
+    Given that totalNodes == activeNodes
+    And memory or virtual cores are exhausted
+    And user's FairScehduler queue is at capacity
+    When I look at absoluteUsedCapacity by queue
+    Then I can click the leaf queue the user belongs to to see if usedCapacity is at maxCapacity
+
+  #From US5 in PRD
+  Scenario: Failed YARN applications
+    Given there are YARN application failures
+    And the user knows the application ID of the failures
+    When the user goes to the YARN Application Logs dashboard
+    And the user enters the application ID into the "application ID" search box
+    Then logs across all nodes for that particular application will show up (will they continue to stream in after that?)
