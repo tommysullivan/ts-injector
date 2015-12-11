@@ -1,4 +1,4 @@
-@p3 @impala
+@p3 @impala @cisco
 Feature: Impala
 
   @jmx

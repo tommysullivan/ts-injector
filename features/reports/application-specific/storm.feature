@@ -1,4 +1,4 @@
-@p3
+@p3 @cisco
 Feature: Storm
 
   Scenario: Whatever is exposed via JMX

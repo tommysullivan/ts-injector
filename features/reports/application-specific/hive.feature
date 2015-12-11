@@ -4,4 +4,7 @@ Feature: Hive Dashboard (If metrics interface available.) HS2 -
   * Successful/Failed Queries
 
   @p1
-  Feature: Log HS2, HiveMeta
+  Scenario: Log HS2, HiveMeta
+
+  @cisco @UHG
+  Scenario: Ability to monitor for hive

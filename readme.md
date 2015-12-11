@@ -18,6 +18,13 @@ This repository is proposed to be the official home of:
 4. The [wiki](https://github.com/mapr/private-spyglass/wiki) that contains supporting documentation
 5. The [code](#) that prepares a Spyglass environment for testing purposes
 
+## How to Run Tests
+
+After cloning this repository, and ensuring you have installed 'npm' on your system:
+
+    npm install
+    npm test
+
 ## Project Delivery Plan
 
 In order to deliver the Spyglass capability as a beta to our customers, there is much
@@ -71,6 +78,13 @@ Dave Tucker has a python library that can call the UI installer in order to set 
 whether or not the "quick installer" CLI should be deprecated with the 5.1 release. But then again there are not any
 changes to quick installer for 5.1 release so it may be ok to leave it in the next release.
 
+In the PRD as of 12/11, the milestones are listed as:
+
+* 8/30 - M1(Demo, no installation packaging, alpha/rough Kibana/Grafana dashboards)
+* 9/30 - M2(QA start, includes packaging for most services, draft Kibana/Grafana dashboards)
+* 10/30 - M3(Beta, complete packaging, early preview of Spyglass chart on Monet framework)
+* 12/15 - M4 Final
+
 ## Customers
 
 UHG, Cisco, Rubicon, Comscore, MachineZone
@@ -102,11 +116,3 @@ UHG, Cisco, Rubicon, Comscore, MachineZone
   seems to me it would still be better to have our configuration in a spyglass repository and then pull in a built 
   version of the OSS components, even if we build them ourselves, using something like artifactory and some dependency
   management tool like gradle or maven or what have you.
-
-## Notes
-
-* User Story 2 (is utilization evenly distributed?)
-  This is really a workflow that helps a user try one thing then the next. I would recommend it ends up
-  getting translated into either a wizard or that we at least add it to documentation as a recommended approach to 
-  solving the problem. I don't think we would actually call this out in a test plan or in automation but it is a
-  high level user story so it does make sense to include it in the requirements.

@@ -1,3 +1,4 @@
+@cisco
 Feature: Node Health
 
   Scenario: Are all nodes healthy?
@@ -48,3 +49,35 @@ Feature: Node Health
   Scenario: If they click more under the graphs, they see Network I/O, YARN Containers, Storage Space, DB Get, Put, Scan (do we have reason to believe this list is definitive and exhaustive?)
   Scenario: Table of disks with rows and columns which are not specified
   Scenario: Table of Services with name (ie. Hue), status (up), button for stopping or restarting service, and an arrow that presumably does something (perhaps jump to the service page?)
+
+  #Taken from US6 in PRD
+  Scenario: Disk Utilization and Average Wait
+    Given there is no hotspotting
+    And there is slowness in mapr-db
+    When I visit the node dashboards for primary region servers
+    Then I can view the disk utilization
+    And I can view the average wait (await) which may indicate a bad disk if utilization is also high.
+
+
+  #Taken from US6 in PRD
+  Scenario: MapR DB gets are slow
+    Given MapR DB gets are slow
+    When I check cache hits/misses on node dashboards of primary region servers
+    And I see that misses are high and disk utilization (iostate) is high
+    Then I determine that the app is placing too high a load on the DB
+
+  #Taken from US6 in PRD
+  Scenario: MapR DB gets are slow
+    Given MapR DB gets are slow
+    When I look at CPU utilization per core (provided by guts)
+    And I see it is maxed out in 1-2 cores
+    Then I determine that MFS is bottlenecking CPU (what do I do about this?)
+
+  #Taken from US6 in PRD
+  Scenario: MapR DB puts are slow
+    Given MapR DB puts are slow
+    When I look at rsf (memory reserved for puts - from guts)
+    And I see that it is 0
+    Then I conclude that the server can't absorb puts at current rate
+    And I conclude there is not enough memory for amount of CPU/IO
+

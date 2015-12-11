@@ -1,3 +1,4 @@
+@cisco
 Feature: Spark
 
   @p1
@@ -7,4 +8,7 @@ Feature: Spark
   Scenario: Log master / slave
 
   @p1.5
-  Feature: Spark on YARN logs: (P1 unless significant technical challenge) - Catch/store stdout from of all Spark applications.
+  Scenario: Spark on YARN logs: (P1 unless significant technical challenge) - Catch/store stdout from of all Spark applications.
+
+  @cisco
+  Scenario: Spark health monitoring

@@ -55,9 +55,19 @@ Feature: Cluster Utilization
     And can click "logs" next to the affected service
     And this results in viewing the logs dashboard, pre-filtered for that node+service combination. (why wouldn't they want to see all logs since the issue might be happening across multiple nodes?)
 
+  @cisco
+  Scenario: Cumulative view of cluster utilization and health
 
+  @rubicon
+  Scenario: Historical out of memory troubleshooting
+    * run out of memory across cluster and nodes will start to swap
+    * if nobody from ops team is online at the time then they can't tell what jobs caused the issue
+    * want a graph showing task-ram usage over time, by job-id or by user
 
+  @UHG
+  Scenario: cluster cpu, aggregated and per host
 
-
+  @UHG
+  Scenario: Forecasting - show based on current trend whether new hardware needs to be added
 
 
