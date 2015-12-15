@@ -1,2 +1,0 @@
-@cisco
-Feature: Pig monitoring

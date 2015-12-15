@@ -1,3 +1,4 @@
+@draft @questions @performance @stress
 Feature: Performance
 
   Scenario: Lots of logs are generated, it does not take down operational or analytical capabilities

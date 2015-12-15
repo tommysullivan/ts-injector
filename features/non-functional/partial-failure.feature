@@ -1,3 +1,4 @@
+@draft @questions
 Feature: Partial Failure
 
   Scenario: Log collectors die on one or more nodes

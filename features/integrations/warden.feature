@@ -1,3 +1,5 @@
+@draft @questions
 Feature: Warden integration
 
-  Scenario: The new services introduced with Spyglass will need to be integrated with Warden so they can be managed in a standard manner
+  @p1
+  Scenario: Any tools used by Spyglass should be managed and monitored by MCS and Warden (ES, Kibana, Open TSDB, etc)
