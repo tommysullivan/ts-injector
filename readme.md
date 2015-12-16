@@ -141,8 +141,8 @@ Since Gherkin can be written in a way that is agnostic of (doesn't care about) t
 used to implement the underlying automated verification tests, we are free to choose any Gherkin-compatible 
 implementation framework and language, or combination thereof, to implement verification tests. We can
 reuse existing testing, mocking, or assertions frameworks, or even initiate distributed tests in the cloud.
-We need only run Cucumber for the language of choice and feed it the gherkin, and it ties the two worlds
-- the English product requirements and the automated verification test code - together automagically.
+We need only run Cucumber for the language of choice and feed it the gherkin, and it ties the two worlds -
+the English product requirements and the automated verification test code - together automagically.
 
 This paradigm enables a completely non-technical person to understand and agree with Engineering and QA, in
 no uncertain terms, what the requirements are, in plain English, check that in to version control,
@@ -236,7 +236,7 @@ cross-project manner.
 While those improvements are still being planned, there are some fundamental basic things we can do which will benefit
 the whole team and make it easy for Spyglass to work well with said future pipeline, regardless of its eventual
 implementation details. Those have been captured as non-functional requirements in the
-[devops-integration.feature](blob/5-cucumber-setup/features/non-functional/longevity.feature) file.
+[devops-integration.feature](features/non-functional/devops-integration.feature) file.
 
 #### Proposed Work-Item Lifecycle
 
