@@ -6,6 +6,18 @@ and enabling historical and realtime querying and reporting of those data
 in order to answer MapR cluster administrators' questions around cluster,
 node and application health, performance, stability and scalability.
 
+## Table of Contents
+
+* [Intent of this Repository](#intent-of-this-repository)
+* [Team Roles and Responsibilities](#team-roles-and-responsibilities)
+* [Spyglass Component Dependencies](#spyglass-component-dependencies)
+* [Links](#links)
+* [Testing](#testing)
+* [Releases](#releases)
+* [DevOps Pipeline](#devops-pipeline)
+* [Risks](#risks)
+* [Questions](#questions)
+
 ## Intent of this Repository
 
 This repository is proposed to be the official home of:
@@ -16,7 +28,7 @@ This repository is proposed to be the official home of:
 4. The [wiki](https://github.com/mapr/private-spyglass/wiki) that contains supporting documentation
 5. The [code](#) that prepares a Spyglass environment for testing purposes
 
-## Team Roles & Responsibilities
+## Team Roles and Responsibilities
 
 Role               | Person / Team / Company
 -------------------|-------------------------------------------
@@ -25,7 +37,7 @@ Project Sponsor    | Suresh Ollala
 Product Manager    | Prashant Rathi
 Project Manager    | Leslie Lin
 Solution Architect | Todd Richmond
-Developers         | Naveen Tirupattur, ???
+Developers         | Naveen Tirupattur, Lars Fredriksen
 QA                 | Tommy Sullivan, Vivian Summers, Terry He
 
 ## Spyglass Component Dependencies
@@ -38,7 +50,7 @@ QA                 | Tommy Sullivan, Vivian Summers, Terry He
 * packaging / release repositories (?)
 * installer (?)
 
-## Links to Project Information / Status
+## Links
 
 * [Product Requirements Document (PRD)](https://docs.google.com/document/d/11EU6l3wc_yaGWgloaXjJIzhpnQicgdRlmR7C-pJJoJA/edit#heading=h.3tsrqayzbm1)
 * [Technical Specification and Details](https://docs.google.com/document/d/1ZyrtCg9SexR-k_VGIo6dEU5e9wd1BrlNzFJep7k87rs/edit#heading=h.c6l8pz106k6r)	
@@ -47,9 +59,6 @@ QA                 | Tommy Sullivan, Vivian Summers, Terry He
 * [Architecture Diagrams](https://drive.google.com/open?id=0B7EWOFmgXzOZS0J3NHMtdUo5cEE)
 * [Todd’s Task List](https://docs.google.com/document/d/1zae1Ie3xHLXZ7nspo5e1LvppgLd2OrDijqvUzeuRdaY/edit)
 * [Leslie’s Smartsheet for Spyglass Project](https://app.smartsheet.com/b/home)
-
-## Presentation(s)
-
 * [Demo Presentation](https://docs.google.com/a/maprtech.com/presentation/d/1xXE0lf5Gmb-IPYF3RU5yjDgtvqysDsGn-i3bAyt8JW0/edit?usp=sharing_eid&ts=565f7cee)
 
 ## Testing
@@ -97,7 +106,7 @@ Tag Name           | Meaning
 #### Implementation Testing Framework / Language:
 
 Tag Name           | Meaning
--------------------|---------------------------------------------------------------------
+-------------------|-------------------------------------------------------------
 @testNG            | [Test NG](http://testng.org/doc/index.html)
 @cucumber.js       | [Cucumber.js](https://cucumber.io/docs/reference/javascript)
 @ats               | [MapR's QA ATS framework](https://docs.google.com/document/d/12VBKeMgXKhWm0qIcRlrxpSJ-1GPUq463KlaWKrDB3qU/edit?ts=56685b1a#heading=h.vgktbnvy3cxo)
@@ -105,7 +114,7 @@ Tag Name           | Meaning
 #### Release / Priority Information:
 
 Tag Name           | Meaning
--------------------|---------------------------------------------------------------------
+-------------------|--------------------------------------------------------------
 @deferred          | the feature is deferred and may not be released in the future
 @release-M.m.p     | the test must pass for release M.m.p
 @p1 @p1.5 @p2 @p3  | Priorities 1, 1.5 (1 unless technically challenging), 2 and 3
@@ -175,31 +184,6 @@ in the long run (and even the short run).
 * [QA Test Plan](https://docs.google.com/spreadsheets/d/1ymN1LxxvuPyUgf8dC6SFgu_pjDYneKodsVY6KTQol0E/edit?ts=565e1cbf#gid=0&vpid=A1)
 * [Terry’s Smoke Test Setup Guide](https://docs.google.com/document/d/12VBKeMgXKhWm0qIcRlrxpSJ-1GPUq463KlaWKrDB3qU/edit?ts=56685b1a#heading=h.vgktbnvy3cxo)
 
-## Proposed Work Item Lifecycle
-
-In order to deliver the Spyglass capability as a beta to our customers, there is much
-work to be done. At a high level, this is the approach Tommy Sullivan recommends:
-
-1. Derive github issues (use cases) from PRD & other sources
-2. Categorize & Organize issues using labels and milestones
-3. Drive development via Automated Testing. For each issue: 
-    1. Author and agree on Definition of Done (DoD)
-        * Use gherkin if possible
-        * Focus on DoD accuracy and completeness
-        * Use pull request conversations to review and get approval from QA, Product, Engineering
-    2. Propose Solution Design(s) & Choose One
-        1. If necessary, perform research and prototyping within prototype subbranches of the feature
-        2. Use github's social features to get feedback on different options
-        3. For simpler issues, this step may be very informal or completely skipped
-    3. Implement Solution
-        1. Make changes across the required repositories using reasonable branch and package version IDs
-        2. Implement step definitions for Gherkin in the DoD
-        3. Once all Gherkin tests pass, commit, pull request and share with reviewers like before
-        4. Perform a Pull Request from branch to origin/master and let repository owners pull in changes
-4. Roll up project status information into existing Project Plan tools / spreadsheets weekly, in non-disruptive manner
-5. Perform Integration / Stress / Longevity / Release Testing after release 1's "code complete" date.
-
-
 ## Releases
 
 Release Questions:
@@ -225,7 +209,7 @@ The following systems will be out of scope for Spyglass:
 * MapReduce v1
 * Spark Standalone
 
-#### Other Release Hearsay:
+#### Other Release Notes
 
 May timeframe and fall timeframe. Probably Spyglass would be released in May; but it depends on if Monet is there. If
 we were to release Spyglass prior to Monet, we would link to it in a not-so-visible manner (such as where MCS
@@ -254,6 +238,30 @@ the whole team and make it easy for Spyglass to work well with said future pipel
 implementation details. Those have been captured as non-functional requirements in the
 [devops-integration.feature](blob/5-cucumber-setup/features/non-functional/longevity.feature) file.
 
+#### Proposed Work-Item Lifecycle
+
+In order to deliver the Spyglass capability as a beta to our customers, there is much
+work to be done. At a high level, this is the approach Tommy Sullivan recommends:
+
+1. Create github / JIRA issues to reflect tasks / bugs that need work
+2. Categorize & Organize issues using labels and milestones
+3. Drive development via Automated Testing. For each issue: 
+    1. Author and agree on Definition of Done (DoD)
+        * Use gherkin if possible
+        * Focus on DoD accuracy and completeness
+        * Use pull request conversations to review and get approval from QA, Product, Engineering
+    2. Propose Solution Design(s) & Choose One
+        1. If necessary, perform research and prototyping within prototype subbranches of the feature
+        2. Use github's social features to get feedback on different options
+        3. For simpler issues, this step may be very informal or completely skipped
+    3. Implement Solution
+        1. Make changes across the required repositories using reasonable branch and package version IDs
+        2. Implement step definitions for Gherkin in the DoD
+        3. Once all Gherkin tests pass, commit, pull request and share with reviewers like before
+        4. Perform a Pull Request from branch to origin/master and let repository owners pull in changes
+4. Roll up project status information into existing Project Plan tools / spreadsheets weekly, in non-disruptive manner
+5. Perform Integration / Stress / Longevity / Release Testing after release 1's "code complete" date.
+
 ## Risks
 
 * Significant amount of log traffic might congest the network. perhaps we should isolate log / metrics reporting nodes 
@@ -269,6 +277,9 @@ implementation details. Those have been captured as non-functional requirements 
 * What kind of scale can we expect Spyglass to support?
 
 ## Questions
+
+Here are some project level outstanding questions. There are additional questions located in the 
+[requirements specification](features) that appear as Gherkin tagged with @questions
 
 * Q: Why are we building components from source or forking repositories if we are only configuring those items for the
      particular purpose of spyglass? 

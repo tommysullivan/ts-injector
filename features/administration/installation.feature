@@ -3,6 +3,10 @@ Feature: Installation
 
   # Product Questions:
   # Q: What are the details of how spyglass ui installer would work? (see below scenarios for details)
+  # Q: What versions and OS's are supported in each beta
+  # A: Prashant will ask this in the beta questionnaire and get back to us
+  # Q: Will we support spyglass on "secure cluster"? (auth via mapr login / kerberos plus tickets)
+  # A: Maybe? Very unclear and sounds like there are some open quesitons about it
 
   # Technical Questions:
   # Q: Can we get this sooner? The earlier we can get it, the easier it is to install and udpate the test

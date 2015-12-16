@@ -3,6 +3,8 @@ Feature: Configuration
 
   # Product Questions:
   # Q: Does retention period effect only the data on disk? Or does it also effect indexed data & reports?
+  # A: Both
+
   # Q: What are the ways that configuration can be changed? Where does it reside? How do changes propagate?
   # Q: What is meant by "audit"?
   # Q: What is the difference between "service" and "application" here?

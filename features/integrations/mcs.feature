@@ -5,6 +5,9 @@ Feature: MCS Integration
   #    and when will that happen? What are the interdependencies? Can we leverage requirements or tests or both
   #    over both a Kibana / Grafana implementation vs. MCS
 
+  # Q: How will user get from MCS to kibana / grafana dashboards?
+  # A: There will be two links to the main pages of those and they can navigate from there
+
   @p1, @web
   Scenario: Classic MCS will have two links - Log UI and Metrics UI - in the bottom left corner with other pluggable services. It will always be visible.
 

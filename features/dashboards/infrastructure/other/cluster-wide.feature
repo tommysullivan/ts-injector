@@ -50,7 +50,7 @@ Feature: Cluster Dashboard / Global Dashboard
 
   @us-3
   Scenario: Administrator has been alerted to service not running and wants to troubleshoot
-    Given administrator has been alerted via mapr node aralm, 3rd party alert, or an outlier discovered in global dashboard
+    Given administrator has been alerted via mapr node alarm, 3rd party alert, or an outlier discovered in global dashboard
     When administrator browses to affected node dashboard (would they need to do this for each node service is running on?)
     Then administrator sees a "memory utilization per service" chart with maybe other services hogging memory
     And can click "logs" next to the affected service

@@ -1,6 +1,10 @@
 @draft @questions @cisco
 Feature: YARN Dashboard
 
+  @questions
+  Scenario: YARN central logging
+    * How should it behave when YARN is in centralized logging mode
+
   @p2
   Scenario: Aggregate Metrics (cluster wide) -   Full list of metrics that should be shown on the YARN service page include
     * Active Applications - Line w/view finder - appsPending, appsRunning.
