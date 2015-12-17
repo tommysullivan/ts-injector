@@ -10,7 +10,7 @@ node and application health, performance, stability and scalability.
 
 * [Intent of this Repository](#intent-of-this-repository)
 * [Team Roles and Responsibilities](#team-roles-and-responsibilities)
-* [Spyglass Component Dependencies](#spyglass-component-dependencies)
+* [Solution Architecture](#solution-architecture)
 * [Links](#links)
 * [Testing](#testing)
 * [Releases](#releases)
@@ -40,7 +40,10 @@ Solution Architect | Todd Richmond
 Developers         | Naveen Tirupattur, Lars Fredriksen
 QA                 | Tommy Sullivan, Vivian Summers, Terry He
 
-## Spyglass Component Dependencies
+## Solution Architecture
+
+Please start with [Architecture Diagrams](https://drive.google.com/open?id=0B7EWOFmgXzOZS0J3NHMtdUo5cEE) and then
+see the below components that are used in Spyglass:
 
 * [collectd](https://github.com/mapr/private-collectd/tree/master/ext-conf)
 * [kibana](https://github.com/mapr/private-kibana)
@@ -52,11 +55,35 @@ QA                 | Tommy Sullivan, Vivian Summers, Terry He
 
 ## Links
 
+#### Environment Links
+
+At the moment there is only one environment running Spyglass, and that setup is not automated. We 
+plan to manually or automatically create at least 1 test and 1 demo environment in the near term. 
+For testing purposes across multiple cluster configurations, there will likely be several testing
+environments set up.
+
+* Dev
+    * [Grafana](http://10.10.88.97:3000/login) - use admin/admin as credentials
+    * [Kibana](http://10.10.88.98:5601/) - dashboards -> open folder -> demo -> choose last 24 hours
+    * MCS - Not set up
+    * Installer - Not set up
+* Test
+    * Grafana - Not set up
+    * Kibana - Not set up
+    * MCS - Not set up
+    * Installer - Not set up
+* Demo / Acceptance
+    * Grafana - Not set up
+    * Kibana - Not set up
+    * MCS - Not set up
+    * Installer - Not set up
+    
+#### Google Docs / Spreadsheets / Presentations    
+
 * [Product Requirements Document (PRD)](https://docs.google.com/document/d/11EU6l3wc_yaGWgloaXjJIzhpnQicgdRlmR7C-pJJoJA/edit#heading=h.3tsrqayzbm1)
 * [Technical Specification and Details](https://docs.google.com/document/d/1ZyrtCg9SexR-k_VGIo6dEU5e9wd1BrlNzFJep7k87rs/edit#heading=h.c6l8pz106k6r)	
 * [Feature Status List](https://docs.google.com/spreadsheets/d/13gyxRlhiB6d_dKQc6H_i0O-nRHF19bbVjwsCd_sKXPs/edit#gid=0&vpid=A1)
 * [EStaff Engg Status Update](https://docs.google.com/spreadsheets/d/1xJyr7fsCRdwZb6ZxLZ7XaulX_GXcUNyuRePxVPgtkTE/edit#gid=288618273&vpid=B2)
-* [Architecture Diagrams](https://drive.google.com/open?id=0B7EWOFmgXzOZS0J3NHMtdUo5cEE)
 * [Todd’s Task List](https://docs.google.com/document/d/1zae1Ie3xHLXZ7nspo5e1LvppgLd2OrDijqvUzeuRdaY/edit)
 * [Leslie’s Smartsheet for Spyglass Project](https://app.smartsheet.com/b/home)
 * [Demo Presentation](https://docs.google.com/a/maprtech.com/presentation/d/1xXE0lf5Gmb-IPYF3RU5yjDgtvqysDsGn-i3bAyt8JW0/edit?usp=sharing_eid&ts=565f7cee)
@@ -102,6 +129,7 @@ Tag Name           | Meaning
 @performance       | Indicates a performance test
 @security          | Indicates a security test
 @whitebox          | the test requires knowledge / access to system internals
+@browser           | includes browser testing
 
 #### Implementation Testing Framework / Language:
 
@@ -118,6 +146,7 @@ Tag Name           | Meaning
 @deferred          | the feature is deferred and may not be released in the future
 @release-M.m.p     | the test must pass for release M.m.p
 @p1 @p1.5 @p2 @p3  | Priorities 1, 1.5 (1 unless technically challenging), 2 and 3
+@m1 @m2 ...        | Milestone 1, 2 (as specified in [PRD Feature list](https://docs.google.com/spreadsheets/d/13gyxRlhiB6d_dKQc6H_i0O-nRHF19bbVjwsCd_sKXPs/edit#gid=0))
 
 #### Test Lifecycle Tags: 
 
