@@ -21,13 +21,11 @@ node and application health, performance, stability and scalability.
 
 ## Intent of this Repository
 
-This repository is proposed to be the official home of:
+This repository is proposed to be the system of record for:
 
-1. The [requirements specification](features) for the Spyglass Product
-2. The [integration tests](features/step_definitions) that verify the specification has been met
-3. The [issues](https://github.com/mapr/private-spyglass/issues) that track work item status
-4. The [wiki](https://github.com/mapr/private-spyglass/wiki) that contains supporting documentation
-5. The [code](#) that prepares a Spyglass environment for testing purposes
+1. The [detail requirements specification](features) for the Spyglass Product (traceable to high level JIRAs)
+2. The [integration tests](features/step_definitions) that verify the specification has been met (cucumber, ATS)
+5. The [infrastructure and deployment code](#) that prepares a Spyglass environment for testing purposes (terraform, docker)
 
 ## Team Roles and Responsibilities
 
