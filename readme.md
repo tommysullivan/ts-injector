@@ -241,4 +241,4 @@ implementation details. Those have been captured as non-functional requirements 
 
 Questions about this project can be created / searched using [this JIRA page](https://maprdrill.atlassian.net/browse/SPYG-75?jql=Type%3DQuestion%20and%20Project%3DSpyglass)
 
-## JIRA
+
