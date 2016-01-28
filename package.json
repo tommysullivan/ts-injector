@@ -21,8 +21,9 @@
   "homepage": "https://github.com/mapr/private-spyglass#readme",
   "dependencies": {
     "cucumber": "latest",
-    "promised-rest-client": "latest",
+    "request": "latest",
     "promise": "latest",
-    "prompt": "latest"
+    "prompt": "latest",
+    "optimist": "latest"
   }
 }
