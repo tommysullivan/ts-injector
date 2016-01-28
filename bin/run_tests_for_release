@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+var fs = require('fs');
+var API = require('../lib/api');
+
+var configJSON = JSON.parse(fs.readFileSync(__dirname + '/../configuration/config.json', 'utf8'));
+var api = API(configJSON);
+
+function logError(error) {
+    console.log("An error has occurred: "+error);
+}
+
+api.newCLIInterviewer().performInterview().done(
+    function(interviewAnswers) {
+        api.newJiraRestClient().authenticate(interviewAnswers.jiraUserName, interviewAnswers.jiraPassword).done(
+            function(jiraRestSession) {
+                api.newCucumberRunner(jiraRestSession).runCukesForJIRARelease(interviewAnswers.jiraReleaseName).done(
+                    null,
+                    logError
+                );
+            },
+            logError
+        );
+    },
+    logError
+);

@@ -218,6 +218,19 @@ Here is how to run scenarios with either @p1 or @p2 tags on them:
 We can also run scenarios that have *both* @p2 and @p2 tags:
 
     npm test -- --tags @p1 --tags @p2
+    
+#### Running tests for all the User Stories in a JIRA release
+
+To generate a command that you can use to run only the right subset of tags for a JIRA release, run:
+    
+    TSULLIVAN:spyglass tsullivan$ ./bin/run_tests_for_release 
+    prompt: Enter username for JIRA located at https://maprdrill.atlassian.net:  (tsullivan@maprtech.com) 
+    prompt: Enter corresponding password:  
+    prompt: Enter the name of the release (the value of "Fix Version"):  (1.0.alpha) 
+    Run the following command to execute cucumber tests for release: 1.0.alpha
+    npm test -- --tags @SPYG-126,@SPYG-125,@SPYG-124,@SPYG-123,@SPYG-1
+    
+You may change the default credentials, release, or JIRA hosts / paths in configuration/config.json.
 
 #### Traceability / Relationship Tags:
 

@@ -2,7 +2,7 @@
   "name": "spyglass",
   "version": "1.0.0",
   "description": "cluster logs and metrics collection and presentation",
-  "main": "index.js",
+  "main": "api.js",
   "scripts": {
     "test": "./node_modules/cucumber/bin/cucumber.js "
   },
@@ -19,7 +19,10 @@
     "url": "https://github.com/mapr/private-spyglass/issues"
   },
   "homepage": "https://github.com/mapr/private-spyglass#readme",
-  "devDependencies": {
-    "cucumber": "latest"
+  "dependencies": {
+    "cucumber": "latest",
+    "promised-rest-client": "latest",
+    "promise": "latest",
+    "prompt": "latest"
   }
 }

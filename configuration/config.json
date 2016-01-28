@@ -1,0 +1,7 @@
+{
+  "jiraProtocolHostAndOptionalPort": "https://maprdrill.atlassian.net",
+  "jiraIssueSearchPath": "/rest/api/2/search",
+  "jiraRestSessionPath": "/rest/auth/1/session",
+  "defaultJiraUsername": "tsullivan@maprtech.com",
+  "defaultReleaseName": "1.0.alpha"
+}
