@@ -24,6 +24,7 @@
     "request": "latest",
     "promise": "latest",
     "prompt": "latest",
-    "optimist": "latest"
+    "optimist": "latest",
+    "net-ping": "latest"
   }
 }

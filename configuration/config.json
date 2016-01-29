@@ -8,5 +8,10 @@
   "jqlQueries": {
     "1.0.alpha": "issuetype = Story AND fixVersion = 1.0.alpha",
     "proposed": "status = Proposed"
+  },
+  "cucumberTesting": {
+    "clusterIPs": {
+      "dev": ["10.10.88.96", "10.10.88.97", "10.10.88.98"]
+    }
   }
 }
