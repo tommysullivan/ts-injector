@@ -14,7 +14,7 @@ Feature: Installation
       | in a Docker container running in On Premise Bare Metal |
       | in a Docker container running in AWS     |
 
-  @SPYG-123
+  @SPYG-123 @Manual
   Scenario: Manual Installation
     When I navigate to "https://github.com/mapr/private-spyglass"
     Then I will find instructions that enable me, without any advanced knowledge, to:
@@ -23,21 +23,9 @@ Feature: Installation
       | run all services required for spyglass |
       | discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch |
 
-  @SPYG-123
-  @SPYG-143
-  Scenario: Post-Install Health Check
-    Given I have installed Spyglass
-    When I run the Post-Install Health Check
-    Then it verifies connectivity to the following services:
-      | MCS |
-      | Kibana |
-      | Grafana |
-      | OpenTSDB |
-      | ElasticSearch |
-
-  @SPYG-142
-  # TODO: Once we get the manual instructions, we can be more specific in the below Gherkin.
+  @SPYG-123 @SPYG-142
   Scenario: Automated Setup Script
+    # TODO: Once we get the manual instructions, we can be more specific in the below Gherkin.
     When I clone the "https://github.com/mapr/private-spyglass" repo
     And I run the "install.sh" script with appropriate config / CLI options
     Then it will install spyglass in the desired way

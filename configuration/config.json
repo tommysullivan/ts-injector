@@ -3,6 +3,10 @@
   "jiraIssueSearchPath": "/rest/api/2/search",
   "jiraRestSessionPath": "/rest/auth/1/session",
   "defaultJiraUsername": "tsullivan@maprtech.com",
-  "defaultReleaseName": "1.0.alpha",
-  "cucumberCLITemplate": "npm test -- --tags ${tags}"
+  "cucumberCLITemplate": "npm test -- --tags ${tags}",
+  "defaultJQLQueryKey": "1.0.alpha",
+  "jqlQueries": {
+    "1.0.alpha": "issuetype = Story AND fixVersion = 1.0.alpha",
+    "proposed": "status = Proposed"
+  }
 }

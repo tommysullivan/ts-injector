@@ -219,24 +219,32 @@ We can also run scenarios that have *both* @p2 and @p2 tags:
 
     npm test -- --tags @p1 --tags @p2
     
-#### Running tests for all the User Stories in a JIRA release
+#### Running tests based on JIRA issues
 
-To generate a command that you can use to run only the right subset of tags for a JIRA release, run:
-    
-    private-spyglass$ ./bin/run-tests-for-release
+To run tests based on issues in JIRA, use /bin/spyglass-tester along with an inline JIRA JQL query:
+
+    $ ./bin/spyglass-tester --username tsullivan@maprtech.com --jql "status = Proposed"
+    prompt: Enter corresponding password:  
+    Run the following command to execute cucumber tests:
+    npm test -- --tags @SPYG-97,@SPYG-81
+
+You will be prompted for data not provided via CLI args:
+
+    $ ./bin/spyglass-tester
     prompt: Enter username for JIRA located at https://maprdrill.atlassian.net:  (tsullivan@maprtech.com) 
     prompt: Enter corresponding password:  
-    prompt: Enter the name of the release (the value of "Fix Version"):  (1.0.alpha) 
-    Run the following command to execute cucumber tests for release: 1.0.alpha
-    npm test -- --tags @SPYG-126,@SPYG-125,@SPYG-124,@SPYG-123,@SPYG-1
-    
-You may change the default credentials, release, or JIRA hosts / paths in configuration/config.json.
+    prompt: Inline JQL or one of these preconfigured keys: (1.0.alpha,proposed):  (1.0.alpha) 
+    Run the following command to execute cucumber tests:
+    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
 
-Non-Interactive Mode:
+In the above example, rather than providing inline JQL, a "preconfigured key" was used - 1.0.alpha. This
+key corresponds to a preconfigured query in the /configuration/config.json file.
 
-    private-spyglass$ ./bin/run-tests-for-release -y -p $PASSWORD
-    Run the following command to execute cucumber tests for release: 1.0.alpha
-    npm test -- --tags @SPYG-126,@SPYG-125,@SPYG-124,@SPYG-123,@SPYG-1
+Non-Interactive Mode (uses CLI args or configured defaults in configuration/config.json):
+
+    $ ./bin/spyglass-tester -y -p $PASSWORD
+    Run the following command to execute cucumber tests:
+    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
 
 #### Traceability / Relationship Tags:
 
