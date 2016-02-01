@@ -12,6 +12,7 @@ node and application health, performance, stability and scalability.
 * [Team Roles and Responsibilities](#team-roles-and-responsibilities)
 * [Solution Architecture](#solution-architecture)
 * [Links](#links)
+* [Installation](#installation)
 * [Scrum Development Methodology](#scrum-development-methodology)
 * [Testing](#testing)
 * [Infrastructure Automation](#infrastructure-automation)
@@ -46,7 +47,7 @@ Scrummaster        | Rotating, start with Tommy
 Please start with [Architecture Diagrams](https://drive.google.com/open?id=0B7EWOFmgXzOZS0J3NHMtdUo5cEE) and then
 see the below components that are used in Spyglass:
 
-* [collectd](https://github.com/mapr/private-collectd/tree/master/ext-conf)
+* [collectd](https://github.com/mapr/private-collectd)
 * [kibana](https://github.com/mapr/private-kibana)
 * [grafana](https://github.com/mapr/private-grafana)
 * [fluentd](https://github.com/mapr/private-fluentd)
@@ -54,6 +55,71 @@ see the below components that are used in Spyglass:
 * packaging / release repositories (?)
 * installer (?)
 * demo / test triggers - way to cause system behaviors interesting to Spyglass Demo & Testing
+
+## Installation
+
+All packages will be available on MapR Repos and will be installable using MapR UI Installer. This section lists package names and the steps performed when each one is installed:
+
+* mapr-collectd
+   * installs collectd at MAPR_HOME/collectd/collectd-*
+   * expected on each node
+   * conf file is located at MAPR_HOME/collectd/collectd-*/etc/collectd.conf
+   * changes MAPR_HOME/hadoop/hadoop-*/bin/yarn to enable jmx for RM and NM (uses ports 8025 for RM 8027 for NM) and adds         the following JMX options if this node is an RM:
+      JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false                         -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port"'
+   * enables the section in collectd.conf between MAPR_CONF_TAG and MAPR_CONF_TAG_END and configures JMX connections for         applicable services
+   * enables and configures the opentsdb plugin in collectd.conf
+   * copies warden.collectd.conf to MAPR_HOME/conf/conf.d
+
+* mapr-elasticsearch
+   * installs elasticsearch in MAPR_HOME/elasticsearch/elasticsearch-*
+   * expected on 3 nodes for HA will work with less (need algorithm to determine N)
+   * conf file is located at 
+     MAPR_HOME/elasticsearch/elasticsearch-*/etc/elasticsearch/elasticsearch.yml
+   * sets the cluster.name to maprMonitoring
+   * sets the network.host to node ip
+   * sets path.data to directory where you want the database to be (via -EDDB option) (optional)
+   * sets discovery.zen.ping.unicast.hosts to the list of elasticsearch servers
+   * sets discovery.zen.minimum_master_nodes (typically odd number >= 3 for HA)
+   * sets the kernel limit for vm.max_map_count to 262144 if it is less (also modifies /etc/sysctl.conf)
+   * copies warden.elasticsearch.conf to MAPR_HOME/conf/conf.d
+   * (manual requirement for M2) once ES is running, execute loadtemplate.sh script in the elasticsearch bin directory once per cluster to load the mapr monitoring template
+
+* mapr-fluentd
+   * installs fluentd at MAPR_HOME/fluentd/fluentd-*
+   * expected on each node
+   * conf files are located at
+      MAPR_HOME/fluentd/fluentd/etc/es_config.conf
+      MAPR_HOME/fluentd/fluentd/etc/marfs_config.conf
+      MAPR_HOME/fluentd/fluentd/etc/fluentd.conf
+   * configure host and port in es_config.conf
+   * uncomment and configure host and port in maprfs_config.conf if global logging is turned on via the -logHTTPFS option (not fully implemented)
+   * copies warden.fluentd.conf file to MAPR_HOME/conf/conf.d
+
+* mapr-opentsdb
+   * installs opentsdb at MAPR_HOME/opentsdb/opentsdb-*
+   * expected on every X nodes (not determined yet). Test with 1 or more
+   * conf file is located at MAPR_HOME/opentsdb/opentsdb-*/etc/opentsdb/opentsdb.conf
+   * copies async hbase 1.6 jar file to MAPR_HOME/opentsdb/opentsdb-*/share/opentsdb/lib
+   * updates the zookeeper information in the conf file
+   * creates tsdb tables
+   * copies warden.opentsdb.conf file to MAPR_HOME/conf/conf.d
+
+* mapr-grafana
+   * installs grafana at MAPR_HOME/grafana/grafana-*
+   * expected on one node
+   * conf file is located at MAPR_HOME/grafana/grafana-*/etc/grafana/grafana.ini
+   * copies warden.grafana.conf file to MAPR_HOME/conf/conf.d
+   * sets up OpenTSDB data source -- TODO
+
+* mapr-kibana
+   * installs kibana at MAPR_HOME/kibana/kibana-*
+   * expected on one node
+   * conf file is located at MAPR_HOME/kibana/kibana-*/config/kibana.yml
+   * updates the ES host in the conf file
+   * copies warden.kibana.conf file to MAPR_HOME/conf/conf.d
+
+Example configure.sh invocation:
+configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -EDDB=/opt/mapr/es (-EDDB on ES server nodes only)
 
 ## Links
 
