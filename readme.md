@@ -119,7 +119,7 @@ All packages will be available on MapR Repos and will be installable using MapR 
    * copies warden.kibana.conf file to MAPR_HOME/conf/conf.d
 
 Example configure.sh invocation:
-configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -EDDB=/opt/mapr/es (-EDDB on ES server nodes only)
+configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es (-EDDB on ES server nodes only)
 
 ## Links
 
