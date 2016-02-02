@@ -58,7 +58,7 @@ see the below components that are used in Spyglass:
 
 ## Installation
 
-All packages will be available on MapR Repos and will be installable using MapR UI Installer. This section lists package names and the steps performed when each one is installed:
+All packages will be available on MapR Repos and will be installable using MapR UI Installer. The prerequisites for running opentsdb are hbase and async hbase 1.6. It is assumed that these packages are already installed on the nodes running opentsdb. This section lists package names and the steps performed when each one is installed:
 
 * mapr-collectd
    * installs collectd at MAPR_HOME/collectd/collectd-*
@@ -119,7 +119,7 @@ All packages will be available on MapR Repos and will be installable using MapR 
    * copies warden.kibana.conf file to MAPR_HOME/conf/conf.d
 
 Example configure.sh invocation:
-configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es (-EDDB on ES server nodes only)
+configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es -R (-ESDB on ES server nodes only)
 
 ## Links
 
