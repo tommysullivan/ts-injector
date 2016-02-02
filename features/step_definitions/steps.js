@@ -10,38 +10,23 @@ module.exports = function() {
         }, callback);
     });
 
-    this.Given(/^I restrict myself to a single node cluster running one the following Operating Systems:$/, function (table, callback) {
+    this.Given(/^I restrict myself to a single node cluster running one the following Operating Systems:$/, function (table) {
         this.operatingSystems = getArrayFromTable(table);
-        callback();
     });
 
-    this.Given(/^I restrict that node to run in one of the following ways:$/, function (table, callback) {
+    this.Given(/^I restrict that node to run in one of the following ways:$/, function (table) {
         this.hardwareTypes = getArrayFromTable(table);
-        callback();
     });
 
     this.Given(/^I have a Spyglass\-enabled Cluster \(IPs specified in configuration\)$/, function (callback) {
-        var self = this;
-        var pings = this.api.configJSON().cucumberTesting.clusterIPs.dev.map(function(ip) {
-            return self.api.newPromise(function(resolve, reject) {
-                var pingSession = self.api.newPingSession();
-                pingSession.pingHost(ip, function(error, target) {
-                    if(error) reject("Ping failed for host: "+ip+", Error: "+error);
-                    else {
-                        console.log("ping success - "+target);
-                        resolve(target);
-                    }
-                });
-            });
-        });
-        var pingGroup = this.api.newGroupPromise(pings);
-        pingGroup.then(function() {
-            console.log("pingsdone");
-            callback();
-        });
+        //var restClient = this.api.newRestClientAsPromised('http://cnn.com');
+        //return restClient.get('/').done(function() {
+        //    callback();
+        //}, function(error) { callback(error); });
     });
 
     this.Given(/^I have discovered the url for Zookeeper REST service$/, function (callback) {
+
         // Write code here that turns the phrase above into concrete actions
         callback.pending();
     });

@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+var API = require('../lib/api');
+var configJSON = require('../configuration/config.json');
+var mcsRestClient = API(configJSON).newMCSRestClient();
+
+mcsRestClient.createAutheticatedSession('mapr','mapr')
+    .then(function(mcsRestSession) {
+        return mcsRestSession.dashboardInfo();
+    })
+    .then(function(dashboardInfo) {
+        dashboardInfo.validateHealth();
+    })
+    .done(null, console.log.bind(console));

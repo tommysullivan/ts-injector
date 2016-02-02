@@ -1,4 +1,3 @@
-@draft @p1
 Feature: Installation
 
   Background:

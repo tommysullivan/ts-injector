@@ -221,16 +221,16 @@ We can also run scenarios that have *both* @p2 and @p2 tags:
     
 #### Running tests based on JIRA issues
 
-To run tests based on issues in JIRA, use /bin/spyglass-tester along with an inline JIRA JQL query:
+To run tests based on issues in JIRA, use /bin/jql-to-cuke-tags along with an inline JIRA JQL query:
 
-    $ ./bin/spyglass-tester --username tsullivan@maprtech.com --jql "status = Proposed"
+    $ ./bin/jql-to-cuke-tags --username tsullivan@maprtech.com --jql "status = Proposed"
     prompt: Enter corresponding password:  
     Run the following command to execute cucumber tests:
     npm test -- --tags @SPYG-97,@SPYG-81
 
 You will be prompted for data not provided via CLI args:
 
-    $ ./bin/spyglass-tester
+    $ ./bin/jql-to-cuke-tags
     prompt: Enter username for JIRA located at https://maprdrill.atlassian.net:  (tsullivan@maprtech.com) 
     prompt: Enter corresponding password:  
     prompt: Inline JQL or one of these preconfigured keys: (1.0.alpha,proposed):  (1.0.alpha) 
@@ -242,7 +242,7 @@ key corresponds to a preconfigured query in the /configuration/config.json file.
 
 Non-Interactive Mode (uses CLI args or configured defaults in configuration/config.json):
 
-    $ ./bin/spyglass-tester -y -p $PASSWORD
+    $ ./bin/jql-to-cuke-tags -y -p $PASSWORD
     Run the following command to execute cucumber tests:
     npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
 

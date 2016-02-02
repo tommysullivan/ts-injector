@@ -6,12 +6,14 @@
   "cucumberCLITemplate": "npm test -- --tags ${tags}",
   "defaultJQLQueryKey": "1.0.alpha",
   "jqlQueries": {
-    "1.0.alpha": "issuetype = Story AND fixVersion = 1.0.alpha",
-    "proposed": "status = Proposed"
+    "1.0.alpha": "project=Spyglass AND issuetype = Story AND fixVersion = 1.0.alpha",
+    "proposed": "project=Spyglass AND status = Proposed"
   },
-  "cucumberTesting": {
-    "clusterIPs": {
-      "dev": ["10.10.88.96", "10.10.88.97", "10.10.88.98"]
+  "environments": {
+    "dev": {
+      "clusterIPs": ["10.10.88.96", "10.10.88.97", "10.10.88.98"],
+      "mcsProtocolHostAndOptionalPort": "http://10.10.88.96:8443",
+      "mcsLoginPath": "/api/login"
     }
   }
 }

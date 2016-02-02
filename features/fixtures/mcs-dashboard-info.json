@@ -1,0 +1,188 @@
+{
+  "timestamp": 1454387173226,
+  "timeofday": "2016-02-01 08:26:13.226 GMT-0800",
+  "status": "OK",
+  "total": 1,
+  "data": [
+    {
+      "version": "5.1.0.36303.GA",
+      "cluster": {
+        "name": "my.cluster.com",
+        "secure": false,
+        "ip": "10.10.88.98",
+        "id": "2960212374248432640",
+        "nodesUsed": 3,
+        "totalNodesAllowed": 3
+      },
+      "volumes": {
+        "mounted": {
+          "total": 23,
+          "size": 2859
+        },
+        "unmounted": {
+          "total": 1,
+          "size": 1
+        }
+      },
+      "utilization": {
+        "cpu": {
+          "util": 15,
+          "total": 24,
+          "active": 3
+        },
+        "memory": {
+          "total": 72090,
+          "active": 62156
+        },
+        "disk_space": {
+          "total": 1132,
+          "active": 9
+        },
+        "compression": {
+          "compressed": 2,
+          "uncompressed": 5
+        }
+      },
+      "clusterReplication": {
+        "bytesReceived": 0,
+        "bytesSend": 0
+      },
+      "streamThroughput": {
+        "bytesProduced": 0,
+        "bytesConsumed": 0
+      },
+      "services": {
+        "collectd": {
+          "active": 3,
+          "stopped": 0,
+          "failed": 0,
+          "total": 3
+        },
+        "resourcemanager": {
+          "active": 1,
+          "standby": 1,
+          "stopped": 0,
+          "failed": 0,
+          "total": 2
+        },
+        "hbregionserver": {
+          "active": 2,
+          "stopped": 0,
+          "failed": 1,
+          "total": 3
+        },
+        "nfs": {
+          "active": 3,
+          "stopped": 0,
+          "failed": 0,
+          "total": 3
+        },
+        "grafana": {
+          "active": 1,
+          "stopped": 0,
+          "failed": 0,
+          "total": 1
+        },
+        "hbasethrift": {
+          "active": 1,
+          "standby": 0,
+          "stopped": 0,
+          "failed": 0,
+          "total": 1
+        },
+        "httpfs": {
+          "active": 1,
+          "standby": 0,
+          "stopped": 0,
+          "failed": 0,
+          "total": 1
+        },
+        "webserver": {
+          "active": 2,
+          "stopped": 0,
+          "failed": 0,
+          "total": 2
+        },
+        "nodemanager": {
+          "active": 3,
+          "stopped": 0,
+          "failed": 0,
+          "total": 3
+        },
+        "cldb": {
+          "active": 0,
+          "stopped": 0,
+          "failed": 3,
+          "total": 3
+        },
+        "historyserver": {
+          "active": 1,
+          "standby": 0,
+          "stopped": 0,
+          "failed": 0,
+          "total": 1
+        },
+        "kibana": {
+          "active": 1,
+          "stopped": 0,
+          "failed": 0,
+          "total": 1
+        },
+        "hoststats": {
+          "active": 3,
+          "stopped": 0,
+          "failed": 0,
+          "total": 3
+        },
+        "spark-historyserver": {
+          "active": 1,
+          "standby": 0,
+          "stopped": 0,
+          "failed": 0,
+          "total": 1
+        },
+        "hbmaster": {
+          "active": 2,
+          "stopped": 0,
+          "failed": 0,
+          "total": 2
+        },
+        "fileserver": {
+          "active": 3,
+          "stopped": 0,
+          "failed": 0,
+          "total": 3
+        },
+        "opentsdb": {
+          "active": 1,
+          "stopped": 0,
+          "failed": 0,
+          "total": 1
+        },
+        "elasticsearch": {
+          "active": 3,
+          "stopped": 0,
+          "failed": 0,
+          "total": 3
+        },
+        "hbaserest": {
+          "active": 3,
+          "stopped": 0,
+          "failed": 0,
+          "total": 3
+        }
+      },
+      "yarn": {
+        "running_applications": 0,
+        "queued_applications": 0,
+        "num_node_managers": 3,
+        "total_memory_mb": 15360,
+        "total_vcores": 12,
+        "total_disks": 6,
+        "used_memory_mb": 0,
+        "used_vcores": 0,
+        "used_disks": 0
+      }
+    }
+  ]
+}
