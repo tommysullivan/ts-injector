@@ -18,7 +18,7 @@ Feature: Installation
     When I navigate to "https://github.com/mapr/private-spyglass"
     Then I will find instructions that enable me, without any advanced knowledge, to:
       | prepare the hardware |
-      | install desired version(s) of MapR Core, YARN and Spyglass    |
+      | install desired version(s) of MapR Core, YARN and Spyglass |
       | run all services required for spyglass |
       | discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch |
 

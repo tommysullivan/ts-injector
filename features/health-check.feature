@@ -1,7 +1,7 @@
 Feature: Health Check
 
   @SPYG-143 @SPYG-123 @WIP
-  Scenario: Post-Install Health Check
+  Scenario: Spyglass Health Check
     Given my MCS username is "mapr"
     And my MCS password is "mapr"
     And my MCS is running at "https://10.10.88.118:8443"
