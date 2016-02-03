@@ -1,27 +1,38 @@
 module.exports = function() {
-    this.Given(/^I know the URL of MCS$/, function (callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
+    this.Given(/^my MCS username is "([^"]*)"$/, function (mcsUserName) {
+        this.mcsUserName = mcsUserName;
     });
 
-    this.Given(/^I have a username of "([^"]*)"$/, function (arg1, callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
+    this.Given(/^my MCS password is "([^"]*)"$/, function (mcsPassword) {
+        this.mcsPassword = mcsPassword;
     });
 
-    this.Given(/^I have a password of "([^"]*)"$/, function (arg1, callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
+    this.Given(/^my MCS is running at "([^"]*)"$/, function (mcsProtocolHostAndOptionalPort) {
+        this.mcsProtocolHostAndOptionalPort = mcsProtocolHostAndOptionalPort;
     });
 
-    this.When(/^I attempt to authenticate to MCS Rest Service$/, function (callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
+    this.Given(/^I have an authenticated MCS Rest Client Session$/, function (callback) {
+        var self = this;
+        this.api.newMCSRestClient(this.mcsProtocolHostAndOptionalPort).createAutheticatedSession(this.mcsUserName, this.mcsPassword).done(
+            function(authenticatedMCSSession) { self.authenticatedMCSSession = authenticatedMCSSession; callback() },
+            function(error) { callback(error); }
+        );
     });
 
-    this.Then(/^I succeed and get a session cookie I can use in future REST API calls$/, function (callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
+    this.Given(/^I use the session to retrieve dashboardInfo$/, function (callback) {
+        var self = this;
+        this.authenticatedMCSSession.dashboardInfo().done(
+            function(dashboardInfo) { self.dashboardInfo = dashboardInfo; callback() },
+            function(error) { callback(error); }
+        );
+    });
+
+    this.When(/^I ask the dashboardInfo for unhealthySpyglassServices$/, function () {
+        this.unhealthySpyglassServices = this.dashboardInfo.unhealthySpyglassServices();
+    });
+
+    this.Then(/^I do not see any unhealthy spyglass services$/, function (callback) {
+        if(this.unhealthySpyglassServices.length > 0) callback("Unhealthy services: "+JSON.stringify(this.unhealthySpyglassServices));
     });
 
 }

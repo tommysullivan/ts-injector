@@ -14,6 +14,7 @@ node and application health, performance, stability and scalability.
 * [Links](#links)
 * [Installation](#installation)
 * [Scrum Development Methodology](#scrum-development-methodology)
+* [Packaging](#packaging)
 * [Testing](#testing)
 * [Infrastructure Automation](#infrastructure-automation)
 * [Releases](#releases)
@@ -189,6 +190,12 @@ For discussion on Scrum please see this [JIRA Question](https://maprdrill.atlass
 ## Testing
 
 Please see [this high level approach to testing](https://maprdrill.atlassian.net/browse/SPYG-82) in order to get the big picture.
+
+## Packaging
+
+See [this google doc](https://docs.google.com/document/d/1OEotrGYY-Ii3jqr_gz-xivKu_4tg3XlizRNqjEv3wtw/edit?ts=56b13507) for 
+information on where packages are stored at various points in the lifecycle and for
+various parts of the system.
 
 ### Run Tests
 
