@@ -77,7 +77,7 @@ All packages will be available on MapR Repos and will be installable using MapR 
      MAPR_HOME/elasticsearch/elasticsearch-*/etc/elasticsearch/elasticsearch.yml
    * sets the cluster.name to maprMonitoring
    * sets the network.host to node ip
-   * sets path.data to directory where you want the database to be (via -EDDB option) (optional)
+   * sets path.data to directory where you want the database to be (via -ESDB option) (optional)
    * sets discovery.zen.ping.unicast.hosts to the list of elasticsearch servers
    * sets discovery.zen.minimum_master_nodes (typically odd number >= 3 for HA)
    * sets the kernel limit for vm.max_map_count to 262144 if it is less (also modifies /etc/sysctl.conf)
