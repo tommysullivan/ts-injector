@@ -10,6 +10,9 @@
     "proposed": "project=Spyglass AND status = Proposed"
   },
   "mcsLoginPath": "/api/login",
+  "mcsUserName": "mapr",
+  "mcsPassword": "mapr",
+  "mcsProtocolHostAndOptionalPort": "https://10.10.88.118:8443",
   "mcsDashboardInfoPath": "api/dashboard/info",
   "spyglassServicesNamesInMCSDashboardInfo": [
     "collectd",

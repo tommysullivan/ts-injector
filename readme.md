@@ -14,6 +14,7 @@ node and application health, performance, stability and scalability.
 * [Links](#links)
 * [Installation](#installation)
 * [Scrum Development Methodology](#scrum-development-methodology)
+* [Builds](#)
 * [Packaging](#packaging)
 * [Testing](#testing)
 * [Infrastructure Automation](#infrastructure-automation)
@@ -187,17 +188,25 @@ JIRA is organized in the following manner:
 
 For discussion on Scrum please see this [JIRA Question](https://maprdrill.atlassian.net/browse/SPYG-63)
 
-## Testing
-
-Please see [this high level approach to testing](https://maprdrill.atlassian.net/browse/SPYG-82) in order to get the big picture.
-
 ## Packaging
 
 See [this google doc](https://docs.google.com/document/d/1OEotrGYY-Ii3jqr_gz-xivKu_4tg3XlizRNqjEv3wtw/edit?ts=56b13507) for 
 information on where packages are stored at various points in the lifecycle and for
 various parts of the system.
 
-### Run Tests
+## Testing
+
+Please see [this high level approach to testing](https://maprdrill.atlassian.net/browse/SPYG-82) in order to get the big picture.
+
+### How to Run Tests
+
+#### Run in Jenkins
+
+Navigate to [Integration Test Job](http://10.10.1.153:8080/job/Spyglass%20Dev%20Health%20Check/) and click 
+"Build with Parameters". From here you can override default test parameters or go with the defaults. The results
+can be viewed 
+
+#### Run Locally 
 
 After cloning this repository, and ensuring you have installed 'npm' on your system:
 

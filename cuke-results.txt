@@ -1,0 +1,101 @@
+Feature: Health Check
+
+  [36m@SPYG-123 @SPYG-143 @WIP[39m
+  Scenario Outline: Spyglass Health Check Negative Testing       [90m# features/health-check.feature:25[39m
+    [33mGiven the cluster under test is a single node cluster[39m
+    [36mAnd my MCS username is "${mcsUserName}"                      [90m# features/step_definitions/mcs.js:2[36m[39m
+    [36mAnd my MCS password is "${mcsPassword}"                      [90m# features/step_definitions/mcs.js:6[36m[39m
+    [36mAnd my MCS is running at "${mcsProtocolHostAndOptionalPort}" [90m# features/step_definitions/mcs.js:10[36m[39m
+    [36mAnd I have an authenticated MCS Rest Client Session          [90m# features/step_definitions/mcs.js:14[36m[39m
+    [33mGiven I want to make sure the health check is accurate[39m
+    [33mWhen I purposely take down collectd[39m
+    [36mAnd I ask the dashboardInfo for unhealthySpyglassServices    [90m# features/step_definitions/mcs.js:30[36m[39m
+    [33mThen I see that collectd is in the list within "16" seconds[39m
+
+  [36m@SPYG-123 @SPYG-143 @WIP[39m
+  Scenario Outline: Spyglass Health Check Negative Testing       [90m# features/health-check.feature:26[39m
+    [33mGiven the cluster under test is a single node cluster[39m
+    [36mAnd my MCS username is "${mcsUserName}"                      [90m# features/step_definitions/mcs.js:2[36m[39m
+    [36mAnd my MCS password is "${mcsPassword}"                      [90m# features/step_definitions/mcs.js:6[36m[39m
+    [36mAnd my MCS is running at "${mcsProtocolHostAndOptionalPort}" [90m# features/step_definitions/mcs.js:10[36m[39m
+    [36mAnd I have an authenticated MCS Rest Client Session          [90m# features/step_definitions/mcs.js:14[36m[39m
+    [33mGiven I want to make sure the health check is accurate[39m
+    [33mWhen I purposely take down fluentd[39m
+    [36mAnd I ask the dashboardInfo for unhealthySpyglassServices    [90m# features/step_definitions/mcs.js:30[36m[39m
+    [33mThen I see that fluentd is in the list within "16" seconds[39m
+
+  [36m@SPYG-123 @SPYG-143 @WIP[39m
+  Scenario Outline: Spyglass Health Check Negative Testing           [90m# features/health-check.feature:27[39m
+    [33mGiven the cluster under test is a single node cluster[39m
+    [36mAnd my MCS username is "${mcsUserName}"                          [90m# features/step_definitions/mcs.js:2[36m[39m
+    [36mAnd my MCS password is "${mcsPassword}"                          [90m# features/step_definitions/mcs.js:6[36m[39m
+    [36mAnd my MCS is running at "${mcsProtocolHostAndOptionalPort}"     [90m# features/step_definitions/mcs.js:10[36m[39m
+    [36mAnd I have an authenticated MCS Rest Client Session              [90m# features/step_definitions/mcs.js:14[36m[39m
+    [33mGiven I want to make sure the health check is accurate[39m
+    [33mWhen I purposely take down elasticsearch[39m
+    [36mAnd I ask the dashboardInfo for unhealthySpyglassServices        [90m# features/step_definitions/mcs.js:30[36m[39m
+    [33mThen I see that elasticsearch is in the list within "16" seconds[39m
+
+  [36m@SPYG-123 @SPYG-143 @WIP[39m
+  Scenario Outline: Spyglass Health Check Negative Testing       [90m# features/health-check.feature:28[39m
+    [33mGiven the cluster under test is a single node cluster[39m
+    [36mAnd my MCS username is "${mcsUserName}"                      [90m# features/step_definitions/mcs.js:2[36m[39m
+    [36mAnd my MCS password is "${mcsPassword}"                      [90m# features/step_definitions/mcs.js:6[36m[39m
+    [36mAnd my MCS is running at "${mcsProtocolHostAndOptionalPort}" [90m# features/step_definitions/mcs.js:10[36m[39m
+    [36mAnd I have an authenticated MCS Rest Client Session          [90m# features/step_definitions/mcs.js:14[36m[39m
+    [33mGiven I want to make sure the health check is accurate[39m
+    [33mWhen I purposely take down opentsdb[39m
+    [36mAnd I ask the dashboardInfo for unhealthySpyglassServices    [90m# features/step_definitions/mcs.js:30[36m[39m
+    [33mThen I see that opentsdb is in the list within "16" seconds[39m
+
+  [36m@SPYG-123 @SPYG-143 @WIP[39m
+  Scenario Outline: Spyglass Health Check Negative Testing       [90m# features/health-check.feature:29[39m
+    [33mGiven the cluster under test is a single node cluster[39m
+    [36mAnd my MCS username is "${mcsUserName}"                      [90m# features/step_definitions/mcs.js:2[36m[39m
+    [36mAnd my MCS password is "${mcsPassword}"                      [90m# features/step_definitions/mcs.js:6[36m[39m
+    [36mAnd my MCS is running at "${mcsProtocolHostAndOptionalPort}" [90m# features/step_definitions/mcs.js:10[36m[39m
+    [36mAnd I have an authenticated MCS Rest Client Session          [90m# features/step_definitions/mcs.js:14[36m[39m
+    [33mGiven I want to make sure the health check is accurate[39m
+    [33mWhen I purposely take down kibana[39m
+    [36mAnd I ask the dashboardInfo for unhealthySpyglassServices    [90m# features/step_definitions/mcs.js:30[36m[39m
+    [33mThen I see that kibana is in the list within "16" seconds[39m
+
+  [36m@SPYG-123 @SPYG-143 @WIP[39m
+  Scenario Outline: Spyglass Health Check Negative Testing       [90m# features/health-check.feature:30[39m
+    [33mGiven the cluster under test is a single node cluster[39m
+    [36mAnd my MCS username is "${mcsUserName}"                      [90m# features/step_definitions/mcs.js:2[36m[39m
+    [36mAnd my MCS password is "${mcsPassword}"                      [90m# features/step_definitions/mcs.js:6[36m[39m
+    [36mAnd my MCS is running at "${mcsProtocolHostAndOptionalPort}" [90m# features/step_definitions/mcs.js:10[36m[39m
+    [36mAnd I have an authenticated MCS Rest Client Session          [90m# features/step_definitions/mcs.js:14[36m[39m
+    [33mGiven I want to make sure the health check is accurate[39m
+    [33mWhen I purposely take down grafana[39m
+    [36mAnd I ask the dashboardInfo for unhealthySpyglassServices    [90m# features/step_definitions/mcs.js:30[36m[39m
+    [33mThen I see that grafana is in the list within "16" seconds[39m
+
+6 scenarios ([33m6 undefined[39m)
+54 steps ([33m24 undefined[39m, [36m30 skipped[39m)
+0m00.000s
+[33m
+You can implement step definitions for undefined steps with these snippets:
+
+[39m[33mthis.Given(/^the cluster under test is a single node cluster$/, function (callback) {
+  // Write code here that turns the phrase above into concrete actions
+  callback.pending();
+});
+
+this.Given(/^I want to make sure the health check is accurate$/, function (callback) {
+  // Write code here that turns the phrase above into concrete actions
+  callback.pending();
+});
+
+this.When(/^I purposely take down (.*)$/, function (service, callback) {
+  // Write code here that turns the phrase above into concrete actions
+  callback.pending();
+});
+
+this.Then(/^I see that (.*) is in the list within "([^"]*)" seconds$/, function (arg1, service, callback) {
+  // Write code here that turns the phrase above into concrete actions
+  callback.pending();
+});
+
+[39m
