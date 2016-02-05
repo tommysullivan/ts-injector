@@ -9,4 +9,8 @@ module.exports = function() {
     this.When(/^I navigate to the node dashboard$/, function () {});
     this.When(/^I look for the following metrics$/, function (table) {});
     this.Then(/^I see the corresponding graph with reasonably accurate data for the past (\d+) hours$/, function (arg1) {});
+
+    this.Given(/^I have a kibana instance running at "([^"]*)"$/, function (arg1) {});
+    this.When(/^I navigate to kibana's discovery interface$/, function () {});
+    this.Then(/^I see at least one log from warden$/, function () {});
 }
