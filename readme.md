@@ -60,7 +60,22 @@ see the below components that are used in Spyglass:
 
 ## Installation
 
-All packages will be available on MapR Repos and will be installable using MapR UI Installer. The prerequisites for running opentsdb are hbase and async hbase 1.6. It is assumed that these packages are already installed on the nodes running opentsdb. This section lists package names and the steps performed when each one is installed:
+### Automated Installation (For Dev / Testing / Demo Purposes Only)
+
+Please see the following links for automated installation information. Still working out some
+kinks as well:
+
+* [Docker-Based Automation](https://maprdrill.atlassian.net/browse/DEVOPS-101)
+* [Installation Feature](features/installation.feature)
+* [bin/install-mapr.sh](bin/install-mapr.sh)
+* [bin/install-spyglass.sh](bin/install-spyglass.sh)
+
+### Manual Installation
+
+All packages are available on MapR Repos and will be installable using MapR UI Installer. 
+The prerequisites for running opentsdb are hbase and async hbase 1.6.
+It is assumed that these packages are already installed on the nodes running opentsdb. 
+This section lists package names and the steps performed when each one is installed:
 
 * mapr-collectd
    * installs collectd at MAPR_HOME/collectd/collectd-*
