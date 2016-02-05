@@ -9,10 +9,13 @@
     "1.0.alpha": "project=Spyglass AND issuetype = Story AND fixVersion = 1.0.alpha",
     "proposed": "project=Spyglass AND status = Proposed"
   },
+  "openTSDBQueryPathTemplate": "/api/query?start={start}&m={metricName}",
+  "debugHTTP": false,
   "mcsLoginPath": "/api/login",
   "mcsUserName": "mapr",
   "mcsPassword": "mapr",
-  "mcsProtocolHostAndOptionalPort": "https://10.10.88.118:8443",
+  "grafanaDashboardImportPath": "/api/dashboards/db",
+  "grafanaLoginPath": "/login",
   "mcsDashboardInfoPath": "api/dashboard/info",
   "spyglassServicesNamesInMCSDashboardInfo": [
     "collectd",

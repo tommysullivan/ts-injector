@@ -137,17 +137,11 @@ environments set up.
     * [Kibana](http://10.10.88.98:5601/) dashboards -> open folder -> demo -> choose last 24 hours
     * MCS - Not set up
     * Installer - Not set up
-* Test - TBD around January 25th
-    * Grafana - Not set up
-    * Kibana - Not set up
-    * MCS - Not set up
-    * Installer - Not set up
-* Demo / Acceptance - No ETA
-    * Grafana - Not set up
-    * Kibana - Not set up
-    * MCS - Not set up
-    * Installer - Not set up
+* Test - 10.10.1.102
+* Demo / Acceptance - 10.10.1.103
     
+For more information on environments please see [infrastructure](lib/infrastructure)
+
 #### Google Docs / Spreadsheets / Presentations    
 
 * [Product Requirements Document (PRD)](https://docs.google.com/document/d/11EU6l3wc_yaGWgloaXjJIzhpnQicgdRlmR7C-pJJoJA/edit#heading=h.3tsrqayzbm1)
@@ -274,6 +268,13 @@ Non-Interactive Mode (uses CLI args or configured defaults in configuration/conf
     $ ./bin/jql-to-cuke-tags -y -p $PASSWORD
     Run the following command to execute cucumber tests:
     npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
+
+
+#### Debugging Tests
+
+To quickly see HTTP traffic going back and forth from tests, set the
+configuration/config.json/debugHTTP to true. For more advanced debugging
+use node debugger.
 
 #### Traceability / Relationship Tags:
 

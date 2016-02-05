@@ -32,3 +32,22 @@ Feature: Installation
       | CentOS           | 7       |
       | Ubuntu           | 12.04   |
       | SUSE             | 12      |
+
+  @SPYG-124
+  # TODO: Grafana REST API yields 404 upon import - determine why
+  Scenario: Grafana Dashboard Definition Import
+    Given I have a grafana server and port set to "http://10.10.1.102:3000"
+    And my grafana username is "admin"
+    And my grafana password is "admin"
+    And the fqdns of my cluster are
+      | fqdns       |
+      | 10.10.1.102 |
+    And I have an authenticated grafana rest client
+    When I request to import the following dashboard definitions:
+      | dashboard name |
+      | cldb           |
+      | dbmetrics      |
+      | node           |
+      | volume         |
+      | yarn           |
+    Then the reports are all available to view
