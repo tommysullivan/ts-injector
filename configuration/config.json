@@ -14,6 +14,7 @@
   "mcsLoginPath": "/api/login",
   "mcsUserName": "mapr",
   "mcsPassword": "mapr",
+  "mcsApplicationLinkPathTemplate": "/api/urls/{applicationName}",
   "grafanaDashboardImportPath": "/api/dashboards/db",
   "grafanaLoginPath": "/login",
   "mcsDashboardInfoPath": "api/dashboard/info",
