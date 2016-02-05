@@ -1,3 +1,6 @@
 #!/bin/bash
+
+# Run this on the Single Node Cluster as root
+
 yum install -y mapr-collectd mapr-elasticsearch mapr-fluentd mapr-opentsdb mapr-grafana mapr-kibana
-/opt/mapr/server/configure.sh -Z 10.10.88.18 -C 10.10.88.18 -OT 10.10.88.18 -ES 10.10.88.18 -R
+/opt/mapr/server/configure.sh -Z `hostname -I` -C `hostname -I` -OT `hostname -I`8 -ES `hostname -I` -R

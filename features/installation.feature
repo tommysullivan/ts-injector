@@ -8,8 +8,8 @@ Feature: Installation
 
   @SPYG-123 @Manual
   Scenario Outline: Manual Installation
-    Given the node is running <operating system> <version>
-    And I have manually prepared it as described by "single-node-cluster-prep.feature"
+    Given I have manually prepared a single node cluster as described by "single-node-cluster-prep.feature"
+    And the node is running <operating system> <version>
     When I read the readme at "https://github.com/mapr/private-spyglass"
     Then it tells me how to install, configure and run the services required for Spyglass
     And it tells me how to discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch
@@ -21,9 +21,12 @@ Feature: Installation
 
   @SPYG-123 @SPYG-142
   Scenario Outline: Automated Installation for QA Purposes
+    Given I have automatically prepared a single node cluster as described by "single-node-cluster-prep.feature"
     Given the node is running <operating system> <version>
     And I prepare it using automation described by "single-node-cluster-prep.feature"
-    And I
+    When I run the Spyglass installer
+    And I subsequently run the health check described by "health-check.feature"
+    Then the health check passes
     Examples:
       | operating system | version |
       | CentOS           | 7       |

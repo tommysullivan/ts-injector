@@ -200,9 +200,16 @@ Please see [this high level approach to testing](https://maprdrill.atlassian.net
 
 ### How to Run Tests
 
+#### Test Configuration
+
+Test configuration is "tiered" so that one can override values in a few different ways. Unless otherwise specified,
+configuration values come from configuration/config.json.
+
+One can override values there by setting environment variables with the same name as the keys in config file.
+
 #### Run in Jenkins
 
-Navigate to [Integration Test Job](http://10.10.1.153:8080/job/Spyglass%20Dev%20Health%20Check/) and click 
+Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-check/) and click 
 "Build with Parameters". From here you can override default test parameters or go with the defaults. The results
 can be viewed 
 
@@ -227,13 +234,19 @@ Features and Scenarios can be "tagged" using @tagName syntax. A tagged feature i
 tagging each individual scenario in the feature. A given feature or scenario can have any number of tags.
 For more information on tagging, please see [cucumber wiki](https://github.com/cucumber/cucumber/wiki/Tags)
 
-Here is how to run scenarios with either @p1 or @p2 tags on them:
+#### General Rules for Running Cukes based on Tags
 
-    npm test -- --tags @p1, @p2
+Here is how to run scenarios with either @tag1 or @tag2 tags on them:
 
-We can also run scenarios that have *both* @p2 and @p2 tags:
+    npm test -- --tags @tag1, @ptag2
 
-    npm test -- --tags @p1 --tags @p2
+We can also run scenarios that have *both* @tag1 and @tag2 tags:
+
+    npm test -- --tags @tag1 --tags @tag2
+   
+Run scenarios that *do not* have a tag1:
+
+    npm test -- --tags ~@tag1
     
 #### Running tests based on JIRA issues
 
@@ -266,50 +279,10 @@ Non-Interactive Mode (uses CLI args or configured defaults in configuration/conf
 
 Tag Name                                         | Meaning
 -------------------------------------------------|---------------------------------------
-@gh-[n]                                          | relates to Github issue number [n]
-@jira-[n]                                        | relates to JIRA issue number [n]
-@us-[n]                                          | relates to User Story [n]
-@cisco @ahg @rubicon @comscore @machinezone      | A customer-specific feature
-
-#### Type of Testing:
-
-Tag Name           | Meaning
--------------------|---------------------------------------------------------------------
-@manual            | No plans to automate this test  
-@longevity         | Indicates a longevity test
-@stress            | Indicates a stress test
-@performance       | Indicates a performance test
-@security          | Indicates a security test
-@whitebox          | the test requires knowledge / access to system internals
-@browser           | includes browser testing
-
-#### Implementation Testing Framework / Language:
-
-Tag Name           | Meaning
--------------------|-------------------------------------------------------------
-@testNG            | [Test NG](http://testng.org/doc/index.html)
-@cucumber.js       | [Cucumber.js](https://cucumber.io/docs/reference/javascript)
-@ats               | [MapR's QA ATS framework](https://docs.google.com/document/d/12VBKeMgXKhWm0qIcRlrxpSJ-1GPUq463KlaWKrDB3qU/edit?ts=56685b1a#heading=h.vgktbnvy3cxo)
-
-#### Release / Priority Information:
-
-Tag Name           | Meaning
--------------------|--------------------------------------------------------------
-@deferred          | the feature is deferred and may not be released in the future
-@release-M.m.p     | the test must pass for release M.m.p
-@p1 @p1.5 @p2 @p3  | Priorities 1, 1.5 (1 unless technically challenging), 2 and 3
-@m1 @m2 ...        | Milestone 1, 2 (as specified in [PRD Feature list](https://docs.google.com/spreadsheets/d/13gyxRlhiB6d_dKQc6H_i0O-nRHF19bbVjwsCd_sKXPs/edit#gid=0))
-
-#### Test Lifecycle Tags: 
-
-Tag Name           | Meaning
--------------------|---------------------------------------------------------------------------------------
-@proposed          | a proposed feature that should be evaluated when time permits
-@questions         | need answers to continue (if no explicit questions nearby, general explanation needed)
-@draft             | it is a definite requirement but the Gherkin needs work / organizing
-@wip               | the scenario / feature is actively being worked on
-@awaiting-approval | the scenario / feature is ready and awaiting approval
-@approved          | the product, engineering and QA representatives have approved
+@SPYG-[n]                                        | relates to SPYG-[n] JIRA User Story
+@Manual                                          | Is a Manual Test
+@HealthCheck                                     | Health Check a live Spyglass Cluster
+@WIP                                             | A Work in Progress (may yield bad results)
 
 ### Why Gherkin?
 

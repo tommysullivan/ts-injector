@@ -1,0 +1,1 @@
+#http://10.10.88.118:4242/api/query?start=1h-ago&m=sum:rate:mapr.io.write_bytes

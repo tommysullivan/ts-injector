@@ -1,4 +1,5 @@
 module.exports = function() {
+
     this.Given(/^my MCS username is "([^"]*)"$/, function (mcsUserName) {
         this.mcsUserName = mcsUserName;
     });
@@ -19,7 +20,7 @@ module.exports = function() {
         );
     });
 
-    this.Given(/^I use the session to retrieve dashboardInfo$/, function (callback) {
+    this.Given(/^I use the MCS Rest Client Session to retrieve dashboardInfo$/, function (callback) {
         var self = this;
         this.authenticatedMCSSession.dashboardInfo().done(
             function(dashboardInfo) { self.dashboardInfo = dashboardInfo; callback() },
@@ -33,6 +34,16 @@ module.exports = function() {
 
     this.Then(/^I do not see any unhealthy spyglass services$/, function (callback) {
         if(this.unhealthySpyglassServices.length > 0) callback("Unhealthy services: "+JSON.stringify(this.unhealthySpyglassServices));
+        else callback();
     });
 
+    this.When(/^I purposely take down (.*) on one or more nodes$/, function (service, callback) {
+        // Write code here that turns the phrase above into concrete actions
+        callback.pending();
+    });
+
+    this.Then(/^I see that (.*) is in the list within "([^"]*)" seconds$/, function (arg1, service, callback) {
+        // Write code here that turns the phrase above into concrete actions
+        callback.pending();
+    });
 }

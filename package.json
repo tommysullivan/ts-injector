@@ -4,7 +4,7 @@
   "description": "cluster logs and metrics collection and presentation",
   "main": "api.js",
   "scripts": {
-    "test": "./node_modules/cucumber/bin/cucumber.js "
+    "test": "./node_modules/cucumber/bin/cucumber.js"
   },
   "repository": {
     "type": "git",

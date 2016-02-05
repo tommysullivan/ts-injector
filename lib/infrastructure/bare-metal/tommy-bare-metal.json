@@ -1,0 +1,50 @@
+[
+  {
+    "purpose": "general use",
+    "type": "Bare Metal",
+    "location": "On-Premise",
+    "hostName": "atsqa4-117",
+    "ip": "10.10.88.117",
+    "powerResetIP": "10.10.144.117",
+    "operatingSystem": {
+      "name": "CentOS",
+      "version": "6.7"
+    }
+  },
+  {
+    "purpose": "general use",
+    "type": "Bare Metal",
+    "location": "On-Premise",
+    "hostName": "atsqa4-118",
+    "ip": "10.10.88.117",
+    "powerResetIP": "10.10.144.118",
+    "operatingSystem": {
+      "name": "CentOS",
+      "version": "6.7"
+    }
+  },
+  {
+    "purpose": "general use",
+    "type": "Bare Metal",
+    "location": "On-Premise",
+    "hostName": "atsqa4-119",
+    "ip": "10.10.88.117",
+    "powerResetIP": "10.10.144.119",
+    "operatingSystem": {
+      "name": "Ubuntu",
+      "version": "12.94"
+    }
+  },
+  {
+    "purpose": "general use",
+    "type": "Bare Metal",
+    "location": "On-Premise",
+    "hostName": "atsqa4-120",
+    "ip": "10.10.88.117",
+    "powerResetIP": "10.10.144.120",
+    "operatingSystem": {
+      "name": "Ubuntu",
+      "version": "12.04"
+    }
+  }
+]
