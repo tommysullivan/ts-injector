@@ -907,10 +907,11 @@
   "templating": {
     "list": [
       {
-        "allFormat": "glob",
+      	"allFormat": "glob",
         "current": {
-          "text": "*",
-          "value": "*"
+          "tags": [],
+          "text": "example.qa.lab",
+          "value": "example.qa.lab"
         },
         "datasource": null,
         "includeAll": false,
@@ -920,24 +921,18 @@
         "options": [
           {
             "selected": false,
-            "text": "spy-96.qa.lab",
-            "value": "spy-96.qa.lab"
-          },
-          {
-            "selected": true,
-            "text": "spy-97.qa.lab",
-            "value": "spy-97.qa.lab"
+            "text": "example.qa.lab",
+            "value": "example.qa.lab"
           },
           {
             "selected": false,
-            "text": "spy-98.qa.lab",
-            "value": "spy-98.qa.lab"
+            "text": "example1.qa.lab",
+            "value": "example1.qa.lab"
           }
         ],
-        "query": "spy-96.qa.lab,spy-97.qa.lab,spy-98.qa.lab",
+        "query": "example.qa.lab,example1.qa.lab",
         "refresh_on_load": false,
-        "type": "custom",
-        "useTags": false
+        "type": "custom"
       }
     ]
   },
