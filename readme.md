@@ -67,8 +67,7 @@ kinks as well:
 
 * [Docker-Based Automation](https://maprdrill.atlassian.net/browse/DEVOPS-101)
 * [Installation Feature](features/installation.feature)
-* [bin/install-mapr.sh](bin/install-mapr.sh)
-* [bin/install-spyglass.sh](bin/install-spyglass.sh)
+* [shell scripts used for testing purposes](bin)
 
 ### Manual Installation
 
