@@ -126,7 +126,7 @@ This section lists package names and the steps performed when each one is instal
    * conf file is located at MAPR_HOME/grafana/grafana-*/etc/grafana/grafana.ini
    * copies warden.grafana.conf file to MAPR_HOME/conf/conf.d
    * sets up OpenTSDB data source
-   * The dashboards can be found in private-spyglass/dashboards. These are .json files which you can import into Grafana
+   * The dashboards can be found in [the dashboards folder of this repo](dashboards). These are .json files which you can import into Grafana
 
 * mapr-kibana
    * installs kibana at MAPR_HOME/kibana/kibana-*
