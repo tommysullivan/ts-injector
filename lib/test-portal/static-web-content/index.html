@@ -1,6 +1,16 @@
-<html>
-<head><title>Spyglass Test Portal</title></head>
-<body>
-hello
+<!doctype html>
+<html ng-app="testPortalApp">
+<head>
+    <title>Spyglass Test Portal</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body ng-controller="featuresController">
+<ul>
+    <p>Passed: {{</p>
+    <li ng-repeat="feature in features">
+        {{feature.name}}
+    </li>
+</ul>
 </body>
 </html>

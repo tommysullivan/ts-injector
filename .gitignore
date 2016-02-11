@@ -1,5 +1,6 @@
 .c9
 .idea
 .DS_Store
+test-results
 node_modules
 cuke-results.txt

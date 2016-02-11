@@ -26,6 +26,7 @@
     "prompt": "latest",
     "optimist": "latest",
     "valid-url": "latest",
-    "cucumber-html-report": "latest"
+    "cucumber-html-report": "latest",
+    "angular": "1.5.0"
   }
 }

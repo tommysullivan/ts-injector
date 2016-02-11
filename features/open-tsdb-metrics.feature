@@ -1,6 +1,6 @@
 Feature: OpenTSDB Metrics REST API
 
-  @SPYG-124
+  @SPYG-124 @HealthCheck
   Scenario: Getting Simple Node Metrics via REST API
     Given the URL and port of OpenTSDB is "http://10.10.1.103:4242"
     When I specify the query range start as "1h-ago"

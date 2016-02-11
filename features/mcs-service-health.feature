@@ -1,4 +1,4 @@
-Feature: Health Check
+Feature: MCS Service Health
 
   Background:
     Given my MCS username is "mapr"
@@ -7,7 +7,7 @@ Feature: Health Check
     And I have an authenticated MCS Rest Client Session
 
   @HealthCheck @SPYG-123 @SPYG-143
-  Scenario: Spyglass Operational Health Check
+  Scenario: Spyglass Services appear Healthy in MCS after Installation
     Given I am testing against a configured cluster that is expected to be functioning
     When I use the MCS Rest Client Session to retrieve dashboardInfo
     And I ask the dashboardInfo for unhealthySpyglassServices

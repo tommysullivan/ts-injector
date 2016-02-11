@@ -1,6 +1,7 @@
 @SPYG-126
 Feature: MCS UI Links
 
+  @HealthCheck
   Scenario Outline:
     Given my MCS username is "mapr"
     And my MCS password is "mapr"
