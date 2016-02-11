@@ -4,7 +4,7 @@ Feature: MCS UI Links
   Scenario Outline:
     Given my MCS username is "mapr"
     And my MCS password is "mapr"
-    And my MCS is running at "https://10.10.1.102:8443"
+    And my MCS is running at "https://10.10.1.103:8443"
     And I have an authenticated MCS Rest Client Session
     When I ask for a link to <application>
     Then I receive a URL to <application>

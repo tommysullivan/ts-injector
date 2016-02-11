@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+var API = require('../lib/api');
+var configJSON = require('../configuration/config.json');
+var log = console.log.bind(console);
+var testPortalWebServer = API(configJSON).newTestPortalWebServer();
+
+function onServerFailure(e) {
+    testPortalWebServer.stopServer();
+    log(e);
+}
+
+testPortalWebServer.startServer('localhost', 5001).done(log, onServerFailure);

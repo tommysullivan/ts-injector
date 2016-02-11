@@ -1,0 +1,13 @@
+#!/bin/bash
+TEST_RESULTS_PATH=test-results/users/`whoami`
+TIMESTAMP=$(date +%Y-%m-%d-at-%H-%M-%S)
+RESULT_FILE_BASE_NAME=test-result-${TIMESTAMP}
+RESULT_PATH=${TEST_RESULTS_PATH}/${RESULT_FILE_BASE_NAME}
+RESULT_JSON_PATH=${RESULT_PATH}.json
+LATEST_RESULT_FILE_NAME=latest-result
+LATEST_RESULT_FILE_PATH=${TEST_RESULTS_PATH}/${LATEST_RESULT_FILE_NAME}
+
+mkdir -p ${TEST_RESULTS_PATH}
+./node_modules/cucumber/bin/cucumber.js -f json:${RESULT_JSON_PATH} -f json:${LATEST_RESULT_FILE_PATH}.json $@
+./bin/cucumber-json-to-html ${RESULT_JSON_PATH} ${TEST_RESULTS_PATH} ${RESULT_FILE_BASE_NAME}.html
+./bin/cucumber-json-to-html ${RESULT_JSON_PATH} ${TEST_RESULTS_PATH} ${LATEST_RESULT_FILE_NAME}.html

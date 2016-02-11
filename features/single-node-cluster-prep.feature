@@ -4,5 +4,4 @@ Feature: Single Node Cluster Preparation
   I prepare a Single Node MapR Cluster with the prerequisites documented in private/spyglass readme
 
   # TODO: Please see bin/install-mapr.sh, bin/install-spyglass.sh, DEVOPS-101 JIRA ticket, and lib/infrastructure
-
-  #Scenario: Install on Docker Container
+  # We will continue to automate this

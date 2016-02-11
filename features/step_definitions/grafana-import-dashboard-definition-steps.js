@@ -12,12 +12,8 @@ module.exports = function() {
     });
 
     this.Given(/^I have an authenticated grafana rest client$/, function (callback) {
-        var self = this;
         this.grafanaRestClient.createAutheticatedSession(this.grafanaUsername, this.grafanaPassword).done(
-            function(grafanaRestSession) {
-                self.grafanaRestSession = grafanaRestSession;
-                callback();
-            },
+            grafanaRestSession => { this.grafanaRestSession = grafanaRestSession; callback(); },
             callback
         );
     });
@@ -29,19 +25,14 @@ module.exports = function() {
 
     this.When(/^I request to import the following dashboard definitions:$/, function (table, callback) {
         var dashboardNames = this.getArrayFromTable(table);
-        var self = this;
-        var uploadPromises = dashboardNames.map(function(dashboardName) {
-            return self.grafanaRestSession.uploadGrafanaDashboard(dashboardName, this.fqdns);
-        });
+        var uploadPromises = dashboardNames.map(dashboardName => this.grafanaRestSession.uploadGrafanaDashboard(dashboardName, this.fqdns));
         var allPromises = this.api.newGroupPromise(uploadPromises);
         allPromises.done(
-            function(results) {
-                self.dashboardUploadResults = results;
+            (results) => {
+                this.dashboardUploadResults = results;
                 callback();
             },
-            function(failedResponse) {
-                callback('there was an error - http reponse code:'+failedResponse.statusCode);
-            }
+            failedResponse => callback('there was an error - http reponse code:'+failedResponse.statusCode)
         );
     });
 

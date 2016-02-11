@@ -4,10 +4,9 @@ module.exports = function() {
     });
 
     this.When(/^I query for logs for index "([^"]*)"$/, function (indexName, callback) {
-        var self = this;
         this.api.newElasticSearchRestClient(this.elasticSearchHostAndOptionalPort).getLogsForIndex(indexName).done(
-            function(elasticSearchResult) {
-                self.elasticSearchResult = elasticSearchResult;
+            elasticSearchResult => {
+                this.elasticSearchResult = elasticSearchResult;
                 callback();
             },
             callback

@@ -9,20 +9,11 @@ module.exports = function() {
     });
 
     this.When(/^I query for the following metrics:$/, function (table, callback) {
-        var self = this;
         this.metricNames = this.getArrayFromTable(table);
-        var metricQueryPromises = this.metricNames.map(function(metricName) {
-            return self.openTSDBRestClient.queryForMetric(self.queryRangeStart, metricName);
-        });
-        var groupQuery = this.api.newGroupPromise(metricQueryPromises);
-        groupQuery.done(
-            function(queryResultSets) {
-                self.queryResultSets = queryResultSets;
-                callback();
-            },
-            function(error) {
-                callback("There was an error: "+error.statusCode);
-            }
+        var metricQueryPromises = this.metricNames.map(metricName => this.openTSDBRestClient.queryForMetric(this.queryRangeStart, metricName));
+        this.api.newGroupPromise(metricQueryPromises).done(
+            queryResultSets => { this.queryResultSets = queryResultSets; callback(); },
+            error => callback("There was an http error: "+error.statusCode)
         )
     });
 
@@ -32,7 +23,6 @@ module.exports = function() {
             return Object.keys(queryResultSet[0].dps);
         }
         var insufficientQueryResultSets = this.queryResultSets.filter(function(queryResultSet) {
-            //console.log(JSON.stringify(queryResultSet[0].metric));
             var timestamps = getTimestampsForQueryResultSet(queryResultSet);
             return timestamps.length < numExpectedValuesPerMetric;
         });

@@ -1,11 +1,7 @@
 module.exports = function() {
     this.When(/^I ask for a link to (.*)$/, function (applicationName, callback) {
-        var self = this;
         this.authenticatedMCSSession.applicationLinkFor(applicationName).done(
-            function(applicationURLFromMCS) {
-                self.applicationURLFromMCS = applicationURLFromMCS;
-                callback();
-            },
+            applicationURLFromMCS => { this.applicationURLFromMCS = applicationURLFromMCS; callback(); },
             callback
         )
     });

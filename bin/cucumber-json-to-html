@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var CucumberHTMLReport = require('cucumber-html-report');
+if(process.argv[4]==undefined) console.log("Usage: cucumber-json-to-html sourceJSONPath outputFolderPath outputHTMLFilePath");
+else {
+    var options = {
+        source: process.argv[2],
+        dest: process.argv[3],
+        name: process.argv[4]
+        //template: 'mytemplate.html' // your custom mustache template (uses default if not specified)
+    };
+
+    var report = new CucumberHTMLReport(options);
+    report.createReport();
+}

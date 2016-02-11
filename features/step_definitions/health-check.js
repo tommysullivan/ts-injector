@@ -13,18 +13,16 @@ module.exports = function() {
     });
 
     this.Given(/^I have an authenticated MCS Rest Client Session$/, function (callback) {
-        var self = this;
         this.api.newMCSRestClient(this.mcsProtocolHostAndOptionalPort).createAutheticatedSession(this.mcsUserName, this.mcsPassword).done(
-            function(authenticatedMCSSession) { self.authenticatedMCSSession = authenticatedMCSSession; callback() },
-            function(error) { callback(error); }
+            authenticatedMCSSession => { this.authenticatedMCSSession = authenticatedMCSSession; callback() },
+            callback
         );
     });
 
     this.Given(/^I use the MCS Rest Client Session to retrieve dashboardInfo$/, function (callback) {
-        var self = this;
         this.authenticatedMCSSession.dashboardInfo().done(
-            function(dashboardInfo) { self.dashboardInfo = dashboardInfo; callback() },
-            function(error) { callback(error); }
+            dashboardInfo => { this.dashboardInfo = dashboardInfo; callback() },
+            callback
         );
     });
 

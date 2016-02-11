@@ -36,7 +36,7 @@ Feature: Installation
   @SPYG-124
   # TODO: Grafana REST API yields 404 upon import - determine why
   Scenario: Grafana Dashboard Definition Import
-    Given I have a grafana server and port set to "http://10.10.1.102:3000"
+    Given I have a grafana server and port set to "http://10.10.1.103:3000"
     And my grafana username is "admin"
     And my grafana password is "admin"
     And the fqdns of my cluster are

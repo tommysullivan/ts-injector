@@ -9,7 +9,8 @@
     "operatingSystem": {
       "name": "CentOS",
       "version": "6.7"
-    }
+    },
+    "password": "mapr"
   },
   {
     "purpose": "general use",
@@ -21,7 +22,8 @@
     "operatingSystem": {
       "name": "CentOS",
       "version": "6.7"
-    }
+    },
+    "password": "mapr"
   },
   {
     "purpose": "general use",
@@ -33,7 +35,8 @@
     "operatingSystem": {
       "name": "Ubuntu",
       "version": "12.94"
-    }
+    },
+    "password": "mapr"
   },
   {
     "purpose": "general use",
@@ -45,6 +48,7 @@
     "operatingSystem": {
       "name": "Ubuntu",
       "version": "12.04"
-    }
+    },
+    "password": "mapr"
   }
 ]

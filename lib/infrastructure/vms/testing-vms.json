@@ -12,7 +12,8 @@
     "cpus": 8,
     "ram": 16,
     "osDrives": 1,
-    "mfsDrives": 3
+    "mfsDrives": 3,
+    "password": "mapr"
   },
   {
     "purpose": "Spyglass Manual Testing",
@@ -27,7 +28,8 @@
     "cpus": 8,
     "ram": 16,
     "osDrives": 1,
-    "mfsDrives": 3
+    "mfsDrives": 3,
+    "password": "mapr"
   },
   {
     "purpose": "Sprint 1 Demo Environment (if can't get docker working)",
@@ -42,7 +44,8 @@
     "cpus": 8,
     "ram": 16,
     "osDrives": 1,
-    "mfsDrives": 3
+    "mfsDrives": 3,
+    "password": "mapr"
   },
   {
     "purpose": "Ubuntu Testing",
@@ -57,6 +60,7 @@
     "cpus": 8,
     "ram": 16,
     "osDrives": 1,
-    "mfsDrives": 3
+    "mfsDrives": 3,
+    "password": "mapr"
   }
 ]

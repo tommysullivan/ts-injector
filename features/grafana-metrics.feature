@@ -1,8 +1,8 @@
 Feature: Grafana Metrics
 
-  @SPYG-124 @Manual
+  @SPYG-124 @Manual @WIP
   Scenario: View First Metrics in Node Dashboard
-    Given I have a grafana server and port set to "http://10.10.1.102:3000"
+    Given I have a grafana server and port set to "http://10.10.1.103:3000"
     And it has been populated with reports as described in "installation.feature/Grafana Dashboard Definition Import"
     And my grafana username is "admin"
     And my grafana password is "admin"

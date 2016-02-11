@@ -1,0 +1,142 @@
+[
+  {
+    "id": "Grafana-Metrics",
+    "name": "Grafana Metrics",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/spyglass/features/grafana-metrics.feature",
+    "elements": [
+      {
+        "name": "View First Metrics in Node Dashboard",
+        "id": "Grafana-Metrics;view-first-metrics-in-node-dashboard",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-124",
+            "line": 3
+          },
+          {
+            "name": "@Manual",
+            "line": 3
+          },
+          {
+            "name": "@WIP",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 868811
+            },
+            "match": {}
+          },
+          {
+            "name": "I have a grafana server and port set to \"http://10.10.1.103:3000\"",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 553217
+            },
+            "match": {}
+          },
+          {
+            "name": "it has been populated with reports as described in \"installation.feature/Grafana Dashboard Definition Import\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 108774
+            },
+            "match": {}
+          },
+          {
+            "name": "my grafana username is \"admin\"",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 113315
+            },
+            "match": {}
+          },
+          {
+            "name": "my grafana password is \"admin\"",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 144509
+            },
+            "match": {}
+          },
+          {
+            "name": "I have logged into Grafana",
+            "line": 9,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 93876
+            },
+            "match": {}
+          },
+          {
+            "name": "I navigate to the node dashboard",
+            "line": 10,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 96615
+            },
+            "match": {}
+          },
+          {
+            "name": "I look for the following metrics",
+            "line": 11,
+            "keyword": "When ",
+            "rows": [
+              {
+                "cells": [
+                  "metric name"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.write_bytes"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.read_bytes"
+                ]
+              }
+            ],
+            "result": {
+              "status": "passed",
+              "duration": 198039
+            },
+            "match": {}
+          },
+          {
+            "name": "I see the corresponding graph with reasonably accurate data for the past 24 hours",
+            "line": 15,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 94686
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -220,8 +220,12 @@ One can override values there by setting environment variables with the same nam
 #### Run in Jenkins
 
 Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-check/) and click 
-"Build with Parameters". From here you can override default test parameters or go with the defaults. The results
-can be viewed 
+"Build with Parameters". From here you can override default test parameters or go with the defaults. .
+
+TODO: 
+ - Make the current tests runnable against a dynamically assigned IP address (use ENV variables)
+ - 
+
 
 #### Run Locally 
 
