@@ -26,8 +26,6 @@
     "prompt": "latest",
     "optimist": "latest",
     "valid-url": "latest",
-    "nodegit": "latest",
-    "express": "latest",
     "cucumber-html-report": "latest"
   }
 }

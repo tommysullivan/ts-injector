@@ -9,5 +9,7 @@ LATEST_RESULT_FILE_PATH=${TEST_RESULTS_PATH}/${LATEST_RESULT_FILE_NAME}
 
 mkdir -p ${TEST_RESULTS_PATH}
 ./node_modules/cucumber/bin/cucumber.js -f json:${RESULT_JSON_PATH} -f json:${LATEST_RESULT_FILE_PATH}.json $@
+CUCUMBER_EXIT_CODE=$?
 ./bin/cucumber-json-to-html ${RESULT_JSON_PATH} ${TEST_RESULTS_PATH} ${RESULT_FILE_BASE_NAME}.html
 ./bin/cucumber-json-to-html ${RESULT_JSON_PATH} ${TEST_RESULTS_PATH} ${LATEST_RESULT_FILE_NAME}.html
+exit ${CUCUMBER_EXIT_CODE}
