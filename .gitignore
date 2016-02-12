@@ -4,3 +4,4 @@
 test-results
 node_modules
 cuke-results.txt
+lib/test-portal/static-web-content/latest-result.json

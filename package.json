@@ -27,6 +27,7 @@
     "optimist": "latest",
     "valid-url": "latest",
     "cucumber-html-report": "latest",
+    "express": "latest",
     "angular": "1.5.0"
   }
 }

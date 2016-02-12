@@ -6,9 +6,14 @@ RESULT_PATH=${TEST_RESULTS_PATH}/${RESULT_FILE_BASE_NAME}
 RESULT_JSON_PATH=${RESULT_PATH}.json
 LATEST_RESULT_FILE_NAME=latest-result
 LATEST_RESULT_FILE_PATH=${TEST_RESULTS_PATH}/${LATEST_RESULT_FILE_NAME}
+EXPRESS_PUBLIC_HTML_FOLDER=lib/test-portal/static-web-content
 
 mkdir -p ${TEST_RESULTS_PATH}
-./node_modules/cucumber/bin/cucumber.js -f json:${RESULT_JSON_PATH} -f json:${LATEST_RESULT_FILE_PATH}.json $@
+./node_modules/cucumber/bin/cucumber.js \
+    -f json:${RESULT_JSON_PATH} \
+    -f json:${LATEST_RESULT_FILE_PATH}.json \
+    -f json:${EXPRESS_PUBLIC_HTML_FOLDER}/${LATEST_RESULT_FILE_NAME}.json \
+    $@
 CUCUMBER_EXIT_CODE=$?
 ./bin/cucumber-json-to-html ${RESULT_JSON_PATH} ${TEST_RESULTS_PATH} ${RESULT_FILE_BASE_NAME}.html
 ./bin/cucumber-json-to-html ${RESULT_JSON_PATH} ${TEST_RESULTS_PATH} ${LATEST_RESULT_FILE_NAME}.html
