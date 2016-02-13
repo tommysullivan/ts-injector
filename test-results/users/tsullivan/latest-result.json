@@ -18,6 +18,10 @@
           {
             "name": "@SPYG-125",
             "line": 3
+          },
+          {
+            "name": "@HealthCheck",
+            "line": 3
           }
         ],
         "steps": [
@@ -26,7 +30,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 867119
+              "duration": 1173434
             },
             "match": {}
           },
@@ -36,7 +40,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 420894
+              "duration": 791802
             },
             "match": {}
           },
@@ -46,7 +50,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 32326664
+              "duration": 49700813
             },
             "match": {}
           },
@@ -56,7 +60,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 222158
+              "duration": 307561
             },
             "match": {}
           }
@@ -99,7 +103,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 158150
+              "duration": 199290
             },
             "match": {}
           },
@@ -109,7 +113,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 366863
+              "duration": 414837
             },
             "match": {}
           },
@@ -119,7 +123,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 88310
+              "duration": 402095
             },
             "match": {}
           },
@@ -129,7 +133,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 94369
+              "duration": 208391
             },
             "match": {}
           },
@@ -139,7 +143,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 91226
+              "duration": 209852
             },
             "match": {}
           },
@@ -149,7 +153,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 70318
+              "duration": 129125
             },
             "match": {}
           },
@@ -159,7 +163,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 75361
+              "duration": 233118
             },
             "match": {}
           },
@@ -186,7 +190,7 @@
             ],
             "result": {
               "status": "passed",
-              "duration": 195040
+              "duration": 302322
             },
             "match": {}
           },
@@ -196,795 +200,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 91808
-            },
-            "match": {}
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "Health-Check",
-    "name": "Health Check",
-    "description": "",
-    "line": 1,
-    "keyword": "Feature",
-    "uri": "/Users/tsullivan/projects/spyglass/features/health-check.feature",
-    "elements": [
-      {
-        "name": "",
-        "keyword": "Background",
-        "description": "",
-        "type": "background",
-        "line": 3,
-        "steps": [
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given "
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And "
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And "
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And "
-          }
-        ]
-      },
-      {
-        "name": "Spyglass Operational Health Check",
-        "id": "Health-Check;spyglass-operational-health-check",
-        "line": 10,
-        "keyword": "Scenario",
-        "description": "",
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@HealthCheck",
-            "line": 9
-          },
-          {
-            "name": "@SPYG-123",
-            "line": 9
-          },
-          {
-            "name": "@SPYG-143",
-            "line": 9
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Before ",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 203722
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 204341
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 251678
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 238736
-            },
-            "match": {}
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 148452129
-            },
-            "match": {}
-          },
-          {
-            "name": "I am testing against a configured cluster that is expected to be functioning",
-            "line": 11,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 127148
-            },
-            "match": {}
-          },
-          {
-            "name": "I use the MCS Rest Client Session to retrieve dashboardInfo",
-            "line": 12,
-            "keyword": "When ",
-            "result": {
-              "status": "passed",
-              "duration": 16301038
-            },
-            "match": {}
-          },
-          {
-            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
-            "line": 13,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 455959
-            },
-            "match": {}
-          },
-          {
-            "name": "I do not see any unhealthy spyglass services",
-            "line": 14,
-            "keyword": "Then ",
-            "result": {
-              "status": "passed",
-              "duration": 139895
-            },
-            "match": {}
-          }
-        ]
-      },
-      {
-        "name": "Spyglass Health Check Negative Testing",
-        "id": "Health-Check;spyglass-health-check-negative-testing",
-        "line": 24,
-        "keyword": "Scenario",
-        "description": "",
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@SPYG-123",
-            "line": 16
-          },
-          {
-            "name": "@SPYG-143",
-            "line": 16
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Before ",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 81908
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 60432
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 58644
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 52357
-            },
-            "match": {}
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 103612078
-            },
-            "match": {}
-          },
-          {
-            "name": "I want to make sure the health check is accurate",
-            "line": 18,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 363305
-            },
-            "match": {}
-          },
-          {
-            "name": "I purposely take down collectd on one or more nodes",
-            "line": 19,
-            "keyword": "When ",
-            "result": {
-              "status": "pending"
-            },
-            "match": {}
-          },
-          {
-            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
-            "line": 20,
-            "keyword": "And ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          },
-          {
-            "name": "I see that collectd is in the list within \"16\" seconds",
-            "line": 21,
-            "keyword": "Then ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          }
-        ]
-      },
-      {
-        "name": "Spyglass Health Check Negative Testing",
-        "id": "Health-Check;spyglass-health-check-negative-testing",
-        "line": 25,
-        "keyword": "Scenario",
-        "description": "",
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@SPYG-123",
-            "line": 16
-          },
-          {
-            "name": "@SPYG-143",
-            "line": 16
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Before ",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 80340
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 49324
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 61649
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 52514
-            },
-            "match": {}
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 106720719
-            },
-            "match": {}
-          },
-          {
-            "name": "I want to make sure the health check is accurate",
-            "line": 18,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 125893
-            },
-            "match": {}
-          },
-          {
-            "name": "I purposely take down fluentd on one or more nodes",
-            "line": 19,
-            "keyword": "When ",
-            "result": {
-              "status": "pending"
-            },
-            "match": {}
-          },
-          {
-            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
-            "line": 20,
-            "keyword": "And ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          },
-          {
-            "name": "I see that fluentd is in the list within \"16\" seconds",
-            "line": 21,
-            "keyword": "Then ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          }
-        ]
-      },
-      {
-        "name": "Spyglass Health Check Negative Testing",
-        "id": "Health-Check;spyglass-health-check-negative-testing",
-        "line": 26,
-        "keyword": "Scenario",
-        "description": "",
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@SPYG-123",
-            "line": 16
-          },
-          {
-            "name": "@SPYG-143",
-            "line": 16
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Before ",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 81172
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 46024
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 99146
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 86337
-            },
-            "match": {}
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 110758051
-            },
-            "match": {}
-          },
-          {
-            "name": "I want to make sure the health check is accurate",
-            "line": 18,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 181339
-            },
-            "match": {}
-          },
-          {
-            "name": "I purposely take down elasticsearch on one or more nodes",
-            "line": 19,
-            "keyword": "When ",
-            "result": {
-              "status": "pending"
-            },
-            "match": {}
-          },
-          {
-            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
-            "line": 20,
-            "keyword": "And ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          },
-          {
-            "name": "I see that elasticsearch is in the list within \"16\" seconds",
-            "line": 21,
-            "keyword": "Then ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          }
-        ]
-      },
-      {
-        "name": "Spyglass Health Check Negative Testing",
-        "id": "Health-Check;spyglass-health-check-negative-testing",
-        "line": 27,
-        "keyword": "Scenario",
-        "description": "",
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@SPYG-123",
-            "line": 16
-          },
-          {
-            "name": "@SPYG-143",
-            "line": 16
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Before ",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 83370
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 52005
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 63403
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 81909
-            },
-            "match": {}
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 105526186
-            },
-            "match": {}
-          },
-          {
-            "name": "I want to make sure the health check is accurate",
-            "line": 18,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 211046
-            },
-            "match": {}
-          },
-          {
-            "name": "I purposely take down opentsdb on one or more nodes",
-            "line": 19,
-            "keyword": "When ",
-            "result": {
-              "status": "pending"
-            },
-            "match": {}
-          },
-          {
-            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
-            "line": 20,
-            "keyword": "And ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          },
-          {
-            "name": "I see that opentsdb is in the list within \"16\" seconds",
-            "line": 21,
-            "keyword": "Then ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          }
-        ]
-      },
-      {
-        "name": "Spyglass Health Check Negative Testing",
-        "id": "Health-Check;spyglass-health-check-negative-testing",
-        "line": 28,
-        "keyword": "Scenario",
-        "description": "",
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@SPYG-123",
-            "line": 16
-          },
-          {
-            "name": "@SPYG-143",
-            "line": 16
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Before ",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 81633
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 115714
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 190990
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 74392
-            },
-            "match": {}
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 104618757
-            },
-            "match": {}
-          },
-          {
-            "name": "I want to make sure the health check is accurate",
-            "line": 18,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 141914
-            },
-            "match": {}
-          },
-          {
-            "name": "I purposely take down kibana on one or more nodes",
-            "line": 19,
-            "keyword": "When ",
-            "result": {
-              "status": "pending"
-            },
-            "match": {}
-          },
-          {
-            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
-            "line": 20,
-            "keyword": "And ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          },
-          {
-            "name": "I see that kibana is in the list within \"16\" seconds",
-            "line": 21,
-            "keyword": "Then ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          }
-        ]
-      },
-      {
-        "name": "Spyglass Health Check Negative Testing",
-        "id": "Health-Check;spyglass-health-check-negative-testing",
-        "line": 29,
-        "keyword": "Scenario",
-        "description": "",
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@SPYG-123",
-            "line": 16
-          },
-          {
-            "name": "@SPYG-143",
-            "line": 16
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Before ",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 82592
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS username is \"mapr\"",
-            "line": 4,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 118416
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS password is \"mapr\"",
-            "line": 5,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 63921
-            },
-            "match": {}
-          },
-          {
-            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 6,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 70709
-            },
-            "match": {}
-          },
-          {
-            "name": "I have an authenticated MCS Rest Client Session",
-            "line": 7,
-            "keyword": "And ",
-            "result": {
-              "status": "passed",
-              "duration": 103727135
-            },
-            "match": {}
-          },
-          {
-            "name": "I want to make sure the health check is accurate",
-            "line": 18,
-            "keyword": "Given ",
-            "result": {
-              "status": "passed",
-              "duration": 162185
-            },
-            "match": {}
-          },
-          {
-            "name": "I purposely take down grafana on one or more nodes",
-            "line": 19,
-            "keyword": "When ",
-            "result": {
-              "status": "pending"
-            },
-            "match": {}
-          },
-          {
-            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
-            "line": 20,
-            "keyword": "And ",
-            "result": {
-              "status": "skipped"
-            },
-            "match": {}
-          },
-          {
-            "name": "I see that grafana is in the list within \"16\" seconds",
-            "line": 21,
-            "keyword": "Then ",
-            "result": {
-              "status": "skipped"
+              "duration": 185510
             },
             "match": {}
           }
@@ -1037,7 +253,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 79713
+              "duration": 90115
             },
             "match": {}
           },
@@ -1047,7 +263,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 87236
+              "duration": 149965
             },
             "match": {}
           },
@@ -1057,7 +273,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 1429442
+              "duration": 7252921
             },
             "match": {}
           },
@@ -1122,7 +338,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 81987
+              "duration": 129033
             },
             "match": {}
           },
@@ -1132,7 +348,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 46311
+              "duration": 155124
             },
             "match": {}
           },
@@ -1142,7 +358,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 174274
+              "duration": 297040
             },
             "match": {}
           },
@@ -1207,7 +423,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 96551
+              "duration": 181137
             },
             "match": {}
           },
@@ -1217,7 +433,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 43130
+              "duration": 202301
             },
             "match": {}
           },
@@ -1227,7 +443,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 150121
+              "duration": 231252
             },
             "match": {}
           },
@@ -1292,7 +508,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 76035
+              "duration": 73686
             },
             "match": {}
           },
@@ -1302,7 +518,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 45409
+              "duration": 52150
             },
             "match": {}
           },
@@ -1385,7 +601,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 79132
+              "duration": 228756
             },
             "match": {}
           },
@@ -1395,7 +611,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 47801
+              "duration": 149327
             },
             "match": {}
           },
@@ -1478,7 +694,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 113211
+              "duration": 127257
             },
             "match": {}
           },
@@ -1488,7 +704,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 80346
+              "duration": 129957
             },
             "match": {}
           },
@@ -1567,7 +783,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 216298
+              "duration": 81099
             },
             "match": {}
           },
@@ -1577,7 +793,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 110345
+              "duration": 54142
             },
             "match": {}
           },
@@ -1587,7 +803,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 111466
+              "duration": 110829
             },
             "match": {}
           },
@@ -1597,7 +813,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 151294
+              "duration": 131160
             },
             "match": {}
           },
@@ -1607,7 +823,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 154728
+              "duration": 225358
             },
             "match": {}
           },
@@ -1629,7 +845,7 @@
             ],
             "result": {
               "status": "passed",
-              "duration": 441558
+              "duration": 2937347
             },
             "match": {}
           },
@@ -1639,7 +855,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 66064548
+              "duration": 75961614
             },
             "match": {}
           },
@@ -1681,7 +897,7 @@
             ],
             "result": {
               "status": "failed",
-              "duration": 29824170,
+              "duration": 49325681,
               "error_message": "there was an error - http reponse code:404"
             },
             "match": {}
@@ -1730,7 +946,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 123512
+              "duration": 163178
             },
             "match": {}
           },
@@ -1740,7 +956,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 126748
+              "duration": 314398
             },
             "match": {}
           },
@@ -1750,7 +966,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 155112
+              "duration": 242169
             },
             "match": {}
           },
@@ -1760,7 +976,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 468117
+              "duration": 113690
             },
             "match": {}
           }
@@ -1769,103 +985,925 @@
     ]
   },
   {
-    "id": "MCS-UI-Links",
-    "name": "MCS UI Links",
+    "id": "MCS",
+    "name": "MCS",
     "description": "",
-    "line": 2,
+    "line": 1,
     "keyword": "Feature",
-    "tags": [
-      {
-        "name": "@SPYG-126",
-        "line": 1
-      }
-    ],
-    "uri": "/Users/tsullivan/projects/spyglass/features/mcs-ui-links.feature",
+    "uri": "/Users/tsullivan/projects/spyglass/features/mcs.feature",
     "elements": [
       {
         "name": "",
-        "id": "MCS-UI-Links;",
-        "line": 14,
+        "keyword": "Background",
+        "description": "",
+        "type": "background",
+        "line": 3,
+        "steps": [
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given "
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And "
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And "
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Services appear Healthy in MCS after Installation",
+        "id": "MCS;spyglass-services-appear-healthy-in-mcs-after-installation",
+        "line": 10,
         "keyword": "Scenario",
         "description": "",
         "type": "scenario",
+        "tags": [
+          {
+            "name": "@HealthCheck",
+            "line": 9
+          },
+          {
+            "name": "@SPYG-123",
+            "line": 9
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 9
+          }
+        ],
         "steps": [
           {
             "keyword": "Before ",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 87856
+              "duration": 78040
             },
             "match": {}
           },
           {
             "name": "my MCS username is \"mapr\"",
-            "line": 5,
+            "line": 4,
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 52946
+              "duration": 139332
             },
             "match": {}
           },
           {
             "name": "my MCS password is \"mapr\"",
-            "line": 6,
+            "line": 5,
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 174571
+              "duration": 131709
             },
             "match": {}
           },
           {
             "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 7,
+            "line": 6,
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 72249
+              "duration": 110772
             },
             "match": {}
           },
           {
             "name": "I have an authenticated MCS Rest Client Session",
-            "line": 8,
+            "line": 7,
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 105603370
+              "duration": 416896830
+            },
+            "match": {}
+          },
+          {
+            "name": "I am testing against a configured cluster that is expected to be functioning",
+            "line": 11,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 120512
+            },
+            "match": {}
+          },
+          {
+            "name": "I use the MCS Rest Client Session to retrieve dashboardInfo",
+            "line": 12,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 26385935
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 13,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 371165
+            },
+            "match": {}
+          },
+          {
+            "name": "I do not see any unhealthy spyglass services",
+            "line": 14,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 181659
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 24,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-123",
+            "line": 16
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 16
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 79488
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 68935
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 61211
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 73395
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 107521533
+            },
+            "match": {}
+          },
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 18,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 175164
+            },
+            "match": {}
+          },
+          {
+            "name": "I purposely take down collectd on one or more nodes",
+            "line": 19,
+            "keyword": "When ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 20,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "I see that collectd is in the list within \"16\" seconds",
+            "line": 21,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 25,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-123",
+            "line": 16
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 16
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 122804
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 56734
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 93889
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 61378
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 109763067
+            },
+            "match": {}
+          },
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 18,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 187404
+            },
+            "match": {}
+          },
+          {
+            "name": "I purposely take down fluentd on one or more nodes",
+            "line": 19,
+            "keyword": "When ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 20,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "I see that fluentd is in the list within \"16\" seconds",
+            "line": 21,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 26,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-123",
+            "line": 16
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 16
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 158294
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 103540
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 79043
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 70258
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 115741636
+            },
+            "match": {}
+          },
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 18,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 121162
+            },
+            "match": {}
+          },
+          {
+            "name": "I purposely take down elasticsearch on one or more nodes",
+            "line": 19,
+            "keyword": "When ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 20,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "I see that elasticsearch is in the list within \"16\" seconds",
+            "line": 21,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 27,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-123",
+            "line": 16
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 16
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 134401
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 85689
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 114684
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 112769
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 119662685
+            },
+            "match": {}
+          },
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 18,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 118048
+            },
+            "match": {}
+          },
+          {
+            "name": "I purposely take down opentsdb on one or more nodes",
+            "line": 19,
+            "keyword": "When ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 20,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "I see that opentsdb is in the list within \"16\" seconds",
+            "line": 21,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 28,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-123",
+            "line": 16
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 16
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 115124
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 83367
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 122618
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 132682
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 111393008
+            },
+            "match": {}
+          },
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 18,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 168729
+            },
+            "match": {}
+          },
+          {
+            "name": "I purposely take down kibana on one or more nodes",
+            "line": 19,
+            "keyword": "When ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 20,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "I see that kibana is in the list within \"16\" seconds",
+            "line": 21,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 29,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-123",
+            "line": 16
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 16
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 83115
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 51684
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 70570
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 65851
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 111045880
+            },
+            "match": {}
+          },
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 18,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 165946
+            },
+            "match": {}
+          },
+          {
+            "name": "I purposely take down grafana on one or more nodes",
+            "line": 19,
+            "keyword": "When ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 20,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "I see that grafana is in the list within \"16\" seconds",
+            "line": 21,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "MCS 3rd Party UI Links",
+        "id": "MCS;mcs-3rd-party-ui-links",
+        "line": 42,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@HealthCheck",
+            "line": 31
+          },
+          {
+            "name": "@SPYG-126",
+            "line": 31
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 101754
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 169425
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 72179
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 121865
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 109197745
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 33,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 176646
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 34,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 129640
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 35,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 83400
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 36,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 108479942
             },
             "match": {}
           },
           {
             "name": "I ask for a link to grafana",
-            "line": 9,
+            "line": 37,
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 14273546
+              "duration": 11795398
             },
             "match": {}
           },
           {
             "name": "I receive a URL to grafana",
-            "line": 10,
+            "line": 38,
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 567985
+              "duration": 950612
             },
             "match": {}
           },
           {
             "name": "a GET request of the URL does not return an error status code",
-            "line": 11,
+            "line": 39,
             "keyword": "And ",
             "result": {
               "status": "failed",
-              "duration": 6497561,
+              "duration": 6231624,
               "error_message": "Error: getaddrinfo ENOTFOUND qa-cnode103.lab qa-cnode103.lab:3000\n    at errnoException (dns.js:26:10)\n    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)"
             },
             "match": {}
@@ -1873,89 +1911,139 @@
         ]
       },
       {
-        "name": "",
-        "id": "MCS-UI-Links;",
-        "line": 15,
+        "name": "MCS 3rd Party UI Links",
+        "id": "MCS;mcs-3rd-party-ui-links",
+        "line": 43,
         "keyword": "Scenario",
         "description": "",
         "type": "scenario",
+        "tags": [
+          {
+            "name": "@HealthCheck",
+            "line": 31
+          },
+          {
+            "name": "@SPYG-126",
+            "line": 31
+          }
+        ],
         "steps": [
           {
             "keyword": "Before ",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 642009
+              "duration": 137592
             },
             "match": {}
           },
           {
             "name": "my MCS username is \"mapr\"",
-            "line": 5,
+            "line": 4,
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 146048
+              "duration": 144145
             },
             "match": {}
           },
           {
             "name": "my MCS password is \"mapr\"",
-            "line": 6,
+            "line": 5,
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 187469
+              "duration": 78775
             },
             "match": {}
           },
           {
             "name": "my MCS is running at \"https://10.10.1.103:8443\"",
-            "line": 7,
+            "line": 6,
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 175178
+              "duration": 81376
             },
             "match": {}
           },
           {
             "name": "I have an authenticated MCS Rest Client Session",
-            "line": 8,
+            "line": 7,
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 110924703
+              "duration": 106831775
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 33,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 202082
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 34,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 71110
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS is running at \"https://10.10.1.103:8443\"",
+            "line": 35,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 60877
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 36,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 107446977
             },
             "match": {}
           },
           {
             "name": "I ask for a link to kibana",
-            "line": 9,
+            "line": 37,
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 23019334
+              "duration": 41810832
             },
             "match": {}
           },
           {
             "name": "I receive a URL to kibana",
-            "line": 10,
+            "line": 38,
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 177773
+              "duration": 196771
             },
             "match": {}
           },
           {
             "name": "a GET request of the URL does not return an error status code",
-            "line": 11,
+            "line": 39,
             "keyword": "And ",
             "result": {
               "status": "failed",
-              "duration": 5949572,
+              "duration": 6810220,
               "error_message": "Error: getaddrinfo ENOTFOUND qa-cnode103.lab qa-cnode103.lab:5601\n    at errnoException (dns.js:26:10)\n    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)"
             },
             "match": {}
@@ -1983,6 +2071,10 @@
           {
             "name": "@SPYG-124",
             "line": 3
+          },
+          {
+            "name": "@HealthCheck",
+            "line": 3
           }
         ],
         "steps": [
@@ -1991,7 +2083,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 92836
+              "duration": 337591
             },
             "match": {}
           },
@@ -2001,7 +2093,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 496045
+              "duration": 224410
             },
             "match": {}
           },
@@ -2011,7 +2103,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 199122
+              "duration": 116452
             },
             "match": {}
           },
@@ -2043,7 +2135,7 @@
             ],
             "result": {
               "status": "passed",
-              "duration": 23864330
+              "duration": 23367262
             },
             "match": {}
           },
@@ -2053,7 +2145,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 818983
+              "duration": 842930
             },
             "match": {}
           },
@@ -2063,7 +2155,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 151325
+              "duration": 351530
             },
             "match": {}
           }

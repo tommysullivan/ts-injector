@@ -102,6 +102,7 @@
 			<h3>
 				Scenario: Warden Logs present in ES Query
 				<span class="scenario-tag">@SPYG-125</span>
+				<span class="scenario-tag">@HealthCheck</span>
 			</h3>
 			<table>
 				<tr>
@@ -225,662 +226,6 @@
 				<td>Then </td>
 				<td>I see the corresponding graph with reasonably accurate data for the past 24 hours</td>
 				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-	</div>
-	<div class="report">
-		<h2>Feature: Health Check <span class="tags"></span></h2>
-		<p class="filename">&#x2F;Users&#x2F;tsullivan&#x2F;projects&#x2F;spyglass&#x2F;features&#x2F;health-check.feature</p>
-		<p class="story"></p>
-			<h3>
-				Background: 
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status"></td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status"></td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status"></td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status"></td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-			<h3>
-				Scenario: Spyglass Operational Health Check
-				<span class="scenario-tag">@HealthCheck</span>
-				<span class="scenario-tag">@SPYG-123</span>
-				<span class="scenario-tag">@SPYG-143</span>
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="passed">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>11</td>
-				<td>Given </td>
-				<td>I am testing against a configured cluster that is expected to be functioning</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>12</td>
-				<td>When </td>
-				<td>I use the MCS Rest Client Session to retrieve dashboardInfo</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>13</td>
-				<td>And </td>
-				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>14</td>
-				<td>Then </td>
-				<td>I do not see any unhealthy spyglass services</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-			<h3>
-				Scenario: Spyglass Health Check Negative Testing
-				<span class="scenario-tag">@SPYG-123</span>
-				<span class="scenario-tag">@SPYG-143</span>
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="passed">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>18</td>
-				<td>Given </td>
-				<td>I want to make sure the health check is accurate</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="pending">
-				<td>19</td>
-				<td>When </td>
-				<td>I purposely take down collectd on one or more nodes</td>
-				<td class="status">pending</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>20</td>
-				<td>And </td>
-				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>21</td>
-				<td>Then </td>
-				<td>I see that collectd is in the list within &quot;16&quot; seconds</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-			<h3>
-				Scenario: Spyglass Health Check Negative Testing
-				<span class="scenario-tag">@SPYG-123</span>
-				<span class="scenario-tag">@SPYG-143</span>
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="passed">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>18</td>
-				<td>Given </td>
-				<td>I want to make sure the health check is accurate</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="pending">
-				<td>19</td>
-				<td>When </td>
-				<td>I purposely take down fluentd on one or more nodes</td>
-				<td class="status">pending</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>20</td>
-				<td>And </td>
-				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>21</td>
-				<td>Then </td>
-				<td>I see that fluentd is in the list within &quot;16&quot; seconds</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-			<h3>
-				Scenario: Spyglass Health Check Negative Testing
-				<span class="scenario-tag">@SPYG-123</span>
-				<span class="scenario-tag">@SPYG-143</span>
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="passed">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>18</td>
-				<td>Given </td>
-				<td>I want to make sure the health check is accurate</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="pending">
-				<td>19</td>
-				<td>When </td>
-				<td>I purposely take down elasticsearch on one or more nodes</td>
-				<td class="status">pending</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>20</td>
-				<td>And </td>
-				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>21</td>
-				<td>Then </td>
-				<td>I see that elasticsearch is in the list within &quot;16&quot; seconds</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-			<h3>
-				Scenario: Spyglass Health Check Negative Testing
-				<span class="scenario-tag">@SPYG-123</span>
-				<span class="scenario-tag">@SPYG-143</span>
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="passed">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>18</td>
-				<td>Given </td>
-				<td>I want to make sure the health check is accurate</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="pending">
-				<td>19</td>
-				<td>When </td>
-				<td>I purposely take down opentsdb on one or more nodes</td>
-				<td class="status">pending</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>20</td>
-				<td>And </td>
-				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>21</td>
-				<td>Then </td>
-				<td>I see that opentsdb is in the list within &quot;16&quot; seconds</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-			<h3>
-				Scenario: Spyglass Health Check Negative Testing
-				<span class="scenario-tag">@SPYG-123</span>
-				<span class="scenario-tag">@SPYG-143</span>
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="passed">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>18</td>
-				<td>Given </td>
-				<td>I want to make sure the health check is accurate</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="pending">
-				<td>19</td>
-				<td>When </td>
-				<td>I purposely take down kibana on one or more nodes</td>
-				<td class="status">pending</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>20</td>
-				<td>And </td>
-				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>21</td>
-				<td>Then </td>
-				<td>I see that kibana is in the list within &quot;16&quot; seconds</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			</table>
-			
-			<h3>
-				Scenario: Spyglass Health Check Negative Testing
-				<span class="scenario-tag">@SPYG-123</span>
-				<span class="scenario-tag">@SPYG-143</span>
-			</h3>
-			<table>
-				<tr>
-					<th style="width: 100px;">Line</th>
-					<th style="width: 100px;">Condition</th>
-					<th>Step</th>
-					<th style="width: 100px;">Status</th>
-				</tr>
-			<tr class="passed">
-				<td>4</td>
-				<td>Given </td>
-				<td>my MCS username is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>5</td>
-				<td>And </td>
-				<td>my MCS password is &quot;mapr&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>6</td>
-				<td>And </td>
-				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>7</td>
-				<td>And </td>
-				<td>I have an authenticated MCS Rest Client Session</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="passed">
-				<td>18</td>
-				<td>Given </td>
-				<td>I want to make sure the health check is accurate</td>
-				<td class="status">passed</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="pending">
-				<td>19</td>
-				<td>When </td>
-				<td>I purposely take down grafana on one or more nodes</td>
-				<td class="status">pending</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>20</td>
-				<td>And </td>
-				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
-				<td class="status">skipped</td>
-			</tr>
-			<tr class="hidden">
-				<td colspan="4"><pre></pre></td>
-			</tr>
-			<tr class="skipped">
-				<td>21</td>
-				<td>Then </td>
-				<td>I see that grafana is in the list within &quot;16&quot; seconds</td>
-				<td class="status">skipped</td>
 			</tr>
 			<tr class="hidden">
 				<td colspan="4"><pre></pre></td>
@@ -1483,12 +828,62 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 			
 	</div>
 	<div class="report">
-		<h2>Feature: MCS UI Links <span class="tags">@SPYG-126</span></h2>
-		<p class="filename">&#x2F;Users&#x2F;tsullivan&#x2F;projects&#x2F;spyglass&#x2F;features&#x2F;mcs-ui-links.feature</p>
+		<h2>Feature: MCS <span class="tags"></span></h2>
+		<p class="filename">&#x2F;Users&#x2F;tsullivan&#x2F;projects&#x2F;spyglass&#x2F;features&#x2F;mcs.feature</p>
 		<p class="story"></p>
 			<h3>
-				Scenario: 
-				<span class="scenario-tag"></span>
+				Background: 
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status"></td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status"></td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status"></td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status"></td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: Spyglass Services appear Healthy in MCS after Installation
+				<span class="scenario-tag">@HealthCheck</span>
+				<span class="scenario-tag">@SPYG-123</span>
+				<span class="scenario-tag">@SPYG-143</span>
 			</h3>
 			<table>
 				<tr>
@@ -1498,7 +893,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 					<th style="width: 100px;">Status</th>
 				</tr>
 			<tr class="passed">
-				<td>5</td>
+				<td>4</td>
 				<td>Given </td>
 				<td>my MCS username is &quot;mapr&quot;</td>
 				<td class="status">passed</td>
@@ -1507,7 +902,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>6</td>
+				<td>5</td>
 				<td>And </td>
 				<td>my MCS password is &quot;mapr&quot;</td>
 				<td class="status">passed</td>
@@ -1516,7 +911,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>7</td>
+				<td>6</td>
 				<td>And </td>
 				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
 				<td class="status">passed</td>
@@ -1525,7 +920,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>8</td>
+				<td>7</td>
 				<td>And </td>
 				<td>I have an authenticated MCS Rest Client Session</td>
 				<td class="status">passed</td>
@@ -1534,7 +929,645 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>9</td>
+				<td>11</td>
+				<td>Given </td>
+				<td>I am testing against a configured cluster that is expected to be functioning</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>12</td>
+				<td>When </td>
+				<td>I use the MCS Rest Client Session to retrieve dashboardInfo</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>13</td>
+				<td>And </td>
+				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>14</td>
+				<td>Then </td>
+				<td>I do not see any unhealthy spyglass services</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: Spyglass Health Check Negative Testing
+				<span class="scenario-tag">@SPYG-123</span>
+				<span class="scenario-tag">@SPYG-143</span>
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="passed">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>18</td>
+				<td>Given </td>
+				<td>I want to make sure the health check is accurate</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="pending">
+				<td>19</td>
+				<td>When </td>
+				<td>I purposely take down collectd on one or more nodes</td>
+				<td class="status">pending</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>20</td>
+				<td>And </td>
+				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>21</td>
+				<td>Then </td>
+				<td>I see that collectd is in the list within &quot;16&quot; seconds</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: Spyglass Health Check Negative Testing
+				<span class="scenario-tag">@SPYG-123</span>
+				<span class="scenario-tag">@SPYG-143</span>
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="passed">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>18</td>
+				<td>Given </td>
+				<td>I want to make sure the health check is accurate</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="pending">
+				<td>19</td>
+				<td>When </td>
+				<td>I purposely take down fluentd on one or more nodes</td>
+				<td class="status">pending</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>20</td>
+				<td>And </td>
+				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>21</td>
+				<td>Then </td>
+				<td>I see that fluentd is in the list within &quot;16&quot; seconds</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: Spyglass Health Check Negative Testing
+				<span class="scenario-tag">@SPYG-123</span>
+				<span class="scenario-tag">@SPYG-143</span>
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="passed">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>18</td>
+				<td>Given </td>
+				<td>I want to make sure the health check is accurate</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="pending">
+				<td>19</td>
+				<td>When </td>
+				<td>I purposely take down elasticsearch on one or more nodes</td>
+				<td class="status">pending</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>20</td>
+				<td>And </td>
+				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>21</td>
+				<td>Then </td>
+				<td>I see that elasticsearch is in the list within &quot;16&quot; seconds</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: Spyglass Health Check Negative Testing
+				<span class="scenario-tag">@SPYG-123</span>
+				<span class="scenario-tag">@SPYG-143</span>
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="passed">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>18</td>
+				<td>Given </td>
+				<td>I want to make sure the health check is accurate</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="pending">
+				<td>19</td>
+				<td>When </td>
+				<td>I purposely take down opentsdb on one or more nodes</td>
+				<td class="status">pending</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>20</td>
+				<td>And </td>
+				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>21</td>
+				<td>Then </td>
+				<td>I see that opentsdb is in the list within &quot;16&quot; seconds</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: Spyglass Health Check Negative Testing
+				<span class="scenario-tag">@SPYG-123</span>
+				<span class="scenario-tag">@SPYG-143</span>
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="passed">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>18</td>
+				<td>Given </td>
+				<td>I want to make sure the health check is accurate</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="pending">
+				<td>19</td>
+				<td>When </td>
+				<td>I purposely take down kibana on one or more nodes</td>
+				<td class="status">pending</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>20</td>
+				<td>And </td>
+				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>21</td>
+				<td>Then </td>
+				<td>I see that kibana is in the list within &quot;16&quot; seconds</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: Spyglass Health Check Negative Testing
+				<span class="scenario-tag">@SPYG-123</span>
+				<span class="scenario-tag">@SPYG-143</span>
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="passed">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>18</td>
+				<td>Given </td>
+				<td>I want to make sure the health check is accurate</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="pending">
+				<td>19</td>
+				<td>When </td>
+				<td>I purposely take down grafana on one or more nodes</td>
+				<td class="status">pending</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>20</td>
+				<td>And </td>
+				<td>I ask the dashboardInfo for unhealthySpyglassServices</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="skipped">
+				<td>21</td>
+				<td>Then </td>
+				<td>I see that grafana is in the list within &quot;16&quot; seconds</td>
+				<td class="status">skipped</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			</table>
+			
+			<h3>
+				Scenario: MCS 3rd Party UI Links
+				<span class="scenario-tag">@HealthCheck</span>
+				<span class="scenario-tag">@SPYG-126</span>
+			</h3>
+			<table>
+				<tr>
+					<th style="width: 100px;">Line</th>
+					<th style="width: 100px;">Condition</th>
+					<th>Step</th>
+					<th style="width: 100px;">Status</th>
+				</tr>
+			<tr class="passed">
+				<td>4</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>5</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>6</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>7</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>33</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>34</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>35</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>36</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>37</td>
 				<td>When </td>
 				<td>I ask for a link to grafana</td>
 				<td class="status">passed</td>
@@ -1543,7 +1576,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>10</td>
+				<td>38</td>
 				<td>Then </td>
 				<td>I receive a URL to grafana</td>
 				<td class="status">passed</td>
@@ -1552,7 +1585,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="failed">
-				<td>11</td>
+				<td>39</td>
 				<td>And </td>
 				<td>a GET request of the URL does not return an error status code</td>
 				<td class="status">failed</td>
@@ -1565,8 +1598,9 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 			</table>
 			
 			<h3>
-				Scenario: 
-				<span class="scenario-tag"></span>
+				Scenario: MCS 3rd Party UI Links
+				<span class="scenario-tag">@HealthCheck</span>
+				<span class="scenario-tag">@SPYG-126</span>
 			</h3>
 			<table>
 				<tr>
@@ -1576,7 +1610,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 					<th style="width: 100px;">Status</th>
 				</tr>
 			<tr class="passed">
-				<td>5</td>
+				<td>4</td>
 				<td>Given </td>
 				<td>my MCS username is &quot;mapr&quot;</td>
 				<td class="status">passed</td>
@@ -1585,7 +1619,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>6</td>
+				<td>5</td>
 				<td>And </td>
 				<td>my MCS password is &quot;mapr&quot;</td>
 				<td class="status">passed</td>
@@ -1594,7 +1628,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>7</td>
+				<td>6</td>
 				<td>And </td>
 				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
 				<td class="status">passed</td>
@@ -1603,7 +1637,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>8</td>
+				<td>7</td>
 				<td>And </td>
 				<td>I have an authenticated MCS Rest Client Session</td>
 				<td class="status">passed</td>
@@ -1612,7 +1646,43 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>9</td>
+				<td>33</td>
+				<td>Given </td>
+				<td>my MCS username is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>34</td>
+				<td>And </td>
+				<td>my MCS password is &quot;mapr&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>35</td>
+				<td>And </td>
+				<td>my MCS is running at &quot;https:&#x2F;&#x2F;10.10.1.103:8443&quot;</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>36</td>
+				<td>And </td>
+				<td>I have an authenticated MCS Rest Client Session</td>
+				<td class="status">passed</td>
+			</tr>
+			<tr class="hidden">
+				<td colspan="4"><pre></pre></td>
+			</tr>
+			<tr class="passed">
+				<td>37</td>
 				<td>When </td>
 				<td>I ask for a link to kibana</td>
 				<td class="status">passed</td>
@@ -1621,7 +1691,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="passed">
-				<td>10</td>
+				<td>38</td>
 				<td>Then </td>
 				<td>I receive a URL to kibana</td>
 				<td class="status">passed</td>
@@ -1630,7 +1700,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 				<td colspan="4"><pre></pre></td>
 			</tr>
 			<tr class="failed">
-				<td>11</td>
+				<td>39</td>
 				<td>And </td>
 				<td>a GET request of the URL does not return an error status code</td>
 				<td class="status">failed</td>
@@ -1650,6 +1720,7 @@ I install Spyglass on top of a previously prepared MapR Cluster</p>
 			<h3>
 				Scenario: Getting Simple Node Metrics via REST API
 				<span class="scenario-tag">@SPYG-124</span>
+				<span class="scenario-tag">@HealthCheck</span>
 			</h3>
 			<table>
 				<tr>

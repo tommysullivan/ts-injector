@@ -1,0 +1,168 @@
+.report {
+    background-color: #EEEEEE;
+    padding: 10px;
+}
+
+.report.passed {
+    background-color: #CCFFCC;
+}
+
+.report.failed {
+    background-color: #FFCCCC;
+}
+
+.feature {
+    margin-top: 10px;
+    border-width: 3px;
+    border-style: solid;
+    padding: 10px;
+}
+
+.feature.passed {
+    background-color: #AADDAA;
+    border-color: #77AA77;
+}
+
+.feature.failed {
+    background-color: #DDAAAA;
+    border-color: #AA7777;
+}
+
+.feature.skipped {
+    background-color: #FFFF88;
+    border-color: #CCCC77;
+}
+
+.scenario {
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.scenario.passed {
+    background-color: #99CC99;
+}
+
+.scenario.failed {
+    background-color: #CC9999;
+}
+
+.scenario.skipped {
+    background-color: #FFFF99;
+}
+
+.step {
+    background-color: #999999;
+    text-decoration: line-through;
+    margin: 3px;
+}
+
+.step.passed {
+    text-decoration: none;
+    background-color: #77BB77;
+}
+
+.step.failed {
+    text-decoration: none;
+    background-color: #CC7777;
+}
+
+.backToTop {
+    font-size: x-small;
+}
+
+.tag {
+    color: darkblue;
+    font-weight: bold;
+}
+
+.navigation {
+    background-color: #666666;
+    color: white;
+    padding: 10px;
+}
+
+.errorMessage {
+    font-family: monospace;
+    background-color: black;
+    color: white;
+    border-color: red;
+    border: 3px;
+    padding: 10px;
+    margin: 5px;
+    max-height: 50px;
+    overflow: auto;
+}
+
+.pending {
+    background-color: lightyellow;
+}
+
+.stepTable {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.summary {
+    font-size: small;
+    margin: 5px;
+}
+
+h1 {
+    color: #005500;
+}
+
+p {
+    margin: 0px;
+}
+
+div {
+    padding: 5px;
+    margin: 0px;
+}
+
+body {
+    font-family: Tahoma;
+    padding: 15px;
+    background-color: white;
+}
+
+h1, h2, h3, h4 {
+    margin: 4px;
+}
+
+a:link {
+    color: #000066;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #000066;
+}
+
+a:hover {
+    color: #000066;
+    text-decoration: none;
+}
+
+a:active {
+    color: #000066;
+}
+
+li {
+    padding: 5px;
+    margin: 2px;
+}
+
+li.passed {
+    background-color: #77CC77;
+}
+
+li.failed {
+    background-color: #FF8888;
+}
+
+li.skipped {
+    background-color: #FFFFCC;
+}

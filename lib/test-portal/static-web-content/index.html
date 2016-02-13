@@ -2,251 +2,85 @@
 <html ng-app="testPortalApp">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <!--<script src="js/test-portal-app.js"></script>-->
-    <script>
-        var testPortalApp = angular.module('testPortalApp', []);
-
-        testPortalApp.controller('featuresController', function ($scope, $http) {
-            $http.get('../../../test-results/users/root/latest-result.json')
-                    .then(response => {
-                var features = response.data;
-
-            //TODO: DRY this up
-            //TODO: Make the sums reflect what has been filtered
-            features.forEach(feature => {
-                var scenarios = feature.elements || [];
-            scenarios.forEach(scenario => {
-                var steps = scenario.steps || [];
-            var byStatus = soughtStatus => step => { return step.result != null && step.result.status == soughtStatus }
-            scenario.numSteps = steps.length;
-            scenario.stepsFailed = steps.filter(byStatus('failed')).length;
-            scenario.stepsPending = steps.filter(byStatus('pending')).length;
-            scenario.stepsPassed = steps.filter(byStatus('passed')).length;
-            scenario.stepsSkipped = steps.filter(step => step.result == null || step.result.status == 'skipped').length;
-        });
-
-            feature.numScenarios = scenarios.length;
-            feature.scenariosFailed = scenarios.filter(e=>e.stepsFailed > 0).length;
-            feature.scenariosPending = scenarios.filter(e=>e.stepsPending > 0).length;
-            feature.scenariosPassed = scenarios.filter(e=>e.stepsPassed == e.numSteps).length;
-            feature.scenariosSkipped = scenarios.filter(e=>e.stepsSkipped > 0).length;
-
-            feature.numSteps = scenarios.reduce((i,e)=>e.numSteps+i, 0);
-            feature.stepsFailed = scenarios.reduce((i,e)=>e.stepsFailed+i, 0);
-            feature.stepsPending = scenarios.reduce((i,e)=>e.stepsPending+i, 0);
-            feature.stepsPassed = scenarios.reduce((i,e)=>e.stepsPassed+i, 0);
-            feature.stepsSkipped = scenarios.reduce((i,e)=>e.stepsSkipped+i, 0);
-        });
-            var report = {
-                features: features,
-
-                numFeatures: features.length,
-                featuresFailed: features.filter(f=>f.scenariosFailed > 0).length,
-                    featuresPending: features.filter(f=>f.scenariosPending > 0).length,
-                    featuresPassed:  features.filter(f=>f.scenariosPassed == f.numScenarios).length,
-                    featuresSkipped: features.filter(f=>f.scenariosSkipped > 0).length,
-
-                    numScenarios: features.reduce((i,f)=>f.numScenarios+i,0),
-            scenariosFailed: features.reduce((i,f)=>f.scenariosFailed+i,0),
-            scenariosPending: features.reduce((i,f)=>f.scenariosPending+i,0),
-            scenariosPassed:  features.reduce((i,f)=>f.scenariosPassed+i,0),
-            scenariosSkipped: features.reduce((i,f)=>f.scenariosPassed+i,0),
-
-            numSteps: features.reduce((i,f)=>f.numSteps+i,0),
-            stepsFailed: features.reduce((i,f)=>f.stepsFailed+i,0),
-            stepsPending: features.reduce((i,f)=>f.stepsPending+i,0),
-            stepsPassed:  features.reduce((i,f)=>f.stepsPassed+i,0),
-            stepsSkipped: features.reduce((i,f)=>f.stepsPassed+i,0),
-        }
-            report.status = report.stepsPassed == report.numSteps
-                    ? 'Passed'
-                    : report.stepsFailed > 0 ? 'Failed' : 'Not Yet Determined'
-            $scope.report = report;
-        }
-            );
-        });
-    </script>
-    <style>
-        .step {
-            background-color: lightgray;
-            text-decoration: line-through;
-        }
-
-        .passed {
-            background-color: lightgreen;
-            text-decoration: none;
-        }
-
-        .failed {
-            background-color: indianred;
-            text-decoration: none;
-        }
-
-        .feature {
-            background-color: rgba(0,0,0,0.1);
-        }
-
-        .scenario {
-            margin-top: 10px;
-            background-color: rgba(0,0,0,0.1);
-        }
-
-        .report {
-            background-color: white;
-            padding: 10px;
-        }
-
-        .backToTop {
-            font-size: x-small;
-        }
-
-        .tag {
-            color: darkblue;
-            font-weight: bold;
-        }
-
-        .footer {
-            font-size: smaller;
-        }
-
-        .navigation {
-            background-color: grey;
-            color: white;
-            padding: 10px;
-        }
-
-        .navigation input {
-            width: 50%
-        }
-
-        .errorMessage {
-            font-family: monospace;
-            background-color: black;
-            color: white;
-            border-color: red;
-            border: 3px;
-            padding: 10px;
-            margin: 5px;
-            max-height: 50px;
-            overflow: auto;
-        }
-
-        .pending {
-            background-color: lightyellow;
-        }
-
-        .stepTable {
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            background-color: rgba(0,0,0,0.2);
-        }
-
-        .summary {
-            font-size: small;
-            margin: 5px;
-        }
-
-        h1 {
-            color: #005500;
-        }
-
-        p {
-            margin: 0px;
-        }
-
-        div {
-            padding: 5px;
-            margin: 0px;
-        }
-
-        body {
-            font-family: Tahoma;
-            padding: 15px;
-            background-color: #CCFFCC;
-        }
-
-        h1, h2, h3, h4 {
-            margin: 4px;
-        }
-    </style>
-    <!--<link rel="stylesheet" href="css/style.css" />-->
+    <script src="js/test-portal-app.js"></script>
+    <link rel="stylesheet" href="style.css" />
     <title>Cucumber Report</title>
 </head>
 <body ng-controller="featuresController">
 <h1>Cucumber Test Result Viewer / Editor</h1>
 <div class="navigation">
-    <label>Filter: <input ng-model="soughtTags"></label> (ie: @SPYG-123, @HealthCheck, failed, @Manual)
+    <label>Tags: <input ng-model="soughtTags"></label>
+    <label><input type="checkbox">Failures Only</label>
+    <button>ASD</button>
 </div>
-<div class="report">
-    <h2>{{report.status}}</h2>
+<div class="report {{report.status}}">
+    <h2>Test {{report.status}}.</h2>
     <p class="summary">
-        {{report.numFeatures}} features
+        {{report.featuresSummary.total}} features
         (
-        {{report.featuresFailed}} failed,
-        {{report.featuresPending}} pending,
-        {{report.featuresPassed}} passed,
-        {{report.featuresSkipped}} skipped
+        {{report.featuresSummary.failed}} failed,
+        {{report.featuresSummary.passed}} passed,
+        {{report.featuresSummary.pending}} pending,
+        {{report.featuresSummary.skipped}} skipped
         )
     </p>
     <p class="summary">
-        {{report.numScenarios}} scenarios
+        {{report.scenariosSummary.total}} scenarios
         (
-        {{report.scenariosFailed}} failed,
-        {{report.scenariosPending}} pending,
-        {{report.scenariosPassed}} passed,
-        {{report.scenariosSkipped}} skipped
+        {{report.scenariosSummary.failed}} failed,
+        {{report.scenariosSummary.passed}} passed,
+        {{report.scenariosSummary.pending}} pending,
+        {{report.scenariosSummary.skipped}} skipped
         )
     </p>
     <p class="summary">
-        {{report.numSteps}} steps
+        {{report.stepsSummary.total}} steps
         (
-        {{report.stepsFailed}} failed,
-        {{report.stepsPending}} pending,
-        {{report.stepsPassed}} passed,
-        {{report.stepsSkipped}} skipped
+        {{report.stepsSummary.failed}} failed,
+        {{report.stepsSummary.passed}} passed,
+        {{report.stepsSummary.pending}} pending,
+        {{report.stepsSummary.skipped}} skipped
         )
     </p>
     <h3 style="margin-top: 10px;">Table of Contents</h3>
     <ul>
-        <li ng-repeat="feature in report.features | filter:soughtTags">
-            <a href="#{{feature.id}}">{{feature.name}}</a>
+        <li class="{{feature.status}}" ng-repeat="feature in report.features | filter:soughtTags">
+            <a href="#{{feature.id}}">Feature: <strong>{{feature.name}}</strong></a>
         </li>
     </ul>
-    <div class="features" ng-repeat="feature in report.features | filter:soughtTags">
-        <a name="{{feature.id}}">
-            <div class="feature">
-            <h2>Feature: {{feature.name}}</h2>
-            <p class="backToTop"> [<a href="#top">back to top</a>]</p>
-            <p class="summary">
-                {{feature.numScenarios}} scenarios
-                (
-                {{feature.scenariosFailed}} failed,
-                {{feature.scenariosPending}} pending,
-                {{feature.scenariosPassed}} passed,
-                {{feature.scenariosSkipped}} skipped
-                )
-            </p>
-            <p class="summary">
-                {{feature.numSteps}} steps
-                (
-                {{feature.stepsFailed}} failed,
-                {{feature.stepsPending}} pending,
-                {{feature.stepsPassed}} passed,
-                {{feature.stepsSkipped}} skipped
-                )
-            </p>
-            <div class="scenario" ng-repeat="scenario in feature.elements | filter:soughtTags">
+    <div class="feature {{feature.status}}" ng-repeat="feature in report.features | filter:soughtTags">
+        <a name="{{feature.id}}" />
+        <h2>Feature: {{feature.name}}</h2>
+        <p class="backToTop"> [<a href="#top">back to top</a>]</p>
+        <p class="summary">
+            {{feature.scenariosSummary.total}} scenarios
+            (
+            {{feature.scenariosSummary.failed}} failed,
+            {{feature.scenariosSummary.pending}} passed,
+            {{feature.scenariosSummary.passed}} pending,
+            {{feature.scenariosSummary.skipped}} skipped
+            )
+        </p>
+        <p class="summary">
+            {{feature.stepsSummary.total}} steps
+            (
+            {{feature.stepsSummary.failed}} failed,
+            {{feature.stepsSummary.pending}} passed,
+            {{feature.stepsSummary.passed}}  pending,
+            {{feature.stepsSummary.skipped}}  skipped
+            )
+        </p>
+        <div class="scenario {{scenario.status}}" ng-repeat="scenario in feature.elements | filter:soughtTags">
                 <small><span class="tag" ng-repeat="tag in scenario.tags">{{tag.name}} </span></small>
-                <h3>Scenario: {{scenario.name}}</h3>
+                <h3>{{scenario.keyword}}: {{scenario.name}}</h3>
                 <p class="backToTop"> [<a href="#{{feature.id}}">back to top of feature &quot;{{feature.name}}&quot;</a>]  [<a href="#top">back to top</a>]</p>
                 <p class="summary">
-                    {{scenario.numSteps}} steps
+                    {{scenario.summary.total}} steps
                     (
-                    {{scenario.stepsFailed}} failed,
-                    {{scenario.stepsPending}} pending,
-                    {{scenario.stepsPassed}} passed,
-                    {{scenario.stepsSkipped}} skipped
+                    {{scenario.summary.failed}} failed,
+                    {{scenario.summary.passed}} passed,
+                    {{scenario.summary.pending}} pending,
+                    {{scenario.summary.skipped}} skipped
                     )
                 </p>
                 <div class="step {{step.result.status}}" ng-repeat="step in scenario.steps | filter:{keyword:'!Before'}">
@@ -263,8 +97,6 @@
                     <div class="errorMessage" ng-show="step.result.error_message != undefined"><p>{{step.result.error_message}}</p></div>
                 </div>
             </div>
-        </div>
-        </a>
     </div>
 </div>
 </body>
