@@ -20,14 +20,14 @@
   },
   "homepage": "https://github.com/mapr/private-spyglass#readme",
   "dependencies": {
+    "bower": "latest",
     "cucumber": "latest",
-    "request": "latest",
-    "promise": "latest",
-    "prompt": "latest",
-    "optimist": "latest",
-    "valid-url": "latest",
     "cucumber-html-report": "latest",
     "express": "latest",
-    "angular": "1.5.0"
+    "optimist": "latest",
+    "promise": "latest",
+    "prompt": "latest",
+    "request": "latest",
+    "valid-url": "latest"
   }
 }

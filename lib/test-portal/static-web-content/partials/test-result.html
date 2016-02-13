@@ -1,0 +1,47 @@
+<div ng-controller="TestResultController">
+
+    <div class="navigation">
+        <label>Tags: <input ng-model="soughtTags" ng-model-options="{ debounce: 500 }"></label>
+        <label><input type="checkbox">Failures Only</label>
+        <button>ASD</button>
+    </div>
+    <div class="report {{report.status}}">
+        <h2>Test {{report.status}}.</h2>
+        <summary source="report.featuresSummary"></summary>
+        <summary source="report.scenariosSummary"></summary>
+        <summary source="report.stepsSummary"></summary>
+        <h3 style="margin-top: 10px;">Features:</h3>
+        <ul>
+            <li class="{{feature.status}}" ng-repeat="feature in report.features | filter:soughtTags">
+                <a href="" ng-click="focusOn(feature.id)">{{feature.name}}</a>
+            </li>
+        </ul>
+        <div class="feature {{feature.status}}" ng-repeat="feature in report.features | filter:soughtTags">
+            <a id="{{feature.id}}"></a>
+            <h2>Feature: {{feature.name}}</h2>
+            <p class="backToTop"> [<a href="" ng-click="focusOn('top')">top</a>]</p>
+            <summary source="feature.scenariosSummary"></summary>
+            <summary source="feature.stepsSummary"></summary>
+            <div class="scenario {{scenario.status}}" ng-repeat="scenario in feature.elements | filter:soughtTags">
+                <small><span class="tag" ng-repeat="tag in scenario.tags">{{tag.name}} </span></small>
+                <h3>{{scenario.keyword}}: {{scenario.name}}</h3>
+                <p class="backToTop">
+                    [ <a href="" ng-click="focusOn(feature.id)">{{feature.name}}</a> ]
+                    [ <a href="" ng-click="focusOn('top')">top</a> ]
+                </p>
+                <summary source="scenario.summary"></summary>
+                <div class="step {{step.result.status}}" ng-repeat="step in scenario.steps | filter:{keyword:'!Before'}">
+                    <p>
+                        {{prefixForStatus(step.result.status)}} {{step.keyword}}{{step.name}}
+                    </p>
+                    <table class="stepTable" ng-show="step.rows.length > 0">
+                        <tr ng-repeat="row in step.rows">
+                            <td class="stepTableCell" ng-repeat="cellValue in row.cells">{{cellValue}}</td>
+                        </tr>
+                    </table>
+                    <div class="errorMessage" ng-show="step.result.error_message != undefined"><p>{{step.result.error_message}}</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
