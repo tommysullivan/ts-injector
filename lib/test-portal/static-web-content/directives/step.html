@@ -1,0 +1,11 @@
+<div class="step {{step.result.status}}" >
+    <p>
+        {{prefixForStatus(step.result.status)}} {{step.keyword}}{{step.name}}
+    </p>
+    <table class="stepTable" ng-show="step.rows.length > 0">
+        <tr ng-repeat="row in step.rows">
+            <td class="stepTableCell" ng-repeat="cellValue in row.cells">{{cellValue}}</td>
+        </tr>
+    </table>
+    <div class="errorMessage" ng-show="step.result.error_message != undefined"><p>{{step.result.error_message}}</p></div>
+</div>

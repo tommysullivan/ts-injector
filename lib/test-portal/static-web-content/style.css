@@ -1,13 +1,13 @@
-.report {
+.testResult {
     background-color: #EEEEEE;
     padding: 10px;
 }
 
-.report.passed {
+.testResult.passed {
     background-color: #CCFFCC;
 }
 
-.report.failed {
+.testResult.failed {
     background-color: #FFCCCC;
 }
 
@@ -66,7 +66,7 @@
     background-color: #CC7777;
 }
 
-.backToTop {
+.anchorLink {
     font-size: x-small;
 }
 

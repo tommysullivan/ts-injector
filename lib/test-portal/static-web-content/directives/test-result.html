@@ -1,0 +1,8 @@
+<div id="testResult" class="testResult {{testResult.status}}">
+    <h2>Test {{testResult.status}}.</h2>
+    <summary summary-model="testResult.featuresSummary"></summary>
+    <summary summary-model="testResult.scenariosSummary"></summary>
+    <summary summary-model="testResult.stepsSummary"></summary>
+    <table-of-contents></table-of-contents>
+    <feature ng-repeat="feature in testResult.features"></feature>
+</div>
