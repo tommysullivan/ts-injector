@@ -1,8 +1,8 @@
 <div ng-controller="TestResultController">
     <div class="queryTools">
         <div>
-            <!--ng-model-options="{ debounce: 500 }"-->
-            <label>Tags: <input ng-change="queryChange()" ng-model="tagQuery"></label>
+            <label>Tags: <input ng-change="queryChange()" ng-model="tagQuery" style="width: 40%"></label>
+            <small>space delimited, OR'ed together. Use ~ to negate. (ie: @SPYG-125 ~@HealthCheck)</small>
         </div>
         <div>
             Statuses:
@@ -13,6 +13,12 @@
                         ng-change="queryChange()"
                 >{{status.name}}
             </label>
+        </div>
+        <div>
+            Automation:
+            <input type="radio" ng-model="automationRadio" value="automatedAndManual" ng-change="queryChange()">Automated &amp; Manual</label>
+            <input type="radio" ng-model="automationRadio" value="automatedOnly" ng-change="queryChange()">Automated Only</label>
+            <input type="radio" ng-model="automationRadio" value="manualOnly" ng-change="queryChange()">Manual Only</label>
         </div>
     </div>
     <test-result></test-result>

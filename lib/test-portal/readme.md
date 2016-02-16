@@ -19,27 +19,32 @@ Spyglass Specifics
 - Can update manual steps
 - Can get link to url with currently selected tabs
 
-## Features
+## Future Enhancements
 
 ### Web UI
 
-Viewing and exploring a Single Test Run Result
+Finding Test Results
 
-    - filter by status (will AND with other filters) - checkboxes with each status.
-    - filter by multiple tags (OR'ed together)
-    - clicking a tag auto changes the tags textbox to show that tag only
+    - List all the existing results on server with pass/fail and summary count, clicking one loads it
+    - Use a Drill + Visualization tool to view results over time as a chart
+
+Exploring a Test Result
+
+    - tag click links to view of just that tag
+    - ability to expand and collapse the hierarchy
+    - Visualize the individual test result as a chart using Drill + Visualization 
 
 Loading / Saving of Single Test Result File 
 
-    - Borrow from Tommy's Universe a simple load and save mechanism that uses browser client
-    - Use the OJAI node bindings to interact with MapRDB when in server mode (is there a testable "local server" mode for non maprdb dev envs?)
-    - Consider saving the results into other JSON data store
-    - Consider saving the results as local files in the web server directory
+    - Borrow from Tommy's Universe a simple import and export JSON mechanism that uses browser client only (no save)
+    - Ability to save currently viewed test result to server side (file based)
+    - Ability to POST a result from a running test job, such as Jenkins, so it will auto save (file based)
+    - Enhance View / Save / Load to work with OJAI node bindings (while still supporting file mode)
 
 Manual Testing
 
+    - Ability to manually update (and then optionally save) step / scenario outcomes with pass/fail + outcome data
     - Ability to indicate in Gherkin / Test Steps that things are manual so as to cause display of them and udpate of them to work
-    - Ability to view manual tests only independently of tags
     - Ability to filter by statuses that are pertinent only to manul steps
 
 Visualizing Test Results over Time
@@ -49,10 +54,13 @@ Visualizing Test Results over Time
 
 Running a Test
 
-    - Somehow choose the gherkin source and step definitions for "the world"
-    - View that as a "dry run" as a starting point
-    - Use filtering, etc.
     - Vary configuration from web UI
+    - Indicate you want to run a new test and get taken to screen that explains how to manually do it
+    - Can view current local gherkin test "dry run" and then click "Run" to run. Redirects to test result with "Refresh" button.
+    - Can check which scenarios you want to run manually (they start off as all selected) - gotcha: scenario outlines?
+    - Add "select / deselect all visible scenarios"
+    - Auto-Refresh
+    - Web Sockets instead of Auto-Refresh
     
 ### Execution Engine
 
@@ -68,6 +76,7 @@ Configuration
 
 JIRA Integration
 
+    - Server side works but client side needs code portability + password obtainment
     - Update JIRA issues with test result status and summary for a given result
     - JQL Query auto applies tag query to currently viewed test result
     
@@ -84,8 +93,6 @@ Google Sheets Integration
     
 ## Bugs
 
-    - Colors wrong for pending / skipped status
-    - Final empty feature not showing up
     - Hard to reflect "empty" test / features / scenario
 
 ## CI/CD
