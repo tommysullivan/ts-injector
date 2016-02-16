@@ -8,7 +8,7 @@
 }
 
 .testResult.failed {
-    background-color: #FFCCCC;
+    background-color: #FFBBBB;
 }
 
 .feature {
@@ -28,9 +28,13 @@
     border-color: #AA7777;
 }
 
-.feature.skipped {
-    background-color: #FFFF88;
-    border-color: #CCCC77;
+.feature.pending {
+    background-color: #FFFFAA;
+    border-color: #CCCC99;
+}
+
+.feature.empty {
+    background-color: red;
 }
 
 .scenario {
@@ -46,8 +50,15 @@
     background-color: #CC9999;
 }
 
-.scenario.skipped {
-    background-color: #FFFF99;
+.scenario.pending {
+    background-color: #FFFF77;
+    border-color: #CCCC99;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.scenario.empty {
+    background-color: red;
 }
 
 .step {
@@ -75,10 +86,12 @@
     font-weight: bold;
 }
 
-.navigation {
+.queryTools {
     background-color: #666666;
     color: white;
     padding: 10px;
+    border: 5px;
+    border-color: black;
 }
 
 .errorMessage {
@@ -168,5 +181,5 @@ li.failed {
 }
 
 li.skipped {
-    background-color: #FFFFCC;
+    background-color: #CCCCCC;
 }

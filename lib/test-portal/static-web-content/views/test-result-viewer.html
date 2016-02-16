@@ -1,0 +1,19 @@
+<div ng-controller="TestResultController">
+    <div class="queryTools">
+        <div>
+            <!--ng-model-options="{ debounce: 500 }"-->
+            <label>Tags: <input ng-change="queryChange()" ng-model="tagQuery"></label>
+        </div>
+        <div>
+            Statuses:
+            <label ng-repeat="status in statuses">
+                <input
+                        type="checkbox"
+                        ng-model="status.selected"
+                        ng-change="queryChange()"
+                >{{status.name}}
+            </label>
+        </div>
+    </div>
+    <test-result></test-result>
+</div>
