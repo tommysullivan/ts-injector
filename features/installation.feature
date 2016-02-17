@@ -51,3 +51,6 @@ Feature: Installation
       | volume         |
       | yarn           |
     Then the reports are all available to view
+
+  @Manual
+  Scenario: Install on Suse 12

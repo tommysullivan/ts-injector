@@ -33,6 +33,10 @@
     border-color: #CCCC99;
 }
 
+.feature.notExecuted {
+    background-color: #CCCCCC;
+}
+
 .feature.empty {
     background-color: red;
 }
@@ -57,13 +61,16 @@
     border-style: solid;
 }
 
+.scenario.notExecuted {
+    background-color: #BBBBBB;
+}
+
 .scenario.empty {
     background-color: red;
 }
 
 .step {
     background-color: #999999;
-    text-decoration: line-through;
     margin: 3px;
 }
 
@@ -180,6 +187,10 @@ li.failed {
     background-color: #FF8888;
 }
 
-li.skipped {
+li.pending {
+    background-color: #FFFFAA;
+}
+
+li.notExecuted {
     background-color: #CCCCCC;
 }

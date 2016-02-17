@@ -1,25 +1,37 @@
 <div ng-controller="TestResultController">
-    <div class="queryTools">
-        <div>
-            <label>Tags: <input ng-change="queryChange()" ng-model="tagQuery" style="width: 40%"></label>
-            <small>space delimited, OR'ed together. Use ~ to negate. (ie: @SPYG-125 ~@HealthCheck)</small>
-        </div>
-        <div>
-            Statuses:
-            <label ng-repeat="status in statuses">
-                <input
-                        type="checkbox"
-                        ng-model="status.selected"
-                        ng-change="queryChange()"
-                >{{status.name}}
-            </label>
-        </div>
-        <div>
-            Automation:
-            <input type="radio" ng-model="automationRadio" value="automatedAndManual" ng-change="queryChange()">Automated &amp; Manual</label>
-            <input type="radio" ng-model="automationRadio" value="automatedOnly" ng-change="queryChange()">Automated Only</label>
-            <input type="radio" ng-model="automationRadio" value="manualOnly" ng-change="queryChange()">Manual Only</label>
-        </div>
+    <div ng-hide="testResultLoaded">
+        Loading...
     </div>
-    <test-result></test-result>
+    <div ng-if="testResultLoaded" ng-show="testResultLoaded">
+        <h3>Test Result Viewer</h3>
+        <div class="queryTools">
+            <div>
+                <label>Tags: <input ng-change="queryChange()" ng-model="tagQuery" style="width: 40%"></label>
+                <small>space delimited, OR'ed together. Use ~ to negate. (ie: @SPYG-125 ~@HealthCheck)</small>
+            </div>
+            <div>
+                Statuses:
+                <label ng-repeat="status in statuses">
+                    <input
+                            type="checkbox"
+                            ng-model="status.selected"
+                            ng-change="queryChange()"
+                    >{{status.displayValue || status.name}}
+                </label>
+            </div>
+            <div>
+                Automation:
+                <input type="radio" ng-model="automationRadio" value="automatedAndManual" ng-change="queryChange()">Automated &amp; Manual</label>
+                <input type="radio" ng-model="automationRadio" value="automatedOnly" ng-change="queryChange()">Automated Only</label>
+                <input type="radio" ng-model="automationRadio" value="manualOnly" ng-change="queryChange()">Manual Only</label>
+            </div>
+            <div>
+                JIRA:
+                <label>
+                    <input type="checkbox" ng-model="showCasesWithMissingJIRAOnly" ng-change="queryChange()">show cases with missing JIRA only
+                </label>
+            </div>
+        </div>
+        <test-result></test-result>
+    </div>
 </div>

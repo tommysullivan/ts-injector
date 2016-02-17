@@ -1,6 +1,6 @@
 <div class="feature {{feature.status}}">
     <a id="{{feature.id}}"></a>
-    <h2>Feature: {{feature.name}} <small>({{feature.status}})</small></h2>
+    <h2>Feature: {{feature.name}} <small>({{statusDisplayName(feature.status)}})</small></h2>
     <anchor-link content="top of report" on-anchor-click="focusOn('testResult')"></anchor-link>
     <summary summary-model="feature.scenariosSummary"></summary>
     <summary summary-model="feature.stepsSummary"></summary>

@@ -1,5 +1,8 @@
 <div class="step {{step.status}}" >
     <p>
+        <select ng-show="step.isManual" ng-model="step.status" ng-change="queryChange()">
+            <option ng-repeat="status in statuses" selected="{{step.status}}" value="{{status.name}}">{{statusDisplayName(status.name)}}</option>
+        </select>
         {{prefixForStatus(step.status)}} {{step.keyword}}{{step.name}}
     </p>
     <table class="stepTable" ng-show="step.rows.length > 0">

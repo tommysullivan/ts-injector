@@ -25,12 +25,13 @@ Spyglass Specifics
 
 Finding Test Results
 
-    - List all the existing results on server with pass/fail and summary count, clicking one loads it
+2   - List all the existing results on server with pass/fail and summary count, clicking one loads it
     - Use a Drill + Visualization tool to view results over time as a chart
 
 Exploring a Test Result
 
     - tag click links to view of just that tag
+    - can list all tests that have no JIRA associated
     - ability to expand and collapse the hierarchy
     - Visualize the individual test result as a chart using Drill + Visualization 
 
@@ -43,6 +44,7 @@ Loading / Saving of Single Test Result File
 
 Manual Testing
 
+1   - Show manual tests "notExecuted", then indicate "In progress" (pending), then update to Pass / Fail with optional message
     - Ability to manually update (and then optionally save) step / scenario outcomes with pass/fail + outcome data
     - Ability to indicate in Gherkin / Test Steps that things are manual so as to cause display of them and udpate of them to work
     - Ability to filter by statuses that are pertinent only to manul steps
@@ -94,6 +96,7 @@ Google Sheets Integration
 ## Bugs
 
     - Hard to reflect "empty" test / features / scenario
+    - Change "skipped" status to "not executed"
 
 ## CI/CD
     

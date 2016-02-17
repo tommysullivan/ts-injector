@@ -30,7 +30,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1173434
+              "duration": 1044734
             },
             "match": {}
           },
@@ -40,7 +40,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 791802
+              "duration": 433925
             },
             "match": {}
           },
@@ -50,7 +50,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 49700813
+              "duration": 44642765
             },
             "match": {}
           },
@@ -60,7 +60,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 307561
+              "duration": 895428
             },
             "match": {}
           }
@@ -103,7 +103,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 199290
+              "duration": 118064
             },
             "match": {}
           },
@@ -113,7 +113,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 414837
+              "duration": 281724
             },
             "match": {}
           },
@@ -123,7 +123,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 402095
+              "duration": 105069
             },
             "match": {}
           },
@@ -133,7 +133,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 208391
+              "duration": 112132
             },
             "match": {}
           },
@@ -143,7 +143,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 209852
+              "duration": 100264
             },
             "match": {}
           },
@@ -153,7 +153,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 129125
+              "duration": 148697
             },
             "match": {}
           },
@@ -163,7 +163,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 233118
+              "duration": 118295
             },
             "match": {}
           },
@@ -190,7 +190,7 @@
             ],
             "result": {
               "status": "passed",
-              "duration": 302322
+              "duration": 362059
             },
             "match": {}
           },
@@ -200,7 +200,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 185510
+              "duration": 2467713
             },
             "match": {}
           }
@@ -253,7 +253,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 90115
+              "duration": 489387
             },
             "match": {}
           },
@@ -263,7 +263,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 149965
+              "duration": 295199
             },
             "match": {}
           },
@@ -273,7 +273,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 7252921
+              "duration": 2370659
             },
             "match": {}
           },
@@ -338,7 +338,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 129033
+              "duration": 120918
             },
             "match": {}
           },
@@ -348,7 +348,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 155124
+              "duration": 1712301
             },
             "match": {}
           },
@@ -358,7 +358,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 297040
+              "duration": 972948
             },
             "match": {}
           },
@@ -423,7 +423,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 181137
+              "duration": 100343
             },
             "match": {}
           },
@@ -433,7 +433,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 202301
+              "duration": 67587
             },
             "match": {}
           },
@@ -443,7 +443,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 231252
+              "duration": 188622
             },
             "match": {}
           },
@@ -508,7 +508,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 73686
+              "duration": 119955
             },
             "match": {}
           },
@@ -518,7 +518,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 52150
+              "duration": 181273
             },
             "match": {}
           },
@@ -601,7 +601,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 228756
+              "duration": 121822
             },
             "match": {}
           },
@@ -611,7 +611,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 149327
+              "duration": 137644
             },
             "match": {}
           },
@@ -694,7 +694,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 127257
+              "duration": 142317
             },
             "match": {}
           },
@@ -704,7 +704,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 129957
+              "duration": 76589
             },
             "match": {}
           },
@@ -783,7 +783,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 81099
+              "duration": 113976
             },
             "match": {}
           },
@@ -793,7 +793,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 54142
+              "duration": 75707
             },
             "match": {}
           },
@@ -803,7 +803,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 110829
+              "duration": 204677
             },
             "match": {}
           },
@@ -813,7 +813,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 131160
+              "duration": 351795
             },
             "match": {}
           },
@@ -823,7 +823,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 225358
+              "duration": 134317
             },
             "match": {}
           },
@@ -845,7 +845,7 @@
             ],
             "result": {
               "status": "passed",
-              "duration": 2937347
+              "duration": 562366
             },
             "match": {}
           },
@@ -855,7 +855,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 75961614
+              "duration": 450843332
             },
             "match": {}
           },
@@ -897,7 +897,7 @@
             ],
             "result": {
               "status": "failed",
-              "duration": 49325681,
+              "duration": 114652736,
               "error_message": "there was an error - http reponse code:404"
             },
             "match": {}
@@ -908,6 +908,41 @@
             "keyword": "Then ",
             "result": {
               "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Install on Suse 12",
+        "id": "Installation;install-on-suse-12",
+        "line": 56,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@Manual",
+            "line": 55
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 109572
+            },
+            "match": {}
+          },
+          {
+            "name": "the cluster under test is a single node cluster",
+            "line": 7,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 77162
             },
             "match": {}
           }
@@ -946,7 +981,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 163178
+              "duration": 120610
             },
             "match": {}
           },
@@ -956,7 +991,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 314398
+              "duration": 114389
             },
             "match": {}
           },
@@ -966,7 +1001,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 242169
+              "duration": 117023
             },
             "match": {}
           },
@@ -976,7 +1011,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 113690
+              "duration": 118073
             },
             "match": {}
           }
@@ -1048,7 +1083,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 78040
+              "duration": 89908
             },
             "match": {}
           },
@@ -1058,7 +1093,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 139332
+              "duration": 131058
             },
             "match": {}
           },
@@ -1068,7 +1103,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 131709
+              "duration": 297040
             },
             "match": {}
           },
@@ -1078,7 +1113,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 110772
+              "duration": 170101
             },
             "match": {}
           },
@@ -1088,7 +1123,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 416896830
+              "duration": 389808652
             },
             "match": {}
           },
@@ -1098,7 +1133,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 120512
+              "duration": 140585
             },
             "match": {}
           },
@@ -1108,7 +1143,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 26385935
+              "duration": 33756178
             },
             "match": {}
           },
@@ -1118,7 +1153,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 371165
+              "duration": 437836
             },
             "match": {}
           },
@@ -1128,7 +1163,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 181659
+              "duration": 289412
             },
             "match": {}
           }
@@ -1157,7 +1192,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 79488
+              "duration": 116887
             },
             "match": {}
           },
@@ -1167,7 +1202,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 68935
+              "duration": 116625
             },
             "match": {}
           },
@@ -1177,7 +1212,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 61211
+              "duration": 146296
             },
             "match": {}
           },
@@ -1187,7 +1222,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 73395
+              "duration": 225460
             },
             "match": {}
           },
@@ -1197,7 +1232,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 107521533
+              "duration": 131008936
             },
             "match": {}
           },
@@ -1207,7 +1242,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 175164
+              "duration": 382604
             },
             "match": {}
           },
@@ -1263,7 +1298,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 122804
+              "duration": 217520
             },
             "match": {}
           },
@@ -1273,7 +1308,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 56734
+              "duration": 66415
             },
             "match": {}
           },
@@ -1283,7 +1318,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 93889
+              "duration": 146478
             },
             "match": {}
           },
@@ -1293,7 +1328,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 61378
+              "duration": 112843
             },
             "match": {}
           },
@@ -1303,7 +1338,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 109763067
+              "duration": 133612580
             },
             "match": {}
           },
@@ -1313,7 +1348,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 187404
+              "duration": 100423
             },
             "match": {}
           },
@@ -1369,7 +1404,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 158294
+              "duration": 101567
             },
             "match": {}
           },
@@ -1379,7 +1414,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 103540
+              "duration": 64834
             },
             "match": {}
           },
@@ -1389,7 +1424,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 79043
+              "duration": 90287
             },
             "match": {}
           },
@@ -1399,7 +1434,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 70258
+              "duration": 142506
             },
             "match": {}
           },
@@ -1409,7 +1444,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 115741636
+              "duration": 120973265
             },
             "match": {}
           },
@@ -1419,7 +1454,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 121162
+              "duration": 108356
             },
             "match": {}
           },
@@ -1475,7 +1510,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 134401
+              "duration": 113999
             },
             "match": {}
           },
@@ -1485,7 +1520,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 85689
+              "duration": 358606
             },
             "match": {}
           },
@@ -1495,7 +1530,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 114684
+              "duration": 100633
             },
             "match": {}
           },
@@ -1505,7 +1540,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 112769
+              "duration": 72034
             },
             "match": {}
           },
@@ -1515,7 +1550,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 119662685
+              "duration": 164328049
             },
             "match": {}
           },
@@ -1525,7 +1560,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 118048
+              "duration": 113917
             },
             "match": {}
           },
@@ -1581,7 +1616,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 115124
+              "duration": 137849
             },
             "match": {}
           },
@@ -1591,7 +1626,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 83367
+              "duration": 245841
             },
             "match": {}
           },
@@ -1601,7 +1636,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 122618
+              "duration": 286776
             },
             "match": {}
           },
@@ -1611,7 +1646,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 132682
+              "duration": 100700
             },
             "match": {}
           },
@@ -1621,7 +1656,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 111393008
+              "duration": 114439934
             },
             "match": {}
           },
@@ -1631,7 +1666,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 168729
+              "duration": 115125
             },
             "match": {}
           },
@@ -1687,7 +1722,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 83115
+              "duration": 114095
             },
             "match": {}
           },
@@ -1697,7 +1732,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 51684
+              "duration": 90619
             },
             "match": {}
           },
@@ -1707,7 +1742,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 70570
+              "duration": 1748908
             },
             "match": {}
           },
@@ -1717,7 +1752,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 65851
+              "duration": 287139
             },
             "match": {}
           },
@@ -1727,7 +1762,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 111045880
+              "duration": 120016693
             },
             "match": {}
           },
@@ -1737,7 +1772,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 165946
+              "duration": 111534
             },
             "match": {}
           },
@@ -1793,7 +1828,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 101754
+              "duration": 735690
             },
             "match": {}
           },
@@ -1803,7 +1838,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 169425
+              "duration": 137786
             },
             "match": {}
           },
@@ -1813,7 +1848,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 72179
+              "duration": 371227
             },
             "match": {}
           },
@@ -1823,7 +1858,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 121865
+              "duration": 902987
             },
             "match": {}
           },
@@ -1833,7 +1868,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 109197745
+              "duration": 131303824
             },
             "match": {}
           },
@@ -1843,7 +1878,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 176646
+              "duration": 316899
             },
             "match": {}
           },
@@ -1853,7 +1888,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 129640
+              "duration": 208518
             },
             "match": {}
           },
@@ -1863,7 +1898,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 83400
+              "duration": 282885
             },
             "match": {}
           },
@@ -1873,7 +1908,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 108479942
+              "duration": 109938756
             },
             "match": {}
           },
@@ -1883,7 +1918,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 11795398
+              "duration": 58946013
             },
             "match": {}
           },
@@ -1893,7 +1928,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 950612
+              "duration": 656217
             },
             "match": {}
           },
@@ -1903,7 +1938,7 @@
             "keyword": "And ",
             "result": {
               "status": "failed",
-              "duration": 6231624,
+              "duration": 12973148,
               "error_message": "Error: getaddrinfo ENOTFOUND qa-cnode103.lab qa-cnode103.lab:3000\n    at errnoException (dns.js:26:10)\n    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)"
             },
             "match": {}
@@ -1933,7 +1968,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 137592
+              "duration": 1012357
             },
             "match": {}
           },
@@ -1943,7 +1978,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 144145
+              "duration": 288414
             },
             "match": {}
           },
@@ -1953,7 +1988,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 78775
+              "duration": 148982
             },
             "match": {}
           },
@@ -1963,7 +1998,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 81376
+              "duration": 151098
             },
             "match": {}
           },
@@ -1973,7 +2008,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 106831775
+              "duration": 105875025
             },
             "match": {}
           },
@@ -1983,7 +2018,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 202082
+              "duration": 141358
             },
             "match": {}
           },
@@ -1993,7 +2028,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 71110
+              "duration": 82798
             },
             "match": {}
           },
@@ -2003,7 +2038,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 60877
+              "duration": 82020
             },
             "match": {}
           },
@@ -2013,7 +2048,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 107446977
+              "duration": 110223845
             },
             "match": {}
           },
@@ -2023,7 +2058,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 41810832
+              "duration": 174939764
             },
             "match": {}
           },
@@ -2033,7 +2068,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 196771
+              "duration": 222262
             },
             "match": {}
           },
@@ -2043,7 +2078,7 @@
             "keyword": "And ",
             "result": {
               "status": "failed",
-              "duration": 6810220,
+              "duration": 4964044,
               "error_message": "Error: getaddrinfo ENOTFOUND qa-cnode103.lab qa-cnode103.lab:5601\n    at errnoException (dns.js:26:10)\n    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)"
             },
             "match": {}
@@ -2083,7 +2118,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 337591
+              "duration": 135486
             },
             "match": {}
           },
@@ -2093,7 +2128,7 @@
             "keyword": "Given ",
             "result": {
               "status": "passed",
-              "duration": 224410
+              "duration": 240473
             },
             "match": {}
           },
@@ -2103,7 +2138,7 @@
             "keyword": "When ",
             "result": {
               "status": "passed",
-              "duration": 116452
+              "duration": 130457
             },
             "match": {}
           },
@@ -2135,7 +2170,7 @@
             ],
             "result": {
               "status": "passed",
-              "duration": 23367262
+              "duration": 80748374
             },
             "match": {}
           },
@@ -2145,7 +2180,7 @@
             "keyword": "Then ",
             "result": {
               "status": "passed",
-              "duration": 842930
+              "duration": 594441
             },
             "match": {}
           },
@@ -2155,7 +2190,7 @@
             "keyword": "And ",
             "result": {
               "status": "passed",
-              "duration": 351530
+              "duration": 464763
             },
             "match": {}
           }
