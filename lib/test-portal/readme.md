@@ -8,7 +8,7 @@ Spyglass Specifics
     - Rewrite the Installation / Configuration tab of the test plan into Gherkin and use Sheets Integration above.
     - Link google docs to the tests
 
-## For Tomorrow's Standup, what would I like to have as my status update?
+## For Thursday's Standup, what would I like to have as my status update?
 
 - Can navigate to a URL and see a list of test results with the current pass/fail and summary
 - Can view a given result
@@ -27,13 +27,16 @@ Finding Test Results
 
 2   - List all the existing results on server with pass/fail and summary count, clicking one loads it
     - Use a Drill + Visualization tool to view results over time as a chart
+    - Deep Linking reflects current query and position within view
 
 Exploring a Test Result
 
     - tag click links to view of just that tag
-    - can list all tests that have no JIRA associated
     - ability to expand and collapse the hierarchy
     - Visualize the individual test result as a chart using Drill + Visualization 
+    - Ability to view/explore the full test configuration for a run
+    - Ability to AND tags as well as OR them
+    - Ability to GROUP ands and ors to arbitrary depth (wait until use case)
 
 Loading / Saving of Single Test Result File 
 
@@ -42,9 +45,14 @@ Loading / Saving of Single Test Result File
     - Ability to POST a result from a running test job, such as Jenkins, so it will auto save (file based)
     - Enhance View / Save / Load to work with OJAI node bindings (while still supporting file mode)
 
+Attachments
+
+    - Ability to attach, automatically or during manual testing, supporting test data
+
 Manual Testing
 
-1   - Show manual tests "notExecuted", then indicate "In progress" (pending), then update to Pass / Fail with optional message
+1   - Enable changing status of manual steps - should cause refresh of UI.
+    - Enable specification of additional information or attachments
     - Ability to manually update (and then optionally save) step / scenario outcomes with pass/fail + outcome data
     - Ability to indicate in Gherkin / Test Steps that things are manual so as to cause display of them and udpate of them to work
     - Ability to filter by statuses that are pertinent only to manul steps
@@ -78,7 +86,6 @@ Configuration
 
 JIRA Integration
 
-    - Server side works but client side needs code portability + password obtainment
     - Update JIRA issues with test result status and summary for a given result
     - JQL Query auto applies tag query to currently viewed test result
     
@@ -92,12 +99,25 @@ Google Sheets Integration
     - Establish way to map from Google Sheet to the Cucumber Case (just use tag nomenclature)
     - Link Google sheet test cases to most recent test result viewer (with preapplied filter
     - Link Google sheet to the most recent test result viewer (with no preapplied filters)
+    - Show pass/fail in Google sheet via Test Portal REST API?
+    
+REST Interface
+
+    - Allow other applications to easily call in and get results from current or previous test runs
+    
+### Framework
+    
+    - Enable injectable javascript code to be shared between client and server side
+    - Use lazy compositions of filter predicates if it improves performance
+    - Look into using TypeScript
+    - Look into using webpack
+    - Look into using lodash
     
 ## Bugs
 
     - Hard to reflect "empty" test / features / scenario
-    - Change "skipped" status to "not executed"
-
+    - Extra status getting added by rendering select box prior to data arriving with console.log error
+    
 ## CI/CD
     
 Testing
