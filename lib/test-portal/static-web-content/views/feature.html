@@ -1,8 +1,9 @@
-<div class="feature {{feature.status}}">
+<!--feature-->
+<div class="feature {{feature.status()}}">
     <a id="{{feature.id}}"></a>
-    <h2>Feature: {{feature.name}} <small>({{statusDisplayName(feature.status)}})</small></h2>
+    <h2>Feature: {{feature.name}} <small>({{statusDisplayName(feature.status())}})</small></h2>
     <anchor-link content="top of report" on-anchor-click="focusOn('testResult')"></anchor-link>
-    <summary summary-model="feature.scenariosSummary"></summary>
-    <summary summary-model="feature.stepsSummary"></summary>
+    <summary summary-model="feature.scenariosSummary()"></summary>
+    <summary summary-model="feature.stepsSummary()"></summary>
     <scenario ng-repeat="scenario in feature.scenarios"></scenario>
 </div>

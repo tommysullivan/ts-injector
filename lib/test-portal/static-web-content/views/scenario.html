@@ -1,8 +1,8 @@
-<div class="scenario {{scenario.status}}">
+<div class="scenario {{scenario.status()}}">
     <small><span class="tag" ng-repeat="tag in scenario.tags">{{tag.name}} </span></small>
-    <h3>{{scenario.keyword}}: {{scenario.name}}<small> ({{statusDisplayName(scenario.status)}})</small></h3>
+    <h3>{{scenario.keyword}}: {{scenario.name}}<small> ({{statusDisplayName(scenario.status())}})</small></h3>
     <anchor-link content="{{feature.name}}" on-anchor-click="focusOn(feature.id)"></anchor-link>
     <anchor-link content="top of report" on-anchor-click="focusOn('testResult')"></anchor-link>
-    <summary summary-model="scenario.summary"></summary>
+    <summary summary-model="scenario.summary()"></summary>
     <step ng-repeat="step in scenario.steps"></step>
 </div>

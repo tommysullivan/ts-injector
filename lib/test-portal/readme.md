@@ -51,8 +51,9 @@ Attachments
 
 Manual Testing
 
-1   - Enable changing status of manual steps - should cause refresh of UI.
-    - Enable specification of additional information or attachments
+    - Enable specification of error messages
+    - Enable optional comments for any step or scenario
+    - Enable attachments
     - Ability to manually update (and then optionally save) step / scenario outcomes with pass/fail + outcome data
     - Ability to indicate in Gherkin / Test Steps that things are manual so as to cause display of them and udpate of them to work
     - Ability to filter by statuses that are pertinent only to manul steps
