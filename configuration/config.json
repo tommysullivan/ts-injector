@@ -25,5 +25,6 @@
     "opentsdb",
     "kibana",
     "grafana"
-  ]
+  ],
+  "testResultPath": "test-results"
 }

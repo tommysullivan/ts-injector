@@ -10,16 +10,23 @@ Spyglass Specifics
 
 ## For Thursday's Standup, what would I like to have as my status update?
 
-- Can navigate to a URL and see a list of test results with the current pass/fail and summary
-- Can view a given result
-- Can save manual result
-- Additional filter: automated / manual
-- Can explore and specify a new test run
-- Can execute a specific test run
-- Can update manual steps
-- Can get link to url with currently selected tabs
-- Additional filter: JQL (populate from dropdown)
+- Ability to specify test parameters (via CLI, web UI)
+    - Includes Component under test versions
+    - Includes details of the Cluster Under Test (pre-existing or created during tests)
+    
+- Ability to manually test based on Gherkin test plan
+    - Ability to add comments to manual steps, including error messages
+    - Ability to save the test
+    - Instructions on how to begin a new test
+    - Ability to upload a test result via POST
 
+- JIRA Integration
+    - Ability to use JQL to view associated tests
+    - Ability to trigger update to JIRA with on screen test results
+
+- Data Store
+    - Store JSON in MapRDB
+    
 ## Future Enhancements
 
 ### Web UI
