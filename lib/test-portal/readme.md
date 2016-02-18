@@ -12,12 +12,13 @@ Spyglass Specifics
 
 - Can navigate to a URL and see a list of test results with the current pass/fail and summary
 - Can view a given result
+- Can save manual result
 - Additional filter: automated / manual
-- Additional filter: JQL (populate from dropdown)
 - Can explore and specify a new test run
 - Can execute a specific test run
 - Can update manual steps
 - Can get link to url with currently selected tabs
+- Additional filter: JQL (populate from dropdown)
 
 ## Future Enhancements
 
@@ -25,7 +26,8 @@ Spyglass Specifics
 
 Finding Test Results
 
-2   - List all the existing results on server with pass/fail and summary count, clicking one loads it
+2   - Add the same query window to the overall results and filter that way there too
+3   - Use client side graphing to display results in aggregate over time
     - Use a Drill + Visualization tool to view results over time as a chart
     - Deep Linking reflects current query and position within view
 
@@ -40,10 +42,9 @@ Exploring a Test Result
 
 Loading / Saving of Single Test Result File 
 
-    - Borrow from Tommy's Universe a simple import and export JSON mechanism that uses browser client only (no save)
-    - Ability to save currently viewed test result to server side (file based)
-    - Ability to POST a result from a running test job, such as Jenkins, so it will auto save (file based)
-    - Enhance View / Save / Load to work with OJAI node bindings (while still supporting file mode)
+1   - Ability to save currently viewed test result to server side
+2   - Ability to POST a result from a running test job, such as Jenkins, and get its URL
+    - Maybe: Borrow from Tommy's Universe a simple import and export JSON mechanism that uses browser client only (no save)
 
 Attachments
 
@@ -58,15 +59,10 @@ Manual Testing
     - Ability to indicate in Gherkin / Test Steps that things are manual so as to cause display of them and udpate of them to work
     - Ability to filter by statuses that are pertinent only to manul steps
 
-Visualizing Test Results over Time
-
-    - Have a way to at least list all the results in the official data store repository (wherever that is)
-    - Get the thing onto MapRDB, then use a web based drill client to visualize the data
-
 Running a Test
-
-    - Vary configuration from web UI
-    - Indicate you want to run a new test and get taken to screen that explains how to manually do it
+    
+    - Ability to run new test (hardcoded at first) with web UI
+    - Ability to vary configuration from web UI
     - Can view current local gherkin test "dry run" and then click "Run" to run. Redirects to test result with "Refresh" button.
     - Can check which scenarios you want to run manually (they start off as all selected) - gotcha: scenario outlines?
     - Add "select / deselect all visible scenarios"
@@ -77,7 +73,7 @@ Running a Test
 
 Configuration
 
-    - Ability to override configuration particulars, especially host names.
+2   - Ability to override configuration particulars, especially host names.
     - Ability to indicate "dependencies between tests"
     - TestRun Configuration tied to Test Result - enables guaranteed recreation of test result
         - Cluster Under Test configurations used in one or more tests can be used to recreate those from scratch
@@ -113,11 +109,15 @@ REST Interface
     - Look into using TypeScript
     - Look into using webpack
     - Look into using lodash
+    - REST discoverability / self-documentation
+    - Get the thing onto MapRDB, then use a web based drill client to visualize the data
     
 ## Bugs
 
     - Hard to reflect "empty" test / features / scenario
     - Extra status getting added by rendering select box prior to data arriving with console.log error
+    - /test-results/latest can change in the underlying systtem and be out of sync with browser json or overwrite
+    - json and UI to look at a particular resource have different URLs
     
 ## CI/CD
     

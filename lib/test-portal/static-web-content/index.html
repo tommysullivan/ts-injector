@@ -9,16 +9,23 @@
     <script src="js/controllers/controllers-module.js"></script>
     <script src="js/controllers/test-result-controller.js"></script>
     <script src="js/controllers/test-runner-controller.js"></script>
+    <script src="js/controllers/test-results-explorer-controller.js"></script>
+    <script src="js/controllers/app-controller.js"></script>
     <script src="js/models/feature-model.js"></script>
     <script src="js/models/scenario-model.js"></script>
     <script src="js/models/step-model.js"></script>
     <script src="js/models/summary-model.js"></script>
     <script src="js/models/test-result-model.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <title>Cucumber Report</title>
+    <title>Test Explorer</title>
 </head>
-<body ng-cloak>
-<h1>Gherkin Test Manager</h1>
-<div ng-view></div>
+<body ng-cloak ng-controller="AppController">
+<div>
+    <h1>Test Explorer &#10174;</h1>
+    <navigation></navigation>
+</div>
+<div class="viewArea">
+    <div ng-view></div>
+</div>
 </body>
 </html>

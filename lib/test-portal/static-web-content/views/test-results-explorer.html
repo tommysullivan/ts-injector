@@ -1,0 +1,19 @@
+<div ng-controller="TestResultsExplorerController">
+    <h2>Test Results Explorer</h2>
+    <div ng-hide="testResultDescriptors">
+        Loading...
+    </div>
+    <div class="light" ng-show="testResultDescriptors">
+        Click to view test result details (most recent appear first):
+        <ul>
+            <li ng-repeat="testResultDescriptor in testResultDescriptors" class="{{testResultDescriptor.testResult.status()}}">
+                <p>Test Run {{testResultDescriptor.testResult.status() || '[loading]'}}</p>
+                <a href="#/test-result-viewer/{{testResultDescriptor.href}}">
+                    {{testResultDescriptor.name}}
+                </a>
+                - <span ng-bind="testResultDescriptor.modifiedTime | date:'h:mm a on EEEE, MMMM dd, yyyy'"></span>
+                <summary summary-model="testResultDescriptor.testResult.featuresSummary()"></summary>
+            </li>
+        </ul>
+    </div>
+</div>
