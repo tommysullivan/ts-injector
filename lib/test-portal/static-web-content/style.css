@@ -1,6 +1,7 @@
 .testResult {
     background-color: #EEEEEE;
     padding: 10px;
+    color: black;
 }
 
 .testResult.passed {
@@ -69,9 +70,26 @@
     background-color: red;
 }
 
+.blockLink.notExecuted:hover {
+    background-color: #CCCCCC;
+}
+
+.blockLink.pending:hover {
+    background-color: #DDDD55;
+}
+
+.blockLink.passed:hover {
+    background-color: #AADDAA;
+}
+
+.blockLink.failed:hover {
+    background-color: #DDAAAA;
+}
+
 .step {
     background-color: #999999;
     margin: 3px;
+    padding: 3px;
 }
 
 .step.passed {
@@ -105,8 +123,28 @@
     padding: 10px;
 }
 
+.chartArea {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.2)
+}
+
+[ng-click] {
+    cursor: pointer;
+}
+
+.pageTitleArea {
+    background-color: #555555;
+    color: white;
+    padding: 10px;
+}
+
 .dark {
     color: white;
+}
+
+button .dark {
+    background-color: #444444;
 }
 
 .dark a:link {
@@ -132,13 +170,13 @@
 .errorMessage {
     font-family: monospace;
     background-color: black;
+    padding: 10px;
+    margin: 5px;
+    max-height: 200px;
+    overflow: auto;
     color: white;
     border-color: red;
     border: 3px;
-    padding: 10px;
-    margin: 5px;
-    max-height: 50px;
-    overflow: auto;
 }
 
 .pending {
@@ -167,11 +205,6 @@ p {
 
 .viewArea {
     background-color: #EEEEEE;
-}
-
-div {
-    padding: 5px;
-    margin: 0px;
 }
 
 body {

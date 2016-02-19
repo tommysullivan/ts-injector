@@ -1,19 +1,39 @@
-<div ng-controller="TestResultsExplorerController">
-    <h2>Test Results Explorer</h2>
-    <div ng-hide="testResultDescriptors">
-        Loading...
+<div ng-controller="TestResultsExplorerController" class="pageTitleArea">
+    <div>
+        <h2>Test Results Explorer</h2>
+        <div ng-hide="testResultDescriptors">
+            Loading...
+        </div>
     </div>
-    <div class="light" ng-show="testResultDescriptors">
-        Click to view test result details (most recent appear first):
-        <ul>
-            <li ng-repeat="testResultDescriptor in testResultDescriptors" class="{{testResultDescriptor.testResult.status()}}">
-                <p>Test Run {{testResultDescriptor.testResult.status() || '[loading]'}}</p>
-                <a href="#/test-result-viewer/{{testResultDescriptor.href}}">
-                    {{testResultDescriptor.name}}
-                </a>
-                - <span ng-bind="testResultDescriptor.modifiedTime | date:'h:mm a on EEEE, MMMM dd, yyyy'"></span>
-                <summary summary-model="testResultDescriptor.testResult.featuresSummary()"></summary>
-            </li>
-        </ul>
+    <div class="light" style="margin-top: 10px;" ng-show="testResultDescriptors">
+        <div class="row">
+            <div class="col-md-3">
+                <div style="max-height: 500px; overflow: auto;">
+                    <a ng-repeat="testResultDescriptor in testResultDescriptors" href="#/test-result-viewer/{{testResultDescriptor.href}}">
+                        <div style="margin-bottom: 1px;" class="blockLink testResult {{testResultDescriptor.testResult.status()}}">
+                            <p>Test Run {{testResultDescriptor.testResult.status() || '[loading]'}}</p>
+                            <p ng-bind="testResultDescriptor.modifiedTime | date:'h:mm a on EEEE, M/dd, yyyy'"></p>
+                            <small>{{testResultDescriptor.name}}</small>
+                            <summary summary-model="testResultDescriptor.testResult.featuresSummary()"></summary>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="chartArea">
+                    <canvas height="100px;"
+                        id="line"
+                        class="chart chart-line"
+                        chart-data="testResultStatusesOverTimeChart.data"
+                        chart-labels="testResultStatusesOverTimeChart.labels"
+                        chart-legend="true"
+                        chart-series="testResultStatusesOverTimeChart.series"
+                        chart-click="testResultStatusesOverTimeChart.onClick"
+                        chart-colours="testResultStatusesOverTimeChart.colours"
+                    >
+                    </canvas>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,8 +1,45 @@
 <div id="testResult" class="testResult {{testResult.status()}}">
-    <h2>Test {{statusDisplayName(testResult.status())}}.</h2>
-    <summary summary-model="testResult.featuresSummary()"></summary>
-    <summary summary-model="testResult.scenariosSummary()"></summary>
-    <summary summary-model="testResult.stepsSummary()"></summary>
-    <table-of-contents ng-show="testResult.features.length > 0"></table-of-contents>
+    <h2 style="margin-bottom: 10px;">Test {{statusDisplayName(testResult.status())}}.</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <!--<summary summary-model="testResult.featuresSummary()"></summary>-->
+            <!--<summary summary-model="testResult.scenariosSummary()"></summary>-->
+            <!--<summary summary-model="testResult.stepsSummary()"></summary>-->
+            <table-of-contents ng-show="testResult.features.length > 0"></table-of-contents>
+        </div>
+        <div class="col-md-3">
+            <div class="chartArea">
+                <canvas class="chart chart-pie"
+                        chart-data="featurePieChart.data"
+                        chart-labels="featurePieChart.labels"
+                        chart-legend="true"
+                        chart-colours="featurePieChart.colours"
+                ></canvas>
+                <h4 class="text-center">features</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="chartArea">
+                <canvas class="chart chart-pie"
+                        chart-data="scenarioPieChart.data"
+                        chart-labels="scenarioPieChart.labels"
+                        chart-legend="true"
+                        chart-colours="scenarioPieChart.colours"
+                ></canvas>
+                <h4 class="text-center">scenarios</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="chartArea">
+                <canvas class="chart chart-pie"
+                        chart-data="stepPieChart.data"
+                        chart-labels="stepPieChart.labels"
+                        chart-legend="true"
+                        chart-colours="stepPieChart.colours"
+                ></canvas>
+                <h4 class="text-center">steps</h4>
+            </div>
+        </div>
+    </div>
     <feature ng-repeat="feature in testResult.features"></feature>
 </div>

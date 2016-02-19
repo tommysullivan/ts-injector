@@ -121,10 +121,10 @@ REST Interface
     
 ## Bugs
 
-    - Hard to reflect "empty" test / features / scenario
-    - Extra status getting added by rendering select box prior to data arriving with console.log error
-    - /test-results/latest can change in the underlying systtem and be out of sync with browser json or overwrite
+    - upon change of manual step status, view jumps around upon re-render if not close to top of page.
     - json and UI to look at a particular resource have different URLs
+    - Hard to reflect "empty" test / features / scenario
+    - TypeError: Cannot read property 'displayValue' of undefined - goes away with ng-if, but too slow so accepted bug
     
 ## CI/CD
     

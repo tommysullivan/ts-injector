@@ -1,7 +1,13 @@
-<div ng-controller="TestResultController">
-    <h2>Test Result Viewer</h2>
-    <h4>{{testResultId}}</h4>
-    <button ng-click="saveTestResult()">save</button>
+<div ng-controller="TestResultController" class="pageTitleArea">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Test Result Viewer</h2>
+        </div>
+        <div class="col-md-4">
+            <h4 class="text-right">{{testResultId}}</h4>
+            <button ng-click="saveTestResult()" style="background-color: #444444;border: 0px; margin: 2px; margin-bottom: 10px;" class="pull-right">save</button>
+        </div>
+    </div>
     <div ng-hide="testResultLoaded">
         Loading...
     </div>

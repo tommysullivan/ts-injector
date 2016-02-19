@@ -1,6 +1,5 @@
-<h3 style="margin-top: 10px;">Features:</h3>
-<ul class="light">
-    <li class="{{feature.status}}" ng-repeat="feature in testResult.features">
-        <a href="" ng-click="focusOn(feature.id)">{{feature.name}}</a>
-    </li>
-</ul>
+<div style="max-height: 250px; overflow: auto;">
+    <div class="blockLink scenario {{feature.status()}}" ng-click="focusOn(feature.id)" style="margin: 0px;" ng-repeat="feature in testResult.features">
+        <p class="text-center">{{feature.name}} &#10174;</p>
+    </div>
+</div>
