@@ -50,13 +50,16 @@
           "targets": [
             {
               "aggregator": "sum",
-              "currentTagKey": "fqdn",
-              "currentTagValue": "perfnode130.perf.lab",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.db.valuecache_hits",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             }
           ],
           "thresholds": "",
@@ -111,7 +114,12 @@
               "errors": {},
               "metric": "mapr.db.valuecache_lookups",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "currentTagKey": "",
+              "currentTagValue": "",
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             }
           ],
           "thresholds": "20,40,80",
@@ -166,7 +174,12 @@
               "errors": {},
               "metric": "mapr.db.scan_rpcrows",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "currentTagKey": "",
+              "currentTagValue": "",
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             }
           ],
           "thresholds": "",
@@ -246,7 +259,9 @@
               "metric": "mapr.db.put_rpcrows",
               "refId": "A",
               "shouldComputeRate": true,
-              "tags": {}
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             },
             {
               "aggregator": "sum",
@@ -258,7 +273,9 @@
               "metric": "mapr.db.get_rpcrows",
               "refId": "B",
               "shouldComputeRate": true,
-              "tags": {},
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             },
             {
@@ -271,7 +288,9 @@
               "metric": "mapr.db.scan_rpcrows",
               "refId": "C",
               "shouldComputeRate": true,
-              "tags": {},
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             }
           ],
@@ -344,7 +363,9 @@
               "metric": "mapr.db.put_rpcs",
               "refId": "A",
               "shouldComputeRate": true,
-              "tags": {}
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             },
             {
               "aggregator": "sum",
@@ -356,7 +377,9 @@
               "metric": "mapr.db.scan_rpcs",
               "refId": "B",
               "shouldComputeRate": true,
-              "tags": {},
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             },
             {
@@ -369,7 +392,9 @@
               "metric": "mapr.db.get_rpcs",
               "refId": "C",
               "shouldComputeRate": true,
-              "tags": {},
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             }
           ],
@@ -448,7 +473,9 @@
               "metric": "mapr.db.updateandget_rpcs",
               "refId": "A",
               "shouldComputeRate": true,
-              "tags": {}
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             },
             {
               "aggregator": "sum",
@@ -460,7 +487,9 @@
               "metric": "mapr.db.append_rpcs",
               "refId": "B",
               "shouldComputeRate": true,
-              "tags": {},
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             }
           ],
@@ -530,7 +559,9 @@
               "errors": {},
               "metric": "mapr.db.get_currpcs",
               "refId": "A",
-              "tags": {}
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             },
             {
               "aggregator": "sum",
@@ -541,8 +572,11 @@
               "errors": {},
               "metric": "mapr.db.put_currpcs",
               "refId": "B",
-              "tags": {},
-              "target": ""
+              "tags": {
+                "fqdn": "$fqdn"
+              },
+              "target": "",
+              "downsampleInterval": ""
             },
             {
               "aggregator": "sum",
@@ -553,7 +587,9 @@
               "errors": {},
               "metric": "mapr.db.scan_currpcs",
               "refId": "C",
-              "tags": {},
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             }
           ],
@@ -612,13 +648,47 @@
     "type": "timepicker"
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "fqdn",
+        "options": [
+          {
+            "text": "spy-96.qa.lab",
+            "value": "spy-96.qa.lab",
+            "selected": true
+          },
+          {
+            "text": "spy-97.qa.lab",
+            "value": "spy-97.qa.lab",
+            "selected": false
+          },
+          {
+            "text": "spy-98.qa.lab",
+            "value": "spy-98.qa.lab",
+            "selected": false
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "multi": false,
+        "multiFormat": "glob",
+        "query": "tag_values(cpu.percent, fqdn)",
+        "current": {
+          "text": "spy-96.qa.lab",
+          "value": "spy-96.qa.lab",
+          "tags": []
+        }
+      }
+    ]
   },
   "annotations": {
     "list": []
   },
   "schemaVersion": 7,
-  "version": 1,
+  "version": 5,
   "links": [
     {
       "asDropdown": true,
