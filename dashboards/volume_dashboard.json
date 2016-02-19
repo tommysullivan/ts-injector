@@ -1,7 +1,7 @@
 {
-  "id": 9,
-  "title": "Volume  Dashboard",
-  "originalTitle": "Volume  Dashboard",
+  "id": 6,
+  "title": "Volume Dashboard",
+  "originalTitle": "Volume Dashboard",
   "tags": [
     "Demo"
   ],
@@ -365,20 +365,119 @@
       {
         "allFormat": "glob",
         "current": {
-          "tags": [],
-          "text": "mapr.cluster.root",
-          "value": "mapr.cluster.root"
+          "text": "mapr.apps",
+          "value": "mapr.apps"
         },
         "datasource": null,
-        "includeAll": false,
-        "multi": false,
+        "includeAll": true,
+        "multi": true,
         "multiFormat": "glob",
         "name": "VolumeName",
         "options": [
           {
+            "selected": false,
+            "text": "All",
+            "value": "{mapr.apps,mapr.cldb.internal,mapr.cluster.root,mapr.configuration,mapr.hbase,mapr.metrics,mapr.opt,mapr.resourcemanager.volume,mapr.spy-96.qa.lab.local.audit,mapr.spy-96.qa.lab.local.logs,mapr.spy-96.qa.lab.local.mapred,mapr.spy-96.qa.lab.local.metrics,mapr.spy-97.qa.lab.local.audit,mapr.spy-97.qa.lab.local.logs,mapr.spy-97.qa.lab.local.mapred,mapr.spy-97.qa.lab.local.metrics,mapr.spy-98.qa.lab.local.audit,mapr.spy-98.qa.lab.local.logs,mapr.spy-98.qa.lab.local.mapred,mapr.spy-98.qa.lab.local.metrics,mapr.tmp,mapr.var,mapr_home,users}"
+          },
+          {
             "selected": true,
+            "text": "mapr.apps",
+            "value": "mapr.apps"
+          },
+          {
+            "selected": false,
+            "text": "mapr.cldb.internal",
+            "value": "mapr.cldb.internal"
+          },
+          {
+            "selected": false,
             "text": "mapr.cluster.root",
             "value": "mapr.cluster.root"
+          },
+          {
+            "selected": false,
+            "text": "mapr.configuration",
+            "value": "mapr.configuration"
+          },
+          {
+            "selected": false,
+            "text": "mapr.hbase",
+            "value": "mapr.hbase"
+          },
+          {
+            "selected": false,
+            "text": "mapr.metrics",
+            "value": "mapr.metrics"
+          },
+          {
+            "selected": false,
+            "text": "mapr.opt",
+            "value": "mapr.opt"
+          },
+          {
+            "selected": false,
+            "text": "mapr.resourcemanager.volume",
+            "value": "mapr.resourcemanager.volume"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-96.qa.lab.local.audit",
+            "value": "mapr.spy-96.qa.lab.local.audit"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-96.qa.lab.local.logs",
+            "value": "mapr.spy-96.qa.lab.local.logs"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-96.qa.lab.local.mapred",
+            "value": "mapr.spy-96.qa.lab.local.mapred"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-96.qa.lab.local.metrics",
+            "value": "mapr.spy-96.qa.lab.local.metrics"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-97.qa.lab.local.audit",
+            "value": "mapr.spy-97.qa.lab.local.audit"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-97.qa.lab.local.logs",
+            "value": "mapr.spy-97.qa.lab.local.logs"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-97.qa.lab.local.mapred",
+            "value": "mapr.spy-97.qa.lab.local.mapred"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-97.qa.lab.local.metrics",
+            "value": "mapr.spy-97.qa.lab.local.metrics"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-98.qa.lab.local.audit",
+            "value": "mapr.spy-98.qa.lab.local.audit"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-98.qa.lab.local.logs",
+            "value": "mapr.spy-98.qa.lab.local.logs"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-98.qa.lab.local.mapred",
+            "value": "mapr.spy-98.qa.lab.local.mapred"
+          },
+          {
+            "selected": false,
+            "text": "mapr.spy-98.qa.lab.local.metrics",
+            "value": "mapr.spy-98.qa.lab.local.metrics"
           },
           {
             "selected": false,
@@ -387,16 +486,26 @@
           },
           {
             "selected": false,
-            "text": "mapr.resourcemanager.volume",
-            "value": "mapr.resourcemanager.volume"
+            "text": "mapr.var",
+            "value": "mapr.var"
+          },
+          {
+            "selected": false,
+            "text": "mapr_home",
+            "value": "mapr_home"
+          },
+          {
+            "selected": false,
+            "text": "users",
+            "value": "users"
           }
         ],
-        "query": "mapr.cluster.root, mapr.tmp,mapr.resourcemanager.volume",
+        "query": "tag_values(mapr.volume.logicalUsed,type_instance)",
         "refresh_on_load": false,
         "regex": "",
         "tagValuesQuery": "",
         "tagsQuery": "",
-        "type": "custom",
+        "type": "query",
         "useTags": false
       }
     ]
@@ -405,7 +514,7 @@
     "list": []
   },
   "schemaVersion": 7,
-  "version": 28,
+  "version": 1,
   "links": [
     {
       "asDropdown": true,

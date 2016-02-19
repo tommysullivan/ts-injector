@@ -1,5 +1,5 @@
 {
-  "id": 11,
+  "id": 3,
   "title": "CLDB Dashboard",
   "originalTitle": "CLDB Dashboard",
   "tags": [
@@ -57,9 +57,7 @@
               "metric": "mapr.cldb.nodes_in_cluster",
               "refId": "A",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -115,9 +113,7 @@
               "errors": {},
               "metric": "mapr.cldb.nodes_offline",
               "refId": "A",
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -173,9 +169,7 @@
               "errors": {},
               "metric": "mapr.cldb.disk_space_available",
               "refId": "A",
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -231,9 +225,7 @@
               "metric": "mapr.cldb.containers",
               "refId": "A",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -288,9 +280,7 @@
               "errors": {},
               "metric": "mapr.cldb.containers_unusable",
               "refId": "A",
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -367,9 +357,7 @@
               "metric": "mapr.cldb.cluster_cpu_total",
               "refId": "A",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             },
             {
               "aggregator": "sum",
@@ -381,9 +369,7 @@
               "metric": "mapr.cldb.cluster_cpubusy_percent",
               "refId": "B",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              },
+              "tags": {},
               "target": ""
             }
           ],
@@ -454,9 +440,7 @@
               "metric": "mapr.cldb.cluster_disk_capacity",
               "refId": "A",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             },
             {
               "aggregator": "sum",
@@ -468,9 +452,7 @@
               "metric": "mapr.cldb.cluster_diskspace_used",
               "refId": "B",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              },
+              "tags": {},
               "target": ""
             }
           ],
@@ -541,9 +523,7 @@
               "metric": "mapr.cldb.cluster_memory_capacity",
               "refId": "A",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              }
+              "tags": {}
             },
             {
               "aggregator": "sum",
@@ -555,9 +535,7 @@
               "metric": "mapr.cldb.cluster_memory_used",
               "refId": "B",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "spy-98.qa.lab"
-              },
+              "tags": {},
               "target": ""
             }
           ],
@@ -581,7 +559,7 @@
     }
   ],
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -621,8 +599,9 @@
   "annotations": {
     "list": []
   },
+  "refresh": "5m",
   "schemaVersion": 7,
-  "version": 34,
+  "version": 1,
   "links": [
     {
       "asDropdown": true,

@@ -1,5 +1,5 @@
 {
-  "id": 6,
+  "id": 2,
   "title": "DB Metrics",
   "originalTitle": "DB Metrics",
   "tags": [
@@ -237,7 +237,7 @@
           "targets": [
             {
               "aggregator": "sum",
-              "alias": "Puts ($tag_fqdn)",
+              "alias": "Puts",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -246,13 +246,11 @@
               "metric": "mapr.db.put_rpcrows",
               "refId": "A",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             },
             {
               "aggregator": "sum",
-              "alias": "Gets ($tag_fqdn)",
+              "alias": "Gets",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -260,14 +258,12 @@
               "metric": "mapr.db.get_rpcrows",
               "refId": "B",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              },
+              "tags": {},
               "target": ""
             },
             {
               "aggregator": "sum",
-              "alias": "Scans ($tag_fqdn)",
+              "alias": "Scans",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -275,9 +271,7 @@
               "metric": "mapr.db.scan_rpcrows",
               "refId": "C",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              },
+              "tags": {},
               "target": ""
             }
           ],
@@ -342,7 +336,7 @@
           "targets": [
             {
               "aggregator": "sum",
-              "alias": "Put ($tag_fqdn)",
+              "alias": "Put",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -350,13 +344,11 @@
               "metric": "mapr.db.put_rpcs",
               "refId": "A",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             },
             {
               "aggregator": "sum",
-              "alias": "Scan ($tag_fqdn)",
+              "alias": "Scan",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -364,14 +356,12 @@
               "metric": "mapr.db.scan_rpcs",
               "refId": "B",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              },
+              "tags": {},
               "target": ""
             },
             {
               "aggregator": "sum",
-              "alias": "Get ($tag_fqdn)",
+              "alias": "Get",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -379,9 +369,7 @@
               "metric": "mapr.db.get_rpcs",
               "refId": "C",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              },
+              "tags": {},
               "target": ""
             }
           ],
@@ -452,7 +440,7 @@
           "targets": [
             {
               "aggregator": "avg",
-              "alias": "Updates and Gets($tag_fqdn)",
+              "alias": "Updates and Gets",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -460,13 +448,11 @@
               "metric": "mapr.db.updateandget_rpcs",
               "refId": "A",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             },
             {
               "aggregator": "sum",
-              "alias": "Append RPCs ($tag_fqdn)",
+              "alias": "Append RPCs",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -474,9 +460,7 @@
               "metric": "mapr.db.append_rpcs",
               "refId": "B",
               "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn"
-              },
+              "tags": {},
               "target": ""
             }
           ],
@@ -539,43 +523,37 @@
           "targets": [
             {
               "aggregator": "sum",
-              "alias": "Gets($tag_fqdn)",
+              "alias": "Gets",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.db.get_currpcs",
               "refId": "A",
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             },
             {
               "aggregator": "sum",
-              "alias": "Puts($tag_fqdn)",
+              "alias": "Puts",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.db.put_currpcs",
               "refId": "B",
-              "tags": {
-                "fqdn": "$fqdn"
-              },
+              "tags": {},
               "target": ""
             },
             {
               "aggregator": "sum",
-              "alias": "Scans ($tag_fqdn)",
+              "alias": "Scans",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.db.scan_currpcs",
               "refId": "C",
-              "tags": {
-                "fqdn": "$fqdn"
-              },
+              "tags": {},
               "target": ""
             }
           ],
@@ -634,42 +612,13 @@
     "type": "timepicker"
   },
   "templating": {
-    "list": [
-      {
-        "allFormat": "glob",
-        "current": {
-          "tags": [],
-          "text": "example.qa.lab",
-          "value": "example.qa.lab"
-        },
-        "datasource": null,
-        "includeAll": false,
-        "multi": false,
-        "multiFormat": "glob",
-        "name": "fqdn",
-        "options": [
-          {
-            "selected": false,
-            "text": "example.qa.lab",
-            "value": "example.qa.lab"
-          },
-          {
-            "selected": false,
-            "text": "example1.qa.lab",
-            "value": "example1.qa.lab"
-          }
-        ],
-        "query": "example.qa.lab,example1.qa.lab",
-        "refresh_on_load": false,
-        "type": "custom"
-      }
-    ]
+    "list": []
   },
   "annotations": {
     "list": []
   },
   "schemaVersion": 7,
-  "version": 59,
+  "version": 1,
   "links": [
     {
       "asDropdown": true,
