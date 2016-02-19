@@ -1,5 +1,5 @@
 {
-  "id": 6,
+  "id": 2,
   "title": "DB Metrics",
   "originalTitle": "DB Metrics",
   "tags": [
@@ -50,13 +50,16 @@
           "targets": [
             {
               "aggregator": "sum",
-              "currentTagKey": "fqdn",
-              "currentTagValue": "perfnode130.perf.lab",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.db.valuecache_hits",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             }
           ],
           "thresholds": "",
@@ -111,7 +114,12 @@
               "errors": {},
               "metric": "mapr.db.valuecache_lookups",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "currentTagKey": "",
+              "currentTagValue": "",
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             }
           ],
           "thresholds": "20,40,80",
@@ -166,7 +174,12 @@
               "errors": {},
               "metric": "mapr.db.scan_rpcrows",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "currentTagKey": "",
+              "currentTagValue": "",
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             }
           ],
           "thresholds": "",
@@ -237,7 +250,7 @@
           "targets": [
             {
               "aggregator": "sum",
-              "alias": "Puts ($tag_fqdn)",
+              "alias": "Puts",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -252,7 +265,7 @@
             },
             {
               "aggregator": "sum",
-              "alias": "Gets ($tag_fqdn)",
+              "alias": "Gets",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -267,7 +280,7 @@
             },
             {
               "aggregator": "sum",
-              "alias": "Scans ($tag_fqdn)",
+              "alias": "Scans",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -342,7 +355,7 @@
           "targets": [
             {
               "aggregator": "sum",
-              "alias": "Put ($tag_fqdn)",
+              "alias": "Put",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -356,7 +369,7 @@
             },
             {
               "aggregator": "sum",
-              "alias": "Scan ($tag_fqdn)",
+              "alias": "Scan",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -371,7 +384,7 @@
             },
             {
               "aggregator": "sum",
-              "alias": "Get ($tag_fqdn)",
+              "alias": "Get",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -452,7 +465,7 @@
           "targets": [
             {
               "aggregator": "avg",
-              "alias": "Updates and Gets($tag_fqdn)",
+              "alias": "Updates and Gets",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -466,7 +479,7 @@
             },
             {
               "aggregator": "sum",
-              "alias": "Append RPCs ($tag_fqdn)",
+              "alias": "Append RPCs",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -539,7 +552,7 @@
           "targets": [
             {
               "aggregator": "sum",
-              "alias": "Gets($tag_fqdn)",
+              "alias": "Gets",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -552,7 +565,7 @@
             },
             {
               "aggregator": "sum",
-              "alias": "Puts($tag_fqdn)",
+              "alias": "Puts",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -562,11 +575,12 @@
               "tags": {
                 "fqdn": "$fqdn"
               },
-              "target": ""
+              "target": "",
+              "downsampleInterval": ""
             },
             {
               "aggregator": "sum",
-              "alias": "Scans ($tag_fqdn)",
+              "alias": "Scans",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
@@ -636,32 +650,37 @@
   "templating": {
     "list": [
       {
-        "allFormat": "glob",
-        "current": {
-          "tags": [],
-          "text": "example.qa.lab",
-          "value": "example.qa.lab"
-        },
+        "type": "query",
         "datasource": null,
-        "includeAll": false,
-        "multi": false,
-        "multiFormat": "glob",
+        "refresh_on_load": false,
         "name": "fqdn",
         "options": [
           {
-            "selected": false,
-            "text": "example.qa.lab",
-            "value": "example.qa.lab"
+            "text": "spy-96.qa.lab",
+            "value": "spy-96.qa.lab",
+            "selected": true
           },
           {
-            "selected": false,
-            "text": "example1.qa.lab",
-            "value": "example1.qa.lab"
+            "text": "spy-97.qa.lab",
+            "value": "spy-97.qa.lab",
+            "selected": false
+          },
+          {
+            "text": "spy-98.qa.lab",
+            "value": "spy-98.qa.lab",
+            "selected": false
           }
         ],
-        "query": "example.qa.lab,example1.qa.lab",
-        "refresh_on_load": false,
-        "type": "custom"
+        "includeAll": false,
+        "allFormat": "glob",
+        "multi": false,
+        "multiFormat": "glob",
+        "query": "tag_values(cpu.percent, fqdn)",
+        "current": {
+          "text": "spy-96.qa.lab",
+          "value": "spy-96.qa.lab",
+          "tags": []
+        }
       }
     ]
   },
@@ -669,7 +688,7 @@
     "list": []
   },
   "schemaVersion": 7,
-  "version": 59,
+  "version": 5,
   "links": [
     {
       "asDropdown": true,
