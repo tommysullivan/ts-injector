@@ -28,6 +28,7 @@
     "promise": "latest",
     "prompt": "latest",
     "request": "latest",
-    "valid-url": "latest"
+    "valid-url": "latest",
+    "body-parser": "latest"
   }
 }

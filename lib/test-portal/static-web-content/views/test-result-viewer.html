@@ -1,6 +1,7 @@
 <div ng-controller="TestResultController">
     <h2>Test Result Viewer</h2>
     <h4>{{testResultId}}</h4>
+    <button ng-click="saveTestResult()">save</button>
     <div ng-hide="testResultLoaded">
         Loading...
     </div>

@@ -3,10 +3,9 @@
         <p>
             <label>
                 Tags:
-                <input ng-change="queryChange()" ng-model="tagQuery" ng-model-options="{ debounce: 250 }" style="width: 40%">
+                <input ng-change="queryChange()" ng-model="tagQuery" ng-model-options="{ debounce: 250 }" style="width: 40%" placeholder="tags OR'ed together, ~negates. ie: @SPYG-125 ~@HealthCheck">
             </label>
         </p>
-        <small style="color: lightgray;">space delimited, OR'ed together. Use ~ to negate. (ie: @SPYG-125 ~@HealthCheck)</small>
     </div>
     <div>
         Statuses:

@@ -1,4 +1,4 @@
 #!/bin/bash
 ./node_modules/cucumber/bin/cucumber.js \
-    -f json:lib/test-portal/test-results/`whoami`-$(date +%Y-%m-%d-at-%H-%M-%S).json \
+    -f json:test-results/`whoami`-$(date +%Y-%m-%d-at-%H-%M-%S).json \
     $@
