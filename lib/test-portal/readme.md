@@ -33,6 +33,7 @@ Spyglass Specifics
 
 Finding Test Results
 
+    - Ability to filter by date range
     - Deep Linking reflects current query and position within view
     - Use a Drill + Visualization tool to view results over time as a chart
     - Ability to searchably tag at the "entire test result" level
@@ -48,7 +49,7 @@ Exploring a Test Result
 
 Loading / Saving of Single Test Result File 
 
-    - Ability to change the test result names
+    - Ability to change the test result names (workaround: change file names on filesystem)
     - Ability to POST a result from a running test job, such as Jenkins, and get its URL (workaround: use PUT to known URL)
     - Maybe: Borrow from Tommy's Universe a simple import and export JSON mechanism that uses browser client only (no save)
 
@@ -76,7 +77,7 @@ Running a Test
 
 Configuration
 
-2   - Ability to override configuration particulars, especially host names.
+    - Ability to override configuration particulars, especially host names.
     - Ability to indicate "dependencies between tests"
     - TestRun Configuration tied to Test Result - enables guaranteed recreation of test result
         - Cluster Under Test configurations used in one or more tests can be used to recreate those from scratch
