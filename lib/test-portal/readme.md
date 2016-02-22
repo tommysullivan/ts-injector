@@ -33,24 +33,23 @@ Spyglass Specifics
 
 Finding Test Results
 
-2   - Add the same query window to the overall results and filter that way there too
-3   - Use client side graphing to display results in aggregate over time
-    - Use a Drill + Visualization tool to view results over time as a chart
     - Deep Linking reflects current query and position within view
+    - Use a Drill + Visualization tool to view results over time as a chart
+    - Ability to searchably tag at the "entire test result" level
 
 Exploring a Test Result
 
-    - tag click links to view of just that tag
+    - Indicate the sought tags for which there was not a match
+    - Ability to view/explore the full test configuration for a run
     - ability to expand and collapse the hierarchy
     - Visualize the individual test result as a chart using Drill + Visualization 
-    - Ability to view/explore the full test configuration for a run
     - Ability to AND tags as well as OR them
     - Ability to GROUP ands and ors to arbitrary depth (wait until use case)
 
 Loading / Saving of Single Test Result File 
 
-1   - Ability to save currently viewed test result to server side
-2   - Ability to POST a result from a running test job, such as Jenkins, and get its URL
+    - Ability to change the test result names
+    - Ability to POST a result from a running test job, such as Jenkins, and get its URL (workaround: use PUT to known URL)
     - Maybe: Borrow from Tommy's Universe a simple import and export JSON mechanism that uses browser client only (no save)
 
 Attachments
@@ -59,16 +58,13 @@ Attachments
 
 Manual Testing
 
-    - Enable specification of error messages
     - Enable optional comments for any step or scenario
     - Enable attachments
-    - Ability to manually update (and then optionally save) step / scenario outcomes with pass/fail + outcome data
-    - Ability to indicate in Gherkin / Test Steps that things are manual so as to cause display of them and udpate of them to work
-    - Ability to filter by statuses that are pertinent only to manul steps
+    - Ability to use a DSL to specify more granular manual steps beyond the Gherkin (deferred - just write more detailed gherkin)
 
 Running a Test
     
-    - Ability to run new test (hardcoded at first) with web UI
+    - Ability to run new test (hardcoded at first) with web UI (workaround: run test locally and PUT it to the server or view in local server)
     - Ability to vary configuration from web UI
     - Can view current local gherkin test "dry run" and then click "Run" to run. Redirects to test result with "Refresh" button.
     - Can check which scenarios you want to run manually (they start off as all selected) - gotcha: scenario outlines?
@@ -93,6 +89,8 @@ JIRA Integration
     - Update JIRA issues with test result status and summary for a given result
     - JQL Query auto applies tag query to currently viewed test result
     - tags can link to the JIRA issues they are associated with
+    - Identify JIRA tickets that do not have commit records on them
+    - Identify JIRA tickets that do not have a corresponding test (just do a query and refer to the number of unfound tags)
     
 GitHub Integration
 
