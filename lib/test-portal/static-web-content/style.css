@@ -139,6 +139,13 @@
     padding: 10px;
 }
 
+.actionButton {
+    background-color: #444444;
+    border: 0px;
+    margin: 2px;
+    margin-bottom: 10px;
+}
+
 .dark {
     color: white;
 }
@@ -237,25 +244,4 @@ a {
 
 .light a:active {
     color: black;
-}
-
-li {
-    padding: 5px;
-    margin: 2px;
-}
-
-li.passed {
-    background-color: #77CC77;
-}
-
-li.failed {
-    background-color: #FF8888;
-}
-
-li.pending {
-    background-color: #FFFFAA;
-}
-
-li.notExecuted {
-    background-color: #CCCCCC;
 }

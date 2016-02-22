@@ -3,12 +3,12 @@
         <div class="col-md-7">
             <label>
                 Tags:
-                <input style="color: black; width: 500px;" ng-change="queryChange()" ng-model="tagQuery" ng-model-options="{ debounce: 500 }" placeholder="tags OR'ed together, ~negates. ie: @SPYG-125 ~@HealthCheck">
+                <input style="color: black; width: 500px;" ng-model="query.tagQuery" ng-change="applyQuery()" ng-model-options="{ debounce: 500 }" placeholder="tags OR'ed together, ~negates. ie: @SPYG-125 ~@HealthCheck">
             </label>
             <p>
                 JIRA:
                 <label>
-                    <input type="checkbox" ng-model="showCasesWithMissingJIRAOnly" ng-change="queryChange()">
+                    <input type="checkbox" ng-model="query.showCasesWithMissingJIRAOnly" ng-change="applyQuery()">
                     show cases with missing JIRA only
                 </label>
             </p>
@@ -17,15 +17,15 @@
             <p class="text-right">
                 Statuses:
                 <label ng-repeat="status in statuses">
-                    <input type="checkbox" ng-model="status.selected" ng-change="queryChange()">
+                    <input type="checkbox" ng-model="status.selected" ng-change="applyQuery()">
                     {{status.displayValue || status.name}}&nbsp;
                 </label>
             </p>
             <p class="text-right">
                 Automation:
-                <input type="radio" ng-model="automationRadio" value="automatedAndManual" ng-change="queryChange()"> Automated &amp; Manual</label>
-                <input type="radio" ng-model="automationRadio" value="automatedOnly" ng-change="queryChange()"> Automated Only</label>
-                <input type="radio" ng-model="automationRadio" value="manualOnly" ng-change="queryChange()"> Manual Only</label>
+                <input type="radio" ng-model="query.automationRadio" value="automatedAndManual" ng-change="applyQuery()"> Automated &amp; Manual</label>
+                <input type="radio" ng-model="query.automationRadio" value="automatedOnly" ng-change="applyQuery()"> Automated Only</label>
+                <input type="radio" ng-model="query.automationRadio" value="manualOnly" ng-change="applyQuery()"> Manual Only</label>
             </p>
         </div>
     </div>

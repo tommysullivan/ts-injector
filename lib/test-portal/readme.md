@@ -92,6 +92,7 @@ JIRA Integration
 
     - Update JIRA issues with test result status and summary for a given result
     - JQL Query auto applies tag query to currently viewed test result
+    - tags can link to the JIRA issues they are associated with
     
 GitHub Integration
 

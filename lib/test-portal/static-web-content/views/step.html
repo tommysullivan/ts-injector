@@ -1,6 +1,6 @@
 <div class="step {{step.status}}" >
     <p>
-        <select ng-show="step.isManual" ng-model="step.status" ng-change="queryChange()">
+        <select ng-show="step.isManual" ng-model="step.status" ng-change="applyQuery()">
             <option ng-repeat="status in statuses" ng-selected="{{step.status==status.name}}" value="{{status.name}}">{{statusDisplayName(status.name)}}</option>
         </select>
         {{prefixForStatus(step.status)}}

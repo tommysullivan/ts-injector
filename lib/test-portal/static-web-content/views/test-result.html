@@ -13,6 +13,8 @@
                         chart-colours="featurePieChart.colours"
                 ></canvas>
                 <h4 class="text-center">features</h4>
+                <summary summary-model="testResult.featuresSummary()"></summary>
+
             </div>
         </div>
         <div class="col-md-3">
@@ -24,6 +26,7 @@
                         chart-colours="scenarioPieChart.colours"
                 ></canvas>
                 <h4 class="text-center">scenarios</h4>
+                <summary summary-model="testResult.scenariosSummary()"></summary>
             </div>
         </div>
         <div class="col-md-3">
@@ -35,8 +38,9 @@
                         chart-colours="stepPieChart.colours"
                 ></canvas>
                 <h4 class="text-center">steps</h4>
+                <summary summary-model="testResult.stepsSummary()"></summary>
             </div>
         </div>
     </div>
-    <feature ng-repeat="feature in testResult.features"></feature>
+    <feature ng-repeat="feature in testResult.features track by feature.id"></feature>
 </div>
