@@ -19,13 +19,14 @@ Next, client side dependencies must be installed. From the lib/test-portal direc
 
 Run the server with nodemon if you desire auto restart upon server source code change. Else skip word "nodemon":
 
-    jiraUsername=[your username] jiraPassword=[your password] nodemon bin/run-test-portal
+    hostName=[localhost] testPortalPort=[5001] jiraUsername=[your username] jiraPassword=[your password] \
+    nodemon bin/run-test-portal
  
 Note, JIRA credentials may be omitted unless you intend to use JIRA syncing capabilities of the CI server.
 
 ### Use the QA Hosted version of CI Server
 
-QA is running a copy of the CI server [here](http://10.10.144.117:5001).
+QA is running a copy of the CI server [here](http://10.10.1.101/).
 
 ## REST API
 
@@ -35,17 +36,17 @@ You cannot trigger a test run remotely at the moment.
  
 ### Add locally generated test result to CI Server
 
-    curl -vX PUT http://10.10.144.117:5001/test-results/your-test-result-file.json -d @your-test-result-file.json
+    curl -vX PUT http://10.10.1.101/test-results/your-test-result-file.json -d @your-test-result-file.json
     
 ### Retrieve all Test Results from CI Server
 
 The following curl command will retrieve a list of the results, modified date, name, and href to the result details.
 
-    curl http://10.10.144.117:5001/test-results/
+    curl http://10.10.1.101/test-results/
 
 ### Retrieve a Specific Test Result Detail
 
-    curl http://10.10.144.117:5001/test-results/[test-result-id]
+    curl http://10.10.1.101/test-results/[test-result-id]
     
 This will return a JSON with the test result information. To obtain a test-result-id it is recommended first to call
 to get "all test results from CI Server" and follow the href of the desired result.

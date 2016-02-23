@@ -3,6 +3,8 @@ var API = require('../lib/api');
 var configJSON = require('../configuration/config.json');
 configJSON.jiraPassword = process.env['jiraPassword'];
 configJSON.jiraUsername = process.env['jiraUsername'];
+var testPortalPort = process.env['testPortalPort'] || 5001;
+var hostName = process.env['hostName'] || 'localhost';
 
 if(configJSON.jiraPassword==null || configJSON.jiraUsername==null)
     console.warn('warning: env variables jiraPassword and jiraUsername must be set to enable JIRA syncing features');
@@ -15,4 +17,4 @@ function onServerFailure(e) {
     log(e);
 }
 
-testPortalWebServer.startServer('localhost', 5001).done(log, onServerFailure);
+testPortalWebServer.startServer(hostName, testPortalPort).done(log, onServerFailure);
