@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 var API = require('../lib/api');
 var configJSON = require('../configuration/config.json');
+configJSON.jiraPassword = process.env['jiraPassword'];
+configJSON.jiraUsername = process.env['jiraUsername'];
+
+if(configJSON.jiraPassword==null || configJSON.jiraUsername==null)
+    console.warn('warning: env variables jiraPassword and jiraUsername must be set to enable JIRA syncing features');
+
 var log = console.log.bind(console);
 var testPortalWebServer = API(configJSON).newTestPortalWebServer();
 

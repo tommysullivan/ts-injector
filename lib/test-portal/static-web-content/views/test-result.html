@@ -1,8 +1,19 @@
 <div id="testResult" class="testResult {{testResult.status()}}">
-    <h2 style="margin-bottom: 10px;">Test {{statusDisplayName(testResult.status())}}.</h2>
     <div class="row">
         <div class="col-md-3">
-            <table-of-contents ng-show="testResult.features.length > 0"></table-of-contents>
+            <h2 style="margin-bottom: 10px;">Test {{statusDisplayName(testResult.status())}}.</h2>
+        </div>
+        <div class="col-md-9">
+            <div ng-if="soughtTagsWithNoMatch.length > 0" class="alert alert-danger pull-right">
+                <strong>Warning!</strong> {{numSoughtTagsWithNoMatch}} sought tags with no match: {{soughtTagsWithNoMatch}} <span class="close" data-dismiss="alert" aria-label="close">&times;</span>
+            </div>
+        </div>
+    </div>
+
+    <h3 ng-if="testResult.features.length==0">No tests to show</h3>
+    <div ng-if="testResult.features.length > 0" class="row">
+        <div class="col-md-3">
+            <table-of-contents></table-of-contents>
         </div>
         <div class="col-md-3">
             <div class="chartArea">

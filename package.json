@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mapr/private-spyglass#readme",
   "dependencies": {
+    "body-parser": "latest",
     "bower": "latest",
     "cucumber": "latest",
     "cucumber-html-report": "latest",
@@ -28,7 +29,7 @@
     "promise": "latest",
     "prompt": "latest",
     "request": "latest",
-    "valid-url": "latest",
-    "body-parser": "latest"
+    "underscore": "^1.8.3",
+    "valid-url": "latest"
   }
 }

@@ -1,39 +1,64 @@
-# Test Portal
+# CI Server
 
-This is temporarily living in Spyglass repository but after it is mature, used, and proven valuable, assuming
-that occurs, it can be extracted into its own repo.
+This is the CI server for Spyglass, which is intended to graduate to its own repository
+and become owned by DevOps as a general purpose tool if it turns out to be a successful initiative.
 
-Spyglass Specifics
+## How to Use
 
-    - Rewrite the Installation / Configuration tab of the test plan into Gherkin and use Sheets Integration above.
-    - Link google docs to the tests
+### Installation
 
-## For Thursday's Standup, what would I like to have as my status update?
+From the root directory, assuming you have a newer version of node.js:
 
-- Ability to specify test parameters (via CLI, web UI)
-    - Includes Component under test versions
-    - Includes details of the Cluster Under Test (pre-existing or created during tests)
+    npm install
     
-- Ability to manually test based on Gherkin test plan
-    - Ability to add comments to manual steps, including error messages
-    - Ability to save the test
-    - Instructions on how to begin a new test
-    - Ability to upload a test result via POST
+Next, client side dependencies must be installed. From the lib/test-portal directory:
 
-- JIRA Integration
-    - Ability to use JQL to view associated tests
-    - Ability to trigger update to JIRA with on screen test results
-
-- Data Store
-    - Store JSON in MapRDB
+    bower install
     
-## Future Enhancements
+### Run the CI Server
+
+Run the server with nodemon if you desire auto restart upon server source code change. Else skip word "nodemon":
+
+    jiraUsername=[your username] jiraPassword=[your password] nodemon bin/run-test-portal
+ 
+Note, JIRA credentials may be omitted unless you intend to use JIRA syncing capabilities of the CI server.
+
+### Use the QA Hosted version of CI Server
+
+QA is running a copy of the CI server [here](http://10.10.144.117:5001).
+
+## REST API
+
+### Trigger a Test Run remotely
+
+You cannot trigger a test run remotely at the moment.
+ 
+### Add locally generated test result to CI Server
+
+    curl -vX PUT http://10.10.144.117:5001/test-results/your-test-result-file.json -d @your-test-result-file.json
+    
+### Retrieve all Test Results from CI Server
+
+The following curl command will retrieve a list of the results, modified date, name, and href to the result details.
+
+    curl http://10.10.144.117:5001/test-results/
+
+### Retrieve a Specific Test Result Detail
+
+    curl http://10.10.144.117:5001/test-results/[test-result-id]
+    
+This will return a JSON with the test result information. To obtain a test-result-id it is recommended first to call
+to get "all test results from CI Server" and follow the href of the desired result.
+
+## Potential Future Enhancements
 
 ### Web UI
 
 Finding Test Results
 
     - Ability to filter by date range
+    - Ability to share the query bar state as user navigates to different pages
+    - Ability to save, load and use common query descriptions
     - Deep Linking reflects current query and position within view
     - Use a Drill + Visualization tool to view results over time as a chart
     - Ability to searchably tag at the "entire test result" level
@@ -95,6 +120,7 @@ JIRA Integration
     
 GitHub Integration
 
+    - Show commit links associated with a given scenario based on its JIRA tags
     - Pull test specification from particular github repo, branch, commit
     - Update github with test results
 
@@ -107,7 +133,8 @@ Google Sheets Integration
     
 REST Interface
 
-    - Allow other applications to easily call in and get results from current or previous test runs
+    - Make the JSON and UI urls for test results the same, redirect to client side url from server
+      if content-type is text/html, serve JSON if application/json or vnd.*+json
     
 ### Framework
     
@@ -118,13 +145,13 @@ REST Interface
     - Look into using lodash
     - REST discoverability / self-documentation
     - Get the thing onto MapRDB, then use a web based drill client to visualize the data
+        - NOTE: Wanted to use the node bindings, but saw that it requires to couple to
+        - python, C, C++ and Java (as well as node). Would prefer not having that complexity.
+        - Will look into it later.
     
 ## Bugs
 
-    - upon change of manual step status, view jumps around upon re-render if not close to top of page.
-    - json and UI to look at a particular resource have different URLs
-    - Hard to reflect "empty" test / features / scenario
-    - TypeError: Cannot read property 'displayValue' of undefined - goes away with ng-if, but too slow so accepted bug
+    - No known bugs at this time
     
 ## CI/CD
     

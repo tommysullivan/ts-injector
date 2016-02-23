@@ -35,7 +35,7 @@ This repository is proposed to be the system of record for:
 Role               | Person / Team / Company
 -------------------|-------------------------------------------
 Customers          | UHG, Cisco, Rubicno, Comscore, MachineZone
-Project Sponsors   | Anil Gadre, Pinaki Mukerji, MC Srivas
+Project Sponsors   | Anil Gadre, Pinaki Mukerji
 Program Manager    | Leslie Lin
 Product Manager    | Prashant Rathi
 Solution Architect | Todd Richmond
@@ -208,24 +208,12 @@ various parts of the system.
 
 Please see [this high level approach to testing](https://maprdrill.atlassian.net/browse/SPYG-82) in order to get the big picture.
 
-### How to Run Tests
-
-#### Test Configuration
-
-Test configuration is "tiered" so that one can override values in a few different ways. Unless otherwise specified,
-configuration values come from configuration/config.json.
-
-One can override values there by setting environment variables with the same name as the keys in config file.
+### Running Tests
 
 #### Run in Jenkins
 
 Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-check/) and click 
-"Build with Parameters". From here you can override default test parameters or go with the defaults. .
-
-TODO: 
- - Make the current tests runnable against a dynamically assigned IP address (use ENV variables)
- - 
-
+"Build with Parameters". From here you can override default test parameters or go with the defaults.
 
 #### Run Locally 
 
@@ -233,6 +221,16 @@ After cloning this repository, and ensuring you have installed 'npm' on your sys
 
     npm install
     npm test
+    
+### Viewing Results
+
+Test Runs send colored text to stdout for quick viewing, as well as store JSON in the test-results folder.
+
+One can view using an interactive web interface by running the [CI Server](lib/test-portal/readme.md) and then
+navigating to the generated URL using your browser of choice.
+
+One may also make a REST call to "publish" or update the test result to the QA version of the CI Server.
+To do that, review [the readme](lib/test-portal/readme.md)
 
 ### Testing Links
 
