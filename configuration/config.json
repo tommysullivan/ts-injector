@@ -7,7 +7,8 @@
   "defaultJQLQueryKey": "1.0.alpha",
   "jqlQueries": {
     "1.0.alpha": "project=Spyglass AND issuetype = Story AND fixVersion = 1.0.alpha",
-    "proposed": "project=Spyglass AND status = Proposed"
+    "proposed": "project=Spyglass AND status = Proposed",
+    "sprints1And2": "project=SPYG AND issuetype=Story AND sprint IN (\"Spyglass Sprint 1\", \"Spyglass Sprint 2\")"
   },
   "openTSDBQueryPathTemplate": "/api/query?start={start}&m={metricName}",
   "debugHTTP": false,

@@ -5,6 +5,10 @@
                 Tags:
                 <input style="color: black; width: 500px;" ng-model="query.tagQuery" ng-change="applyQuery()" ng-model-options="{ debounce: 500 }" placeholder="tags OR'ed together, ~negates. ie: @SPYG-125 ~@HealthCheck">
             </label>
+            <label ng-if="!hideJQL">
+                JQL:
+                <input style="color: black; width: 500px;" ng-model="query.jqlQuery" ng-change="applyJQLQuery()" ng-model-options="{ debounce: 500 }" placeholder="JQL Query ie. project=SPYG AND issuetype=Story AND fixVersion=&quot;1.0 Dev Preview&quot;">
+            </label>
             <p>
                 JIRA:
                 <label>

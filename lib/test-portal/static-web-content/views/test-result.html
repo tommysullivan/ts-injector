@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-9">
             <div ng-if="soughtTagsWithNoMatch.length > 0" class="alert alert-danger pull-right">
-                <strong>Warning!</strong> {{numSoughtTagsWithNoMatch}} sought tags with no match: {{soughtTagsWithNoMatch}} <span class="close" data-dismiss="alert" aria-label="close">&times;</span>
+                <strong>Warning!</strong> Sought {{totalSoughtTags}} tags, found {{foundSoughtTags}}, didn't find {{numSoughtTagsWithNoMatch}}. Tags: {{soughtTagsWithNoMatch}} <span class="close" data-dismiss="alert" aria-label="close">&times;</span>
             </div>
         </div>
     </div>
