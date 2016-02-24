@@ -26,7 +26,9 @@ Note, JIRA credentials may be omitted unless you intend to use JIRA syncing capa
 
 ### Use the QA Hosted version of CI Server
 
-QA is running a copy of the CI server [here](http://10.10.1.101/).
+QA is running a copy of the CI server [here](http://10.10.1.101/). There is a 
+[Jenkins Health Check](http://10.10.1.153:8080/job/test-portal-health-check/) monitoring
+job that runs every 10 minutes and emails tsullivan@maprtech.com upon failure.
 
 ## REST API
 
