@@ -65,7 +65,7 @@ module.exports = function() {
     this.When(/^I navigate to the node dashboard$/, manualStep(0));
     this.When(/^I look for the following metrics$/, manualStep(1));
     this.Then(/^I see the corresponding graph with reasonably accurate data for the past (\d+) hours$/, manualStep(1));
-    this.Given(/^I have a kibana instance running at "([^"]*)"$/, manualStep(1));
     this.When(/^I navigate to kibana's discovery interface$/, manualStep(0));
     this.Then(/^I see at least one log from warden$/, manualStep(0));
+    this.Given(/^I have determined the kibana server and port for that cluster$/, manualStep(0));
 }
