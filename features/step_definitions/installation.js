@@ -14,4 +14,12 @@ module.exports = function() {
         callback.pending();
     });
 
+    this.Given(/^I have installed Spyglass onto "([^"]*)"$/, function (operatingSystem, callback) {
+        if(operatingSystem=='CentOS 7') {
+            this.grafanaHostAndOptionalPort = 'http://10.10.1.103:3000';
+            callback();
+        }
+        else callback.pending();
+    });
+
 }

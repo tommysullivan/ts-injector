@@ -5,7 +5,12 @@
       {
         "PublicIP": "54.85.162.196",
         "Services": [
-          "MCS"
+          {
+            "name": "MCS",
+            "url": "https://54.85.162.196:8443",
+            "username": "mapr",
+            "password": "i-2440a5a0"
+          }
         ]
       },
       {

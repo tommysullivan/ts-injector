@@ -1,6 +1,6 @@
 module.exports = function() {
-    this.Given(/^I have a grafana server and port set to "([^"]*)"$/, function (grafanaHostAndOptionalPort) {
-        this.grafanaRestClient = this.api.newGrafanaRestClient(grafanaHostAndOptionalPort);
+    this.Given(/^I have determined the grafana server and port for that cluster$/, function () {
+        this.grafanaRestClient = this.api.newGrafanaRestClient(this.grafanaHostAndOptionalPort);
     });
 
     this.Given(/^my grafana username is "([^"]*)"$/, function (grafanaUsername) {

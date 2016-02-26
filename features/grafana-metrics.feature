@@ -1,8 +1,9 @@
 Feature: Grafana Metrics
 
   @SPYG-124 @Manual @WIP
-  Scenario: View First Metrics in Node Dashboard
-    Given I have a grafana server and port set to "http://10.10.1.103:3000"
+  Scenario Outline: View First Metrics in Node Dashboard
+    Given I have installed Spyglass onto "<operating system>"
+    And I have determined the grafana server and port for that cluster
     And it has been populated with reports as described in "installation.feature/Grafana Dashboard Definition Import"
     And my grafana username is "admin"
     And my grafana password is "admin"
@@ -13,3 +14,56 @@ Feature: Grafana Metrics
       | sum:rate:mapr.io.write_bytes |
       | sum:rate:mapr.io.read_bytes |
     Then I see the corresponding graph with reasonably accurate data for the past 24 hours
+
+    @SPYG-211
+    Examples:
+      | operating system |
+      | SuSE 12          |
+
+    @SPYG-209
+    Examples:
+      | operating system |
+      | CentOS 7         |
+
+    @SPYG-210
+    Examples:
+      | operating system |
+      | Ubuntu 12.04     |
+
+
+
+  @SPYG-124
+  Scenario Outline: Grafana Dashboard Definition Import
+    Given I have installed Spyglass onto "<operating system>"
+    And I have determined the grafana server and port for that cluster
+    And my grafana username is "admin"
+    And my grafana password is "admin"
+    And the fqdns of my cluster are
+      | fqdns       |
+      | 10.10.1.102 |
+    And I have an authenticated grafana rest client
+    When I request to import the following dashboard definitions:
+      | dashboard name |
+      | cldb           |
+      | dbmetrics      |
+      | node           |
+      | volume         |
+      | yarn           |
+    Then the reports are all available to view
+
+    @SPYG-211
+    Examples:
+    | operating system |
+    | SuSE 12          |
+
+    @SPYG-209
+    Examples:
+    | operating system |
+    | CentOS 7         |
+
+    @SPYG-210
+    Examples:
+    | operating system |
+    | Ubuntu 12.04     |
+
+
