@@ -18,6 +18,7 @@ module.exports = function() {
         if(operatingSystem=='CentOS 7') {
             this.grafanaHostAndOptionalPort = 'http://10.10.1.103:3000';
             this.kibanaHostAndOptionalPort = 'http://10.10.1.103:5601';
+            this.mcsProtocolHostAndOptionalPort = 'https://10.10.1.103:8443';
             callback();
         }
         else callback.pending();

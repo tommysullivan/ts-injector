@@ -8,10 +8,6 @@ module.exports = function() {
         this.mcsPassword = mcsPassword;
     });
 
-    this.Given(/^my MCS is running at "([^"]*)"$/, function (mcsProtocolHostAndOptionalPort) {
-        this.mcsProtocolHostAndOptionalPort = mcsProtocolHostAndOptionalPort;
-    });
-
     this.Given(/^I have an authenticated MCS Rest Client Session$/, function (callback) {
         this.api.newMCSRestClient(this.mcsProtocolHostAndOptionalPort).createAutheticatedSession(this.mcsUserName, this.mcsPassword).done(
             authenticatedMCSSession => { this.authenticatedMCSSession = authenticatedMCSSession; callback() },

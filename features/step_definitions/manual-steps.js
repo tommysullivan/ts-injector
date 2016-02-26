@@ -56,10 +56,9 @@ module.exports = function() {
     this.Then(/^I receive a (\d+) OK$/, manualStep(1));
     this.Then(/^I see the test result in the Test Result Explorer$/, manualStep(0));
     this.Then(/^I can open and view the test$/,manualStep(0));
-    this.When(/^I read the readme at "([^"]*)"$/, manualStep(1));
+    this.When(/^I follow the manual installation instructions located at "([^"]*)"$/, manualStep(1));
     this.Then(/^it tells me how to install, configure and run the services required for Spyglass$/, manualStep(0));
     this.Given(/^it tells me how to discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch$/, manualStep(0));
-    this.Given(/^I have manually prepared a single node cluster as described by "([^"]*)"$/, manualStep(1));
     this.Given(/^it has been populated with reports as described in "([^"]*)"$/, manualStep(1));
     this.Given(/^I have logged into Grafana$/, manualStep(0));
     this.When(/^I navigate to the node dashboard$/, manualStep(0));
@@ -68,4 +67,6 @@ module.exports = function() {
     this.When(/^I navigate to kibana's discovery interface$/, manualStep(0));
     this.Then(/^I see at least one log from warden$/, manualStep(0));
     this.Given(/^I have determined the kibana server and port for that cluster$/, manualStep(0));
+    this.Given(/^I have procured hardware running "([^"]*)"$/, manualStep(1));
+
 }
