@@ -98,7 +98,7 @@ This section lists package names and the steps performed when each one is instal
    * sets discovery.zen.minimum_master_nodes (typically odd number >= 3 for HA)
    * sets the kernel limit for vm.max_map_count to 262144 if it is less (also modifies /etc/sysctl.conf)
    * copies warden.elasticsearch.conf to MAPR_HOME/conf/conf.d
-   * (manual requirement for M2) once ES is running, execute loadtemplate.sh script in the elasticsearch bin directory once per cluster to load the mapr monitoring template
+   * (manual requirement for M2) once ES is running, execute es_cluster_mgmt.sh -loadTemplate <hostname> script in the elasticsearch bin directory once per cluster to load the mapr monitoring template
 
 * mapr-fluentd
    * installs fluentd at MAPR_HOME/fluentd/fluentd-*
@@ -138,6 +138,7 @@ This section lists package names and the steps performed when each one is instal
 
 Example configure.sh invocation:
 configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es -R (-ESDB on ES server nodes only)
+*Installer support* - The lastest build of the installer (2/29/2016) does now do this for you. ESDB is for now hard coded to /opt/mapr/es_db.
 
 ## Links
 
