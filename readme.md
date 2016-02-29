@@ -138,6 +138,7 @@ This section lists package names and the steps performed when each one is instal
 
 Example configure.sh invocation:
 configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es -R (-ESDB on ES server nodes only)
+*Installer support* - The lastest build of the installer (2/29/2016) does now do this for you. ESDB is for now hard coded to /opt/mapr/es_db.
 
 ## Links
 
