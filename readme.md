@@ -134,11 +134,13 @@ This section lists package names and the steps performed when each one is instal
    * conf file is located at MAPR_HOME/kibana/kibana-*/config/kibana.yml
    * updates the ES host in the conf file
    * copies warden.kibana.conf file to MAPR_HOME/conf/conf.d
-   * [Manual step for M2] After running configure.sh, when Kibana page loads on port 5601 (default port for Kibana) you will see message for "Configuring index pattern". Please enter "logstash-*" for Index name or pattern field and "@timestamp" for Time-field name.
+   * [Manual step for M2] **After running configure.sh, when Kibana page loads on port 5601 (default port for Kibana) you will see message for "Configuring index pattern". Please enter "mapr_monitoring-*" for Index name or pattern field and "@timestamp" for Time-field name.**
 
-Example configure.sh invocation:
-configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es -R (-ESDB on ES server nodes only)
-*Installer support* - The lastest build of the installer (2/29/2016) does now do this for you. ESDB is for now hard coded to /opt/mapr/es_db.
+#### Example configure.sh invocation:
+  * configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es -R (-ESDB on ES server nodes only)
+
+#### Installer support
+**The lastest build of the installer (2/29/2016) does now do this for you. ESDB is for now hard coded to /opt/mapr/es_db.**
 
 ## Links
 
