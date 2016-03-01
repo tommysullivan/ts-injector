@@ -127,6 +127,7 @@ This section lists package names and the steps performed when each one is instal
    * copies warden.grafana.conf file to MAPR_HOME/conf/conf.d
    * sets up OpenTSDB data source
    * The dashboards can be found in [the dashboards folder of this repo](dashboards). These are .json files which you can import into Grafana
+   * **NOTE** Grafana does not work well with Safari!
 
 * mapr-kibana
    * installs kibana at MAPR_HOME/kibana/kibana-*
