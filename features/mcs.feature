@@ -16,6 +16,7 @@ Feature: MCS
     | CentOS 7         |
     | Ubuntu 12.04     |
 
+  @Manual
   Scenario Outline: Spyglass Health Check Negative Testing
     Given I want to make sure the health check is accurate
     When I purposely take down <service> on one or more nodes
@@ -30,7 +31,7 @@ Feature: MCS
       | kibana |
       | grafana |
 
-  @HealthCheck @SPYG-126
+  @HealthCheck @SPYG-126 @WIP
   Scenario Outline: MCS 3rd Party UI Links
     Given I have installed Spyglass onto "<operating system>"
     And my MCS username is "mapr"

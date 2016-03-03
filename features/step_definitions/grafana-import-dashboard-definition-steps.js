@@ -18,11 +18,6 @@ module.exports = function() {
         );
     });
 
-    this.Given(/^the fqdns of my cluster are$/, function (table) {
-        this.fqdns = this.getArrayFromTable(table);
-    });
-
-
     this.When(/^I request to import the following dashboard definitions:$/, function (table, callback) {
         var dashboardNames = this.getArrayFromTable(table);
         var uploadPromises = dashboardNames.map(dashboardName => this.grafanaRestSession.uploadGrafanaDashboard(dashboardName, this.fqdns));

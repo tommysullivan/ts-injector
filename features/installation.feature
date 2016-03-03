@@ -1,3 +1,4 @@
+@JIRA-23
 Feature: Installation
   As a MapR Employee
   In order to test and demo Spyglass before it is available in the UI installer
@@ -24,3 +25,6 @@ Feature: Installation
       Examples:
       | operating system |
       | SUSE 12          |
+
+  Scenario: Install MapR Core and Spyglass at the same time
+  Scenario: Install MapR Core, then install Spyglass on top

@@ -38,7 +38,7 @@ You cannot trigger a test run remotely at the moment.
  
 ### Add locally generated test result to CI Server
 
-    curl -vX PUT http://10.10.1.101/test-results/your-test-result-file -d @your-test-result-file.json
+    curl -H 'Content-Type: application/json' -vX PUT http://10.10.1.101/test-results/your-test-result-file -d @your-test-result-file.json
     
 ### Retrieve all Test Results from CI Server
 

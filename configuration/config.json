@@ -27,5 +27,173 @@
     "kibana",
     "grafana"
   ],
-  "testResultPath": "test-results"
+  "testResultPath": "test-results",
+  "environments": [
+    {
+      "Type": "Cluster",
+      "Nodes": [
+        {
+          "PublicIP": "54.85.162.196",
+          "Services": [
+            {
+              "name": "MCS",
+              "url": "https://54.85.162.196:8443",
+              "username": "mapr",
+              "password": "i-2440a5a0"
+            }
+          ]
+        },
+        {
+          "PublicIP": "54.174.168.230"
+        },
+        {
+          "PublicIP": "54.174.168.230"
+        }
+      ]
+    },
+    {
+      "purpose": "general use",
+      "type": "Bare Metal",
+      "location": "On-Premise",
+      "hostName": "atsqa4-117",
+      "ip": "10.10.88.117",
+      "powerResetIP": "10.10.144.117",
+      "operatingSystem": {
+        "name": "CentOS",
+        "version": "6.7"
+      },
+      "password": "mapr"
+    },
+    {
+      "purpose": "general use",
+      "type": "Bare Metal",
+      "location": "On-Premise",
+      "hostName": "atsqa4-118",
+      "ip": "10.10.88.117",
+      "powerResetIP": "10.10.144.118",
+      "operatingSystem": {
+        "name": "CentOS",
+        "version": "6.7"
+      },
+      "password": "mapr"
+    },
+    {
+      "purpose": "general use",
+      "type": "Bare Metal",
+      "location": "On-Premise",
+      "hostName": "atsqa4-119",
+      "ip": "10.10.88.117",
+      "powerResetIP": "10.10.144.119",
+      "operatingSystem": {
+        "name": "Ubuntu",
+        "version": "12.94"
+      },
+      "password": "mapr"
+    },
+    {
+      "purpose": "general use",
+      "type": "Bare Metal",
+      "location": "On-Premise",
+      "hostName": "atsqa4-120",
+      "ip": "10.10.88.117",
+      "powerResetIP": "10.10.144.120",
+      "operatingSystem": {
+        "name": "Ubuntu",
+        "version": "12.04"
+      },
+      "password": "mapr"
+    },
+    {
+      "id": "SpyglassTestingHypervisor"
+      "purpose": "Testing Hypervisor",
+      "type": "ESXi",
+      "location": "On-Premise",
+      "hostName": "",
+      "password": "maprwins",
+      "ip": "10.10.1.100"
+    },
+    {
+      "purpose": "Spyglass Testing",
+      "type": "VM,
+      "location": "On-Premise",
+      "hostName": "qa-cnode101.lab",
+      "ip": "10.10.1.101",
+      "operatingSystem": {
+        "name": "CentOS",
+        "version": "6.5"
+      },
+      "hypervisorId": "SpyglassTestingHypervisor",
+      "cpus": 8,
+      "ram": 16,
+      "osDrives": 1,
+      "mfsDrives": 3,
+      "password": "mapr"
+    },
+    {
+      "purpose": "Spyglass Testing",
+      "type": "VM,
+      "location": "On-Premise",
+      "hostName": "qa-cnode102.lab",
+      "ip": "10.10.1.102",
+      "operatingSystem": {
+        "name": "CentOS",
+        "version": "6.5"
+      },
+      "hypervisorId": "SpyglassTestingHypervisor",
+      "cpus": 8,
+      "ram": 16,
+      "osDrives": 1,
+      "mfsDrives": 3,
+      "password": "mapr"
+    },
+    {
+      "purpose": "Spyglass Testing",
+      "type": "VM,
+      "location": "On-Premise",
+      "hostName": "qa-cnode101.lab",
+      "ip": "10.10.1.103",
+      "operatingSystem": {
+        "name": "CentOS",
+        "version": "6.5"
+      },
+      "hypervisorId": "SpyglassTestingHypervisor",
+      "cpus": 8,
+      "ram": 16,
+      "osDrives": 1,
+      "mfsDrives": 3,
+      "password": "mapr"
+    },
+    {
+      "purpose": "Ubuntu Testing",
+      "type": "VM,
+      "location": "On-Premise",
+      "hostName": "qa-cnode143.lab",
+      "ip": "10.10.30.143",
+      "operatingSystem": {
+        "name": "Ubuntu",
+        "version": "12.04"
+      },
+      "cpus": 8,
+      "ram": 16,
+      "osDrives": 1,
+      "mfsDrives": 3,
+      "password": "mapr"
+    },
+    {
+      "name": "Vivians Spyglass Testing Machine for Sprint 3",
+      "ip": "10.10.10.173",
+      "operatingSystem": {
+        "name": "Ubuntu",
+        "version": "12.04"
+      }
+    },
+    {
+      "name": "Anisha's Spyglass Testing Machine for Sprint 3",
+      "ip": "10.10.101.106",
+      "operatingSystem": {
+        "name": "Centos",
+        "version": "7.0"
+      }
+    }
+  ]
 }

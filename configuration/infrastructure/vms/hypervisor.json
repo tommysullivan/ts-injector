@@ -1,8 +1,0 @@
-{
-  "purpose": "Testing Hypervisor",
-  "type": "ESXi",
-  "location": "On-Premise",
-  "hostName": "",
-  "password": "maprwins",
-  "ip": "10.10.1.100"
-}

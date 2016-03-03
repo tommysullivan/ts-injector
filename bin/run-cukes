@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p test-results
 ./node_modules/cucumber/bin/cucumber.js \
     -f json:test-results/`whoami`-$(date +%Y-%m-%d-at-%H-%M-%S).json \
     $@

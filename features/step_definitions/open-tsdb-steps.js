@@ -1,19 +1,16 @@
 module.exports = function() {
 
-    this.Given(/^the URL and port of OpenTSDB is "([^"]*)"$/, function (openTSDBHostAndPort) {
-        this.openTSDBRestClient = this.api.newOpenTSDBRestClient(openTSDBHostAndPort);
-    });
-
     this.When(/^I specify the query range start as "([^"]*)"$/, function (queryRangeStart) {
         this.queryRangeStart = queryRangeStart;
     });
 
     this.When(/^I query for the following metrics:$/, function (table, callback) {
         this.metricNames = this.getArrayFromTable(table);
-        var metricQueryPromises = this.metricNames.map(metricName => this.openTSDBRestClient.queryForMetric(this.queryRangeStart, metricName));
+        var openTSDBRestClient = this.api.newOpenTSDBRestClient(this.openTSDBHostAndPort);
+        var metricQueryPromises = this.metricNames.map(metricName => openTSDBRestClient.queryForMetric(this.queryRangeStart, metricName));
         this.api.newGroupPromise(metricQueryPromises).done(
             queryResultSets => { this.queryResultSets = queryResultSets; callback(); },
-            error => callback("There was an http error: "+error.statusCode)
+            error => callback("There was an http error: "+error)
         )
     });
 

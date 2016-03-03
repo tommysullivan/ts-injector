@@ -1,6 +1,6 @@
 Feature: Grafana Metrics
 
-  @SPYG-124 @Manual @WIP
+  @SPYG-124 @Manual
   Scenario Outline: View First Metrics in Node Dashboard
     Given I have installed Spyglass onto "<operating system>"
     And I have determined the grafana server and port for that cluster
@@ -30,17 +30,12 @@ Feature: Grafana Metrics
       | operating system |
       | Ubuntu 12.04     |
 
-
-
   @SPYG-124
   Scenario Outline: Grafana Dashboard Definition Import
     Given I have installed Spyglass onto "<operating system>"
     And I have determined the grafana server and port for that cluster
     And my grafana username is "admin"
     And my grafana password is "admin"
-    And the fqdns of my cluster are
-      | fqdns       |
-      | 10.10.1.102 |
     And I have an authenticated grafana rest client
     When I request to import the following dashboard definitions:
       | dashboard name |

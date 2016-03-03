@@ -2,6 +2,7 @@
 
 #ssh to hypervisor
 ssh root@10.10.1.100
+#password is maprwins
 
 #list all vm
 vim-cmd vmsvc/getallvms

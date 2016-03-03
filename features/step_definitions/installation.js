@@ -15,10 +15,18 @@ module.exports = function() {
     });
 
     this.Given(/^I have installed Spyglass onto "([^"]*)"$/, function (operatingSystem, callback) {
-        if(operatingSystem=='CentOS 7') {
-            this.grafanaHostAndOptionalPort = 'http://10.10.1.103:3000';
-            this.kibanaHostAndOptionalPort = 'http://10.10.1.103:5601';
-            this.mcsProtocolHostAndOptionalPort = 'https://10.10.1.103:8443';
+        var hostNamesByOS = {
+            'CentOS 7': '10.10.101.106',
+            'Ubuntu 12.04': '10.10.10.173'
+        }
+        if(Object.keys(hostNamesByOS).indexOf(operatingSystem) >=0) {
+            var hostName = hostNamesByOS[operatingSystem];
+            this.grafanaHostAndOptionalPort = 'http://' + hostName + ':3000';
+            this.kibanaHostAndOptionalPort = 'http://' + hostName + ':5601';
+            this.elasticSearchHostAndOptionalPort = 'http://' + hostName + ':9200';
+            this.mcsProtocolHostAndOptionalPort = 'https://' + hostName + ':8443';
+            this.openTSDBHostAndPort = 'http://' + hostName + ':4242';
+            this.fqdns = ['' + hostName + ''];
             callback();
         }
         else callback.pending();

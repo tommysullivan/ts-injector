@@ -221,7 +221,9 @@ Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-c
 
 #### Run Locally 
 
-After cloning this repository, and ensuring you have installed 'npm' on your system:
+    Prerequisite: node.js 5.0 or above
+
+After cloning this repository, from the root directory:
 
     npm install
     npm test
