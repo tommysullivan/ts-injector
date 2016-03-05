@@ -32,4 +32,9 @@ module.exports = function() {
         else callback.pending();
     });
 
+    this.Given(/^I have procured hardware running "([^"]*)"$/, function(operatingSystem, callback) {
+        //todo: verify that configuration has hardware running this operatingSystem
+        callback();
+    });
+
 }

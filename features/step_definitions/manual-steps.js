@@ -67,6 +67,4 @@ module.exports = function() {
     this.When(/^I navigate to kibana's discovery interface$/, manualStep(0));
     this.Then(/^I see at least one log from warden$/, manualStep(0));
     this.Given(/^I have determined the kibana server and port for that cluster$/, manualStep(0));
-    this.Given(/^I have procured hardware running "([^"]*)"$/, manualStep(1));
-
 }

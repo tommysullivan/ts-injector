@@ -104,7 +104,7 @@
       "password": "mapr"
     },
     {
-      "id": "SpyglassTestingHypervisor"
+      "id": "SpyglassTestingHypervisor",
       "purpose": "Testing Hypervisor",
       "type": "ESXi",
       "location": "On-Premise",
@@ -114,7 +114,7 @@
     },
     {
       "purpose": "Spyglass Testing",
-      "type": "VM,
+      "type": "VM",
       "location": "On-Premise",
       "hostName": "qa-cnode101.lab",
       "ip": "10.10.1.101",
@@ -131,7 +131,7 @@
     },
     {
       "purpose": "Spyglass Testing",
-      "type": "VM,
+      "type": "VM",
       "location": "On-Premise",
       "hostName": "qa-cnode102.lab",
       "ip": "10.10.1.102",
@@ -148,7 +148,7 @@
     },
     {
       "purpose": "Spyglass Testing",
-      "type": "VM,
+      "type": "VM",
       "location": "On-Premise",
       "hostName": "qa-cnode101.lab",
       "ip": "10.10.1.103",
@@ -165,7 +165,7 @@
     },
     {
       "purpose": "Ubuntu Testing",
-      "type": "VM,
+      "type": "VM",
       "location": "On-Premise",
       "hostName": "qa-cnode143.lab",
       "ip": "10.10.30.143",
