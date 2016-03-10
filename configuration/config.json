@@ -30,6 +30,7 @@
     "kibana",
     "grafana"
   ],
+  "defaultCucumberStepTimeoutMS": 120000,
   "testResultPath": "test-results",
   "fullyQualifiedConfigsPath": "test-configs",
   "fullyQualifiedCLIInvocationsPath": "test-cli-invocations",
@@ -37,7 +38,7 @@
     "pathsForComponents": {
       "GUI Installer": "/installer-master-ui",
       "MapR Core": "/mapr",
-      "Ecosystem": "/ecosystem"
+      "Ecosystem": "/opensource"
     },
     "repositories": [
       {
@@ -54,8 +55,77 @@
   },
   "testClusters": [
     {
+      "id": "tommy-3-node-centos-6-5-cluster",
+      "inheritsFrom": "tommy-1-node-centos-7-0-cluster",
+      "name": "tommy-3-node-centos-6-5-cluster.devops.lab",
+      "controller": {
+        "type": "esxi",
+        "host": "10.10.99.70",
+        "username": "root",
+        "password": "maprmapr"
+      },
+      "nodes": [
+        {
+          "name": "scale-72",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 3,
+          "host": "10.10.99.72",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.5"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 1
+            }
+          ],
+          "serviceNames": [
+            "GUI Installer"
+          ]
+        },
+        {
+          "name": "scale-73",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 4,
+          "host": "10.10.99.73",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.5"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 1
+            }
+          ],
+          "serviceNames": []
+        },
+        {
+          "name": "scale-74",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 4,
+          "host": "10.10.99.74",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.5"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 1
+            }
+          ],
+          "serviceNames": []
+        }
+      ]
+    },
+    {
       "id": "anisha-1-node-centos-7-0-cluster",
-      "inheritsFrom": "tommy-centos-7-0-cluster",
+      "inheritsFrom": "tommy-1-node-centos-7-0-cluster",
       "name": "anisha-1-node-centos-7-0-cluster.devops.lab",
       "controller": {
         "type": "esxi",
@@ -83,7 +153,7 @@
     },
     {
       "id": "vivian-1-node-ubuntu-12-04-cluster",
-      "inheritsFrom": "tommy-centos-7-0-cluster",
+      "inheritsFrom": "tommy-1-node-centos-7-0-cluster",
       "name": "vivian-1-node-ubuntu-12-04-cluster.devops.lab",
       "controller": {
         "type": "esxi",
@@ -111,7 +181,7 @@
     },
     {
       "id": "kevin-3-node-centos-7-1-cluster",
-      "inheritsFrom": "tommy-centos-7-0-cluster",
+      "inheritsFrom": "tommy-1-node-centos-7-0-cluster",
       "name": "kevin-3-node-centos-7-1-cluster.devops.lab",
       "controller": {
         "type": "esxi",

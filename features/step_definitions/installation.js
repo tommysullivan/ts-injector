@@ -1,4 +1,5 @@
 module.exports = function() {
+
     this.Given(/^I have installed Spyglass$/, function() {
         //TODO: Validate that spyglass installation has occurred for this ticket
     });
@@ -19,19 +20,22 @@ module.exports = function() {
     });
 
     this.When(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the "([^"]*)" repo$/, function (fileToRetrieve, destinationDirectory, componentName) {
-        return this.sshSession.executeCommands([
+        var commands = [
             'echo `hostname -I`    `hostname` >> /etc/hosts', //TODO: have valid host / dns in image!
             `${this.sshServiceHost.packageCommand()} install -y curl`,
             `curl ${this.sshServiceHost.repositoryURLFor(componentName)}${fileToRetrieve} > ${destinationDirectory}${fileToRetrieve}`,
             `chmod 744 ${destinationDirectory}${fileToRetrieve}`
-        ]);
+        ]
+        //console.log(commands);
+        return this.sshSession.executeCommands(commands);
     });
 
-    this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 300000 }, function (commandWithRepoPlaceholders) {
+    this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 10 * 60 * 1000 }, function (commandWithRepoPlaceholders) {
         var command = commandWithRepoPlaceholders;
         command = command.replace('[installerRepoURL]', this.sshServiceHost.repositoryURLFor('GUI Installer'));
         command = command.replace('[maprCoreRepoURL]', this.sshServiceHost.repositoryURLFor('MapR Core'));
         command = command.replace('[ecosystemRepoURL]', this.sshServiceHost.repositoryURLFor('Ecosystem'));
+        //console.log(command);
         return this.sshSession.executeCommands([command]).then(output=>this.maprSetupOuptut = output);
     });
 
@@ -110,7 +114,7 @@ module.exports = function() {
         validateProcessAndGetLogsOnError.call(this, 'installerProvisioningComplete', callback);
     });
 
-    this.When(/^I perform Cluster Installation$/, {timeout: 10 * 60 * 1000}, function (callback) {
+    this.When(/^I perform Cluster Installation$/, {timeout: 15 * 60 * 1000}, function (callback) {
         performInstallProcess.call(this, 'install', 'installationComplete', callback);
     });
 
