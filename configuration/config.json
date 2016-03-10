@@ -10,8 +10,8 @@
     "proposed": "project=Spyglass AND status = Proposed",
     "sprints1And2": "project=SPYG AND issuetype=Story AND sprint IN (\"Spyglass Sprint 1\", \"Spyglass Sprint 2\")"
   },
+  "installerAPIPath": "/api/",
   "installerLoginPath": "/api/login",
-  "installerConfigPath": "/api/config",
   "openTSDBQueryPathTemplate": "/api/query?start={start}&m={metricName}",
   "debugHTTP": false,
   "mcsLoginPath": "/api/login",
@@ -83,23 +83,25 @@
           ],
           "services": [
             { "name": "GUI Installer" },
-            { "name": "mapr-asynchbase" },
-            { "name": "mapr-kibana" },
-            { "name": "mapr-elasticsearch" },
-            { "name": "mapr-grafana" },
-            { "name": "mapr-collectd" },
-            { "name": "mapr-hbase-common" },
-            { "name": "mapr-yarn" },
-            { "name": "mapr-collectd-fast-jmx" },
+            { "name": "mapr-asynchbase", "version": "1.6.0" },
+            { "name": "mapr-kibana", "version": "4.4.1" },
+            { "name": "mapr-grafana", "version": "2.6.0" },
+            { "name": "mapr-collectd", "version": "5.5.1" },
+            { "name": "mapr-collectd-fast-jmx", "version": "1.1" },
+            { "name": "mapr-fluentd", "version": "0.12" },
+            { "name": "mapr-hbase-common", "version": "1.1" },
+            { "name": "mapr-yarn", "version": "2.7.0" },
             {
               "name": "mapr-elasticsearch",
               "port": 9200,
-              "protocol": "http"
+              "protocol": "http",
+              "version": "2.2.0"
             },
             {
               "name": "mapr-opentsdb",
               "port": 4242,
-              "protocol": "http"
+              "protocol": "http",
+              "version": "2.2.0"
             }
           ]
         }

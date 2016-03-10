@@ -11,7 +11,7 @@ Feature: Installation
     Then it tells me how to install, configure and run the services required for Spyglass
     And it tells me how to discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch
 
-  @SPYG-282
+  @SPYG-282 @mapr-setup
   Scenario: Download and Run GUI Installer
     Given the cluster does not have MapR Installed
     When I ssh into the node hosting "GUI Installer"
@@ -20,7 +20,7 @@ Feature: Installation
     And I wait "7" seconds
     Then it successfully starts the installer web server and outputs its URL to the screen
 
-  @SPYG-282 @WIP
+  @SPYG-282 @gui-installer
   Scenario: Use REST APIs to Install MapR with Spyglass Components
     Given the GUI Installer web server is running
     And I can authenticate my GUI Installer Rest Client

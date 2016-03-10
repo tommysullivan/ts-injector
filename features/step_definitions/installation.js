@@ -65,8 +65,12 @@ module.exports = function() {
         );
     });
 
-    this.When(/^I make the necessary REST calls$/, function () {
-        return this.clusterUnderTest.installViaRESTInstaller(this.installerRESTSession);
+    this.When(/^I make the necessary REST calls$/, function (callback) {
+        return this.clusterUnderTest.installViaRESTInstaller(this.installerRESTSession)
+            .done(
+                success => callback(),
+                error => callback(error)
+            );
     });
 
     //this.Given(/^I have installed Spyglass onto "([^"]*)"$/, function (operatingSystem, callback) {

@@ -1,0 +1,73 @@
+GRAFANA
+
+@SPYG-211
+Examples:
+| operating system |
+| SuSE 12          |
+
+@SPYG-209
+Examples:
+| operating system |
+| CentOS 7         |
+
+@SPYG-210
+Examples:
+| operating system |
+| Ubuntu 12.04     |
+
+
+
+
+KIBANA
+
+@SPYG-208
+Examples:
+| operating system |
+| SuSE 12          |
+
+@SPYG-206
+Examples:
+| operating system |
+| CentOS 7         |
+
+@SPYG-207
+Examples:
+| operating system |
+| Ubuntu 12.04     |
+
+
+
+MCS
+
+@SPYG-193
+Examples:
+| operating system |
+| SuSE 12          |
+
+@SPYG-191
+Examples:
+| operating system |
+| CentOS 7         |
+
+@SPYG-192
+Examples:
+| operating system |
+| Ubuntu 12.04     |
+
+
+MANUAL INSTALLATION
+
+@SPYG-187
+Examples:
+| operating system |
+| CentOS 7         |
+
+@SPYG-186
+Examples:
+| operating system |
+| Ubuntu 12.04     |
+
+@SPYG-195
+Examples:
+| operating system |
+| SUSE 12          |

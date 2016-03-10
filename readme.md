@@ -214,6 +214,16 @@ Please see [this high level approach to testing](https://maprdrill.atlassian.net
 
 ### Running Tests
 
+#### IntelliJ IDEA Setup
+
+Make sure the following plugins are enabled in IntelliJ Idea:
+
+- node.js
+- cucumber.js
+
+Make sure under IntelliJ IDEA -> preferences -> Languages & Frameworks -> JavaScript that you are
+set to use EcmaScript 6.0
+
 #### Run in Jenkins
 
 Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-check/) and click 
