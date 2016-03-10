@@ -1,19 +1,18 @@
 module.exports = function() {
-    this.When(/^I query for logs for index "([^"]*)"$/, function (indexName, callback) {
-        var elasticSearchRestClient = this.api.newElasticSearchRestClient(this.elasticSearchHostAndOptionalPort);
-        var promise = elasticSearchRestClient.getLogsForIndex(indexName);
-        promise.done(
-            (elasticSearchResult) => {
-                this.elasticSearchResult = elasticSearchResult;
-                callback();
-            },
+
+    this.When(/^I query each ElasticSearch Server for logs for index "([^"]*)"$/, function (indexName, callback) {
+        var nodesRunningElasticSearch = this.clusterUnderTest.nodesHosting('mapr-elasticsearch');
+        var elasticSearchRestClients = nodesRunningElasticSearch.map(node => this.api.newElasticSearchRestClient(node.urlFor('mapr-elasticsearch')));
+        this.api.newGroupPromise(elasticSearchRestClients.map(client => client.getLogsForIndex(indexName))).done(
+            searchResults => { this.elasticSearchResults = searchResults; callback(); },
             callback
         );
     });
 
-    this.Then(/^I see at least a single log containing the word "([^"]*)"/, function (searchWord, callback) {
-        if(JSON.stringify(this.elasticSearchResult).indexOf(searchWord)==-1) callback("no logs found for word: "+searchWord+". Results: "+JSON.stringify(this.elasticSearchResult));
-        else callback();
+    this.Then(/^Each result has at least 1 log containing the word "([^"]*)"$/, function (soughtWord) {
+        var resultStrings = this.elasticSearchResults.map(r=>JSON.stringify(r));
+        var resultStringsMissingSoughtWord = resultStrings.filter(r=>r.indexOf(soughtWord)==-1);
+        if(resultStringsMissingSoughtWord.length > 0) throw new Error(`Not all results contained matching word. Results: ${resultStringsMissingSoughtWord.join("\n")}`);
     });
 
 }

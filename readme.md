@@ -226,7 +226,14 @@ Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-c
 After cloning this repository, from the root directory:
 
     npm install
-    npm test
+    phase=[latestBuild|others] clusterUnderTestId=[id of cluster to test] npm test
+    
+The phase should be set to one of the phases in the repositories listed in configuration/config.json
+under the "repositories" property. You may omit phase and the CLI will yield a list of the available
+configured phases for your convenience.
+
+ID of Cluster Under Test should be the id of one of the clusters defined in configuration/config.json
+under the "testClusters" property. For example "tommy-cluster-1".
     
 ### Viewing Results
 
@@ -308,6 +315,7 @@ Tag Name                                         | Meaning
 @Manual                                          | Is a Manual Test
 @HealthCheck                                     | Health Check a live Spyglass Cluster
 @WIP                                             | A Work in Progress (may yield bad results)
+@ESXI                                            | Applicable only to ESXI-enabled Clusters
 
 ### Why Gherkin?
 
@@ -346,6 +354,5 @@ implementation details. Those have been captured as non-functional requirements 
 
 ## Questions
 
-Questions about this project can be created / searched using [this JIRA page](https://maprdrill.atlassian.net/browse/SPYG-75?jql=Type%3DQuestion%20and%20Project%3DSpyglass)
-
-
+Questions about this project can be created / searched using 
+[this JIRA page](https://maprdrill.atlassian.net/browse/SPYG-75?jql=Type%3DQuestion%20and%20Project%3DSpyglass)

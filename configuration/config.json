@@ -10,6 +10,8 @@
     "proposed": "project=Spyglass AND status = Proposed",
     "sprints1And2": "project=SPYG AND issuetype=Story AND sprint IN (\"Spyglass Sprint 1\", \"Spyglass Sprint 2\")"
   },
+  "installerLoginPath": "/api/login",
+  "installerConfigPath": "/api/config",
   "openTSDBQueryPathTemplate": "/api/query?start={start}&m={metricName}",
   "debugHTTP": false,
   "mcsLoginPath": "/api/login",
@@ -28,7 +30,83 @@
     "grafana"
   ],
   "testResultPath": "test-results",
-  "environments": [
+  "repositoryInfo": {
+    "pathsForComponents": {
+      "GUI Installer": "/installer-master-ui/",
+      "MapR Core": "/mapr/",
+      "Ecosystem": "/ecosystem/"
+    },
+    "repositories": [
+      {
+        "type": "yum",
+        "phase": "latestBuild",
+        "host": "yum.qa.lab"
+      },
+      {
+        "type": "apt-get",
+        "phase": "latestBuild",
+        "host": "apt.qa.lab"
+      }
+    ]
+  },
+  "testClusters": [
+    {
+      "id": "tommy-cluster-1",
+      "name": "Tommy's 1 Node CentOs 6.5 On Premise VM",
+      "location": "mapr",
+      "controller": {
+        "type": "esxi",
+        "host": "10.10.1.100",
+        "username": "root",
+        "password": "maprwins"
+      },
+      "nodes": [
+        {
+          "name": "tommy-centos-6.5-10.10.1.103",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 1187,
+          "host": "10.10.1.103",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.5"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 3
+            },
+            {
+              "name": "lastKnownWorking",
+              "snapshotId": null
+            }
+          ],
+          "services": [
+            { "name": "GUI Installer" },
+            { "name": "mapr-asynchbase" },
+            { "name": "mapr-kibana" },
+            { "name": "mapr-elasticsearch" },
+            { "name": "mapr-grafana" },
+            { "name": "mapr-collectd" },
+            { "name": "mapr-hbase-common" },
+            { "name": "mapr-yarn" },
+            { "name": "mapr-collectd-fast-jmx" },
+            {
+              "name": "mapr-elasticsearch",
+              "port": 9200,
+              "protocol": "http"
+            },
+            {
+              "name": "mapr-opentsdb",
+              "port": 4242,
+              "protocol": "http"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "manualTestingEnvironments": [
     {
       "Type": "Cluster",
       "Nodes": [

@@ -1,38 +1,23 @@
 Feature: Grafana Metrics
 
   @SPYG-124 @Manual
-  Scenario Outline: View First Metrics in Node Dashboard
-    Given I have installed Spyglass onto "<operating system>"
+  Scenario: View First Metrics in Node Dashboard
+    Given I have installed Spyglass
     And I have determined the grafana server and port for that cluster
     And it has been populated with reports as described in "installation.feature/Grafana Dashboard Definition Import"
     And my grafana username is "admin"
     And my grafana password is "admin"
     And I have logged into Grafana
     When I navigate to the node dashboard
-    When I look for the following metrics
+    And I look for the following metrics
       | metric name                  |
       | sum:rate:mapr.io.write_bytes |
       | sum:rate:mapr.io.read_bytes |
     Then I see the corresponding graph with reasonably accurate data for the past 24 hours
 
-    @SPYG-211
-    Examples:
-      | operating system |
-      | SuSE 12          |
-
-    @SPYG-209
-    Examples:
-      | operating system |
-      | CentOS 7         |
-
-    @SPYG-210
-    Examples:
-      | operating system |
-      | Ubuntu 12.04     |
-
   @SPYG-124
-  Scenario Outline: Grafana Dashboard Definition Import
-    Given I have installed Spyglass onto "<operating system>"
+  Scenario: Grafana Dashboard Definition Import
+    Given I have installed Spyglass
     And I have determined the grafana server and port for that cluster
     And my grafana username is "admin"
     And my grafana password is "admin"
@@ -45,20 +30,3 @@ Feature: Grafana Metrics
       | volume         |
       | yarn           |
     Then the reports are all available to view
-
-    @SPYG-211
-    Examples:
-    | operating system |
-    | SuSE 12          |
-
-    @SPYG-209
-    Examples:
-    | operating system |
-    | CentOS 7         |
-
-    @SPYG-210
-    Examples:
-    | operating system |
-    | Ubuntu 12.04     |
-
-

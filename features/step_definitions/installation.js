@@ -1,40 +1,94 @@
 module.exports = function() {
-    this.When(/^I run the Spyglass installer$/, function (callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
+    this.Given(/^I have installed Spyglass$/, function() {
+        //TODO: Validate that spyglass installation has occurred for this ticket
     });
 
-    this.Given(/^I subsequently run the health check described by "([^"]*)"$/, function (arg1, callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
-    });
-
-    this.Then(/^the health check passes$/, function (callback) {
-        // Write code here that turns the phrase above into concrete actions
-        callback.pending();
-    });
-
-    this.Given(/^I have installed Spyglass onto "([^"]*)"$/, function (operatingSystem, callback) {
-        var hostNamesByOS = {
-            'CentOS 7': '10.10.101.106',
-            'Ubuntu 12.04': '10.10.10.173'
+    this.When(/^I ssh into the node hosting "([^"]*)"$/, function (serviceName, callback) {
+        this.sshServiceHost = this.clusterUnderTest.nodeHosting(serviceName);
+        if(this.sshServiceHost==null) callback(new Error(`No node found that hosts ${serviceName}`));
+        else {
+            this.api.newSSHClient().connect(
+                this.sshServiceHost.host(),
+                this.sshServiceHost.username(),
+                this.sshServiceHost.password()
+            ).done(
+                sshSession => { this.sshSession = sshSession; callback(); },
+                callback
+            );
         }
-        if(Object.keys(hostNamesByOS).indexOf(operatingSystem) >=0) {
-            var hostName = hostNamesByOS[operatingSystem];
-            this.grafanaHostAndOptionalPort = 'http://' + hostName + ':3000';
-            this.kibanaHostAndOptionalPort = 'http://' + hostName + ':5601';
-            this.elasticSearchHostAndOptionalPort = 'http://' + hostName + ':9200';
-            this.mcsProtocolHostAndOptionalPort = 'https://' + hostName + ':8443';
-            this.openTSDBHostAndPort = 'http://' + hostName + ':4242';
-            this.fqdns = ['' + hostName + ''];
-            callback();
-        }
-        else callback.pending();
     });
 
-    this.Given(/^I have procured hardware running "([^"]*)"$/, function(operatingSystem, callback) {
-        //todo: verify that configuration has hardware running this operatingSystem
-        callback();
+    this.When(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the "([^"]*)" repo$/, function (fileToRetrieve, destinationDirectory, componentName) {
+        return this.sshSession.executeCommands([
+            'echo `hostname -I`    `hostname` >> /etc/hosts', //TODO: have valid host / dns in image!
+            `${this.sshServiceHost.packageCommand()} install -y curl`,
+            `curl ${this.sshServiceHost.repositoryURLFor(componentName)}${fileToRetrieve} > ${destinationDirectory}${fileToRetrieve}`,
+            `chmod 744 ${destinationDirectory}${fileToRetrieve}`
+        ]);
+    });
+
+    this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 300000 }, function (commandWithRepoPlaceholders) {
+        var command = commandWithRepoPlaceholders;
+        command = command.replace('[installerRepoURL]', this.sshServiceHost.repositoryURLFor('GUI Installer'));
+        command = command.replace('[maprCoreRepoURL]', this.sshServiceHost.repositoryURLFor('MapR Core'));
+        command = command.replace('[ecosystemRepoURL]', this.sshServiceHost.repositoryURLFor('Ecosystem'));
+        return this.sshSession.executeCommands([command]).then(output=>this.maprSetupOuptut = output);
+    });
+
+    function guiInstallerURL() {
+        var installerHost = this.clusterUnderTest.nodeHosting('GUI Installer');
+        return installerHost.urlFor('GUI Installer');
+    }
+
+    function verifyGUIInstallerWebServerIsRunning(callback) {
+        var url = guiInstallerURL.call(this);
+        var path = '/';
+        this.api.newRestClientAsPromised(url).get(path).done(
+            success=>callback(),
+            errorHttpResult=>callback(`Could not reach GUI Installer website. Status Code: ${errorHttpResult.statusCode}, url: ${url}${path}`)
+        );
+    }
+
+    this.Then(/^it successfully starts the installer web server and outputs its URL to the screen$/, function (callback) {
+        if(this.maprSetupOuptut.indexOf('To continue installing MapR software, open the following URL in a web browser')==-1) callback(new Error(`Installation did not output the expected web browser URL text. Output: ${this.maprSetupOuptut}`));
+        verifyGUIInstallerWebServerIsRunning.call(this, callback);
+    });
+
+    this.Given(/^the GUI Installer web server is running$/, function (callback) {
+        verifyGUIInstallerWebServerIsRunning.call(this, callback);
+    });
+
+    this.Given(/^I can authenticate my GUI Installer Rest Client$/, function () {
+        var installerRESTClient = this.api.newInstallerRESTClient(guiInstallerURL.call(this));
+        return installerRESTClient.createAutheticatedSession('mapr','mapr').then(
+            installerRESTSession => this.installerRESTSession = installerRESTSession
+        );
+    });
+
+    this.When(/^I make the necessary REST calls$/, function () {
+        return this.clusterUnderTest.installViaRESTInstaller(this.installerRESTSession);
+    });
+
+    //this.Given(/^I have installed Spyglass onto "([^"]*)"$/, function (operatingSystem, callback) {
+    //    var hostNamesByOS = {
+    //        'CentOS 7': '10.10.101.106',
+    //        'Ubuntu 12.04': '10.10.10.173'
+    //    }
+    //    if(Object.keys(hostNamesByOS).indexOf(operatingSystem) >=0) {
+    //        var hostName = hostNamesByOS[operatingSystem];
+    //        this.grafanaHostAndOptionalPort = 'http://' + hostName + ':3000';
+    //        this.kibanaHostAndOptionalPort = 'http://' + hostName + ':5601';
+    //        this.elasticSearchHostAndOptionalPort = 'http://' + hostName + ':9200';
+    //        this.mcsProtocolHostAndOptionalPort = 'https://' + hostName + ':8443';
+    //        this.openTSDBHostAndPort = 'http://' + hostName + ':4242';
+    //        this.fqdns = ['' + hostName + ''];
+    //        callback();
+    //    }
+    //    else callback.pending();
+    //});
+
+    this.Given(/^I have prepared the requisite hardware"$/, function(callback) {
+        callback.pending();
     });
 
 }

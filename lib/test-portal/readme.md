@@ -26,7 +26,7 @@ Note, JIRA credentials may be omitted unless you intend to use JIRA syncing capa
 
 ### Use the QA Hosted version of CI Server
 
-QA is running a copy of the CI server [here](http://10.10.1.101/). There is a 
+QA is running a copy of the CI server [here](http://testing.devops.lab/). There is a 
 [Jenkins Health Check](http://10.10.1.153:8080/job/test-portal-health-check/) monitoring
 job that runs every 10 minutes and emails tsullivan@maprtech.com upon failure.
 
@@ -38,17 +38,17 @@ You cannot trigger a test run remotely at the moment.
  
 ### Add locally generated test result to CI Server
 
-    curl -H 'Content-Type: application/json' -vX PUT http://10.10.1.101/test-results/your-test-result-file -d @your-test-result-file.json
+    curl -H 'Content-Type: application/json' -vX PUT http://testing.devops.lab/test-results/your-test-result-file -d @your-test-result-file.json
     
 ### Retrieve all Test Results from CI Server
 
 The following curl command will retrieve a list of the results, modified date, name, and href to the result details.
 
-    curl http://10.10.1.101/test-results/
+    curl http://testing.devops.lab/test-results/
 
 ### Retrieve a Specific Test Result Detail
 
-    curl http://10.10.1.101/test-results/[test-result-id]
+    curl http://testing.devops.lab/test-results/[test-result-id]
     
 This will return a JSON with the test result information. To obtain a test-result-id it is recommended first to call
 to get "all test results from CI Server" and follow the href of the desired result.
@@ -60,6 +60,7 @@ to get "all test results from CI Server" and follow the href of the desired resu
 Finding Test Results
 
     - Ability to filter by date range
+    - Ability to zoom in and out for given date range (instead of showing too many squished together)
     - Ability to share the query bar state as user navigates to different pages
     - Ability to save, load and use common query descriptions
     - Deep Linking reflects current query and position within view
@@ -68,6 +69,8 @@ Finding Test Results
 
 Exploring a Test Result
 
+    - scenario outline output could be grouped better
+    - need way to navigate quickly to source of failing tests
     - Indicate the sought tags for which there was not a match
     - Ability to view/explore the full test configuration for a run
     - ability to expand and collapse the hierarchy
@@ -81,18 +84,15 @@ Loading / Saving of Single Test Result File
     - Ability to POST a result from a running test job, such as Jenkins, and get its URL (workaround: use PUT to known URL)
     - Maybe: Borrow from Tommy's Universe a simple import and export JSON mechanism that uses browser client only (no save)
 
-Attachments
-
-    - Ability to attach, automatically or during manual testing, supporting test data
-
 Manual Testing
 
     - Enable optional comments for any step or scenario
-    - Enable attachments
     - Ability to use a DSL to specify more granular manual steps beyond the Gherkin (deferred - just write more detailed gherkin)
 
 Running a Test
-    
+
+    - Ability to specify the "Cluster Under Test" for a given test run
+    - Ability to attach, automatically or during manual testing, supporting test data    
     - Ability to run new test (hardcoded at first) with web UI (workaround: run test locally and PUT it to the server or view in local server)
     - Ability to vary configuration from web UI
     - Can view current local gherkin test "dry run" and then click "Run" to run. Redirects to test result with "Refresh" button.
@@ -101,25 +101,17 @@ Running a Test
     - Auto-Refresh
     - Web Sockets instead of Auto-Refresh
     
-### Execution Engine
+## Defining a Test
 
-Configuration
-
-    - Ability to override configuration particulars, especially host names.
     - Ability to indicate "dependencies between tests"
-    - TestRun Configuration tied to Test Result - enables guaranteed recreation of test result
-        - Cluster Under Test configurations used in one or more tests can be used to recreate those from scratch
-        - Other Test Configuration
 
 ### Integration
 
 JIRA Integration
 
-    - Update JIRA issues with test result status and summary for a given result
-    - JQL Query auto applies tag query to currently viewed test result
-    - tags can link to the JIRA issues they are associated with
+    - Change Story Card Workflow states based on test results
+    - JQL Query stays when navigating between Result Set and Individual Test Run
     - Identify JIRA tickets that do not have commit records on them
-    - Identify JIRA tickets that do not have a corresponding test (just do a query and refer to the number of unfound tags)
     
 GitHub Integration
 
@@ -134,6 +126,10 @@ Google Sheets Integration
     - Link Google sheet to the most recent test result viewer (with no preapplied filters)
     - Show pass/fail in Google sheet via Test Portal REST API?
     
+IntelliJ Integration
+    
+    - Cucumber IntelliJ plugin does not allow debugging
+    
 REST Interface
 
     - Make the JSON and UI urls for test results the same, redirect to client side url from server
@@ -142,8 +138,11 @@ REST Interface
 ### Framework
     
     - Enable injectable javascript code to be shared between client and server side
+    - Enable "Cascading Configuration" rather than single JSON file (multiple config JSONs layered atop eachother)
+    - Wrap execution of Cucumber (call Cucumber via API) - enabling nested, dependent, and parallel invocations
+    - Enable invocation of ATS / JUnit Tests (via Jenkins / REST, language bindings, or CLI)
     - Use lazy compositions of filter predicates if it improves performance
-    - Look into using TypeScript
+    - Look into using TypeScript, Scala, Java, CoffeeScript, Ruby, other languages
     - Look into using webpack
     - Look into using lodash
     - REST discoverability / self-documentation
@@ -154,7 +153,7 @@ REST Interface
     
 ## Bugs
 
-    - No known bugs at this time
+    - Safari browser has errors due to lack of EcmaScript 6 support (requires recompile)
     
 ## CI/CD
     

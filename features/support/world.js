@@ -10,26 +10,9 @@ module.exports = function() {
     this.World = function() {
         world = this;
         this.api = API(configJSON);
-        this.getArrayFromTable = function(table) {
-            return table.rows().map(function(i) { return i[0]; });
-        }
-        this.runSSHCommands = function(host, username, password, commands, resolve, reject) {
-            this.api.newSSHClient().connect(host, username, password).done(
-                sshSession => {
-                    sshSession.executeCommands(commands.concat(['exit'])).done(
-                        output=> {
-                            sshSession.close();
-                            resolve(output);
-                        },
-                        error => {
-                            sshSession.close();
-                            reject(error);
-                        }
-                    );
-                },
-                reject
-            );
-        }
+        this.repositories = this.api.newRepositories(process.env['phase'])
+        this.clusterUnderTest = this.api.newClusterUnderTest(process.env['clusterUnderTestId'], this.repositories);
+        this.getArrayFromTable = table => table.rows().map(r=>r[0]);
     };
 
     this.BeforeStep(function(event, callback) {
