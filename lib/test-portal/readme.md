@@ -11,9 +11,9 @@ From the root directory, assuming you have a newer version of node.js:
 
     npm install
     
-Next, client side dependencies must be installed. From the lib/test-portal directory:
+Next, client side dependencies must be installed. From the lib/test-portal/static-web-content directory:
 
-    bower install
+    bower install --allow-root
     
 ### Run the CI Server
 

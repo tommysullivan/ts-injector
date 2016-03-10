@@ -4,6 +4,6 @@ export phase=${phase:-latestBuild}
 set -e
 echo $phase
 echo $clusterUnderTestId
-clusterUnderTestId=tommy-1-node-centos-7-0-cluster phase=latestBuild bin/run-cukes --tags @ESXI
-clusterUnderTestId=tommy-1-node-centos-7-0-cluster phase=latestBuild bin/run-cukes --tags @mapr-setup
-clusterUnderTestId=tommy-1-node-centos-7-0-cluster phase=latestBuild bin/run-cukes --tags @rest-installer
+clusterUnderTestId=${clusterUnderTestId} phase=${phase} bin/run-cukes --tags @ESXI
+clusterUnderTestId=${clusterUnderTestId} phase=${phase} bin/run-cukes --tags @mapr-setup
+clusterUnderTestId=${clusterUnderTestId} phase=${phase} bin/run-cukes --tags @rest-installer
