@@ -15,23 +15,26 @@ Feature: Installation
   Scenario: Download and Run GUI Installer
     Given the cluster does not have MapR Installed
     When I ssh into the node hosting "GUI Installer"
-    And within my ssh session, I download "mapr-setup.sh" to "/tmp/" from the "GUI Installer" repo
+    And within my ssh session, I download "/mapr-setup.sh" to "/tmp" from the "GUI Installer" repo
     And within my ssh session, I execute "/tmp/mapr-setup.sh -y -u [installerRepoURL] [maprCoreRepoURL] [ecosystemRepoURL]"
     And I wait "7" seconds
     Then it successfully starts the installer web server and outputs its URL to the screen
 
-  @SPYG-282 @gui-installer
+  @SPYG-282 @rest-installer
   Scenario: Use REST APIs to Install MapR with Spyglass Components
     Given the GUI Installer web server is running
     And I can authenticate my GUI Installer Rest Client
-    When I make the necessary REST calls
-#
-#  @SPYG-282 @Manual
-#  Scenario: Use Web Interface to Install MapR with Spyglass Components
-#    Given the GUI Installer web server is running
-#    And I can authenticate my browser using the GUI Installer Login Page
-#    When I indicate I want a basic installation with Spyglass components and their dependencies only
-#    Then the website indicates that the installation succeeds within "5" minutes
-#
-#  Scenario: Install MapR Core and Spyglass at the same time
-#  Scenario: Install MapR Core, then install Spyglass on top
+    And I specify the desired Cluster Configuration
+    When I perform Cluster Configuration Verification
+    Then Cluster Configuration Verification completes without errors
+    When I perform Cluster Provisioning
+    Then Cluster Provisioning completes without errors
+    When I perform Cluster Installation
+    Then Cluster Installation completes without errors
+
+  @SPYG-282 @Manual
+  Scenario: Use Web Interface to Install MapR with Spyglass Components
+    Given the GUI Installer web server is running
+    And I can authenticate my browser using the GUI Installer Login Page
+    When I indicate I want a basic installation with Spyglass components and their dependencies only
+    Then the website indicates that the installation succeeds within "5" minutes

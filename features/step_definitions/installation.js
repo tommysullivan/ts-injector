@@ -65,12 +65,57 @@ module.exports = function() {
         );
     });
 
-    this.When(/^I make the necessary REST calls$/, function (callback) {
+    this.When(/^I specify the desired Cluster Configuration$/, function (callback) {
         return this.clusterUnderTest.installViaRESTInstaller(this.installerRESTSession)
             .done(
                 success => callback(),
-                error => callback(error)
+                callback
             );
+    });
+
+    function performInstallProcess(processMethodName, successBooleanPropName, callback) {
+        this.installerRESTSession.process()
+            .then(installerProcess => installerProcess[processMethodName]())
+            .done(
+                success=>{this[successBooleanPropName] = true; callback()},
+                callback
+            );
+    }
+
+    function validateProcessAndGetLogsOnError(successBooleanPropName, callback) {
+        if(this[successBooleanPropName]) callback();
+        else {
+            this.installerRESTSession.process()
+                .then(installerProcess => installerProcess.log())
+                .done(
+                    logText=>callback(logText),
+                    error=>callback('There was an error with process and in addition could not retrieve logs. Http status: '+error.statusCode)
+                );
+        }
+    }
+
+    this.When(/^I perform Cluster Configuration Verification$/, function (callback) {
+        performInstallProcess.call(this, 'validate', 'installerVerificationComplete', callback);
+    });
+
+    this.Then(/^Cluster Configuration Verification completes without errors$/, function (callback) {
+        validateProcessAndGetLogsOnError.call(this, 'installerVerificationComplete', callback);
+    });
+
+    this.When(/^I perform Cluster Provisioning$/, function (callback) {
+        performInstallProcess.call(this, 'provision', 'installerProvisioningComplete', callback);
+    });
+
+    this.Then(/^Cluster Provisioning completes without errors$/, function (callback) {
+        validateProcessAndGetLogsOnError.call(this, 'installerProvisioningComplete', callback);
+    });
+
+    this.When(/^I perform Cluster Installation$/, {timeout: 10 * 60 * 1000}, function (callback) {
+        performInstallProcess.call(this, 'install', 'installationComplete', callback);
+    });
+
+    this.Then(/^Cluster Installation completes without errors$/, function (callback) {
+        validateProcessAndGetLogsOnError.call(this, 'installationComplete', callback);
     });
 
     //this.Given(/^I have installed Spyglass onto "([^"]*)"$/, function (operatingSystem, callback) {

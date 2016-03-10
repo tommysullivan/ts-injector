@@ -67,4 +67,7 @@ module.exports = function() {
     this.When(/^I navigate to kibana's discovery interface$/, manualStep(0));
     this.Then(/^I see at least one log from warden$/, manualStep(0));
     this.Given(/^I have determined the kibana server and port for that cluster$/, manualStep(0));
+    this.Given(/^I can authenticate my browser using the GUI Installer Login Page$/, manualStep(0));
+    this.When(/^I indicate I want a basic installation with Spyglass components and their dependencies only$/, manualStep(0));
+    this.Then(/^the website indicates that the installation succeeds within "([^"]*)" minutes$/, manualStep(1));
 }

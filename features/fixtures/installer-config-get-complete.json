@@ -6,7 +6,18 @@
   "cluster_admin_id": "mapr",
   "cluster_admin_uid": 5000,
   "cluster_name": "centos-7-3-nodes.devops.lab",
-  "dial_home_id": "386351970",
+  "data": {
+    "diskStripeDefault": 3,
+    "template": "userdefined",
+    "licenseType": "M3",
+    "showAdvancedServiceConfig": false,
+    "null": true,
+    "showLogs": false,
+    "showAdvancedServiceSelection": true,
+    "licenseValidation": "NONE",
+    "showLicenseValidation": false
+  },
+  "dial_home_id": "491337398",
   "disk_format": true,
   "disk_stripe": 3,
   "disks": [
@@ -88,12 +99,12 @@
       "version": "5.1.0",
       "enabled": true
     },
-    "mapr-httpfs": {
-      "version": "1.0",
-      "enabled": false
-    },
     "mapr-hbase-rest": {
       "version": "1.1",
+      "enabled": true
+    },
+    "mapr-httpfs": {
+      "version": "1.0",
       "enabled": false
     },
     "mapr-cldb": {
@@ -126,7 +137,7 @@
     },
     "mapr-hbase": {
       "version": "1.1",
-      "enabled": false
+      "enabled": true
     },
     "mapr-hiveserver2": {
       "version": "1.2",
@@ -134,7 +145,7 @@
     },
     "mapr-jobtracker": {
       "version": "5.1.0",
-      "enabled": true
+      "enabled": false
     },
     "mapr-fluentd": {
       "version": "0.12",
@@ -143,10 +154,6 @@
     "mapr-kafka": {
       "version": "0.9.0",
       "enabled": false
-    },
-    "mapr-gateway": {
-      "version": "5.1.0",
-      "enabled": true
     },
     "mapr-historyserver": {
       "version": "5.1.0",
@@ -180,17 +187,17 @@
       "version": "1.5.2",
       "enabled": false
     },
-    "mapr-mapreduce": {
-      "version": "5.1.0",
-      "enabled": true
-    },
     "mapr-kibana": {
       "version": "4.4.1",
       "enabled": true
     },
+    "mapr-mapreduce": {
+      "version": "5.1.0",
+      "enabled": false
+    },
     "mapr-hbasethrift": {
       "version": "1.1",
-      "enabled": false
+      "enabled": true
     },
     "mapr-storm-supervisor": {
       "version": "0.9.4",
@@ -210,10 +217,6 @@
     },
     "mapr-tasktracker": {
       "version": "5.1.0",
-      "enabled": true
-    },
-    "mapr-libhbase": {
-      "version": "0.98",
       "enabled": false
     },
     "mapr-drill": {
@@ -228,12 +231,12 @@
       "version": "0.9.4",
       "enabled": false
     },
-    "mapr-elasticsearch": {
-      "version": "2.2.0",
-      "enabled": true
-    },
     "mapr-grafana": {
       "version": "2.6.0",
+      "enabled": true
+    },
+    "mapr-elasticsearch": {
+      "version": "2.2.0",
       "enabled": true
     },
     "mapr-nodemanager": {
@@ -241,7 +244,7 @@
       "enabled": true
     },
     "mapr-oozie": {
-      "version": "4.2.0",
+      "version": "4.1.0",
       "enabled": false
     },
     "mapr-collectd": {
@@ -254,6 +257,9 @@
     },
     "mapr-sqoop-client": {
       "version": "2.0.0",
+      "enabled": false
+    },
+    "mapr-mysql": {
       "enabled": false
     },
     "mapr-hbase-common": {
@@ -290,7 +296,7 @@
     },
     "mapr-metrics": {
       "version": "5.1.0",
-      "enabled": true
+      "enabled": false
     }
   },
   "services_version": "1.3.201603090933",

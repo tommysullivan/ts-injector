@@ -21,6 +21,7 @@
   "grafanaDashboardImportPath": "/api/dashboards/db",
   "grafanaLoginPath": "/login",
   "mcsDashboardInfoPath": "api/dashboard/info",
+  "installerPollingFrequencyMS": 5000,
   "spyglassServicesNamesInMCSDashboardInfo": [
     "collectd",
     "fluentd",
@@ -32,9 +33,9 @@
   "testResultPath": "test-results",
   "repositoryInfo": {
     "pathsForComponents": {
-      "GUI Installer": "/installer-master-ui/",
-      "MapR Core": "/mapr/",
-      "Ecosystem": "/ecosystem/"
+      "GUI Installer": "/installer-master-ui",
+      "MapR Core": "/mapr",
+      "Ecosystem": "/ecosystem"
     },
     "repositories": [
       {
@@ -52,7 +53,13 @@
   "testClusters": [
     {
       "id": "tommy-cluster-1",
-      "name": "Tommy's 1 Node CentOs 6.5 On Premise VM",
+      "name": "centos-7-3-nodes.devops.lab",
+      "licenseType": "M5",
+      "sshMethod": "PASSWORD",
+      "sshUsername": "root",
+      "sshPassword": "mapr",
+      "mapRPassword": "mapr",
+      "coreVersion": "5.1.0",
       "location": "mapr",
       "controller": {
         "type": "esxi",
@@ -60,6 +67,22 @@
         "username": "root",
         "password": "maprwins"
       },
+      "disks": [
+        "/dev/sdb",
+        "/dev/sdc"
+      ],
+      "services": [
+        { "name": "mapr-asynchbase", "version": "1.6.0" },
+        { "name": "mapr-kibana", "version": "4.4.1" },
+        { "name": "mapr-grafana", "version": "2.6.0" },
+        { "name": "mapr-collectd", "version": "5.5.1" },
+        { "name": "mapr-collectd-fast-jmx", "version": "1.1" },
+        { "name": "mapr-fluentd", "version": "0.12" },
+        { "name": "mapr-hbase-common", "version": "1.1" },
+        { "name": "mapr-yarn", "version": "2.7.0" },
+        { "name": "mapr-elasticsearch", "version": "2.2.0" },
+        { "name": "mapr-opentsdb", "version": "2.2.0" }
+      ],
       "nodes": [
         {
           "name": "tommy-centos-6.5-10.10.1.103",
@@ -81,28 +104,18 @@
               "snapshotId": null
             }
           ],
-          "services": [
-            { "name": "GUI Installer" },
-            { "name": "mapr-asynchbase", "version": "1.6.0" },
-            { "name": "mapr-kibana", "version": "4.4.1" },
-            { "name": "mapr-grafana", "version": "2.6.0" },
-            { "name": "mapr-collectd", "version": "5.5.1" },
-            { "name": "mapr-collectd-fast-jmx", "version": "1.1" },
-            { "name": "mapr-fluentd", "version": "0.12" },
-            { "name": "mapr-hbase-common", "version": "1.1" },
-            { "name": "mapr-yarn", "version": "2.7.0" },
-            {
-              "name": "mapr-elasticsearch",
-              "port": 9200,
-              "protocol": "http",
-              "version": "2.2.0"
-            },
-            {
-              "name": "mapr-opentsdb",
-              "port": 4242,
-              "protocol": "http",
-              "version": "2.2.0"
-            }
+          "serviceNames": [
+            "GUI Installer",
+            "mapr-asynchbase",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-hbase-common",
+            "mapr-yarn",
+            "mapr-elasticsearch",
+            "mapr-opentsdb"
           ]
         }
       ]
