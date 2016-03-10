@@ -9,6 +9,5 @@ npm install -y -g forever
 npm install
 cd lib/test-portal/static-web-content
 bower install --allow-root
-echo "Optional: Copy test results using scp -rp test-results root@10.10.1.101:/root/private-spyglass/"
 echo "Use bin/run-test-portal to start CI server. Read lib/test-portal/readme.md for more info ont that"
 hostName="10.10.1.101" testPortalPort=80 jiraUsername="tsullivan@maprtech.com" jiraPassword="Inmo5\$28" forever start bin/run-test-portal

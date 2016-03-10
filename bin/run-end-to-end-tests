@@ -1,0 +1,7 @@
+#!/bin/bash
+#export clusterUnderTestId
+#export phase
+set -e
+clusterUnderTestId=tommy-1-node-centos-7-0-cluster phase=latestBuild bin/run-cukes --tags @ESXI
+clusterUnderTestId=tommy-1-node-centos-7-0-cluster phase=latestBuild bin/run-cukes --tags @mapr-setup
+clusterUnderTestId=tommy-1-node-centos-7-0-cluster phase=latestBuild bin/run-cukes --tags @rest-installer

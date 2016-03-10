@@ -247,7 +247,8 @@ under the "testClusters" property. For example "tommy-cluster-1".
     
 ### Viewing Results
 
-Test Runs send colored text to stdout for quick viewing, as well as store JSON in the test-results folder.
+Test Runs send colored text to stdout for quick viewing, as well as store result and config JSON in
+the test-results, test-configs, and test-cli-invocations folders.
 
 One can view using an interactive web interface by running the [CI Server](lib/test-portal/readme.md) and then
 navigating to the generated URL using your browser of choice.

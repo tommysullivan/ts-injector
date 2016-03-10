@@ -22,4 +22,9 @@ module.exports = function() {
         return this.clusterUnderTest.verifyMapRNotInstalled();
     });
 
+    this.Given(/^the Operating Systems of each node match what is configured to be expected$/, function () {
+        //TODO: Perform this check
+    });
+
+
 }

@@ -1,5 +1,11 @@
 #!/bin/bash
 mkdir -p test-results
+mkdir -p test-configs
+mkdir -p test-cli-invocations
+timestamp=`date +%Y-%m-%d-at-%H-%M-%S`
+printenv >> test-cli-invocations/`whoami`-$timestamp.txt
+echo "Command Line Args: $@" >> test-cli-invocations/`whoami`-$timestamp.txt
+cp configuration/config.json test-configs/`whoami`-$timestamp.json
 ./node_modules/cucumber/bin/cucumber.js \
-    -f json:test-results/`whoami`-$(date +%Y-%m-%d-at-%H-%M-%S).json \
+    -f json:test-results/`whoami`-$timestamp.json \
     $@

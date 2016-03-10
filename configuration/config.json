@@ -31,6 +31,8 @@
     "grafana"
   ],
   "testResultPath": "test-results",
+  "fullyQualifiedConfigsPath": "test-configs",
+  "fullyQualifiedCLIInvocationsPath": "test-cli-invocations",
   "repositoryInfo": {
     "pathsForComponents": {
       "GUI Installer": "/installer-master-ui",
@@ -52,8 +54,202 @@
   },
   "testClusters": [
     {
-      "id": "tommy-cluster-1",
-      "name": "centos-7-3-nodes.devops.lab",
+      "id": "anisha-1-node-centos-7-0-cluster",
+      "inheritsFrom": "tommy-centos-7-0-cluster",
+      "name": "anisha-1-node-centos-7-0-cluster.devops.lab",
+      "controller": {
+        "type": "esxi",
+        "host": "unknown",
+        "username": "unknown",
+        "password": "unknown"
+      },
+      "nodes": [
+        {
+          "name": "anisha-unknown-node_10.10.101.106",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": "unknown",
+          "host": "10.10.101.106",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.0"
+          },
+          "states": [],
+          "serviceNames": [
+            "GUI Installer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vivian-1-node-ubuntu-12-04-cluster",
+      "inheritsFrom": "tommy-centos-7-0-cluster",
+      "name": "vivian-1-node-ubuntu-12-04-cluster.devops.lab",
+      "controller": {
+        "type": "esxi",
+        "host": "unknown",
+        "username": "unknown",
+        "password": "unknown"
+      },
+      "nodes": [
+        {
+          "name": "vivian-unknown-node_10.10.10.173",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": "unknown",
+          "host": "10.10.10.173",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "12.04"
+          },
+          "states": [],
+          "serviceNames": [
+            "GUI Installer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kevin-3-node-centos-7-1-cluster",
+      "inheritsFrom": "tommy-centos-7-0-cluster",
+      "name": "kevin-3-node-centos-7-1-cluster.devops.lab",
+      "controller": {
+        "type": "esxi",
+        "host": "10.10.30.174",
+        "username": "root",
+        "password": "maprmapr"
+      },
+      "nodes": [
+        {
+          "name": "cent70_10.10.30.144",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 304,
+          "host": "10.10.30.144",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.1"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 3
+            }
+          ],
+          "serviceNames": [
+            "GUI Installer"
+          ]
+        },
+        {
+          "name": "cent70_10.10.30.145",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 320,
+          "host": "10.10.30.145",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.1"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 8
+            }
+          ],
+          "serviceNames": []
+        },
+        {
+          "name": "cent70_10.10.30.146",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 336,
+          "host": "10.10.30.146",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.1"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 6
+            }
+          ],
+          "serviceNames": []
+        }
+      ]
+    },
+    {
+      "id": "kevin-3-node-ubuntu-14-04-cluster",
+      "inheritsFrom": "kevin-3-node-centos-7-1-cluster",
+      "name": "kevin-3-node-ubuntu-14-04-cluster.devops.lab",
+      "controller": {
+        "type": "esxi",
+        "host": "10.10.30.174",
+        "username": "root",
+        "password": "maprmapr"
+      },
+      "nodes": [
+        {
+          "name": "u1404_10.10.30.147",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 352,
+          "host": "10.10.30.147",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 1
+            }
+          ],
+          "serviceNames": [
+            "GUI Installer"
+          ]
+        },
+        {
+          "name": "u1404_10.10.30.148",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 368,
+          "host": "10.10.30.148",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 1
+            }
+          ],
+          "serviceNames": []
+        },
+        {
+          "name": "u1404_10.10.30.149",
+          "username": "root",
+          "password": "mapr",
+          "esxiId": 384,
+          "host": "10.10.30.149",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "states": [
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 1
+            }
+          ],
+          "serviceNames": []
+        }
+      ]
+    },
+    {
+      "id": "tommy-1-node-centos-7-0-cluster",
+      "name": "tommy-1-node-centos-7-0-cluster.devops.lab",
       "licenseType": "M5",
       "sshMethod": "PASSWORD",
       "sshUsername": "root",
@@ -92,30 +288,16 @@
           "host": "10.10.1.103",
           "operatingSystem": {
             "name": "CentOS",
-            "version": "6.5"
+            "version": "7.0"
           },
           "states": [
             {
               "name": "readyForInstallation",
               "snapshotId": 3
-            },
-            {
-              "name": "lastKnownWorking",
-              "snapshotId": null
             }
           ],
           "serviceNames": [
-            "GUI Installer",
-            "mapr-asynchbase",
-            "mapr-kibana",
-            "mapr-grafana",
-            "mapr-collectd",
-            "mapr-collectd-fast-jmx",
-            "mapr-fluentd",
-            "mapr-hbase-common",
-            "mapr-yarn",
-            "mapr-elasticsearch",
-            "mapr-opentsdb"
+            "GUI Installer"
           ]
         }
       ]

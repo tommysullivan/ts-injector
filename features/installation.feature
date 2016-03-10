@@ -1,4 +1,3 @@
-@JIRA-23
 Feature: Installation
   As a Spyglass Customer
   In order to install a Spyglass-enabled MapR Cluster
