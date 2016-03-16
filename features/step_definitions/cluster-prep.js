@@ -62,8 +62,7 @@ module.exports = function() {
     this.Then(/^it prints in the test ouptut$/, function () {
     });
 
-
-    this.When(/^I manually retrieve the ids of these new snapshots based on the console output of the previous step retrieve the ids of these new snapshots$/, function (callback) {
+    this.When(/^I manually retrieve the ids of these new snapshots based on the console output of the previous step$/, function (callback) {
         // Write code here that turns the phrase above into concrete actions
         callback.pending();
     });

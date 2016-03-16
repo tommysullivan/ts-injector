@@ -1,68 +1,211 @@
 # Spyglass Testing Readme
 
-## Team Members and Schedule
+Welcome to the Spyglass Testing Readme
 
-Vivian 11-7:30pm
-Tommy 930-6pm
-Anisha 10-630pm
+## Table of Contents
 
-## Operating Systems
+* [Testing Scope](#testingScope)
+    * [Operating Systemd Under Test](#operatingSystemsUnderTest)
+    * [Cluster Configurations Under Test](clusterConfigurationsUnderTest)
+    * [Other Testing Variance](#otherTestingVariance)
+* [Set Up](#setup)
+    * [IntelliJ IDEA Set Up](#intelliJIDEASetup)
+* [IntelliJ IDEA Setup](#intelliJIDEASetup)
+* [Running Tests](#runningTests)
+    * [Run in Jenkins](#runInJenkins)
+    * [Run in IntelliJ IDEA](#runInIntelliJIDEA)
+    * [Run from CLI](#runFromCLI)
+* [Viewing Results](#viewingResults)
+* [Testing Links](#testingLinks)
+* [Test Tagging](#testTagging)
 
-CentOS 6.5, 7.1 (7.0 had security issues so people are advised to use 7.1)
-Ubuntu 12 and 14
-SuSE 12 (core requires compatibility library, may not be installed automatically by the UI installer, Kevin can find out)
+## Testing Scope
 
-## Team Dynamic
+### Operating Systems Under Test
 
-We will pair between 50% and 75% of the time we spend on Spyglass.
+* CentOS 6.5, 7.1
+* Ubuntu 12 and 14
+* SuSE 12 (core requires compatibility library, may not be installed automatically by the UI installer, Kevin can find out)
 
-## Spyglass System Under Test "Stack":
+### Cluster Configurations Under Test
 
-Between 1 and 1000 nodes
-Node Hardware (CPU, RAM, NICs, DISKS)
-Network (Speed, Routers, Bridges, Switches, Gateways, Proxies, etc)
-Operating Systems (CentOS 6.5?, 7.0, 7.1?; SuSE 12; Ubuntu 12.04, 14.04, 16?, Others?) (Heterogenous / Homogenous)
-Prerequisites (Java, Compilers, Network Configuration, Users, Repository Configs, etc)
-MapR Core (5.1, with and without minor versions or patches; default / future 5.2, which builds?)
-ASync HBase (versions)
-YARN (versions)
-HBase maprdb common (versions)
-Streams, DB, FS (configurations)
-EcoSystem Components (versions)
-Spyglass Components (versions)
- ---
-Test Definition (automated and manual) (versions)
-Requirements Definition
+* Between 1 and 1000 nodes
+* Node Hardware (CPU, RAM, NICs, DISKS)
+* Network (Speed, Routers, Bridges, Switches, Gateways, Proxies, etc)
+* Operating Systems (CentOS 6.5?, 7.0, 7.1?; SuSE 12; Ubuntu 12.04, 14.04, 16?, Others?) (Heterogenous / Homogenous)
+* Prerequisites (Java, Compilers, Network Configuration, Users, Repository Configs, etc)
+* MapR Core (5.1, with and without minor versions or patches; default / future 5.2, which builds?)
+* ASync HBase (versions)
+* YARN (versions)
+* HBase maprdb common (versions)
+* Streams, DB, FS (configurations)
+* EcoSystem Components (versions)
+* Spyglass Components (versions)
 
-## Priorities
+### Other Testing Variance
 
-* Installation  
-    * Centos
-        * [SPYG-183](https://maprdrill.atlassian.net/browse/SPYG-183) Sprint 2 Story - Install and view simple logs and metrics on 3 node cluster
-        * [SPYG-192](https://maprdrill.atlassian.net/browse/SPYG-192) Sprint 1 and 2 Story - MCS 3P UI Links - Ubuntu 12.04
-        * [SPYG-207](https://maprdrill.atlassian.net/browse/SPYG-207) Sprint 1 and 2 Story - Kibana 1st Log - Ubuntu 12.04
-        * [SPYG-210](https://maprdrill.atlassian.net/browse/SPYG-210) Sprint 1 and 2 Story - Grafana 1st Metric - Ubuntu 12.04
-        * and related bugs
-    * Ubuntu
-        * [SPYG-278](https://maprdrill.atlassian.net/browse/SPYG-278) Defect - opentsdb uninstallable on ubuntu 14 running 5.2 - gnuplot
-        * [SPYG-203](https://maprdrill.atlassian.net/browse/SPYG-203) Defect - ES is not running after installation 
-        * and related bugs
-    * Installer
-        * [SPYG-282](https://maprdrill.atlassian.net/browse/SPYG-282) NEW FEATURE - Story - Basic UI Installer
-        * (maybe after Metrics and Logs tickets are completed)
-* Metrics 
-    * Storage Utilization
-        * [SPYG-152](https://maprdrill.atlassian.net/browse/SPYG-152) Sprint 2 Story - Storage Utilization vs Capacity
-        * [SPYG-153](https://maprdrill.atlassian.net/browse/SPYG-153) Sprint 2 Story - Storage Utilization Trend
-        * [SPYG-177](https://maprdrill.atlassian.net/browse/SPYG-177) Sprint 2 Story - Storage Utilization  - Tagged by Volume 
-    * Node Utilization
-        * [SPYG-166](https://maprdrill.atlassian.net/browse/SPYG-166) Sprint 2 Story - Node Utilization - CPU
-        * [SPYG-167](https://maprdrill.atlassian.net/browse/SPYG-167) Sprint 2 Story - Node Utilization - Memory
-        * [SPYG-168](https://maprdrill.atlassian.net/browse/SPYG-168) Sprint 2 Story - Node Utilization - network
-        * [SPYG-170](https://maprdrill.atlassian.net/browse/SPYG-170) Sprint 2 Story - Node Utilization - Swap
-        * [SPYG-172](https://maprdrill.atlassian.net/browse/SPYG-172) Sprint 2 Story - Node Utilization - YARN containers
-* Logs
-    * Core Logs from every node
-        * [SPYG-176](https://maprdrill.atlassian.net/browse/SPYG-176) Sprint 2 Story - Node Utilization - Service Logs
-    * Core logs across all services
-        * [SPYG-175](https://maprdrill.atlassian.net/browse/SPYG-175) Sprint 2 Story - Service Failure - Logs Dashboard
+Other Factors by which Test Runs may Vary in Content or Result include: 
+
+* Test Definition (automated and manual) (versions)
+* Requirements Definition
+
+## Set Up
+
+After cloning the repository from git, make sure to run: 
+
+    npm install
+ 
+### IntelliJ IDEA Setup
+
+Make sure the following plugins are enabled in IntelliJ Idea:
+
+- node.js
+- cucumber.js
+
+Make sure under IntelliJ IDEA -> preferences -> Languages & Frameworks -> JavaScript that you are
+set to use EcmaScript 6.0.
+
+You may either use git to clone the repo and then open it as a new project in IntelliJ, or from within
+IntelliJ, use VCS -> Checkout from Version Control and follow the prompts.
+
+## Running Tests
+
+Regardless of how you run, you will need to at least provide the following environment variables:
+
+    phase=[latestBuild|others] \
+    clusterUnderTestId=[id of cluster to test] 
+
+Some utility scripts will set defaults on your behalf if you do not specify them, but be careful
+that you do not interrupt testing on the default clusters!
+
+To see the available cluster configuration ids, run:
+
+    bin/view-cluster-configuration.js
+
+You can select the subset of tests to run by using [Test Tagging](#testTagging) or by listing
+the .feature files in the order you'd like to run them, omitting those you wish not to run.
+
+### Run in Jenkins
+
+Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-check/) and click 
+"Build with Parameters". From here you can override default test parameters or go with the defaults.
+
+### Run in IntelliJ IDEA
+ 
+Make sure you have pulled in dependencies by running:
+
+    npm install
+ 
+Assuing you have installed the cucumber.js plugin for IntelliJ IDEA, you may right click on a feature
+and run / debug it. You may also choose Run -> Edit Configurations to create a more specific
+cucumber run configuration.
+
+### Run from CLI
+
+    Prerequisite: node.js 5.0 or above
+
+After cloning this repository, from the root directory:
+
+    npm install
+    phase=[latestBuild|others] clusterUnderTestId=[id of cluster to test] npm test -- [optional cucumber.js framework args]
+    
+The phase should be set to one of the phases in the repositories listed in configuration/config.json
+under the "repositories" property. You may omit phase and the CLI will yield a list of the available
+configured phases for your convenience.
+
+ID of Cluster Under Test should be the id of one of the clusters defined in configuration/config.json
+under the "testClusters" property. For example "tommy-cluster-1".
+    
+## Viewing Results
+
+Test Runs send colored text to stdout for quick viewing, as well as store result and config JSON in
+the test-results, test-configs, and test-cli-invocations folders.
+
+One can view using an interactive web interface by running the [CI Server](lib/test-portal/readme.md) and then
+navigating to the generated URL using your browser of choice.
+
+One may also make a REST call to "publish" or update the test result to the QA version of the CI Server.
+To do that, review [the readme](lib/test-portal/readme.md)
+
+## Testing Links
+
+* [QA Testing Effort Timeline](https://docs.google.com/spreadsheets/d/1Bn3a8WpNcYoflH9H59vvYthAzQuReYenkv07PQaso6o/edit?ts=565e1cb5#gid=0&vpid=A1)
+* [QA High Level Plan](https://docs.google.com/spreadsheets/d/1Bn3a8WpNcYoflH9H59vvYthAzQuReYenkv07PQaso6o/edit?ts=568d60ba#gid=0)
+* [QA Functional Test Plan](https://docs.google.com/spreadsheets/d/1ymN1LxxvuPyUgf8dC6SFgu_pjDYneKodsVY6KTQol0E/edit?ts=565e1cbf#gid=0&vpid=A1)
+* [Terry’s Smoke Test Setup Guide](https://docs.google.com/document/d/12VBKeMgXKhWm0qIcRlrxpSJ-1GPUq463KlaWKrDB3qU/edit?ts=56685b1a#heading=h.vgktbnvy3cxo)
+* [OS Support Matrix](http://doc.mapr.com/display/MapR/OS+Support+Matrix)
+* [High level approach to testing](https://maprdrill.atlassian.net/browse/SPYG-82)
+
+## Test Tagging
+
+Features and Scenarios can be "tagged" using @tagName syntax. A tagged feature is the same thing as
+tagging each individual scenario in the feature. A given feature or scenario can have any number of tags.
+For more information on tagging, please see [cucumber wiki](https://github.com/cucumber/cucumber/wiki/Tags)
+
+### General Rules for Running Cukes based on Tags
+
+Here is how to run scenarios with either @tag1 or @tag2 tags on them:
+
+    npm test -- --tags @tag1, @ptag2
+
+We can also run scenarios that have *both* @tag1 and @tag2 tags:
+
+    npm test -- --tags @tag1 --tags @tag2
+   
+Run scenarios that *do not* have a tag1:
+
+    npm test -- --tags ~@tag1
+    
+### Running tests based on JIRA issues
+
+To run tests based on issues in JIRA, use /bin/jql-to-cuke-tags along with an inline JIRA JQL query:
+
+    $ ./bin/jql-to-cuke-tags --username tsullivan@maprtech.com --jql "status = Proposed"
+    prompt: Enter corresponding password:  
+    Run the following command to execute cucumber tests:
+    npm test -- --tags @SPYG-97,@SPYG-81
+
+You will be prompted for data not provided via CLI args:
+
+    $ ./bin/jql-to-cuke-tags
+    prompt: Enter username for JIRA located at https://maprdrill.atlassian.net:  (tsullivan@maprtech.com) 
+    prompt: Enter corresponding password:  
+    prompt: Inline JQL or one of these preconfigured keys: (1.0.alpha,proposed):  (1.0.alpha) 
+    Run the following command to execute cucumber tests:
+    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
+
+In the above example, rather than providing inline JQL, a "preconfigured key" was used - 1.0.alpha. This
+key corresponds to a preconfigured query in the /configuration/config.json file.
+
+Non-Interactive Mode (uses CLI args or configured defaults in configuration/config.json):
+
+    $ ./bin/jql-to-cuke-tags -y -p $PASSWORD
+    Run the following command to execute cucumber tests:
+    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
+
+### Traceability / Relationship Tags:
+
+Tag Name                                         | Meaning
+-------------------------------------------------|---------------------------------------
+@SPYG-[n]                                        | relates to SPYG-[n] JIRA User Story
+@Manual                                          | Is a Manual Test
+@HealthCheck                                     | Health Check a live Spyglass Cluster
+@WIP                                             | A Work in Progress (may yield bad results)
+
+## Frequently Asked Questions
+
+## How do I Debug a Test?
+
+To quickly see HTTP traffic going back and forth from tests, set the
+configuration/config.json/debugHTTP to true. 
+
+For more advanced debugging, use node debugger. IntelliJ IDEA has an advanced visual debugger
+with traditional controls like break, jump into, watch, and immediate expression evaluation.
+
+### Why Gherkin?
+
+Please see [this question](https://maprdrill.atlassian.net/browse/SPYG-72)
+
+### Why Version Control the Product Requirements?
+
+Please see [this question](https://maprdrill.atlassian.net/browse/SPYG-69)

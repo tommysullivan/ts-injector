@@ -36,5 +36,5 @@ Feature: Hardware Maintenance
         systemctl start chronyd
         """
     And I take "readyForInstallation" snapshots of each node in the cluster
-    And I manually retrieve the ids of these new snapshots based on the console output of the previous step retrieve the ids of these new snapshots
+    And I manually retrieve the ids of these new snapshots based on the console output of the previous step
     Then I manually update the configured "readyForInstallation" state for the cluster with the snapshot ids

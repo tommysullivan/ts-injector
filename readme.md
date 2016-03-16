@@ -16,7 +16,7 @@ node and application health, performance, stability and scalability.
 * [Scrum Development Methodology](#scrum-development-methodology)
 * [Builds](#)
 * [Packaging](#packaging)
-* [Testing](#testing)
+* [Testing](features)
 * [Infrastructure Automation](#infrastructure-automation)
 * [Releases](#releases)
 * [Risks](#risks)
@@ -207,134 +207,6 @@ For discussion on Scrum please see this [JIRA Question](https://maprdrill.atlass
 See [this google doc](https://docs.google.com/document/d/1OEotrGYY-Ii3jqr_gz-xivKu_4tg3XlizRNqjEv3wtw/edit?ts=56b13507) for 
 information on where packages are stored at various points in the lifecycle and for
 various parts of the system.
-
-## Testing
-
-Please see [this high level approach to testing](https://maprdrill.atlassian.net/browse/SPYG-82) in order to get the big picture.
-
-### Running Tests
-
-#### IntelliJ IDEA Setup
-
-Make sure the following plugins are enabled in IntelliJ Idea:
-
-- node.js
-- cucumber.js
-
-Make sure under IntelliJ IDEA -> preferences -> Languages & Frameworks -> JavaScript that you are
-set to use EcmaScript 6.0
-
-#### Run in Jenkins
-
-Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-check/) and click 
-"Build with Parameters". From here you can override default test parameters or go with the defaults.
-
-#### Run Locally 
-
-    Prerequisite: node.js 5.0 or above
-
-After cloning this repository, from the root directory:
-
-    npm install
-    phase=[latestBuild|others] clusterUnderTestId=[id of cluster to test] npm test
-    
-The phase should be set to one of the phases in the repositories listed in configuration/config.json
-under the "repositories" property. You may omit phase and the CLI will yield a list of the available
-configured phases for your convenience.
-
-ID of Cluster Under Test should be the id of one of the clusters defined in configuration/config.json
-under the "testClusters" property. For example "tommy-cluster-1".
-    
-### Viewing Results
-
-Test Runs send colored text to stdout for quick viewing, as well as store result and config JSON in
-the test-results, test-configs, and test-cli-invocations folders.
-
-One can view using an interactive web interface by running the [CI Server](lib/test-portal/readme.md) and then
-navigating to the generated URL using your browser of choice.
-
-One may also make a REST call to "publish" or update the test result to the QA version of the CI Server.
-To do that, review [the readme](lib/test-portal/readme.md)
-
-### Testing Links
-
-* [QA Testing Effort Timeline](https://docs.google.com/spreadsheets/d/1Bn3a8WpNcYoflH9H59vvYthAzQuReYenkv07PQaso6o/edit?ts=565e1cb5#gid=0&vpid=A1)
-* [QA High Level Plan](https://docs.google.com/spreadsheets/d/1Bn3a8WpNcYoflH9H59vvYthAzQuReYenkv07PQaso6o/edit?ts=568d60ba#gid=0)
-* [QA Functional Test Plan](https://docs.google.com/spreadsheets/d/1ymN1LxxvuPyUgf8dC6SFgu_pjDYneKodsVY6KTQol0E/edit?ts=565e1cbf#gid=0&vpid=A1)
-* [Terry’s Smoke Test Setup Guide](https://docs.google.com/document/d/12VBKeMgXKhWm0qIcRlrxpSJ-1GPUq463KlaWKrDB3qU/edit?ts=56685b1a#heading=h.vgktbnvy3cxo)
-* [OS Support Matrix](http://doc.mapr.com/display/MapR/OS+Support+Matrix)
-
-### Test Tagging
-
-Features and Scenarios can be "tagged" using @tagName syntax. A tagged feature is the same thing as
-tagging each individual scenario in the feature. A given feature or scenario can have any number of tags.
-For more information on tagging, please see [cucumber wiki](https://github.com/cucumber/cucumber/wiki/Tags)
-
-#### General Rules for Running Cukes based on Tags
-
-Here is how to run scenarios with either @tag1 or @tag2 tags on them:
-
-    npm test -- --tags @tag1, @ptag2
-
-We can also run scenarios that have *both* @tag1 and @tag2 tags:
-
-    npm test -- --tags @tag1 --tags @tag2
-   
-Run scenarios that *do not* have a tag1:
-
-    npm test -- --tags ~@tag1
-    
-#### Running tests based on JIRA issues
-
-To run tests based on issues in JIRA, use /bin/jql-to-cuke-tags along with an inline JIRA JQL query:
-
-    $ ./bin/jql-to-cuke-tags --username tsullivan@maprtech.com --jql "status = Proposed"
-    prompt: Enter corresponding password:  
-    Run the following command to execute cucumber tests:
-    npm test -- --tags @SPYG-97,@SPYG-81
-
-You will be prompted for data not provided via CLI args:
-
-    $ ./bin/jql-to-cuke-tags
-    prompt: Enter username for JIRA located at https://maprdrill.atlassian.net:  (tsullivan@maprtech.com) 
-    prompt: Enter corresponding password:  
-    prompt: Inline JQL or one of these preconfigured keys: (1.0.alpha,proposed):  (1.0.alpha) 
-    Run the following command to execute cucumber tests:
-    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
-
-In the above example, rather than providing inline JQL, a "preconfigured key" was used - 1.0.alpha. This
-key corresponds to a preconfigured query in the /configuration/config.json file.
-
-Non-Interactive Mode (uses CLI args or configured defaults in configuration/config.json):
-
-    $ ./bin/jql-to-cuke-tags -y -p $PASSWORD
-    Run the following command to execute cucumber tests:
-    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
-
-
-#### Debugging Tests
-
-To quickly see HTTP traffic going back and forth from tests, set the
-configuration/config.json/debugHTTP to true. For more advanced debugging
-use node debugger.
-
-#### Traceability / Relationship Tags:
-
-Tag Name                                         | Meaning
--------------------------------------------------|---------------------------------------
-@SPYG-[n]                                        | relates to SPYG-[n] JIRA User Story
-@Manual                                          | Is a Manual Test
-@HealthCheck                                     | Health Check a live Spyglass Cluster
-@WIP                                             | A Work in Progress (may yield bad results)
-@ESXI                                            | Applicable only to ESXI-enabled Clusters
-
-### Why Gherkin?
-
-Please see [this question](https://maprdrill.atlassian.net/browse/SPYG-72)
-
-### Why Version Control the Product Requirements?
-
-Please see [this question](https://maprdrill.atlassian.net/browse/SPYG-69)
 
 ## Infrastructure Automation
 
