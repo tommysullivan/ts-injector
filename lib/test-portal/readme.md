@@ -82,6 +82,7 @@ Exploring a Test Result
     - Visualize the individual test result as a chart using Drill + Visualization 
     - Ability to AND tags as well as OR them
     - Ability to GROUP ands and ors to arbitrary depth (wait until use case)
+    - Ability to view details of a step denoted by tripe quotes """
 
 Loading / Saving of Single Test Result File 
 

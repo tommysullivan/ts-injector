@@ -127,6 +127,22 @@ navigating to the generated URL using your browser of choice.
 One may also make a REST call to "publish" or update the test result to the QA version of the CI Server.
 To do that, review [the readme](lib/test-portal/readme.md)
 
+## Sharing Results
+
+To share your test results to the server, you may use [the REST API](lib/test-portal/readme.md).
+
+Alternatively, you may use:
+
+    bin/sync-test-results-to-server.sh 
+    
+This script will rsync all of your results to the server, leaving any that were previously there
+untouched. 
+
+NOTE: You will need to enter the password three times, once per test result folder.
+
+NOTE: If you have updated a local script and wish to sync it with a previous version of the
+script on the server, you must use the REST API.
+
 ## Testing Links
 
 * [QA Testing Effort Timeline](https://docs.google.com/spreadsheets/d/1Bn3a8WpNcYoflH9H59vvYthAzQuReYenkv07PQaso6o/edit?ts=565e1cb5#gid=0&vpid=A1)
