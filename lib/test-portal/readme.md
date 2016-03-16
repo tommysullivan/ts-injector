@@ -66,10 +66,15 @@ Finding Test Results
     - Deep Linking reflects current query and position within view
     - Use a Drill + Visualization tool to view results over time as a chart
     - Ability to searchably tag at the "entire test result" level
+    - Ability to search by cluster characteristics (such as version or environment)
+    - Ability to search by configuration predicates (with cli args becoming configuration as well)
+    - Ability to search by version of test code
+    - Ability to link tests together with a unique "test session id"
 
 Exploring a Test Result
 
     - scenario outline output could be grouped better
+    - see related test run(s) against different environment
     - need way to navigate quickly to source of failing tests
     - Indicate the sought tags for which there was not a match
     - Ability to view/explore the full test configuration for a run
@@ -91,6 +96,7 @@ Manual Testing
 
 Running a Test
 
+    - Ability to run against multiple clusters in parallel within one process
     - Ability to specify the "Cluster Under Test" for a given test run
     - Ability to attach, automatically or during manual testing, supporting test data    
     - Ability to run new test (hardcoded at first) with web UI (workaround: run test locally and PUT it to the server or view in local server)
@@ -101,9 +107,10 @@ Running a Test
     - Auto-Refresh
     - Web Sockets instead of Auto-Refresh
     
-## Defining a Test
+## Authoring a Test
 
     - Ability to indicate "dependencies between tests"
+    - Ability to indicate "do nothing step" that should be automated but is not pending because it is not critical
 
 ### Integration
 

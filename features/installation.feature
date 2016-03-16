@@ -5,7 +5,6 @@ Feature: Installation
 
   @SPYG-123 @Manual
   Scenario: Manual Installation
-    Given I have prepared the requisite hardware
     When I follow the manual installation instructions located at "https://github.com/mapr/private-spyglass"
     Then it tells me how to install, configure and run the services required for Spyglass
     And it tells me how to discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch
@@ -16,7 +15,7 @@ Feature: Installation
     When I ssh into the node hosting "GUI Installer"
     And within my ssh session, I download "/mapr-setup.sh" to "/tmp" from the "GUI Installer" repo
     And within my ssh session, I execute "/tmp/mapr-setup.sh -y -u [installerRepoURL] [maprCoreRepoURL] [ecosystemRepoURL]"
-    And I wait "7" seconds
+    And I wait "15" seconds
     Then it successfully starts the installer web server and outputs its URL to the screen
 
   @SPYG-282 @rest-installer

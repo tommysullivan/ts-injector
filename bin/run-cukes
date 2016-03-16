@@ -3,10 +3,11 @@ mkdir -p test-results
 mkdir -p test-configs
 mkdir -p test-cli-invocations
 cliArgs=`echo $@ | tr " " .`
+cliArgs=`echo $cliArgs | tr "/" .`
 filename=${clusterUnderTestId}_${cliArgs}_phase-${phase}_user-`whoami`_`date +%Y-%m-%d-at-%H-%M-%S`
 printenv >> test-cli-invocations/$filename.txt
 echo "Command Line Args: $@" >> test-cli-invocations/$filename.txt
 cp configuration/config.json test-configs/$filename.json
 ./node_modules/cucumber/bin/cucumber.js \
-    -f json:test-results/$filename.json \
-    $@
+    $@ \
+    -f json:test-results/$filename.json

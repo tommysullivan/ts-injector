@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-var API = require('../lib/api');
-var configJSON = require('../configuration/config.json');
+var API = require('../../api');
+var configJSON = require('../../../configuration/config.json');
 configJSON.jiraPassword = process.env['jiraPassword'];
 configJSON.jiraUsername = process.env['jiraUsername'];
 var testPortalPort = process.env['testPortalPort'] || 5001;

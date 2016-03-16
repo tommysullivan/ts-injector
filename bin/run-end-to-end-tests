@@ -1,9 +1,9 @@
 #!/bin/bash
-export clusterUnderTestId=${clusterUnderTestId:-tommy-1-node-centos-7-0-cluster}
+export clusterUnderTestId=${clusterUnderTestId:-kevin-3-node-centos-7-1-cluster}
 export phase=${phase:-latestBuild}
 set -e
-echo $phase
-echo $clusterUnderTestId
-clusterUnderTestId=${clusterUnderTestId} phase=${phase} bin/run-cukes --tags @ESXI
-clusterUnderTestId=${clusterUnderTestId} phase=${phase} bin/run-cukes --tags @mapr-setup
-clusterUnderTestId=${clusterUnderTestId} phase=${phase} bin/run-cukes --tags @rest-installer
+clusterUnderTestId=${clusterUnderTestId} \
+    phase=${phase} \
+    bin/run-cukes \
+    features/cluster-preparation.feature \
+    features/installation.feature \

@@ -1,7 +1,7 @@
-Feature: Hardware Preparation
+Feature: Cluster Preparation
 
-  @SPYG-1 @ESXI
-  Scenario: ESXi Hardware Preparation
+  @SPYG-1 @prepareForInstallation
+  Scenario: Prepare Cluster for Installation
     Given the Cluster Under Test is managed by ESXI
     And the Operating Systems of each node match what is configured to be expected
     When I revert the cluster to its configured "readyForInstallation" state

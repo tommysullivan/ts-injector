@@ -19,24 +19,30 @@ module.exports = function() {
         }
     });
 
-    this.When(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the "([^"]*)" repo$/, function (fileToRetrieve, destinationDirectory, componentName) {
-        var commands = [
-            'echo `hostname -I`    `hostname` >> /etc/hosts', //TODO: have valid host / dns in image!
-            `${this.sshServiceHost.packageCommand()} install -y curl`,
+    this.When(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the "([^"]*)" repo$/, function (fileToRetrieve, destinationDirectory, componentName, callback) {
+        this.sshSession.executeCommands([
             `curl ${this.sshServiceHost.repositoryURLFor(componentName)}${fileToRetrieve} > ${destinationDirectory}${fileToRetrieve}`,
             `chmod 744 ${destinationDirectory}${fileToRetrieve}`
-        ]
-        //console.log(commands);
-        return this.sshSession.executeCommands(commands);
+        ]).done(
+            shellCommandResultSet => callback(),
+            shellCommandResultSet => callback(shellCommandResultSet.toString())
+        );
     });
 
-    this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 10 * 60 * 1000 }, function (commandWithRepoPlaceholders) {
+    this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 10 * 60 * 1000 }, function (commandWithRepoPlaceholders, callback) {
         var command = commandWithRepoPlaceholders;
         command = command.replace('[installerRepoURL]', this.sshServiceHost.repositoryURLFor('GUI Installer'));
         command = command.replace('[maprCoreRepoURL]', this.sshServiceHost.repositoryURLFor('MapR Core'));
         command = command.replace('[ecosystemRepoURL]', this.sshServiceHost.repositoryURLFor('Ecosystem'));
-        //console.log(command);
-        return this.sshSession.executeCommands([command]).then(output=>this.maprSetupOuptut = output);
+        this.sshSession.executeCommand(command).done(
+            shellCommandResult => {
+                this.maprSetupOuptut = shellCommandResult;
+                callback();
+            },
+            shellCommandResult => {
+                callback(shellCommandResult.toString());
+            }
+        );
     });
 
     function guiInstallerURL() {
@@ -54,7 +60,7 @@ module.exports = function() {
     }
 
     this.Then(/^it successfully starts the installer web server and outputs its URL to the screen$/, function (callback) {
-        if(this.maprSetupOuptut.indexOf('To continue installing MapR software, open the following URL in a web browser')==-1) callback(new Error(`Installation did not output the expected web browser URL text. Output: ${this.maprSetupOuptut}`));
+        //if(this.maprSetupOuptut.indexOf('To continue installing MapR software, open the following URL in a web browser')==-1) callback(new Error(`Installation did not output the expected web browser URL text. Output: ${this.maprSetupOuptut}`));
         verifyGUIInstallerWebServerIsRunning.call(this, callback);
     });
 
@@ -62,10 +68,13 @@ module.exports = function() {
         verifyGUIInstallerWebServerIsRunning.call(this, callback);
     });
 
-    this.Given(/^I can authenticate my GUI Installer Rest Client$/, function () {
+    this.Given(/^I can authenticate my GUI Installer Rest Client$/, function (callback) {
         var installerRESTClient = this.api.newInstallerRESTClient(guiInstallerURL.call(this));
-        return installerRESTClient.createAutheticatedSession('mapr','mapr').then(
+        installerRESTClient.createAutheticatedSession('mapr','mapr').then(
             installerRESTSession => this.installerRESTSession = installerRESTSession
+        ).done(
+            success=>callback(),
+            error=>callback(error)
         );
     });
 
@@ -121,27 +130,4 @@ module.exports = function() {
     this.Then(/^Cluster Installation completes without errors$/, function (callback) {
         validateProcessAndGetLogsOnError.call(this, 'installationComplete', callback);
     });
-
-    //this.Given(/^I have installed Spyglass onto "([^"]*)"$/, function (operatingSystem, callback) {
-    //    var hostNamesByOS = {
-    //        'CentOS 7': '10.10.101.106',
-    //        'Ubuntu 12.04': '10.10.10.173'
-    //    }
-    //    if(Object.keys(hostNamesByOS).indexOf(operatingSystem) >=0) {
-    //        var hostName = hostNamesByOS[operatingSystem];
-    //        this.grafanaHostAndOptionalPort = 'http://' + hostName + ':3000';
-    //        this.kibanaHostAndOptionalPort = 'http://' + hostName + ':5601';
-    //        this.elasticSearchHostAndOptionalPort = 'http://' + hostName + ':9200';
-    //        this.mcsProtocolHostAndOptionalPort = 'https://' + hostName + ':8443';
-    //        this.openTSDBHostAndPort = 'http://' + hostName + ':4242';
-    //        this.fqdns = ['' + hostName + ''];
-    //        callback();
-    //    }
-    //    else callback.pending();
-    //});
-
-    this.Given(/^I have prepared the requisite hardware"$/, function(callback) {
-        callback.pending();
-    });
-
 }
