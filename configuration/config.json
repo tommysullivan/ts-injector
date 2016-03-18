@@ -55,7 +55,7 @@
   },
   "testClusters": [
     {
-      "id": "tommy-3-node-centos-6-5-cluster",
+      "id": "centos6.5",
       "inheritsFrom": "esxi-10.10.99.70",
       "name": "tommy-3-node-centos-6-5-cluster.devops.lab",
       "nodes": [
@@ -118,7 +118,7 @@
       ]
     },
     {
-      "id": "kevin-3-node-centos-7-1-cluster",
+      "id": "centos7.1",
       "inheritsFrom": "esxi-10.10.30.174",
       "name": "kevin-3-node-centos-7-1-cluster.devops.lab",
       "nodes": [
@@ -135,7 +135,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 38
+              "snapshotId": 41
             },
             {
               "name": "baseImage",
@@ -159,7 +159,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 25
+              "snapshotId": 29
             },
             {
               "name": "baseImage",
@@ -181,7 +181,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 23
+              "snapshotId": 26
             },
             {
               "name": "baseImage",
@@ -193,7 +193,7 @@
       ]
     },
     {
-      "id": "kevin-3-node-ubuntu-14-04-cluster",
+      "id": "ubuntu14",
       "inheritsFrom": "esxi-10.10.30.174",
       "name": "kevin-3-node-ubuntu-14-04-cluster.devops.lab",
       "nodes": [
@@ -209,8 +209,12 @@
           },
           "states": [
             {
-              "name": "readyForInstallation",
+              "name": "baseImage",
               "snapshotId": 1
+            },
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 2
             }
           ],
           "serviceNames": [
@@ -229,8 +233,12 @@
           },
           "states": [
             {
-              "name": "readyForInstallation",
+              "name": "baseImage",
               "snapshotId": 1
+            },
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 2
             }
           ],
           "serviceNames": []
@@ -247,8 +255,12 @@
           },
           "states": [
             {
-              "name": "readyForInstallation",
+              "name": "baseImage",
               "snapshotId": 1
+            },
+            {
+              "name": "readyForInstallation",
+              "snapshotId": 2
             }
           ],
           "serviceNames": []

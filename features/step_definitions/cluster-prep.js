@@ -28,7 +28,7 @@ module.exports = function() {
         );
     });
 
-    this.Given(/^the Operating Systems of each node match what is configured to be expected$/, function () {
+    this.Given(/^the Operating Systems of each node match what is configured$/, function () {
         //TODO: Implement
     });
 

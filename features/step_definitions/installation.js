@@ -123,7 +123,7 @@ module.exports = function() {
         validateProcessAndGetLogsOnError.call(this, 'installerProvisioningComplete', callback);
     });
 
-    this.When(/^I perform Cluster Installation$/, {timeout: 15 * 60 * 1000}, function (callback) {
+    this.When(/^I perform Cluster Installation$/, {timeout: 30 * 60 * 1000}, function (callback) {
         performInstallProcess.call(this, 'install', 'installationComplete', callback);
     });
 
