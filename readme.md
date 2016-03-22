@@ -85,6 +85,7 @@ This section lists package names and the steps performed when each one is instal
    * enables the section in collectd.conf between MAPR_CONF_TAG and MAPR_CONF_TAG_END and configures JMX connections for         applicable services
    * enables and configures the opentsdb plugin in collectd.conf
    * copies warden.collectd.conf to MAPR_HOME/conf/conf.d
+   * If you have to gather metrics from more then one queue in RM. Please follow the steps listed in this JIRA      https://maprdrill.atlassian.net/browse/SPYG-333
 
 * mapr-elasticsearch
    * installs elasticsearch in MAPR_HOME/elasticsearch/elasticsearch-*
