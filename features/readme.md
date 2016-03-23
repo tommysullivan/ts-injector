@@ -73,7 +73,7 @@ IntelliJ, use VCS -> Checkout from Version Control and follow the prompts.
 Regardless of how you run, you will need to at least provide the following environment variables:
 
     phase=[latestBuild|others] \
-    clusterUnderTestId=[id of cluster to test] 
+    clusterId=[id of cluster to test] 
 
 Some utility scripts will set defaults on your behalf if you do not specify them, but be careful
 that you do not interrupt testing on the default clusters!
@@ -107,7 +107,7 @@ cucumber run configuration.
 After cloning this repository, from the root directory:
 
     npm install
-    phase=[latestBuild|others] clusterUnderTestId=[id of cluster to test] npm test -- [optional cucumber.js framework args]
+    phase=[latestBuild|others] clusterId=[id of cluster to test] npm test -- [optional cucumber.js framework args]
     
 The phase should be set to one of the phases in the repositories listed in configuration/config.json
 under the "repositories" property. You may omit phase and the CLI will yield a list of the available
@@ -210,7 +210,7 @@ Tag Name                                         | Meaning
 
 ## Frequently Asked Questions
 
-## How do I Debug a Test?
+### How do I Debug a Test?
 
 To quickly see HTTP traffic going back and forth from tests, set the
 configuration/config.json/debugHTTP to true. 

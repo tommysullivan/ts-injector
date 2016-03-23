@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+rsync --ignore-existing -a ./test-results/ root@testing.devops.lab:/root/private-spyglass/test-results
+rsync --ignore-existing -a ./test-configs/ root@testing.devops.lab:/root/private-spyglass/test-configs
+rsync --ignore-existing -a ./test-cli-invocations/ root@testing.devops.lab:/root/private-spyglass/test-cli-invocations

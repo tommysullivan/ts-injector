@@ -9,17 +9,29 @@ module.exports = function() {
     });
 
     this.Given(/^I have an authenticated MCS Rest Client Session$/, function (callback) {
-        this.api.newMCSRestClient(this.mcsProtocolHostAndOptionalPort).createAutheticatedSession(this.mcsUserName, this.mcsPassword).done(
-            authenticatedMCSSession => { this.authenticatedMCSSession = authenticatedMCSSession; callback() },
-            callback
-        );
+        this.createInstallerRestSession()
+            .then(installerRestSession => installerRestSession.services())
+            .then(services => {
+                var mcsHost = services.mcs().hosts[0];
+                var mcsUrl = `https://${mcsHost}:8443`;
+                return this.api.newMCSRestClient(mcsUrl)
+                    .createAutheticatedSession(this.mcsUserName, this.mcsPassword)
+            })
+            .done(
+                authenticatedMCSSession => {
+                    this.authenticatedMCSSession = authenticatedMCSSession;
+                    callback()
+                },
+                error => callback(error.toString())
+            );
     });
 
     this.Given(/^I use the MCS Rest Client Session to retrieve dashboardInfo$/, function (callback) {
-        this.authenticatedMCSSession.dashboardInfo().done(
-            dashboardInfo => { this.dashboardInfo = dashboardInfo; callback() },
-            callback
-        );
+        this.authenticatedMCSSession.dashboardInfo()
+            .done(
+                dashboardInfo => { this.dashboardInfo = dashboardInfo; callback() },
+                error=>callback(error.toString())
+            );
     });
 
     this.When(/^I ask the dashboardInfo for unhealthySpyglassServices$/, function () {

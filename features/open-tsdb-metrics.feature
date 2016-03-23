@@ -1,7 +1,7 @@
 Feature: OpenTSDB Metrics REST API
 
   @SPYG-124 @HealthCheck
-  Scenario Outline: Getting Simple Node Metrics via REST API
+  Scenario: Getting Simple Node Metrics via REST API
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
     And I query for the following metrics:

@@ -1,7 +1,6 @@
 module.exports = function() {
     this.When(/^I ask for a link to the following applications:$/, function (table, callback) {
         var applicationNames = this.getArrayFromTable(table);
-        console.log('applicationNames', JSON.stringify(applicationNames));
         this.retrievedApplicationLinks = []
         this.api.newGroupPromise(applicationNames.map(applicationName=>{
             return this.authenticatedMCSSession.applicationLinkFor(applicationName).then(

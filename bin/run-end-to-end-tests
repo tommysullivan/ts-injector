@@ -1,8 +1,8 @@
 #!/bin/bash
-export clusterUnderTestId=${clusterUnderTestId:-kevin-3-node-centos-7-1-cluster}
+export clusterId=${clusterId:-centos7.1}
 export phase=${phase:-latestBuild}
 set -e
-clusterUnderTestId=${clusterUnderTestId} \
+clusterId=${clusterId} \
     phase=${phase} \
     bin/run-cukes \
     features/cluster-preparation.feature \

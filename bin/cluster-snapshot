@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+var API = require('../lib/api');
+var configJSON = require('../configuration/config.json');
+var api = API(configJSON);
+
+var snapshotVerb = process.argv[2];
+var clusterId = process.argv[3];
+var snapshotName = process.argv[4];
+
+if(clusterId==null) throw new Error(`please provide clusterId as the first command line argument. Choices: ${api.getAvailableTestClusterList()}`);
+
+var clusterUnderTest = api.newClusterUnderTest(clusterId);
+
+if(snapshotVerb=='info') {
+    clusterUnderTest.snapshotInfo().done(
+        output => console.log(output),
+        error => console.log(error.toString())
+    )
+}
+else {
+    function validateSnapshotName() {
+        if(snapshotName==null) throw new Error('please provide snapshot name as third argument.');
+    }
+
+    function performVerb() {
+        switch(snapshotVerb) {
+            case 'capture':
+                validateSnapshotName();
+                return clusterUnderTest.captureStateAsSnapshot(snapshotName);
+            case 'delete':
+                validateSnapshotName();
+                return clusterUnderTest.deleteStateIfExists(snapshotName);
+            case 'apply':
+                validateSnapshotName();
+                return clusterUnderTest.revertToState(snapshotName);
+            default:
+                throw new Error('please provide the verb to apply as second argument: capture, apply, delete, info');
+        }
+    }
+
+    performVerb().done(
+        output => console.log('success'),
+        error => console.log('An error has occurred.', error.toString())
+    );
+}
