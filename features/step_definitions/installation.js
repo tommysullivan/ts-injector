@@ -1,7 +1,7 @@
 module.exports = function() {
 
     this.Given(/^I have installed Spyglass$/, function() {
-        //TODO: Validate that spyglass installation has occurred for this ticket
+        //TODO: Validate that spyglass installation has occurred
     });
 
     this.When(/^I ssh into the node hosting "([^"]*)"$/, function (serviceName, callback) {
@@ -45,32 +45,18 @@ module.exports = function() {
         );
     });
 
-    function guiInstallerURL() {
-        var installerHost = this.clusterUnderTest.nodeHosting('GUI Installer');
-        return installerHost.urlFor('GUI Installer');
-    }
-
-    function verifyGUIInstallerWebServerIsRunning(callback) {
-        var url = guiInstallerURL.call(this);
-        var path = '/';
-        this.api.newRestClientAsPromised(url).get(path).done(
-            success=>callback(),
-            errorHttpResult=>callback(`Could not reach GUI Installer website. Status Code: ${errorHttpResult.statusCode}, url: ${url}${path}`)
-        );
-    }
-
     this.Then(/^it successfully starts the installer web server and outputs its URL to the screen$/, function (callback) {
-        //if(this.maprSetupOuptut.indexOf('To continue installing MapR software, open the following URL in a web browser')==-1) callback(new Error(`Installation did not output the expected web browser URL text. Output: ${this.maprSetupOuptut}`));
-        verifyGUIInstallerWebServerIsRunning.call(this, callback);
+        if(this.maprSetupOuptut.toString().indexOf('To continue installing MapR software, open the following URL in a web browser')==-1)
+            callback(new Error(`Installation did not output the expected web browser URL text. Output: ${this.maprSetupOuptut}`));
+        this.verifyGUIInstallerWebServerIsRunning(callback);
     });
 
     this.Given(/^the GUI Installer web server is running$/, function (callback) {
-        verifyGUIInstallerWebServerIsRunning.call(this, callback);
+        this.verifyGUIInstallerWebServerIsRunning(callback);
     });
 
     this.Given(/^I can authenticate my GUI Installer Rest Client$/, function (callback) {
-        var installerRESTClient = this.api.newInstallerRESTClient(guiInstallerURL.call(this));
-        installerRESTClient.createAutheticatedSession('mapr','mapr').then(
+        this.createInstallerRestSession().then(
             installerRESTSession => this.installerRESTSession = installerRESTSession
         ).done(
             success=>callback(),
@@ -102,7 +88,7 @@ module.exports = function() {
                 .then(installerProcess => installerProcess.log())
                 .done(
                     logText=>callback(logText),
-                    error=>callback('There was an error with process and in addition could not retrieve logs. Http status: '+error.statusCode)
+                    error=>callback('There was an error with process and in addition could not retrieve logs. Http status: '+error.toString())
                 );
         }
     }

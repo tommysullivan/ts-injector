@@ -3,6 +3,9 @@ var API = require('../lib/api');
 var configJSON = require('../configuration/config.json');
 var api = API(configJSON);
 var clusterId = process.argv[2];
+var hostName = clusterId;
+
 if(clusterId==null) throw new Error(`please provide clusterId as the first command line argument. Choices: ${api.getAvailableTestClusterList()}`);
-console.log(`getting config for id ${clusterId}`);
-console.log(JSON.stringify(api.getFlattenedClusterConfig(clusterId), null, 3));
+var clusterIdForHost = api.clusterIdForHost(hostName);
+if(clusterIdForHost) console.log('clusterIdForHost: ', clusterIdForHost);
+else console.log(JSON.stringify(api.flattenedConfigForClusterId(clusterId), null, 3));

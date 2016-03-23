@@ -34,7 +34,7 @@ else {
                 validateSnapshotName();
                 return clusterUnderTest.revertToState(snapshotName);
             default:
-                if(snapshotVerb==null) throw new Error('please provide the verb to apply as second argument: capture, apply, delete, info');
+                throw new Error('please provide the verb to apply as second argument: capture, apply, delete, info');
         }
     }
 

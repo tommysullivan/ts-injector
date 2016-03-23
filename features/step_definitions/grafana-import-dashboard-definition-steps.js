@@ -27,7 +27,7 @@ module.exports = function() {
                 this.dashboardUploadResults = results;
                 callback();
             },
-            failedResponse => callback('there was an error - http reponse code:'+failedResponse.statusCode)
+            failedResponse => callback(failedResponse.toString())
         );
     });
 

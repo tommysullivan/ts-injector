@@ -30,6 +30,28 @@ module.exports = function() {
         this.repositories = this.api.newRepositories(phase);
         this.clusterUnderTest = this.api.newClusterUnderTest(clusterId, this.repositories);
         this.getArrayFromTable = table => table.rows().map(r=>r[0]);
+
+        this.guiInstallerURL = function() {
+            var installerHost = this.clusterUnderTest.nodeHosting('GUI Installer');
+            return installerHost.urlFor('GUI Installer');
+        }
+
+        this.verifyGUIInstallerWebServerIsRunning = function(callback) {
+            var url = this.guiInstallerURL();
+            var path = '/';
+            this.api.newRestClientAsPromised(url).get(path).done(
+                success=>callback(),
+                errorHttpResult=>callback(`Could not reach GUI Installer website. Status Code: ${errorHttpResult.toString()}, url: ${url}${path}`)
+            );
+        }
+
+        this.installerRestClient = function() {
+            return this.api.newInstallerRESTClient(this.guiInstallerURL());
+        }
+
+        this.createInstallerRestSession = function() {
+            return this.installerRestClient().createAutheticatedSession('mapr','mapr');
+        }
     };
 
     this.BeforeStep(function(event, callback) {

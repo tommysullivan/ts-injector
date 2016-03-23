@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 module.exports = function() {
 
     this.When(/^I specify the query range start as "([^"]*)"$/, function (queryRangeStart) {
@@ -6,12 +8,24 @@ module.exports = function() {
 
     this.When(/^I query for the following metrics:$/, function (table, callback) {
         this.metricNames = this.getArrayFromTable(table);
-        var openTSDBRestClient = this.api.newOpenTSDBRestClient(this.openTSDBHostAndPort);
-        var metricQueryPromises = this.metricNames.map(metricName => openTSDBRestClient.queryForMetric(this.queryRangeStart, metricName));
-        this.api.newGroupPromise(metricQueryPromises).done(
-            queryResultSets => { this.queryResultSets = queryResultSets; callback(); },
-            error => callback("There was an http error: "+error)
-        )
+
+        this.createInstallerRestSession()
+            .then(installerRestSession => {
+                var openTSDBHosts = installerRestSession.services().openTSDB().hosts;
+                var openTSDBUrls = openTSDBHosts.map(h=>`http://${h}:4242`);
+                var openTSDBRestClients = openTSDBUrls.map(u=>this.api.newOpenTSDBRestClient(u));
+                var allPromises = _.flatten(
+                    openTSDBRestClients.map(
+                        c=>this.metricNames.map(
+                            m=>c.queryForMetric(this.queryRangeStart, m)
+                        )
+                    )
+                );
+                this.api.newGroupPromise(allPromises).done(
+                    queryResultSets => { this.queryResultSets = queryResultSets; callback(); },
+                    error => callback("There was an http error: "+error.toString())
+                )
+            });
     });
 
     this.Then(/^I receive at least "([^"]*)" values per metric covering that time period$/, function (numExpectedValuesPerMetric, callback) {

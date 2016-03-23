@@ -1,0 +1,302 @@
+{
+  "admin_id": "mapr",
+  "cluster_admin_create": true,
+  "cluster_admin_gid": 5000,
+  "cluster_admin_group": "mapr",
+  "cluster_admin_id": "mapr",
+  "cluster_admin_uid": 5000,
+  "cluster_name": "my.cluster.com",
+  "data": {
+    "diskStripeDefault": 3,
+    "template": "userdefined",
+    "licenseType": "M3",
+    "showAdvancedServiceConfig": false,
+    "null": true,
+    "showLogs": false,
+    "showAdvancedServiceSelection": true,
+    "licenseValidation": "NONE",
+    "showLicenseValidation": false
+  },
+  "dial_home_id": "100569406",
+  "disk_format": true,
+  "disk_stripe": 3,
+  "disks": [],
+  "environment": "",
+  "hosts": [
+    "perfnode144.perf.lab"
+  ],
+  "install_dir": "/opt/mapr/installer",
+  "installer_version": "1.3.201603211026",
+  "license_modules": [
+    "DATABASE",
+    "HADOOP",
+    "STREAMS"
+  ],
+  "license_type": "M5",
+  "links": {
+    "self": "https://10.10.30.144:9443/api/config",
+    "services": "https://10.10.30.144:9443/api/config/services"
+  },
+  "repo_core_url": "http://yum.qa.lab/v5.1.0",
+  "repo_eco_url": "http://yum.qa.lab/opensource",
+  "services": {
+    "mapr-opentsdb": {
+      "version": "2.2.0",
+      "enabled": true
+    },
+    "mapr-impala-statestore": {
+      "version": "2.2.0",
+      "enabled": false
+    },
+    "mapr-spark-master": {
+      "version": "1.5.2",
+      "enabled": false
+    },
+    "mapr-flume": {
+      "version": "1.6.0",
+      "enabled": false
+    },
+    "mapr-asynchbase": {
+      "version": "1.7.0",
+      "enabled": true
+    },
+    "mapr-hbase-regionserver": {
+      "version": "1.1",
+      "enabled": false
+    },
+    "mapr-storm-ui": {
+      "version": "0.9.4",
+      "enabled": false
+    },
+    "mapr-collectd-fast-jmx": {
+      "version": "1.1",
+      "enabled": true
+    },
+    "mapr-hue-livy": {
+      "version": "3.9.0",
+      "enabled": false
+    },
+    "mapr-nfs": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-fileserver": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-sentry": {
+      "version": "1.6.0",
+      "enabled": false
+    },
+    "mapr-spark-standalone": {
+      "version": "1.5.2",
+      "enabled": false
+    },
+    "mapr-core": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-hbase-rest": {
+      "version": "1.1",
+      "enabled": true
+    },
+    "mapr-httpfs": {
+      "version": "1.0",
+      "enabled": false
+    },
+    "mapr-cldb": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-zookeeper": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-hivewebhcat": {
+      "version": "1.2",
+      "enabled": false
+    },
+    "mapr-hive": {
+      "version": "1.2",
+      "enabled": false
+    },
+    "mapr-impala": {
+      "version": "2.2.0",
+      "enabled": false
+    },
+    "mapr-spark-client": {
+      "version": "1.5.2",
+      "enabled": false
+    },
+    "mapr-sentry-server": {
+      "version": "1.6.0",
+      "enabled": false
+    },
+    "mapr-hbase": {
+      "version": "1.1",
+      "enabled": true
+    },
+    "mapr-hiveserver2": {
+      "version": "1.2",
+      "enabled": false
+    },
+    "mapr-jobtracker": {
+      "version": "5.1.0",
+      "enabled": false
+    },
+    "mapr-fluentd": {
+      "version": "0.12.22",
+      "enabled": true
+    },
+    "mapr-kafka": {
+      "version": "0.9.0",
+      "enabled": false
+    },
+    "mapr-historyserver": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-pig": {
+      "version": "0.15",
+      "enabled": false
+    },
+    "mapr-storm-nimbus": {
+      "version": "0.9.4",
+      "enabled": false
+    },
+    "mapr-hivemetastore": {
+      "version": "1.2",
+      "enabled": false
+    },
+    "mapr-impala-catalog": {
+      "version": "2.2.0",
+      "enabled": false
+    },
+    "mapr-impala-server": {
+      "version": "2.2.0",
+      "enabled": false
+    },
+    "mapr-hbase-master": {
+      "version": "1.1",
+      "enabled": false
+    },
+    "mapr-spark-slave": {
+      "version": "1.5.2",
+      "enabled": false
+    },
+    "mapr-kibana": {
+      "version": "4.4.1",
+      "enabled": true
+    },
+    "mapr-mapreduce": {
+      "version": "5.1.0",
+      "enabled": false
+    },
+    "mapr-hbasethrift": {
+      "version": "1.1",
+      "enabled": true
+    },
+    "mapr-storm-supervisor": {
+      "version": "0.9.4",
+      "enabled": false
+    },
+    "mapr-hbase-server": {
+      "version": "1.1",
+      "enabled": false
+    },
+    "mapr-resourcemanager": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-hue": {
+      "version": "3.9.0",
+      "enabled": false
+    },
+    "mapr-tasktracker": {
+      "version": "5.1.0",
+      "enabled": false
+    },
+    "mapr-drill": {
+      "version": "1.4",
+      "enabled": false
+    },
+    "mapr-hive-client": {
+      "version": "1.2",
+      "enabled": false
+    },
+    "mapr-storm": {
+      "version": "0.9.4",
+      "enabled": false
+    },
+    "mapr-elasticsearch": {
+      "version": "2.2.0",
+      "enabled": true
+    },
+    "mapr-grafana": {
+      "version": "2.6.0",
+      "enabled": true
+    },
+    "mapr-nodemanager": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-oozie": {
+      "version": "4.1.0",
+      "enabled": false
+    },
+    "mapr-collectd": {
+      "version": "5.5.1",
+      "enabled": true
+    },
+    "mapr-sqoop": {
+      "version": "2.0.0",
+      "enabled": false
+    },
+    "mapr-sqoop-client": {
+      "version": "2.0.0",
+      "enabled": false
+    },
+    "mapr-mysql": {
+      "enabled": false
+    },
+    "mapr-hbase-common": {
+      "version": "1.1",
+      "enabled": true
+    },
+    "mapr-sentry-client": {
+      "version": "1.6.0",
+      "enabled": false
+    },
+    "mapr-sqoop-server": {
+      "version": "2.0.0",
+      "enabled": false
+    },
+    "mapr-yarn": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-spark": {
+      "version": "1.5.2",
+      "enabled": false
+    },
+    "mapr-spark-historyserver": {
+      "version": "1.5.2",
+      "enabled": false
+    },
+    "mapr-webserver": {
+      "version": "5.1.0",
+      "enabled": true
+    },
+    "mapr-mahout": {
+      "version": "0.9",
+      "enabled": false
+    },
+    "mapr-metrics": {
+      "version": "5.1.0",
+      "enabled": false
+    }
+  },
+  "services_version": "1.3.201603211026",
+  "ssh_port": 22,
+  "state": "INIT"
+}

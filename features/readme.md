@@ -210,7 +210,7 @@ Tag Name                                         | Meaning
 
 ## Frequently Asked Questions
 
-## How do I Debug a Test?
+### How do I Debug a Test?
 
 To quickly see HTTP traffic going back and forth from tests, set the
 configuration/config.json/debugHTTP to true. 

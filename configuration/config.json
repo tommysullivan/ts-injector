@@ -55,9 +55,67 @@
   },
   "testClusters": [
     {
+      "id": "suse12",
+      "inheritsFrom": "esxi-10.10.99.70",
+      "name": "suse12.devops.lab",
+      "nodes": [
+        {
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.75",
+          "operatingSystem": {
+            "name": "SuSE",
+            "version": "12"
+          },
+          "states": [],
+          "serviceNames": [
+            "GUI Installer"
+          ]
+        },
+        {
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.76",
+          "operatingSystem": {
+            "name": "SuSE",
+            "version": "12"
+          },
+          "states": [],
+          "serviceNames": []
+        },
+        {
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.77",
+          "operatingSystem": {
+            "name": "SuSE",
+            "version": "12"
+          },
+          "states": [],
+          "serviceNames": []
+        }
+      ]
+    },
+    {
+      "id": "anisha",
+      "type": "bare-metal",
+      "inheritsFrom": "base-cluster",
+      "nodes": [
+        {
+          "host": "10.10.101.105",
+          "serviceNames": [
+            "GUI Installer"
+          ]
+        },
+        {
+          "host": "10.10.101.106"
+        }
+      ]
+    },
+    {
       "id": "centos6.5",
       "inheritsFrom": "esxi-10.10.99.70",
-      "name": "tommy-3-node-centos-6-5-cluster.devops.lab",
+      "name": "centos6-5.devops.lab",
       "nodes": [
         {
           "name": "scale-72",
@@ -120,7 +178,7 @@
     {
       "id": "centos7.1",
       "inheritsFrom": "esxi-10.10.30.174",
-      "name": "kevin-3-node-centos-7-1-cluster.devops.lab",
+      "name": "centos7-1.devops.lab",
       "nodes": [
         {
           "name": "cent70_10.10.30.144",
@@ -135,7 +193,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 41
+              "snapshotId": 56
             },
             {
               "name": "baseImage",
@@ -159,7 +217,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 29
+              "snapshotId": 41
             },
             {
               "name": "baseImage",
@@ -181,7 +239,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 26
+              "snapshotId": 36
             },
             {
               "name": "baseImage",
@@ -195,7 +253,7 @@
     {
       "id": "ubuntu14",
       "inheritsFrom": "esxi-10.10.30.174",
-      "name": "kevin-3-node-ubuntu-14-04-cluster.devops.lab",
+      "name": "ubuntu14.devops.lab",
       "nodes": [
         {
           "name": "u1404_10.10.30.147",
@@ -284,7 +342,7 @@
         "type": "esxi",
         "host": "10.10.99.70",
         "username": "root",
-        "password": "maprmapr"
+        "password": "maprwins"
       }
     },
     {
@@ -321,7 +379,7 @@
         { "name": "mapr-hbase-common", "version": "1.1" },
         { "name": "mapr-yarn", "version": "2.7.0" },
         { "name": "mapr-elasticsearch", "version": "2.2.0" },
-        { "name": "mapr-opentsdb", "version": "2.2.0" }
+        { "name": "mapr-opentsdb", "version": "2.1.0" }
       ]
     }
   ]

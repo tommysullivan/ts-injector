@@ -35,11 +35,12 @@ Feature: Hardware Maintenance
         echo 'nameserver 10.250.1.3' >> /etc/resolv.conf
         echo 'nameserver 10.10.100.241' >> /etc/resolv.conf
         echo 'PEERDNS=no' > /etc/sysconfig/network
-        {{packageCommand}} install -y curl
-        {{packageCommand}} install -y ntp
-        systemctl enable ntpd
-        systemctl start ntpd
+        #{{packageCommand}} install -y curl
+        #{{packageCommand}} install -y ntp
+        #systemctl enable ntpd
+        #systemctl start ntpd
     """
+    And I wait "10" seconds
     And I take "readyForInstallation" snapshots of each node in the cluster
     And I manually retrieve the ids of these new snapshots based on the console output of the previous step
     Then I manually update the configured "readyForInstallation" state for the cluster with the snapshot ids
