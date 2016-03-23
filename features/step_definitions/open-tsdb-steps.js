@@ -10,22 +10,26 @@ module.exports = function() {
         this.metricNames = this.getArrayFromTable(table);
 
         this.createInstallerRestSession()
-            .then(installerRestSession => {
-                var openTSDBHosts = installerRestSession.services().openTSDB().hosts;
+            .then(installerRestSession => installerRestSession.services())
+            .then(services => {
+                var openTSDBHosts = services.openTSDB().hosts;
                 var openTSDBUrls = openTSDBHosts.map(h=>`http://${h}:4242`);
+                if(openTSDBUrls.length==0) throw new Error(`No OpenTSDB hosts were dicovered. services: ${services.toString()}`)
                 var openTSDBRestClients = openTSDBUrls.map(u=>this.api.newOpenTSDBRestClient(u));
                 var allPromises = _.flatten(
                     openTSDBRestClients.map(
                         c=>this.metricNames.map(
                             m=>c.queryForMetric(this.queryRangeStart, m)
+                                .then(c=>{console.log(c.toString()); return c;})
                         )
                     )
                 );
-                this.api.newGroupPromise(allPromises).done(
-                    queryResultSets => { this.queryResultSets = queryResultSets; callback(); },
-                    error => callback("There was an http error: "+error.toString())
-                )
-            });
+                return this.api.newGroupPromise(allPromises)
+            })
+            .done(
+                queryResultSets => { this.queryResultSets = queryResultSets; callback(); },
+                error => callback(error.toString())
+            );
     });
 
     this.Then(/^I receive at least "([^"]*)" values per metric covering that time period$/, function (numExpectedValuesPerMetric, callback) {

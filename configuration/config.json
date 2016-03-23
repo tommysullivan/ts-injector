@@ -20,7 +20,7 @@
   "mcsApplicationLinkPathTemplate": "/api/urls/{applicationName}",
   "grafanaDashboardImportPath": "/api/dashboards/db",
   "grafanaLoginPath": "/login",
-  "mcsDashboardInfoPath": "api/dashboard/info",
+  "mcsDashboardInfoPath": "/api/dashboard/info",
   "installerPollingFrequencyMS": 5000,
   "spyglassServicesNamesInMCSDashboardInfo": [
     "collectd",

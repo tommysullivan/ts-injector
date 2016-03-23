@@ -12,10 +12,12 @@ module.exports = function() {
     });
 
     this.Given(/^I have an authenticated grafana rest client$/, function (callback) {
-        this.grafanaRestClient.createAutheticatedSession(this.grafanaUsername, this.grafanaPassword).done(
-            grafanaRestSession => { this.grafanaRestSession = grafanaRestSession; callback(); },
-            callback
-        );
+        callback.pending();
+        //TODO: Discover grafana url
+        //this.grafanaRestClient.createAutheticatedSession(this.grafanaUsername, this.grafanaPassword).done(
+        //    grafanaRestSession => { this.grafanaRestSession = grafanaRestSession; callback(); },
+        //    callback
+        //);
     });
 
     this.When(/^I request to import the following dashboard definitions:$/, function (table, callback) {
