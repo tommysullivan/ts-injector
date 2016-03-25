@@ -4,8 +4,6 @@ var configJSON = require('../configuration/config.json');
 var api = API(configJSON);
 var fs = require('fs')
 
-//TODO: Add variable to determine whether to sync with testing.devops.lab
-
 var clusterIdString = process.env['clusterIds'];
 if(clusterIdString==null) throw new Error(`Please set ENV variable clusterIds to comma separated list (no spaces) of ids (defined in configuration/config.json under "clustersUnderTest"). Choices include: ${api.getAvailableTestClusterList()}`);
 var clusterIds = clusterIdString.split(',');
