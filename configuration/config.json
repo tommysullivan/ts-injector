@@ -207,7 +207,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 56
+              "snapshotId": 62
             },
             {
               "name": "baseImage",
@@ -231,7 +231,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 41
+              "snapshotId": 47
             },
             {
               "name": "baseImage",
@@ -253,7 +253,7 @@
           "states": [
             {
               "name": "readyForInstallation",
-              "snapshotId": 36
+              "snapshotId": 42
             },
             {
               "name": "baseImage",
@@ -286,7 +286,7 @@
             },
             {
               "name": "readyForInstallation",
-              "snapshotId": 2
+              "snapshotId": 8
             }
           ],
           "serviceNames": [
@@ -310,7 +310,7 @@
             },
             {
               "name": "readyForInstallation",
-              "snapshotId": 2
+              "snapshotId": 8
             }
           ],
           "serviceNames": []
@@ -332,7 +332,7 @@
             },
             {
               "name": "readyForInstallation",
-              "snapshotId": 2
+              "snapshotId": 8
             }
           ],
           "serviceNames": []
