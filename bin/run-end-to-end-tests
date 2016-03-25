@@ -1,30 +1,55 @@
 #!/usr/bin/env node
 var API = require('../lib/api');
 var configJSON = require('../configuration/config.json');
+var api = API(configJSON);
+var fs = require('fs')
 
-//TODO: Get these from environment variables
 //TODO: Add variable to determine whether to sync with testing.devops.lab
-//TODO: Add a better CLI Interface with Help
-var clusterIds = ['centos7.1', 'ubuntu14'];
-var phase = 'latestBuild';
-var features = [
-    'features/cluster-preparation.feature',
-    'features/installation.feature',
-    'features/elasticsearch-logs.feature',
-    'features/grafana-metrics.feature',
-    'features/kibana-logs.feature',
-    'features/mcs.feature',
-    'features/open-tsdb-metrics.feature'
-]
+
+var clusterIdString = process.env['clusterIds'];
+if(clusterIdString==null) throw new Error(`Please set ENV variable clusterIds to comma separated list (no spaces) of ids (defined in configuration/config.json under "clustersUnderTest"). Choices include: ${api.getAvailableTestClusterList()}`);
+var clusterIds = clusterIdString.split(',');
+
+var phase = process.env['phase'];
+if(phase==null) {
+    var defaultPhase = configJSON["defaultPhase"];
+    console.log(`Using default phase "${defaultPhase}". To change, set ENV variable "phase" to one of the available phases (defined in configuration/config.json under "repositories" section): ${api.getAvailableRepositoryTypes()}`);
+    phase = defaultPhase;
+}
+
+var defaultFeatures = configJSON["defaultFeatures"];
+
+var featuresString = process.env['features'];
+var features = []
+if(featuresString==null) {
+    console.log('Using default features. Override by providing ENV variable "features" with comma separated list of feature file names without spaces, including the leading "features" folder.');
+    features = defaultFeatures;
+} else {
+    features = featuresString.split(',');
+}
+console.log(`Features included in the test (performed in order): ${features.join(', ')}`);
 
 var cucumberAdditionalArgs = process.argv.slice(2).join(' ');
+console.log(`Passing additional command line parameters through to cucumber runtime: ${cucumberAdditionalArgs}`);
 var currentUser = process.env['USER'];
-var api = API(configJSON);
+console.log(`Current user is ${currentUser}`);
+console.log('Starting test...');
+
 var cucumberRunner = api.newCucumberRunner();
-cucumberRunner.runMultiClusterTests(currentUser, clusterIds, cucumberAdditionalArgs, phase)
+cucumberRunner.runMultiClusterTests(currentUser, clusterIds, cucumberAdditionalArgs, phase, features)
     .then(multiClusterTestResult=>{
-        console.log(multiClusterTestResult.toPrettyString());
-        process.exit(multiClusterTestResult.passed() ? 0 : 1)
+        console.log('',multiClusterTestResult.toPrettyString());
+        multiClusterTestResult.clusterTestResults().forEach(clusterTestResult=>{
+            fs.writeFileSync(clusterTestResult.jsonResultFilePath(), clusterTestResult.toString());
+        });
+        return api.newTestPortalRestClient().syncMultiClusterTestResultToServer(multiClusterTestResult)
+            .then(results=>{
+                console.log(`Saved results to centralized test portal: ${results.map(r=>r.originalUrl()).join(', ')}`);
+                process.exit(multiClusterTestResult.passed() ? 0 : 1)
+            })
+            .catch(error=>{
+                throw new Error(`Failed to save to centralized test portal. Error: ${error.toString()}`);
+            });
     })
     .catch(
         error=>{

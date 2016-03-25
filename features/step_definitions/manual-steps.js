@@ -11,7 +11,7 @@ module.exports = function() {
     this.When(/^I click "([^"]*)"$/, manualStep(1));
     this.Then(/^it updates tagged JIRA issues with test result statuses$/, manualStep(0));
     this.Given(/^I have marked a Scenario with the @Manual tag$/, manualStep(0));
-    this.Given(/^I have run bin\/run\-cukes against some @Manual and some automated tests$/, manualStep(0));
+    this.Given(/^I have run bin\/run\-end\-to\-end\-tests against some @Manual and some automated tests$/, manualStep(0));
     this.Given(/^the CI Server is running$/, manualStep(0));
     this.When(/^I view the result in the CI Server$/, manualStep(0));
     this.Then(/^I can see the automated test results in a hierarchical view$/,manualStep(0));
