@@ -32,10 +32,22 @@
     "kibana",
     "grafana"
   ],
+  "defaultPhase": "latestBuild",
+  "testPortalHostAndPort": "http://testing.devops.lab",
   "defaultCucumberStepTimeoutMS": 120000,
   "testResultPath": "test-results",
   "fullyQualifiedConfigsPath": "test-configs",
   "fullyQualifiedCLIInvocationsPath": "test-cli-invocations",
+  "defaultFeatures": [
+    "features/cluster-preparation.feature",
+    "features/installation.feature",
+    "features/elasticsearch-logs.feature",
+    "features/grafana-metrics.feature",
+    "features/kibana-logs.feature",
+    "features/mcs.feature",
+    "features/open-tsdb-metrics.feature",
+    "features/test-transparency.feature"
+  ],
   "repositoryInfo": {
     "pathsForComponents": {
       "GUI Installer": "/installer-master-ui",
