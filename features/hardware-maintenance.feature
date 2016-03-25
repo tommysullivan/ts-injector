@@ -1,6 +1,6 @@
 Feature: Hardware Maintenance
   As a Spyglass Contributor
-  In order to manage known, reproducible environments for dev and testing purposes
+  In order to manage and debug known, reproducible environments for dev and testing purposes
   I can create, destroy, and inspect ESXI-based cluster snapshots
 
   Background:

@@ -3,8 +3,6 @@
 .idea
 .DS_Store
 test-results
-test-configs
-test-cli-invocations
 node_modules
 cuke-results.txt
 lib/test-portal/static-web-content/latest-result.json

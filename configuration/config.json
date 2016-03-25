@@ -3,6 +3,8 @@
   "jiraIssueSearchPath": "/rest/api/2/search",
   "jiraRestSessionPath": "/rest/auth/1/session",
   "defaultJiraUsername": "tsullivan@maprtech.com",
+  "nodeExecutable": "/usr/local/bin/node",
+  "cucumberExecutable": "node_modules/cucumber/bin/cucumber.js",
   "cucumberCLITemplate": "npm test -- --tags ${tags}",
   "defaultJQLQueryKey": "1.0.alpha",
   "jqlQueries": {
@@ -371,15 +373,18 @@
       ],
       "services": [
         { "name": "mapr-asynchbase", "version": "1.6.0" },
-        { "name": "mapr-kibana", "version": "4.4.1" },
-        { "name": "mapr-grafana", "version": "2.6.0" },
         { "name": "mapr-collectd", "version": "5.5.1" },
         { "name": "mapr-collectd-fast-jmx", "version": "1.1" },
-        { "name": "mapr-fluentd", "version": "0.12" },
-        { "name": "mapr-hbase-common", "version": "1.1" },
-        { "name": "mapr-yarn", "version": "2.7.0" },
         { "name": "mapr-elasticsearch", "version": "2.2.0" },
-        { "name": "mapr-opentsdb", "version": "2.1.0" }
+        { "name": "mapr-fluentd", "version": "0.12.22" },
+        { "name": "mapr-grafana", "version": "2.6.0" },
+        { "name": "mapr-hbase", "version": "1.1" },
+        { "name": "mapr-hbase-common", "version": "1.1" },
+        { "name": "mapr-hbase-rest", "version": "1.1" },
+        { "name": "mapr-hbasethrift", "version": "1.1" },
+        { "name": "mapr-kibana", "version": "4.4.1" },
+        { "name": "mapr-opentsdb", "version": "2.2.0" },
+        { "name": "mapr-yarn", "version": "2.7.0" }
       ]
     }
   ]

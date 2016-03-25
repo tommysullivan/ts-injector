@@ -19,16 +19,11 @@ if(phase==null) throw new Error([
 ].join(' '));
 
 module.exports = function() {
-
-    var feature, scenario, step, world;
-
     this.setDefaultTimeout(configJSON['defaultCucumberStepTimeoutMS']);
-
     this.World = function() {
-        world = this;
         this.api = api;
-        this.repositories = this.api.newRepositories(phase);
-        this.clusterUnderTest = this.api.newClusterUnderTest(clusterId, this.repositories);
+        var repositories = this.api.newRepositories(phase);
+        this.clusterUnderTest = this.api.newClusterUnderTest(clusterId, repositories);
         this.getArrayFromTable = table => table.rows().map(r=>r[0]);
 
         this.guiInstallerURL = function() {
@@ -53,27 +48,4 @@ module.exports = function() {
             return this.installerRestClient().createAutheticatedSession('mapr','mapr');
         }
     };
-
-    this.BeforeStep(function(event, callback) {
-        world.step = event.getPayloadItem('step');
-        callback();
-    });
-
-    this.Before(function(event, callback) {
-        this.feature = feature;
-        this.scenario = scenario;
-        this.tags = event.getTags();
-        callback();
-    });
-
-    this.BeforeFeature(function(event, callback) {
-        feature = event.getPayloadItem('feature');
-        callback();
-    });
-
-    this.BeforeScenario(function(event, callback) {
-        scenario = event.getPayloadItem('scenario');
-        callback();
-    });
-
 };

@@ -4,7 +4,7 @@
   "description": "cluster logs and metrics collection and presentation",
   "main": "api.js",
   "scripts": {
-    "test": "bin/run-cukes"
+    "test": "bin/run-end-to-end-tests"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "cucumber": "latest",
     "cucumber-html-report": "latest",
     "express": "latest",
+    "guid": "0.0.12",
     "nodemiral": "^1.1.1",
     "optimist": "latest",
     "promise": "latest",
