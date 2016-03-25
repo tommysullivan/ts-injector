@@ -1,9 +1,34 @@
-#!/bin/bash
-export clusterId=${clusterId:-centos7.1}
-export phase=${phase:-latestBuild}
-set -e
-clusterId=${clusterId} \
-    phase=${phase} \
-    bin/run-cukes \
-    features/cluster-preparation.feature \
-    features/installation.feature \
+#!/usr/bin/env node
+var API = require('../lib/api');
+var configJSON = require('../configuration/config.json');
+
+//TODO: Get these from environment variables
+//TODO: Add variable to determine whether to sync with testing.devops.lab
+//TODO: Add a better CLI Interface with Help
+var clusterIds = ['centos7.1', 'ubuntu14'];
+var phase = 'latestBuild';
+var features = [
+    'features/cluster-preparation.feature',
+    'features/installation.feature',
+    'features/elasticsearch-logs.feature',
+    'features/grafana-metrics.feature',
+    'features/kibana-logs.feature',
+    'features/mcs.feature',
+    'features/open-tsdb-metrics.feature'
+]
+
+var cucumberAdditionalArgs = process.argv.slice(2).join(' ');
+var currentUser = process.env['USER'];
+var api = API(configJSON);
+var cucumberRunner = api.newCucumberRunner();
+cucumberRunner.runMultiClusterTests(currentUser, clusterIds, cucumberAdditionalArgs, phase)
+    .then(multiClusterTestResult=>{
+        console.log(multiClusterTestResult.toPrettyString());
+        process.exit(multiClusterTestResult.passed() ? 0 : 1)
+    })
+    .catch(
+        error=>{
+            console.log("error", error.toString());
+            process.exit(1);
+        }
+    );

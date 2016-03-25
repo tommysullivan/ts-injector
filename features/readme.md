@@ -4,26 +4,27 @@ Welcome to the Spyglass Testing Readme
 
 ## Table of Contents
 
-* [Testing Scope](#testingScope)
-    * [Operating Systemd Under Test](#operatingSystemsUnderTest)
-    * [Cluster Configurations Under Test](clusterConfigurationsUnderTest)
-    * [Other Testing Variance](#otherTestingVariance)
+* [Testing Scope](#testing-scope)
+    * [Operating Systemd Under Test](#operating-systems-under-test)
+    * [Cluster Configurations Under Test](cluster-configurations-under-test)
+    * [Other Testing Variance](#other-testing-variance)
 * [Set Up](#setup)
-    * [IntelliJ IDEA Set Up](#intelliJIDEASetup)
-* [IntelliJ IDEA Setup](#intelliJIDEASetup)
-* [Running Tests](#runningTests)
-    * [Run in Jenkins](#runInJenkins)
-    * [Run in IntelliJ IDEA](#runInIntelliJIDEA)
-    * [Run from CLI](#runFromCLI)
-* [Viewing Results](#viewingResults)
-* [Testing Links](#testingLinks)
-* [Test Tagging](#testTagging)
+    * [IntelliJ IDEA Set Up](#intellij-idea-setup)
+* [Running Tests](#running-tests)
+    * [Run in Jenkins](#run-in-jenkins)
+    * [Run in IntelliJ IDEA](#run-in-intellij-idea)
+    * [Run from CLI](#run-from-cli)
+* [Viewing Results](#viewing-results)
+* [Testing Links](#testing-links)
+* [Test Tagging](#test-tagging)
 
 ## Testing Scope
 
 ### Operating Systems Under Test
 
-* CentOS 6.5, 7.1
+* CentOS 
+    * 7.1 - Installation Completes, Some Tests Fail
+    * 6.5 - SSH Access to Cluster Not Working
 * Ubuntu 12 and 14
 * SuSE 12 (core requires compatibility library, may not be installed automatically by the UI installer, Kevin can find out)
 

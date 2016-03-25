@@ -7,7 +7,7 @@ Feature: Test Transparency
   @Manual @SPYG-217
   Scenario: View and Edit Manual Gherkin Tests alongside Automated Tests
     Given I have marked a Scenario with the @Manual tag
-    And I have run bin/run-cukes against some @Manual and some automated tests
+    And I have run bin/run-end-to-end-tests against some @Manual and some automated tests
     And the CI Server is running
     When I view the result in the CI Server
     Then I can see the automated test results in a hierarchical view
