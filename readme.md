@@ -72,9 +72,19 @@ kinks as well:
 ### Manual Installation
 
 All packages are available on MapR Repos and will be installable using MapR UI Installer. 
-The prerequisites for running opentsdb are hbase and async hbase 1.6.
+The prerequisites for running opentsdb are hbase and async hbase 1.7.
 It is assumed that these packages are already installed on the nodes running opentsdb. 
 This section lists package names and the steps performed when each one is installed:
+
+There is a bug in 5.1 server/configure.sh that needs to be batched before manual configuration of ES and OT works well:
+Here is a snippet to do it - apply it before running server/configure.sh
+
+    # XXX Temporarily fix bug in configure.sh
+    if ! fgrep -q FixedCheckIPInList $MAPR_HOME/server/configure.sh ; then
+        cp $MAPR_HOME/server/configure.sh $MAPR_HOME/server/configure.sh.sv_fix > /dev/null 2>&1
+        sed -i -e "s/regex=\$currentIP'\[\[:space:\],:\\\$\]'/local host/;s/ *\[\[ \$1 =~ \$regex \]\]/  local ip/;s/ *return \$?/  \[\[ -z \"\$1\" \]\] \&\& return 1\n  for host in \${1\/\/,\/ } \; do\n    ip=\$\(getIpAddress \${host%%:\*}\)\n    \[\[ \$ip = \$currentIP \]\]\n    \[ \$? -eq 0 \] \&\& return 0\n    shift 1\n  done\n  return 1\n  \#\# FixedCheckIPInList/" $MAPR_HOME/server/configure.sh
+    fi
+
 
 * mapr-collectd
    * installs collectd at MAPR_HOME/collectd/collectd-*
