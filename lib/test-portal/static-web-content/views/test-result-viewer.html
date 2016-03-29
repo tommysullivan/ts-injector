@@ -2,9 +2,19 @@
     <div class="row">
         <div class="col-md-8">
             <h2>Test Result Viewer</h2>
-            <small><a href="{{testConfig.href}}" style="color:white;">{{testConfig.displayName}}</a></small>
-            |
-            <small><a href="{{testCLIInvocation.href}}" style="color:white;">{{testCLIInvocation.displayName}}</a></small>
+            <div ng-if="testResult.contentType()!='vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0'">
+                <small><a href="{{testConfig.href}}" style="color:white;">{{testConfig.displayName}}</a></small>
+                |
+                <small><a href="{{testCLIInvocation.href}}" style="color:white;">{{testCLIInvocation.displayName}}</a></small>
+            </div>
+            <div ng-if="testResult.contentType()=='vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0'">
+                clusterId: {{testResult.clusterId()}}<br />
+                controller: <a href="http://{{testResult.controllerHost()}}">{{testResult.controllerHost()}}</a><br />
+                nodes:
+                <span ng-repeat="nodeHost in testResult.nodeNames()">
+                    <a href="http://{{nodeHost}}">{{nodeHost}}</a>
+                </span>
+            </div>
         </div>
         <div class="col-md-4">
             <h4 class="text-right">{{testResult.name}}</h4>
@@ -19,5 +29,21 @@
     <div ng-if="testResultLoaded">
         <query-toolbar></query-toolbar>
         <test-result></test-result>
+    </div>
+
+    <div style="background-color: #444444; padding: 15px; ">
+        <h3>Configuration Details</h3>
+        <input ng-model="showCluserSpecificConfig" type="checkbox"> Show Cluster-Specific Configuration
+        <input ng-model="showVerionGraph" type="checkbox"> Show Cluster Package Version Graph
+        <input ng-model="showTestConfig" type="checkbox"> Show Test Run Configuration
+        <div ng-if="showCluserSpecificConfig">
+            <div json-viewer="flattenedClusterConfig"></div>
+        </div>
+        <div ng-if="showVerionGraph">
+            <div json-viewer="versionGraph"></div>
+        </div>
+        <div ng-if="showTestConfig">
+            <div json-viewer="configJSON"></div>
+        </div>
     </div>
 </div>
