@@ -384,7 +384,7 @@
         "/dev/sdc"
       ],
       "services": [
-        { "name": "mapr-asynchbase", "version": "1.6.0" },
+        { "name": "mapr-asynchbase", "version": "1.7.0" },
         { "name": "mapr-collectd", "version": "5.5.1" },
         { "name": "mapr-collectd-fast-jmx", "version": "1.1" },
         { "name": "mapr-elasticsearch", "version": "2.2.0" },
