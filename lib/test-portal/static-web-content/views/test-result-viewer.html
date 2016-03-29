@@ -13,7 +13,8 @@
                 nodes:
                 <span ng-repeat="nodeHost in testResult.nodeNames()">
                     <a href="http://{{nodeHost}}">{{nodeHost}}</a>
-                </span>
+                </span><br />
+                <anchor-link content="environment configuration details" on-anchor-click="focusOn('configurationDetails')"></anchor-link>
             </div>
         </div>
         <div class="col-md-4">
@@ -32,6 +33,7 @@
     </div>
 
     <div style="background-color: #444444; padding: 15px; ">
+        <a id="configurationDetails"></a>
         <h3>Configuration Details</h3>
         <input ng-model="showCluserSpecificConfig" type="checkbox"> Show Cluster-Specific Configuration
         <input ng-model="showVerionGraph" type="checkbox"> Show Cluster Package Version Graph
