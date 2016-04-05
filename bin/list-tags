@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+var API = require('../lib/api');
+var configJSON = require('../configuration/config.json');
+var _ = require('underscore');
+
+function uniqueTagsForFeature(featureJSON) {
+    var uniqueTags = _.chain(featureJSON.elements).map(s=>s.tags || []).flatten().map(t=>t.name).value();
+    return uniqueTags;
+}
+
+API(configJSON).newCucumberRunner().runCucumber('test-results/list-tags-dry-run.json', {phase: 'latestBuild', clusterId: 'centos7.1'}, '--dry-run')
+    .then(cucumberTestResult => {
+        var uniqueTags = _.chain(cucumberTestResult.resultJSON()).map(uniqueTagsForFeature).flatten().uniq().sortBy(t=>t.toLowerCase()).value();
+        console.log("\n", uniqueTags);
+    });
