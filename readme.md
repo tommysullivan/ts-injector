@@ -79,10 +79,10 @@ This section lists package names and the steps performed when each one is instal
 There is a bug in 5.1 server/configure.sh that needs to be batched before manual configuration of ES and OT works well:
 Here is a snippet to do it - apply it before running server/configure.sh
 
-    # XXX Temporarily fix bug in configure.sh
+    # XXX Temporarily fix bug in configure.sh -only needed if you are using 5.1
     if ! fgrep -q FixedCheckIPInList $MAPR_HOME/server/configure.sh ; then
         cp $MAPR_HOME/server/configure.sh $MAPR_HOME/server/configure.sh.sv_fix > /dev/null 2>&1
-        sed -i -e "s/regex=\$currentIP'\[\[:space:\],:\\\$\]'/local host/;s/ *\[\[ \$1 =~ \$regex \]\]/  local ip/;s/ *return \$?/  \[\[ -z \"\$1\" \]\] \&\& return 1\n  for host in \${1\/\/,\/ } \; do\n    ip=\$\(getIpAddress \${host%%:\*}\)\n    \[\[ \$ip = \$currentIP \]\]\n    \[ \$? -eq 0 \] \&\& return 0\n    shift 1\n  done\n  return 1\n  \#\# FixedCheckIPInList/" $MAPR_HOME/server/configure.sh
+        sed -i -e "s/regex=\$currentIP'\[\[:space:\],:\\\$\]'/local host/;s/ *\[\[ \$1 =~ \$regex \]\]/  local ip/;s/ *return \$?/  \[\[ -z \"\$1\" \]\] \&\& return 1\n  for host in \${1\/\/,\/ } \; do\n    ip=\$\(getIpAddress \${host%%:\*}\)\n    \[\[ \$ip = \$currentIP \]\]\n    \[ \$? -eq 0 \] \&\& return 0\n    shift 1\n  done\n  return 1\n  \#\# FixedCheckIPInList/;s/# ConstructMapRMonitoringConfFile/ ConstructMapRMonitoringConfFile/" $MAPR_HOME/server/configure.sh
     fi
 
 
@@ -149,7 +149,13 @@ Here is a snippet to do it - apply it before running server/configure.sh
    * [Manual step for M2] **After running configure.sh, when Kibana page loads on port 5601 (default port for Kibana) you will see message for "Configuring index pattern". Please enter "mapr_monitoring-*" for Index name or pattern field and "@timestamp" for Time-field name.**
 
 #### Example configure.sh invocation:
-  * configure.sh -OT 10.10.10.81 -ES 10.10.10.82 -ESDB=/opt/mapr/es -R (-ESDB on ES server nodes only)
+  * The configuration happens in two stages. 
+  * Stage1 - initial configuration that can be done without core running
+  * Stage2 - configuration that can only happen once core is up
+  * configure.sh -C 10.10.10.81 -Z 10.10.10.81,10.10.10.82 -OT 10.10.10.81 -ES 10.10.10.82 -ESDB /opt/mapr/es (-ESDB on ES server nodes only)
+  * system mapr-zookeeper start
+  * system mapr-warden start
+  * configure.sh -R
 
 #### Installer support
 **The lastest build of the installer (2/29/2016) does now do this for you. ESDB is for now hard coded to /opt/mapr/es_db.**
