@@ -71,7 +71,7 @@ kinks as well:
 
 ### Manual Installation
 
-All packages are available on MapR Repos and will be installable using MapR UI Installer. 
+All packages are available on MapR Repos [Redhat](http://yum.qa.lab/opensource/), [Ubuntu](http://apt.qa.lab/opensource/) and will be installable using MapR UI Installer. 
 The prerequisites for running opentsdb are hbase and async hbase 1.7.
 It is assumed that these packages are already installed on the nodes running opentsdb. 
 This section lists package names and the steps performed when each one is installed:
@@ -147,6 +147,13 @@ Here is a snippet to do it - apply it before running server/configure.sh
    * updates the ES host in the conf file
    * copies warden.kibana.conf file to MAPR_HOME/conf/conf.d
    * [Manual step for M2] **After running configure.sh, when Kibana page loads on port 5601 (default port for Kibana) you will see message for "Configuring index pattern". Please enter "mapr_monitoring-*" for Index name or pattern field and "@timestamp" for Time-field name.**
+
+#### Example of simple manual pacakge installation (RPM):
+  * Assuming core is already installated.
+  * On the node where you plan to install ES & OpenTSDB
+  ** yum install mapr-asynchbase-1.6* mapr-elasticsearch mapr-opentsdb-2.1* mapr-grafana mapr-kibana mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
+  * On the node where you only plan to install the collection agents (collectd and fluentd)
+  ** yum install mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
 
 #### Example configure.sh invocation:
   * The configuration happens in two stages. 
