@@ -1,0 +1,1 @@
+{"version":3,"file":"rest-configuration.js","sourceRoot":"","sources":["rest-configuration.ts"],"names":[],"mappings":";AAEA;IAGI,2BAAY,cAA0B;QAClC,IAAI,CAAC,cAAc,GAAG,cAAc,CAAC;IACzC,CAAC;IAED,sBAAI,wCAAS;aAAb;YACI,MAAM,CAAC,IAAI,CAAC,cAAc,CAAC,oBAAoB,CAAC,WAAW,CAAC,CAAC;QACjE,CAAC;;;OAAA;IACL,wBAAC;AAAD,CAAC,AAVD,IAUC;AAVD;mCAUC,CAAA"}

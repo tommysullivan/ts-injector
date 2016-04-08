@@ -1,0 +1,118 @@
+[
+  {
+    "id": "MCS",
+    "name": "MCS",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/mcs.feature",
+    "elements": [
+      {
+        "name": "Spyglass Services appear Healthy in MCS after Installation",
+        "id": "MCS;spyglass-services-appear-healthy-in-mcs-after-installation",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@HealthCheck",
+            "line": 3
+          },
+          {
+            "name": "@SPYG-123",
+            "line": 3
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 3
+          },
+          {
+            "name": "@WIP",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1199578
+            },
+            "match": {}
+          },
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 441353
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS username is \"mapr\"",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 116704
+            },
+            "match": {}
+          },
+          {
+            "name": "my MCS password is \"mapr\"",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 132146
+            },
+            "match": {}
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 2141524264
+            },
+            "match": {}
+          },
+          {
+            "name": "I use the MCS Rest Client Session to retrieve dashboardInfo",
+            "line": 9,
+            "keyword": "When ",
+            "result": {
+              "status": "failed",
+              "duration": 34190291,
+              "error_message": "{\"type\":\"rest-response\",\"error\":{\"code\":\"ECONNREFUSED\",\"errno\":\"ECONNREFUSED\",\"syscall\":\"connect\",\"address\":\"10.10.30.148\",\"port\":443}}"
+            },
+            "match": {}
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 10,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "I do not see any unhealthy spyglass services",
+            "line": 11,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

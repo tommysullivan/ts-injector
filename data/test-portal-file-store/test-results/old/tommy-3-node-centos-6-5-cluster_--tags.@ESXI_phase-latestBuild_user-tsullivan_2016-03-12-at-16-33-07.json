@@ -1,0 +1,92 @@
+[
+  {
+    "id": "Hardware-Preparation",
+    "name": "Hardware Preparation",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/hardware-preparation.feature",
+    "elements": [
+      {
+        "name": "ESXi Hardware Preparation",
+        "id": "Hardware-Preparation;esxi-hardware-preparation",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-1",
+            "line": 3
+          },
+          {
+            "name": "@ESXI",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1784740
+            },
+            "match": {}
+          },
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 1158445
+            },
+            "match": {}
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 233966
+            },
+            "match": {}
+          },
+          {
+            "name": "I revert the cluster to its configured \"readyForInstallation\" state",
+            "line": 7,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 4236482879
+            },
+            "match": {}
+          },
+          {
+            "name": "I wait \"30\" seconds",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 30005713274
+            },
+            "match": {}
+          },
+          {
+            "name": "the cluster does not have MapR Installed",
+            "line": 9,
+            "keyword": "Then ",
+            "result": {
+              "status": "failed",
+              "duration": 534632333,
+              "error_message": "Check for nonexistence of /opt/mapr failed: Last login: Thu Mar 10 14:38:46 2016 from 10.250.50.38\r\r\n[root@scale-74 ~]# ls /opt/mapr\r\n\u001b[0m\u001b[01;34madminuiapp\u001b[0m           \u001b[01;34mconf.new\u001b[0m  hostname     \u001b[30;42mlogs\u001b[0m                \u001b[01;34mservicesconf\u001b[0m\r\n\u001b[01;34masynchbase\u001b[0m           \u001b[01;34mcontrib\u001b[0m   \u001b[01;34minclude\u001b[0m      MapRBuildVersion    \u001b[01;34msupport\u001b[0m\r\n\u001b[01;34mbin\u001b[0m                  \u001b[01;34mexamples\u001b[0m  \u001b[01;34minitscripts\u001b[0m  \u001b[01;34mmapr-cli-audit-log\u001b[0m  \u001b[01;34mwebapps\u001b[0m\r\n\u001b[01;34mcheckservicescripts\u001b[0m  \u001b[01;34mfluentd\u001b[0m   \u001b[01;34minstaller\u001b[0m    NOTICE.txt          \u001b[01;34mzkdata\u001b[0m\r\n\u001b[01;34mcollectd\u001b[0m             \u001b[01;34mgrafana\u001b[0m   \u001b[01;34mkibana\u001b[0m       \u001b[34;42mpid\u001b[0m                 \u001b[01;34mzookeeper\u001b[0m\r\n\u001b[01;34mcollectd-fast-jmx\u001b[0m    \u001b[01;34mhadoop\u001b[0m    \u001b[01;34mlib\u001b[0m          \u001b[01;34mroles\u001b[0m\r\n\u001b[01;34mconf\u001b[0m                 hostid    \u001b[01;34mlibexp\u001b[0m       \u001b[01;34mserver\u001b[0m\r\n\u001b[m[root@scale-74 ~]# exit\r\nlogout\r\n"
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

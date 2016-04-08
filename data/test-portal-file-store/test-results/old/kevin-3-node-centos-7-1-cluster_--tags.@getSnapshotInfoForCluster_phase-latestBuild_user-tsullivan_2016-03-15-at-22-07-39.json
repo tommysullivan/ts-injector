@@ -1,0 +1,96 @@
+[
+  {
+    "id": "Hardware-Preparation",
+    "name": "Hardware Preparation",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/hardware-preparation.feature",
+    "elements": [
+      {
+        "name": "",
+        "keyword": "Background",
+        "description": "",
+        "type": "background",
+        "line": 3,
+        "steps": [
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 4,
+            "keyword": "Given "
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 5,
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "name": "Get snapshot info for cluster",
+        "id": "Hardware-Preparation;get-snapshot-info-for-cluster",
+        "line": 16,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@getSnapshotInfoForCluster",
+            "line": 15
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 907412
+            },
+            "match": {}
+          },
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 475993
+            },
+            "match": {}
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 107147
+            },
+            "match": {}
+          },
+          {
+            "name": "I request the latest snapshot info from the cluster",
+            "line": 17,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 1602723428
+            },
+            "match": {}
+          },
+          {
+            "name": "it prints in the test ouptut",
+            "line": 18,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 137456
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

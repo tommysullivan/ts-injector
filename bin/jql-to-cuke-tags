@@ -1,4 +1,0 @@
-#!/usr/bin/env node
-var API = require('../lib/api');
-var configJSON = require('../configuration/config.json');
-API(configJSON).newCLIApplication().execute(process.argv);

@@ -1,0 +1,432 @@
+[
+  {
+    "id": "Cluster-Preparation",
+    "name": "Cluster Preparation",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/cluster-preparation.feature",
+    "elements": [
+      {
+        "name": "Prepare Cluster for Installation",
+        "id": "Cluster-Preparation;prepare-cluster-for-installation",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-1",
+            "line": 3
+          },
+          {
+            "name": "@prepareForInstallation",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 909034
+            },
+            "match": {}
+          },
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 476430
+            },
+            "match": {}
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 111809
+            },
+            "match": {}
+          },
+          {
+            "name": "I revert the cluster to its configured \"readyForInstallation\" state",
+            "line": 7,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 34354560722
+            },
+            "match": {}
+          },
+          {
+            "name": "I wait \"30\" seconds",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 30005705988
+            },
+            "match": {}
+          },
+          {
+            "name": "the cluster does not have MapR Installed",
+            "line": 9,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 2341293041
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Installation",
+    "name": "Installation",
+    "description": "As a Spyglass Customer\nIn order to install a Spyglass-enabled MapR Cluster\nI use one of the following installation methods",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/installation.feature",
+    "elements": [
+      {
+        "name": "Manual Installation",
+        "id": "Installation;manual-installation",
+        "line": 7,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-123",
+            "line": 6
+          },
+          {
+            "name": "@Manual",
+            "line": 6
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 114637
+            },
+            "match": {}
+          },
+          {
+            "name": "I follow the manual installation instructions located at \"https://github.com/mapr/private-spyglass\"",
+            "line": 8,
+            "keyword": "When ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "it tells me how to install, configure and run the services required for Spyglass",
+            "line": 9,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "it tells me how to discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch",
+            "line": 10,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Download and Run GUI Installer",
+        "id": "Installation;download-and-run-gui-installer",
+        "line": 13,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-282",
+            "line": 12
+          },
+          {
+            "name": "@mapr-setup",
+            "line": 12
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 101287
+            },
+            "match": {}
+          },
+          {
+            "name": "the cluster does not have MapR Installed",
+            "line": 14,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 547595495
+            },
+            "match": {}
+          },
+          {
+            "name": "I ssh into the node hosting \"GUI Installer\"",
+            "line": 15,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 699754
+            },
+            "match": {}
+          },
+          {
+            "name": "within my ssh session, I download \"/mapr-setup.sh\" to \"/tmp\" from the \"GUI Installer\" repo",
+            "line": 16,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 1079025505
+            },
+            "match": {}
+          },
+          {
+            "name": "within my ssh session, I execute \"/tmp/mapr-setup.sh -y -u [installerRepoURL] [maprCoreRepoURL] [ecosystemRepoURL]\"",
+            "line": 17,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 118167638261
+            },
+            "match": {}
+          },
+          {
+            "name": "I wait \"15\" seconds",
+            "line": 18,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 15005505714
+            },
+            "match": {}
+          },
+          {
+            "name": "it successfully starts the installer web server and outputs its URL to the screen",
+            "line": 19,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 595695967
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Use REST APIs to Install MapR with Spyglass Components",
+        "id": "Installation;use-rest-apis-to-install-mapr-with-spyglass-components",
+        "line": 22,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-282",
+            "line": 21
+          },
+          {
+            "name": "@rest-installer",
+            "line": 21
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 134653
+            },
+            "match": {}
+          },
+          {
+            "name": "the GUI Installer web server is running",
+            "line": 23,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 110125223
+            },
+            "match": {}
+          },
+          {
+            "name": "I can authenticate my GUI Installer Rest Client",
+            "line": 24,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 2492994097
+            },
+            "match": {}
+          },
+          {
+            "name": "I specify the desired Cluster Configuration",
+            "line": 25,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 2357908762
+            },
+            "match": {}
+          },
+          {
+            "name": "I perform Cluster Configuration Verification",
+            "line": 26,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 10480911268
+            },
+            "match": {}
+          },
+          {
+            "name": "Cluster Configuration Verification completes without errors",
+            "line": 27,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 309198
+            },
+            "match": {}
+          },
+          {
+            "name": "I perform Cluster Provisioning",
+            "line": 28,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 5284964301
+            },
+            "match": {}
+          },
+          {
+            "name": "Cluster Provisioning completes without errors",
+            "line": 29,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 166019
+            },
+            "match": {}
+          },
+          {
+            "name": "I perform Cluster Installation",
+            "line": 30,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 87629111419
+            },
+            "match": {}
+          },
+          {
+            "name": "Cluster Installation completes without errors",
+            "line": 31,
+            "keyword": "Then ",
+            "result": {
+              "status": "failed",
+              "duration": 240605069,
+              "error_message": "\n2016-03-21 22:06:00.922: launched python script with pid 3304\n\n2016-03-21 22:06:02.561: * 22:06:02 Validating prerequisites\n===============================================================================\n=                                                                             =\n=  __  __                ____    ___              _          _  _             =\n= |  \\/  |  __ _  _ __  |  _ \\  |_ _| _ __   ___ | |_  __ _ | || |  ___  _ __ =\n= | |\\/| | / _` || '_ \\ | |_) |  | | | '_ \\ / __|| __|/ _` || || | / _ \\| '__|=\n= | |  | || (_| || |_) ||  _ <   | | | | | |\\__ \\| |_| (_| || || ||  __/| |   =\n= |_|  |_| \\__,_|| .__/ |_| \\_\\ |___||_| |_||___/ \\__|\\__,_||_||_| \\___||_|   =\n=                |_|                                                          =\n=                                                                             =\n===============================================================================\nVersion: 5.1.0.1.3.143\n\nNow running on nodes: [10.10.30.144,10.10.30.145,10.10.30.146]\n* 22:06:02 Validating prerequisites\npython script exited with 0\n\n2016-03-21 22:06:16.490: launched python script with pid 3575\n\n2016-03-21 22:06:17.509: * 22:06:17 Installing MapR\n===============================================================================\n=                                                                             =\n=  __  __                ____    ___              _          _  _             =\n= |  \\/  |  __ _  _ __  |  _ \\  |_ _| _ __   ___ | |_  __ _ | || |  ___  _ __ =\n= | |\\/| | / _` || '_ \\ | |_) |  | | | '_ \\ / __|| __|/ _` || || | / _ \\| '__|=\n= | |  | || (_| || |_) ||  _ <   | | | | | |\\__ \\| |_| (_| || || ||  __/| |   =\n= |_|  |_| \\__,_|| .__/ |_| \\_\\ |___||_| |_||___/ \\__|\\__,_||_||_| \\___||_|   =\n=                |_|                                                          =\n=                                                                             =\n===============================================================================\nVersion: 5.1.0.1.3.143\n\nNow running on all server nodes: [10.10.30.144,10.10.30.145,10.10.30.146]\n* 22:06:17 Installing MapR\n\n2016-03-21 22:06:18.081: * 22:06:18 Configuring OS prerequisites\n2016-03-21 22:06:18.177: * 22:06:18 Configuring OS prerequisites* 22:06:18 Configuring OS prerequisites\n* 22:06:18 Configuring OS prerequisites\n10.10.30.146: Error when trying to enable ntpd: rc=1 Failed to issue method call: Operation not supported\n\n10.10.30.144: Error when trying to enable ntpd: rc=1 Failed to issue method call: Operation not supported\n\n10.10.30.145: Error when trying to enable ntpd: rc=1 Failed to issue method call: Operation not supported\n\n failed: [service name=ntpd enabled=yes state=started] [10.10.30.146] => {\"failed\": true}\n failed: [service name=ntpd enabled=yes state=started] [10.10.30.144] => {\"failed\": true}\n failed: [service name=ntpd enabled=yes state=started] [10.10.30.145] => {\"failed\": true}\nHost: 10.10.30.144 has 1 failures\nControl and server nodes have failures. Fix the failures and re-run the installation. For more information refer to the installer log at /opt/mapr/installer/logs/mapr-installer.log\nExiting with 1\n\nFATAL: all hosts have already failed -- aborting\npython script exited with 1\n"
+            },
+            "match": {}
+          }
+        ]
+      },
+      {
+        "name": "Use Web Interface to Install MapR with Spyglass Components",
+        "id": "Installation;use-web-interface-to-install-mapr-with-spyglass-components",
+        "line": 34,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-282",
+            "line": 33
+          },
+          {
+            "name": "@Manual",
+            "line": 33
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 126219
+            },
+            "match": {}
+          },
+          {
+            "name": "the GUI Installer web server is running",
+            "line": 35,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 108145666
+            },
+            "match": {}
+          },
+          {
+            "name": "I can authenticate my browser using the GUI Installer Login Page",
+            "line": 36,
+            "keyword": "And ",
+            "result": {
+              "status": "pending"
+            },
+            "match": {}
+          },
+          {
+            "name": "I indicate I want a basic installation with Spyglass components and their dependencies only",
+            "line": 37,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "the website indicates that the installation succeeds within \"5\" minutes",
+            "line": 38,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

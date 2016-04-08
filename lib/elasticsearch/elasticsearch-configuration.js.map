@@ -1,0 +1,1 @@
+{"version":3,"file":"elasticsearch-configuration.js","sourceRoot":"","sources":["elasticsearch-configuration.ts"],"names":[],"mappings":";AAEA;IAGI,oCAAY,uBAAmC;QAC3C,IAAI,CAAC,uBAAuB,GAAG,uBAAuB,CAAC;IAC3D,CAAC;IAED,sBAAI,gEAAwB;aAA5B;YACI,MAAM,CAAC,IAAI,CAAC,uBAAuB,CAAC,WAAW,CAAS,0BAA0B,CAAC,CAAC;QACxF,CAAC;;;OAAA;IACL,iCAAC;AAAD,CAAC,AAVD,IAUC;AAVD;4CAUC,CAAA"}

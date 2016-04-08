@@ -1,0 +1,6211 @@
+{
+  "resources": [
+    {
+      "id": "mapr-pig-0.14",
+      "compatibilities": [
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.7.0",
+            "3.8.1",
+            "3.9.0"
+          ]
+        }
+      ],
+      "description": "Apache Pig is used to simplify the development of MapReduce programs by offering an abstraction layer using its own 'Pig Latin' language that is automatically translated to MapReduce code for execution",
+      "files": [
+        {
+          "src": "/opt/mapr/pig/pig-${PIG_VERSION}/pig-core-h2.jar",
+          "dest": "pig-${PIG_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/pig/pig-${PIG_VERSION}/lib/*",
+          "dest": "pig-${PIG_VERSION}/"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Pig",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-pig-0.14/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-pig-0.14",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-pig-0.14/groups"
+      },
+      "name": "mapr-pig",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0",
+            "5.1.0"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "CLIENT",
+      "version": "0.14"
+    },
+    {
+      "id": "mapr-hive-1.0",
+      "compatibilities": [
+        {
+          "id": "mapr-impala"
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0",
+            "4.2.0"
+          ]
+        }
+      ],
+      "description": "Apache Hive provides a SQL-like interface (called HiveQL) to query data stored in HDFS. HiveQL queries are automatically translated to MapReduce, Apache Tez or Spark jobs for execution",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hive-1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hive-1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hive-1.0/groups"
+      },
+      "name": "mapr-hive",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.0"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.0"
+    },
+    {
+      "id": "mapr-storm-ui-0.9.3",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-ui-${STORM_UI_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm UI",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_UI_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_UI_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm UI",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.9.3/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.9.3",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.9.3/groups"
+      },
+      "name": "mapr-storm-ui",
+      "process_name": "storm-ui",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        8080
+      ],
+      "version": "0.9.3"
+    },
+    {
+      "id": "mapr-gateway-5.1.0",
+      "core": true,
+      "description": "MapR Gateway Service",
+      "groups": [],
+      "hosts": [],
+      "label": "Gateway",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-gateway-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-gateway-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-gateway-5.1.0/groups"
+      },
+      "name": "mapr-gateway",
+      "type": "MULTI_MASTER",
+      "version": "5.1.0"
+    },
+    {
+      "id": "template-30-maprdb-4.1.0",
+      "description": "Deploys the MapR distributed NoSQL database, enabling both operational HBase applications to read and write data at high rates, and analytic applications to perform in-situ data processing",
+      "groups": [],
+      "hosts": [],
+      "label": "Operational Analytics: NoSQL database with MapR-DB",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-30-maprdb-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-30-maprdb-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-30-maprdb-4.1.0/groups"
+      },
+      "name": "template-30-maprdb",
+      "requires": [
+        {
+          "id": "mapr-asynchbase",
+          "versions": [
+            "1.6.0"
+          ]
+        },
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-zookeeper-5.0.0",
+      "core": true,
+      "description": "Apache Zookeeper",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "Zookeeper",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-zookeeper-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-zookeeper-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-zookeeper-5.0.0/groups"
+      },
+      "name": "mapr-zookeeper",
+      "process_name": "zkconnect",
+      "server_ports": [
+        5181
+      ],
+      "type": "CONTROL",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-metrics-5.1.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-metrics-${METRICS_VERSION}/configure.sh"
+      ],
+      "core": true,
+      "databases": [
+        {
+          "name": "metrics",
+          "type": "MYSQL"
+        }
+      ],
+      "description": "MapR services collects job metrics for classic MapReduce and presents them in graphical form MapR Control System for monitoring and troubleshooting",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "Metrics",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-metrics-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-metrics-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-metrics-5.1.0/groups"
+      },
+      "name": "mapr-metrics",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-mapreduce"
+        },
+        {
+          "id": "mapr-mysql",
+          "versions": [
+            "*"
+          ]
+        }
+      ],
+      "type": "DEFAULT",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-hivewebhcat-0.13",
+      "description": "Apache Hive WebHCat Server",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive WebHCat",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-0.13/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-0.13",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-0.13/groups"
+      },
+      "name": "mapr-hivewebhcat",
+      "server_ports": [
+        50111
+      ],
+      "type": "MASTER",
+      "version": "0.13"
+    },
+    {
+      "id": "mapr-drill-1.2",
+      "compatibilities": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hbase-server",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        }
+      ],
+      "description": "Apache Drill provides an ANSI SQL interface to interactively query data in JSON, Delimited (CSV, TSV, etc.), Hive, HBase and MapR-DB, that permits schema discovery at runtime",
+      "groups": [],
+      "hosts": [],
+      "label": "Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-drill-1.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-drill-1.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-drill-1.2/groups"
+      },
+      "name": "mapr-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        31010
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-drill-${DRILL_VERSION}/configure.sh"
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8047
+      ],
+      "version": "1.2"
+    },
+    {
+      "id": "mapr-yarn-5.0.0",
+      "core": true,
+      "description": "YARN is a resource scheduler for Hadoop, allowing several tenants and applications to run concurrently on a cluster. Starting in Hadoop 2.0, MapReduce runs as an application on YARN",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN + MapReduce",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-yarn-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-yarn-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-yarn-5.0.0/groups"
+      },
+      "name": "mapr-yarn",
+      "package_version": "2.7.0",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-drill-1.4",
+      "compatibilities": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98",
+            "1.1"
+          ]
+        },
+        {
+          "id": "mapr-hbase-server",
+          "versions": [
+            "0.98",
+            "1.1"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        }
+      ],
+      "description": "Apache Drill provides an ANSI SQL interface to interactively query data in JSON, Delimited (CSV, TSV, etc.), Hive, HBase and MapR-DB, that permits schema discovery at runtime",
+      "groups": [],
+      "hosts": [],
+      "label": "Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-drill-1.4/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-drill-1.4",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-drill-1.4/groups"
+      },
+      "name": "mapr-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0",
+            "5.1.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        31010
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-drill-${DRILL_VERSION}/configure.sh"
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8047
+      ],
+      "version": "1.4"
+    },
+    {
+      "id": "mapr-spark-standalone-1.4.1",
+      "compatibilities": [
+        {
+          "id": "mapr-impala"
+        },
+        {
+          "id": "mapr-yarn"
+        }
+      ],
+      "description": "Spark provides a simple standalone deploy mode in addition to running on Mesos or YARN cluster managers",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Standalone",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.4.1/groups"
+      },
+      "name": "mapr-spark-standalone",
+      "requires": [
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.4.1"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-hbase-regionserver-0.98",
+      "description": "Apache HBase Region Server",
+      "group": "mapr-hbase-server",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Region Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-regionserver-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-regionserver-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-regionserver-0.98/groups"
+      },
+      "name": "mapr-hbase-regionserver",
+      "process_name": "hbregionserver",
+      "server_ports": [
+        60020,
+        60030
+      ],
+      "type": "DATA",
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-hbase-common-0.98",
+      "compatibilities": [
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.0",
+            "1.1",
+            "1.2",
+            "1.4",
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hbase-server",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1",
+            "2.2.0"
+          ]
+        }
+      ],
+      "description": "Common libraries and files used to access both HBase and MapR-DB, including Thrift and REST gateways",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase/MapR-DB Common",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-common-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-common-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-common-0.98/groups"
+      },
+      "name": "mapr-hbase-common",
+      "type": "GROUP",
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-resourcemanager-5.1.0",
+      "core": true,
+      "description": "MapR Hadoop v2 Resource Manager",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN Resource Manager",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-5.1.0/groups"
+      },
+      "name": "mapr-resourcemanager",
+      "package_version": "2.7.0",
+      "process_name": "resourcemanager",
+      "server_ports": [
+        8032,
+        8033
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-resourcemanager-5.1.0/configure.sh"
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8088
+      ],
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-sqoop-1.4.5",
+      "description": "Apache Sqoop transfers data between relational databases and Hadoop (flat files in HDFS, HBase, Hive)",
+      "groups": [],
+      "hosts": [],
+      "label": "Sqoop",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sqoop-1.4.5/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sqoop-1.4.5",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sqoop-1.4.5/groups"
+      },
+      "name": "mapr-sqoop",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.4.5"
+    },
+    {
+      "id": "mapr-impala-statestore-2.2.0",
+      "description": "Impala Statestore",
+      "files": [
+        {
+          "src": "/opt/mapr/impala/impala-${IMPALA_STATESTORE_VERSION}/conf/env.sh",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_STATESTORE_VERSION}/conf/env.sh",
+          "comment": "#"
+        }
+      ],
+      "group": "mapr-impala",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala Statestore",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-statestore-2.2.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-statestore-2.2.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-statestore-2.2.0/groups"
+      },
+      "name": "mapr-impala-statestore",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_STATESTORE_VERSION}/conf/hive-site.xml"
+        }
+      ],
+      "substitutions": {
+        "HIVE_METASTORE_URI=": "thrift://${HIVEMETASTORE_HOST}:9083",
+        "IMPALA_STATE_STORE_HOST=": "${IMPALA_STATESTORE_HOST}",
+        "CATALOG_SERVICE_HOST=": "${IMPALA_CATALOG_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        25010
+      ],
+      "version": "2.2.0"
+    },
+    {
+      "id": "mapr-spark-standalone-1.3.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-impala"
+        },
+        {
+          "id": "mapr-yarn"
+        }
+      ],
+      "description": "Spark provides a simple standalone deploy mode in addition to running on Mesos or YARN cluster managers",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Standalone",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.3.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.3.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.3.1/groups"
+      },
+      "name": "mapr-spark-standalone",
+      "requires": [
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.3.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.3.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.3.1"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.3.1"
+    },
+    {
+      "id": "mapr-storm-nimbus-0.9.4",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-nimbus-${STORM_NIMBUS_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm Nimbus",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_NIMBUS_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_NIMBUS_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm Nimbus",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.9.4/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.9.4",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.9.4/groups"
+      },
+      "name": "mapr-storm-nimbus",
+      "process_name": "nimbus",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MASTER",
+      "version": "0.9.4"
+    },
+    {
+      "id": "mapr-impala-server-1.4.1",
+      "description": "Impala Server",
+      "files": [
+        {
+          "src": "/opt/mapr/impala/impala-${IMPALA_SERVER_VERSION}/conf/env.sh",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_SERVER_VERSION}/conf/env.sh",
+          "comment": "#"
+        }
+      ],
+      "group": "mapr-impala",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-server-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-server-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-server-1.4.1/groups"
+      },
+      "name": "mapr-impala-server",
+      "server_ports": [
+        21000,
+        21050
+      ],
+      "substitutions": {
+        "HIVE_METASTORE_URI=": "thrift://${HIVEMETASTORE_HOST}:9083",
+        "IMPALA_STATE_STORE_HOST=": "${IMPALA_STATESTORE_HOST}",
+        "CATALOG_SERVICE_HOST=": "${IMPALA_CATALOG_HOST}"
+      },
+      "type": "DATA",
+      "ui_ports": [
+        25000
+      ],
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-gateway-4.1.0",
+      "core": true,
+      "description": "MapR Gateway Service",
+      "groups": [],
+      "hosts": [],
+      "label": "Gateway",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-gateway-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-gateway-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-gateway-4.1.0/groups"
+      },
+      "name": "mapr-gateway",
+      "type": "MULTI_MASTER",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-hue-3.7.0",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-pig",
+          "versions": [
+            "0.13",
+            "0.14",
+            "0.15"
+          ]
+        },
+        {
+          "id": "mapr-sentry"
+        }
+      ],
+      "databases": [
+        {
+          "name": "hue",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "Hue is an end-user web interface for interacting with big data tools like Pig, Hive, and Impala",
+      "files": [
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/conf/hue.ini",
+          "dest": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/conf/hue.ini",
+          "comment": "## ",
+          "no_restart": true
+        },
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/libs/hadoop/java-lib/hue-plugins-*.jar",
+          "dest": "hue-${HUE_VERSION}/",
+          "no_substitution": true
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Hue",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hue-3.7.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hue-3.7.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hue-3.7.0/groups"
+      },
+      "name": "mapr-hue",
+      "process_name": "hue",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        },
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-httpfs"
+        },
+        {
+          "id": "mapr-oozie"
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "server_ports": [
+        8002
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hue-${HUE_VERSION}/configure.sh"
+      ],
+      "substitutions": {
+        "hbase_conf_dir=": "/opt/mapr/hbase/hbase-${HBASE_VERSION}/conf",
+        "webhdfs_url=": "http://${HTTPFS_HOST}:14000/webhdfs/v1",
+        "sentry_conf_dir=": "/opt/mapr/sentry/sentry-${SENTRY_VERSION}/conf",
+        "history_server_api_url=": "http://${HISTORYSERVER_HOST}:19888",
+        "resourcemanager_api_url=": "http://${RESOURCEMANAGER_HOST}:8088",
+        "server_user=": "${MAPR_USER}",
+        "hive_server_port=": "10000",
+        "server_group=": "${MAPR_GROUP}",
+        "hive_server_bin=": "/opt/mapr/hive/hive-${HIVESERVER2_VERSION}/bin/hiveserver2",
+        "hive_conf_dir=": "/opt/mapr/hive/hive-${HIVESERVER2_VERSION}/conf",
+        "default_user=": "${MAPR_USER}",
+        "oozie_url=": "http://${OOZIE_HOST}:11000/oozie",
+        "hbase_clusters=": "(Cluster\\|${HBASETHRIFT_HOST}:9090)",
+        "resourcemanager_host=": "${RESOURCEMANAGER_HOST}",
+        "default_hdfs_superuser=": "${MAPR_USER}",
+        "server_host=": "${IMPALA_SERVER_HOST}",
+        "hive_server_host=": "${HIVESERVER2_HOST}",
+        "hostname=": "${SENTRY_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        8888
+      ],
+      "version": "3.7.0"
+    },
+    {
+      "id": "mapr-grafana-2.6.0",
+      "description": "Time series metrics graph and dashboard builder",
+      "groups": [],
+      "hosts": [],
+      "label": "Grafana",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-grafana-2.6.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-grafana-2.6.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-grafana-2.6.0/groups"
+      },
+      "monitoring": true,
+      "name": "mapr-grafana",
+      "type": "MASTER",
+      "ui_ports": [
+        3000
+      ],
+      "version": "2.6.0"
+    },
+    {
+      "id": "mapr-oozie-4.2.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-oozie-${OOZIE_VERSION}/configure.sh"
+      ],
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.8.1",
+            "3.9.0"
+          ]
+        }
+      ],
+      "databases": [
+        {
+          "name": "oozie",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "Apache Oozie",
+      "files": [
+        {
+          "src": "/opt/mapr/hadoop/hadoop-${RESOURCEMANAGER_VERSION}/etc/hadoop/yarn-site.xml",
+          "dest": "/opt/mapr/oozie/oozie-${OOZIE_VERSION}/conf/hadoop-conf",
+          "optional": true
+        },
+        {
+          "src": "oozie-site-mysql.xml",
+          "dest": "/opt/mapr/oozie/oozie-${OOZIE_VERSION}/conf/oozie-site-mysql.xml"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Oozie",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-oozie-4.2.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-oozie-4.2.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-oozie-4.2.0/groups"
+      },
+      "name": "mapr-oozie",
+      "process_name": "oozie",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0",
+            "5.1.0"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "server_ports": [
+        11000
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-oozie-${OOZIE_VERSION}/configure_stage2.sh"
+      ],
+      "type": "MASTER",
+      "version": "4.2.0"
+    },
+    {
+      "id": "mapr-metrics-4.1.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-metrics-${METRICS_VERSION}/configure.sh"
+      ],
+      "core": true,
+      "databases": [
+        {
+          "name": "metrics",
+          "type": "MYSQL"
+        }
+      ],
+      "description": "MapR services collects job metrics for classic MapReduce and presents them in graphical form MapR Control System for monitoring and troubleshooting",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "Metrics",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-metrics-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-metrics-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-metrics-4.1.0/groups"
+      },
+      "name": "mapr-metrics",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-mapreduce"
+        },
+        {
+          "id": "mapr-mysql",
+          "versions": [
+            "*"
+          ]
+        }
+      ],
+      "type": "DEFAULT",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-hbase-regionserver-1.1",
+      "description": "Apache HBase Region Server",
+      "group": "mapr-hbase-server",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Region Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-regionserver-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-regionserver-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-regionserver-1.1/groups"
+      },
+      "name": "mapr-hbase-regionserver",
+      "process_name": "hbregionserver",
+      "server_ports": [
+        16020,
+        16030
+      ],
+      "type": "DATA",
+      "version": "1.1"
+    },
+    {
+      "id": "mapr-hivemetastore-1.2",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hivemetastore-${HIVEMETASTORE_VERSION}/configure.sh"
+      ],
+      "compatibilities": [
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.2",
+            "1.4",
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "2.2.0"
+          ]
+        },
+        {
+          "id": "mapr-sentry",
+          "versions": [
+            "1.6.0"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.5.2"
+          ]
+        }
+      ],
+      "databases": [
+        {
+          "name": "hive",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "The Hive metastore service stores the metadata for Hive tables and partitions in a relational database and provides clients (including Hive) access to this information via the metastore service API",
+      "files": [
+        {
+          "src": "hive-site-mysql.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site-mysql.xml"
+        },
+        {
+          "src": "hive-site-embeded.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site-embeded.xml"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/hive*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/jline-*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/datanucleus*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/hcatalog/share/webhcat/java-client/hive-webhcat*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/hcatalog/share/hcatalog/hive-hcatalog*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Metastore",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-1.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-1.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-1.2/groups"
+      },
+      "name": "mapr-hivemetastore",
+      "process_name": "hivemeta",
+      "server_ports": [
+        9083
+      ],
+      "substitutions": {
+        "<value>jdbc:mysql://": "${HIVEMETASTORE_DATABASE_HOST}:${HIVEMETASTORE_DATABASE_PORT}/${HIVEMETASTORE_DATABASE_NAME}?createDatabaseIfNotExist=true</value>"
+      },
+      "type": "MASTER",
+      "version": "1.2"
+    },
+    {
+      "id": "mapr-hive-client-0.13",
+      "description": "Apache Hive Client",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hive-client-0.13/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hive-client-0.13",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hive-client-0.13/groups"
+      },
+      "name": "mapr-hive-client",
+      "package_name": "mapr-hive",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site.xml"
+        }
+      ],
+      "type": "CLIENT",
+      "version": "0.13"
+    },
+    {
+      "id": "mapr-storm-supervisor-0.9.4",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-supervisor-${STORM_SUPERVISOR_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm Supervisor",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_SUPERVISOR_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_SUPERVISOR_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm Supervisor",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.9.4/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.9.4",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.9.4/groups"
+      },
+      "name": "mapr-storm-supervisor",
+      "process_name": "supervisor",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MULTI_MASTER",
+      "version": "0.9.4"
+    },
+    {
+      "id": "mapr-hiveserver2-0.13",
+      "description": "Apache Hive Server",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Server 2",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-0.13/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-0.13",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-0.13/groups"
+      },
+      "name": "mapr-hiveserver2",
+      "process_name": "hs2",
+      "server_ports": [
+        10000
+      ],
+      "type": "MASTER",
+      "version": "0.13"
+    },
+    {
+      "id": "mapr-spark-historyserver-1.2.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-historyserver-${SPARK_HISTORYSERVER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark History Server",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_HISTORYSERVER_VERSION}/conf/spark-defaults.conf"
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark History Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.2.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.2.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.2.1/groups"
+      },
+      "name": "mapr-spark-historyserver",
+      "process_name": "spark-historyserver",
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        18080
+      ],
+      "version": "1.2.1"
+    },
+    {
+      "id": "mapr-storm-supervisor-0.10.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-supervisor-${STORM_SUPERVISOR_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm Supervisor",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_SUPERVISOR_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_SUPERVISOR_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm Supervisor",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.10.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.10.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.10.0/groups"
+      },
+      "name": "mapr-storm-supervisor",
+      "process_name": "supervisor",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MULTI_MASTER",
+      "version": "0.10.0"
+    },
+    {
+      "id": "mapr-sentry-1.4.0",
+      "compatibilities": [
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1"
+          ]
+        }
+      ],
+      "description": "Apache Sentry enforces role based (RBAC) authorization to data and metadata stored in Apache Hadoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Sentry",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sentry-1.4.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sentry-1.4.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sentry-1.4.0/groups"
+      },
+      "name": "mapr-sentry",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        }
+      ],
+      "server_ports": [
+        8038
+      ],
+      "type": "DATA",
+      "version": "1.4.0"
+    },
+    {
+      "id": "mapr-hbase-common-1.1",
+      "compatibilities": [
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.4",
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hbase-server",
+          "versions": [
+            "1.1"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "2.2.0"
+          ]
+        }
+      ],
+      "description": "Common libraries and files used to access both HBase and MapR-DB, including Thrift and REST gateways",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase/MapR-DB Common",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-common-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-common-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-common-1.1/groups"
+      },
+      "name": "mapr-hbase-common",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.1"
+    },
+    {
+      "id": "mapr-mysql",
+      "core": true,
+      "description": "MapR MySQL Database Services",
+      "groups": [],
+      "hosts": [],
+      "internal": true,
+      "label": "MySQL",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-mysql/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-mysql",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-mysql/groups"
+      },
+      "name": "mapr-mysql",
+      "type": "MYSQL"
+    },
+    {
+      "id": "mapr-mahout-0.9",
+      "description": "Apache Mahout",
+      "groups": [],
+      "hosts": [],
+      "label": "Mahout",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-mahout-0.9/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-mahout-0.9",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-mahout-0.9/groups"
+      },
+      "name": "mapr-mahout",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "CLIENT",
+      "version": "0.9"
+    },
+    {
+      "id": "mapr-hue-3.8.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0",
+            "4.2.0"
+          ]
+        },
+        {
+          "id": "mapr-pig",
+          "versions": [
+            "0.13",
+            "0.14",
+            "0.15"
+          ]
+        },
+        {
+          "id": "mapr-sentry"
+        }
+      ],
+      "databases": [
+        {
+          "name": "hue",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "Hue is an end-user web interface for interacting with big data tools like Pig, Hive, and Impala",
+      "files": [
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/conf/hue.ini",
+          "dest": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/conf/hue.ini",
+          "comment": "## ",
+          "no_restart": true
+        },
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/libs/hadoop/java-lib/hue-plugins-*.jar",
+          "dest": "hue-${HUE_VERSION}/",
+          "no_substitution": true
+        },
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/apps/spark/java-lib/javax.servlet-api-3.1.0.jar",
+          "dest": "hue-${HUE_VERSION}/",
+          "no_substitution": true
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Hue",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hue-3.8.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hue-3.8.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hue-3.8.1/groups"
+      },
+      "name": "mapr-hue",
+      "process_name": "hue",
+      "requires": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-httpfs"
+        },
+        {
+          "id": "mapr-oozie"
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "server_ports": [
+        8002
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hue-${HUE_VERSION}/configure.sh"
+      ],
+      "substitutions": {
+        "hbase_conf_dir=": "/opt/mapr/hbase/hbase-${HBASE_VERSION}/conf",
+        "webhdfs_url=": "http://${HTTPFS_HOST}:14000/webhdfs/v1",
+        "sentry_conf_dir=": "/opt/mapr/sentry/sentry-${SENTRY_VERSION}/conf",
+        "history_server_api_url=": "http://${HISTORYSERVER_HOST}:19888",
+        "resourcemanager_api_url=": "http://${RESOURCEMANAGER_HOST}:8088",
+        "server_user=": "${MAPR_USER}",
+        "hive_server_port=": "10000",
+        "server_group=": "${MAPR_GROUP}",
+        "hive_server_bin=": "/opt/mapr/hive/hive-${HIVESERVER2_VERSION}/bin/hiveserver2",
+        "hive_conf_dir=": "/opt/mapr/hive/hive-${HIVESERVER2_VERSION}/conf",
+        "default_user=": "${MAPR_USER}",
+        "oozie_url=": "http://${OOZIE_HOST}:11000/oozie",
+        "hbase_clusters=": "(Cluster\\|${HBASETHRIFT_HOST}:9090)",
+        "resourcemanager_host=": "${RESOURCEMANAGER_HOST}",
+        "livy_server_host=": "${HUE_LIVY_HOST}",
+        "default_hdfs_superuser=": "${MAPR_USER}",
+        "server_host=": "${IMPALA_SERVER_HOST}",
+        "hive_server_host=": "${HIVESERVER2_HOST}",
+        "hostname=": "${SENTRY_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        8888
+      ],
+      "version": "3.8.1"
+    },
+    {
+      "id": "template-30-maprdb-5.1.0",
+      "description": "Deploys the MapR distributed NoSQL database, providing both JSON and binary data models to enable both operational applications to read and write data at high rates, and analytic applications to perform in-situ data processing",
+      "groups": [],
+      "hosts": [],
+      "label": "Operational Analytics: NoSQL database with MapR-DB",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-30-maprdb-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-30-maprdb-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-30-maprdb-5.1.0/groups"
+      },
+      "name": "template-30-maprdb",
+      "requires": [
+        {
+          "id": "mapr-asynchbase",
+          "versions": [
+            "1.6.0"
+          ]
+        },
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "1.1"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-storm-nimbus-0.10.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-nimbus-${STORM_NIMBUS_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm Nimbus",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_NIMBUS_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_NIMBUS_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm Nimbus",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.10.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.10.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.10.0/groups"
+      },
+      "name": "mapr-storm-nimbus",
+      "process_name": "nimbus",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MASTER",
+      "version": "0.10.0"
+    },
+    {
+      "id": "mapr-spark-1.5.2",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-spark-standalone",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-impala"
+        }
+      ],
+      "description": "Apache Spark is a fast and general big data processing engine. It is capable of high-speed batch processing, micro-batch stream processing (Spark Streaming), SQL queries (Spark SQL), machine learning (MLlib), and graph processing (GraphX)",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-1.5.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-1.5.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-1.5.2/groups"
+      },
+      "name": "mapr-spark",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-spark-standalone",
+            "versions": [
+              "1.5.2"
+            ]
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.5.2"
+    },
+    {
+      "id": "mapr-pig-0.15",
+      "compatibilities": [
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.7.0",
+            "3.8.1",
+            "3.9.0"
+          ]
+        }
+      ],
+      "description": "Apache Pig is used to simplify the development of MapReduce programs by offering an abstraction layer using its own 'Pig Latin' language that is automatically translated to MapReduce code for execution",
+      "files": [
+        {
+          "src": "/opt/mapr/pig/pig-${PIG_VERSION}/pig-core-h2.jar",
+          "dest": "pig-${PIG_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/pig/pig-${PIG_VERSION}/lib/*",
+          "dest": "pig-${PIG_VERSION}/"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Pig",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-pig-0.15/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-pig-0.15",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-pig-0.15/groups"
+      },
+      "name": "mapr-pig",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0",
+            "5.1.0"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "CLIENT",
+      "version": "0.15"
+    },
+    {
+      "id": "mapr-spark-standalone-1.2.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-impala"
+        },
+        {
+          "id": "mapr-yarn"
+        }
+      ],
+      "description": "Spark provides a simple standalone deploy mode in addition to running on Mesos or YARN cluster managers",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Standalone",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.2.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.2.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.2.1/groups"
+      },
+      "name": "mapr-spark-standalone",
+      "requires": [
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.2.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.2.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.2.1"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.2.1"
+    },
+    {
+      "id": "mapr-spark-standalone-1.5.2",
+      "compatibilities": [
+        {
+          "id": "mapr-impala"
+        },
+        {
+          "id": "mapr-yarn"
+        }
+      ],
+      "description": "Spark provides a simple standalone deploy mode in addition to running on Mesos or YARN cluster managers",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Standalone",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.5.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.5.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-standalone-1.5.2/groups"
+      },
+      "name": "mapr-spark-standalone",
+      "requires": [
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.5.2"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.5.2"
+    },
+    {
+      "id": "mapr-gateway-5.0.0",
+      "core": true,
+      "description": "MapR Gateway Service",
+      "groups": [],
+      "hosts": [],
+      "label": "Gateway",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-gateway-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-gateway-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-gateway-5.0.0/groups"
+      },
+      "name": "mapr-gateway",
+      "type": "MULTI_MASTER",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-nodemanager-4.1.0",
+      "core": true,
+      "description": "MapR Hadoop v2 Node Manager",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN Node Manager",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-nodemanager-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-nodemanager-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-nodemanager-4.1.0/groups"
+      },
+      "name": "mapr-nodemanager",
+      "package_version": "2.5.1",
+      "process_name": "nodemanager",
+      "server_ports": [
+        8041
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8042
+      ],
+      "version": "4.1.0"
+    },
+    {
+      "id": "template-10-hadoop-5.0.0",
+      "description": "Includes the most common services deployed in an Apache Hadoop cluster, including YARN, MapReduce, Spark, and Hive on top of the big & fast MapR Data Platform for getting started with a Hadoop data lake",
+      "groups": [],
+      "hosts": [],
+      "label": "Data Lake: Common Hadoop Services",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-10-hadoop-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-10-hadoop-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-10-hadoop-5.0.0/groups"
+      },
+      "name": "template-10-hadoop",
+      "requires": [
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.9.0"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.2.0"
+          ]
+        },
+        {
+          "id": "mapr-pig",
+          "versions": [
+            "0.15"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-yarn",
+          "versions": [
+            "5.0.0"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-collectd-fast-jmx-1.1",
+      "description": "MapR fast Jmx connector for Collectd",
+      "groups": [],
+      "hosts": [],
+      "label": "Collectd Fast JMX",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-collectd-fast-jmx-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-collectd-fast-jmx-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-collectd-fast-jmx-1.1/groups"
+      },
+      "monitoring": true,
+      "name": "mapr-collectd-fast-jmx",
+      "type": "DATA",
+      "version": "1.1"
+    },
+    {
+      "id": "template-10-hadoop-4.1.0",
+      "description": "Includes the most common services deployed in an Apache Hadoop cluster, including YARN, MapReduce, Spark, and Hive on top of the big & fast MapR Data Platform for getting started with a Hadoop data lake",
+      "groups": [],
+      "hosts": [],
+      "label": "Data Lake: Common Hadoop Services",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-10-hadoop-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-10-hadoop-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-10-hadoop-4.1.0/groups"
+      },
+      "name": "template-10-hadoop",
+      "requires": [
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.8.1"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-pig",
+          "versions": [
+            "0.14"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.3.1"
+          ]
+        },
+        {
+          "id": "mapr-yarn",
+          "versions": [
+            "4.1.0"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-nfs-5.0.0",
+      "core": true,
+      "description": "MapR NFS",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "NFS",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-nfs-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-nfs-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-nfs-5.0.0/groups"
+      },
+      "name": "mapr-nfs",
+      "process_name": "nfs",
+      "type": "DEFAULT",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-nodemanager-5.1.0",
+      "core": true,
+      "description": "MapR Hadoop v2 Node Manager",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN Node Manager",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-nodemanager-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-nodemanager-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-nodemanager-5.1.0/groups"
+      },
+      "name": "mapr-nodemanager",
+      "package_version": "2.7.0",
+      "process_name": "nodemanager",
+      "server_ports": [
+        8041
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8042
+      ],
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-spark-master-1.5.2",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-master-${SPARK_MASTER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Master",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        },
+        {
+          "src": "slaves",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/slaves"
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Master",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.5.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.5.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.5.2/groups"
+      },
+      "name": "mapr-spark-master",
+      "server_ports": [
+        7077
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_MASTER_VERSION}/configure_stage2.sh"
+      ],
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/hive-site.xml",
+          "optional": true
+        },
+        {
+          "src": "hbase-${HBASE_VERSION}/hbase-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/hbase-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8080
+      ],
+      "version": "1.5.2"
+    },
+    {
+      "id": "mapr-tasktracker-5.0.0",
+      "core": true,
+      "description": "MapR Hadoop v1 Tasktracker",
+      "group": "mapr-mapreduce",
+      "groups": [],
+      "hosts": [],
+      "label": "Tasktracker",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-tasktracker-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-tasktracker-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-tasktracker-5.0.0/groups"
+      },
+      "name": "mapr-tasktracker",
+      "process_name": "tasktracker",
+      "type": "DATA",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-zookeeper-4.1.0",
+      "core": true,
+      "description": "Apache Zookeeper",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "Zookeeper",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-zookeeper-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-zookeeper-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-zookeeper-4.1.0/groups"
+      },
+      "name": "mapr-zookeeper",
+      "process_name": "zkconnect",
+      "server_ports": [
+        5181
+      ],
+      "type": "CONTROL",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-impala-statestore-1.4.1",
+      "description": "Impala Statestore",
+      "files": [
+        {
+          "src": "/opt/mapr/impala/impala-${IMPALA_STATESTORE_VERSION}/conf/env.sh",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_STATESTORE_VERSION}/conf/env.sh",
+          "comment": "#"
+        }
+      ],
+      "group": "mapr-impala",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala Statestore",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-statestore-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-statestore-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-statestore-1.4.1/groups"
+      },
+      "name": "mapr-impala-statestore",
+      "substitutions": {
+        "HIVE_METASTORE_URI=": "thrift://${HIVEMETASTORE_HOST}:9083",
+        "IMPALA_STATE_STORE_HOST=": "${IMPALA_STATESTORE_HOST}",
+        "CATALOG_SERVICE_HOST=": "${IMPALA_CATALOG_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        25010
+      ],
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-storm-0.10.0",
+      "description": "Apache Storm is a real-time stream processing framework",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-0.10.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-0.10.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-0.10.0/groups"
+      },
+      "name": "mapr-storm",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-mapreduce"
+        }
+      ],
+      "type": "GROUP",
+      "version": "0.10.0"
+    },
+    {
+      "id": "mapr-impala-catalog-1.4.1",
+      "description": "Impala Catalog",
+      "files": [
+        {
+          "src": "/opt/mapr/impala/impala-${IMPALA_CATALOG_VERSION}/conf/env.sh",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_CATALOG_VERSION}/conf/env.sh",
+          "comment": "#"
+        }
+      ],
+      "group": "mapr-impala",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala Catalog",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-catalog-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-catalog-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-catalog-1.4.1/groups"
+      },
+      "name": "mapr-impala-catalog",
+      "substitutions": {
+        "HIVE_METASTORE_URI=": "thrift://${HIVEMETASTORE_HOST}:9083",
+        "IMPALA_STATE_STORE_HOST=": "${IMPALA_STATESTORE_HOST}",
+        "CATALOG_SERVICE_HOST=": "${IMPALA_CATALOG_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        25020
+      ],
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-jobtracker-4.1.0",
+      "core": true,
+      "description": "MapR Hadoop v1 Jobtracker",
+      "group": "mapr-mapreduce",
+      "groups": [],
+      "hosts": [],
+      "label": "Jobtracker",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-jobtracker-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-jobtracker-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-jobtracker-4.1.0/groups"
+      },
+      "name": "mapr-jobtracker",
+      "process_name": "jobtracker",
+      "server_ports": [
+        9001
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-jobtracker-4.1.0/configure.sh"
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        50030
+      ],
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-nfs-4.1.0",
+      "core": true,
+      "description": "MapR NFS",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "NFS",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-nfs-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-nfs-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-nfs-4.1.0/groups"
+      },
+      "name": "mapr-nfs",
+      "process_name": "nfs",
+      "type": "DEFAULT",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-spark-client-1.5.2",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-client-${SPARK_CLIENT_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Client",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.5.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.5.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.5.2/groups"
+      },
+      "name": "mapr-spark-client",
+      "package_name": "mapr-spark",
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_CLIENT_VERSION}/configure_stage2.sh"
+      ],
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/hive-site.xml",
+          "optional": true
+        },
+        {
+          "src": "hue-${HUE_VERSION}/javax.servlet-api-3.1.0.jar",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/lib/javax.servlet-api-3.1.0.jar",
+          "optional": true
+        },
+        {
+          "src": "hbase-${HBASE_VERSION}/hbase-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/hbase-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "CLIENT",
+      "version": "1.5.2"
+    },
+    {
+      "id": "mapr-core-4.1.0",
+      "core": true,
+      "description": "MapR Core Services",
+      "groups": [],
+      "hosts": [],
+      "label": "Core Services",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-core-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-core-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-core-4.1.0/groups"
+      },
+      "name": "mapr-core",
+      "type": "DEFAULT",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-impala-2.2.0",
+      "compatibilities": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98",
+            "1.1"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.9.0"
+          ]
+        },
+        {
+          "id": "mapr-sentry",
+          "versions": [
+            "1.6.0"
+          ]
+        }
+      ],
+      "description": "Impala is a SQL query engine that runs on top of Apache Hadoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-2.2.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-2.2.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-2.2.0/groups"
+      },
+      "name": "mapr-impala",
+      "requires": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "2.2.0"
+    },
+    {
+      "id": "mapr-hbase-server-1.1",
+      "compatibilities": [
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.4",
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "2.2.0"
+          ]
+        }
+      ],
+      "description": "Apache HBase is a non-relational (NoSQL) database designed to store key/value pairs, physically sorted on disk",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-server-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-server-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-server-1.1/groups"
+      },
+      "name": "mapr-hbase-server",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "1.1"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.1"
+    },
+    {
+      "id": "mapr-storm-supervisor-0.9.3",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-supervisor-${STORM_SUPERVISOR_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm Supervisor",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_SUPERVISOR_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_SUPERVISOR_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm Supervisor",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.9.3/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.9.3",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-supervisor-0.9.3/groups"
+      },
+      "name": "mapr-storm-supervisor",
+      "process_name": "supervisor",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MULTI_MASTER",
+      "version": "0.9.3"
+    },
+    {
+      "id": "mapr-drill-1.0",
+      "compatibilities": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hbase-server",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "0.13"
+          ]
+        }
+      ],
+      "description": "Apache Drill provides an ANSI SQL interface to interactively query data in JSON, Delimited (CSV, TSV, etc.), Hive, HBase and MapR-DB, that permits schema discovery at runtime",
+      "groups": [],
+      "hosts": [],
+      "label": "Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-drill-1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-drill-1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-drill-1.0/groups"
+      },
+      "name": "mapr-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        31010
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-drill-${DRILL_VERSION}/configure.sh"
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8047
+      ],
+      "version": "1.0"
+    },
+    {
+      "id": "mapr-hbase-server-0.98",
+      "compatibilities": [
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.0",
+            "1.1",
+            "1.2",
+            "1.4",
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1",
+            "2.2.0"
+          ]
+        }
+      ],
+      "description": "Apache HBase is a non-relational (NoSQL) database designed to store key/value pairs, physically sorted on disk",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-server-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-server-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-server-0.98/groups"
+      },
+      "name": "mapr-hbase-server",
+      "requires": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-storm-0.9.4",
+      "description": "Apache Storm is a real-time stream processing framework",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-0.9.4/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-0.9.4",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-0.9.4/groups"
+      },
+      "name": "mapr-storm",
+      "requires": [
+        {
+          "id": "mapr-mapreduce"
+        }
+      ],
+      "type": "GROUP",
+      "version": "0.9.4"
+    },
+    {
+      "id": "template-10-hadoop-5.1.0",
+      "description": "Includes the most common services deployed in an Apache Hadoop cluster, including YARN, MapReduce, Spark, and Hive on top of the big & fast MapR Data Platform for getting started with a Hadoop data lake",
+      "groups": [],
+      "hosts": [],
+      "label": "Data Lake: Common Hadoop Services",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-10-hadoop-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-10-hadoop-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-10-hadoop-5.1.0/groups"
+      },
+      "name": "template-10-hadoop",
+      "requires": [
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.9.0"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-pig",
+          "versions": [
+            "0.15"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-yarn",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-sqoop-client-2.0.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-sqoop-client-${SQOOP_CLIENT_VERSION}/configure.sh"
+      ],
+      "description": "Apache Sqoop Client",
+      "group": "mapr-sqoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Sqoop Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-2.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-2.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-2.0.0/groups"
+      },
+      "name": "mapr-sqoop-client",
+      "package_name": "mapr-sqoop2-client",
+      "type": "CLIENT",
+      "version": "2.0.0"
+    },
+    {
+      "id": "mapr-storm-ui-0.10.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-ui-${STORM_UI_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm UI",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_UI_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_UI_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm UI",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.10.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.10.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.10.0/groups"
+      },
+      "name": "mapr-storm-ui",
+      "process_name": "storm-ui",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        8080
+      ],
+      "version": "0.10.0"
+    },
+    {
+      "id": "mapr-drill-1.6",
+      "compatibilities": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98",
+            "1.1"
+          ]
+        },
+        {
+          "id": "mapr-hbase-server",
+          "versions": [
+            "0.98",
+            "1.1"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        }
+      ],
+      "description": "Apache Drill provides an ANSI SQL interface to interactively query data in JSON, Delimited (CSV, TSV, etc.), Hive, HBase and MapR-DB, that permits schema discovery at runtime",
+      "groups": [],
+      "hosts": [],
+      "label": "Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-drill-1.6/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-drill-1.6",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-drill-1.6/groups"
+      },
+      "name": "mapr-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0",
+            "5.1.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        31010
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-drill-${DRILL_VERSION}/configure.sh"
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8047
+      ],
+      "version": "1.6"
+    },
+    {
+      "id": "mapr-jobtracker-5.1.0",
+      "core": true,
+      "description": "MapR Hadoop v1 Jobtracker",
+      "group": "mapr-mapreduce",
+      "groups": [],
+      "hosts": [],
+      "label": "Jobtracker",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-jobtracker-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-jobtracker-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-jobtracker-5.1.0/groups"
+      },
+      "name": "mapr-jobtracker",
+      "process_name": "jobtracker",
+      "server_ports": [
+        9001
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-jobtracker-5.1.0/configure.sh"
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        50030
+      ],
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-hivewebhcat-1.2",
+      "description": "Apache Hive WebHCat Server",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive WebHCat",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-1.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-1.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-1.2/groups"
+      },
+      "name": "mapr-hivewebhcat",
+      "server_ports": [
+        50111
+      ],
+      "type": "MASTER",
+      "version": "1.2"
+    },
+    {
+      "id": "mapr-cldb-4.1.0",
+      "core": true,
+      "description": "MapR Container Location Database",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "CLDB",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-cldb-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-cldb-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-cldb-4.1.0/groups"
+      },
+      "name": "mapr-cldb",
+      "process_name": "cldb",
+      "server_ports": [
+        7222
+      ],
+      "type": "CONTROL",
+      "ui_ports": [
+        7221
+      ],
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-resourcemanager-5.0.0",
+      "core": true,
+      "description": "MapR Hadoop v2 Resource Manager",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN Resource Manager",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-5.0.0/groups"
+      },
+      "name": "mapr-resourcemanager",
+      "package_version": "2.7.0",
+      "process_name": "resourcemanager",
+      "server_ports": [
+        8032,
+        8033
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-resourcemanager-5.0.0/configure.sh"
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8088
+      ],
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-hbase-0.98",
+      "description": "Apache HBase Client",
+      "group": "mapr-hbase-common",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-0.98/groups"
+      },
+      "name": "mapr-hbase",
+      "type": "CLIENT",
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-sentry-client-1.6.0",
+      "group": "mapr-sentry",
+      "groups": [],
+      "hosts": [],
+      "label": "Sentry Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sentry-client-1.6.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sentry-client-1.6.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sentry-client-1.6.0/groups"
+      },
+      "name": "mapr-sentry-client",
+      "package_name": "mapr-sentry",
+      "stage2_files": [
+        {
+          "src": "sentry-${SENTRY_CLIENT_VERSION}/sentry-site.xml",
+          "dest": "/opt/mapr/sentry/sentry-${SENTRY_CLIENT_VERSION}/conf/sentry-site.xml",
+          "optional": true
+        }
+      ],
+      "type": "CLIENT",
+      "version": "1.6.0"
+    },
+    {
+      "id": "mapr-sqoop-server-2.0.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-sqoop-server-${SQOOP_SERVER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Sqoop Server",
+      "group": "mapr-sqoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Sqoop Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sqoop-server-2.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sqoop-server-2.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sqoop-server-2.0.0/groups"
+      },
+      "name": "mapr-sqoop-server",
+      "package_name": "mapr-sqoop2-server",
+      "requires": [
+        {
+          "id": "mapr-sqoop-client",
+          "versions": [
+            "2.0.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        12000
+      ],
+      "type": "MASTER",
+      "version": "2.0.0"
+    },
+    {
+      "id": "mapr-flume-1.5.0",
+      "description": "Apache Flume moves large amounts of log data into Hadoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Flume",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-flume-1.5.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-flume-1.5.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-flume-1.5.0/groups"
+      },
+      "name": "mapr-flume",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        },
+        {
+          "id": "mapr-mapreduce"
+        }
+      ],
+      "type": "DATA",
+      "version": "1.5.0"
+    },
+    {
+      "id": "mapr-spark-slave-1.3.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_SLAVE_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Slave",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Slave",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.3.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.3.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.3.1/groups"
+      },
+      "name": "mapr-spark-slave",
+      "package_name": "mapr-spark",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/hive-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "DATA",
+      "version": "1.3.1"
+    },
+    {
+      "id": "mapr-spark-client-1.4.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-client-${SPARK_CLIENT_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Client",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        },
+        {
+          "src": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/lib/spark-assembly-*.jar",
+          "dest": "spark-${SPARK_CLIENT_VERSION}/"
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.4.1/groups"
+      },
+      "name": "mapr-spark-client",
+      "package_name": "mapr-spark",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/hive-site.xml",
+          "optional": true
+        },
+        {
+          "src": "hue-${HUE_VERSION}/javax.servlet-api-3.1.0.jar",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/lib/javax.servlet-api-3.1.0.jar",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "CLIENT",
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-spark-historyserver-1.5.2",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-historyserver-${SPARK_HISTORYSERVER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark History Server",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_HISTORYSERVER_VERSION}/conf/spark-defaults.conf"
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark History Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.5.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.5.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.5.2/groups"
+      },
+      "name": "mapr-spark-historyserver",
+      "process_name": "spark-historyserver",
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_HISTORYSERVER_VERSION}/configure_stage2.sh"
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        18080
+      ],
+      "version": "1.5.2"
+    },
+    {
+      "id": "mapr-spark-historyserver-1.4.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-historyserver-${SPARK_HISTORYSERVER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark History Server",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_HISTORYSERVER_VERSION}/conf/spark-defaults.conf"
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark History Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.4.1/groups"
+      },
+      "name": "mapr-spark-historyserver",
+      "process_name": "spark-historyserver",
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        18080
+      ],
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-webserver-5.0.0",
+      "core": true,
+      "description": "MapR Administration Webserver",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "Webserver",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-webserver-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-webserver-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-webserver-5.0.0/groups"
+      },
+      "name": "mapr-webserver",
+      "process_name": "webserver",
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8443,
+        8080
+      ],
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-yarn-5.1.0",
+      "core": true,
+      "description": "YARN is a resource scheduler for Hadoop, allowing several tenants and applications to run concurrently on a cluster. Starting in Hadoop 2.0, MapReduce runs as an application on YARN",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN + MapReduce",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-yarn-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-yarn-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-yarn-5.1.0/groups"
+      },
+      "name": "mapr-yarn",
+      "package_version": "2.7.0",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-drill-1.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hbase-server",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.0"
+          ]
+        }
+      ],
+      "description": "Apache Drill provides an ANSI SQL interface to interactively query data in JSON, Delimited (CSV, TSV, etc.), Hive, HBase and MapR-DB, that permits schema discovery at runtime",
+      "groups": [],
+      "hosts": [],
+      "label": "Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-drill-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-drill-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-drill-1.1/groups"
+      },
+      "name": "mapr-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        31010
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-drill-${DRILL_VERSION}/configure.sh"
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8047
+      ],
+      "version": "1.1"
+    },
+    {
+      "id": "template-20-drill-5.0.0",
+      "description": "Provides services needed for users to perform schema-free interactive exploration of their data, including the Apache Drill SQL engine and the Hive Metastore",
+      "groups": [],
+      "hosts": [],
+      "label": "Data Exploration: Interactive SQL with Apache Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-20-drill-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-20-drill-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-20-drill-5.0.0/groups"
+      },
+      "name": "template-20-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0"
+          ]
+        },
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-storm-nimbus-0.9.3",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-nimbus-${STORM_NIMBUS_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm Nimbus",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_NIMBUS_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_NIMBUS_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm Nimbus",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.9.3/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.9.3",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-nimbus-0.9.3/groups"
+      },
+      "name": "mapr-storm-nimbus",
+      "process_name": "nimbus",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MASTER",
+      "version": "0.9.3"
+    },
+    {
+      "id": "mapr-impala-catalog-2.2.0",
+      "description": "Impala Catalog",
+      "files": [
+        {
+          "src": "/opt/mapr/impala/impala-${IMPALA_CATALOG_VERSION}/conf/env.sh",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_CATALOG_VERSION}/conf/env.sh",
+          "comment": "#"
+        }
+      ],
+      "group": "mapr-impala",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala Catalog",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-catalog-2.2.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-catalog-2.2.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-catalog-2.2.0/groups"
+      },
+      "name": "mapr-impala-catalog",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_CATALOG_VERSION}/conf/hive-site.xml"
+        }
+      ],
+      "substitutions": {
+        "HIVE_METASTORE_URI=": "thrift://${HIVEMETASTORE_HOST}:9083",
+        "IMPALA_STATE_STORE_HOST=": "${IMPALA_STATESTORE_HOST}",
+        "CATALOG_SERVICE_HOST=": "${IMPALA_CATALOG_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        25020
+      ],
+      "version": "2.2.0"
+    },
+    {
+      "id": "mapr-hbase-rest-1.1",
+      "description": "Apache HBase REST Gateway",
+      "group": "mapr-hbase-common",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase REST",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-rest-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-rest-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-rest-1.1/groups"
+      },
+      "name": "mapr-hbase-rest",
+      "server_ports": [
+        8080
+      ],
+      "type": "DATA",
+      "version": "1.1"
+    },
+    {
+      "id": "mapr-spark-1.3.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.3.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.3.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-standalone",
+          "versions": [
+            "1.3.1"
+          ]
+        },
+        {
+          "id": "mapr-impala"
+        },
+        {
+          "id": "mapr-mahout",
+          "versions": [
+            "0.10",
+            "0.11"
+          ]
+        }
+      ],
+      "description": "Apache Spark is a fast and general big data processing engine. It is capable of high-speed batch processing, micro-batch stream processing (Spark Streaming), SQL queries (Spark SQL), machine learning (MLlib), and graph processing (GraphX)",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-1.3.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-1.3.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-1.3.1/groups"
+      },
+      "name": "mapr-spark",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-spark-standalone",
+            "versions": [
+              "1.3.1"
+            ]
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.3.1"
+    },
+    {
+      "id": "template-30-maprdb-5.0.0",
+      "description": "Deploys the MapR distributed NoSQL database, enabling both operational HBase applications to read and write data at high rates, and analytic applications to perform in-situ data processing",
+      "groups": [],
+      "hosts": [],
+      "label": "Operational Analytics: NoSQL database with MapR-DB",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-30-maprdb-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-30-maprdb-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-30-maprdb-5.0.0/groups"
+      },
+      "name": "template-30-maprdb",
+      "requires": [
+        {
+          "id": "mapr-asynchbase",
+          "versions": [
+            "1.6.0"
+          ]
+        },
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0"
+          ]
+        },
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-hive-client-1.2",
+      "description": "Apache Hive Client",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hive-client-1.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hive-client-1.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hive-client-1.2/groups"
+      },
+      "name": "mapr-hive-client",
+      "package_name": "mapr-hive",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site.xml"
+        }
+      ],
+      "type": "CLIENT",
+      "version": "1.2"
+    },
+    {
+      "id": "template-20-drill-4.1.0",
+      "description": "Provides services needed for users to perform schema-free interactive exploration of their data, including the Apache Drill SQL engine and the Hive Metastore",
+      "groups": [],
+      "hosts": [],
+      "label": "Data Exploration: Interactive SQL with Apache Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-20-drill-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-20-drill-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-20-drill-4.1.0/groups"
+      },
+      "name": "template-20-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.0"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-oozie-4.1.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-oozie-${OOZIE_VERSION}/configure.sh"
+      ],
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.7.0",
+            "3.8.1",
+            "3.9.0"
+          ]
+        }
+      ],
+      "databases": [
+        {
+          "name": "oozie",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "Apache Oozie is a workflow scheduler to manage Hadoop jobs",
+      "files": [
+        {
+          "src": "/opt/mapr/hadoop/hadoop-${RESOURCEMANAGER_VERSION}/etc/hadoop/yarn-site.xml",
+          "dest": "/opt/mapr/oozie/oozie-${OOZIE_VERSION}/conf/hadoop-conf",
+          "optional": true
+        },
+        {
+          "src": "oozie-site-mysql.xml",
+          "dest": "/opt/mapr/oozie/oozie-${OOZIE_VERSION}/conf/oozie-site-mysql.xml"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Oozie",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-oozie-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-oozie-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-oozie-4.1.0/groups"
+      },
+      "name": "mapr-oozie",
+      "process_name": "oozie",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "server_ports": [
+        11000
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-oozie-${OOZIE_VERSION}/configure_stage2.sh"
+      ],
+      "type": "MASTER",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-spark-slave-1.4.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_SLAVE_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Slave",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Slave",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.4.1/groups"
+      },
+      "name": "mapr-spark-slave",
+      "package_name": "mapr-spark",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/hive-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "DATA",
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-resourcemanager-4.1.0",
+      "core": true,
+      "description": "MapR Hadoop v2 Resource Manager",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN Resource Manager",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-resourcemanager-4.1.0/groups"
+      },
+      "name": "mapr-resourcemanager",
+      "package_version": "2.5.1",
+      "process_name": "resourcemanager",
+      "server_ports": [
+        8032,
+        8033
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-resourcemanager-4.1.0/configure.sh"
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8088
+      ],
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-mapreduce-4.1.0",
+      "core": true,
+      "description": "Apache MapReduce is a powerful framework for processing large, distributed sets of structured or unstructured data on a Hadoop cluster",
+      "groups": [],
+      "hosts": [],
+      "label": "Classic MapReduce",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-mapreduce-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-mapreduce-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-mapreduce-4.1.0/groups"
+      },
+      "name": "mapr-mapreduce",
+      "package_version": "1.0.3",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "4.1.0"
+    },
+    {
+      "id": "template-20-drill-5.1.0",
+      "description": "Provides services needed for users to perform schema-free interactive exploration of their data, including the Apache Drill SQL engine and the Hive Metastore",
+      "groups": [],
+      "hosts": [],
+      "label": "Data Exploration: Interactive SQL with Apache Drill",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-20-drill-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-20-drill-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-20-drill-5.1.0/groups"
+      },
+      "name": "template-20-drill",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-webserver-4.1.0",
+      "core": true,
+      "description": "MapR Administration Webserver",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "Webserver",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-webserver-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-webserver-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-webserver-4.1.0/groups"
+      },
+      "name": "mapr-webserver",
+      "process_name": "webserver",
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8443,
+        8080
+      ],
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-cldb-5.0.0",
+      "core": true,
+      "description": "MapR Container Location Database",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "CLDB",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-cldb-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-cldb-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-cldb-5.0.0/groups"
+      },
+      "name": "mapr-cldb",
+      "process_name": "cldb",
+      "server_ports": [
+        7222
+      ],
+      "type": "CONTROL",
+      "ui_ports": [
+        7221
+      ],
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-impala-server-2.2.0",
+      "description": "Impala Server",
+      "files": [
+        {
+          "src": "/opt/mapr/impala/impala-${IMPALA_SERVER_VERSION}/conf/env.sh",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_SERVER_VERSION}/conf/env.sh",
+          "comment": "#"
+        }
+      ],
+      "group": "mapr-impala",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-server-2.2.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-server-2.2.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-server-2.2.0/groups"
+      },
+      "name": "mapr-impala-server",
+      "server_ports": [
+        21000,
+        21050
+      ],
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/impala/impala-${IMPALA_SERVER_VERSION}/conf/hive-site.xml"
+        }
+      ],
+      "substitutions": {
+        "HIVE_METASTORE_URI=": "thrift://${HIVEMETASTORE_HOST}:9083",
+        "IMPALA_STATE_STORE_HOST=": "${IMPALA_STATESTORE_HOST}",
+        "CATALOG_SERVICE_HOST=": "${IMPALA_CATALOG_HOST}"
+      },
+      "type": "DATA",
+      "ui_ports": [
+        25000
+      ],
+      "version": "2.2.0"
+    },
+    {
+      "id": "mapr-nodemanager-5.0.0",
+      "core": true,
+      "description": "MapR Hadoop v2 Node Manager",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN Node Manager",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-nodemanager-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-nodemanager-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-nodemanager-5.0.0/groups"
+      },
+      "name": "mapr-nodemanager",
+      "package_version": "2.7.0",
+      "process_name": "nodemanager",
+      "server_ports": [
+        8041
+      ],
+      "type": "DATA",
+      "ui_ports": [
+        8042
+      ],
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-hbasethrift-0.98",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hbasethrift-${HBASETHRIFT_VERSION}/configure.sh"
+      ],
+      "description": "Apache HBase Thrift",
+      "group": "mapr-hbase-common",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Thrift",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbasethrift-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbasethrift-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbasethrift-0.98/groups"
+      },
+      "name": "mapr-hbasethrift",
+      "process_name": "hbasethrift",
+      "server_ports": [
+        9090
+      ],
+      "type": "MASTER",
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-spark-1.2.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-impala"
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.2.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.2.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-standalone",
+          "versions": [
+            "1.2.1"
+          ]
+        }
+      ],
+      "description": "Apache Spark is a fast and general big data processing engine. It is capable of high-speed batch processing, micro-batch stream processing (Spark Streaming), SQL queries (Spark SQL), machine learning (MLlib), and graph processing (GraphX)",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-1.2.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-1.2.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-1.2.1/groups"
+      },
+      "name": "mapr-spark",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-spark-standalone",
+            "versions": [
+              "1.2.1"
+            ]
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.2.1"
+    },
+    {
+      "id": "mapr-hiveserver2-1.0",
+      "description": "Apache Hive Server",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Server 2",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-1.0/groups"
+      },
+      "name": "mapr-hiveserver2",
+      "process_name": "hs2",
+      "server_ports": [
+        10000
+      ],
+      "type": "MASTER",
+      "version": "1.0"
+    },
+    {
+      "id": "mapr-historyserver-5.1.0",
+      "core": true,
+      "description": "MapR History Server",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "History Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-historyserver-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-historyserver-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-historyserver-5.1.0/groups"
+      },
+      "name": "mapr-historyserver",
+      "package_version": "2.7.0",
+      "type": "MASTER",
+      "ui_ports": [
+        19888
+      ],
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-spark-client-1.3.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-client-${SPARK_CLIENT_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Client",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        },
+        {
+          "src": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/lib/spark-assembly-*.jar",
+          "dest": "spark-${SPARK_CLIENT_VERSION}/"
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.3.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.3.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.3.1/groups"
+      },
+      "name": "mapr-spark-client",
+      "package_name": "mapr-spark",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/hive-site.xml",
+          "optional": true
+        },
+        {
+          "src": "hue-${HUE_VERSION}/javax.servlet-api-3.1.0.jar",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/lib/javax.servlet-api-3.1.0.jar",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "CLIENT",
+      "version": "1.3.1"
+    },
+    {
+      "id": "mapr-core-5.0.0",
+      "core": true,
+      "description": "MapR Core Services",
+      "groups": [],
+      "hosts": [],
+      "label": "Core Services",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-core-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-core-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-core-5.0.0/groups"
+      },
+      "name": "mapr-core",
+      "type": "DEFAULT",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-hivemetastore-1.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hivemetastore-${HIVEMETASTORE_VERSION}/configure.sh"
+      ],
+      "compatibilities": [
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.1",
+            "1.2",
+            "1.4",
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.0"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": []
+        },
+        {
+          "id": "mapr-sentry",
+          "versions": []
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.5.2"
+          ]
+        }
+      ],
+      "databases": [
+        {
+          "name": "hive",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "The Hive metastore service stores the metadata for Hive tables and partitions in a relational database and provides clients (including Hive) access to this information via the metastore service API",
+      "files": [
+        {
+          "src": "hive-site-mysql.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site-mysql.xml"
+        },
+        {
+          "src": "hive-site-embeded.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site-embeded.xml"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/hive*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/jline-*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/datanucleus*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/hcatalog/share/webhcat/java-client/hive-webhcat*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/hcatalog/share/hcatalog/hive-hcatalog*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Metastore",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-1.0/groups"
+      },
+      "name": "mapr-hivemetastore",
+      "process_name": "hivemeta",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        9083
+      ],
+      "substitutions": {
+        "<value>jdbc:mysql://": "${HIVEMETASTORE_DATABASE_HOST}:${HIVEMETASTORE_DATABASE_PORT}/${HIVEMETASTORE_DATABASE_NAME}?createDatabaseIfNotExist=true</value>"
+      },
+      "type": "MASTER",
+      "version": "1.0"
+    },
+    {
+      "id": "mapr-storm-0.9.3",
+      "description": "Apache Storm is a real-time stream processing framework",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-0.9.3/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-0.9.3",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-0.9.3/groups"
+      },
+      "name": "mapr-storm",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-mapreduce"
+        }
+      ],
+      "type": "GROUP",
+      "version": "0.9.3"
+    },
+    {
+      "id": "mapr-hbase-rest-0.98",
+      "description": "Apache HBase REST Gateway",
+      "group": "mapr-hbase-common",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase REST",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-rest-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-rest-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-rest-0.98/groups"
+      },
+      "name": "mapr-hbase-rest",
+      "server_ports": [
+        8080
+      ],
+      "type": "DATA",
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-hbase-master-0.98",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hbase-master-${HBASE_VERSION}/configure.sh"
+      ],
+      "description": "Apache HBase Master",
+      "group": "mapr-hbase-server",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Master",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-master-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-master-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-master-0.98/groups"
+      },
+      "name": "mapr-hbase-master",
+      "process_name": "hbmaster",
+      "server_ports": [
+        60000
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        60010
+      ],
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-mapreduce-5.0.0",
+      "core": true,
+      "description": "Apache MapReduce is a powerful framework for processing large, distributed sets of structured or unstructured data on a Hadoop cluster",
+      "groups": [],
+      "hosts": [],
+      "label": "Classic MapReduce",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-mapreduce-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-mapreduce-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-mapreduce-5.0.0/groups"
+      },
+      "name": "mapr-mapreduce",
+      "package_version": "1.0.3",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-hue-3.9.0",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13",
+            "1.0",
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1",
+            "2.2.0"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0",
+            "4.2.0"
+          ]
+        },
+        {
+          "id": "mapr-pig",
+          "versions": [
+            "0.13",
+            "0.14",
+            "0.15"
+          ]
+        },
+        {
+          "id": "mapr-sentry",
+          "versions": [
+            "1.6.0"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.3.1",
+            "1.4.1",
+            "1.5.2"
+          ]
+        }
+      ],
+      "databases": [
+        {
+          "name": "hue",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "Hue is an end-user web interface for interacting with big data tools like Pig, Hive, and Impala",
+      "files": [
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/conf/hue.ini",
+          "dest": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/conf/hue.ini",
+          "comment": "## ",
+          "no_restart": true
+        },
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/desktop/libs/hadoop/java-lib/hue-plugins-*.jar",
+          "dest": "hue-${HUE_VERSION}/",
+          "no_substitution": true
+        },
+        {
+          "src": "/opt/mapr/hue/hue-${HUE_VERSION}/apps/spark/java-lib/javax.servlet-api-3.1.0.jar",
+          "dest": "hue-${HUE_VERSION}/",
+          "no_substitution": true
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Hue",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hue-3.9.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hue-3.9.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hue-3.9.0/groups"
+      },
+      "name": "mapr-hue",
+      "process_name": "hue",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0",
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-httpfs"
+        },
+        {
+          "id": "mapr-oozie"
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "server_ports": [
+        8002
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hue-${HUE_VERSION}/configure.sh"
+      ],
+      "substitutions": {
+        "hbase_conf_dir=": "/opt/mapr/hbase/hbase-${HBASE_VERSION}/conf",
+        "webhdfs_url=": "http://${HTTPFS_HOST}:14000/webhdfs/v1",
+        "sentry_conf_dir=": "/opt/mapr/sentry/sentry-${SENTRY_VERSION}/conf",
+        "history_server_api_url=": "http://${HISTORYSERVER_HOST}:19888",
+        "resourcemanager_api_url=": "http://${RESOURCEMANAGER_HOST}:8088",
+        "server_user=": "${MAPR_USER}",
+        "hive_server_port=": "10000",
+        "server_group=": "${MAPR_GROUP}",
+        "hive_server_bin=": "/opt/mapr/hive/hive-${HIVESERVER2_VERSION}/bin/hiveserver2",
+        "hive_conf_dir=": "/opt/mapr/hive/hive-${HIVESERVER2_VERSION}/conf",
+        "default_user=": "${MAPR_USER}",
+        "oozie_url=": "http://${OOZIE_HOST}:11000/oozie",
+        "hbase_clusters=": "(Cluster\\|${HBASETHRIFT_HOST}:9090)",
+        "resourcemanager_host=": "${RESOURCEMANAGER_HOST}",
+        "livy_server_host=": "${HUE_LIVY_HOST}",
+        "default_hdfs_superuser=": "${MAPR_USER}",
+        "server_host=": "${IMPALA_SERVER_HOST}",
+        "hive_server_host=": "${HIVESERVER2_HOST}",
+        "hostname=": "${SENTRY_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        8888
+      ],
+      "version": "3.9.0"
+    },
+    {
+      "id": "mapr-storm-ui-0.9.4",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-storm-ui-${STORM_UI_VERSION}/configure.sh"
+      ],
+      "description": "Apache Storm UI",
+      "files": [
+        {
+          "src": "/opt/mapr/storm/storm-${STORM_UI_VERSION}/conf/storm.yaml",
+          "dest": "/opt/mapr/storm/storm-${STORM_UI_VERSION}/conf/storm.yaml"
+        }
+      ],
+      "group": "mapr-storm",
+      "groups": [],
+      "hosts": [],
+      "label": "Storm UI",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.9.4/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.9.4",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-storm-ui-0.9.4/groups"
+      },
+      "name": "mapr-storm-ui",
+      "process_name": "storm-ui",
+      "substitutions": {
+        "nimbus.host: ": "${STORM_NIMBUS_HOST}"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        8080
+      ],
+      "version": "0.9.4"
+    },
+    {
+      "id": "mapr-spark-master-1.2.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-master-${SPARK_MASTER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Master",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        },
+        {
+          "src": "slaves",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/slaves"
+        },
+        {
+          "src": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/lib/spark-assembly-*.jar",
+          "dest": "spark-${SPARK_MASTER_VERSION}/"
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Master",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.2.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.2.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.2.1/groups"
+      },
+      "name": "mapr-spark-master",
+      "server_ports": [
+        7077
+      ],
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/hive-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8080
+      ],
+      "version": "1.2.1"
+    },
+    {
+      "id": "mapr-sentry-server-1.6.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-sentry-server-${SENTRY_SERVER_VERSION}/configure.sh"
+      ],
+      "databases": [
+        {
+          "name": "sentry",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "files": [
+        {
+          "src": "sentry-site-template.xml",
+          "dest": "/opt/mapr/sentry/sentry-${SENTRY_SERVER_VERSION}/conf/sentry-site-template.xml"
+        }
+      ],
+      "group": "mapr-sentry",
+      "groups": [],
+      "hosts": [],
+      "label": "Sentry Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sentry-server-1.6.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sentry-server-1.6.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sentry-server-1.6.0/groups"
+      },
+      "name": "mapr-sentry-server",
+      "package_name": "mapr-sentry",
+      "server_ports": [
+        8038
+      ],
+      "substitutions": {
+        "<value>jdbc:mysql://": "${SENTRY_SERVER_DATABASE_HOST}:${SENTRY_SERVER_DATABASE_PORT}/${SENTRY_SERVER_DATABASE_NAME}?createDatabaseIfNotExist=true</value>"
+      },
+      "type": "MASTER",
+      "version": "1.6.0"
+    },
+    {
+      "id": "mapr-asynchbase-1.6.0",
+      "compatibilities": [
+        {
+          "id": "mapr-opentsdb",
+          "versions": []
+        }
+      ],
+      "description": "A fully asynchronous, thread-safe, modern HBase client",
+      "groups": [],
+      "hosts": [],
+      "label": "Async HBase",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-asynchbase-1.6.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-asynchbase-1.6.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-asynchbase-1.6.0/groups"
+      },
+      "name": "mapr-asynchbase",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0",
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "CLIENT",
+      "version": "1.6.0"
+    },
+    {
+      "id": "mapr-spark-1.4.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-spark-master",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-slave",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-spark-standalone",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-impala"
+        }
+      ],
+      "description": "Apache Spark is a fast and general big data processing engine. It is capable of high-speed batch processing, micro-batch stream processing (Spark Streaming), SQL queries (Spark SQL), machine learning (MLlib), and graph processing (GraphX)",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-1.4.1/groups"
+      },
+      "name": "mapr-spark",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-spark-standalone",
+            "versions": [
+              "1.4.1"
+            ]
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-fileserver-5.0.0",
+      "core": true,
+      "description": "MapR File Server",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "File Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-fileserver-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-fileserver-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-fileserver-5.0.0/groups"
+      },
+      "name": "mapr-fileserver",
+      "type": "DEFAULT",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-mapreduce-5.1.0",
+      "core": true,
+      "description": "Apache MapReduce is a powerful framework for processing large, distributed sets of structured or unstructured data on a Hadoop cluster",
+      "groups": [],
+      "hosts": [],
+      "label": "Classic MapReduce",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-mapreduce-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-mapreduce-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-mapreduce-5.1.0/groups"
+      },
+      "name": "mapr-mapreduce",
+      "package_version": "1.0.3",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-kafka-0.9.0",
+      "description": "Apache Kafka compatible streams client",
+      "groups": [],
+      "hosts": [],
+      "label": "Streams Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-kafka-0.9.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-kafka-0.9.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-kafka-0.9.0/groups"
+      },
+      "name": "mapr-kafka",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "CLIENT",
+      "version": "0.9.0"
+    },
+    {
+      "id": "mapr-historyserver-5.0.0",
+      "core": true,
+      "description": "MapR History Server",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "History Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-historyserver-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-historyserver-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-historyserver-5.0.0/groups"
+      },
+      "name": "mapr-historyserver",
+      "package_version": "2.7.0",
+      "type": "MASTER",
+      "ui_ports": [
+        19888
+      ],
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-jobtracker-5.0.0",
+      "core": true,
+      "description": "MapR Hadoop v1 Jobtracker",
+      "group": "mapr-mapreduce",
+      "groups": [],
+      "hosts": [],
+      "label": "Jobtracker",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-jobtracker-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-jobtracker-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-jobtracker-5.0.0/groups"
+      },
+      "name": "mapr-jobtracker",
+      "process_name": "jobtracker",
+      "server_ports": [
+        9001
+      ],
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-jobtracker-5.0.0/configure.sh"
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        50030
+      ],
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-hive-client-1.0",
+      "description": "Apache Hive Client",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hive-client-1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hive-client-1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hive-client-1.0/groups"
+      },
+      "name": "mapr-hive-client",
+      "package_name": "mapr-hive",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site.xml"
+        }
+      ],
+      "type": "CLIENT",
+      "version": "1.0"
+    },
+    {
+      "id": "mapr-hbase-1.1",
+      "description": "Apache HBase Client",
+      "group": "mapr-hbase-common",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-1.1/groups"
+      },
+      "name": "mapr-hbase",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "CLIENT",
+      "version": "1.1"
+    },
+    {
+      "id": "mapr-spark-master-1.3.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-master-${SPARK_MASTER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Master",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        },
+        {
+          "src": "slaves",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/slaves"
+        },
+        {
+          "src": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/lib/spark-assembly-*.jar",
+          "dest": "spark-${SPARK_MASTER_VERSION}/"
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Master",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.3.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.3.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.3.1/groups"
+      },
+      "name": "mapr-spark-master",
+      "server_ports": [
+        7077
+      ],
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/hive-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8080
+      ],
+      "version": "1.3.1"
+    },
+    {
+      "id": "mapr-tasktracker-5.1.0",
+      "core": true,
+      "description": "MapR Hadoop v1 Tasktracker",
+      "group": "mapr-mapreduce",
+      "groups": [],
+      "hosts": [],
+      "label": "Tasktracker",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-tasktracker-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-tasktracker-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-tasktracker-5.1.0/groups"
+      },
+      "name": "mapr-tasktracker",
+      "process_name": "tasktracker",
+      "type": "DATA",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-hivewebhcat-1.0",
+      "description": "Apache Hive WebHCat Server",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive WebHCat",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hivewebhcat-1.0/groups"
+      },
+      "name": "mapr-hivewebhcat",
+      "server_ports": [
+        50111
+      ],
+      "type": "MASTER",
+      "version": "1.0"
+    },
+    {
+      "id": "template-40-maprstreams-5.1.0",
+      "description": "Deploys Spark Streaming and MapR Streams for real-time streaming applications",
+      "groups": [],
+      "hosts": [],
+      "label": "Real-time Analytics: Spark Streaming and MapR Streams",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-40-maprstreams-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-40-maprstreams-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-40-maprstreams-5.1.0/groups"
+      },
+      "name": "template-40-maprstreams",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-kafka",
+          "versions": [
+            "0.9.0"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-yarn",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-sentry-1.6.0",
+      "compatibilities": [
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "2.2.0"
+          ]
+        },
+        {
+          "id": "mapr-sqoop",
+          "versions": [
+            "2.0.0"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        }
+      ],
+      "description": "Apache Sentry enforces role based (RBAC) authorization to data and metadata stored in Apache Hadoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Sentry",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sentry-1.6.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sentry-1.6.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sentry-1.6.0/groups"
+      },
+      "name": "mapr-sentry",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0",
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.6.0"
+    },
+    {
+      "id": "mapr-metrics-5.0.0",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-metrics-${METRICS_VERSION}/configure.sh"
+      ],
+      "core": true,
+      "databases": [
+        {
+          "name": "metrics",
+          "type": "MYSQL"
+        }
+      ],
+      "description": "MapR services collects job metrics for classic MapReduce and presents them in graphical form MapR Control System for monitoring and troubleshooting",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "Metrics",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-metrics-5.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-metrics-5.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-metrics-5.0.0/groups"
+      },
+      "name": "mapr-metrics",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0"
+          ]
+        },
+        {
+          "id": "mapr-mapreduce"
+        },
+        {
+          "id": "mapr-mysql",
+          "versions": [
+            "*"
+          ]
+        }
+      ],
+      "type": "DEFAULT",
+      "version": "5.0.0"
+    },
+    {
+      "id": "mapr-asynchbase-1.7.0",
+      "compatibilities": [
+        {
+          "id": "mapr-opentsdb",
+          "versions": [
+            "2.2.0"
+          ]
+        }
+      ],
+      "description": "A fully asynchronous, thread-safe, modern HBase client",
+      "groups": [],
+      "hosts": [],
+      "label": "Async HBase",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-asynchbase-1.7.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-asynchbase-1.7.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-asynchbase-1.7.0/groups"
+      },
+      "name": "mapr-asynchbase",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "CLIENT",
+      "version": "1.7.0"
+    },
+    {
+      "id": "mapr-fileserver-4.1.0",
+      "core": true,
+      "description": "MapR File Server",
+      "group": "mapr-core",
+      "groups": [],
+      "hosts": [],
+      "label": "File Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-fileserver-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-fileserver-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-fileserver-4.1.0/groups"
+      },
+      "name": "mapr-fileserver",
+      "type": "DEFAULT",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-mahout-0.11",
+      "compatibilities": [
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.3.1",
+            "1.4.1",
+            "1.5.2"
+          ]
+        }
+      ],
+      "description": "Apache Mahout",
+      "groups": [],
+      "hosts": [],
+      "label": "Mahout",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-mahout-0.11/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-mahout-0.11",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-mahout-0.11/groups"
+      },
+      "name": "mapr-mahout",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "CLIENT",
+      "version": "0.11"
+    },
+    {
+      "id": "mapr-hue-livy-3.8.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.8.1"
+          ]
+        }
+      ],
+      "description": "Hue - Hadoop User Experience Livy",
+      "groups": [],
+      "hosts": [],
+      "label": "Hue Livy",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hue-livy-3.8.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hue-livy-3.8.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hue-livy-3.8.1/groups"
+      },
+      "name": "mapr-hue-livy",
+      "requires": [
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.8.1"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.3.1"
+          ]
+        }
+      ],
+      "type": "MASTER",
+      "version": "3.8.1"
+    },
+    {
+      "id": "mapr-sqoop-client-1.4.6",
+      "description": "Apache Sqoop",
+      "group": "mapr-sqoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Sqoop Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-1.4.6/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-1.4.6",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-1.4.6/groups"
+      },
+      "name": "mapr-sqoop-client",
+      "package_name": "mapr-sqoop",
+      "type": "CLIENT",
+      "version": "1.4.6"
+    },
+    {
+      "id": "mapr-spark-master-1.4.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-master-${SPARK_MASTER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Master",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        },
+        {
+          "src": "slaves",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/slaves"
+        },
+        {
+          "src": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/lib/spark-assembly-*.jar",
+          "dest": "spark-${SPARK_MASTER_VERSION}/"
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Master",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-master-1.4.1/groups"
+      },
+      "name": "mapr-spark-master",
+      "server_ports": [
+        7077
+      ],
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_MASTER_VERSION}/conf/hive-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8080
+      ],
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-yarn-4.1.0",
+      "core": true,
+      "description": "YARN is a resource scheduler for Hadoop, allowing several tenants and applications to run concurrently on a cluster. Starting in Hadoop 2.0, MapReduce runs as an application on YARN",
+      "groups": [],
+      "hosts": [],
+      "label": "YARN + MapReduce",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-yarn-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-yarn-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-yarn-4.1.0/groups"
+      },
+      "name": "mapr-yarn",
+      "package_version": "2.5.1",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-flume-1.6.0",
+      "description": "Apache Flume moves large amounts of log data into Hadoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Flume",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-flume-1.6.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-flume-1.6.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-flume-1.6.0/groups"
+      },
+      "name": "mapr-flume",
+      "requires": [
+        {
+          "id": "mapr-mapreduce"
+        }
+      ],
+      "type": "DATA",
+      "version": "1.6.0"
+    },
+    {
+      "id": "mapr-spark-slave-1.2.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_SLAVE_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Slave",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Slave",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.2.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.2.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.2.1/groups"
+      },
+      "name": "mapr-spark-slave",
+      "package_name": "mapr-spark",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/hive-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "DATA",
+      "version": "1.2.1"
+    },
+    {
+      "id": "mapr-hive-1.2",
+      "compatibilities": [
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "2.2.0"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0",
+            "4.2.0"
+          ]
+        }
+      ],
+      "description": "Apache Hive provides a SQL-like interface (called HiveQL) to query data stored in HDFS. HiveQL queries are automatically translated to MapReduce, Apache Tez or Spark jobs for execution",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hive-1.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hive-1.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hive-1.2/groups"
+      },
+      "name": "mapr-hive",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.0.0",
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.2"
+    },
+    {
+      "id": "template-05-converged-5.1.0",
+      "description": "Deploys YARN, MapR-DB, MapR-Streams, Drill, and Spark",
+      "groups": [],
+      "hosts": [],
+      "label": "MapR Converged Cluster: Batch, interactive and real-time analytics",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/template-05-converged-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/template-05-converged-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/template-05-converged-5.1.0/groups"
+      },
+      "name": "template-05-converged",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.4"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.9.0"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "1.2"
+          ]
+        },
+        {
+          "id": "mapr-asynchbase",
+          "versions": [
+            "1.6.0"
+          ]
+        },
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "1.1"
+          ]
+        },
+        {
+          "id": "mapr-kafka",
+          "versions": [
+            "0.9.0"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.5.2"
+          ]
+        },
+        {
+          "id": "mapr-yarn",
+          "versions": [
+            "5.1.0"
+          ]
+        }
+      ],
+      "type": "TEMPLATE",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-spark-client-1.2.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-client-${SPARK_CLIENT_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Client",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        },
+        {
+          "src": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/lib/spark-assembly-*.jar",
+          "dest": "spark-${SPARK_CLIENT_VERSION}/"
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.2.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.2.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-client-1.2.1/groups"
+      },
+      "name": "mapr-spark-client",
+      "package_name": "mapr-spark",
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_CLIENT_VERSION}/conf/hive-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "CLIENT",
+      "version": "1.2.1"
+    },
+    {
+      "id": "mapr-hivemetastore-0.13",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hivemetastore-${HIVEMETASTORE_VERSION}/configure.sh"
+      ],
+      "compatibilities": [
+        {
+          "id": "mapr-drill",
+          "versions": [
+            "1.0",
+            "1.1",
+            "1.2",
+            "1.4",
+            "1.6"
+          ]
+        },
+        {
+          "id": "mapr-hive",
+          "versions": [
+            "0.13"
+          ]
+        },
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-sentry",
+          "versions": [
+            "1.4.0"
+          ]
+        },
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.2.1",
+            "1.3.1",
+            "1.4.1",
+            "1.5.2"
+          ]
+        }
+      ],
+      "databases": [
+        {
+          "name": "hive",
+          "type": "MYSQL"
+        },
+        {
+          "type": "DEFAULT"
+        }
+      ],
+      "description": "The Hive metastore service stores the metadata for Hive tables and partitions in a relational database and provides clients (including Hive) access to this information via the metastore service API",
+      "files": [
+        {
+          "src": "hive-site-mysql.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site-mysql.xml"
+        },
+        {
+          "src": "hive-site-embeded.xml",
+          "dest": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/conf/hive-site-embeded.xml"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/hive*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/jline-*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/lib/datanucleus*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/hcatalog/share/webhcat/java-client/hive-webhcat*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        },
+        {
+          "src": "/opt/mapr/hive/hive-${HIVEMETASTORE_VERSION}/hcatalog/share/hcatalog/hive-hcatalog*.jar",
+          "dest": "hive-${HIVEMETASTORE_VERSION}/"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Metastore",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-0.13/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-0.13",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hivemetastore-0.13/groups"
+      },
+      "name": "mapr-hivemetastore",
+      "process_name": "hivemeta",
+      "server_ports": [
+        9083
+      ],
+      "substitutions": {
+        "<value>jdbc:mysql://": "${HIVEMETASTORE_DATABASE_HOST}:${HIVEMETASTORE_DATABASE_PORT}/${HIVEMETASTORE_DATABASE_NAME}?createDatabaseIfNotExist=true</value>"
+      },
+      "type": "MASTER",
+      "version": "0.13"
+    },
+    {
+      "id": "mapr-sqoop-2.0.0",
+      "description": "Apache Sqoop transfers data between relational databases and Hadoop (flat files in HDFS, HBase, Hive)",
+      "groups": [],
+      "hosts": [],
+      "label": "Sqoop",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sqoop-2.0.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sqoop-2.0.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sqoop-2.0.0/groups"
+      },
+      "name": "mapr-sqoop",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "2.0.0"
+    },
+    {
+      "id": "mapr-historyserver-4.1.0",
+      "core": true,
+      "description": "MapR History Server",
+      "group": "mapr-yarn",
+      "groups": [],
+      "hosts": [],
+      "label": "History Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-historyserver-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-historyserver-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-historyserver-4.1.0/groups"
+      },
+      "name": "mapr-historyserver",
+      "package_version": "2.5.1",
+      "type": "MASTER",
+      "ui_ports": [
+        19888
+      ],
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-sqoop-1.4.6",
+      "description": "Apache Sqoop transfers data between relational databases and Hadoop (flat files in HDFS, HBase, Hive)",
+      "groups": [],
+      "hosts": [],
+      "label": "Sqoop",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sqoop-1.4.6/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sqoop-1.4.6",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sqoop-1.4.6/groups"
+      },
+      "name": "mapr-sqoop",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "1.4.6"
+    },
+    {
+      "id": "mapr-hue-livy-3.9.0",
+      "compatibilities": [
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.9.0"
+          ]
+        }
+      ],
+      "description": "Hue - Hadoop User Experience Livy",
+      "groups": [],
+      "hosts": [],
+      "label": "Hue Livy",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hue-livy-3.9.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hue-livy-3.9.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hue-livy-3.9.0/groups"
+      },
+      "name": "mapr-hue-livy",
+      "requires": [
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.9.0"
+          ]
+        }
+      ],
+      "type": "MASTER",
+      "version": "3.9.0"
+    },
+    {
+      "id": "mapr-hbase-master-1.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hbase-master-${HBASE_VERSION}/configure.sh"
+      ],
+      "description": "Apache HBase Master",
+      "group": "mapr-hbase-server",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Master",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbase-master-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbase-master-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbase-master-1.1/groups"
+      },
+      "name": "mapr-hbase-master",
+      "process_name": "hbmaster",
+      "server_ports": [
+        60000
+      ],
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        16010
+      ],
+      "version": "1.1"
+    },
+    {
+      "id": "mapr-httpfs-1.0",
+      "description": "HTTPFS provides a REST HTTP gateway supporting all HDFS File System operations",
+      "files": [
+        {
+          "src": "/opt/mapr/httpfs/httpfs-${HTTPFS_VERSION}/etc/hadoop/httpfs-site.xml",
+          "dest": "/opt/mapr/httpfs/httpfs-${HTTPFS_VERSION}/etc/hadoop/httpfs-site.xml"
+        }
+      ],
+      "groups": [],
+      "hosts": [],
+      "label": "HTTPFS",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-httpfs-1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-httpfs-1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-httpfs-1.0/groups"
+      },
+      "name": "mapr-httpfs",
+      "process_name": "httpfs",
+      "server_ports": [
+        14000
+      ],
+      "substitutions": {
+        "<name>httpfs.proxyuser.mapr.hosts</name>": "<name>httpfs.proxyuser.${MAPR_USER}.hosts</name>",
+        "<name>httpfs.proxyuser.mapr.groups</name>": "<name>httpfs.proxyuser.${MAPR_USER}.groups</name>"
+      },
+      "type": "MASTER",
+      "version": "1.0"
+    },
+    {
+      "id": "mapr-hbasethrift-1.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-hbasethrift-${HBASETHRIFT_VERSION}/configure.sh"
+      ],
+      "description": "Apache HBase Thrift",
+      "group": "mapr-hbase-common",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase Thrift",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hbasethrift-1.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hbasethrift-1.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hbasethrift-1.1/groups"
+      },
+      "name": "mapr-hbasethrift",
+      "process_name": "hbasethrift",
+      "server_ports": [
+        9090
+      ],
+      "type": "MASTER",
+      "version": "1.1"
+    },
+    {
+      "id": "mapr-spark-slave-1.5.2",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_SLAVE_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark Slave",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/spark-defaults.conf",
+          "comment": "# "
+        }
+      ],
+      "group": "mapr-spark-standalone",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark Slave",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.5.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.5.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-slave-1.5.2/groups"
+      },
+      "name": "mapr-spark-slave",
+      "package_name": "mapr-spark",
+      "stage2_commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-slave-${SPARK_SLAVE_VERSION}/configure_stage2.sh"
+      ],
+      "stage2_files": [
+        {
+          "src": "hive-${HIVEMETASTORE_VERSION}/hive-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/hive-site.xml",
+          "optional": true
+        },
+        {
+          "src": "hbase-${HBASE_VERSION}/hbase-site.xml",
+          "dest": "/opt/mapr/spark/spark-${SPARK_SLAVE_VERSION}/conf/hbase-site.xml",
+          "optional": true
+        }
+      ],
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "DATA",
+      "version": "1.5.2"
+    },
+    {
+      "id": "mapr-hive-0.13",
+      "compatibilities": [
+        {
+          "id": "mapr-impala",
+          "versions": [
+            "1.4.1"
+          ]
+        },
+        {
+          "id": "mapr-oozie",
+          "versions": [
+            "4.1.0",
+            "4.2.0"
+          ]
+        }
+      ],
+      "description": "Apache Hive provides a SQL-like interface (called HiveQL) to query data stored in HDFS. HiveQL queries are automatically translated to MapReduce, Apache Tez or Spark jobs for execution",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hive-0.13/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hive-0.13",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hive-0.13/groups"
+      },
+      "name": "mapr-hive",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0",
+            "5.1.0"
+          ]
+        },
+        {
+          "id": "mapr-hivemetastore",
+          "versions": [
+            "0.13"
+          ]
+        },
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "GROUP",
+      "version": "0.13"
+    },
+    {
+      "id": "mapr-impala-1.4.1",
+      "compatibilities": [
+        {
+          "id": "mapr-hbase-common",
+          "versions": [
+            "0.98"
+          ]
+        },
+        {
+          "id": "mapr-hue",
+          "versions": [
+            "3.7.0",
+            "3.8.1",
+            "3.9.0"
+          ]
+        },
+        {
+          "id": "mapr-sentry",
+          "versions": [
+            "1.4.0"
+          ]
+        }
+      ],
+      "description": "Impala is a SQL query engine that runs on top of Apache Hadoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Impala",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-impala-1.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-impala-1.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-impala-1.4.1/groups"
+      },
+      "name": "mapr-impala",
+      "requires": [
+        {
+          "id": "mapr-core",
+          "versions": [
+            "4.1.0",
+            "5.0.0"
+          ]
+        }
+      ],
+      "type": "GROUP",
+      "version": "1.4.1"
+    },
+    {
+      "id": "mapr-libhbase-0.98",
+      "description": "Apache HBase C Client",
+      "group": "mapr-hbase-common",
+      "groups": [],
+      "hosts": [],
+      "label": "HBase C Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-libhbase-0.98/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-libhbase-0.98",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-libhbase-0.98/groups"
+      },
+      "name": "mapr-libhbase",
+      "type": "CLIENT",
+      "version": "0.98"
+    },
+    {
+      "id": "mapr-hiveserver2-1.2",
+      "description": "Apache Hive Server",
+      "group": "mapr-hive",
+      "groups": [],
+      "hosts": [],
+      "label": "Hive Server 2",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-1.2/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-1.2",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-hiveserver2-1.2/groups"
+      },
+      "name": "mapr-hiveserver2",
+      "process_name": "hs2",
+      "server_ports": [
+        10000
+      ],
+      "type": "MASTER",
+      "version": "1.2"
+    },
+    {
+      "id": "mapr-tasktracker-4.1.0",
+      "core": true,
+      "description": "MapR Hadoop v1 Tasktracker",
+      "group": "mapr-mapreduce",
+      "groups": [],
+      "hosts": [],
+      "label": "Tasktracker",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-tasktracker-4.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-tasktracker-4.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-tasktracker-4.1.0/groups"
+      },
+      "name": "mapr-tasktracker",
+      "process_name": "tasktracker",
+      "type": "DATA",
+      "version": "4.1.0"
+    },
+    {
+      "id": "mapr-mahout-0.10",
+      "compatibilities": [
+        {
+          "id": "mapr-spark",
+          "versions": [
+            "1.3.1"
+          ]
+        }
+      ],
+      "description": "Apache Mahout",
+      "groups": [],
+      "hosts": [],
+      "label": "Mahout",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-mahout-0.10/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-mahout-0.10",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-mahout-0.10/groups"
+      },
+      "name": "mapr-mahout",
+      "requires": [
+        [
+          {
+            "id": "mapr-yarn"
+          },
+          {
+            "id": "mapr-mapreduce"
+          }
+        ]
+      ],
+      "type": "CLIENT",
+      "version": "0.10"
+    },
+    {
+      "id": "mapr-sqoop-client-1.4.5",
+      "description": "Apache Sqoop",
+      "group": "mapr-sqoop",
+      "groups": [],
+      "hosts": [],
+      "label": "Sqoop Client",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-1.4.5/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-1.4.5",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-sqoop-client-1.4.5/groups"
+      },
+      "name": "mapr-sqoop-client",
+      "package_name": "mapr-sqoop",
+      "type": "CLIENT",
+      "version": "1.4.5"
+    },
+    {
+      "id": "mapr-spark-historyserver-1.3.1",
+      "commands": [
+        "bash ${TEMPLATES_HOME}/mapr-spark-historyserver-${SPARK_HISTORYSERVER_VERSION}/configure.sh"
+      ],
+      "description": "Apache Spark History Server",
+      "files": [
+        {
+          "src": "spark-defaults.conf",
+          "dest": "/opt/mapr/spark/spark-${SPARK_HISTORYSERVER_VERSION}/conf/spark-defaults.conf"
+        }
+      ],
+      "group": "mapr-spark",
+      "groups": [],
+      "hosts": [],
+      "label": "Spark History Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.3.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.3.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-spark-historyserver-1.3.1/groups"
+      },
+      "name": "mapr-spark-historyserver",
+      "process_name": "spark-historyserver",
+      "substitutions": {
+        "spark.master ": " spark://${SPARK_MASTER_HOST}:7077",
+        "spark.yarn.historyServer.address ": " http://${SPARK_HISTORYSERVER_HOST}:18080"
+      },
+      "type": "MASTER",
+      "ui_ports": [
+        18080
+      ],
+      "version": "1.3.1"
+    },
+    {
+      "id": "mapr-zookeeper-5.1.0",
+      "core": true,
+      "description": "Apache Zookeeper",
+      "group": "mapr-core",
+      "groups": [
+        1
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.74",
+        "10.10.99.72"
+      ],
+      "label": "Zookeeper",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-zookeeper-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-zookeeper-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-zookeeper-5.1.0/groups"
+      },
+      "name": "mapr-zookeeper",
+      "process_name": "zkconnect",
+      "server_ports": [
+        5181
+      ],
+      "type": "CONTROL",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-cldb-5.1.0",
+      "core": true,
+      "description": "MapR Container Location Database",
+      "group": "mapr-core",
+      "groups": [
+        1
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.74",
+        "10.10.99.72"
+      ],
+      "label": "CLDB",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-cldb-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-cldb-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-cldb-5.1.0/groups"
+      },
+      "name": "mapr-cldb",
+      "process_name": "cldb",
+      "server_ports": [
+        7222
+      ],
+      "type": "CONTROL",
+      "ui_ports": [
+        7221
+      ],
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-webserver-5.1.0",
+      "core": true,
+      "description": "MapR Administration Webserver",
+      "group": "mapr-core",
+      "groups": [
+        2
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.72"
+      ],
+      "label": "Webserver",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-webserver-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-webserver-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-webserver-5.1.0/groups"
+      },
+      "name": "mapr-webserver",
+      "process_name": "webserver",
+      "type": "MULTI_MASTER",
+      "ui_ports": [
+        8443,
+        8080
+      ],
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-kibana-4.4.1",
+      "description": "Explore and visualize data",
+      "groups": [
+        3
+      ],
+      "hosts": [
+        "10.10.99.74"
+      ],
+      "label": "Kibana",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-kibana-4.4.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-kibana-4.4.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-kibana-4.4.1/groups"
+      },
+      "monitoring": true,
+      "name": "mapr-kibana",
+      "type": "MASTER",
+      "ui_ports": [
+        5601
+      ],
+      "version": "4.4.1"
+    },
+    {
+      "id": "mapr-opentsdb-2.2.0",
+      "description": "Scalable time series database",
+      "groups": [
+        4
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.72"
+      ],
+      "label": "OpenTSDB",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-opentsdb-2.2.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-opentsdb-2.2.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-opentsdb-2.2.0/groups"
+      },
+      "monitoring": true,
+      "name": "mapr-opentsdb",
+      "requires": [
+        {
+          "id": "mapr-asynchbase",
+          "versions": [
+            "1.7.0"
+          ]
+        }
+      ],
+      "server_ports": [
+        4242
+      ],
+      "type": "MONITORING_MASTER",
+      "version": "2.2.0"
+    },
+    {
+      "id": "mapr-elasticsearch-2.2.0",
+      "description": "Search & analyze data in real time",
+      "groups": [
+        4
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.72"
+      ],
+      "label": "Elasticsearch",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-elasticsearch-2.2.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-elasticsearch-2.2.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-elasticsearch-2.2.0/groups"
+      },
+      "monitoring": true,
+      "name": "mapr-elasticsearch",
+      "server_ports": [
+        9200,
+        9300
+      ],
+      "type": "MONITORING_MASTER",
+      "version": "2.2.0"
+    },
+    {
+      "id": "mapr-fluentd-0.12.22",
+      "description": "Data collector for unified logging",
+      "groups": [
+        5
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.74",
+        "10.10.99.72"
+      ],
+      "label": "Fluentd",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-fluentd-0.12.22/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-fluentd-0.12.22",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-fluentd-0.12.22/groups"
+      },
+      "monitoring": true,
+      "name": "mapr-fluentd",
+      "type": "DEFAULT",
+      "version": "0.12.22"
+    },
+    {
+      "id": "mapr-collectd-5.5.1",
+      "description": "System statistics collection daemon",
+      "groups": [
+        5
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.74",
+        "10.10.99.72"
+      ],
+      "label": "Collectd",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-collectd-5.5.1/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-collectd-5.5.1",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-collectd-5.5.1/groups"
+      },
+      "monitoring": true,
+      "name": "mapr-collectd",
+      "requires": [
+        {
+          "id": "mapr-collectd-fast-jmx",
+          "versions": [
+            "1.1"
+          ]
+        }
+      ],
+      "type": "DEFAULT",
+      "version": "5.5.1"
+    },
+    {
+      "id": "mapr-core-5.1.0",
+      "core": true,
+      "description": "MapR Core Services",
+      "groups": [
+        5
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.74",
+        "10.10.99.72"
+      ],
+      "label": "Core Services",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-core-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-core-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-core-5.1.0/groups"
+      },
+      "name": "mapr-core",
+      "type": "DEFAULT",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-nfs-5.1.0",
+      "core": true,
+      "description": "MapR NFS",
+      "group": "mapr-core",
+      "groups": [
+        5
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.74",
+        "10.10.99.72"
+      ],
+      "label": "NFS",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-nfs-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-nfs-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-nfs-5.1.0/groups"
+      },
+      "name": "mapr-nfs",
+      "process_name": "nfs",
+      "type": "DEFAULT",
+      "version": "5.1.0"
+    },
+    {
+      "id": "mapr-fileserver-5.1.0",
+      "core": true,
+      "description": "MapR File Server",
+      "group": "mapr-core",
+      "groups": [
+        5
+      ],
+      "hosts": [
+        "10.10.99.73",
+        "10.10.99.74",
+        "10.10.99.72"
+      ],
+      "label": "File Server",
+      "links": {
+        "hosts": "https://10.10.99.72:9443/api/services/mapr-fileserver-5.1.0/hosts",
+        "self": "https://10.10.99.72:9443/api/services/mapr-fileserver-5.1.0",
+        "groups": "https://10.10.99.72:9443/api/services/mapr-fileserver-5.1.0/groups"
+      },
+      "name": "mapr-fileserver",
+      "type": "DEFAULT",
+      "version": "5.1.0"
+    }
+  ],
+  "count": 172,
+  "offset": 0,
+  "links": {
+    "self": "https://10.10.99.72:9443/api/services"
+  }
+}

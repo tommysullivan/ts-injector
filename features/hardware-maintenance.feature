@@ -18,7 +18,6 @@ Feature: Hardware Maintenance
   @getSnapshotInfoForCluster
   Scenario: Get snapshot info for cluster
     When I request the latest snapshot info from the cluster
-    Then it prints in the test ouptut
 
   @captureCurrentStateAsSnapshot
   Scenario: Capture Current State as Snapshot
@@ -54,5 +53,20 @@ Feature: Hardware Maintenance
         {{packageCommand}} install -y curl
     """
     And I take "readyForInstallation" snapshots of each node in the cluster
-    And I manually retrieve the ids of these new snapshots based on the console output of the previous step
+    And I retrieve the latest snapshot info for the cluster and output it to stdout
+    Then I manually update the configured "readyForInstallation" state for the cluster with the snapshot ids
+
+  @createInstallationReadySnapshotsForSuse12
+  Scenario: Create Ready for Installation State from Base SUSE 12 IMAGE
+    Given I revert the cluster to its configured "baseImage" state
+    And I wait "30" seconds
+    When I perform the following ssh commands on each node in the cluster:
+    """
+    #write the hostname and configured IP to /etc/hosts so it resolves
+    zypper addrepo http://download.opensuse.org/repositories/system:packagemanager/SLE_12/system:packagemanager.repo
+    zypper refresh -f
+    zypper install yum
+    """
+    And I take "readyForInstallation" snapshots of each node in the cluster
+    And I retrieve the latest snapshot info for the cluster and output it to stdout
     Then I manually update the configured "readyForInstallation" state for the cluster with the snapshot ids

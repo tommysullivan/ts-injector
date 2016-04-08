@@ -1,0 +1,96 @@
+[
+  {
+    "id": "Hardware-Maintenance",
+    "name": "Hardware Maintenance",
+    "description": "As a Spyglass Contributor\nIn order to manage known, reproducible environments for dev and testing purposes\nI can create, destroy, and inspect ESXI-based cluster snapshots",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/hardware-maintenance.feature",
+    "elements": [
+      {
+        "name": "",
+        "keyword": "Background",
+        "description": "",
+        "type": "background",
+        "line": 6,
+        "steps": [
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 7,
+            "keyword": "Given "
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 8,
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "name": "Get snapshot info for cluster",
+        "id": "Hardware-Maintenance;get-snapshot-info-for-cluster",
+        "line": 19,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@getSnapshotInfoForCluster",
+            "line": 18
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 916839
+            },
+            "match": {}
+          },
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 7,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 1351836
+            },
+            "match": {}
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 133768
+            },
+            "match": {}
+          },
+          {
+            "name": "I request the latest snapshot info from the cluster",
+            "line": 20,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 401480133
+            },
+            "match": {}
+          },
+          {
+            "name": "it prints in the test ouptut",
+            "line": 21,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 155732
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

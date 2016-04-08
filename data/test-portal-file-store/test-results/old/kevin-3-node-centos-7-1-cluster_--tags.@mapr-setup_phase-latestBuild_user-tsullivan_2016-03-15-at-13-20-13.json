@@ -1,0 +1,102 @@
+[
+  {
+    "id": "Installation",
+    "name": "Installation",
+    "description": "As a Spyglass Customer\nIn order to install a Spyglass-enabled MapR Cluster\nI use one of the following installation methods",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/installation.feature",
+    "elements": [
+      {
+        "name": "Download and Run GUI Installer",
+        "id": "Installation;download-and-run-gui-installer",
+        "line": 14,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-282",
+            "line": 13
+          },
+          {
+            "name": "@mapr-setup",
+            "line": 13
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 892018
+            },
+            "match": {}
+          },
+          {
+            "name": "the cluster does not have MapR Installed",
+            "line": 15,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 320975981
+            },
+            "match": {}
+          },
+          {
+            "name": "I ssh into the node hosting \"GUI Installer\"",
+            "line": 16,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 1012604
+            },
+            "match": {}
+          },
+          {
+            "name": "within my ssh session, I download \"/mapr-setup.sh\" to \"/tmp\" from the \"GUI Installer\" repo",
+            "line": 17,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 1016328739
+            },
+            "match": {}
+          },
+          {
+            "name": "within my ssh session, I execute \"/tmp/mapr-setup.sh -y -u [installerRepoURL] [maprCoreRepoURL] [ecosystemRepoURL]\"",
+            "line": 18,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 164255569
+            },
+            "match": {}
+          },
+          {
+            "name": "I wait \"15\" seconds",
+            "line": 19,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 15002143685
+            },
+            "match": {}
+          },
+          {
+            "name": "it successfully starts the installer web server and outputs its URL to the screen",
+            "line": 20,
+            "keyword": "Then ",
+            "result": {
+              "status": "failed",
+              "duration": 59410669,
+              "error_message": "Could not reach GUI Installer website. Status Code: undefined, url: https://10.10.30.144:9443/"
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

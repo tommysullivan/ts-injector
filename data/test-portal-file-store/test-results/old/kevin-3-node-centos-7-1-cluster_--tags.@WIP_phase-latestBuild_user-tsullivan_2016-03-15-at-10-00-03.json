@@ -1,0 +1,92 @@
+[
+  {
+    "id": "Hardware-Preparation",
+    "name": "Hardware Preparation",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/hardware-preparation.feature",
+    "elements": [
+      {
+        "name": "",
+        "keyword": "Background",
+        "description": "",
+        "type": "background",
+        "line": 3,
+        "steps": [
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 4,
+            "keyword": "Given "
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 5,
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "name": "Testing multiple commands",
+        "id": "Hardware-Preparation;testing-multiple-commands",
+        "line": 25,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@WIP",
+            "line": 24
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 908308
+            },
+            "match": {}
+          },
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 1267853
+            },
+            "match": {}
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 129651
+            },
+            "match": {}
+          },
+          {
+            "name": "I perform the following ssh commands on each node in the cluster:",
+            "line": 26,
+            "keyword": "When ",
+            "doc_string": {
+              "value": "pwd\npurposeful-error\necho 'hello'",
+              "line": 27,
+              "content_type": ""
+            },
+            "result": {
+              "status": "failed",
+              "duration": 629913412,
+              "error_message": "127"
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,132 @@
+[
+  {
+    "id": "Installation",
+    "name": "Installation",
+    "description": "As a Spyglass Customer\nIn order to install a Spyglass-enabled MapR Cluster\nI use one of the following installation methods",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/installation.feature",
+    "elements": [
+      {
+        "name": "Use REST APIs to Install MapR with Spyglass Components",
+        "id": "Installation;use-rest-apis-to-install-mapr-with-spyglass-components",
+        "line": 23,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-282",
+            "line": 22
+          },
+          {
+            "name": "@rest-installer",
+            "line": 22
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1902799
+            },
+            "match": {}
+          },
+          {
+            "name": "the GUI Installer web server is running",
+            "line": 24,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 110211743
+            },
+            "match": {}
+          },
+          {
+            "name": "I can authenticate my GUI Installer Rest Client",
+            "line": 25,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 3841382460
+            },
+            "match": {}
+          },
+          {
+            "name": "I specify the desired Cluster Configuration",
+            "line": 26,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 544287443
+            },
+            "match": {}
+          },
+          {
+            "name": "I perform Cluster Configuration Verification",
+            "line": 27,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 10163793863
+            },
+            "match": {}
+          },
+          {
+            "name": "Cluster Configuration Verification completes without errors",
+            "line": 28,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 206225
+            },
+            "match": {}
+          },
+          {
+            "name": "I perform Cluster Provisioning",
+            "line": 29,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 5066496952
+            },
+            "match": {}
+          },
+          {
+            "name": "Cluster Provisioning completes without errors",
+            "line": 30,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 198168
+            },
+            "match": {}
+          },
+          {
+            "name": "I perform Cluster Installation",
+            "line": 31,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 404678160252
+            },
+            "match": {}
+          },
+          {
+            "name": "Cluster Installation completes without errors",
+            "line": 32,
+            "keyword": "Then ",
+            "result": {
+              "status": "failed",
+              "duration": 62034595,
+              "error_message": "\n2016-03-10 08:55:34.947: launched python script with pid 3125\n\n2016-03-10 08:55:39.212: * 08:55:39 Validating prerequisites\n===============================================================================\n=                                                                             =\n=  __  __                ____    ___              _          _  _             =\n= |  \\/  |  __ _  _ __  |  _ \\  |_ _| _ __   ___ | |_  __ _ | || |  ___  _ __ =\n= | |\\/| | / _` || '_ \\ | |_) |  | | | '_ \\ / __|| __|/ _` || || | / _ \\| '__|=\n= | |  | || (_| || |_) ||  _ <   | | | | | |\\__ \\| |_| (_| || || ||  __/| |   =\n= |_|  |_| \\__,_|| .__/ |_| \\_\\ |___||_| |_||___/ \\__|\\__,_||_||_| \\___||_|   =\n=                |_|                                                          =\n=                                                                             =\n===============================================================================\nVersion: 5.1.0.1.3.132\n\nNow running on nodes: [10.10.1.103]\n* 08:55:39 Validating prerequisites\npython script exited with 0\n\n2016-03-10 08:55:49.992: launched python script with pid 3316\n\n2016-03-10 08:55:51.087: * 08:55:51 Installing MapR\n2016-03-10 08:55:51.544: * 08:55:51 Configuring OS prerequisites\n2016-03-10 08:55:51.592: * 08:55:51 Configuring OS prerequisites\n2016-03-10 08:56:19.017: * 08:56:19 Configuring OS Security\n2016-03-10 08:56:19.724: * 08:56:19 Installing OpenJDK if required\n2016-03-10 14:52:16.109: * 14:52:16 Creating cluster admin account\n2016-03-10 14:52:17.051: * 14:52:17 Configuring package repository\n2016-03-10 14:52:17.703: * 14:52:17 Configuring package repository\n2016-03-10 14:52:24.575: * 14:52:24 Installing MapR Core\n2016-03-10 14:54:36.059: * 14:54:36 Configuring MapR services\n2016-03-10 14:54:44.944: * 14:54:44 Configuring disks for MapR-FS\n2016-03-10 14:55:00.131: * 14:55:00 Starting MapR services\n2016-03-10 14:55:06.770: * 14:55:06 Finalizing cluster configuration\n2016-03-10 14:57:34.810: * 14:57:34 Configuring database\n2016-03-10 14:57:42.219: * 14:57:42 Installing MapR Ecosystem failed: [command /usr/bin/yum --nogpgcheck -q -y install \"{{ item.key }}-{{ item.value }}*\"] [10.10.1.103] => (item={'key': u'mapr-opentsdb', 'value': u'2.2.0'}) => {\"changed\": true, \"cmd\": [\"/usr/bin/yum\", \"--nogpgcheck\", \"-q\", \"-y\", \"install\", \"mapr-opentsdb-2.2.0*\"], \"delta\": \"0:00:01.295349\", \"end\": \"2016-03-10 14:58:16.996297\", \"item\": {\"key\": \"mapr-opentsdb\", \"value\": \"2.2.0\"}, \"rc\": 1, \"start\": \"2016-03-10 14:58:15.700948\", \"warnings\": [\"Consider using yum module rather than running yum\"]}\nHost: 10.10.1.103 has 1 failures\nControl and server nodes have failures. Fix the failures and re-run the installation. For more information refer to the installer log at /opt/mapr/installer/logs/mapr-installer.log\nExiting with 1\n\n===============================================================================\n=                                                                             =\n=  __  __                ____    ___              _          _  _             =\n= |  \\/  |  __ _  _ __  |  _ \\  |_ _| _ __   ___ | |_  __ _ | || |  ___  _ __ =\n= | |\\/| | / _` || '_ \\ | |_) |  | | | '_ \\ / __|| __|/ _` || || | / _ \\| '__|=\n= | |  | || (_| || |_) ||  _ <   | | | | | |\\__ \\| |_| (_| || || ||  __/| |   =\n= |_|  |_| \\__,_|| .__/ |_| \\_\\ |___||_| |_||___/ \\__|\\__,_||_||_| \\___||_|   =\n=                |_|                                                          =\n=                                                                             =\n===============================================================================\nVersion: 5.1.0.1.3.132\n\nNow running on all server nodes: [10.10.1.103]\n* 08:55:51 Installing MapR\n* 08:55:51 Configuring OS prerequisites\n* 08:55:51 Configuring OS prerequisites\n* 08:56:19 Configuring OS Security\n* 08:56:19 Installing OpenJDK if required\n* 14:52:16 Creating cluster admin account\n* 14:52:17 Configuring package repository\n* 14:52:17 Configuring package repository\n* 14:52:24 Installing MapR Core\n* 14:54:36 Configuring MapR services\n* 14:54:44 Configuring disks for MapR-FS\n* 14:55:00 Starting MapR services\n* 14:55:06 Finalizing cluster configuration\n* 14:57:34 Configuring database\n* 14:57:42 Installing MapR Ecosystem\n\nFATAL: all hosts have already failed -- aborting\npython script exited with 1\n"
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "Hardware-Preparation",
+    "name": "Hardware Preparation",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/hardware-preparation.feature",
+    "elements": [
+      {
+        "name": "ESXi Hardware Preparation",
+        "id": "Hardware-Preparation;esxi-hardware-preparation",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-1",
+            "line": 3
+          },
+          {
+            "name": "@ESXI",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Before ",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 915838
+            },
+            "match": {}
+          },
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 552147
+            },
+            "match": {}
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured to be expected",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 117361
+            },
+            "match": {}
+          },
+          {
+            "name": "I revert the cluster to its configured \"readyForInstallation\" state",
+            "line": 7,
+            "keyword": "When ",
+            "result": {
+              "status": "failed",
+              "duration": 1973523,
+              "error_message": "TypeError: api.newNodemiralSshClient is not a function\n    at Object.restoreSnapshot.api.newNodemiralSshClient.connect.then [as restoreSnapshot] (/Users/tsullivan/projects/private-spyglass/lib/environments/vms/esxi-client.js:4:24)\n    at /Users/tsullivan/projects/private-spyglass/lib/environments/vms/esxi-managed-node.js:9:40\n    at tryCallTwo (/Users/tsullivan/projects/private-spyglass/node_modules/promise/lib/core.js:45:5)\n    at doResolve (/Users/tsullivan/projects/private-spyglass/node_modules/promise/lib/core.js:200:13)\n    at new Promise (/Users/tsullivan/projects/private-spyglass/node_modules/promise/lib/core.js:66:3)\n    at Object.getAvailableTestClusterList.newClusterUnderTest.getAvailableRepositoryTypes.newPromise (/Users/tsullivan/projects/private-spyglass/lib/api.js:226:20)\n    at Object.revertToState.api.newPromise [as revertToState] (/Users/tsullivan/projects/private-spyglass/lib/environments/vms/esxi-managed-node.js:4:24)\n    at /Users/tsullivan/projects/private-spyglass/lib/environments/cluster-under-test.js:5:62\n    at Array.map (native)\n    at Object.revertToState.api.newGroupPromise [as revertToState] (/Users/tsullivan/projects/private-spyglass/lib/environments/cluster-under-test.js:5:53)"
+            },
+            "match": {}
+          },
+          {
+            "name": "I wait \"30\" seconds",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          },
+          {
+            "name": "the cluster does not have MapR Installed",
+            "line": 9,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {}
+          }
+        ]
+      }
+    ]
+  }
+]

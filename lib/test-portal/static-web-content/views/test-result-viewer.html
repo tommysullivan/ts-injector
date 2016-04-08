@@ -2,19 +2,29 @@
     <div class="row">
         <div class="col-md-8">
             <h2>Test Result Viewer</h2>
-            <div ng-if="testResult.contentType()!='vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0'">
-                <small><a href="{{testConfig.href}}" style="color:white;">{{testConfig.displayName}}</a></small>
-                |
-                <small><a href="{{testCLIInvocation.href}}" style="color:white;">{{testCLIInvocation.displayName}}</a></small>
-            </div>
-            <div ng-if="testResult.contentType()=='vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0'">
-                clusterId: {{testResult.clusterId()}}<br />
-                controller: <a href="http://{{testResult.controllerHost()}}">{{testResult.controllerHost()}}</a><br />
-                nodes:
-                <span ng-repeat="nodeHost in testResult.nodeNames()">
-                    <a href="http://{{nodeHost}}">{{nodeHost}}</a>
-                </span><br />
-                <anchor-link content="environment configuration details" on-anchor-click="focusOn('configurationDetails')"></anchor-link>
+
+            <div ng-switch on="testResult.contentType()">
+                <div ng-switch-when="vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0">
+                    clusterId: {{testResult.clusterId()}}<br />
+                    controller: <a href="http://{{testResult.controllerHost()}}">{{testResult.controllerHost()}}</a><br />
+                    nodes:
+                    <span ng-repeat="nodeHost in testResult.nodeNames()">
+                        <a href="http://{{nodeHost}}">{{nodeHost}}</a>
+                    </span><br />
+                    <anchor-link content="environment configuration details" on-anchor-click="focusOn('configurationDetails')"></anchor-link>
+                </div>
+                <div ng-switch-when="vnd/mapr.test-portal.cluster-test-result+json;v=2.0.0">
+                    clusterId: {{testResult.clusterId()}}<br />
+                    nodes:
+                    <span ng-repeat="nodeHost in testResult.nodeNames()">
+                        <a href="http://{{nodeHost}}">{{nodeHost}}</a>
+                    </span><br />
+                    <anchor-link content="environment configuration details" on-anchor-click="focusOn('configurationDetails')"></anchor-link>
+                </div>
+                <div ng-switch-default>
+                    <small><a href="{{testConfig.href}}" style="color:white;">{{testConfig.displayName}}</a></small>
+                    <small><a href="{{testCLIInvocation.href}}" style="color:white;">{{testCLIInvocation.displayName}}</a></small>
+                </div>
             </div>
         </div>
         <div class="col-md-4">

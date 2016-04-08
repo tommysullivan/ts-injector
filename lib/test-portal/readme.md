@@ -19,10 +19,12 @@ Next, client side dependencies must be installed. From the lib/test-portal/stati
 
 Run the server with nodemon if you desire auto restart upon server source code change. Else skip word "nodemon":
 
-    hostName=[localhost] testPortalPort=[5001] jiraUsername=[your username] jiraPassword=[your password] \
-    nodemon bin/run-test-portal
+    bin/spyglass-tester server [with jira]
  
-Note, JIRA credentials may be omitted unless you intend to use JIRA syncing capabilities of the CI server.
+If optional text "with jira" is supplied, then you will be prompted for your JIRA credentials, which
+are stored in memory and used to sync data between the test portal and JIRA when requested to do so
+by the user in the browser. (NOTE: [see jira](https://maprdrill.atlassian.net/browse/DEVOPS-340) for improvements
+to this authentication model)
 
 ### Use the QA Hosted version of CI Server
 

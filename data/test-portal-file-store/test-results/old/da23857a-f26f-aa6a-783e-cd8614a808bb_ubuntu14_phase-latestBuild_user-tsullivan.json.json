@@ -1,0 +1,716 @@
+{
+   "contentType": "vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0",
+   "resultJSON": [
+      {
+         "id": "Hardware-Maintenance",
+         "name": "Hardware Maintenance",
+         "description": "As a Spyglass Contributor\nIn order to manage and debug known, reproducible environments for dev and testing purposes\nI can create, destroy, and inspect ESXI-based cluster snapshots",
+         "line": 1,
+         "keyword": "Feature",
+         "uri": "/Users/tsullivan/projects/private-spyglass/features/hardware-maintenance.feature",
+         "elements": [
+            {
+               "name": "",
+               "keyword": "Background",
+               "description": "",
+               "type": "background",
+               "line": 6,
+               "steps": [
+                  {
+                     "name": "the Cluster Under Test is managed by ESXI",
+                     "line": 7,
+                     "keyword": "Given "
+                  },
+                  {
+                     "name": "the Operating Systems of each node match what is configured",
+                     "line": 8,
+                     "keyword": "And "
+                  }
+               ]
+            },
+            {
+               "name": "Get snapshot info for cluster",
+               "id": "Hardware-Maintenance;get-snapshot-info-for-cluster",
+               "line": 19,
+               "keyword": "Scenario",
+               "description": "",
+               "type": "scenario",
+               "tags": [
+                  {
+                     "name": "@getSnapshotInfoForCluster",
+                     "line": 18
+                  }
+               ],
+               "steps": [
+                  {
+                     "name": "the Cluster Under Test is managed by ESXI",
+                     "line": 7,
+                     "keyword": "Given ",
+                     "result": {
+                        "status": "passed",
+                        "duration": 1112422
+                     },
+                     "match": {}
+                  },
+                  {
+                     "name": "the Operating Systems of each node match what is configured",
+                     "line": 8,
+                     "keyword": "And ",
+                     "result": {
+                        "status": "passed",
+                        "duration": 426053
+                     },
+                     "match": {}
+                  },
+                  {
+                     "name": "I request the latest snapshot info from the cluster",
+                     "line": 20,
+                     "keyword": "When ",
+                     "result": {
+                        "status": "failed",
+                        "duration": 2779183,
+                        "error_message": "Error: {\"host\":\"10.10.30.147\",\"error\":{}}"
+                     },
+                     "match": {}
+                  },
+                  {
+                     "name": "it prints in the test ouptut",
+                     "line": 21,
+                     "keyword": "Then ",
+                     "result": {
+                        "status": "skipped"
+                     },
+                     "match": {}
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "stdoutLines": [
+      "Feature: Hardware Maintenance",
+      "",
+      "  As a Spyglass Contributor",
+      "  In order to manage and debug known, reproducible environments for dev and testing purposes",
+      "  I can create, destroy, and inspect ESXI-based cluster snapshots",
+      "",
+      "  \u001b[36m@getSnapshotInfoForCluster\u001b[39m",
+      "  Scenario: Get snapshot info for cluster                           \u001b[90m# features/hardware-maintenance.feature:19\u001b[39m",
+      "    \u001b[32mGiven the Cluster Under Test is managed by ESXI                 \u001b[90m# features/step_definitions/cluster-prep.js:13\u001b[32m\u001b[39m",
+      "    \u001b[32mAnd the Operating Systems of each node match what is configured \u001b[90m# features/step_definitions/cluster-prep.js:31\u001b[32m\u001b[39m",
+      "    \u001b[31mWhen I request the latest snapshot info from the cluster        \u001b[90m# features/step_definitions/cluster-prep.js:55\u001b[31m\u001b[39m",
+      "      Error: {\"host\":\"10.10.30.147\",\"error\":{}}",
+      "    \u001b[36mThen it prints in the test ouptut                               \u001b[90m# features/step_definitions/cluster-prep.js:62\u001b[36m\u001b[39m",
+      "",
+      "Failing scenarios:",
+      "features/hardware-maintenance.feature:19 # Scenario: Get snapshot info for cluster",
+      "",
+      "1 scenario (\u001b[31m1 failed\u001b[39m)",
+      "4 steps (\u001b[31m1 failed\u001b[39m, \u001b[36m1 skipped\u001b[39m, \u001b[32m2 passed\u001b[39m)",
+      "0m00.005s",
+      ""
+   ],
+   "stderrLines": [
+      ""
+   ],
+   "processExitCode": 1,
+   "cucumberRunConfig": {
+      "testRunGUID": "da23857a-f26f-aa6a-783e-cd8614a808bb",
+      "clusterId": "ubuntu14",
+      "flattenedClusterConfig": {
+         "id": "ubuntu14",
+         "name": "ubuntu14.devops.lab",
+         "licenseType": "M5",
+         "sshMethod": "PASSWORD",
+         "sshUsername": "root",
+         "sshPassword": "mapr",
+         "mapRPassword": "mapr",
+         "coreVersion": "5.1.0",
+         "location": "mapr",
+         "disks": [
+            "/dev/sdb",
+            "/dev/sdc"
+         ],
+         "services": [
+            {
+               "name": "mapr-asynchbase",
+               "version": "1.7.0"
+            },
+            {
+               "name": "mapr-collectd",
+               "version": "5.5.1"
+            },
+            {
+               "name": "mapr-collectd-fast-jmx",
+               "version": "1.1"
+            },
+            {
+               "name": "mapr-elasticsearch",
+               "version": "2.2.0"
+            },
+            {
+               "name": "mapr-fluentd",
+               "version": "0.12.22"
+            },
+            {
+               "name": "mapr-grafana",
+               "version": "2.6.0"
+            },
+            {
+               "name": "mapr-hbase",
+               "version": "1.1"
+            },
+            {
+               "name": "mapr-hbase-common",
+               "version": "1.1"
+            },
+            {
+               "name": "mapr-hbase-rest",
+               "version": "1.1"
+            },
+            {
+               "name": "mapr-hbasethrift",
+               "version": "1.1"
+            },
+            {
+               "name": "mapr-kibana",
+               "version": "4.4.1"
+            },
+            {
+               "name": "mapr-opentsdb",
+               "version": "2.2.0"
+            },
+            {
+               "name": "mapr-yarn",
+               "version": "2.7.0"
+            }
+         ],
+         "inheritsFrom": "esxi-10.10.30.174",
+         "controller": {
+            "type": "esxi",
+            "host": "10.10.30.174",
+            "username": "root",
+            "password": "maprmapr"
+         },
+         "nodes": [
+            {
+               "name": "u1404_10.10.30.147",
+               "username": "root",
+               "password": "mapr",
+               "esxiId": 352,
+               "host": "10.10.30.147",
+               "operatingSystem": {
+                  "name": "Ubuntu",
+                  "version": "14.04"
+               },
+               "states": [
+                  {
+                     "name": "baseImage",
+                     "snapshotId": 1
+                  },
+                  {
+                     "name": "readyForInstallation",
+                     "snapshotId": 9
+                  }
+               ],
+               "serviceNames": [
+                  "GUI Installer"
+               ]
+            },
+            {
+               "name": "u1404_10.10.30.148",
+               "username": "root",
+               "password": "mapr",
+               "esxiId": 368,
+               "host": "10.10.30.148",
+               "operatingSystem": {
+                  "name": "Ubuntu",
+                  "version": "14.04"
+               },
+               "states": [
+                  {
+                     "name": "baseImage",
+                     "snapshotId": 1
+                  },
+                  {
+                     "name": "readyForInstallation",
+                     "snapshotId": 9
+                  }
+               ],
+               "serviceNames": []
+            },
+            {
+               "name": "u1404_10.10.30.149",
+               "username": "root",
+               "password": "mapr",
+               "esxiId": 384,
+               "host": "10.10.30.149",
+               "operatingSystem": {
+                  "name": "Ubuntu",
+                  "version": "14.04"
+               },
+               "states": [
+                  {
+                     "name": "baseImage",
+                     "snapshotId": 1
+                  },
+                  {
+                     "name": "readyForInstallation",
+                     "snapshotId": 9
+                  }
+               ],
+               "serviceNames": []
+            }
+         ]
+      },
+      "jsonResultFilePath": "test-results/da23857a-f26f-aa6a-783e-cd8614a808bb_ubuntu14_phase-latestBuild_user-tsullivan.json",
+      "phase": "latestBuild",
+      "user": "tsullivan",
+      "timestamp": "2016-04-08T19-25-44.435Z",
+      "configJSON": {
+         "jiraProtocolHostAndOptionalPort": "https://maprdrill.atlassian.net",
+         "jiraIssueSearchPath": "/rest/api/2/search",
+         "jiraRestSessionPath": "/rest/auth/1/session",
+         "defaultJiraUsername": "tsullivan@maprtech.com",
+         "nodeExecutable": "/usr/local/bin/node",
+         "cucumberExecutable": "node_modules/cucumber/bin/cucumber.js",
+         "cucumberCLITemplate": "npm test -- --tags ${tags}",
+         "defaultJQLQueryKey": "1.0.alpha",
+         "jqlQueries": {
+            "1.0.alpha": "project=Spyglass AND issuetype = Story AND fixVersion = 1.0.alpha",
+            "proposed": "project=Spyglass AND status = Proposed",
+            "sprints1And2": "project=SPYG AND issuetype=Story AND sprint IN (\"Spyglass Sprint 1\", \"Spyglass Sprint 2\")"
+         },
+         "installerAPIPath": "/api/",
+         "installerLoginPath": "/api/login",
+         "openTSDBQueryPathTemplate": "/api/query?start={start}&m={metricName}",
+         "debugHTTP": false,
+         "mcsLoginPath": "/api/login",
+         "mcsUserName": "mapr",
+         "mcsPassword": "mapr",
+         "mcsApplicationLinkPathTemplate": "/api/urls/{applicationName}",
+         "grafanaDashboardImportPath": "/api/dashboards/db",
+         "grafanaLoginPath": "/login",
+         "mcsDashboardInfoPath": "/api/dashboard/info",
+         "installerPollingFrequencyMS": 5000,
+         "spyglassServicesNamesInMCSDashboardInfo": [
+            "collectd",
+            "fluentd",
+            "elasticsearch",
+            "opentsdb",
+            "kibana",
+            "grafana"
+         ],
+         "defaultPhase": "latestBuild",
+         "testPortalHostAndPort": "http://testing.devops.lab",
+         "defaultCucumberStepTimeoutMS": 120000,
+         "testResultPath": "test-results",
+         "fullyQualifiedConfigsPath": "test-configs",
+         "fullyQualifiedCLIInvocationsPath": "test-cli-invocations",
+         "defaultFeatures": [
+            "features/cluster-preparation.feature",
+            "features/installation.feature",
+            "features/elasticsearch-logs.feature",
+            "features/grafana-metrics.feature",
+            "features/kibana-logs.feature",
+            "features/mcs.feature",
+            "features/open-tsdb-metrics.feature",
+            "features/test-transparency.feature"
+         ],
+         "repositoryInfo": {
+            "pathsForComponents": {
+               "GUI Installer": "/installer-master-ui",
+               "MapR Core": "/v5.1.0",
+               "Ecosystem": "/opensource"
+            },
+            "repositories": [
+               {
+                  "type": "yum",
+                  "phase": "latestBuild",
+                  "host": "yum.qa.lab"
+               },
+               {
+                  "type": "apt-get",
+                  "phase": "latestBuild",
+                  "host": "apt.qa.lab"
+               }
+            ]
+         },
+         "testClusters": [
+            {
+               "id": "suse12",
+               "inheritsFrom": "esxi-10.10.99.70",
+               "name": "suse12.devops.lab",
+               "nodes": [
+                  {
+                     "username": "root",
+                     "password": "mapr",
+                     "host": "10.10.99.75",
+                     "operatingSystem": {
+                        "name": "SuSE",
+                        "version": "12"
+                     },
+                     "states": [],
+                     "serviceNames": [
+                        "GUI Installer"
+                     ]
+                  },
+                  {
+                     "username": "root",
+                     "password": "mapr",
+                     "host": "10.10.99.76",
+                     "operatingSystem": {
+                        "name": "SuSE",
+                        "version": "12"
+                     },
+                     "states": [],
+                     "serviceNames": []
+                  },
+                  {
+                     "username": "root",
+                     "password": "mapr",
+                     "host": "10.10.99.77",
+                     "operatingSystem": {
+                        "name": "SuSE",
+                        "version": "12"
+                     },
+                     "states": [],
+                     "serviceNames": []
+                  }
+               ]
+            },
+            {
+               "id": "anisha",
+               "type": "bare-metal",
+               "inheritsFrom": "base-cluster",
+               "nodes": [
+                  {
+                     "host": "10.10.101.105",
+                     "serviceNames": [
+                        "GUI Installer"
+                     ]
+                  },
+                  {
+                     "host": "10.10.101.106"
+                  }
+               ]
+            },
+            {
+               "id": "centos6.5",
+               "inheritsFrom": "esxi-10.10.99.70",
+               "name": "centos6-5.devops.lab",
+               "nodes": [
+                  {
+                     "name": "scale-72",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 3,
+                     "host": "10.10.99.72",
+                     "operatingSystem": {
+                        "name": "CentOS",
+                        "version": "6.5"
+                     },
+                     "states": [
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 1
+                        }
+                     ],
+                     "serviceNames": [
+                        "GUI Installer"
+                     ]
+                  },
+                  {
+                     "name": "scale-73",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 4,
+                     "host": "10.10.99.73",
+                     "operatingSystem": {
+                        "name": "CentOS",
+                        "version": "6.5"
+                     },
+                     "states": [
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 1
+                        }
+                     ],
+                     "serviceNames": []
+                  },
+                  {
+                     "name": "scale-74",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 4,
+                     "host": "10.10.99.74",
+                     "operatingSystem": {
+                        "name": "CentOS",
+                        "version": "6.5"
+                     },
+                     "states": [
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 1
+                        }
+                     ],
+                     "serviceNames": []
+                  }
+               ]
+            },
+            {
+               "id": "centos7.1",
+               "inheritsFrom": "esxi-10.10.30.174",
+               "name": "centos7-1.devops.lab",
+               "nodes": [
+                  {
+                     "name": "cent70_10.10.30.144",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 304,
+                     "host": "10.10.30.144",
+                     "operatingSystem": {
+                        "name": "CentOS",
+                        "version": "7.1"
+                     },
+                     "states": [
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 63
+                        },
+                        {
+                           "name": "baseImage",
+                           "snapshotId": 3
+                        }
+                     ],
+                     "serviceNames": [
+                        "GUI Installer"
+                     ]
+                  },
+                  {
+                     "name": "cent70_10.10.30.145",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 320,
+                     "host": "10.10.30.145",
+                     "operatingSystem": {
+                        "name": "CentOS",
+                        "version": "7.1"
+                     },
+                     "states": [
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 48
+                        },
+                        {
+                           "name": "baseImage",
+                           "snapshotId": 5
+                        }
+                     ],
+                     "serviceNames": []
+                  },
+                  {
+                     "name": "cent70_10.10.30.146",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 336,
+                     "host": "10.10.30.146",
+                     "operatingSystem": {
+                        "name": "CentOS",
+                        "version": "7.1"
+                     },
+                     "states": [
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 43
+                        },
+                        {
+                           "name": "baseImage",
+                           "snapshotId": 3
+                        }
+                     ],
+                     "serviceNames": []
+                  }
+               ]
+            },
+            {
+               "id": "ubuntu14",
+               "inheritsFrom": "esxi-10.10.30.174",
+               "name": "ubuntu14.devops.lab",
+               "nodes": [
+                  {
+                     "name": "u1404_10.10.30.147",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 352,
+                     "host": "10.10.30.147",
+                     "operatingSystem": {
+                        "name": "Ubuntu",
+                        "version": "14.04"
+                     },
+                     "states": [
+                        {
+                           "name": "baseImage",
+                           "snapshotId": 1
+                        },
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 9
+                        }
+                     ],
+                     "serviceNames": [
+                        "GUI Installer"
+                     ]
+                  },
+                  {
+                     "name": "u1404_10.10.30.148",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 368,
+                     "host": "10.10.30.148",
+                     "operatingSystem": {
+                        "name": "Ubuntu",
+                        "version": "14.04"
+                     },
+                     "states": [
+                        {
+                           "name": "baseImage",
+                           "snapshotId": 1
+                        },
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 9
+                        }
+                     ],
+                     "serviceNames": []
+                  },
+                  {
+                     "name": "u1404_10.10.30.149",
+                     "username": "root",
+                     "password": "mapr",
+                     "esxiId": 384,
+                     "host": "10.10.30.149",
+                     "operatingSystem": {
+                        "name": "Ubuntu",
+                        "version": "14.04"
+                     },
+                     "states": [
+                        {
+                           "name": "baseImage",
+                           "snapshotId": 1
+                        },
+                        {
+                           "name": "readyForInstallation",
+                           "snapshotId": 9
+                        }
+                     ],
+                     "serviceNames": []
+                  }
+               ]
+            },
+            {
+               "id": "esxi-10.10.30.174",
+               "inheritsFrom": "base-cluster",
+               "controller": {
+                  "type": "esxi",
+                  "host": "10.10.30.174",
+                  "username": "root",
+                  "password": "maprmapr"
+               }
+            },
+            {
+               "id": "esxi-10.10.99.70",
+               "inheritsFrom": "base-cluster",
+               "controller": {
+                  "type": "esxi",
+                  "host": "10.10.99.70",
+                  "username": "root",
+                  "password": "maprmapr"
+               }
+            },
+            {
+               "id": "esxi-10.10.1.100",
+               "inheritsFrom": "base-cluster",
+               "controller": {
+                  "type": "esxi",
+                  "host": "10.10.1.100",
+                  "username": "root",
+                  "password": "maprwins"
+               }
+            },
+            {
+               "id": "base-cluster",
+               "name": "base-cluster",
+               "licenseType": "M5",
+               "sshMethod": "PASSWORD",
+               "sshUsername": "root",
+               "sshPassword": "mapr",
+               "mapRPassword": "mapr",
+               "coreVersion": "5.1.0",
+               "location": "mapr",
+               "disks": [
+                  "/dev/sdb",
+                  "/dev/sdc"
+               ],
+               "services": [
+                  {
+                     "name": "mapr-asynchbase",
+                     "version": "1.7.0"
+                  },
+                  {
+                     "name": "mapr-collectd",
+                     "version": "5.5.1"
+                  },
+                  {
+                     "name": "mapr-collectd-fast-jmx",
+                     "version": "1.1"
+                  },
+                  {
+                     "name": "mapr-elasticsearch",
+                     "version": "2.2.0"
+                  },
+                  {
+                     "name": "mapr-fluentd",
+                     "version": "0.12.22"
+                  },
+                  {
+                     "name": "mapr-grafana",
+                     "version": "2.6.0"
+                  },
+                  {
+                     "name": "mapr-hbase",
+                     "version": "1.1"
+                  },
+                  {
+                     "name": "mapr-hbase-common",
+                     "version": "1.1"
+                  },
+                  {
+                     "name": "mapr-hbase-rest",
+                     "version": "1.1"
+                  },
+                  {
+                     "name": "mapr-hbasethrift",
+                     "version": "1.1"
+                  },
+                  {
+                     "name": "mapr-kibana",
+                     "version": "4.4.1"
+                  },
+                  {
+                     "name": "mapr-opentsdb",
+                     "version": "2.2.0"
+                  },
+                  {
+                     "name": "mapr-yarn",
+                     "version": "2.7.0"
+                  }
+               ]
+            }
+         ]
+      }
+   },
+   "versionGraph": null,
+   "versionGraphError": {},
+   "passed": false
+}

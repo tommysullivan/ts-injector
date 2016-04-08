@@ -115,7 +115,7 @@ under the "repositories" property. You may omit phase and the CLI will yield a l
 configured phases for your convenience.
 
 ID of Cluster Under Test should be the id of one of the clusters defined in configuration/config.json
-under the "testClusters" property. For example "tommy-cluster-1".
+under the "clusters" property. For example "tommy-cluster-1".
     
 ## Viewing Results
 
@@ -206,7 +206,7 @@ Tag Name                                         | Meaning
 -------------------------------------------------|---------------------------------------
 @SPYG-[n]                                        | relates to SPYG-[n] JIRA User Story
 @Manual                                          | Is a Manual Test
-@HealthCheck                                     | Health Check a live Spyglass Cluster
+@healthCheck                                     | Health Check a live Spyglass Cluster
 @WIP                                             | A Work in Progress (may yield bad results)
 
 ## Frequently Asked Questions
