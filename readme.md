@@ -151,7 +151,7 @@ Here is a snippet to do it - apply it before running server/configure.sh
 #### Example of simple manual pacakge installation (RPM):
   * Assuming core is already installed.
   * On the node where you plan to install ES & OpenTSDB
-    * yum install mapr-asynchbase-1.7* mapr-elasticsearch mapr-opentsdb-2.1* mapr-grafana mapr-kibana mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
+    * yum install mapr-asynchbase-1.7* mapr-elasticsearch mapr-opentsdb-2.2* mapr-grafana mapr-kibana mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
   * On the node where you only plan to install the collection agents (collectd and fluentd)
     * yum install mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
 
