@@ -85,6 +85,13 @@ Here is a snippet to do it - apply it before running server/configure.sh
         sed -i -e "s/regex=\$currentIP'\[\[:space:\],:\\\$\]'/local host/;s/ *\[\[ \$1 =~ \$regex \]\]/  local ip/;s/ *return \$?/  \[\[ -z \"\$1\" \]\] \&\& return 1\n  for host in \${1\/\/,\/ } \; do\n    ip=\$\(getIpAddress \${host%%:\*}\)\n    \[\[ \$ip = \$currentIP \]\]\n    \[ \$? -eq 0 \] \&\& return 0\n    shift 1\n  done\n  return 1\n  \#\# FixedCheckIPInList/;s/# ConstructMapRMonitoringConfFile/ ConstructMapRMonitoringConfFile/" $MAPR_HOME/server/configure.sh
     fi
 
+There is a bug in 5.1 where warden gets started before /opt/mapr/conf/conf.d got created, causing it not to notice files in /opt/mapr/conf/conf.d. Here is the patch to fix that:
+Here is a snippet to do it - apply it before running server/configure.sh
+    if grep -q 'mkdir -p \"\${INSTALL_DIR}/conf\"$' $MAPR_HOME/server/configure-common.sh ; then
+        cp $MAPR_HOME/server/configure-common.sh $MAPR_HOME/server/configure-common.sh.sv_fix > /dev/null 2>&1
+        sed -i -e 's/mkdir -p \${INSTALL_DIR}\/conf/mkdir -p \${INSTALL_DIR}\/conf\/conf\.d/' $MAPR_HOME/server/configure-common.sh
+    fi
+
 
 * mapr-collectd
    * installs collectd at MAPR_HOME/collectd/collectd-*
