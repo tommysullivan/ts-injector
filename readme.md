@@ -87,6 +87,8 @@ Here is a snippet to do it - apply it before running server/configure.sh
 
 There is a bug in 5.1 where warden gets started before /opt/mapr/conf/conf.d got created, causing it not to notice files in /opt/mapr/conf/conf.d. Here is the patch to fix that:
 Here is a snippet to do it - apply it before running server/configure.sh
+
+    # XXX Temporarily fix bug in configure-common.sh -only needed if you are using 5.1
     if grep -q 'mkdir -p \"\${INSTALL_DIR}/conf\"$' $MAPR_HOME/server/configure-common.sh ; then
         cp $MAPR_HOME/server/configure-common.sh $MAPR_HOME/server/configure-common.sh.sv_fix > /dev/null 2>&1
         sed -i -e 's/mkdir -p \${INSTALL_DIR}\/conf/mkdir -p \${INSTALL_DIR}\/conf\/conf\.d/' $MAPR_HOME/server/configure-common.sh
