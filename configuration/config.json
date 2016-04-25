@@ -494,7 +494,7 @@
     ]
   },
   "ssh": {
-    "writeCommandsToStdout": false
+    "writeCommandsToStdout": true
   },
   "testPortal": {
     "hostName": "testing.devops.lab",

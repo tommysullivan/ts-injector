@@ -127,10 +127,12 @@ export default class ClusterTesterCliHelper {
             this.console.log(`Saving result to ${portalInfo}`);
             this.rest.newRestClientAsPromised().put(fullUrl, putArgs)
                 .then(result => this.console.log('Success'))
-                .catch(error => this.cliHelper.logError(error));
+                .catch(error => this.cliHelper.logError(error))
+                .then(_=> this.process.exit(clusterTestResult.passed() ? 0 : 1));
         } else {
             var locationOfConfiguredPortalUrls = 'the configuration json file, under "clusterTesting.resultServers"';
             this.console.log(`Not saving result to portal. To do so, set ENV variable "portalId" to value in ${locationOfConfiguredPortalUrls}`);
+            this.process.exit(clusterTestResult.passed() ? 0 : 1);
         }
     }
 
