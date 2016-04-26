@@ -370,6 +370,219 @@
           "serviceNames": []
         }
       ]
+    },
+    {
+      "id": "stress",
+      "name": "stress.devops.lab",
+      "nodes": [
+        {
+          "name": "10.10.102.43",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.43",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver"
+          ]
+        },
+        {
+          "name": "10.10.102.44",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.44",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb"
+          ]
+        },
+        {
+          "name": "10.10.102.45",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.45",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb"
+          ]
+        },
+        {
+          "name": "10.10.102.46",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.46",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.47",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.47",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.48",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.48",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.49",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.49",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.50",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.50",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        },
+        {
+          "name": "10.10.102.51",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.51",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        },
+        {
+          "name": "10.10.102.52",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.52",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        }
+      ]
     }
   ],
   "cucumber": {
@@ -481,7 +694,7 @@
     ]
   },
   "rest": {
-    "debugHTTP": true
+    "debugHTTP": false
   },
   "spyglass": {
     "spyglassHealthCheckServiceNames": [
@@ -494,7 +707,7 @@
     ]
   },
   "ssh": {
-    "writeCommandsToStdout": true
+    "writeCommandsToStdout": false
   },
   "testPortal": {
     "hostName": "testing.devops.lab",
@@ -519,10 +732,6 @@
       { "name": "mapr-elasticsearch", "version": "2.2.0" },
       { "name": "mapr-fluentd", "version": "0.12.22" },
       { "name": "mapr-grafana", "version": "2.6.0" },
-      { "name": "mapr-hbase", "version": "1.1" },
-      { "name": "mapr-hbase-common", "version": "1.1" },
-      { "name": "mapr-hbase-rest", "version": "1.1" },
-      { "name": "mapr-hbasethrift", "version": "1.1" },
       { "name": "mapr-kibana", "version": "4.4.1" },
       { "name": "mapr-opentsdb", "version": "2.2.0" },
       { "name": "mapr-cldb", "version": "5.1.0" },
