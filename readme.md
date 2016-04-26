@@ -172,6 +172,8 @@ Here is a snippet to do it - apply it before running server/configure.sh
   * service mapr-zookeeper start
   * service mapr-warden start
   * configure.sh -R
+  * On ES node, we also need to load the template after installation and running configure.sh above
+  ** Run the following: /opt/mapr/elasticsearch/elasticsearch-2.2.0/bin/es_cluster_mgmt.sh -loadTemplate <list of ES nodes' IP / FQDN>
 
 #### Installer support
 **The lastest build of the installer (2/29/2016) does now do this for you. ESDB is for now hard coded to /opt/mapr/es_db.**
