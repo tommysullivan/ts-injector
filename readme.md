@@ -104,7 +104,7 @@ There is also additional changes required for certain feature to be apply to 5.1
     Deb: Any patch build on changeset 38076 and after can be used:
         Internal Deb repo for v5.1.0-EBF:
             http://apt.qa.lab/v5.1.0-patch-EBF/
-            Full URL to patch 38068: 
+            Full URL to patch 38076: 
                 http://apt.qa.lab/v5.1.0-patch-EBF/dists/binary/mapr-patch-5.1.0.37549.GA-38076.x86_64.deb
     
 * mapr-collectd
