@@ -94,7 +94,19 @@ Here is a snippet to do it - apply it before running server/configure.sh
         sed -i -e 's/mkdir -p \${INSTALL_DIR}\/conf/mkdir -p \${INSTALL_DIR}\/conf\/conf\.d/' $MAPR_HOME/server/configure-common.sh
     fi
 
+There is also additional changes required for certain feature to be apply to 5.1 GA build. Note: those changes are in default (5.2) build, if you are running Spyglass on 5.1, please apply the EBF-Patch on your 5.1 installation before installing Spyglass component and configuration.
 
+    RPM: Any patch build on changeset 38068 and after can be used:
+        Internal RPM repo for v5.1.0-EBF:
+            http://yum.qa.lab/v5.1.0-patch-EBF/
+            Full URL to patch 38068: 
+                http://yum.qa.lab/v5.1.0-patch-EBF/mapr-patch-5.1.0.37549.GA-38068.x86_64.rpm
+    Deb: Any patch build on changeset 38076 and after can be used:
+        Internal Deb repo for v5.1.0-EBF:
+            http://apt.qa.lab/v5.1.0-patch-EBF/
+            Full URL to patch 38068: 
+                http://apt.qa.lab/v5.1.0-patch-EBF/dists/binary/mapr-patch-5.1.0.37549.GA-38076.x86_64.deb
+    
 * mapr-collectd
    * installs collectd at MAPR_HOME/collectd/collectd-*
    * expected on each node
