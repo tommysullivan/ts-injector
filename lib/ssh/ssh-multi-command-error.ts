@@ -4,6 +4,7 @@ import IList from "../collections/i-list";
 
 export default class SSHMultiCommandError implements IError {
     public sshResults:IList<ISSHResult>;
+
     public get message():string {
         return this.toString();
     }
@@ -13,10 +14,7 @@ export default class SSHMultiCommandError implements IError {
     }
 
     toJSON():any {
-        return {
-            message: this.message,
-            sshResults: this.sshResults.toJSON()
-        }
+        return this.sshResults.toJSON();
     }
 
     toString():string {

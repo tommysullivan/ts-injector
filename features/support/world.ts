@@ -13,6 +13,7 @@ import '../step-definitions/mcs-steps';
 import '../step-definitions/open-tsdb-steps';
 import '../step-definitions/ssh-steps';
 import '../step-definitions/timing';
+import '../step-definitions/yarn-steps';
 
 var nodeframeworkLoader = new NodeFrameworkLoader();
 var $ = GLOBAL.$ = nodeframeworkLoader.loadFramework();

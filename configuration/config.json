@@ -109,9 +109,19 @@
           },
           "serviceNames": [
             "mapr-opentsdb",
-            "mapr-elasticsearch",
-            "mapr-webserver",
-            "mapr-installer"
+            "mapr-webserver"
+          ]
+        },
+        {
+          "host": "10.10.101.106",
+          "username": "root",
+          "password": "mapr",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.6"
+          },
+          "serviceNames": [
+            "mapr-elasticsearch"
           ]
         }
       ]

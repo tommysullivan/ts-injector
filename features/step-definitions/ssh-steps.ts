@@ -59,4 +59,24 @@ module.exports = function() {
         ).not.to.equal(-1);
     });
 
+    this.Given(/^the cluster is running YARN$/, function () {
+        var result = $.clusterUnderTest.nodes().first().newSSHSession()
+            .then(sshSession=>sshSession.executeCommand('/opt/mapr/bin/maprcli cluster mapreduce get -json'))
+            .then(commandResult=>{
+                var jsonString = commandResult.processResult().stdoutLines().join("");
+                var json = JSON.parse(jsonString);
+                return json.data[0].default_mode;
+            });
+        return $.expect(result).to.eventually.equal('yarn');
+    });
+
+    this.When(/^I run the following commands on any given node in the cluster:$/, function (commandsString) {
+        var commands = $.collections.newList<string>(commandsString.split("\n"));
+        commands = commands.map(c=>c.replace('{testRunGUID}', $.testRunGUID));
+        var result = $.clusterUnderTest.nodes().first().newSSHSession()
+            .then(sshSession=>sshSession.executeCommands(commands))
+            .then(commandResultSet=>this.lastCommandResultSet = commandResultSet);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
 }

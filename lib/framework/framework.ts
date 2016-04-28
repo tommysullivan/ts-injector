@@ -50,6 +50,7 @@ export default class Framework {
     public console:IConsole;
     public rest:Rest;
     public expressWrappers:ExpressWrappers;
+    private _testRunGUID:string;
 
     constructor(frameworkConfig:FrameworkConfiguration, process:IProcess, fileSystem:IFileSystem, uuidGenerator:IUUIDGenerator, collections:ICollections, errors:IErrors, promiseFactory:IPromiseFactory, typedJSON:ITypedJSON, sshAPI:ISSHAPI, nodeWrapperFactory:INodeWrapperFactory, chai:Chai.ChaiStatic, console:IConsole, rest:Rest, expressWrappers:ExpressWrappers) {
         this.frameworkConfig = frameworkConfig;
@@ -66,6 +67,7 @@ export default class Framework {
         this.console = console;
         this.rest = rest;
         this.expressWrappers = expressWrappers;
+        this._testRunGUID = this.uuidGenerator.v4();
     }
 
     get testPortal():TestPortal {
@@ -83,6 +85,10 @@ export default class Framework {
     
     get jira():Jira {
         return new Jira(this.frameworkConfig.jiraConfig, this.rest);
+    }
+
+    get testRunGUID():string {
+        return this._testRunGUID;
     }
 
     get openTSDB():OpenTSDB { return new OpenTSDB(this.rest, this.frameworkConfig.openTSDBConfig); }
