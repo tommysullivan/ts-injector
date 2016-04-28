@@ -4,10 +4,20 @@ Feature: Installation
   I use one of the following installation methods
 
   @SPYG-123 @Manual
-  Scenario: Manual Installation
+  Scenario: Manual Installation by following instructions on Spyglass Github
     When I follow the manual installation instructions located at "https://github.com/mapr/private-spyglass"
     Then it tells me how to install, configure and run the services required for Spyglass
     And it tells me how to discover the URLs for MCS, Kibana, Grafana, OpenTSDB and ElasticSearch
+
+  @wip
+  Scenario: Installation via Package Manager and Configure.sh
+    Given the cluster does not have MapR Installed
+    And I have set the repository locations on each node in the cluster
+    And I have updated the package manager
+    When I install the Core components
+    And I run configure.sh
+    And I wait "30" seconds
+    Then maprcli nodelist reports all nodes in the cluster are health
 
   @SPYG-282 @maprSetup
   Scenario: Download and Run GUI Installer
