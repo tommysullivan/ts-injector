@@ -180,7 +180,7 @@ There is also additional changes required for certain feature to be apply to 5.1
   * The configuration happens in two stages. 
   * Stage1 - initial configuration that can be done without core running
   * Stage2 - configuration that can only happen once core is up
-  * configure.sh -C 10.10.10.81 -Z 10.10.10.81,10.10.10.82 -OT 10.10.10.81 -ES 10.10.10.82 -ESDB /opt/mapr/es (-ESDB on ES server nodes only) - Replace the IPs for ZK, OpenTSDB and ElasticSearch with your cluster's actual IP addresses.
+  * configure.sh -C 10.10.10.81 -Z 10.10.10.81,10.10.10.82 -N <clusterName> -OT 10.10.10.81 -ES 10.10.10.82 -ESDB /opt/mapr/es (-ESDB on ES server nodes only) - Replace the IPs for ZK, OpenTSDB and ElasticSearch with your cluster's actual IP addresses.
   * service mapr-zookeeper start
   * service mapr-warden start
   * configure.sh -R
