@@ -20,6 +20,10 @@ export default class List<T> implements IList<T> {
         return !this.isEmpty;
     }
 
+    get last():T {
+        return this.itemAt(this.length-1);
+    }
+
     get isEmpty():boolean {
         return this.listItems.length == 0;
     }

@@ -25,6 +25,7 @@ interface IList<T> {
     flatMap<T2>(mapFunction:(originalItem:T) => IList<T2>):IList<T2>;
     notEmpty():boolean;
     everythingAfterIndex(index:number):IList<T>;
+    last:T;
     isEmpty:boolean;
     length:number;
     hasMany:boolean;

@@ -43,5 +43,24 @@ module.exports = function () {
         var sshOutput = sshResult.processResult().stdoutLines().join('');
         $.expect(sshOutput.indexOf('To continue installing MapR software, open the following URL in a web browser')).not.to.equal(-1);
     });
+    this.Given(/^the cluster is running YARN$/, function () {
+        var result = $.clusterUnderTest.nodes().first().newSSHSession()
+            .then(function (sshSession) { return sshSession.executeCommand('/opt/mapr/bin/maprcli cluster mapreduce get -json'); })
+            .then(function (commandResult) {
+            var jsonString = commandResult.processResult().stdoutLines().join("");
+            var json = JSON.parse(jsonString);
+            return json.data[0].default_mode;
+        });
+        return $.expect(result).to.eventually.equal('yarn');
+    });
+    this.When(/^I run the following commands on any given node in the cluster:$/, function (commandsString) {
+        var _this = this;
+        var commands = $.collections.newList(commandsString.split("\n"));
+        commands = commands.map(function (c) { return c.replace('{testRunGUID}', $.testRunGUID); });
+        var result = $.clusterUnderTest.nodes().first().newSSHSession()
+            .then(function (sshSession) { return sshSession.executeCommands(commands); })
+            .then(function (commandResultSet) { return _this.lastCommandResultSet = commandResultSet; });
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=ssh-steps.js.map

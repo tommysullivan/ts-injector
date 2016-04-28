@@ -23,7 +23,7 @@ Feature: MCS
       | kibana |
       | grafana |
 
-  @healthCheck @SPYG-126 @wip
+  @healthCheck @SPYG-126
   Scenario: MCS 3rd Party UI Links
     Given I have installed Spyglass
     And I have an authenticated MCS Rest Client Session
