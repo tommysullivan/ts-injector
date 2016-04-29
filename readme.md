@@ -89,9 +89,9 @@ There is a bug in 5.1 where warden gets started before /opt/mapr/conf/conf.d got
 Here is a snippet to do it - apply it before running server/configure.sh
 
     # XXX Temporarily fix bug in configure-common.sh -only needed if you are using 5.1
-    if grep -q 'mkdir -p \"\${INSTALL_DIR}/conf\"$' $MAPR_HOME/server/configure-common.sh ; then
+     if grep -q 'mkdir -p \"\${INSTALL_DIR}/conf\"$' $MAPR_HOME/server/configure-common.sh ; then
         cp $MAPR_HOME/server/configure-common.sh $MAPR_HOME/server/configure-common.sh.sv_fix > /dev/null 2>&1
-        sed -i -e 's/mkdir -p \${INSTALL_DIR}\/conf/mkdir -p \${INSTALL_DIR}\/conf\/conf\.d/' $MAPR_HOME/server/configure-common.sh
+        sed -i -e 's/mkdir -p \"\${INSTALL_DIR}\/conf\"/mkdir -p \"\${INSTALL_DIR}\/conf\/conf\.d\"/' $MAPR_HOME/server/configure-common.sh
     fi
 
 There is also additional changes required for certain feature to be apply to 5.1 GA build. Note: those changes are in default (5.2) build, if you are running Spyglass on 5.1, please apply the EBF-Patch on your 5.1 installation before installing Spyglass component and configuration.
