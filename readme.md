@@ -21,6 +21,7 @@ node and application health, performance, stability and scalability.
 * [Releases](#releases)
 * [Risks](#risks)
 * [Questions](#questions)
+* [External Documentation](https://docs.google.com/a/maprtech.com/document/d/13iEK0HuJFhWVkRv9EuJ2K5aKiDXIIKYmYWRfss4FBP0/edit?usp=sharing)
 
 ## Intent of this Repository
 
