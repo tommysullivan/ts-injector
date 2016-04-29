@@ -1,5 +1,5 @@
 {
-  "id": 4,
+  "id": 3,
   "title": "Node Dashboard",
   "originalTitle": "Node Dashboard",
   "tags": [
@@ -39,7 +39,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 6,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -48,15 +48,16 @@
           },
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.node.cpu.percent_idle",
+              "metric": "cpu.percent",
               "refId": "A",
               "shouldComputeRate": false,
               "tags": {
+                "cpu_class": "idle",
                 "fqdn": "$fqdn"
               },
               "target": ""
@@ -98,7 +99,7 @@
           "postfixFontSize": "20%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 6,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -107,21 +108,80 @@
           },
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "memory.memory",
               "refId": "A",
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn",
-                "type_instance": "free"
+                "memory_type": "free"
+              }
+            }
+          ],
+          "thresholds": "500000000,100000000,1000000000",
+          "title": "Memory Free",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 24,
+          "interval": null,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "20%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "aggregator": "avg",
+              "currentTagKey": "",
+              "currentTagValue": "",
+              "downsampleAggregator": "avg",
+              "errors": {},
+              "metric": "load.load.shortterm",
+              "refId": "A",
+              "shouldComputeRate": false,
+              "tags": {
+                "fqdn": "$fqdn"
               }
             }
           ],
           "thresholds": "1000000000,500000000,2000000000",
-          "title": "Memory Free",
+          "title": "Load",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -184,77 +244,82 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Idle",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "downsampleInterval": "",
               "errors": {},
-              "metric": "mapr.node.cpu.percent_idle",
+              "metric": "cpu.percent",
               "refId": "A",
               "shouldComputeRate": false,
               "tags": {
+                "cpu_class": "idle",
                 "fqdn": "$fqdn"
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Nice",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.node.cpu.percent_nice",
+              "metric": "cpu.percent",
               "refId": "B",
               "shouldComputeRate": false,
               "tags": {
+                "cpu_class": "nice",
                 "fqdn": "$fqdn"
               },
               "target": ""
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "System",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.node.cpu.percent_system",
+              "metric": "cpu.percent",
               "refId": "C",
               "shouldComputeRate": false,
               "tags": {
+                "cpu_class": "system",
                 "fqdn": "$fqdn"
               },
               "target": ""
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "User",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "downsampleInterval": "",
               "errors": {},
-              "metric": "mapr.node.cpu.percent_user",
+              "metric": "cpu.percent",
               "refId": "D",
               "shouldComputeRate": false,
               "tags": {
+                "cpu_class": "user",
                 "fqdn": "$fqdn"
               },
               "target": ""
             },
             {
-              "aggregator": "sum",
-              "alias": "Busy",
+              "aggregator": "avg",
+              "alias": "Wait",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.node.cpu.percent_busy",
+              "metric": "cpu.percent",
               "refId": "E",
               "shouldComputeRate": false,
               "tags": {
+                "cpu_class": "wait",
                 "fqdn": "$fqdn"
               },
               "target": ""
@@ -276,7 +341,10 @@
           ]
         },
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "In": "#BA43A9",
+            "Out": "#629E51"
+          },
           "bars": false,
           "datasource": null,
           "editable": true,
@@ -320,20 +388,32 @@
             {
               "aggregator": "avg",
               "alias": "In",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "interface.if_octets.rx",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn",
+                "interface_name": "eth0"
+              }
             },
             {
               "aggregator": "avg",
               "alias": "Out",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "interface.if_octets.tx",
               "refId": "B",
               "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn",
+                "interface_name": "eth0"
+              },
               "target": ""
             }
           ],
@@ -406,7 +486,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Memory free",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -417,11 +497,11 @@
               "refId": "A",
               "tags": {
                 "fqdn": "$fqdn",
-                "type_instance": "free"
+                "memory_type": "free"
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Memory Used",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -432,7 +512,7 @@
               "refId": "B",
               "tags": {
                 "fqdn": "$fqdn",
-                "type_instance": "used"
+                "memory_type": "used"
               },
               "target": ""
             }
@@ -506,7 +586,7 @@
               "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn",
-                "type_instance": "used"
+                "swap_type": "used"
               }
             },
             {
@@ -522,7 +602,7 @@
               "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn",
-                "type_instance": "free"
+                "swap_type": "free"
               },
               "target": ""
             }
@@ -538,7 +618,7 @@
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
-            "kbytes",
+            "bytes",
             "short"
           ]
         }
@@ -593,7 +673,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Disk Reads",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -608,7 +688,7 @@
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Disk Writes",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -682,23 +762,33 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Disk Read Per Sec",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "downsampleInterval": "",
               "errors": {},
               "metric": "disk.disk_time.read",
               "refId": "A",
-              "shouldComputeRate": true
+              "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Disk Write Per Sec",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "disk.disk_time.write",
               "refId": "B",
               "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             }
           ],
@@ -768,20 +858,30 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.fs.local_writes",
               "refId": "A",
-              "shouldComputeRate": false
+              "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn"
+              }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.fs.local_reads",
               "refId": "B",
-              "shouldComputeRate": false,
+              "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             }
           ],
@@ -843,7 +943,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Write",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -851,19 +951,24 @@
               "errors": {},
               "metric": "mapr.fs.local_writebytes",
               "refId": "A",
-              "shouldComputeRate": false,
+              "shouldComputeRate": true,
               "tags": {
                 "fqdn": "$fqdn"
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Read",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
               "metric": "mapr.fs.local_readbytes",
               "refId": "B",
-              "shouldComputeRate": false,
+              "shouldComputeRate": true,
+              "tags": {
+                "fqdn": "$fqdn"
+              },
               "target": ""
             }
           ],
@@ -901,7 +1006,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -934,7 +1039,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Gets",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -948,7 +1053,7 @@
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Puts",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -963,7 +1068,7 @@
               "target": ""
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Scans",
               "currentTagKey": "",
               "currentTagValue": "",
@@ -1003,7 +1108,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -1114,7 +1219,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -1147,26 +1252,26 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Allocated",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.nodemanager.allocated_GB",
+              "metric": "mapr.nm.allocated_GB",
               "refId": "A",
               "tags": {
                 "fqdn": "$fqdn"
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Available",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.nodemanager.available_GB",
+              "metric": "mapr.nm.available_GB",
               "refId": "B",
               "tags": {
                 "fqdn": "$fqdn"
@@ -1199,7 +1304,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -1232,14 +1337,27 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Allocated",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.nodemanager.allocated_vcores",
+              "metric": "mapr.nm.allocated_vcores",
               "refId": "A",
+              "tags": {
+                "fqdn": "$fqdn"
+              }
+            },
+            {
+              "aggregator": "avg",
+              "alias": "Available",
+              "currentTagKey": "",
+              "currentTagValue": "",
+              "downsampleAggregator": "avg",
+              "errors": {},
+              "metric": "mapr.nm.available_vcores",
+              "refId": "B",
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -1270,7 +1388,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -1303,14 +1421,15 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Allocated",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.nodemanager.allocated_containers",
+              "metric": "mapr.nm.allocated_containers",
               "refId": "A",
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -1337,7 +1456,7 @@
     }
   ],
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -1381,16 +1500,11 @@
           "value": "spy-98.qa.lab"
         },
         "datasource": null,
-        "includeAll": true,
+        "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
         "name": "fqdn",
         "options": [
-          {
-            "selected": false,
-            "text": "All",
-            "value": "{spy-96.qa.lab,spy-97.qa.lab,spy-98.qa.lab}"
-          },
           {
             "selected": false,
             "text": "spy-96.qa.lab",
@@ -1417,8 +1531,8 @@
     "list": []
   },
   "refresh": "5m",
-  "schemaVersion": 7,
-  "version": 3,
+  "schemaVersion": 8,
+  "version": 23,
   "links": [
     {
       "asDropdown": true,

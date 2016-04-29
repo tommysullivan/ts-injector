@@ -1,5 +1,5 @@
 {
-  "id": 6,
+  "id": 4,
   "title": "Volume Dashboard",
   "originalTitle": "Volume Dashboard",
   "tags": [
@@ -30,7 +30,7 @@
           "error": false,
           "format": "mbytes",
           "height": "1",
-          "id": 3,
+          "id": 4,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -40,7 +40,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 4.110112028301887,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -49,21 +49,20 @@
           },
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.volume.totalused",
+              "metric": "mapr.volume.logical_used",
               "refId": "A",
-              "shouldComputeRate": false,
               "tags": {
-                "type_instance": "$VolumeName"
+                "volume_name": "$VolumeName"
               }
             }
           ],
           "thresholds": "0,0,0",
-          "title": "Size",
+          "title": "Data Size",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -88,8 +87,8 @@
           "editable": true,
           "error": false,
           "format": "mbytes",
-          "height": "4",
-          "id": 4,
+          "height": "3",
+          "id": 3,
           "interval": null,
           "links": [],
           "maxDataPoints": 100,
@@ -99,7 +98,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 4.112323113207547,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -108,20 +107,21 @@
           },
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.volume.logicalUsed",
+              "metric": "mapr.volume.total_used",
               "refId": "A",
+              "shouldComputeRate": false,
               "tags": {
-                "type_instance": "$VolumeName"
+                "volume_name": "$VolumeName"
               }
             }
           ],
           "thresholds": "0,0,0",
-          "title": "Logical Size",
+          "title": "Volume Size",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -146,7 +146,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "6",
+          "height": "1",
           "id": 5,
           "interval": null,
           "links": [],
@@ -157,7 +157,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 3.7775648584905657,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -166,15 +166,15 @@
           },
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.volume.snapshotused",
+              "metric": "mapr.volume.snapshot_used",
               "refId": "A",
               "tags": {
-                "type_instance": "$VolumeName"
+                "volume_name": "$VolumeName"
               }
             }
           ],
@@ -193,7 +193,7 @@
         }
       ],
       "showTitle": true,
-      "title": "Volume Metrics"
+      "title": "Individual Volume Metrics"
     },
     {
       "collapse": false,
@@ -201,7 +201,9 @@
       "height": "250px",
       "panels": [
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "Quota": "#E24D42"
+          },
           "bars": false,
           "datasource": null,
           "editable": true,
@@ -210,10 +212,10 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
-            "rightMin": null,
+            "rightMin": 0,
             "threshold1": 500,
             "threshold1Color": "rgba(216, 72, 27, 0.27)",
             "threshold2": null,
@@ -250,65 +252,48 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Logical",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.volume.logicalUsed",
+              "metric": "mapr.volume.logical_used",
               "refId": "A",
               "tags": {
-                "type_instance": "$VolumeName"
+                "volume_name": "$VolumeName"
               },
               "target": ""
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Total",
-              "currentTagKey": "",
-              "currentTagValue": "",
+              "currentTagKey": "volume_name",
+              "currentTagValue": "$volume_name",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.volume.totalused",
+              "metric": "mapr.volume.total_used",
               "refId": "B",
-              "tags": {
-                "type_instance": "$VolumeName"
-              },
+              "tags": {},
               "target": ""
             },
             {
-              "aggregator": "sum",
-              "alias": "Used",
+              "aggregator": "avg",
+              "alias": "Quota",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.volume.used",
-              "refId": "C",
+              "metric": "mapr.volume.quota",
+              "refId": "E",
               "tags": {
-                "type_instance": "$VolumeName"
-              },
-              "target": ""
-            },
-            {
-              "aggregator": "sum",
-              "alias": "Snapshot",
-              "currentTagKey": "",
-              "currentTagValue": "",
-              "downsampleAggregator": "avg",
-              "errors": {},
-              "metric": "mapr.volume.snapshotused",
-              "refId": "D",
-              "tags": {
-                "type_instance": "$VolumeName"
-              },
-              "target": ""
+                "volume_name": "$VolumeName"
+              }
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Size",
+          "title": "Usage",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -363,24 +348,20 @@
   "templating": {
     "list": [
       {
-        "allFormat": "glob",
+        "allFormat": "regex values",
         "current": {
-          "text": "mapr.apps",
-          "value": "mapr.apps"
+          "text": "mapr.cluster.root",
+          "value": "mapr.cluster.root"
         },
         "datasource": null,
-        "includeAll": true,
-        "multi": true,
-        "multiFormat": "glob",
+        "hideLabel": false,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "regex values",
         "name": "VolumeName",
         "options": [
           {
             "selected": false,
-            "text": "All",
-            "value": "{mapr.apps,mapr.cldb.internal,mapr.cluster.root,mapr.configuration,mapr.hbase,mapr.metrics,mapr.opt,mapr.resourcemanager.volume,mapr.spy-96.qa.lab.local.audit,mapr.spy-96.qa.lab.local.logs,mapr.spy-96.qa.lab.local.mapred,mapr.spy-96.qa.lab.local.metrics,mapr.spy-97.qa.lab.local.audit,mapr.spy-97.qa.lab.local.logs,mapr.spy-97.qa.lab.local.mapred,mapr.spy-97.qa.lab.local.metrics,mapr.spy-98.qa.lab.local.audit,mapr.spy-98.qa.lab.local.logs,mapr.spy-98.qa.lab.local.mapred,mapr.spy-98.qa.lab.local.metrics,mapr.tmp,mapr.var,mapr_home,users}"
-          },
-          {
-            "selected": true,
             "text": "mapr.apps",
             "value": "mapr.apps"
           },
@@ -390,7 +371,7 @@
             "value": "mapr.cldb.internal"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "mapr.cluster.root",
             "value": "mapr.cluster.root"
           },
@@ -496,25 +477,36 @@
           },
           {
             "selected": false,
+            "text": "prashant",
+            "value": "prashant"
+          },
+          {
+            "selected": false,
+            "text": "trichmond",
+            "value": "trichmond"
+          },
+          {
+            "selected": false,
             "text": "users",
             "value": "users"
           }
         ],
-        "query": "tag_values(mapr.volume.logicalUsed,type_instance)",
-        "refresh_on_load": false,
+        "query": "tag_values(mapr.volume.logical_used,volume_name)",
+        "refresh": false,
         "regex": "",
-        "tagValuesQuery": "",
+        "tagValuesQuery": "volume_name",
+        "tags": [],
         "tagsQuery": "",
         "type": "query",
-        "useTags": false
+        "useTags": true
       }
     ]
   },
   "annotations": {
     "list": []
   },
-  "schemaVersion": 7,
-  "version": 1,
+  "schemaVersion": 8,
+  "version": 15,
   "links": [
     {
       "asDropdown": true,

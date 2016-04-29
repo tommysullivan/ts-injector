@@ -89,7 +89,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "3",
+          "height": "1",
           "id": 3,
           "interval": null,
           "links": [],
@@ -110,13 +110,14 @@
           "targets": [
             {
               "aggregator": "sum",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
+              "isCounter": true,
               "metric": "mapr.db.valuecache_lookups",
               "refId": "A",
               "shouldComputeRate": true,
-              "currentTagKey": "",
-              "currentTagValue": "",
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -148,7 +149,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "3",
+          "height": "1",
           "id": 4,
           "interval": null,
           "links": [],
@@ -159,7 +160,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 3.744149414941493,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -169,21 +170,22 @@
           "targets": [
             {
               "aggregator": "sum",
+              "currentTagKey": "",
+              "currentTagValue": "",
               "downsampleAggregator": "avg",
               "downsampleInterval": "",
               "errors": {},
-              "metric": "mapr.db.scan_rpcrows",
+              "isCounter": false,
+              "metric": "mapr.db.valuecache_usedSize",
               "refId": "A",
-              "shouldComputeRate": true,
-              "currentTagKey": "",
-              "currentTagValue": "",
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               }
             }
           ],
           "thresholds": "",
-          "title": "Row Scans",
+          "title": "Cache Used",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -431,7 +433,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -518,7 +520,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -569,14 +571,14 @@
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
+              "downsampleInterval": "",
               "errors": {},
               "metric": "mapr.db.put_currpcs",
               "refId": "B",
               "tags": {
                 "fqdn": "$fqdn"
               },
-              "target": "",
-              "downsampleInterval": ""
+              "target": ""
             },
             {
               "aggregator": "sum",
@@ -650,45 +652,45 @@
   "templating": {
     "list": [
       {
-        "type": "query",
+        "allFormat": "glob",
+        "current": {
+          "tags": [],
+          "text": "spy-96.qa.lab",
+          "value": "spy-96.qa.lab"
+        },
         "datasource": null,
-        "refresh_on_load": false,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
         "name": "fqdn",
         "options": [
           {
+            "selected": true,
             "text": "spy-96.qa.lab",
-            "value": "spy-96.qa.lab",
-            "selected": true
+            "value": "spy-96.qa.lab"
           },
           {
+            "selected": false,
             "text": "spy-97.qa.lab",
-            "value": "spy-97.qa.lab",
-            "selected": false
+            "value": "spy-97.qa.lab"
           },
           {
+            "selected": false,
             "text": "spy-98.qa.lab",
-            "value": "spy-98.qa.lab",
-            "selected": false
+            "value": "spy-98.qa.lab"
           }
         ],
-        "includeAll": false,
-        "allFormat": "glob",
-        "multi": false,
-        "multiFormat": "glob",
         "query": "tag_values(cpu.percent, fqdn)",
-        "current": {
-          "text": "spy-96.qa.lab",
-          "value": "spy-96.qa.lab",
-          "tags": []
-        }
+        "refresh_on_load": false,
+        "type": "query"
       }
     ]
   },
   "annotations": {
     "list": []
   },
-  "schemaVersion": 7,
-  "version": 5,
+  "schemaVersion": 8,
+  "version": 3,
   "links": [
     {
       "asDropdown": true,

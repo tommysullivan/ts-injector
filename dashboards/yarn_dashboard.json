@@ -1,5 +1,5 @@
 {
-  "id": 1,
+  "id": 5,
   "title": "YARN dashboard",
   "originalTitle": "YARN dashboard",
   "tags": [
@@ -54,12 +54,10 @@
               "downsampleAggregator": "avg",
               "errors": {},
               "isCounter": false,
-              "metric": "mapr.resourcemanager.active_users",
+              "metric": "mapr.rm.active_users",
               "refId": "A",
               "shouldComputeRate": false,
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -112,11 +110,9 @@
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.pending_containers",
+              "metric": "mapr.rm.pending_containers",
               "refId": "A",
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -169,11 +165,9 @@
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.allocated_vcores",
+              "metric": "mapr.rm.allocated_vcores",
               "refId": "A",
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -226,11 +220,9 @@
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.active_applications",
+              "metric": "mapr.rm.active_applications",
               "refId": "A",
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -283,11 +275,9 @@
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.apps_completed",
+              "metric": "mapr.rm.apps_completed",
               "refId": "A",
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -340,11 +330,9 @@
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.apps_failed",
+              "metric": "mapr.rm.apps_failed",
               "refId": "A",
-              "tags": {
-                "fqdn": "$fqdn"
-              }
+              "tags": {}
             }
           ],
           "thresholds": "",
@@ -378,7 +366,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -411,31 +399,29 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Allocated",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.allocated_MB",
+              "metric": "mapr.rm.allocated_MB",
               "refId": "A",
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "default-queue"
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "avg",
               "alias": "Available",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.available_MB",
+              "metric": "mapr.rm.available_MB",
               "refId": "B",
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "default-queue"
               }
             }
           ],
@@ -464,7 +450,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -497,34 +483,33 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "count",
               "alias": "Released",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
+              "downsampleInterval": "",
               "errors": {},
-              "metric": "mapr.resourcemanager.aggregate_containers_released",
+              "metric": "mapr.rm.aggregate_containers_released",
               "refId": "A",
-              "shouldComputeRate": false,
+              "shouldComputeRate": true,
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "default-queue"
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "count",
               "alias": "Allocated",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "downsampleInterval": "",
               "errors": {},
-              "metric": "mapr.resourcemanager.aggregate_containers_allocated",
+              "metric": "mapr.rm.aggregate_containers_allocated",
               "refId": "B",
               "shouldComputeRate": false,
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "default-queue"
               },
               "target": ""
             }
@@ -554,7 +539,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -587,31 +572,29 @@
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
+              "aggregator": "count",
               "alias": "Allocated",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.allocated_vcores",
+              "metric": "mapr.rm.allocated_vcores",
               "refId": "A",
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "default-queue"
               }
             },
             {
-              "aggregator": "sum",
+              "aggregator": "count",
               "alias": "Available",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.available_vcores",
+              "metric": "mapr.rm.available_vcores",
               "refId": "B",
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "default-queue"
               },
               "target": ""
             }
@@ -641,7 +624,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -669,98 +652,24 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 4,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "aggregator": "sum",
-              "alias": "Completed",
+              "aggregator": "count",
+              "alias": "Pending",
               "currentTagKey": "",
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.apps_completed",
+              "metric": "mapr.rm_queue.apps_pending",
               "refId": "A",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "root.default"
               }
             },
-            {
-              "aggregator": "sum",
-              "alias": "Failed",
-              "currentTagKey": "",
-              "currentTagValue": "",
-              "downsampleAggregator": "avg",
-              "errors": {},
-              "metric": "mapr.resourcemanager.apps_failed",
-              "refId": "B",
-              "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
-              }
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Applications Completed/Failed",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 18,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
             {
               "aggregator": "sum",
               "alias": "Running",
@@ -768,90 +677,17 @@
               "currentTagValue": "",
               "downsampleAggregator": "avg",
               "errors": {},
-              "metric": "mapr.resourcemanager.apps_running",
-              "refId": "A",
+              "metric": "mapr.rm_queue.apps_running",
+              "refId": "B",
+              "shouldComputeRate": false,
               "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
+                "rm_queue": "root.default"
               }
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Applications Running",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 19,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "aggregator": "sum",
-              "alias": "Completed",
-              "currentTagKey": "",
-              "currentTagValue": "",
-              "downsampleAggregator": "avg",
-              "errors": {},
-              "metric": "mapr.resourcemanager.apps_completed",
-              "refId": "A",
-              "shouldComputeRate": true,
-              "tags": {
-                "fqdn": "$fqdn",
-                "type_instance": "default-queue"
-              }
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Applications Completed",
+          "title": "Applications Running/Pending",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -870,7 +706,7 @@
     }
   ],
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -905,52 +741,14 @@
     "type": "timepicker"
   },
   "templating": {
-    "list": [
-      {
-        "allFormat": "glob",
-        "current": {
-          "tags": [],
-          "text": "spy-97.qa.lab",
-          "value": "spy-97.qa.lab"
-        },
-        "datasource": null,
-        "includeAll": true,
-        "multi": false,
-        "multiFormat": "glob",
-        "name": "fqdn",
-        "options": [
-          {
-            "selected": false,
-            "text": "All",
-            "value": "{spy-96.qa.lab,spy-97.qa.lab,spy-98.qa.lab}"
-          },
-          {
-            "selected": false,
-            "text": "spy-96.qa.lab",
-            "value": "spy-96.qa.lab"
-          },
-          {
-            "selected": true,
-            "text": "spy-97.qa.lab",
-            "value": "spy-97.qa.lab"
-          },
-          {
-            "selected": false,
-            "text": "spy-98.qa.lab",
-            "value": "spy-98.qa.lab"
-          }
-        ],
-        "query": "tag_values(cpu.percent,fqdn)",
-        "refresh_on_load": false,
-        "type": "query"
-      }
-    ]
+    "list": []
   },
   "annotations": {
     "list": []
   },
-  "schemaVersion": 7,
-  "version": 2,
+  "refresh": "5m",
+  "schemaVersion": 8,
+  "version": 13,
   "links": [
     {
       "asDropdown": true,
