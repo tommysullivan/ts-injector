@@ -4,6 +4,7 @@ import IFileStream from "./i-file-stream";
 import IFileStats from "./i-file-stats";
 
 interface IFileSystem {
+    readFileSync(filePath:string):string;
     readJSONFileSync(filePath:string):Object;
     readJSONObjectFileSync(filePath:string):IJSONObject;
     readJSONArrayFileSync(filePath:string):IList<IJSONObject>;

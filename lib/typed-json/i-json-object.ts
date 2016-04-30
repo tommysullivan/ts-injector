@@ -7,6 +7,7 @@ interface IJSONObject {
     setProperty<T>(propertyName:string, value:T):IJSONObject;
     getProperty<T>(propertyName:string):T;
     stringPropertyNamed(propertyName:string):string;
+    hasPropertyNamed(propertyName:string):boolean;
     numericPropertyNamed(propertyName:string):number;
     booleanPropertyNamed(propertyName:string):boolean;
     toRawJSON():any;

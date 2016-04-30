@@ -382,8 +382,8 @@
       ]
     },
     {
-      "id": "stress",
-      "name": "stress.devops.lab",
+      "id": "stress-ubuntu",
+      "name": "stress-ubuntu.devops.lab",
       "nodes": [
         {
           "name": "10.10.102.43",
@@ -593,6 +593,219 @@
           ]
         }
       ]
+    },
+    {
+      "id": "stress-centos",
+      "name": "stress-centos.devops.lab",
+      "nodes": [
+        {
+          "name": "10.10.102.33",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.33",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver"
+          ]
+        },
+        {
+          "name": "10.10.102.34",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.34",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb"
+          ]
+        },
+        {
+          "name": "10.10.102.35",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.35",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb"
+          ]
+        },
+        {
+          "name": "10.10.102.36",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.36",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.37",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.37",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.38",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.38",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.39",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.39",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
+        },
+        {
+          "name": "10.10.102.40",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.40",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        },
+        {
+          "name": "10.10.102.41",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.41",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        },
+        {
+          "name": "10.10.102.42",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.102.42",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        }
+      ]
     }
   ],
   "cucumber": {
@@ -704,7 +917,7 @@
     ]
   },
   "rest": {
-    "debugHTTP": false
+    "debugHTTP": true
   },
   "spyglass": {
     "spyglassHealthCheckServiceNames": [
@@ -717,7 +930,7 @@
     ]
   },
   "ssh": {
-    "writeCommandsToStdout": false
+    "writeCommandsToStdout": true
   },
   "testPortal": {
     "hostName": "testing.devops.lab",
@@ -736,20 +949,27 @@
   },
   "versioning": {
     "serviceSet": [
-      { "name": "mapr-asynchbase", "version": "1.7.0" },
-      { "name": "mapr-collectd", "version": "5.5.1" },
-      { "name": "mapr-collectd-fast-jmx", "version": "1.1" },
-      { "name": "mapr-elasticsearch", "version": "2.2.0" },
-      { "name": "mapr-fluentd", "version": "0.12.22" },
-      { "name": "mapr-grafana", "version": "2.6.0" },
-      { "name": "mapr-kibana", "version": "4.4.1" },
-      { "name": "mapr-opentsdb", "version": "2.2.0" },
-      { "name": "mapr-cldb", "version": "5.1.0" },
-      { "name": "mapr-core", "version": "5.1.0" },
-      { "name": "mapr-zookeeper", "version": "5.1.0" },
-      { "name": "mapr-nfs", "version": "5.1.0" },
-      { "name": "mapr-webserver", "version": "5.1.0" },
-      { "name": "mapr-fileserver", "version": "5.1.0" }
+      { "name": "mapr-asynchbase", "version": "1.7.0", "core": false, "healthCheckable": false },
+      { "name": "mapr-collectd", "version": "5.5.1", "core": false , "healthCheckable": true },
+      { "name": "mapr-collectd-fast-jmx", "version": "1.1" , "core": false, "healthCheckable": false },
+      { "name": "mapr-elasticsearch", "version": "2.2.0" , "core": false, "healthCheckable": true },
+      { "name": "mapr-fluentd", "version": "0.12.22" , "core": false, "healthCheckable": true },
+      { "name": "mapr-grafana", "version": "2.6.0" , "core": false, "healthCheckable": true },
+      { "name": "mapr-hbase", "version": "1.1" , "core": true, "healthCheckable": false },
+      { "name": "mapr-hbase-common", "version": "1.1" , "core": true, "healthCheckable": false },
+      { "name": "mapr-hbase-rest", "version": "1.1" , "core": true, "healthCheckable": true },
+      { "name": "mapr-hbasethrift", "version": "1.1" , "core": true, "healthCheckable": true },
+      { "name": "mapr-kibana", "version": "4.4.1" , "core": false, "healthCheckable": true },
+      { "name": "mapr-opentsdb", "version": "2.2.0" , "core": false, "healthCheckable": true },
+      { "name": "mapr-cldb", "version": "5.1.0" , "core": true , "healthCheckable": true },
+      { "name": "mapr-core", "version": "5.1.0" , "core": true, "healthCheckable": false },
+      { "name": "mapr-zookeeper", "version": "5.1.0" , "core": true, "healthCheckable": false },
+      { "name": "mapr-nfs", "version": "5.1.0" , "core": true , "healthCheckable": false },
+      { "name": "mapr-webserver", "version": "5.1.0" , "core": true, "healthCheckable": false },
+      { "name": "mapr-nodemanager", "version": "5.1.0" , "core": true, "healthCheckable": true },
+      { "name": "mapr-resourcemanager", "version": "5.1.0" , "core": true, "healthCheckable": true },
+      { "name": "mapr-fileserver", "version": "5.1.0", "core": true, "healthCheckable": true },
+      { "name": "mapr-historyserver", "version": "5.1.0", "core": true, "healthCheckable": true }
     ]
   }
 }

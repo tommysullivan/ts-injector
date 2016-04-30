@@ -19,6 +19,7 @@ import ElasticSearchRestClient from "../elasticsearch/elasticsearch-rest-client"
 import Installer from "../installer/installer";
 import ElasticSearch from "../elasticsearch/elasticsearch";
 import IVersioning from "../versioning/i-versioning";
+import IRepository from "../repositories/i-repository";
 
 export default class NodeUnderTest implements INode {
     private nodeConfiguration:INodeConfiguration;
@@ -44,7 +45,11 @@ export default class NodeUnderTest implements INode {
     }
 
     repoUrlFor(componentFamily:string):string {
-        return this.nodeConfiguration.operatingSystem.repository.urlFor(componentFamily);
+        return this.repo.urlFor(componentFamily);
+    }
+
+    get repo():IRepository {
+        return this.nodeConfiguration.operatingSystem.repository;
     }
 
     newSSHSession():IThenable<ISSHSession> {
@@ -55,12 +60,21 @@ export default class NodeUnderTest implements INode {
         );
     }
 
+    executeShellCommand(shellCommand:string):IThenable<ISSHResult> {
+        return this.newSSHSession().then(s=>s.executeCommand(shellCommand));
+    }
+
     executeShellCommands(commandsWithPlaceholders:IList<string>):IThenable<IList<ISSHResult>> {
         var commands:IList<string> = commandsWithPlaceholders.map(
             c=>c.replace('{{packageCommand}}', this.packageCommand)
         );
         return this.newSSHSession()
             .then(sshSession => sshSession.executeCommands(commands));
+    }
+    
+    executeCopyCommand(localPath:string, remotePath:string):IThenable<ISSHResult>{
+        return this.newSSHSession()
+            .then(sshSession => sshSession.copyCommand(localPath, remotePath));
     }
 
     verifyMapRNotInstalled():IThenable<ISSHResult> {

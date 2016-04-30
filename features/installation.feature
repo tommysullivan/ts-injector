@@ -12,12 +12,21 @@ Feature: Installation
   @wip
   Scenario: Installation via Package Manager and Configure.sh
     Given the cluster does not have MapR Installed
-    And I have set the repository locations on each node in the cluster
     And I have updated the package manager
-    When I install the Core components
-    And I run configure.sh
+    And I install the Core components
+    And I prepare the disk.list file
+    And I run configure.sh on all nodes
     And I wait "30" seconds
-    Then maprcli nodelist reports all nodes in the cluster are health
+    And I install the license on cluster
+    And I install all spyglass components
+    And I run configure.sh for spyglass components
+    And I perform the following ssh commands on each node in the cluster:
+    """
+    /opt/mapr/server/configure.sh -R
+    """
+    And I restart the warden
+    And I wait "30" seconds
+   Then all health checkable services are healthy
 
   @SPYG-282 @maprSetup
   Scenario: Download and Run GUI Installer

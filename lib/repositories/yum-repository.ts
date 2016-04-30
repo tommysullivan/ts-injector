@@ -14,6 +14,10 @@ export default class YumRepository implements IRepository {
     get packageCommand():string {
         return 'yum';
     }
+    
+    get packageUpdateCommand():string {
+        return 'yum clean all';
+    } 
 
     get repoListCommand():string {
         return 'yum repolist all';

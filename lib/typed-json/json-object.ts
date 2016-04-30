@@ -30,8 +30,12 @@ export default class JSONObject implements IJSONObject {
         return <T>val;
     }
 
+    hasPropertyNamed(propertyName:string):boolean {
+        return this.jsonObject.hasOwnProperty(propertyName);
+    }
+
     getProperty<T>(name:string):T {
-        if(!this.jsonObject.hasOwnProperty(name)) throw new Error(`Missing property "${name}" in configuration: ${this.toString()}`);
+        if(!this.hasPropertyNamed(name)) throw new Error(`Missing property "${name}" in configuration: ${this.toString()}`);
         return this.jsonObject[name];
     }
 

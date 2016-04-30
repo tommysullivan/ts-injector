@@ -9,6 +9,10 @@ export default class AptRepository implements IRepository {
         return 'apt-get';
     }
 
+    get packageUpdateCommand():string {
+        return 'apt-get update';
+    }
+
     get host():string {
         return 'apt.qa.lab';
     }

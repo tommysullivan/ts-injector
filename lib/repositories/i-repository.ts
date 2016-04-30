@@ -4,6 +4,7 @@ interface IRepository {
     packageCommand:string;
     repoListCommand:string;
     packageListCommand:string;
+    packageUpdateCommand:string;
     urlFor(componentFamily:string):string;
 }
 

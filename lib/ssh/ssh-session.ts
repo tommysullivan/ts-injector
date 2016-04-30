@@ -7,6 +7,7 @@ import ICollections from "../collections/i-collections";
 import ISSHResult from "./i-ssh-result";
 import ISSHError from "./i-ssh-error";
 import ISSHAPI from "./i-ssh-api";
+import IFileSystem from "../node-js-wrappers/i-filesystem";
 
 export default class SSHSession implements ISSHSession {
     private nodemiralSession:any;
@@ -16,8 +17,9 @@ export default class SSHSession implements ISSHSession {
     private api:ISSHAPI;
     private host:string;
     private writeCommandsToStdout:boolean;
+    private fileSystem:IFileSystem;
 
-    constructor(nodemiralSession:any, promiseFactory:IPromiseFactory, nodeWrapperFactory:INodeWrapperFactory, collections:ICollections, api:ISSHAPI, host:string, writeCommandsToStdout:boolean) {
+    constructor(nodemiralSession:any, promiseFactory:IPromiseFactory, nodeWrapperFactory:INodeWrapperFactory, collections:ICollections, api:ISSHAPI, host:string, writeCommandsToStdout:boolean, fileSystem:IFileSystem) {
         this.nodemiralSession = nodemiralSession;
         this.promiseFactory = promiseFactory;
         this.nodeWrapperFactory = nodeWrapperFactory;
@@ -25,6 +27,7 @@ export default class SSHSession implements ISSHSession {
         this.api = api;
         this.host = host;
         this.writeCommandsToStdout = writeCommandsToStdout;
+        this.fileSystem = fileSystem;
     }
 
     executeCommands(commands:IList<string>):IThenable<IList<ISSHResult>> {
@@ -67,5 +70,11 @@ export default class SSHSession implements ISSHSession {
                 else resolve(result);
             });
         });
+    }
+
+    copyCommand(localPath:string, destinationFileName:string):IThenable<ISSHResult> {
+        var fileContent = this.fileSystem.readFileSync(localPath);
+        var command = `printf "${fileContent}" > ${destinationFileName}`;
+        return this.executeCommand(command);
     }
 }
