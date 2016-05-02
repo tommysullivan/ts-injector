@@ -33,5 +33,37 @@ module.exports = function () {
         var installerProcess = this.installerProcess;
         return $.expect(installerProcess.install()).to.eventually.be.fulfilled;
     });
+    this.Given(/^I prepare the disk\.list file$/, function () {
+        var diskCommand = "sfdisk -l | grep \"/dev/sd[a-z]\" |grep -v \"/dev/sd[a-z][0-9]\" | sort |cut -f2 -d' ' | tr \":\" \" \" | awk '{if(NR>1)print}' > /root/disk.list";
+        var result = $.clusterUnderTest.executeShellCommandOnEachNode(diskCommand);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I run configure\.sh on all nodes$/, function () {
+        var cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(function (n) { return n.host; }).join(',');
+        var zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(function (n) { return n.host; }).join(',');
+        var historyHostString = $.clusterUnderTest.nodeHosting('mapr-historyserver').host;
+        var configCommand = "/opt/mapr/server/configure.sh -C " + cldbHostsString + " -Z " + zookeeperHostsString + " -HS " + historyHostString + " -u mapr -g mapr -N " + $.clusterUnderTest.name + " -F /root/disk.list";
+        var result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I install the license on cluster$/, function () {
+        var downloadLicense = "wget http://maprqa:maprqa@stage.mapr.com/license/LatestDemoLicense-M7.txt";
+        var licenseCommand = "maprcli license add -license LatestDemoLicense-M7.txt -is_file true";
+        var result = $.clusterUnderTest.nodes().first().executeShellCommands($.collections.newList([downloadLicense, licenseCommand]));
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I restart the warden$/, function () {
+        var result = $.clusterUnderTest.executeShellCommandOnEachNode("service mapr-warden restart");
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I run configure\.sh for spyglass components$/, { timeout: 1000 * 60 * 20 }, function () {
+        var cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(function (n) { return n.host; }).join(',');
+        var zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(function (n) { return n.host; }).join(',');
+        var opentsdbHostsString = $.clusterUnderTest.nodesHosting('mapr-opentsdb').map(function (n) { return n.host; }).join(',');
+        var elasticsearchHostsString = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').map(function (n) { return n.host; }).join(',');
+        var configCommand = "/opt/mapr/server/configure.sh -C " + cldbHostsString + " -Z " + zookeeperHostsString + " -OT " + opentsdbHostsString + " -ES " + elasticsearchHostsString + " -N " + $.clusterUnderTest.name;
+        var result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=installation-steps.js.map

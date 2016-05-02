@@ -24,6 +24,10 @@ export default class FileSystem implements IFileSystem {
         this.nodeWrapperFactory = nodeWrapperFactory;
     }
 
+    readFileSync(filePath:string):string {
+        return <string>this.fsModule.readFileSync(filePath);
+    }
+
     readdirSync(directoryPath:string):IList<string> {
         return this.collections.newList(<Array<string>>this.fsModule.readdirSync(directoryPath));
     }

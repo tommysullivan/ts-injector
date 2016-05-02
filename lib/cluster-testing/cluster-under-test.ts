@@ -95,7 +95,13 @@ export default class ClusterUnderTest implements IClusterUnderTest {
         return this.clusterInstaller.verifyMapRNotInstalled(this);
     }
 
-    executeShellCommandsOnEachNode(commands:IList<string>):IThenable<any> {
+    executeShellCommandOnEachNode(command:string):IThenable<IList<ISSHResult>> {
+        return this.promiseFactory.newGroupPromise(
+            this.clusterNodes.map(n=>n.executeShellCommand(command))
+        );
+    }
+
+    executeShellCommandsOnEachNode(commands:IList<string>):IThenable<IList<IList<ISSHResult>>> {
         return this.promiseFactory.newGroupPromise(
             this.clusterNodes.map(n=>n.executeShellCommands(commands))
         );
@@ -121,5 +127,11 @@ export default class ClusterUnderTest implements IClusterUnderTest {
 
     nodeHosting(serviceName:string):INode {
         return this.nodesHosting(serviceName).first();
+    }
+
+    executeCopyCommandOnEachNode(localPath:string, remotePath:string):IThenable<IList<ISSHResult>> {
+        return this.promiseFactory.newGroupPromise(
+            this.clusterNodes.map(n=>n.executeCopyCommand(localPath, remotePath))
+        );
     }
 }

@@ -5,6 +5,7 @@ declare var require:any;
 require('source-map-support').install();
 import NodeFrameworkLoader from '../../lib/framework/node-framework-loader';
 import '../step-definitions/cluster-management-and-prep-steps';
+import '../step-definitions/package-manager-installation-steps';
 import '../step-definitions/elasticsearch-steps';
 import '../step-definitions/grafana-steps';
 import '../step-definitions/installation-steps';

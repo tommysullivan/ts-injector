@@ -40,7 +40,8 @@ export default class SSHAPI implements ISSHAPI {
             this.collections,
             this,
             host,
-            this.sshConfiguration.writeCommandsToStdout
+            this.sshConfiguration.writeCommandsToStdout,
+            this.nodeWrapperFactory.fileSystem()
         );
     }
 

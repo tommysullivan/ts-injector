@@ -26,8 +26,10 @@ interface IClusterUnderTest {
     nodesHosting(serviceName:string):IList<INode>;
     nodeHosting(serviceName:string):INode;
     nodeWithHostName(hostName:string):INode;
-    executeShellCommandsOnEachNode(commands:IList<string>):IThenable<any>;
+    executeShellCommandsOnEachNode(commands:IList<string>):IThenable<IList<IList<ISSHResult>>>;
+    executeShellCommandOnEachNode(command:string):IThenable<IList<ISSHResult>>;
     versionGraph():IThenable<IClusterVersionGraph>;
+    executeCopyCommandOnEachNode(localPath:string, remotePath:string):IThenable<IList<ISSHResult>>;
     name:string;
 }
 

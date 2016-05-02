@@ -2,6 +2,7 @@
 require('source-map-support').install();
 var node_framework_loader_1 = require('../../lib/framework/node-framework-loader');
 require('../step-definitions/cluster-management-and-prep-steps');
+require('../step-definitions/package-manager-installation-steps');
 require('../step-definitions/elasticsearch-steps');
 require('../step-definitions/grafana-steps');
 require('../step-definitions/installation-steps');

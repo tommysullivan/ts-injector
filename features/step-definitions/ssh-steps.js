@@ -62,5 +62,9 @@ module.exports = function () {
             .then(function (commandResultSet) { return _this.lastCommandResultSet = commandResultSet; });
         return $.expect(result).to.eventually.be.fulfilled;
     });
+    this.When(/^I scp "([^"]*)" to "([^"]*)" on each node in the cluster$/, function (localPath, remotePath) {
+        var result = $.clusterUnderTest.executeCopyCommandOnEachNode(localPath, remotePath);
+        return $.expect(result).to.eventually.to.fulfilled;
+    });
 };
 //# sourceMappingURL=ssh-steps.js.map

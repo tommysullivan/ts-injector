@@ -8,8 +8,10 @@ export default class ServiceConfiguration implements IServiceConfig {
         this.serviceConfigJSON = serviceConfigJSON;
     }
 
+    get isHealthCheckable():boolean { return this.serviceConfigJSON.booleanPropertyNamed('healthCheckable'); }
     get name():string { return this.serviceConfigJSON.stringPropertyNamed('name'); }
     get version():string { return this.serviceConfigJSON.stringPropertyNamed('version'); }
+    get isCore():boolean { return this.serviceConfigJSON.booleanPropertyNamed('core'); }
     
     toJSON():any { return this.serviceConfigJSON.toRawJSON(); }
 }

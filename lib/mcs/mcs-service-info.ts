@@ -15,9 +15,12 @@ export default class MCSServiceInfo {
 
     get isHealthy():boolean {
         var total = this.statusJSON.numericPropertyNamed('total');
+        var numOnStandby = this.statusJSON.hasPropertyNamed('standby')
+            ? this.statusJSON.numericPropertyNamed('standby')
+            : 0;
         return total > 0
             && this.statusJSON.numericPropertyNamed('failed') === 0
             && this.statusJSON.numericPropertyNamed('stopped') === 0
-            && this.statusJSON.numericPropertyNamed('active') == total;
+            && this.statusJSON.numericPropertyNamed('active') + numOnStandby == total;
     }
 }

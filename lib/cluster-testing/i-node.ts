@@ -7,9 +7,11 @@ import MCSRestSession from "../mcs/mcs-rest-session";
 import IInstallerRestSession from "../installer/i-installer-rest-session";
 import OpenTSDBRestClient from "../open-tsdb/open-tsdb-rest-client";
 import ElasticSearchRestClient from "../elasticsearch/elasticsearch-rest-client";
+import IRepository from "../repositories/i-repository";
 
 interface INode {
     host:string;
+    repo:IRepository;
     repoUrlFor(componentFamily:string):string;
     newSSHSession():IThenable<ISSHSession>
     verifyMapRNotInstalled():IThenable<ISSHResult>;
@@ -19,6 +21,8 @@ interface INode {
     newOpenTSDBRestClient():OpenTSDBRestClient;
     newElasticSearchClient():ElasticSearchRestClient;
     executeShellCommands(shellCommands:IList<string>):IThenable<IList<ISSHResult>>;
+    executeShellCommand(shellCommand:string):IThenable<ISSHResult>;
+    executeCopyCommand(localPath:string, remotePath:string):IThenable<ISSHResult>;
     versionGraph():IThenable<INodeVersionGraph>;
 }
 
