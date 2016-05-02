@@ -1,0 +1,1383 @@
+[
+  {
+    "id": "Cluster-Preparation",
+    "name": "Cluster Preparation",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/cluster-preparation/esxi-cluster-preparation.feature",
+    "elements": [
+      {
+        "name": "Prepare Cluster for Installation",
+        "id": "Cluster-Preparation;prepare-cluster-for-installation",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-1",
+            "line": 3
+          },
+          {
+            "name": "@prepareForInstallation",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "the Cluster Under Test is managed by ESXI",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 4515817
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:3"
+            }
+          },
+          {
+            "name": "the Operating Systems of each node match what is configured",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 471607
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:6"
+            }
+          },
+          {
+            "name": "I revert the cluster to its configured \"readyForInstallation\" state",
+            "line": 7,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 3786156660
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:12"
+            }
+          },
+          {
+            "name": "I wait \"45\" seconds",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 45002582159
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/timing.js:2"
+            }
+          },
+          {
+            "name": "the cluster does not have MapR Installed",
+            "line": 9,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 464121148
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:17"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Package-Manager-Installation",
+    "name": "Package Manager Installation",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/installation/package-manager-installation.feature",
+    "elements": [
+      {
+        "name": "Installation via Package Manager and Configure.sh",
+        "id": "Package-Manager-Installation;installation-via-package-manager-and-configure.sh",
+        "line": 3,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "steps": [
+          {
+            "name": "the cluster does not have MapR Installed",
+            "line": 4,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 320738677
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:17"
+            }
+          },
+          {
+            "name": "I have updated the package manager",
+            "line": 5,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 1580110591
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/package-manager-installation-steps.js:3"
+            }
+          },
+          {
+            "name": "I install the Core components",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "failed",
+              "duration": 435469638,
+              "error_message": "AssertionError: expected promise to be fulfilled but it was rejected with '{\\n   \"message\": \"Process exited with nonzero exit code: 1\",\\n   \"sshResult\": {\\n      \"host\": \"10.10.99.72\",\\n      \"processResult\": {\\n         \"command\": \"yum install -y \",\\n         \"processExitCode\": 1,\\n         \"stdoutLines\": [\\n            \"Loaded plugins: fastestmirror, security\",\\n            \"Usage: yum [options] COMMAND\",\\n            \"\",\\n            \"List of Commands:\",\\n            \"\",\\n            \"check          Check for problems in the rpmdb\",\\n            \"check-update   Check for available package updates\",\\n            \"clean          Remove cached data\",\\n            \"deplist        List a package\\'s dependencies\",\\n            \"distribution-synchronization Synchronize installed packages to the latest available versions\",\\n            \"downgrade      downgrade a package\",\\n            \"erase          Remove a package or packages from your system\",\\n            \"groupinfo      Display details about a package group\",\\n            \"groupinstall   Install the packages in a group on your system\",\\n            \"grouplist      List available package groups\",\\n            \"groupremove    Remove the packages in a group from your system\",\\n            \"help           Display a helpful usage message\",\\n            \"history        Display, or use, the transaction history\",\\n            \"info           Display details about a package or group of packages\",\\n            \"install        Install a package or packages on your system\",\\n            \"list           List a package or groups of packages\",\\n            \"load-transaction load a saved transaction from filename\",\\n            \"makecache      Generate the metadata cache\",\\n            \"provides       Find what package provides the given value\",\\n            \"reinstall      reinstall a package\",\\n            \"repolist       Display the configured software repositories\",\\n            \"resolvedep     Determine which package provides the given dependency\",\\n            \"search         Search package details for the given string\",\\n            \"shell          Run an interactive yum shell\",\\n            \"update         Update a package or packages on your system\",\\n            \"update-minimal Works like update, but goes to the \\'newest\\' package match which fixes a problem that affects your system\",\\n            \"updateinfo     Acts on repository update information\",\\n            \"upgrade        Update packages taking obsoletes into account\",\\n            \"version        Display a version for the machine and/or available repos.\",\\n            \"\",\\n            \"\",\\n            \"Options:\",\\n            \"  -h, --help            show this help message and exit\",\\n            \"  -t, --tolerant        be tolerant of errors\",\\n            \"  -C, --cacheonly       run entirely from system cache, don\\'t update cache\",\\n            \"  -c [config file], --config=[config file]\",\\n            \"                        config file location\",\\n            \"  -R [minutes], --randomwait=[minutes]\",\\n            \"                        maximum command wait time\",\\n            \"  -d [debug level], --debuglevel=[debug level]\",\\n            \"                        debugging output level\",\\n            \"  --showduplicates      show duplicates, in repos, in list/search commands\",\\n            \"  -e [error level], --errorlevel=[error level]\",\\n            \"                        error output level\",\\n            \"  --rpmverbosity=[debug level name]\",\\n            \"                        debugging output level for rpm\",\\n            \"  -q, --quiet           quiet operation\",\\n            \"  -v, --verbose         verbose operation\",\\n            \"  -y, --assumeyes       answer yes for all questions\",\\n            \"  --version             show Yum version and exit\",\\n            \"  --installroot=[path]  set install root\",\\n            \"  --enablerepo=[repo]   enable one or more repositories (wildcards allowed)\",\\n            \"  --disablerepo=[repo]  disable one or more repositories (wildcards allowed)\",\\n            \"  -x [package], --exclude=[package]\",\\n            \"                        exclude package(s) by name or glob\",\\n            \"  --disableexcludes=[repo]\",\\n            \"                        disable exclude from main, for a repo or for\",\\n            \"                        everything\",\\n            \"  --obsoletes           enable obsoletes processing during updates\",\\n            \"  --noplugins           disable Yum plugins\",\\n            \"  --nogpgcheck          disable gpg signature checking\",\\n            \"  --disableplugin=[plugin]\",\\n            \"                        disable plugins by name\",\\n            \"  --enableplugin=[plugin]\",\\n            \"                        enable plugins by name\",\\n            \"  --skip-broken         skip packages with depsolving problems\",\\n            \"  --color=COLOR         control whether color is used\",\\n            \"  --releasever=RELEASEVER\",\\n            \"                        set value of $releasever in yum config and repo files\",\\n            \"  --setopt=SETOPTS      set arbitrary config and repo options\",\\n            \"\",\\n            \"  Plugin Options:\",\\n            \"    --security          Include security relevant packages\",\\n            \"    --bugfixes          Include bugfix relevant packages\",\\n            \"    --cve=CVE           Include packages needed to fix the given CVE\",\\n            \"    --bz=BZ             Include packages needed to fix the given BZ\",\\n            \"    --sec-severity=SEVERITY\",\\n            \"                        Include security relevant packages, of this severity\",\\n            \"    --advisory=ADVISORY\",\\n            \"                        Include packages needed to fix the given advisory\",\\n            \"\"\\n         ],\\n         \"stderrLines\": [\\n            \"Error: Need to pass a list of pkgs to install\",\\n            \"\"\\n         ],\\n         \"shellInvocationError\": null\\n      }\\n   },\\n   \"stack\": [\\n      \"Error\",\\n      \"    at new SSHError (/Users/tsullivan/projects/private-spyglass/lib/ssh/ssh-error.ts:10:21)\",\\n      \"    at SSHAPI.newSSHError (/Users/tsullivan/projects/private-spyglass/lib/ssh/ssh-api.ts:53:16)\",\\n      \"    at /Users/tsullivan/projects/private-spyglass/lib/ssh/ssh-session.ts:69:50\",\\n      \"    at /Users/tsullivan/projects/private-spyglass/node_modules/nodemiral/lib/session.js:146:9\",\\n      \"    at Channel.<anonymous> (/Users/tsullivan/projects/private-spyglass/node_modules/nodemiral/lib/ssh.js:125:9)\",\\n      \"    at emitOne (events.js:77:13)\",\\n      \"    at Channel.emit (events.js:169:7)\",\\n      \"    at SSH2Stream.<anonymous> (/Users/tsullivan/projects/private-spyglass/node_modules/ssh2/lib/Channel.js:124:14)\",\\n      \"    at SSH2Stream.g (events.js:260:16)\",\\n      \"    at emitNone (events.js:67:13)\"\\n   ]\\n}'"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/package-manager-installation-steps.js:7"
+            }
+          },
+          {
+            "name": "I prepare the disk.list file",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/installation-steps.js:36"
+            }
+          },
+          {
+            "name": "I run configure.sh on all nodes",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/installation-steps.js:41"
+            }
+          },
+          {
+            "name": "I wait \"30\" seconds",
+            "line": 9,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/timing.js:2"
+            }
+          },
+          {
+            "name": "I install the license on cluster",
+            "line": 10,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/installation-steps.js:49"
+            }
+          },
+          {
+            "name": "I install all spyglass components",
+            "line": 11,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/package-manager-installation-steps.js:16"
+            }
+          },
+          {
+            "name": "I run configure.sh for spyglass components",
+            "line": 12,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/installation-steps.js:59"
+            }
+          },
+          {
+            "name": "I perform the following ssh commands on each node in the cluster:",
+            "line": 13,
+            "keyword": "And ",
+            "doc_string": {
+              "value": "/opt/mapr/server/configure.sh -R",
+              "line": 14,
+              "content_type": ""
+            },
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/ssh-steps.js:3"
+            }
+          },
+          {
+            "name": "I restart the warden",
+            "line": 17,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/installation-steps.js:55"
+            }
+          },
+          {
+            "name": "I wait \"30\" seconds",
+            "line": 18,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/timing.js:2"
+            }
+          },
+          {
+            "name": "all health checkable services are healthy",
+            "line": 19,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/package-manager-installation-steps.js:25"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ElasticSearch-Logs",
+    "name": "ElasticSearch Logs",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/elasticsearch-logs.feature",
+    "elements": [
+      {
+        "name": "Warden Logs present in ES Query",
+        "id": "ElasticSearch-Logs;warden-logs-present-in-es-query",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-125",
+            "line": 3
+          },
+          {
+            "name": "@healthCheck",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 191629
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I query the ElasticSearch Server for logs for index \"mapr_monitoring-*\"",
+            "line": 6,
+            "keyword": "When ",
+            "result": {
+              "status": "failed",
+              "duration": 34422946,
+              "error_message": "AssertionError: expected promise to be fulfilled but it was rejected with 'RestError - {\\n   \"restResponse\": {\\n      \"originalURL\": \"https://10.10.99.72:9443/api/login\",\\n      \"type\": \"rest-response\",\\n      \"error\": {\\n         \"code\": \"ECONNREFUSED\",\\n         \"errno\": \"ECONNREFUSED\",\\n         \"syscall\": \"connect\",\\n         \"address\": \"10.10.99.72\",\\n         \"port\": 9443\\n      }\\n   }\\n}'"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/elasticsearch-steps.js:3"
+            }
+          },
+          {
+            "name": "The result has at least 1 log containing the word \"warden\"",
+            "line": 7,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/elasticsearch-steps.js:10"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Grafana-Metrics",
+    "name": "Grafana Metrics",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/grafana-metrics.feature",
+    "elements": [
+      {
+        "name": "View First Metrics in Node Dashboard",
+        "id": "Grafana-Metrics;view-first-metrics-in-node-dashboard",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-124",
+            "line": 3
+          },
+          {
+            "name": "@Manual",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 118378
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I have determined the grafana server and port for that cluster",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "it has been populated with reports as described in \"installation.feature/Grafana Dashboard Definition Import\"",
+            "line": 7,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:68"
+            }
+          },
+          {
+            "name": "my grafana username is \"admin\"",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "my grafana password is \"admin\"",
+            "line": 9,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I have logged into Grafana",
+            "line": 10,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:69"
+            }
+          },
+          {
+            "name": "I navigate to the node dashboard",
+            "line": 11,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:70"
+            }
+          },
+          {
+            "name": "I look for the following metrics",
+            "line": 12,
+            "keyword": "And ",
+            "rows": [
+              {
+                "cells": [
+                  "metric name"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.write_bytes"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.read_bytes"
+                ]
+              }
+            ],
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:71"
+            }
+          },
+          {
+            "name": "I see the corresponding graph with reasonably accurate data for the past 24 hours",
+            "line": 16,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:72"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Grafana Dashboard Definition Import",
+        "id": "Grafana-Metrics;grafana-dashboard-definition-import",
+        "line": 19,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-124",
+            "line": 18
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 20,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 118876
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I have determined the grafana server and port for that cluster",
+            "line": 21,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "my grafana username is \"admin\"",
+            "line": 22,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "my grafana password is \"admin\"",
+            "line": 23,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I have an authenticated grafana rest client",
+            "line": 24,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I request to import the following dashboard definitions:",
+            "line": 25,
+            "keyword": "When ",
+            "rows": [
+              {
+                "cells": [
+                  "dashboard name"
+                ]
+              },
+              {
+                "cells": [
+                  "cldb"
+                ]
+              },
+              {
+                "cells": [
+                  "dbmetrics"
+                ]
+              },
+              {
+                "cells": [
+                  "node"
+                ]
+              },
+              {
+                "cells": [
+                  "volume"
+                ]
+              },
+              {
+                "cells": [
+                  "yarn"
+                ]
+              }
+            ],
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "the reports are all available to view",
+            "line": 32,
+            "keyword": "Then ",
+            "result": {
+              "status": "undefined"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Kibana-Logs",
+    "name": "Kibana Logs",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/kibana-logs.feature",
+    "elements": [
+      {
+        "name": "View Warden Log in Discovery Tab",
+        "id": "Kibana-Logs;view-warden-log-in-discovery-tab",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-125",
+            "line": 3
+          },
+          {
+            "name": "@Manual",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 196363
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I have determined the kibana server and port for that cluster",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 234633
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:75"
+            }
+          },
+          {
+            "name": "I navigate to kibana's discovery interface",
+            "line": 7,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 111155
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:73"
+            }
+          },
+          {
+            "name": "I see at least one log from warden",
+            "line": 8,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 108857
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/manual-steps.js:74"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MCS",
+    "name": "MCS",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/mcs.feature",
+    "elements": [
+      {
+        "name": "Spyglass Services appear Healthy in MCS after Installation",
+        "id": "MCS;spyglass-services-appear-healthy-in-mcs-after-installation",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@healthCheck",
+            "line": 3
+          },
+          {
+            "name": "@SPYG-123",
+            "line": 3
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 328819
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "failed",
+              "duration": 9973550,
+              "error_message": "AssertionError: expected promise to be fulfilled but it was rejected with 'RestError - {\\n   \"restResponse\": {\\n      \"originalURL\": \"https://10.10.99.72:9443/api/login\",\\n      \"type\": \"rest-response\",\\n      \"error\": {\\n         \"code\": \"ECONNREFUSED\",\\n         \"errno\": \"ECONNREFUSED\",\\n         \"syscall\": \"connect\",\\n         \"address\": \"10.10.99.72\",\\n         \"port\": 9443\\n      }\\n   }\\n}'"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:6"
+            }
+          },
+          {
+            "name": "I use the MCS Rest Client Session to retrieve dashboardInfo",
+            "line": 7,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:14"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I do not see any unhealthy spyglass services",
+            "line": 9,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:25"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 19,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@Manual",
+            "line": 11
+          }
+        ],
+        "steps": [
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 13,
+            "keyword": "Given ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I purposely take down collectd on one or more nodes",
+            "line": 14,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:41"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 15,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I see that collectd is in the list within \"16\" seconds",
+            "line": 16,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:45"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 20,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@Manual",
+            "line": 11
+          }
+        ],
+        "steps": [
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 13,
+            "keyword": "Given ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I purposely take down fluentd on one or more nodes",
+            "line": 14,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:41"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 15,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I see that fluentd is in the list within \"16\" seconds",
+            "line": 16,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:45"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 21,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@Manual",
+            "line": 11
+          }
+        ],
+        "steps": [
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 13,
+            "keyword": "Given ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I purposely take down elasticsearch on one or more nodes",
+            "line": 14,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:41"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 15,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I see that elasticsearch is in the list within \"16\" seconds",
+            "line": 16,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:45"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 22,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@Manual",
+            "line": 11
+          }
+        ],
+        "steps": [
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 13,
+            "keyword": "Given ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I purposely take down opentsdb on one or more nodes",
+            "line": 14,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:41"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 15,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I see that opentsdb is in the list within \"16\" seconds",
+            "line": 16,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:45"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 23,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@Manual",
+            "line": 11
+          }
+        ],
+        "steps": [
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 13,
+            "keyword": "Given ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I purposely take down kibana on one or more nodes",
+            "line": 14,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:41"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 15,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I see that kibana is in the list within \"16\" seconds",
+            "line": 16,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:45"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Spyglass Health Check Negative Testing",
+        "id": "MCS;spyglass-health-check-negative-testing",
+        "line": 24,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@Manual",
+            "line": 11
+          }
+        ],
+        "steps": [
+          {
+            "name": "I want to make sure the health check is accurate",
+            "line": 13,
+            "keyword": "Given ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "I purposely take down grafana on one or more nodes",
+            "line": 14,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:41"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 15,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I see that grafana is in the list within \"16\" seconds",
+            "line": 16,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:45"
+            }
+          }
+        ]
+      },
+      {
+        "name": "MCS 3rd Party UI Links",
+        "id": "MCS;mcs-3rd-party-ui-links",
+        "line": 27,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@healthCheck",
+            "line": 26
+          },
+          {
+            "name": "@SPYG-126",
+            "line": 26
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 28,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 132602
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 29,
+            "keyword": "And ",
+            "result": {
+              "status": "failed",
+              "duration": 6025493,
+              "error_message": "AssertionError: expected promise to be fulfilled but it was rejected with 'RestError - {\\n   \"restResponse\": {\\n      \"originalURL\": \"https://10.10.99.72:9443/api/login\",\\n      \"type\": \"rest-response\",\\n      \"error\": {\\n         \"code\": \"ECONNREFUSED\",\\n         \"errno\": \"ECONNREFUSED\",\\n         \"syscall\": \"connect\",\\n         \"address\": \"10.10.99.72\",\\n         \"port\": 9443\\n      }\\n   }\\n}'"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:6"
+            }
+          },
+          {
+            "name": "I ask for a link to the following applications:",
+            "line": 30,
+            "keyword": "When ",
+            "rows": [
+              {
+                "cells": [
+                  "application"
+                ]
+              },
+              {
+                "cells": [
+                  "grafana"
+                ]
+              },
+              {
+                "cells": [
+                  "kibana"
+                ]
+              }
+            ],
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:28"
+            }
+          },
+          {
+            "name": "a GET request of each URL does not return an error status code",
+            "line": 34,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:37"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "OpenTSDB-Metrics-REST-API",
+    "name": "OpenTSDB Metrics REST API",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/open-tsdb-metrics.feature",
+    "elements": [
+      {
+        "name": "Getting Simple Node Metrics via REST API",
+        "id": "OpenTSDB-Metrics-REST-API;getting-simple-node-metrics-via-rest-api",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-124",
+            "line": 3
+          },
+          {
+            "name": "@healthCheck",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 149985
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I specify the query range start as \"1h-ago\"",
+            "line": 6,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 167581
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:3"
+            }
+          },
+          {
+            "name": "I query for the following metrics:",
+            "line": 7,
+            "keyword": "And ",
+            "rows": [
+              {
+                "cells": [
+                  "metric name"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.write_bytes"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.read_bytes"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_octets.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_io_time.io_time"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_io_time.weighted_io_time"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_merged.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_merged.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_octets.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_octets.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_ops.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_ops.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_time.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_time.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.pending_operations"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_errors.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_errors.tx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_octets.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_octets.tx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_packets.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_packets.tx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:load.load.longterm"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:load.load.midterm"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:load.load.shortterm"
+                ]
+              }
+            ],
+            "result": {
+              "status": "failed",
+              "duration": 7506655,
+              "error_message": "AssertionError: expected promise to be fulfilled but it was rejected with 'RestError - {\\n   \"restResponse\": {\\n      \"originalURL\": \"https://10.10.99.72:9443/api/login\",\\n      \"type\": \"rest-response\",\\n      \"error\": {\\n         \"code\": \"ECONNREFUSED\",\\n         \"errno\": \"ECONNREFUSED\",\\n         \"syscall\": \"connect\",\\n         \"address\": \"10.10.99.72\",\\n         \"port\": 9443\\n      }\\n   }\\n}'"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:6"
+            }
+          },
+          {
+            "name": "I receive at least \"200\" values per metric covering that time period",
+            "line": 32,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:18"
+            }
+          },
+          {
+            "name": "those values may be incorrect but we are only testing for presence",
+            "line": 33,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:37"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

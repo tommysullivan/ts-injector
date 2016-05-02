@@ -5,6 +5,7 @@ interface IPromiseFactory {
     newPromiseForRejectedImmediateValue<T>(value:T):IThenable<T>;
     newPromiseForImmediateValue<T>(value:T):IThenable<T>;
     newPromise<T>(resolver:(resolve: (value: T) => void, reject: (reason: any) => void) => void):IThenable<T>;
+    newGroupPromiseFromArray<T>(promises:Array<IThenable<T>>):IThenable<IList<T>>;
     newGroupPromise<T>(promises:IList<IThenable<T>>):IThenable<IList<T>>;
 }
 

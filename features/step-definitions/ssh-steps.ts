@@ -8,7 +8,7 @@ declare var module:any;
 
 module.exports = function() {
 
-    this.When(/^I perform the following ssh commands on each node in the cluster:$/, function(commands:string) {
+    this.When(/^I perform the following ssh commands on each node in the cluster:$/, { timeout: 5 * 60 * 1000 }, function(commands:string) {
         var commandList = $.collections.newList(commands.split("\n"));
         return $.expect($.clusterUnderTest.executeShellCommandsOnEachNode(commandList))
             .to.eventually.be.fulfilled;
