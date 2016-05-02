@@ -245,3 +245,16 @@ a {
 .light a:active {
     color: black;
 }
+
+.navbar .action-bar {
+    position: relative;
+    min-height: 30px;
+    margin-bottom: 2px;
+    border: 1px solid transparent;
+}
+
+div.tab-list {
+    width:100%;
+    margin-left: 5px;
+    margin-right:10px;
+}
