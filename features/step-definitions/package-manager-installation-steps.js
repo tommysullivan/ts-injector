@@ -93,5 +93,43 @@ module.exports = function () {
         });
         return $.expect($.promiseFactory.newGroupPromise(nodePromises)).to.eventually.be.fulfilled;
     });
+    this.Given(/^the cluster has MapR Installed$/, function () {
+        // var commandPromises =  $.clusterUnderTest.nodes().map(n=>{ return n.verifyMapRIsInstalled()});
+        // var result = $.promiseFactory.newGroupPromise(commandPromises);
+        var result = $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes().map(function (n) { return n.verifyMapRIsInstalled(); }));
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I remove all spyglass components$/, function () {
+        var commandPromises = $.clusterUnderTest.nodes().map(function (n) {
+            var spyglassServices = $.versioning.serviceSet().filter(function (s) { return n.isHostingService(s.name) && !s.isCore; });
+            var removeOption = n.repo.type == 'apt-get' ? "purge -y" : "remove -y";
+            var command = n.repo.packageCommand + " " + removeOption + " " + spyglassServices.map(function (s) { return s.name; }).join(' ');
+            return n.executeShellCommand(command);
+        });
+        var result = $.promiseFactory.newGroupPromise(commandPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I remove all the core components$/, function () {
+        var commandPromises = $.clusterUnderTest.nodes().map(function (n) {
+            var coreServices = $.versioning.serviceSet().filter(function (s) { return n.isHostingService(s.name) && s.isCore; });
+            var removeOption = n.repo.type == 'apt-get' ? "autoremove -y" : "autoremove -y";
+            var command = n.repo.packageCommand + " " + removeOption + " " + coreServices.map(function (s) { return s.name; }).join(' ');
+            return n.executeShellCommand(command);
+        });
+        var result = $.promiseFactory.newGroupPromise(commandPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I clear all mapr data$/, function () {
+        var cmdPromises = $.clusterUnderTest.nodes().map(function (n) {
+            var cmdList = $.collections.newEmptyList();
+            cmdList.push('rm -rfv /tmp/hadoop*');
+            cmdList.push("rm -rfv /opt/mapr");
+            cmdList.push("rm -rfv /opt/cores/*");
+            cmdList.push("rm -rf /var/mapr-zookeeper-data");
+            return n.executeShellCommands(cmdList);
+        });
+        var result = $.promiseFactory.newGroupPromise(cmdPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=package-manager-installation-steps.js.map

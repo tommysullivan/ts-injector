@@ -24,3 +24,18 @@ Feature: Package Manager Installation
     And I restart the warden
     And I wait "45" seconds
     Then all health checkable services are healthy
+
+  @SPYG-480
+  Scenario: Cluster Uninstall via Package Manager
+    Given the cluster has MapR Installed
+    And I remove all spyglass components
+    And I perform the following ssh commands on each node in the cluster:
+    """
+    service mapr-warden stop
+    service mapr-zookeeper stop
+    """
+    And I remove all the core components
+    And I clear all mapr data
+    Then the cluster does not have MapR Installed
+
+

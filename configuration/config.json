@@ -898,6 +898,40 @@
           ]
         }
       ]
+    },
+    {
+      "id": "aashreya",
+      "name": "aashreya.devops.lab",
+      "nodes": [
+        {
+          "host": "10.10.100.177",
+          "username": "root",
+          "password": "mapr",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.0"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        }
+      ]
     }
   ],
   "cucumber": {

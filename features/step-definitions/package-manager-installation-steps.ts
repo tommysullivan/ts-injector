@@ -1,5 +1,6 @@
 import Framework from "../../lib/framework/framework";
 import MCSDashboardInfo from "../../lib/mcs/mcs-dashboard-info";
+import IList from "../../lib/collections/i-list";
 declare var $:Framework;
 declare var module:any;
 
@@ -117,4 +118,47 @@ module.exports = function() {
         });
         return $.expect($.promiseFactory.newGroupPromise(nodePromises)).to.eventually.be.fulfilled;
     });
+
+    this.Given(/^the cluster has MapR Installed$/, function () {
+        // var commandPromises =  $.clusterUnderTest.nodes().map(n=>{ return n.verifyMapRIsInstalled()});
+        // var result = $.promiseFactory.newGroupPromise(commandPromises);
+        var result = $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes().map(n => n.verifyMapRIsInstalled()));
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I remove all spyglass components$/, function () {
+        var commandPromises = $.clusterUnderTest.nodes().map(n=>{
+            var spyglassServices = $.versioning.serviceSet().filter(s=>n.isHostingService(s.name) && !s.isCore);
+            var removeOption =  n.repo.type=='apt-get' ? `purge -y` : `remove -y`;
+            var command = `${n.repo.packageCommand} ${removeOption} ${spyglassServices.map(s=>s.name).join(' ')}`;
+            return n.executeShellCommand(command);
+        });
+        var result = $.promiseFactory.newGroupPromise(commandPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I remove all the core components$/, function () {
+        var commandPromises = $.clusterUnderTest.nodes().map(n=>{
+            var coreServices = $.versioning.serviceSet().filter(s=>n.isHostingService(s.name) && s.isCore);
+            var removeOption =  n.repo.type=='apt-get' ? `autoremove -y` : `autoremove -y`;
+            var command = `${n.repo.packageCommand} ${removeOption} ${coreServices.map(s=>s.name).join(' ')}`;
+            return n.executeShellCommand(command);
+        });
+        var result = $.promiseFactory.newGroupPromise(commandPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I clear all mapr data$/, function () {
+        var cmdPromises = $.clusterUnderTest.nodes().map( n => {
+            var cmdList = $.collections.newEmptyList<string>();
+            cmdList.push('rm -rfv /tmp/hadoop*');
+            cmdList.push(`rm -rfv /opt/mapr`)
+            cmdList.push(`rm -rfv /opt/cores/*`)
+            cmdList.push(`rm -rf /var/mapr-zookeeper-data`)
+            return n.executeShellCommands(cmdList);
+        });
+        var result = $.promiseFactory.newGroupPromise(cmdPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
 }

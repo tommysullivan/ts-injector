@@ -15,6 +15,7 @@ interface INode {
     repoUrlFor(componentFamily:string):string;
     newSSHSession():IThenable<ISSHSession>
     verifyMapRNotInstalled():IThenable<ISSHResult>;
+    verifyMapRIsInstalled():IThenable<ISSHResult>;
     isHostingService(serviceName:string):boolean;
     newAuthedMCSSession():IThenable<MCSRestSession>;
     newAuthedInstallerSession():IThenable<IInstallerRestSession>;
