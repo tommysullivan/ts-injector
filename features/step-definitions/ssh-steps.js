@@ -1,6 +1,6 @@
 "use strict";
 module.exports = function () {
-    this.When(/^I perform the following ssh commands on each node in the cluster:$/, function (commands) {
+    this.When(/^I perform the following ssh commands on each node in the cluster:$/, { timeout: 5 * 60 * 1000 }, function (commands) {
         var commandList = $.collections.newList(commands.split("\n"));
         return $.expect($.clusterUnderTest.executeShellCommandsOnEachNode(commandList))
             .to.eventually.be.fulfilled;

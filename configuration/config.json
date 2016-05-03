@@ -150,7 +150,20 @@
             "version": "6.5"
           },
           "serviceNames": [
-            "mapr-installer"
+            "mapr-installer",
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver",
+            "mapr-elasticsearch"
           ]
         },
         {
@@ -171,7 +184,17 @@
             "name": "CentOS",
             "version": "6.5"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-opentsdb",
+            "mapr-grafana"
+          ]
         },
         {
           "name": "scale-74",
@@ -191,7 +214,16 @@
             "name": "CentOS",
             "version": "6.5"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana"
+          ]
         }
       ]
     },
@@ -227,7 +259,19 @@
             "version": "7.1"
           },
           "serviceNames": [
-            "mapr-installer"
+            "mapr-installer",
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver"
           ]
         },
         {
@@ -256,7 +300,16 @@
             "name": "CentOS",
             "version": "7.1"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana"
+          ]
         },
         {
           "name": "cent70_10.10.30.146",
@@ -284,7 +337,16 @@
             "name": "CentOS",
             "version": "7.1"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-opentsdb",
+            "mapr-grafana"
+          ]
         }
       ]
     },
@@ -320,7 +382,19 @@
             "version": "14.04"
           },
           "serviceNames": [
-            "mapr-installer"
+            "mapr-installer",
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver"
           ]
         },
         {
@@ -349,7 +423,16 @@
             "name": "Ubuntu",
             "version": "14.04"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana"
+          ]
         },
         {
           "name": "u1404_10.10.30.149",
@@ -377,7 +460,16 @@
             "name": "Ubuntu",
             "version": "14.04"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-opentsdb",
+            "mapr-grafana"
+          ]
         }
       ]
     },
@@ -806,6 +898,40 @@
           ]
         }
       ]
+    },
+    {
+      "id": "aashreya",
+      "name": "aashreya.devops.lab",
+      "nodes": [
+        {
+          "host": "10.10.100.177",
+          "username": "root",
+          "password": "mapr",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.0"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver",
+            "mapr-elasticsearch",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-opentsdb",
+            "mapr-asynchbase"
+          ]
+        }
+      ]
     }
   ],
   "cucumber": {
@@ -814,33 +940,16 @@
     "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js",
     "featureSets": [
       {
-        "id": "endToEndFeatures",
+        "id": "dailyESXIRun",
         "featureFilePaths": [
-          "features/cluster-preparation.feature",
-          "features/installation.feature",
+          "features/cluster-preparation/esxi-cluster-preparation.feature",
+          "features/installation/package-manager-installation.feature",
           "features/elasticsearch-logs.feature",
           "features/grafana-metrics.feature",
           "features/kibana-logs.feature",
           "features/mcs.feature",
           "features/open-tsdb-metrics.feature",
-          "features/test-transparency.feature"
-        ]
-      },
-      {
-        "id": "fullInstallFeatures",
-        "featureFilePaths": [
-          "features/cluster-preparation.feature",
-          "features/installation.feature"
-        ]
-      },
-      {
-        "id": "healthFeatures",
-        "featureFilePaths": [
-          "features/elasticsearch-logs.feature",
-          "features/grafana-metrics.feature",
-          "features/kibana-logs.feature",
-          "features/mcs.feature",
-          "features/open-tsdb-metrics.feature"
+          "features/ecosystem/yarn.feature"
         ]
       }
     ]

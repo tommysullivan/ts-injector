@@ -8,7 +8,7 @@ import '../step-definitions/cluster-management-and-prep-steps';
 import '../step-definitions/package-manager-installation-steps';
 import '../step-definitions/elasticsearch-steps';
 import '../step-definitions/grafana-steps';
-import '../step-definitions/installation-steps';
+import '../step-definitions/rest-based-installation-steps';
 import '../step-definitions/manual-steps';
 import '../step-definitions/mcs-steps';
 import '../step-definitions/open-tsdb-steps';

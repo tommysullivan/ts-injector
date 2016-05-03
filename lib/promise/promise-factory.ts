@@ -21,9 +21,13 @@ export default class PromiseFactory implements IPromiseFactory {
         return new this.promiseModule(resolver);
     }
 
-    newGroupPromise<T>(promises:IList<IThenable<T>>):IThenable<IList<T>> {
-        return this.promiseModule.all(promises.toArray())
+    newGroupPromiseFromArray<T>(promises:Array<IThenable<T>>):IThenable<IList<T>> {
+        return this.promiseModule.all(promises)
             .then(arrayOfResolvedValues => this.collections.newList<T>(arrayOfResolvedValues));
+    }
+
+    newGroupPromise<T>(promises:IList<IThenable<T>>):IThenable<IList<T>> {
+        return this.newGroupPromiseFromArray(promises.toArray());
     }
 
     newPromiseForRejectedImmediateValue<T>(value:T):IThenable<T> {

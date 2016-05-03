@@ -101,6 +101,25 @@ export default class NodeUnderTest implements INode {
         });
     }
 
+    verifyMapRIsInstalled():IThenable<ISSHResult> {
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            this.newSSHSession()
+                .then(sshSession => {
+                    return sshSession.executeCommand('ls /opt/mapr');
+                })
+                .then(shellCommandResult=> {
+                    resolve(shellCommandResult);
+                })
+                .catch((sshError:ISSHError) => {
+                    var errorMessage = [
+                        `Could not determine if /opt/mapr exists on host ${this.nodeConfiguration.host}.`,
+                        `Result: ${sshError.toString()}`
+                    ].join('');
+                    reject(new Error(errorMessage));
+                });
+        });
+    }
+
     newAuthedMCSSession():IThenable<MCSRestSession> {
         return this.mcs.newMCSClient(this.host).createAutheticatedSession(this.username, this.password);
     }

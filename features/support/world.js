@@ -5,7 +5,7 @@ require('../step-definitions/cluster-management-and-prep-steps');
 require('../step-definitions/package-manager-installation-steps');
 require('../step-definitions/elasticsearch-steps');
 require('../step-definitions/grafana-steps');
-require('../step-definitions/installation-steps');
+require('../step-definitions/rest-based-installation-steps');
 require('../step-definitions/manual-steps');
 require('../step-definitions/mcs-steps');
 require('../step-definitions/open-tsdb-steps');
