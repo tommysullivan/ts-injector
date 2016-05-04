@@ -23,6 +23,23 @@ module.exports = function() {
         return $.expect(result).to.eventually.be.fulfilled;
     });
 
+    this.When(/^I install the latest patch$/, { timeout: 1000 * 60 * 20 }, function () {
+        var commandPromises = $.clusterUnderTest.nodes().map(n=>{
+            var url = n.repo.type=='yum'
+                ? 'http://yum.qa.lab/v5.1.0-patch-EBF/mapr-patch-5.1.0.37549.GA-38107.x86_64.rpm'
+                : 'http://apt.qa.lab/v5.1.0-patch-EBF/dists/binary/mapr-patch-5.1.0.37549.GA-38115.x86_64.deb';
+            var installCommand = n.repo.type=='yum'
+                ? 'rpm -ivh mapr-patch-5.1.0.37549.GA-38107.x86_64.rpm'
+                : 'dpkg -i mapr-patch-5.1.0.37549.GA-38115.x86_64.deb';
+            return n.executeShellCommands($.collections.newList<string>([
+                `wget ${url}`,
+                installCommand
+            ]));
+        });
+        var result = $.promiseFactory.newGroupPromise(commandPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
     this.Given(/^I install all spyglass components$/, { timeout: 1000 * 60 * 20 }, function () {
         var commandPromises = $.clusterUnderTest.nodes().map(n=>{
             var spyglassServices = $.versioning.serviceSet().filter(s=>n.isHostingService(s.name) && !s.isCore);
@@ -106,7 +123,7 @@ module.exports = function() {
         var zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
         var opentsdbHostsString = $.clusterUnderTest.nodesHosting('mapr-opentsdb').map(n=>n.host).join(',');
         var elasticsearchHostsString = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').map(n=>n.host).join(',');
-        var configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} -OT ${opentsdbHostsString} -ES ${elasticsearchHostsString} -N ${$.clusterUnderTest.name}`;
+        var configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} -OT ${opentsdbHostsString} -ES ${elasticsearchHostsString} -N ${$.clusterUnderTest.name} -R`;
         var result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
         return $.expect(result).to.eventually.be.fulfilled;
     });
@@ -114,7 +131,7 @@ module.exports = function() {
     this.Given(/^I have installed Java$/, { timeout: 1000 * 60 * 7 }, function () {
         var nodePromises = $.clusterUnderTest.nodes().map(n=> {
             var isYum = n.repo.type == 'yum';
-            return n.executeShellCommand(isYum ? 'yum install -y java' : 'apt-get install -y default-jre');
+            return n.executeShellCommand(isYum ? 'yum install -y java' : 'apt-get install -y openjdk-7-jre');
         });
         return $.expect($.promiseFactory.newGroupPromise(nodePromises)).to.eventually.be.fulfilled;
     });

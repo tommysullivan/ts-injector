@@ -15,7 +15,7 @@
       "sshMethod": "PASSWORD",
       "sshUsername": "root",
       "sshPassword": "mapr",
-      "adminUsername": "mapr",
+      "adminUsername": "root",
       "adminPassword": "mapr",
       "coreVersion": "5.1.0",
       "location": "mapr",
@@ -52,7 +52,20 @@
             "version": "12"
           },
           "serviceNames": [
-            "mapr-installer"
+            "mapr-installer",
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver",
+            "mapr-elasticsearch"
           ]
         },
         {
@@ -72,7 +85,17 @@
             "name": "SuSE",
             "version": "12"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-opentsdb",
+            "mapr-grafana"
+          ]
         },
         {
           "username": "root",
@@ -91,7 +114,16 @@
             "name": "SuSE",
             "version": "12"
           },
-          "serviceNames": []
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana"
+          ]
         }
       ]
     },
@@ -336,6 +368,117 @@
           "operatingSystem": {
             "name": "CentOS",
             "version": "7.1"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-opentsdb",
+            "mapr-grafana"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ubuntu12",
+      "esxiServerId": "esxi-10.10.99.71",
+      "name": "ubunu12.devops.lab",
+      "nodes": [
+        {
+          "name": "u12_10.10.99.83",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 12,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              },
+              {
+                "name": "readyForInstallation",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.99.83",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "12.04"
+          },
+          "serviceNames": [
+            "mapr-installer",
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-hbase",
+            "mapr-historyserver",
+            "mapr-webserver"
+          ]
+        },
+        {
+          "name": "u12_10.10.99.84",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 13,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              },
+              {
+                "name": "readyForInstallation",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.99.84",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "12.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana"
+          ]
+        },
+        {
+          "name": "u12_10.10.99.85",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 14,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              },
+              {
+                "name": "readyForInstallation",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.99.85",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "12.04"
           },
           "serviceNames": [
             "mapr-collectd",
@@ -968,6 +1111,12 @@
       {
         "id": "esxi-10.10.99.70",
         "host": "10.10.99.70",
+        "username": "root",
+        "password": "maprmapr"
+      },
+      {
+        "id": "esxi-10.10.99.71",
+        "host": "10.10.99.71",
         "username": "root",
         "password": "maprmapr"
       },
