@@ -32,8 +32,8 @@ Feature: Package Manager Installation
     And I perform the following ssh commands on each node in the cluster:
     """
     service mapr-warden stop
-    service mapr-zookeeper stop
     """
+    And I stop all zookeeper services
     And I remove all the core components
     And I clear all mapr data
     Then the cluster does not have MapR Installed
