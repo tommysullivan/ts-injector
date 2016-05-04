@@ -139,7 +139,9 @@ module.exports = function() {
 
     this.Given(/^I remove all the core components$/, function () {
         var commandPromises = $.clusterUnderTest.nodes().map(n=>{
-            var command = n.repo.type=='apt-get'? `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs -i apt-get purge {} -y`:`rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;
+            var command = n.repo.type=='apt-get'
+                ? `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs -i apt-get purge {} -y`
+                :`rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;
             return n.executeShellCommand(command);
         });
         var result = $.promiseFactory.newGroupPromise(commandPromises);
