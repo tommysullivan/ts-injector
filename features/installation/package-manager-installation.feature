@@ -11,17 +11,13 @@ Feature: Package Manager Installation
     And I have updated the package manager
     And I have installed Java
     And I install the Core components
+    And I install the latest patch
     And I prepare the disk.list file
     And I run configure.sh on all nodes
     And I wait "45" seconds
     And I install the license on cluster
     And I install all spyglass components
     And I run configure.sh for spyglass components
-    And I perform the following ssh commands on each node in the cluster:
-    """
-    /opt/mapr/server/configure.sh -R
-    """
     And I restart the warden
-    And I wait "45" seconds
+    And I wait "90" seconds
     Then all health checkable services are healthy
-
