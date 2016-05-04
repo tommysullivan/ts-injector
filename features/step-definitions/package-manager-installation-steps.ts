@@ -139,9 +139,9 @@ module.exports = function() {
 
     this.Given(/^I remove all the core components$/, function () {
         var commandPromises = $.clusterUnderTest.nodes().map(n=>{
-            var coreServices = $.versioning.serviceSet().filter(s=>n.isHostingService(s.name) && s.isCore);
-            var removeOption =  n.repo.type=='apt-get' ? `autoremove -y` : `autoremove -y`;
-            var command = `${n.repo.packageCommand} ${removeOption} ${coreServices.map(s=>s.name).join(' ')}`;
+            var command = n.repo.type=='apt-get'
+                ? `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs -i apt-get purge {} -y`
+                :`rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;
             return n.executeShellCommand(command);
         });
         var result = $.promiseFactory.newGroupPromise(commandPromises);
@@ -158,6 +158,14 @@ module.exports = function() {
             return n.executeShellCommands(cmdList);
         });
         var result = $.promiseFactory.newGroupPromise(cmdPromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I stop all zookeeper services$/, function () {
+        var commandPromises = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=> {
+            return n.executeShellCommand(`service mapr-zookeeper stop`);
+        });
+        var result = $.promiseFactory.newGroupPromise(commandPromises);
         return $.expect(result).to.eventually.be.fulfilled;
     });
 
