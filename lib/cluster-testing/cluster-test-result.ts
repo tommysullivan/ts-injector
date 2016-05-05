@@ -22,6 +22,8 @@ export default class ClusterTestResult {
         this.clusterConfiguration = clusterConfiguration;
     }
 
+    get clusterId():string { return this.clusterConfiguration.id; }
+
     toJSON() {
         return {
             contentType: 'vnd/mapr.test-portal.cluster-test-result+json;v=2.0.0',

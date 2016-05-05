@@ -156,7 +156,8 @@ export default class Framework {
             this.nodeWrapperFactory.path,
             this.frameworkConfig.cliConfig,
             this.fileSystem,
-            this.rest
+            this.rest,
+            this.promiseFactory
         );
     }
 
