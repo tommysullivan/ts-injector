@@ -6,3 +6,6 @@ node_modules
 cuke-results.txt
 lib/test-portal/static-web-content/latest-result.json
 bower_components
+data/test-portal-file-store
+data/test-run-output
+data/tmp

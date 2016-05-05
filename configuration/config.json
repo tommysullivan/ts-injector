@@ -1191,7 +1191,7 @@
     "writeCommandsToStdout": true
   },
   "testPortal": {
-    "hostName": "testing.devops.lab",
+    "hostName": "localhost",
     "testResultsWebRoute": "/test-results",
     "testConfigWebRouteRoute": "/test-configs/:configId",
     "jqlQueryWebRoute": "/jqlQueries",
@@ -1199,7 +1199,7 @@
     "testCliInvocationsWebRoute": "/test-cli-invocations/:cliDetailId",
     "jiraSyncRequestWebRoute": "/jira-sync-requests",
     "requestSizeLimitInMegabytes": 5,
-    "httpPort": 80,
+    "httpPort": 5001,
     "maxResultsForExplorer": 20,
     "testResultPathRelativeToThisConfigFile": "../data/test-portal-file-store/test-results",
     "testConfigsPathRelativeToThisConfigFile": "../data/test-portal-file-store//test-configs",
