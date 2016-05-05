@@ -21,7 +21,8 @@ export default class ConfigLoader {
         return new FrameworkConfiguration(
             this.fileSystem.readJSONObjectFileSync(this.configPath),
             this.basePathToUseForConfiguredRelativePaths,
-            this.path
+            this.path,
+            this.process
         );
     }
 

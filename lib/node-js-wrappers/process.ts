@@ -35,6 +35,12 @@ export default class Process implements IProcess {
         }
     }
 
+    environmentVariableNamedOrDefault(name:string, defaultValueIfNotDefined:string):string {
+        return this.environmentVariables().hasKey(name)
+            ? this.environmentVariableNamed(name)
+            : defaultValueIfNotDefined;
+    }
+
     commandLineArguments():IList<string> {
         return this.collections.newList<string>(this.nativeProcess.argv);
     }

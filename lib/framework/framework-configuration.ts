@@ -15,16 +15,19 @@ import TestPortalConfiguration from "../test-portal/test-portal-configuration";
 import JiraConfiguration from "../jira/jira-configuration";
 import IPath from "../node-js-wrappers/i-path";
 import CliConfig from "../cli/cli-config";
+import IProcess from "../node-js-wrappers/i-process";
 
 export default class FrameworkConfiguration {
     private frameworkConfigJSON:IJSONObject;
     private basePathToUseForConfiguredRelativePaths:string;
     private path:IPath;
+    private process:IProcess;
 
-    constructor(frameworkConfigJSON:IJSONObject, basePathToUseForConfiguredRelativePaths:string, path:IPath) {
+    constructor(frameworkConfigJSON:IJSONObject, basePathToUseForConfiguredRelativePaths:string, path:IPath, process:IProcess) {
         this.frameworkConfigJSON = frameworkConfigJSON;
         this.basePathToUseForConfiguredRelativePaths = basePathToUseForConfiguredRelativePaths;
         this.path = path;
+        this.process = process;
     }
 
     get rest():RestConfiguration {
@@ -43,7 +46,8 @@ export default class FrameworkConfiguration {
         return new TestPortalConfiguration(
             this.frameworkConfigJSON.jsonObjectNamed('testPortal'),
             this.basePathToUseForConfiguredRelativePaths,
-            this.path
+            this.path,
+            this.process
         );
     }
 

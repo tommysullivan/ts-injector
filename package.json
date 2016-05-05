@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "cluster logs and metrics collection and presentation",
   "main": "api.js",
-  "scripts": {
-    "test": "bin/run-end-to-end-tests"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mapr/private-spyglass.git"
