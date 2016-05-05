@@ -30,7 +30,6 @@
     "underscore": "^1.8.3",
     "json-viewer": "angular-json-viewer#^1.0.3",
     "guid": "*",
-    "highcharts": "^4.2.3",
-    "jquery-ui": "^1.11.4"
+    "highcharts": "^4.2.3"
   }
 }
