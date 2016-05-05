@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+
+//This binary shows a diff between the installer config when using the GUI (which must be manually saved) and the installer config when using automation
+//in order to identify discrepancies.
+
 var guiConfigPath = process.argv[2];
 var restConfigPath = process.argv[3];
 if(guiConfigPath==null) throw new Error('1st arg should be path to gui-generated installer config (look in fixtures)');

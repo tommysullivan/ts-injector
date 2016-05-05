@@ -15,7 +15,7 @@ Next, client side dependencies must be installed. From the lib/test-portal/stati
 
     bower install --allow-root
     
-### Run the CI Server
+### Run the Test Portal
 
 Run the server with nodemon if you desire auto restart upon server source code change. Else skip word "nodemon":
 
@@ -25,6 +25,53 @@ If optional text "with jira" is supplied, then you will be prompted for your JIR
 are stored in memory and used to sync data between the test portal and JIRA when requested to do so
 by the user in the browser. (NOTE: [see jira](https://maprdrill.atlassian.net/browse/DEVOPS-340) for improvements
 to this authentication model)
+
+### Deploy Test Portal
+
+Test portal is hosted at testing.devops.lab
+
+Prerequisites:
+
+1. node.js 5.0 or above
+2. bower (npm install -y -g bower)
+3. forever (npm install -y -g forever)
+
+Deployment:
+
+1. cd to /root/private-spyglass
+2. do a git pull
+3. npm install
+4. cd lib/test-portal/static-web-content
+5. bower install --allow-root
+
+If there are only web changes, the above will suffice. Server changes will require a process 
+restart. The process is governed by "forever", which ensures that processes stay running even
+if they are unexpectedly killed. Forever is globally installed in the prerequisite section.
+
+Here are the commands to manage forever:
+
+    forever list
+
+    #output:
+    info:    Forever processes running
+    data:        uid  command       script                               forever pid   id logfile                 uptime         
+    data:    [0] D2n2 /usr/bin/node bin/run-test-portal                  18205   18210    /root/.forever/D2n2.log STOPPED        
+    data:    [1] xRWv /usr/bin/node bin/spyglass-tester server with jira 9034    25616    /root/.forever/xRWv.log 0:19:49:13.615 
+
+Given that you have identified the "uid" of the process (if it is running), you may restart it using
+
+    forever restart [uid]
+    
+You may also start using forever start if there is no currently running process.
+
+IMPORTANT: The following environment variables should be set:
+
+    jiraUsername
+    jiraPassword
+    portalId=lab
+
+portalId set to lab will cause the server to run the process using the lab configuration, whereas the default
+configuration is the "local" one if portalId is not specified.
 
 ### Use the QA Hosted version of CI Server
 
