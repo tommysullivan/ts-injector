@@ -17,10 +17,10 @@ module.exports = function () {
     this.When(/^I install the latest patch$/, { timeout: 1000 * 60 * 20 }, function () {
         var commandPromises = $.clusterUnderTest.nodes().map(function (n) {
             var url = n.repo.type == 'yum'
-                ? 'http://yum.qa.lab/v5.1.0-patch-EBF/mapr-patch-5.1.0.37549.GA-38107.x86_64.rpm'
+                ? 'http://yum.qa.lab/v5.1.0-patch-EBF/mapr-patch-5.1.0.37549.GA-38115.x86_64.rpm'
                 : 'http://apt.qa.lab/v5.1.0-patch-EBF/dists/binary/mapr-patch-5.1.0.37549.GA-38115.x86_64.deb';
             var installCommand = n.repo.type == 'yum'
-                ? 'rpm -ivh mapr-patch-5.1.0.37549.GA-38107.x86_64.rpm'
+                ? 'rpm -ivh mapr-patch-5.1.0.37549.GA-38115.x86_64.rpm'
                 : 'dpkg -i mapr-patch-5.1.0.37549.GA-38115.x86_64.deb';
             return n.executeShellCommands($.collections.newList([
                 ("wget " + url),
@@ -98,7 +98,7 @@ module.exports = function () {
         var zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(function (n) { return n.host; }).join(',');
         var opentsdbHostsString = $.clusterUnderTest.nodesHosting('mapr-opentsdb').map(function (n) { return n.host; }).join(',');
         var elasticsearchHostsString = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').map(function (n) { return n.host; }).join(',');
-        var configCommand = "/opt/mapr/server/configure.sh -C " + cldbHostsString + " -Z " + zookeeperHostsString + " -OT " + opentsdbHostsString + " -ES " + elasticsearchHostsString + " -N " + $.clusterUnderTest.name + " -R";
+        var configCommand = "/opt/mapr/server/configure.sh -OT " + opentsdbHostsString + " -ES " + elasticsearchHostsString + " -R";
         var result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
         return $.expect(result).to.eventually.be.fulfilled;
     });
