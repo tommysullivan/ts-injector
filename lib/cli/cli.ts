@@ -18,6 +18,7 @@ import IPath from "../node-js-wrappers/i-path";
 import CliConfig from "./cli-config";
 import IFileSystem from "../node-js-wrappers/i-filesystem";
 import Rest from "../rest/rest";
+import IPromiseFactory from "../promise/i-promise-factory";
 
 export default class Cli {
     private process:IProcess;
@@ -34,8 +35,9 @@ export default class Cli {
     private cliConfig:CliConfig;
     private fileSystem:IFileSystem;
     private rest:Rest;
+    private promiseFactory:IPromiseFactory;
 
-    constructor(process:IProcess, console:IConsole, collections:ICollections, clusterTestingConfiguration:ClusterTestingConfiguration, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusters:Clusters, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, testPortal:TestPortal, path:IPath, cliConfig:CliConfig, fileSystem:IFileSystem, rest:Rest) {
+    constructor(process:IProcess, console:IConsole, collections:ICollections, clusterTestingConfiguration:ClusterTestingConfiguration, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusters:Clusters, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, testPortal:TestPortal, path:IPath, cliConfig:CliConfig, fileSystem:IFileSystem, rest:Rest, promiseFactory:IPromiseFactory) {
         this.process = process;
         this.console = console;
         this.collections = collections;
@@ -50,6 +52,7 @@ export default class Cli {
         this.cliConfig = cliConfig;
         this.fileSystem = fileSystem;
         this.rest = rest;
+        this.promiseFactory = promiseFactory;
     }
 
     newExecutor():CliExecutor {
@@ -86,7 +89,8 @@ export default class Cli {
                 this.path,
                 this.fileSystem,
                 this.rest,
-                this.clusters
+                this.clusters,
+                this.promiseFactory
             ),
             this.testPortal,
             cliHelper

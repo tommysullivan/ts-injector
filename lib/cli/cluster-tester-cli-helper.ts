@@ -15,6 +15,9 @@ import IFileSystem from "../node-js-wrappers/i-filesystem";
 import Rest from "../rest/rest";
 import IClusterConfiguration from "../clusters/i-cluster-configuration";
 import Clusters from "../clusters/clusters";
+import IPromiseFactory from "../promise/i-promise-factory";
+import IThenable from "../promise/i-thenable";
+import ClusterTestResult from "../cluster-testing/cluster-test-result";
 
 export default class ClusterTesterCliHelper {
     private process:IProcess;
@@ -29,8 +32,9 @@ export default class ClusterTesterCliHelper {
     private fileSystem:IFileSystem;
     private rest:Rest;
     private clusters:Clusters;
+    private promiseFactory:IPromiseFactory;
 
-    constructor(process:IProcess, console:IConsole, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusterTestingConfiguration:ClusterTestingConfiguration, cliHelper:CliHelper, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, path:IPath, fileSystem:IFileSystem, rest:Rest, clusters:Clusters) {
+    constructor(process:IProcess, console:IConsole, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusterTestingConfiguration:ClusterTestingConfiguration, cliHelper:CliHelper, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, path:IPath, fileSystem:IFileSystem, rest:Rest, clusters:Clusters, promiseFactory:IPromiseFactory) {
         this.process = process;
         this.console = console;
         this.uuidGenerator = uuidGenerator;
@@ -43,6 +47,7 @@ export default class ClusterTesterCliHelper {
         this.fileSystem = fileSystem;
         this.rest = rest;
         this.clusters = clusters;
+        this.promiseFactory = promiseFactory;
     }
 
     executeTestRunCli():void {
@@ -71,29 +76,48 @@ export default class ClusterTesterCliHelper {
         var env = this.process.environmentVariables();
         var testRunUUID = this.uuidGenerator.v4();
         var phase = this.clusterTestingConfiguration.defaultPhase;
-        var clusterId = this.process.environmentVariableNamed('clusterId');
-        var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
-        var cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;
-        var uniqueFileIdentifier = `${testRunUUID}_${clusterId}_phase-${phase}_user-${this.process.currentUserName()}`;
-        var outputFileName = `${uniqueFileIdentifier}.json`;
-        var jsonResultFilePath = this.path.join(cucumberOutputPath, outputFileName);
-        var cucumberRunConfiguration = this.cucumber.newCucumberRunConfiguration(
-            false,
-            jsonResultFilePath,
-            cucumberPassThruCommands.join(' '),
-            this.process.environmentVariables().clone()
-        );
-        this.cucumber.newCucumberRunner(this.process, this.console).runCucumber(cucumberRunConfiguration)
-            .then(cucumberTestResult => {
-                return this.cliHelper.clusterForId(clusterId).versionGraph()
-                    .then(versionGraph=> this.saveResult(versionGraph, null, cucumberRunConfiguration, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration))
-                    .catch(versionGraphError => this.saveResult(null, versionGraphError, cucumberRunConfiguration, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration));
+        var clusterIds = this.process.environmentVariables().hasKey('clusterIds')
+            ? this.process.environmentVariableNamed('clusterIds').split(',')
+            : [this.process.environmentVariableNamed('clusterId')];
+
+        var clusterTestResultPromises = clusterIds.map(clusterId=>{
+            var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
+            var cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;
+            var uniqueFileIdentifier = `${testRunUUID}_${clusterId}_phase-${phase}_user-${this.process.currentUserName()}`;
+            var outputFileName = `${uniqueFileIdentifier}.json`;
+            var jsonResultFilePath = this.path.join(cucumberOutputPath, outputFileName);
+            var envVars = this.process.environmentVariables().clone();
+            envVars.add('clusterId', clusterId);
+            var cucumberRunConfiguration = this.cucumber.newCucumberRunConfiguration(
+                false,
+                jsonResultFilePath,
+                cucumberPassThruCommands.join(' '),
+                envVars
+            );
+            return this.cucumber.newCucumberRunner(this.process, this.console).runCucumber(cucumberRunConfiguration)
+                .then(cucumberTestResult => {
+                    return this.cliHelper.clusterForId(clusterId).versionGraph()
+                        .then(versionGraph=> this.saveResult(versionGraph, null, cucumberRunConfiguration, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration))
+                        .catch(versionGraphError => this.saveResult(null, versionGraphError, cucumberRunConfiguration, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration));
+                });
+        });
+        
+        this.promiseFactory.newGroupPromiseFromArray(clusterTestResultPromises)
+            .then(clusterTestResults => {
+                var allPassed = clusterTestResults.all(t=>t.passed());
+                if(clusterTestResults.length > 1) {
+                    this.console.log(`Multi Cluster Test of ${clusterTestResults.length} clusters ${allPassed ? 'Passed' : 'Failed'}`);
+                    clusterTestResults.forEach(result=>{
+                        this.console.log(`Cluster ${result.clusterId}: ${result.passed() ? 'passed' : 'failed'}`);
+                    })
+                }
+                this.process.exit(allPassed ? 0 : 1);
             })
             .catch(e => this.cliHelper.logError(e));
     }
 
     //TODO: Decouple private methods from CLI and move to clusterTester so they can be invoked programmatically
-    private saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberRunConfiguration:ICucumberRunConfiguration, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration):void {
+    private saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberRunConfiguration:ICucumberRunConfiguration, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration):IThenable<ClusterTestResult> {
         var clusterTestResult = this.clusterTesting.newClusterTestResult(
             cucumberRunConfiguration,
             cucumberTestResult,
@@ -125,14 +149,14 @@ export default class ClusterTesterCliHelper {
             }
             var portalInfo = `portal id "${portalId}" at url "${fullUrl}"`;
             this.console.log(`Saving result to ${portalInfo}`);
-            this.rest.newRestClientAsPromised().put(fullUrl, putArgs)
+            return this.rest.newRestClientAsPromised().put(fullUrl, putArgs)
                 .then(result => this.console.log('Success'))
                 .catch(error => this.cliHelper.logError(error))
-                .then(_=> this.process.exit(clusterTestResult.passed() ? 0 : 1));
+                .then(_ => clusterTestResult);
         } else {
             var locationOfConfiguredPortalUrls = 'the configuration json file, under "clusterTesting.resultServers"';
             this.console.log(`Not saving result to portal. To do so, set ENV variable "portalId" to value in ${locationOfConfiguredPortalUrls}`);
-            this.process.exit(clusterTestResult.passed() ? 0 : 1);
+            return this.promiseFactory.newPromiseForImmediateValue(clusterTestResult);
         }
     }
 

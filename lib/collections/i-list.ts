@@ -1,6 +1,7 @@
 import IComparator from "./i-comparator";
 
 interface IList<T> {
+    all(predicate:(originalItem:T)=>boolean):boolean;
     map<T2>(mapFunction:(originalItem:T) => T2):IList<T2>;
     filter(filterFunction:(originalItem:T)=>boolean):IList<T>;
     first(exceptionMessage?:string):T;

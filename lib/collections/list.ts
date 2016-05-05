@@ -8,6 +8,10 @@ export default class List<T> implements IList<T> {
         this.listItems = listItems || [];
     }
 
+    all(predicate:(originalItem:T)=>boolean):boolean {
+        return this.filter(predicate).length == this.length;
+    }
+
     contain(soughtItem:T):boolean {
         return this.contains(soughtItem);
     }
