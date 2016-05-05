@@ -197,6 +197,13 @@ button .dark {
     background-color: rgba(0,0,0,0.2);
 }
 
+.docString {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+
 .summary {
     font-size: small;
     margin: 5px;
