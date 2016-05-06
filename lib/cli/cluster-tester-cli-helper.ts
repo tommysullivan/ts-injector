@@ -96,6 +96,7 @@ export default class ClusterTesterCliHelper {
             );
             return this.cucumber.newCucumberRunner(this.process, this.console).runCucumber(cucumberRunConfiguration)
                 .then(cucumberTestResult => {
+                    if(cucumberTestResult.processResult.hasError()) cucumberTestResult.processResult.stderrLines().map(l=>this.console.log(l));
                     return this.cliHelper.clusterForId(clusterId).versionGraph()
                         .then(versionGraph=> this.saveResult(versionGraph, null, cucumberRunConfiguration, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration))
                         .catch(versionGraphError => this.saveResult(null, versionGraphError, cucumberRunConfiguration, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration));
