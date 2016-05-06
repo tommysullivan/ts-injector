@@ -1,0 +1,6 @@
+[MapR_Patch]
+name = MapR Patch Components
+enabled = 1
+baseurl=http://yum.qa.lab/v5.1.0-patch-EBF/
+protected = 1
+gpgcheck = 0
