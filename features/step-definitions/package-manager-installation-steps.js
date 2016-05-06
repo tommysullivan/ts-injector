@@ -14,18 +14,21 @@ module.exports = function () {
         var result = $.promiseFactory.newGroupPromise(commandPromises);
         return $.expect(result).to.eventually.be.fulfilled;
     });
+    this.Given(/^I prepare each node with the patch repo configuration$/, function () {
+        var nodePromises = $.clusterUnderTest.nodes().map(function (n) {
+            var isYum = n.repo.type == 'yum';
+            var destinationPath = isYum ? '/etc/yum.repos.d/' : '/etc/apt/sources.list.d/';
+            var repoFileName = isYum ? 'mapr-patch-yum.repo' : 'mapr-patch-apt-get.list';
+            return n.executeCopyCommand("data/testing-resources/" + repoFileName, "" + destinationPath + repoFileName);
+        });
+        var result = $.promiseFactory.newGroupPromise(nodePromises);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
     this.When(/^I install the latest patch$/, { timeout: 1000 * 60 * 20 }, function () {
         var commandPromises = $.clusterUnderTest.nodes().map(function (n) {
-            var url = n.repo.type == 'yum'
-                ? 'http://yum.qa.lab/v5.1.0-patch-EBF/mapr-patch-5.1.0.37549.GA-38115.x86_64.rpm'
-                : 'http://apt.qa.lab/v5.1.0-patch-EBF/dists/binary/mapr-patch-5.1.0.37549.GA-38115.x86_64.deb';
-            var installCommand = n.repo.type == 'yum'
-                ? 'rpm -ivh mapr-patch-5.1.0.37549.GA-38115.x86_64.rpm'
-                : 'dpkg -i mapr-patch-5.1.0.37549.GA-38115.x86_64.deb';
-            return n.executeShellCommands($.collections.newList([
-                ("wget " + url),
-                installCommand
-            ]));
+            var installOptions = n.repo.type == 'apt-get' ? '--allow-unauthenticated' : '';
+            var command = n.repo.packageCommand + " install -y mapr-patch " + installOptions;
+            return n.executeShellCommand(command);
         });
         var result = $.promiseFactory.newGroupPromise(commandPromises);
         return $.expect(result).to.eventually.be.fulfilled;
@@ -105,7 +108,7 @@ module.exports = function () {
     this.Given(/^I have installed Java$/, { timeout: 1000 * 60 * 7 }, function () {
         var nodePromises = $.clusterUnderTest.nodes().map(function (n) {
             var isYum = n.repo.type == 'yum';
-            return n.executeShellCommand(isYum ? 'yum install -y java' : 'apt-get install -y openjdk-7-jre');
+            return n.executeShellCommand(isYum ? 'yum install -y java' : 'apt-get install -y openjdk-7-jre openjdk-7-jdk');
         });
         return $.expect($.promiseFactory.newGroupPromise(nodePromises)).to.eventually.be.fulfilled;
     });

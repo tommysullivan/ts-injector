@@ -11,6 +11,8 @@ Feature: Package Manager Installation
     And I have updated the package manager
     And I have installed Java
     And I install the Core components
+    And I prepare each node with the patch repo configuration
+    And I have updated the package manager
     And I install the latest patch
     And I prepare the disk.list file
     And I run configure.sh on all nodes

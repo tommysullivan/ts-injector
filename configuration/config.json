@@ -1073,6 +1073,23 @@
             "mapr-opentsdb",
             "mapr-asynchbase"
           ]
+        },
+        {
+          "host": "10.10.100.178",
+          "username": "root",
+          "password": "mapr",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.0"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-collectd-fast-jmx",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core"
+          ]
         }
       ]
     },
