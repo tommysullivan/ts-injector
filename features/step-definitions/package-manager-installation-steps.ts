@@ -133,7 +133,7 @@ module.exports = function() {
         return $.expect(result).to.eventually.be.fulfilled;
     });
 
-    this.Given(/^I have installed Java$/, { timeout: 1000 * 60 * 7 }, function () {
+    this.Given(/^I have installed Java$/, { timeout: 1000 * 60 * 40 }, function () {
         var nodePromises = $.clusterUnderTest.nodes().map(n=> {
             var isYum = n.repo.type == 'yum';
             return n.executeShellCommand(isYum ? 'yum install -y java' : 'apt-get install -y openjdk-7-jre openjdk-7-jdk');
