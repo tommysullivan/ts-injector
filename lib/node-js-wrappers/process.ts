@@ -68,14 +68,15 @@ export default class Process implements IProcess {
     executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IThenable<IProcessResult> {
         var env = environmentVariables.clone();
         var nodeExecutable = this.pathToNodeJSExecutable();
-        env.add('PATH', nodeExecutable);
+        env.add('PATH', `${env.get('PATH')}:${this.pathToNodeJSExecutable()}`);
 
         return this.promiseFactory.newPromise((resolve, reject) => {
             var stdoutParts = this.collections.newEmptyList<string>();
             var stderrParts = this.collections.newEmptyList<string>();
+            console.log('env vars right before calling childProcess.exec', env.toJSON());
             var cukeProcess = this.childProcess.exec(
                 `${this.pathToNodeJSExecutable()} ${command}`,
-                env
+                { env: env.toJSON() }
             );
 
             cukeProcess.stdout.on('data', (data) => { stdoutParts.push(data) });
