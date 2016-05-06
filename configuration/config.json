@@ -54,7 +54,6 @@
           "serviceNames": [
             "mapr-installer",
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -87,7 +86,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -116,7 +114,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -184,7 +181,6 @@
           "serviceNames": [
             "mapr-installer",
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -218,7 +214,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -248,7 +243,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -293,7 +287,6 @@
           "serviceNames": [
             "mapr-installer",
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -334,7 +327,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -371,7 +363,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -412,7 +403,6 @@
           "serviceNames": [
             "mapr-installer",
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -449,7 +439,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -482,7 +471,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -527,7 +515,6 @@
           "serviceNames": [
             "mapr-installer",
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -568,7 +555,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -605,7 +591,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -631,7 +616,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -655,7 +639,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -676,7 +659,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -697,7 +679,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -715,7 +696,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -733,7 +713,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -751,7 +730,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -769,7 +747,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -792,7 +769,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -815,7 +791,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -844,7 +819,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -868,7 +842,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -889,7 +862,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -910,7 +882,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -928,7 +899,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -946,7 +916,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -964,7 +933,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -982,7 +950,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -1005,7 +972,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -1028,7 +994,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -1056,7 +1021,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -1084,7 +1048,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -1107,7 +1070,6 @@
           },
           "serviceNames": [
             "mapr-collectd",
-            "mapr-collectd-fast-jmx",
             "mapr-fluentd",
             "mapr-nodemanager",
             "mapr-fileserver",
@@ -1269,7 +1231,6 @@
     "serviceSet": [
       { "name": "mapr-asynchbase", "version": "1.7.0", "core": false, "healthCheckable": false },
       { "name": "mapr-collectd", "version": "5.5.1", "core": false , "healthCheckable": true },
-      { "name": "mapr-collectd-fast-jmx", "version": "1.1" , "core": false, "healthCheckable": false },
       { "name": "mapr-elasticsearch", "version": "2.2.0" , "core": false, "healthCheckable": true },
       { "name": "mapr-fluentd", "version": "0.12.22" , "core": false, "healthCheckable": true },
       { "name": "mapr-grafana", "version": "2.6.0" , "core": false, "healthCheckable": true },
