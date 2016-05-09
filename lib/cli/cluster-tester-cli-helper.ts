@@ -18,6 +18,9 @@ import Clusters from "../clusters/clusters";
 import IPromiseFactory from "../promise/i-promise-factory";
 import IThenable from "../promise/i-thenable";
 import ClusterTestResult from "../cluster-testing/cluster-test-result";
+import ICollections from "../collections/i-collections";
+import IClusterUnderTest from "../cluster-testing/i-cluster-under-test";
+import INode from "../cluster-testing/i-node";
 
 export default class ClusterTesterCliHelper {
     private process:IProcess;
@@ -33,8 +36,9 @@ export default class ClusterTesterCliHelper {
     private rest:Rest;
     private clusters:Clusters;
     private promiseFactory:IPromiseFactory;
+    private collections:ICollections;
 
-    constructor(process:IProcess, console:IConsole, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusterTestingConfiguration:ClusterTestingConfiguration, cliHelper:CliHelper, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, path:IPath, fileSystem:IFileSystem, rest:Rest, clusters:Clusters, promiseFactory:IPromiseFactory) {
+    constructor(process:IProcess, console:IConsole, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusterTestingConfiguration:ClusterTestingConfiguration, cliHelper:CliHelper, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, path:IPath, fileSystem:IFileSystem, rest:Rest, clusters:Clusters, promiseFactory:IPromiseFactory, collections:ICollections) {
         this.process = process;
         this.console = console;
         this.uuidGenerator = uuidGenerator;
@@ -48,6 +52,7 @@ export default class ClusterTesterCliHelper {
         this.rest = rest;
         this.clusters = clusters;
         this.promiseFactory = promiseFactory;
+        this.collections = collections;
     }
 
     executeTestRunCli():void {
@@ -63,6 +68,24 @@ export default class ClusterTesterCliHelper {
                 var cucumberPassThruCommands = featureSet.featureFilesInExecutionOrder.append(this.process.commandLineArguments().everythingAfterIndex(4));
                 this.runCucumber(cucumberPassThruCommands);
             }
+            else if(subCommand=='command') {
+                var command = this.process.commandLineArguments().everythingAfterIndex(3).join(' ');
+                var clusters = this.clusterIds.map(clusterId=>this.clusterTesting.newClusterUnderTest(this.clusters.clusterConfigurationWithId(clusterId)));
+                var restrictNodesBasedOnServices = this.process.environmentVariables().hasKey('nodesWith');
+                clusters.forEach(cluster=>{
+                    var nodesForShellCommand = restrictNodesBasedOnServices
+                        ? this.nodesRunningRequestedServices(cluster)
+                        : cluster.nodes();
+                    var commandPromises = nodesForShellCommand.map(n=>n.executeShellCommand(command));
+                    this.promiseFactory.newGroupPromise(commandPromises)
+                        .then(result=>{
+                            this.console.log('*****************************************');
+                            this.console.log(`Cluster Result for id "${cluster.name}`);
+                            this.console.log("\n");
+                            this.console.log(result.toJSONString());
+                        });
+                });
+            }
             else throw new Error(`Invalid command ${subCommand}`);
         }
         catch(e) {
@@ -71,15 +94,25 @@ export default class ClusterTesterCliHelper {
         }
     }
 
+    private nodesRunningRequestedServices(cluster:IClusterUnderTest):IList<INode> {
+        var requisiteServiceNames = this.collections.newList<string>(this.process.environmentVariableNamed('nodesWith').split(','));
+        return cluster.nodes().where(n=>n.serviceNames.containAll(requisiteServiceNames));
+    }
+
+    private get clusterIds():IList<string> {
+        return this.collections.newList<string>(
+            this.process.environmentVariables().hasKey('clusterIds')
+                ? this.process.environmentVariableNamed('clusterIds').split(',')
+                : [this.process.environmentVariableNamed('clusterId')]
+        );
+    }
+
     //TODO: Decouple private methods from CLI and move to clusterTester so they can be invoked programmatically
     private runCucumber(cucumberPassThruCommands:IList<string>):void {
         var env = this.process.environmentVariables();
         var testRunUUID = this.uuidGenerator.v4();
         var phase = this.clusterTestingConfiguration.defaultPhase;
-        var clusterIds = this.process.environmentVariables().hasKey('clusterIds')
-            ? this.process.environmentVariableNamed('clusterIds').split(',')
-            : [this.process.environmentVariableNamed('clusterId')];
-
+        var clusterIds = this.clusterIds;
         var clusterTestResultPromises = clusterIds.map(clusterId=>{
             var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
             var cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;
@@ -103,7 +136,7 @@ export default class ClusterTesterCliHelper {
                 });
         });
         
-        this.promiseFactory.newGroupPromiseFromArray(clusterTestResultPromises)
+        this.promiseFactory.newGroupPromise(clusterTestResultPromises)
             .then(clusterTestResults => {
                 var allPassed = clusterTestResults.all(t=>t.passed());
                 if(clusterTestResults.length > 1) {
@@ -170,7 +203,9 @@ export default class ClusterTesterCliHelper {
             'targets                                         description',
             '-------                                         -----------',
             'featureSet [featureSetId]                       run cucumber with the specified featureset (to list available run command "featureSets")',
-            'cucumber [args passed thru to cucumber.js]      reset cluster power or turn it off or on'
+            'cucumber [args passed thru to cucumber.js]      reset cluster power or turn it off or on',
+            'command [command]                               run arbitrary command on each node in cluster(s). If environment variable "nodesWith" is set',
+            '                                                to a comma separated list of service names, then commands will only run on nodes that have those services'
         ].join('\n'));
     }
 }

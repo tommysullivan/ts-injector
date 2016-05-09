@@ -180,6 +180,10 @@ export default class NodeUnderTest implements INode {
         return this.nodeConfiguration.serviceNames.contain(serviceName);
     }
 
+    get serviceNames():IList<string> {
+        return this.nodeConfiguration.serviceNames.clone();
+    }
+
     toJSON():any {
         return this.nodeConfiguration.toJSON();
     }
