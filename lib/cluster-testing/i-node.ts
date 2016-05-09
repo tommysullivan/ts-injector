@@ -17,6 +17,7 @@ interface INode {
     verifyMapRNotInstalled():IThenable<ISSHResult>;
     verifyMapRIsInstalled():IThenable<ISSHResult>;
     isHostingService(serviceName:string):boolean;
+    serviceNames:IList<string>;
     newAuthedMCSSession():IThenable<MCSRestSession>;
     newAuthedInstallerSession():IThenable<IInstallerRestSession>;
     newOpenTSDBRestClient():OpenTSDBRestClient;

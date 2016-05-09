@@ -90,7 +90,8 @@ export default class Cli {
                 this.fileSystem,
                 this.rest,
                 this.clusters,
-                this.promiseFactory
+                this.promiseFactory,
+                this.collections
             ),
             this.testPortal,
             cliHelper

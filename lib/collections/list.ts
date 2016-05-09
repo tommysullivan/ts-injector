@@ -42,6 +42,10 @@ export default class List<T> implements IList<T> {
         return new List<T>(this.listItems.filter(filterFunction));
     }
 
+    where(filterFunction:(originalItem:T)=>boolean):IList<T> {
+        return this.filter(filterFunction);
+    }
+
     unique():IList<T> {
         var uniqueList = new List<T>();
         this.forEach(i=>uniqueList.contains(i) ? null : uniqueList.push(i));
@@ -73,6 +77,13 @@ export default class List<T> implements IList<T> {
     contains(soughtItem:T):boolean {
         return this.listItems.indexOf(soughtItem)>-1;
     }
+
+    containsAll(soughtItems:IList<T>):boolean {
+        var uniqueSoughtItems = soughtItems.unique();
+        return this.filter(i=>uniqueSoughtItems.contains(i)).unique().length == uniqueSoughtItems.length;
+    }
+
+    containAll(soughtItems:IList<T>):boolean { return this.containsAll(soughtItems); }
 
     push(item:T):IList<T> {
         this.listItems.push(item);

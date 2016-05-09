@@ -4,12 +4,15 @@ interface IList<T> {
     all(predicate:(originalItem:T)=>boolean):boolean;
     map<T2>(mapFunction:(originalItem:T) => T2):IList<T2>;
     filter(filterFunction:(originalItem:T)=>boolean):IList<T>;
+    where(filterFunction:(originalItem:T)=>boolean):IList<T>;
     first(exceptionMessage?:string):T;
     rest():IList<T>;
     clone():IList<T>;
     firstWhere(predicate:(item:T) =>boolean, exceptionMessage?:string):T;
     contains(soughtItem:T):boolean;
     contain(soughtItem:T):boolean;
+    containsAll(soughtItems:IList<T>):boolean;
+    containAll(soughtItems:IList<T>):boolean;
     push(item:T):IList<T>;
     toArray():Array<T>;
     toJSON():Array<T>;

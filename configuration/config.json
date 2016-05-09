@@ -596,7 +596,8 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
-            "mapr-grafana"
+            "mapr-grafana",
+            "mapr-elasticsearch"
           ]
         }
       ]
