@@ -1101,6 +1101,7 @@
         "featureFilePaths": [
           "features/cluster-preparation/esxi-cluster-preparation.feature",
           "features/installation/package-manager-installation.feature",
+          "features/installation/elasticsearch-logs.feature",
           "features/elasticsearch-logs.feature",
           "features/mcs.feature",
           "features/open-tsdb-metrics.feature",

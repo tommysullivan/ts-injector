@@ -134,5 +134,11 @@ module.exports = function () {
             return n.executeShellCommand("service mapr-zookeeper stop");
         })).to.eventually.be.fulfilled;
     });
+    this.Given(/^I run loadTemplate one of the es nodes$/, function () {
+        var esNode = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').first();
+        var nodeIp = esNode.host;
+        var result = esNode.executeShellCommand("/opt/mapr/elasticsearch/elasticsearch-2.2.0/bin/es_cluster_mgmt.sh -loadTemplate " + nodeIp);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=package-manager-installation-steps.js.map
