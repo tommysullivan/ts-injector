@@ -35,8 +35,7 @@ module.exports = function () {
         return $.expect(multiUrlRequest).to.be.fulfilled;
     });
     this.Given(/^a GET request of each URL does not return an error status code$/, function () {
-        var urlRequestGroup = $.promiseFactory.newGroupPromise(this.appLinks.map(function (url) { return $.rest.newRestClientAsPromised().get(url); }));
-        return $.expect(urlRequestGroup).to.eventually.be.fulfilled;
+        return $.expectAll(this.appLinks.map(function (url) { return $.rest.newRestClientAsPromised().get(url); })).to.eventually.be.fulfilled;
     });
     this.When(/^I purposely take down (.*) on one or more nodes$/, function (service, callback) {
         // Write code here that turns the phrase above into concrete actions

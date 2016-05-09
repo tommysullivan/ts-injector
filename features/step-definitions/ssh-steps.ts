@@ -28,9 +28,7 @@ module.exports = function() {
             `curl ${sshServiceHost.repoUrlFor(componentFamily)}${fileToRetrieve} > ${destinationDirectory}${fileToRetrieve}`,
             `chmod 744 ${destinationDirectory}${fileToRetrieve}`
         ]);
-        var sshRequest = sshSession.executeCommands(commands)
-            .catch(this.handleError);
-        return $.expect(sshRequest).to.eventually.be.fulfilled;
+        return $.expect(sshSession.executeCommands(commands)).to.eventually.be.fulfilled;
     });
 
     this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 10 * 60 * 1000 }, function (sshCommand) {

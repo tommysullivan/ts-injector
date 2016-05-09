@@ -194,6 +194,10 @@ export default class Framework {
         } else return this.chai.expect(target, message);
     }
 
+    expectAll<T>(target:IList<IThenable<T>>):Assertion {
+        return this.expect(this.promiseFactory.newGroupPromise(target));
+    }
+
     assertEmptyList<T>(list:IList<T>):void {
         if(list.notEmpty())
             throw new this.chai.AssertionError(`expected empty list, got ${list.toJSONString()}`);
