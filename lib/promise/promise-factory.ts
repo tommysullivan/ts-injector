@@ -1,7 +1,6 @@
 import IPromiseFactory from "./i-promise-factory";
 import IList from "../collections/i-list";
 import IThenable from "../promise/i-thenable";
-import List from "../collections/list";
 import ICollections from "../collections/i-collections";
 
 export default class PromiseFactory implements IPromiseFactory {

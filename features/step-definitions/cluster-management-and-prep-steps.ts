@@ -29,11 +29,6 @@ module.exports = function() {
 
     this.When(/^I request the cluster version graph$/, function () {
         throw new Error('not impl');
-        // $.clusterTesting.
-        // var versionGraphRequest = $.clusterUnderTest.versionGraph()
-        //     .then(versionGraph=>this.versionGraph=versionGraph);
-        //
-        // return $.expect(versionGraphRequest).to.eventually.be.fulfilled;
     });
 
     this.Then(/^it returns a valid JSON file$/, function () {

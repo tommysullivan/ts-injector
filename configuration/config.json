@@ -1101,8 +1101,6 @@
           "features/cluster-preparation/esxi-cluster-preparation.feature",
           "features/installation/package-manager-installation.feature",
           "features/elasticsearch-logs.feature",
-          "features/grafana-metrics.feature",
-          "features/kibana-logs.feature",
           "features/mcs.feature",
           "features/open-tsdb-metrics.feature",
           "features/ecosystem/yarn.feature"
