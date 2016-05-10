@@ -168,8 +168,12 @@
             "id": 3,
             "states": [
               {
-                "name": "readyForInstallation",
+                "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForInstallation",
+                "snapshotId": 2
               }
             ]
           },
@@ -202,8 +206,12 @@
             "id": 4,
             "states": [
               {
-                "name": "readyForInstallation",
+                "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForInstallation",
+                "snapshotId": 2
               }
             ]
           },
@@ -231,8 +239,12 @@
             "id": 5,
             "states": [
               {
-                "name": "readyForInstallation",
+                "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForInstallation",
+                "snapshotId": 2
               }
             ]
           },
@@ -267,7 +279,7 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 63
+                "snapshotId": 66
               },
               {
                 "name": "baseImage",
@@ -308,7 +320,7 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 48
+                "snapshotId": 51
               },
               {
                 "name": "baseImage",
@@ -344,7 +356,7 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 43
+                "snapshotId": 46
               },
               {
                 "name": "baseImage",
@@ -391,7 +403,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 1
+                "snapshotId": 2
               }
             ]
           },
@@ -428,7 +440,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 1
+                "snapshotId": 2
               }
             ]
           },
@@ -460,7 +472,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 1
+                "snapshotId": 2
               }
             ]
           },
@@ -499,7 +511,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 12
+                "snapshotId": 17
               },
               {
                 "name": "guiInstallerReady",
@@ -540,7 +552,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 12
+                "snapshotId": 17
               },
               {
                 "name": "guiInstallerReady",
@@ -576,7 +588,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 12
+                "snapshotId": 17
               },
               {
                 "name": "guiInstallerReady",
@@ -1099,7 +1111,7 @@
       {
         "id": "dailyESXIRun",
         "featureFilePaths": [
-          "features/cluster-preparation/esxi-cluster-preparation.feature",
+          "features/esxi/esxi-cluster-preparation.feature",
           "features/installation/package-manager-installation.feature",
           "features/installation/elasticsearch-setup.feature",
           "features/elasticsearch-logs.feature",

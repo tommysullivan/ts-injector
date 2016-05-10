@@ -13,6 +13,7 @@ module.exports = function() {
         };
         return handlers[numParameters];
     }
+    this.Then(/^I manually retrieve the ids of these new snapshots based on the console output of the previous step$/, manualStep(0));
     this.Given(/^I am viewing a test result in test portal$/, manualStep(0));
     this.When(/^I click "([^"]*)"$/, manualStep(1));
     this.Then(/^it updates tagged JIRA issues with test result statuses$/, manualStep(0));
