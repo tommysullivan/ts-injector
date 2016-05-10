@@ -169,22 +169,22 @@ Path where the data of ES resides needs to be created manually. By default the p
    * [Manual step for M2] **After running configure.sh, when Kibana page loads on port 5601 (default port for Kibana) you will see message for "Configuring index pattern". Please enter "mapr_monitoring-*" for Index name or pattern field and "@timestamp" for Time-field name.**
 
 #### Example of simple manual pacakge installation (RPM):
-  * Assuming core is already installed.
-  * On the node where you plan to install ES & OpenTSDB
-    * yum install mapr-asynchbase-1.7* mapr-elasticsearch mapr-opentsdb-2.2* mapr-grafana mapr-kibana mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
-  * On the node where you only plan to install the collection agents (collectd and fluentd)
-    * yum install mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
+      * Assuming core is already installed.
+      * On the node where you plan to install ES & OpenTSDB
+        * yum install mapr-asynchbase-1.7* mapr-elasticsearch mapr-opentsdb-2.2* mapr-grafana mapr-kibana mapr-collectd mapr-fluentd
+      * On the node where you only plan to install the collection agents (collectd and fluentd)
+        * yum install mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
 
 #### Example configure.sh invocation:
-  * The configuration happens in two stages. 
-  * Stage1 - initial configuration that can be done without core running
-  * Stage2 - configuration that can only happen once core is up
-  * configure.sh -C 10.10.10.81 -Z 10.10.10.81,10.10.10.82 -N <clusterName> -OT 10.10.10.81 -ES 10.10.10.82 -ESDB /opt/mapr/es (-ESDB on ES server nodes only) - Replace the IPs for ZK, OpenTSDB and ElasticSearch with your cluster's actual IP addresses.
-  * service mapr-zookeeper start
-  * service mapr-warden start
-  * configure.sh -R
-  * On ES node, we also need to load the template after installation and running configure.sh above
-     * Run the following: /opt/mapr/elasticsearch/elasticsearch-2.2.0/bin/es_cluster_mgmt.sh -loadTemplate [list of ES nodes' IP / FQDN]
+      * The configuration happens in two stages. 
+      * Stage1 - initial configuration that can be done without core running
+      * Stage2 - configuration that can only happen once core is up
+        * configure.sh -C 10.10.10.81 -Z 10.10.10.81,10.10.10.82 -N <clusterName> -OT 10.10.10.81 -ES 10.10.10.82 -ESDB /opt/mapr/es (-ESDB on ES server nodes only) - Replace the IPs for ZK, OpenTSDB and ElasticSearch with your cluster's actual IP addresses.
+      * service mapr-zookeeper start
+      * service mapr-warden start
+      * configure.sh -R
+        * On ES node, we also need to load the template after installation and running configure.sh above
+            * Run the following: /opt/mapr/elasticsearch/elasticsearch-2.2.0/bin/es_cluster_mgmt.sh -loadTemplate [list of ES nodes' IP / FQDN]
 
 #### Installer support
 **The lastest build of the installer (2/29/2016) does now do this for you. ESDB is for now hard coded to /opt/mapr/es_db.**
