@@ -3,7 +3,7 @@
   "clusterTesting": {
     "defaultPhase": "latestBuild",
     "resultServers": {
-      "local": "http://localhost:80",
+      "local": "http://localhost:5001",
       "lab": "http://testing.devops.lab"
     },
     "testPortalHostAndPort": "http://testing.devops.lab",

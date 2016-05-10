@@ -56,5 +56,5 @@
             </div>
         </div>
     </div>
-    <feature ng-repeat="feature in testResult.features track by feature.id"></feature>
+    <feature ng-repeat="feature in testResult.features track by $index"></feature>
 </div>

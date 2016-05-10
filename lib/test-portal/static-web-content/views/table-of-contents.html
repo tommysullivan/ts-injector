@@ -1,5 +1,5 @@
 <div style="max-height: 250px; overflow: auto;">
-    <div class="blockLink scenario {{feature.status()}}" ng-click="focusOn(feature.id)" style="margin: 0px;" ng-repeat="feature in testResult.features">
+    <div class="blockLink scenario {{feature.status()}}" ng-click="focusOn(feature.id)" style="margin: 0px;" ng-repeat="feature in testResult.features track by $index">
         <p class="text-center">{{feature.name}} &#10174;</p>
     </div>
 </div>

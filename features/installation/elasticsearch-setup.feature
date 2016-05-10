@@ -1,4 +1,4 @@
-Feature: Package Manager Uninstall
+Feature: ElasticSearch Setup
 
   @SPYG-514
   Scenario: Setup ElasticSearch once MapR is Installed
