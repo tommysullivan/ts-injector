@@ -1,20 +1,53 @@
 import IRepository from "./i-repository";
+import IList from "../collections/i-list";
 
 export default class YumRepository implements IRepository {
 
-    get type():string {
-        return 'yum';
-    }
-
     get host():string {
-        //TODO: Allow this to vary based on "phase"
         return 'yum.qa.lab';
     }
 
     get packageCommand():string {
         return 'yum';
     }
-    
+
+    get repoConfigDirectory():string {
+        return '/etc/yum.repos.d/';
+    }
+
+    get patchRepoFileName():string {
+        return 'mapr-patch-yum.repo';
+    }
+
+    get coreRepoFileName():string {
+        return 'mapr-yum.repo';
+    }
+
+    get ecosystemRepoFileName():string {
+        return 'ecosystem-yum.repo';
+    }
+
+
+    get uninstallCorePackagesCommand():string {
+        return `rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;
+    }
+
+    uninstallPackagesCommand(packageNames:IList<string>) {
+        return `${this.packageCommand} remove -y ${packageNames.join(' ')}`;
+    }
+
+    get installJavaCommand():string {
+        return this.installPackageCommand('java');
+    }
+
+    installPackagesCommand(packageNames:IList<string>):string {
+        return `${this.packageCommand} install -y ${packageNames.join(' ')}`;
+    }
+
+    installPackageCommand(packageName:string):string {
+        return `${this.packageCommand} install -y ${packageName}`;
+    }
+
     get packageUpdateCommand():string {
         return 'yum clean all';
     } 

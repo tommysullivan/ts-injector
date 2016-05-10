@@ -3,12 +3,15 @@ import IRepository from "../repositories/i-repository";
 import YumRepository from "../repositories/yum-repository";
 import AptRepository from "../repositories/apt-repository";
 import IJSONObject from "../typed-json/i-json-object";
+import ICollections from "../collections/i-collections";
 
 export default class OperatingSystemConfig implements IOperatingSystemConfig {
     private operatingSystemJSON:IJSONObject;
+    private collections:ICollections;
 
-    constructor(operatingSystemJSON:IJSONObject) {
+    constructor(operatingSystemJSON:IJSONObject, collections:ICollections) {
         this.operatingSystemJSON = operatingSystemJSON;
+        this.collections = collections;
     }
 
     get name():string {
@@ -34,6 +37,6 @@ export default class OperatingSystemConfig implements IOperatingSystemConfig {
         var isYum = hostOS == 'centos' || hostOS == 'redhat';
         return isYum
             ? new YumRepository()
-            : new AptRepository();
+            : new AptRepository(this.collections);
     }
 }

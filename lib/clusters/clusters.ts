@@ -4,16 +4,19 @@ import IList from "../collections/i-list";
 import ClusterConfiguration from "./cluster-configuration";
 import IESXI from "../esxi/i-esxi";
 import IErrors from "../errors/i-errors";
+import ICollections from "../collections/i-collections";
 
 export default class Clusters {
     private clusterJSONs:IList<IJSONObject>;
     private esxi:IESXI;
     private errors:IErrors;
+    private collections:ICollections;
 
-    constructor(clusterJSONs:IList<IJSONObject>, esxi:IESXI, errors:IErrors) {
+    constructor(clusterJSONs:IList<IJSONObject>, esxi:IESXI, errors:IErrors, collections:ICollections) {
         this.clusterJSONs = clusterJSONs;
         this.esxi = esxi;
         this.errors = errors;
+        this.collections = collections;
     }
 
     clusterConfigurationWithId(id:string):IClusterConfiguration {
@@ -36,6 +39,6 @@ export default class Clusters {
     }
 
     newClusterConfiguration(clusterConfigJSON:IJSONObject):IClusterConfiguration {
-        return new ClusterConfiguration(clusterConfigJSON, this.esxi);
+        return new ClusterConfiguration(clusterConfigJSON, this.esxi, this.collections);
     }
 }

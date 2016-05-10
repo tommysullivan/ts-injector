@@ -1,7 +1,17 @@
+import IList from "../collections/i-list";
+
 interface IRepository {
-    type:string;
     host:string;
     packageCommand:string;
+    repoConfigDirectory:string;
+    patchRepoFileName:string;
+    coreRepoFileName:string;
+    ecosystemRepoFileName:string;
+    uninstallCorePackagesCommand:string;
+    uninstallPackagesCommand(packageNames:IList<string>);
+    installJavaCommand:string;
+    installPackagesCommand(packageNames:IList<string>):string;
+    installPackageCommand(packageName:string):string;
     repoListCommand:string;
     packageListCommand:string;
     packageUpdateCommand:string;
