@@ -124,6 +124,12 @@ module.exports = function() {
         ).to.eventually.be.fulfilled;
     });
 
+    this.Given(/^I use the package manager to install the "([^"]*)" package$/, function (packageName) {
+        return $.expectAll(
+            $.clusterUnderTest.nodes().map(n=>n.executeShellCommand(n.repo.installPackageCommand(packageName)))
+        ).to.eventually.be.fulfilled;
+    });
+
     this.Given(/^the cluster has MapR Installed$/, function () {
         return $.expectAll(
             $.clusterUnderTest.nodes().map(n => n.verifyMapRIsInstalled())

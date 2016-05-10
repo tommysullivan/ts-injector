@@ -87,6 +87,9 @@ module.exports = function () {
     this.Given(/^I have installed Java$/, { timeout: 1000 * 60 * 40 }, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repo.installJavaCommand); })).to.eventually.be.fulfilled;
     });
+    this.Given(/^I use the package manager to install the "([^"]*)" package$/, function (packageName) {
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repo.installPackageCommand(packageName)); })).to.eventually.be.fulfilled;
+    });
     this.Given(/^the cluster has MapR Installed$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.verifyMapRIsInstalled(); })).to.eventually.be.fulfilled;
     });
