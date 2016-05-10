@@ -92,6 +92,7 @@
             "mapr-core",
             "mapr-elasticsearch",
             "mapr-opentsdb",
+            "mapr-asynchbase",
             "mapr-grafana"
           ]
         },
@@ -138,6 +139,7 @@
           },
           "serviceNames": [
             "mapr-opentsdb",
+            "mapr-asynchbase",
             "mapr-webserver"
           ]
         },
@@ -228,6 +230,7 @@
             "mapr-core",
             "mapr-elasticsearch",
             "mapr-opentsdb",
+            "mapr-asynchbase",
             "mapr-grafana"
           ]
         },
@@ -380,6 +383,7 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
+            "mapr-asynchbase",
             "mapr-grafana"
           ]
         }
@@ -488,6 +492,7 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
+            "mapr-asynchbase",
             "mapr-grafana"
           ]
         }
@@ -608,6 +613,7 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
+            "mapr-asynchbase",
             "mapr-grafana",
             "mapr-elasticsearch"
           ]
