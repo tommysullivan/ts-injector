@@ -5,12 +5,15 @@ import IOperatingSystemConfig from "./../operating-systems/i-operating-system-co
 import OperatingSystemConfig from "./../operating-systems/operating-system-config";
 import IJSONObject from "../typed-json/i-json-object";
 import IESXINodeConfiguration from "../esxi/configuration/i-esxi-node-configuration";
+import ICollections from "../collections/i-collections";
 
 export default class NodeConfiguration implements INodeConfiguration {
     private nodeJSON:IJSONObject;
+    private collections:ICollections;
 
-    constructor(nodeJSON:IJSONObject) {
+    constructor(nodeJSON:IJSONObject, collections:ICollections) {
         this.nodeJSON = nodeJSON;
+        this.collections = collections;
     }
 
     snapshotIdFromStateName(stateName:string):number {
@@ -31,7 +34,8 @@ export default class NodeConfiguration implements INodeConfiguration {
 
     get operatingSystem():IOperatingSystemConfig {
         return new OperatingSystemConfig(
-            this.nodeJSON.jsonObjectNamed('operatingSystem')
+            this.nodeJSON.jsonObjectNamed('operatingSystem'),
+            this.collections
         );
     }
 

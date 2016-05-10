@@ -1,12 +1,50 @@
 import IRepository from "./i-repository";
+import IList from "../collections/i-list";
+import ICollections from "../collections/i-collections";
 
 export default class AptRepository implements IRepository {
 
-    constructor() {
+    private collections:ICollections;
+
+    constructor(collections:ICollections) {
+        this.collections = collections;
     }
 
-    get type():string {
-        return 'apt-get';
+    get repoConfigDirectory():string {
+        return '/etc/apt/sources.list.d/';
+
+    }
+
+    get patchRepoFileName():string {
+        return 'mapr-patch-apt-get.list';
+    }
+
+    get coreRepoFileName():string {
+        return 'mapr-apt-get.list';
+    }
+
+    get ecosystemRepoFileName():string {
+        return 'ecosystem-apt-get.list';
+    }
+
+    installPackagesCommand(packageNames:IList<string>):string {
+        return `${this.packageCommand} install -y ${packageNames.join(' ')} --allow-unauthenticated`;
+    }
+
+    get uninstallCorePackagesCommand():string {
+        return `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs -i apt-get purge {} -y`;
+    }
+
+    uninstallPackagesCommand(packageNames:IList<string>) {
+        return `${this.packageCommand} purge -y ${packageNames.join(' ')}`;
+    }
+
+    get installJavaCommand():string {
+        return this.installPackagesCommand(this.collections.newList<string>(['openjdk-7-jre', 'openjdk-7-jdk']));
+    }
+
+    installPackageCommand(packageName:string):string {
+        return `${this.packageCommand} install -y ${packageName} --allow-unauthenticated`;
     }
 
     get packageUpdateCommand():string {
