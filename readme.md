@@ -173,7 +173,7 @@ Path where the data of ES resides needs to be created manually. By default the p
       * On the node where you plan to install ES & OpenTSDB
         * yum install mapr-asynchbase-1.7* mapr-elasticsearch mapr-opentsdb-2.2* mapr-grafana mapr-kibana mapr-collectd mapr-fluentd
       * On the node where you only plan to install the collection agents (collectd and fluentd)
-        * yum install mapr-collectd mapr-collectd-fast-jmx mapr-fluentd
+        * yum install mapr-collectd mapr-fluentd
 
 #### Example configure.sh invocation:
       * The configuration happens in two stages. 
