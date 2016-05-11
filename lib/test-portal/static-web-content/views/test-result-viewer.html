@@ -1,37 +1,34 @@
 <div ng-controller="TestResultController" class="pageTitleArea">
     <div class="row">
-        <div class="col-md-8">
-            <h2>Test Result Viewer</h2>
-
-            <div ng-switch on="testResult.contentType()">
+        <div class="col-md-4">
+            <h2>{{testResult.clusterId()}}</h2>
+            <small>{{testResult.modifiedTime}}</small>
+            <div>Test Run ID: {{testResult.name | limitTo:30}}</div>
+            <div class="dark" ng-switch on="testResult.contentType()">
                 <div ng-switch-when="vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0">
-                    clusterId: {{testResult.clusterId()}}<br />
                     controller: <a href="http://{{testResult.controllerHost()}}">{{testResult.controllerHost()}}</a><br />
-                    nodes:
-                    <span ng-repeat="nodeHost in testResult.nodeNames()">
-                        <a href="http://{{nodeHost}}">{{nodeHost}}</a>
-                    </span><br />
-                    <anchor-link content="environment configuration details" on-anchor-click="focusOn('configurationDetails')"></anchor-link>
                 </div>
                 <div ng-switch-when="vnd/mapr.test-portal.cluster-test-result+json;v=2.0.0">
-                    clusterId: {{testResult.clusterId()}}<br />
-                    nodes:
-                    <span ng-repeat="nodeHost in testResult.nodeNames()">
-                        <a href="http://{{nodeHost}}">{{nodeHost}}</a>
-                    </span><br />
-                    <anchor-link content="environment configuration details" on-anchor-click="focusOn('configurationDetails')"></anchor-link>
                 </div>
+                nodes:
+                <span ng-repeat="nodeHost in testResult.nodeNames()">
+                    <small><a href="http://{{nodeHost}}">{{nodeHost}}</a></small>
+                </span>
+                <br />
+                <br />
                 <div ng-switch-default>
                     <small><a href="{{testConfig.href}}" style="color:white;">{{testConfig.displayName}}</a></small>
                     <small><a href="{{testCLIInvocation.href}}" style="color:white;">{{testCLIInvocation.displayName}}</a></small>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <h4 class="text-right">{{testResult.name}}</h4>
-            <button ng-click="saveTestResultAndClose()" class="actionButton pull-right">save and close</button>
-            <button ng-click="saveTestResult()" class="actionButton pull-right">save</button>
-            <button ng-click="syncResultsToJIRA()" class="actionButton pull-right">sync results to JIRA</button>
+        <div class="col-md-8">
+            <div class="bottom">
+                <button ng-click="focusOn('configurationDetails')" class="btn btn-primary pull-right">View Details / Advanced</button>
+                <button ng-click="saveTestResultAndClose()" class="btn btn-primary pull-right">save and close</button>
+                <button ng-click="saveTestResult()" class="btn btn-primary pull-right">save</button>
+                <button ng-click="syncResultsToJIRA()" class="btn btn-primary pull-right">sync results to JIRA</button>
+            </div>
         </div>
     </div>
     <div ng-if="!testResultLoaded">
@@ -44,10 +41,13 @@
 
     <div style="background-color: #444444; padding: 15px; ">
         <a id="configurationDetails"></a>
-        <h3>Configuration Details</h3>
-        <input ng-model="showCluserSpecificConfig" type="checkbox"> Show Cluster-Specific Configuration
-        <input ng-model="showVerionGraph" type="checkbox"> Show Cluster Package Version Graph
-        <input ng-model="showTestConfig" type="checkbox"> Show Test Run Configuration
+        <h3>View Details / Advanced</h3>
+        <p style="margin-bottom: 10px;">Please use the checkboxes below to select the details you'd like to view:</p>
+        <input ng-model="showCluserSpecificConfig" type="checkbox"> Cluster Configuration<br/>
+        <input ng-model="showVerionGraph" type="checkbox"> Installed Packages<br/>
+        <input ng-model="showTestConfig" type="checkbox"> Full Test Run Configuration<br/>
+        <input ng-model="showTestRunConsoleOutput" type="checkbox"> Raw Console Output<br/>
+        <input ng-model="showRawJSONForTestResult" type="checkbox"> Raw JSON Result<br/>
         <div ng-if="showCluserSpecificConfig">
             <div json-viewer="flattenedClusterConfig"></div>
         </div>
@@ -56,6 +56,20 @@
         </div>
         <div ng-if="showTestConfig">
             <div json-viewer="configJSON"></div>
+        </div>
+        <div ng-if="showTestRunConsoleOutput">
+            <pre>
+            <code>
+{{testRunConsoleOutput}}
+             </code>
+            </pre>
+        </div>
+        <div ng-if="showRawJSONForTestResult">
+            <pre>
+            <code>
+{{testResultJSON}}
+            </code>
+            </pre>
         </div>
     </div>
 </div>
