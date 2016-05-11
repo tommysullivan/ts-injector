@@ -12,6 +12,11 @@
     background-color: #FFBBBB;
 }
 
+button {
+    margin-right: 3px;
+    margin-bottom: 3px;
+}
+
 .feature {
     margin-top: 10px;
     border-width: 3px;
