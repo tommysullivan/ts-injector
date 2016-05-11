@@ -1,6 +1,6 @@
 "use strict";
 module.exports = function () {
-    this.When(/^I perform the following ssh commands on each node in the cluster:$/, function (commands) {
+    this.When(/^I perform the following ssh commands on each node in the cluster:$/, { timeout: 5 * 60 * 1000 }, function (commands) {
         var commandList = $.collections.newList(commands.split("\n"));
         return $.expect($.clusterUnderTest.executeShellCommandsOnEachNode(commandList))
             .to.eventually.be.fulfilled;
@@ -19,9 +19,7 @@ module.exports = function () {
             ("curl " + sshServiceHost.repoUrlFor(componentFamily) + fileToRetrieve + " > " + destinationDirectory + fileToRetrieve),
             ("chmod 744 " + destinationDirectory + fileToRetrieve)
         ]);
-        var sshRequest = sshSession.executeCommands(commands)
-            .catch(this.handleError);
-        return $.expect(sshRequest).to.eventually.be.fulfilled;
+        return $.expect(sshSession.executeCommands(commands)).to.eventually.be.fulfilled;
     });
     this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 10 * 60 * 1000 }, function (sshCommand) {
         var _this = this;
@@ -61,6 +59,10 @@ module.exports = function () {
             .then(function (sshSession) { return sshSession.executeCommands(commands); })
             .then(function (commandResultSet) { return _this.lastCommandResultSet = commandResultSet; });
         return $.expect(result).to.eventually.be.fulfilled;
+    });
+    this.When(/^I scp "([^"]*)" to "([^"]*)" on each node in the cluster$/, function (localPath, remotePath) {
+        var result = $.clusterUnderTest.executeCopyCommandOnEachNode(localPath, remotePath);
+        return $.expect(result).to.eventually.to.fulfilled;
     });
     this.Then(/^I get the clusterName$/, function () {
         var _this = this;

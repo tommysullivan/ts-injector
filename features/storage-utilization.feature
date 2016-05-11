@@ -4,7 +4,7 @@ Feature: Storage Utilization
     Given I have installed Spyglass
     Then I get the clusterName
 
-  @wip
+  @SPYG-177
   Scenario: Check for total logical size,total size and and used size per volume
     Given  A volume called "{testRunGUID}-volume"is created
     And The volume is mounted
