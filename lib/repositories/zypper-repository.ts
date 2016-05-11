@@ -27,7 +27,6 @@ export default class ZypperRepository implements IRepository {
         return 'ecosystem-yum.repo';
     }
 
-
     get uninstallCorePackagesCommand():string {
         return `rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;
     }
@@ -37,7 +36,7 @@ export default class ZypperRepository implements IRepository {
     }
 
     get installJavaCommand():string {
-        return this.installPackageCommand('java');
+        return this.installPackageCommand('openjdk-7-jdk');
     }
 
     installPackagesCommand(packageNames:IList<string>):string {

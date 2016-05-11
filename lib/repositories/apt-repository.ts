@@ -40,7 +40,7 @@ export default class AptRepository implements IRepository {
     }
 
     get installJavaCommand():string {
-        return this.installPackagesCommand(this.collections.newList<string>(['openjdk-7-jre', 'openjdk-7-jdk']));
+        return this.installPackageCommand('openjdk-7-jdk');
     }
 
     installPackageCommand(packageName:string):string {

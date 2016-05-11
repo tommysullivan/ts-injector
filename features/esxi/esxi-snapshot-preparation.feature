@@ -32,7 +32,7 @@ Feature: Hardware Maintenance
     And I wait "30" seconds
     And I have updated the package manager
     And I use the package manager to install the "curl" package
-    When I have installed Java
+    And I have installed Java
     Then I take "readyForInstallation" snapshots of each node in the cluster
     And I manually retrieve the ids of these new snapshots based on the console output of the previous step
     And I manually update the configured "readyForInstallation" state for the cluster with the snapshot ids
