@@ -62,5 +62,15 @@ module.exports = function () {
         $.expect(this.collectdValue).to.equal(this[volumeSize]);
     });
     this.Then(/^those values may be incorrect but we are only testing for presence$/, function () { });
+    this.When(/^I query the following tag names for "([^"]*)" metric:$/, function (arg1, table) {
+        var _this = this;
+        var metricGroupRequest = $.clusterUnderTest.newOpenTSDBRestClient()
+            .then(function (c) {
+            return $.promiseFactory.newGroupPromiseFromArray(table.rows().map(function (r) {
+                return $.promiseFactory.newGroupPromiseFromArray(r[1].split(",").map(function (v) { return c.queryForMetricWithTags(_this.queryRangeStart, arg1, "{" + r[0] + "=" + v.trim() + "}"); }));
+            }));
+        });
+        return $.expect(metricGroupRequest).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=open-tsdb-steps.js.map
