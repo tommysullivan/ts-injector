@@ -78,6 +78,7 @@ It is assumed that these packages are already installed on the nodes running ope
 This section lists package names and the steps performed when each one is installed:
 
 There is a bug in 5.1 server/configure.sh that needs to be batched before manual configuration of ES and OT works well:
+( You don't need to apply these code snippets if you install the EBF patch below )
 Here is a snippet to do it - apply it before running server/configure.sh
 
     # XXX Temporarily fix bug in configure.sh -only needed if you are using 5.1
@@ -104,7 +105,7 @@ There is also additional changes required for certain feature to be apply to 5.1
         Internal Deb repo for v5.1.0-spyglass EBF:
             http://apt.qa.lab/v5.1.0-spyglass/
 
-Path where the data of ES resides needs to be created manually. By default the path is /opt/mapr/es_db.                
+Path where the data of ES resides needs to be created manually. By default the path is /opt/mapr/es_db if you are using the GUI installer, otherwise it ends up in /opt/mapr/elasticsearch/elasticsearch*/data.
     
 * mapr-collectd
    * installs collectd at MAPR_HOME/collectd/collectd-*
