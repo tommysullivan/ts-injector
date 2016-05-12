@@ -36,7 +36,7 @@ export default class ZypperRepository implements IRepository {
     }
 
     get installJavaCommand():string {
-        return this.installPackageCommand('openjdk-7-jdk');
+        return this.installPackageCommand('java-1_7_0-openjdk');
     }
 
     installPackagesCommand(packageNames:IList<string>):string {
