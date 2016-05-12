@@ -97,4 +97,5 @@ export default class Cucumber {
     getArrayFromTable(table:any):IList<string> {
         return this.collections.newList<string>(table.rows().map(r=>r[0]));
     }
+    
 }

@@ -76,4 +76,14 @@ module.exports = function() {
 
     this.Then(/^those values may be incorrect but we are only testing for presence$/, function () {});
 
+    this.When(/^I query the following tag names for "([^"]*)" metric:$/, function (arg1, table) {
+        var metricGroupRequest = $.clusterUnderTest.newOpenTSDBRestClient()
+             .then(c=> {
+                 return $.promiseFactory.newGroupPromiseFromArray(table.rows().map(r => {
+                     return $.promiseFactory.newGroupPromiseFromArray(r[1].split(",").map(v => c.queryForMetricWithTags(this.queryRangeStart, arg1, "{" + r[0] + "=" + v.trim() + "}")));
+                 }));
+             });
+        return $.expect(metricGroupRequest).to.eventually.be.fulfilled;
+    });
+
 }
