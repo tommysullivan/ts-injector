@@ -14,8 +14,8 @@
             </tr>
         </table>
     </div>
-    <div class="docString" ng-show="step.docString">
-        {{step.docString}}
+    <div class="docString" ng-show="step.docStringLines.length > 0">
+        <p ng-repeat="line in step.docStringLines">{{line}}</p>
     </div>
     <div class="errorMessage" ng-show="step.isManual && step.status=='failed'" contenteditable ng-model="step.errorMessage"><p>{{step.errorMessage}}</p></div>
     <div class="errorMessage" ng-show="step.errorMessage != undefined && !step.isManual"><p>{{step.errorMessage}}</p></div>
