@@ -32,7 +32,6 @@ Feature: OpenTSDB Metrics REST API
     Then I receive at least "200" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
-  @wip1
   Scenario: Verify cpu metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
