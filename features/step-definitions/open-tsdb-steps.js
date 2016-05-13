@@ -57,9 +57,9 @@ module.exports = function () {
         this.collectdValue = parseInt(lastDPSValue);
         console.log("The collected value " + lastDPSValue);
     });
-    this.Then(/^the "([^"]*)" value from maprcli matches the value from OpenTSDB$/, function (volumeSize) {
-        console.log("Checking for logical " + volumeSize);
-        $.expect(this.collectdValue).to.equal(this[volumeSize]);
+    this.Then(/^the "([^"]*)" value from maprcli matches the value from OpenTSDB$/, function (volumeProperty) {
+        console.log("Checking for the volume property " + volumeProperty);
+        $.expect(this.collectdValue).to.equal(this[volumeProperty]);
     });
     this.Then(/^those values may be incorrect but we are only testing for presence$/, function () { });
     this.When(/^I query the following tag names for "([^"]*)" metric:$/, function (arg1, table) {

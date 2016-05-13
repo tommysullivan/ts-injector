@@ -170,6 +170,35 @@
       ]
     },
     {
+      "id": "anisha-2",
+      "name": "anisha-2.devops.lab",
+      "nodes": [
+        {
+          "host": "10.10.101.108",
+          "username": "root",
+          "password": "mapr",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.6"
+          },
+          "serviceNames": [
+            "mapr-opentsdb",
+            "mapr-asynchbase",
+            "mapr-webserver",
+            "mapr-kibana",
+            "mapr-grafana",
+            "mapr-resourcemanager",
+            "mapr-nodemanager",
+            "mapr-hbase-master",
+            "mapr-hbase-regionserver"
+          ]
+        }
+      ]
+    },
+
+
+
+    {
       "id": "centos6.5",
       "esxiServerId": "esxi-10.10.99.70",
       "name": "centos6-5.devops.lab",
