@@ -72,14 +72,16 @@ export default class Cucumber {
         return new CucumberTag(tagJSON);
     }
 
-    newCucumberTestResult(cucumberFeatureResults:IList<ICucumberFeatureResult>, processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, resultAcquisitionError:Error):ICucumberTestResult {
+    newCucumberTestResult(cucumberFeatureResults:IList<ICucumberFeatureResult>, processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, resultAcquisitionError:Error, startTime:Date, endTime:Date):ICucumberTestResult {
         return new CucumberTestResult(
             cucumberFeatureResults,
             processResult,
             CaseInsensitiveComparator,
             cucumberRunConfiguration,
             resultAcquisitionError,
-            this.errors
+            this.errors,
+            startTime,
+            endTime
         );
     }
 

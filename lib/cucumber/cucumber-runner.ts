@@ -28,6 +28,7 @@ export default class CucumberRunner implements ICucumberRunner {
     }
 
     runCucumber(cucumberRunConfiguration:ICucumberRunConfiguration):IThenable<ICucumberTestResult> {
+        var startTime = new Date();
         var additionalArgs = cucumberRunConfiguration.cucumberAdditionalArgs();
         if (cucumberRunConfiguration.isDryRun()) additionalArgs += ' --dry-run';
 
@@ -44,10 +45,18 @@ export default class CucumberRunner implements ICucumberRunner {
         );
 
         return this.process.executeNodeProcess(runCucumberCommand, cucumberRunConfiguration.environmentVariables())
-            .then((r) => this.constructResult(r, cucumberRunConfiguration), (r) => this.constructResult(r, cucumberRunConfiguration));
+            .then(
+                r => this.onCucumberProcessComplete(r, cucumberRunConfiguration, startTime),
+                r => this.onCucumberProcessComplete(r, cucumberRunConfiguration, startTime)
+            );
     }
 
-    private constructResult(processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration):ICucumberTestResult {
+    private onCucumberProcessComplete(processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date):ICucumberTestResult {
+        var endTime = new Date();
+        return this.constructResult(processResult, cucumberRunConfiguration, startTime, endTime);
+    }
+
+    private constructResult(processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date, endTime:Date):ICucumberTestResult {
         var cucumberFeatureResults = null;
         var resultAcquisitionError = null;
         try {
@@ -61,6 +70,6 @@ export default class CucumberRunner implements ICucumberRunner {
         catch(e) {
             resultAcquisitionError = e.toString();
         }
-        return this.cucumber.newCucumberTestResult(cucumberFeatureResults, processResult, cucumberRunConfiguration, resultAcquisitionError);
+        return this.cucumber.newCucumberTestResult(cucumberFeatureResults, processResult, cucumberRunConfiguration, resultAcquisitionError, startTime, endTime);
     }
 }

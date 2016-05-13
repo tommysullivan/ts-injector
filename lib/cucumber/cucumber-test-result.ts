@@ -13,14 +13,18 @@ export default class CucumberTestResult implements ICucumberTestResult {
     private cucumberRunConfig:ICucumberRunConfiguration;
     private resultAcquisitionError:Error;
     private errors:IErrors;
+    private startTime:Date;
+    private endTime:Date;
 
-    constructor(cucumberFeatureResults:IList<ICucumberFeatureResult>, processResult:IProcessResult, caseInsensitiveComparator:IComparator<string>, cucumberRunConfig:ICucumberRunConfiguration, resultAcquisitionError:Error, errors:IErrors) {
+    constructor(cucumberFeatureResults:IList<ICucumberFeatureResult>, processResult:IProcessResult, caseInsensitiveComparator:IComparator<string>, cucumberRunConfig:ICucumberRunConfiguration, resultAcquisitionError:Error, errors:IErrors, startTime:Date, endTime:Date) {
         this._cucumberFeatureResults = cucumberFeatureResults;
         this._processResult = processResult;
         this.caseInsensitiveComparator = caseInsensitiveComparator;
         this.cucumberRunConfig = cucumberRunConfig;
         this.resultAcquisitionError = resultAcquisitionError;
         this.errors = errors;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     uniqueTagNames():IList<string> {
@@ -46,7 +50,9 @@ export default class CucumberTestResult implements ICucumberTestResult {
             cucumberFeatureResults: this._cucumberFeatureResults ? this._cucumberFeatureResults.map(c=>c.toJSON()) : null,
             processResult: this.processResult.toJSON(),
             cucumberRunConfig: this.cucumberRunConfig.toJSON(),
-            resultAcquisitionError: this.resultAcquisitionError
+            resultAcquisitionError: this.resultAcquisitionError,
+            startTime: this.startTime.getTime(),
+            endTime: this.endTime.getTime()
         }
     }
 
