@@ -134,6 +134,49 @@ module.exports = function() {
 
     });
 
+    this.Given(/^I set the volume quota to "([^"]*)"$/, function (quota) {
+        var command= "/opt/mapr/bin/maprcli volume modify -cluster "+this.clustName+ " -name "+ this.volumeName+"  -quota " +quota +" -json";
+        console.log(command);
+        var result = $.clusterUnderTest.nodes().first().newSSHSession()
+            .then(sshSession=>sshSession.executeCommand(command))
+            .then(commandResult=> {
+                var jsonString = commandResult.processResult().stdoutLines().join("");
+                var json = JSON.parse(jsonString);
+                var status = json.status;
+                console.log(status)
+                $.expect(status).contain("OK");
+
+            });
+        return $.expect(result).to.eventually.be.fulfilled;
+
+    });
+
+    this.Given(/^I turn off compression on the volume$/, function () {
+
+    });
+
+
+    this.Given(/^I create a snapshot for the volume$/, function () {
+        this.snapshot=this.volumeName+"_snapshot";
+        var command="/opt/mapr/bin/maprcli volume snapshot create -cluster "+this.clustName+" -snapshotname "+this.snapshot+ " -volume "+this.volumeName +" -json";
+        console.log(command);
+        var result = $.clusterUnderTest.nodes().first().newSSHSession()
+            .then(sshSession=>sshSession.executeCommand(command))
+            .then(commandResult=> {
+                var jsonString = commandResult.processResult().stdoutLines().join("");
+                var json = JSON.parse(jsonString);
+                var status = json.status;
+                console.log(status)
+                $.expect(status).contain("OK");
+
+            });
+        return $.expect(result).to.eventually.be.fulfilled;
+
+
+    });
+
+
+
     this.Then(/^I get the expected value using maprcli volume info command$/, function (){
         var command="/opt/mapr/bin/maprcli volume info -name "+this.volumeName+" -json";
         var result = $.clusterUnderTest.nodes().first().newSSHSession()
@@ -144,6 +187,10 @@ module.exports = function() {
                 var logicalUsed=json.data[0].logicalUsed;
                 var totalUsed=json.data[0].totalused;
                 var usedSize=json.data[0].used;
+                var quota=json.data[0].quota;
+                var snapshotSize=json.data[0].snapshotused;
+                this.snapshotSize=parseInt(snapshotSize);
+                this.quota=parseInt(quota);
                 this.logicalUsed=parseInt(logicalUsed);
                 this.totalUsed=parseInt(totalUsed);
                 this.usedSize=parseInt(usedSize);
