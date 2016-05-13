@@ -4,14 +4,14 @@ Feature: Package Manager Installation
   Scenario: Installation via Package Manager and Configure.sh
     Given the cluster does not have MapR Installed
     And I prepare each node in the cluster with the correct repo configuration
-    #And I perform the following ssh commands on each node in the cluster:
+    And I perform the following ssh commands on each node in the cluster:
     """
     id -u mapr || groupadd -g 500 mapr
     id -u mapr || useradd -u 500 -g mapr mapr
 
     """
     And I have updated the package manager
-    #And I have installed Java
+    And I have installed Java
     And I install the Core components
     And I prepare each node with the patch repo configuration
     And I have updated the package manager
