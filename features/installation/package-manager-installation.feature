@@ -22,6 +22,7 @@ Feature: Package Manager Installation
     And I install the license on cluster
     And I install all spyglass components
     And I run configure.sh for spyglass components
+    And I wait "60" seconds
     And I restart the warden
     And I wait "90" seconds
     Then all health checkable services are healthy
