@@ -32,7 +32,7 @@ export default class AptRepository implements IRepository {
     }
 
     get uninstallCorePackagesCommand():string {
-        return `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs -i apt-get purge {} -y`;
+        return `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs apt-get purge -y`;
     }
 
     uninstallPackagesCommand(packageNames:IList<string>) {
