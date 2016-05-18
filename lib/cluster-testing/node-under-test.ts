@@ -87,7 +87,8 @@ export default class NodeUnderTest implements INode {
                     reject(new Error(`/opt/mapr directory exists on host ${this.nodeConfiguration.host}`))
                 })
                 .catch((sshError:ISSHError) => {
-                    if(sshError.sshResult.processResult().processExitCode()==2) {
+                    var processResult = sshError.sshResult ? sshError.sshResult.processResult() : null;
+                    if(processResult && processResult.processExitCode()==2) {
                         resolve(sshError.sshResult);
                     }
                     else {

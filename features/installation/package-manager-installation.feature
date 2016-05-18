@@ -8,7 +8,6 @@ Feature: Package Manager Installation
     """
     id -u mapr || groupadd -g 500 mapr
     id -u mapr || useradd -u 500 -g mapr mapr
-
     """
     And I have updated the package manager
     And I have installed Java

@@ -42,8 +42,6 @@ var readLineSyncModule = require('readline-sync');
 var bodyParserModule = require('body-parser');
 var nativeHttpModule = require('http');
 
-console.log('native process env:', process.env);
-
 chai.use(chaiAsPromised);
 
 export default class NodeFrameworkLoader {
