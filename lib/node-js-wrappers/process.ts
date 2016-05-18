@@ -73,7 +73,6 @@ export default class Process implements IProcess {
         return this.promiseFactory.newPromise((resolve, reject) => {
             var stdoutParts = this.collections.newEmptyList<string>();
             var stderrParts = this.collections.newEmptyList<string>();
-            console.log('env vars right before calling childProcess.exec', env.toJSON());
             var cukeProcess = this.childProcess.exec(
                 `${this.pathToNodeJSExecutable()} ${command}`,
                 { env: env.toJSON() }

@@ -19,7 +19,7 @@ export default class SSHError implements ISSHError {
     toJSON():any {
         return {
             message: this.message,
-            sshResult: this.sshResult.toJSON(),
+            sshResult: (this.sshResult ? this.sshResult.toJSON() : null),
             stack: this._stack.split("\n")
         }
     }

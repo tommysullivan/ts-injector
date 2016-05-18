@@ -18,22 +18,17 @@ export default class SSHClient implements ISSHClient {
     }
 
     connect(host:string, username:string, password:string):IThenable<ISSHSession> {
-        return this.promiseFactory.newPromiseForImmediateValue(
-            this.sshSessionFactory(
-                host,
-                this.nodemiral.session(
-                    host,
-                    {
-                        username: username,
-                        password: password
-                    },
-                    {
-                        ssh: {
-                            "StrictHostKeyChecking": "no"
-                        }
-                    }
-                )
-            )
-        );
+        var credentials = {
+            username: username,
+            password: password
+        };
+        var options = {
+            ssh: {
+                "StrictHostKeyChecking": "no"
+            }
+        };
+        var rawSession = this.nodemiral.session(host, credentials, options);
+        var wrappedSession = this.sshSessionFactory(host, rawSession);
+        return this.promiseFactory.newPromiseForImmediateValue(wrappedSession);
     }
 }

@@ -56,6 +56,9 @@ export default class SSHSession implements ISSHSession {
     executeCommand(command:string):IThenable<ISSHResult> {
         if(this.writeCommandsToStdout) console.log(command);
         return this.promiseFactory.newPromise((resolve, reject) => {
+            this.nodemiralSession.onError(error=>{
+                reject(this.api.newSSHError(error, null));
+            });
             this.nodemiralSession.execute(command, (err:string, code:number, logs:any) => {
                 var processResult = this.nodeWrapperFactory.newProcessResult(
                     command,
