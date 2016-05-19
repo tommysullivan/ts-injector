@@ -35,7 +35,7 @@ Feature: Disk Metrics
       | sum:rate:disk.disk_time.read                  |
       | sum:rate:disk.disk_time.write                 |
       | sum:rate:disk.pending_operations              |
-    Then I receive at least "200" values per metric covering that time period
+    Then I receive at least "50" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
   @SPYG-386

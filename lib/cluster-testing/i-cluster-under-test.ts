@@ -23,6 +23,7 @@ interface IClusterUnderTest {
     captureSnapshotNamed(stateName:string):IThenable<IESXIResponse>;
     verifyMapRNotInstalled():IThenable<IList<ISSHResult>>;
     nodes():IList<INode>;
+    powerOff():IThenable<IESXIResponse>;
     nodesHosting(serviceName:string):IList<INode>;
     nodeHosting(serviceName:string):INode;
     nodeWithHostName(hostName:string):INode;

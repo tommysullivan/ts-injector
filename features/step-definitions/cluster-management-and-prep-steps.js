@@ -6,6 +6,9 @@ module.exports = function () {
     this.Given(/^the Operating Systems of each node match what is configured$/, function () {
         //TODO: Implement
     });
+    this.Given(/^I power off each node in the cluster$/, function () {
+        return $.expect($.clusterUnderTest.powerOff()).to.eventually.be.fulfilled;
+    });
     function ensureFailureOutputWorksWithChaiAsPromised(e) {
         throw new Error(e.toString());
     }

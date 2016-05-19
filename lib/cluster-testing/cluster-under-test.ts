@@ -74,6 +74,10 @@ export default class ClusterUnderTest implements IClusterUnderTest {
         return this.clusterConfig.name;
     }
 
+    powerOff():IThenable<IESXIResponse> {
+        return this.clusterTesting.esxiManagedClusterForId(this.clusterConfig.id).powerOff();
+    }
+
     revertToState(stateName:string):IThenable<IESXIResponse> {
         return this.clusterTesting.esxiManagedClusterForId(this.clusterConfig.id).revertToState(stateName);
     }

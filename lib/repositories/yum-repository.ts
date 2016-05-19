@@ -37,7 +37,7 @@ export default class YumRepository implements IRepository {
     }
 
     get installJavaCommand():string {
-        return this.installPackageCommand('java-1.7.0-openjdk-devel');
+        return this.installPackageCommand('java-1.7.0-openjdk');
     }
 
     installPackagesCommand(packageNames:IList<string>):string {
