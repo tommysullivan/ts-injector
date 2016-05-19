@@ -1,12 +1,11 @@
-Feature: Storage Utilization
-
-  Background:
-    Given I have installed Spyglass
-    Then I get the clusterName
+@metrics
+Feature: MFS Volume Metrics
 
   @SPYG-177
   Scenario: Check for total logical size,total size and and used size per volume
-    Given  A volume called "volume-{testRunGUID}"is created
+    Given I have installed Spyglass
+    And I get the clusterName
+    And  A volume called "volume-{testRunGUID}"is created
     And The volume is mounted
     And I set the volume quota to "1000"
     And I run the following commands on any given node in the cluster:
@@ -44,7 +43,6 @@ Feature: Storage Utilization
       | sum:mapr.volume.quota |
     Then I receive at least "1" values per metric covering that time period
     And the "quota" value from maprcli matches the value from OpenTSDB
-
     And I query for the following metrics using tags:
       | metric name          |
       | sum:mapr.volume.snapshot_used|

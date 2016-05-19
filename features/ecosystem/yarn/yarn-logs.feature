@@ -1,4 +1,5 @@
-Feature: Yarn
+@logs
+Feature: Yarn Logs
   As a Spyglass User
   In order to centrally query for and view YARN logs using a number of relevant parameters
   I use the Spyglass-Provided ElasticSearch REST API (or Kibana, which in turn uses ES REST API)
