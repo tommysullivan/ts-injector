@@ -1,0 +1,2 @@
+@logs
+Feature: HTTPFS Logs

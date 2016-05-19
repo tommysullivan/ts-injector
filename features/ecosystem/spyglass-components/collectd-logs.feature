@@ -1,0 +1,2 @@
+@logs
+Feature: CollectD Logs
