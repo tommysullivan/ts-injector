@@ -1153,7 +1153,7 @@
   "cucumber": {
     "defaultCucumberStepTimeoutMS": 120000,
     "embedAsyncErrorsInStepOutput": false,
-    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js",
+    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js  --require features",
     "featureSets": [
       {
         "id": "dailyESXIRun",
