@@ -40,8 +40,9 @@ module.exports = function () {
             });
             return unhealthyOrAbsentServices;
         });
-        unhealthyServicesRequest.then(function (u) { return console.log(u.toJSONString()); });
-        return $.expect(unhealthyServicesRequest.then(function (a) { return a.toArray(); })).to.eventually.be.empty;
+        return unhealthyServicesRequest.then(function (unhealthyServices) {
+            return $.assertEmptyList(unhealthyServices);
+        });
     });
     this.Given(/^I prepare each node in the cluster with the correct repo configuration$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {

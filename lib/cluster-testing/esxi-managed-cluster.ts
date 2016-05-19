@@ -54,4 +54,8 @@ export default class ESXIManagedCluster {
     powerReset():IThenable<IESXIResponse> {
         return this.performESXIAction((e,n)=>e.powerReset());
     }
+
+    powerOff():IThenable<IESXIResponse> {
+        return this.performESXIAction((e,n)=>e.powerOff());
+    }
 }

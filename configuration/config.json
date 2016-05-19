@@ -195,9 +195,6 @@
         }
       ]
     },
-
-
-
     {
       "id": "centos6.5",
       "esxiServerId": "esxi-10.10.99.70",
@@ -216,7 +213,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 3
+                "snapshotId": 7
               }
             ]
           },
@@ -254,7 +251,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 3
+                "snapshotId": 7
               }
             ]
           },
@@ -288,7 +285,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 3
+                "snapshotId": 7
               }
             ]
           },

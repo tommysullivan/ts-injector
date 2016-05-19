@@ -23,5 +23,5 @@ Feature: Package Manager Installation
     And I run configure.sh for spyglass components
     And I wait "60" seconds
     And I restart the warden
-    And I wait "90" seconds
+    And I wait "120" seconds
     Then all health checkable services are healthy

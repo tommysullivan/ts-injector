@@ -63,8 +63,9 @@ module.exports = function() {
                 });
                 return unhealthyOrAbsentServices;
             });
-        unhealthyServicesRequest.then(u=>console.log(u.toJSONString()));
-        return $.expect(unhealthyServicesRequest.then(a=>a.toArray())).to.eventually.be.empty;
+        return unhealthyServicesRequest.then(unhealthyServices=>{
+            return $.assertEmptyList(unhealthyServices);
+        });
     });
 
     this.Given(/^I prepare each node in the cluster with the correct repo configuration$/, function () {

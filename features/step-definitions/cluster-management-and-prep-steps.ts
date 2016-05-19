@@ -13,6 +13,10 @@ module.exports = function() {
         //TODO: Implement
     });
 
+    this.Given(/^I power off each node in the cluster$/, function () {
+        return $.expect($.clusterUnderTest.powerOff()).to.eventually.be.fulfilled;
+    });
+
     function ensureFailureOutputWorksWithChaiAsPromised(e:IError) {
         throw new Error(e.toString());
     }
