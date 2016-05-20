@@ -11,7 +11,7 @@ Feature: Hardware Maintenance
   Scenario: Create Ready for Installation State from Base CentOS VM Image
     Given I revert the cluster to its configured "baseImage" state
     And I wait "30" seconds
-    When I perform the following ssh commands on each node in the cluster:
+    And I perform the following ssh commands on each node in the cluster:
     """
         echo `hostname -I`    `hostname` >> /etc/hosts
         echo 'nameserver 10.10.1.10' > /etc/resolv.conf
@@ -19,11 +19,14 @@ Feature: Hardware Maintenance
         echo 'nameserver 10.10.100.241' >> /etc/resolv.conf
         echo 'PEERDNS=no' > /etc/sysconfig/network
     """
-    And I wait "10" seconds
     And I have updated the package manager
+    And I use the package manager to install the "curl" package
     And I have installed Java
-    Then I take "readyForInstallation" snapshots of each node in the cluster
-    And I manually retrieve the ids of these new snapshots based on the console output of the previous step
+    And I wait "10" seconds
+    And I power off each node in the cluster
+    And I wait "10" seconds
+    When I take "javaInstalled" snapshots of each node in the cluster
+    Then I retrieve the snapshot ids and output them to the stdout
     And I manually update the configured "readyForInstallation" state for the cluster with the snapshot ids
 
   @prepareInstallationReadySnapshot
@@ -36,6 +39,6 @@ Feature: Hardware Maintenance
     And I wait "10" seconds
     And I power off each node in the cluster
     And I wait "10" seconds
-    Then I take "readyForInstallation" snapshots of each node in the cluster
-    And I manually retrieve the ids of these new snapshots based on the console output of the previous step
+    When I take "readyForInstallation" snapshots of each node in the cluster
+    Then I retrieve the snapshot ids and output them to the stdout
     And I manually update the configured "readyForInstallation" state for the cluster with the snapshot ids

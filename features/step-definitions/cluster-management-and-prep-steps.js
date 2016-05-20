@@ -9,6 +9,11 @@ module.exports = function () {
     this.Given(/^I power off each node in the cluster$/, function () {
         return $.expect($.clusterUnderTest.powerOff()).to.eventually.be.fulfilled;
     });
+    this.Then(/^I retrieve the snapshot ids and output them to the stdout$/, function () {
+        var snapshotInfoRequest = $.clusterUnderTest.snapshotInfo()
+            .then(function (snapshotInfo) { return $.console.log(snapshotInfo.toJSONString()); });
+        return $.expect(snapshotInfoRequest).to.eventually.be.fulfilled;
+    });
     function ensureFailureOutputWorksWithChaiAsPromised(e) {
         throw new Error(e.toString());
     }
