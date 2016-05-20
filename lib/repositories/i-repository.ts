@@ -7,6 +7,7 @@ interface IRepository {
     patchRepoFileName:string;
     coreRepoFileName:string;
     ecosystemRepoFileName:string;
+    spyglassRepoFileName:string;
     uninstallCorePackagesCommand:string;
     uninstallPackagesCommand(packageNames:IList<string>);
     installJavaCommand:string;

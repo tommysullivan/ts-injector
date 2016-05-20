@@ -1,6 +1,6 @@
 [MapR_Ecosystem]
 name = MapR Ecosystem Components
 enabled = 1
-baseurl = http://yum.qa.lab/opensource/
+baseurl = http://yum.qa.lab/opensource.spyglass-beta/
 protected = 1
 gpgcheck = 0

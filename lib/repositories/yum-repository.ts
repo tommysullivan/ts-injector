@@ -27,6 +27,10 @@ export default class YumRepository implements IRepository {
         return 'ecosystem-yum.repo';
     }
 
+    get spyglassRepoFileName():string {
+        return 'spyglass-yum.repo';
+    }
+
 
     get uninstallCorePackagesCommand():string {
         return `rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;

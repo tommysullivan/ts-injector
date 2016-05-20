@@ -27,6 +27,10 @@ export default class AptRepository implements IRepository {
         return 'ecosystem-apt-get.list';
     }
 
+    get spyglassRepoFileName():string {
+        return 'spyglass-apt-get.list';
+    }
+
     installPackagesCommand(packageNames:IList<string>):string {
         return `${this.packageCommand} install -y ${packageNames.join(' ')} --allow-unauthenticated`;
     }
