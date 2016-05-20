@@ -9,5 +9,5 @@ Feature: OS Load Metrics
       | sum:rate:load.load.longterm                   |
       | sum:rate:load.load.midterm                    |
       | sum:rate:load.load.shortterm                  |
-    Then I receive at least "200" values per metric covering that time period
+    Then I receive at least "100" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence

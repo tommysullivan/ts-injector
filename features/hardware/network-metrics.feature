@@ -14,7 +14,7 @@ Feature: Network Metrics
       | sum:rate:interface.if_octets.tx               |
       | sum:rate:interface.if_packets.rx              |
       | sum:rate:interface.if_packets.tx              |
-    Then I receive at least "200" values per metric covering that time period
+    Then I receive at least "100" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
   @SPYG-386
