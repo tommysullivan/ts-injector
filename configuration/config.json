@@ -1337,7 +1337,7 @@
   },
   "versioning": {
     "serviceSet": [
-      { "name": "mapr-asynchbase", "version": "1.7.0", "core": false, "healthCheckable": false },
+      { "name": "mapr-asynchbase", "version": "1.7.0", "core": true, "healthCheckable": false },
       { "name": "mapr-collectd", "version": "5.5.1", "core": false , "healthCheckable": true },
       { "name": "mapr-elasticsearch", "version": "2.2.0" , "core": false, "healthCheckable": true },
       { "name": "mapr-fluentd", "version": "0.12.22" , "core": false, "healthCheckable": true },

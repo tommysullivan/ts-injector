@@ -181,4 +181,20 @@ module.exports = function() {
         return $.expect(result).to.eventually.be.fulfilled;
     });
 
+    this.Given(/^I remove the opensource repo$/, function () {
+        return $.expectAll($.clusterUnderTest.nodes().map(n =>
+            n.executeShellCommand(`rm -rf ${n.repo.repoConfigDirectory}${n.repo.ecosystemRepoFileName}`))
+        ).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I prepare each node with the spyglass repo configuration$/, function () {
+        // Write code here that turns the phrase above into concrete actions
+        return $.expectAll(
+            $.clusterUnderTest.nodes().map(n=>{
+                return $.promiseFactory.newGroupPromiseFromArray([
+                    n.executeCopyCommand(`data/testing-resources/${n.repo.spyglassRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.spyglassRepoFileName}`)
+                ]);
+            })
+        ).to.eventually.be.fulfilled;
+    });
 }

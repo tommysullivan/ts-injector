@@ -125,5 +125,18 @@ module.exports = function () {
         var result = esNode.executeShellCommand("/opt/mapr/elasticsearch/elasticsearch-2.2.0/bin/es_cluster_mgmt.sh -loadTemplate " + nodeIp);
         return $.expect(result).to.eventually.be.fulfilled;
     });
+    this.Given(/^I remove the opensource repo$/, function () {
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
+            return n.executeShellCommand("rm -rf " + n.repo.repoConfigDirectory + n.repo.ecosystemRepoFileName);
+        })).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I prepare each node with the spyglass repo configuration$/, function () {
+        // Write code here that turns the phrase above into concrete actions
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
+            return $.promiseFactory.newGroupPromiseFromArray([
+                n.executeCopyCommand("data/testing-resources/" + n.repo.spyglassRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.spyglassRepoFileName)
+            ]);
+        })).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=package-manager-installation-steps.js.map

@@ -19,6 +19,9 @@ Feature: Package Manager Installation
     And I run configure.sh on all nodes
     And I wait "45" seconds
     And I install the license on cluster
+    And I remove the opensource repo
+    And I prepare each node with the spyglass repo configuration
+    And I have updated the package manager
     And I install all spyglass components
     And I run configure.sh for spyglass components
     And I wait "60" seconds
