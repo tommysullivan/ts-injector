@@ -17,6 +17,12 @@ module.exports = function() {
         return $.expect($.clusterUnderTest.powerOff()).to.eventually.be.fulfilled;
     });
 
+    this.Then(/^I retrieve the snapshot ids and output them to the stdout$/, function() {
+        var snapshotInfoRequest = $.clusterUnderTest.snapshotInfo()
+            .then(snapshotInfo=>$.console.log(snapshotInfo.toJSONString()));
+        return $.expect(snapshotInfoRequest).to.eventually.be.fulfilled;
+    });
+
     function ensureFailureOutputWorksWithChaiAsPromised(e:IError) {
         throw new Error(e.toString());
     }

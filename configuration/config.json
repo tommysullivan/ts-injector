@@ -320,15 +320,11 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 67
+                "snapshotId": 70
               },
               {
                 "name": "baseImage",
                 "snapshotId": 3
-              },
-              {
-                "name": "guiInstallerReady",
-                "snapshotId": 60
               }
             ]
           },
@@ -361,15 +357,11 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 52
+                "snapshotId": 55
               },
               {
                 "name": "baseImage",
                 "snapshotId": 5
-              },
-              {
-                "name": "guiInstallerReady",
-                "snapshotId": 50
               }
             ]
           },
@@ -397,15 +389,11 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 47
+                "snapshotId": 50
               },
               {
                 "name": "baseImage",
                 "snapshotId": 3
-              },
-              {
-                "name": "guiInstallerReady",
-                "snapshotId": 45
               }
             ]
           },
@@ -464,7 +452,6 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
-            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver"
           ]
@@ -577,7 +564,6 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
-            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver"
           ]
@@ -680,7 +666,6 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
-            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver"
           ]
@@ -883,7 +868,6 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
-            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver"
           ]
@@ -1085,7 +1069,6 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
-            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver",
             "mapr-elasticsearch",
@@ -1134,7 +1117,6 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
-            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver",
             "mapr-elasticsearch",
@@ -1360,7 +1342,6 @@
       { "name": "mapr-elasticsearch", "version": "2.2.0" , "core": false, "healthCheckable": true },
       { "name": "mapr-fluentd", "version": "0.12.22" , "core": false, "healthCheckable": true },
       { "name": "mapr-grafana", "version": "2.6.0" , "core": false, "healthCheckable": true },
-      { "name": "mapr-hbase", "version": "1.1" , "core": true, "healthCheckable": false },
       { "name": "mapr-hbase-common", "version": "1.1" , "core": true, "healthCheckable": false },
       { "name": "mapr-hbase-rest", "version": "1.1" , "core": true, "healthCheckable": true },
       { "name": "mapr-hbasethrift", "version": "1.1" , "core": true, "healthCheckable": true },
