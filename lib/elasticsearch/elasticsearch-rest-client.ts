@@ -1,6 +1,6 @@
 import IThenable from "../promise/i-thenable";
 import Rest from "../rest/rest";
-import RestResponse from "../rest/rest-response";
+import ElasticSearchResult from "./elasticsearch-result";
 
 export default class ElasticSearchRestClient {
     private rest:Rest;
@@ -11,15 +11,39 @@ export default class ElasticSearchRestClient {
         this.elasticSearchHostAndOptionalPort = elasticSearchHostAndOptionalPort;
     }
 
-    getLogsForIndex(indexName:string):IThenable<any> {
-        var restClient = this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort);
-        return restClient.get('/'+indexName)
-            .then(successfulResult=>successfulResult.jsonBody());
+    logsForServiceThatContainText(serviceName:string, soughtText:string):IThenable<ElasticSearchResult> {
+        var queryJSON = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"match": {"service_name": serviceName}},
+                        {"match_phrase": {"message": soughtText }}
+                    ]
+                }
+            }
+        };
+        return this.executeQuery(queryJSON);
     }
 
-    executeQuery(url:string, body:string):IThenable<RestResponse> {
-        return this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort).post(url, {
-            body: body
-        });
+    executeQuery(queryJSON:any):IThenable<ElasticSearchResult> {
+        var restClient = this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort);
+        var options = {
+            body: JSON.stringify(queryJSON),
+        };
+        return restClient.post(`/_search`, options)
+            .then(result=>new ElasticSearchResult(result.bodyAsJsonObject()));
+    }
+
+    logsForService(serviceName:string):IThenable<ElasticSearchResult> {
+        var queryJSON = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"match": {"service_name": serviceName}},
+                    ]
+                }
+            }
+        };
+        return this.executeQuery(queryJSON);
     }
 }

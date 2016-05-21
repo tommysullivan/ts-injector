@@ -1,14 +1,15 @@
 "use strict";
 module.exports = function () {
-    this.When(/^I query the ElasticSearch Server for logs for index "([^"]*)"$/, function (indexName) {
+    this.When(/^I query for logs for service "([^"]*)"$/, function (serviceName) {
         var _this = this;
-        var logsRequest = $.clusterUnderTest.newElasticSearchClient()
-            .then(function (elasticSearchClient) { return elasticSearchClient.getLogsForIndex(indexName); })
-            .then(function (logsForIndex) { return _this.logsForIndex = logsForIndex; });
-        return $.expect(logsRequest).to.eventually.be.fulfilled;
+        var logsQuery = $.clusterUnderTest.newElasticSearchClient()
+            .then(function (c) { return c.logsForService(serviceName); })
+            .then(function (logsQueryResult) { return _this.logsQueryResult = logsQueryResult; });
+        return $.expect(logsQuery).to.eventually.be.fulfilled;
     });
-    this.Then(/^The result has at least 1 log containing the word "([^"]*)"$/, function (soughtWord) {
-        return $.expect(JSON.stringify(this.logsForIndex)).to.contain(soughtWord);
+    this.Then(/^I receive a result containing greater than "([^"]*)" entries$/, function (threshold) {
+        var logsQueryResult = this.logsQueryResult;
+        $.expect(logsQueryResult.numberOfHits).to.be.greaterThan(threshold);
     });
 };
 //# sourceMappingURL=elasticsearch-steps.js.map

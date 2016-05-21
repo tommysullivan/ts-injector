@@ -185,6 +185,7 @@
             "mapr-opentsdb",
             "mapr-asynchbase",
             "mapr-webserver",
+            "mapr-elasticsearch",
             "mapr-kibana",
             "mapr-grafana",
             "mapr-resourcemanager",
@@ -1219,7 +1220,7 @@
     ]
   },
   "elasticsearch": {
-    "elasticSearchURLTemplate": "http://{host}:9200"
+    "elasticSearchURLTemplate": "http://{host}:9200/mapr_monitoring-*"
   },
   "esxi": {
     "servers": [
