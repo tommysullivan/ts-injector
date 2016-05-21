@@ -1,16 +1,20 @@
 import Framework from "../../lib/framework/framework";
+import ElasticSearchResult from "../../lib/elasticsearch/elasticsearch-result";
 declare var $:Framework;
 declare var module:any;
 
 module.exports = function() {
-    this.When(/^I query the ElasticSearch Server for logs for index "([^"]*)"$/, function (indexName) {
-        var logsRequest = $.clusterUnderTest.newElasticSearchClient()
-            .then(elasticSearchClient=>elasticSearchClient.getLogsForIndex(indexName))
-            .then(logsForIndex=>this.logsForIndex = logsForIndex);
-        return $.expect(logsRequest).to.eventually.be.fulfilled;
+
+    this.When(/^I query for logs for service "([^"]*)"$/, function (serviceName) {
+        var logsQuery = $.clusterUnderTest.newElasticSearchClient()
+            .then(c=>c.logsForService(serviceName))
+            .then(logsQueryResult=>this.logsQueryResult=logsQueryResult);
+        return $.expect(logsQuery).to.eventually.be.fulfilled;
     });
 
-    this.Then(/^The result has at least 1 log containing the word "([^"]*)"$/, function (soughtWord) {
-        return $.expect(JSON.stringify(this.logsForIndex)).to.contain(soughtWord);
+    this.Then(/^I receive a result containing greater than "([^"]*)" entries$/, function (threshold) {
+        var logsQueryResult:ElasticSearchResult = this.logsQueryResult;
+        $.expect(logsQueryResult.numberOfHits).to.be.greaterThan(threshold);
     });
+
 }

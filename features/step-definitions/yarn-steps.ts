@@ -17,22 +17,9 @@ module.exports = function() {
     });
 
     this.Then(/^I should see logs in ElasticSearch containing the application ID when I filter by service name "([^"]*)"$/, function (serviceName) {
-        var query = {
-            "query": {
-                "bool": {
-                    "must": [
-                        {"match": {"service_name": serviceName}},
-                        {"match_phrase": {"message": this.appId }}
-                    ]
-                }
-            }
-        };
         var hitsRequest = $.clusterUnderTest.newElasticSearchClient()
-            .then(es=>es.executeQuery('/mapr_monitoring-*/_search', JSON.stringify(query)))
-            .then(r=>{
-                console.log(r.body());
-                return r.bodyAsJsonObject().jsonObjectNamed('hits').numericPropertyNamed('total')
-            });
+            .then(es=>es.logsForServiceThatContainText(serviceName, this.appId))
+            .then(result=>result.numberOfHits);
         return $.expect(hitsRequest).to.eventually.be.greaterThan(0);
     });
 }
