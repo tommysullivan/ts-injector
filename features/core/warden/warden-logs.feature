@@ -1,11 +1,11 @@
 @logs
 Feature: Warden Logs
 
-  @SPYG-125 @healthCheck
+  @SPYG-125
   Scenario: Warden Logs present in ES Query
     Given I have installed Spyglass
-    When I query the ElasticSearch Server for logs for index "mapr_monitoring-*"
-    Then The result has at least 1 log containing the word "warden"
+    When I query for logs for service "warden"
+    Then I receive a result containing greater than "10" entries
 
   @SPYG-125 @Manual
   Scenario: View Warden Log in Kibana Discovery Tab

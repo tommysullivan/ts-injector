@@ -10,22 +10,10 @@ module.exports = function () {
         this.appId = appId;
     });
     this.Then(/^I should see logs in ElasticSearch containing the application ID when I filter by service name "([^"]*)"$/, function (serviceName) {
-        var query = {
-            "query": {
-                "bool": {
-                    "must": [
-                        { "match": { "service_name": serviceName } },
-                        { "match_phrase": { "message": this.appId } }
-                    ]
-                }
-            }
-        };
+        var _this = this;
         var hitsRequest = $.clusterUnderTest.newElasticSearchClient()
-            .then(function (es) { return es.executeQuery('/mapr_monitoring-*/_search', JSON.stringify(query)); })
-            .then(function (r) {
-            console.log(r.body());
-            return r.bodyAsJsonObject().jsonObjectNamed('hits').numericPropertyNamed('total');
-        });
+            .then(function (es) { return es.logsForServiceThatContainText(serviceName, _this.appId); })
+            .then(function (result) { return result.numberOfHits; });
         return $.expect(hitsRequest).to.eventually.be.greaterThan(0);
     });
 };
