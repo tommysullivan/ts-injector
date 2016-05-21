@@ -1,1 +1,1 @@
-deb http://apt.qa.lab/opensource.spyglass-beta/ binary/
+deb http://spyglass:monitoring@stage.mapr.com/beta/spyglass/ubuntu/ binary/
