@@ -38,8 +38,7 @@ module.exports = function() {
                     }).join("\n");
                 })
                 .then(lines=>{
-                    var commandParts = ['echo', lines, '>>', this.logLocation];
-                    return n.executeShellCommand($.shellEscape(commandParts));
+                    return n.executeShellCommand(`echo ${$.shellEscape([lines])} >> "${this.logLocation}"`);
                 });
         });
         return $.expectAll(logWriteRequests).to.eventually.be.fulfilled;
@@ -58,12 +57,12 @@ module.exports = function() {
                 return $.promiseFactory.newGroupPromise(nodeLogRequests);
             })
             .then(nodeLogResults => this.nodeLogResults = nodeLogResults);
-        $.expect(nodeLogRequests).to.eventually.be.fulfilled;
+        return $.expect(nodeLogRequests).to.eventually.be.fulfilled;
     });
 
     this.Then(/^I receive "([^"]*)" results per host$/, function (numberExpectedHits) {
         var nodeLogResults:IList<ElasticSearchResult> = this.nodeLogResults;
-        $.assertEmptyList(nodeLogResults.filter(r=>r.numberOfHits==numberExpectedHits));
+        $.assertEmptyList(nodeLogResults.filter(r=>r.numberOfHits!=numberExpectedHits));
     });
 
 }

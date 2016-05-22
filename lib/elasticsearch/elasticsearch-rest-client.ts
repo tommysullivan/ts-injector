@@ -45,6 +45,7 @@ export default class ElasticSearchRestClient {
         var options = {
             body: JSON.stringify(queryJSON),
         };
+        console.log('elasticsearch query: ', queryJSON);
         return restClient.post(`/_search`, options)
             .then(result=>new ElasticSearchResult(result.bodyAsJsonObject()));
     }

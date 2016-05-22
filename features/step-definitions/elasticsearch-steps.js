@@ -29,8 +29,7 @@ module.exports = function () {
                 }).join("\n");
             })
                 .then(function (lines) {
-                var commandParts = ['echo', lines, '>>', _this.logLocation];
-                return n.executeShellCommand($.shellEscape(commandParts));
+                return n.executeShellCommand("echo " + $.shellEscape([lines]) + " >> \"" + _this.logLocation + "\"");
             });
         });
         return $.expectAll(logWriteRequests).to.eventually.be.fulfilled;
@@ -49,11 +48,11 @@ module.exports = function () {
             return $.promiseFactory.newGroupPromise(nodeLogRequests);
         })
             .then(function (nodeLogResults) { return _this.nodeLogResults = nodeLogResults; });
-        $.expect(nodeLogRequests).to.eventually.be.fulfilled;
+        return $.expect(nodeLogRequests).to.eventually.be.fulfilled;
     });
     this.Then(/^I receive "([^"]*)" results per host$/, function (numberExpectedHits) {
         var nodeLogResults = this.nodeLogResults;
-        $.assertEmptyList(nodeLogResults.filter(function (r) { return r.numberOfHits == numberExpectedHits; }));
+        $.assertEmptyList(nodeLogResults.filter(function (r) { return r.numberOfHits != numberExpectedHits; }));
     });
 };
 //# sourceMappingURL=elasticsearch-steps.js.map
