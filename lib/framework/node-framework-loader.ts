@@ -28,6 +28,7 @@ import HTTP from "../node-js-wrappers/http-wrapper";
 declare var require:any;
 declare var process:any;
 
+var shellEscape = require('shell-escape');
 var promiseModule = require('promise');
 var childProcessModule = require('child_process');
 var fsModule = require('fs');
@@ -61,7 +62,8 @@ export default class NodeFrameworkLoader {
             chai,
             this.console,
             this.rest,
-            this.expressWrappers
+            this.expressWrappers,
+            shellEscape
         )
     }
 

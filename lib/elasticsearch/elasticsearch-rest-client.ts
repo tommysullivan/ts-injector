@@ -25,6 +25,21 @@ export default class ElasticSearchRestClient {
         return this.executeQuery(queryJSON);
     }
 
+    logsForServiceThatContainTextOnParticularHost(serviceName:string, soughtText:string, hostFQDN:string):IThenable<ElasticSearchResult> {
+        var queryJSON = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"match": {"service_name": serviceName}},
+                        {"match": {"fqdn": hostFQDN }},
+                        {"match_phrase": {"message": soughtText }}
+                    ]
+                }
+            }
+        };
+        return this.executeQuery(queryJSON);
+    }
+
     executeQuery(queryJSON:any):IThenable<ElasticSearchResult> {
         var restClient = this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort);
         var options = {

@@ -26,6 +26,7 @@ interface INode {
     executeShellCommand(shellCommand:string):IThenable<ISSHResult>;
     executeCopyCommand(localPath:string, remotePath:string):IThenable<ISSHResult>;
     versionGraph():IThenable<INodeVersionGraph>;
+    hostNameAccordingToNode:IThenable<string>;
 }
 
 export default INode;

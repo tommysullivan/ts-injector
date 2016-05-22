@@ -10,4 +10,8 @@ export default class ElasticSearchResult {
     get numberOfHits():number {
         return this.resultJSON.jsonObjectNamed('hits').numericPropertyNamed('total');
     }
+
+    toJSON():any {
+        return this.resultJSON.toRawJSON();
+    }
 }
