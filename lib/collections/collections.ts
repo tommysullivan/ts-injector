@@ -20,4 +20,12 @@ export default class Collections implements ICollections {
     newEmptyDictionary<T>():IDictionary<T> {
         return new Dictionary<T>([], this);
     }
+
+    newListOfSize(size:number):IList<number> {
+        var arrayOfCorrectSize = [];
+        for(var c=0; c<size; c++) {
+            arrayOfCorrectSize.push(c);
+        }
+        return this.newList<number>(arrayOfCorrectSize);
+    }
 }

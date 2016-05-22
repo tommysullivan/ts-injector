@@ -44,6 +44,14 @@ export default class NodeUnderTest implements INode {
         this.versioning = versioning;
     }
 
+    get hostNameAccordingToNode():IThenable<string> {
+        return this.executeShellCommand('hostname')
+            .then(r=>{
+                console.log(r.processResult().stdoutLines().first());
+                return r.processResult().stdoutLines().first()
+            });
+    }
+
     repoUrlFor(componentFamily:string):string {
         return this.repo.urlFor(componentFamily);
     }

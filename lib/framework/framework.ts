@@ -33,7 +33,6 @@ import IConsole from "../node-js-wrappers/i-console";
 import TestPortal from "../test-portal/test-portal";
 import ExpressWrappers from "../express-wrappers/express-wrappers";
 import Jira from "../jira/jira";
-import CliConfig from "../cli/cli-config";
 
 export default class Framework {
     public frameworkConfig:FrameworkConfiguration;
@@ -51,8 +50,9 @@ export default class Framework {
     public rest:Rest;
     public expressWrappers:ExpressWrappers;
     private _testRunGUID:string;
+    private _shellEscape:any;
 
-    constructor(frameworkConfig:FrameworkConfiguration, process:IProcess, fileSystem:IFileSystem, uuidGenerator:IUUIDGenerator, collections:ICollections, errors:IErrors, promiseFactory:IPromiseFactory, typedJSON:ITypedJSON, sshAPI:ISSHAPI, nodeWrapperFactory:INodeWrapperFactory, chai:Chai.ChaiStatic, console:IConsole, rest:Rest, expressWrappers:ExpressWrappers) {
+    constructor(frameworkConfig:FrameworkConfiguration, process:IProcess, fileSystem:IFileSystem, uuidGenerator:IUUIDGenerator, collections:ICollections, errors:IErrors, promiseFactory:IPromiseFactory, typedJSON:ITypedJSON, sshAPI:ISSHAPI, nodeWrapperFactory:INodeWrapperFactory, chai:Chai.ChaiStatic, console:IConsole, rest:Rest, expressWrappers:ExpressWrappers, shellEscape:any) {
         this.frameworkConfig = frameworkConfig;
         this.process = process;
         this.fileSystem = fileSystem;
@@ -68,6 +68,11 @@ export default class Framework {
         this.rest = rest;
         this.expressWrappers = expressWrappers;
         this._testRunGUID = this.uuidGenerator.v4();
+        this._shellEscape = shellEscape;
+    }
+
+    shellEscape(shellText:Array<string>):string {
+        return <string>this._shellEscape(shellText);
     }
 
     get testPortal():TestPortal {
