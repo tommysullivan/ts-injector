@@ -32,7 +32,7 @@ export default class ElasticSearchRestClient {
                     "must": [
                         {"match": {"service_name": serviceName}},
                         {"match": {"fqdn": hostFQDN }},
-                        {"match_phrase": {"message": soughtText }}
+                        {"wildcard": {"message": soughtText }}
                     ]
                 }
             }

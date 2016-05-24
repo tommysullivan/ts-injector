@@ -19,28 +19,34 @@ module.exports = function() {
         $.expect(logsQueryResult.numberOfHits).to.be.greaterThan(threshold);
     });
 
-    this.Given(/^the service of interest is "([^"]*)"$/, function (serviceOfInterest) {
+    this.Given(/^the service of interest is "([^"]*)", tracked in elasticsearch as "([^"]*)"$/, function (serviceOfInterest, trackedAs) {
         this.serviceOfInterest = serviceOfInterest;
+        this.trackedAs = trackedAs;
     });
 
     this.Given(/^the log file for the service is located at "([^"]*)"$/, function (logPath) {
         this.logLocation = logPath;
     });
 
-    this.When(/^I append "([^"]*)" fake log lines containing a string with the following format:$/, function (lineCount, lineTemplate:string) {
-        this.lineTemplate = lineTemplate;
-        var logWriteRequests = $.clusterUnderTest.nodesHosting(this.serviceOfInterest).map(n => {
+    function getLogWriteRequests(lineCount:number, lineTemplate:string, prepareLine:(originalLine:string, soughtValue:string) => string) {
+        return $.clusterUnderTest.nodesHosting(this.serviceOfInterest).map(n => {
             return n.executeShellCommand(`tail -n 1 ${this.logLocation}`)
                 .then(r => r.processResult().stdoutLines().first())
-                .then(line => {
+                .then(originalLine => {
                     return $.collections.newListOfSize(lineCount).map(lineNumber => {
-                        return line + lineTemplate.replace('{testRunGUID}', $.testRunGUID).replace(`{lineNumber}`, lineNumber + 1)
+                        var soughtValue = lineTemplate.replace('{testRunGUID}', $.testRunGUID).replace(`{lineNumber}`, lineNumber + 1).replace(/-/g,'_');
+                        return prepareLine(originalLine, soughtValue);
                     }).join("\n");
                 })
                 .then(lines=>{
-                    return n.executeShellCommand(`echo ${$.shellEscape([lines])} >> "${this.logLocation}"`);
+                    return n.executeShellCommand(`echo ${$.shellEscape([lines])} >> ${this.logLocation}`);
                 });
         });
+    }
+
+    this.When(/^I append "([^"]*)" fake log lines containing a string with the following format:$/, function (lineCount, lineTemplate:string) {
+        this.lineTemplate = lineTemplate;
+        var logWriteRequests = getLogWriteRequests.call(this, lineCount, lineTemplate, (originalLine, soughtValue)=>`${originalLine} ${soughtValue}`);
         return $.expectAll(logWriteRequests).to.eventually.be.fulfilled;
     });
 
@@ -50,8 +56,8 @@ module.exports = function() {
                 var nodeLogRequests = $.clusterUnderTest.nodesHosting(this.serviceOfInterest).map(n=>{
                     return n.hostNameAccordingToNode
                         .then(hostNameFQDN=>{
-                            var soughtText = this.lineTemplate.replace('{testRunGUID}', $.testRunGUID).replace('{lineNumber}', '');
-                            return es.logsForServiceThatContainTextOnParticularHost(this.serviceOfInterest, soughtText, hostNameFQDN)
+                            var soughtText = this.lineTemplate.replace('{testRunGUID}', $.testRunGUID).replace('{lineNumber}', '').replace(/-/g,'_') + "*";
+                            return es.logsForServiceThatContainTextOnParticularHost(this.trackedAs, soughtText, hostNameFQDN)
                         });
                 });
                 return $.promiseFactory.newGroupPromise(nodeLogRequests);
@@ -60,9 +66,19 @@ module.exports = function() {
         return $.expect(nodeLogRequests).to.eventually.be.fulfilled;
     });
 
-    this.Then(/^I receive "([^"]*)" results per host$/, function (numberExpectedHits) {
+    this.Then(/^I receive at least "([^"]*)" results per host$/, function (numberExpectedHits) {
         var nodeLogResults:IList<ElasticSearchResult> = this.nodeLogResults;
-        $.assertEmptyList(nodeLogResults.filter(r=>r.numberOfHits!=numberExpectedHits));
+        $.assertEmptyList(nodeLogResults.filter(r=>r.numberOfHits<numberExpectedHits));
+    });
+
+    this.When(/^I append "([^"]*)" fake json log lines containing a message property with the following format:$/, function (lineCount, lineTemplate:string) {
+        this.lineTemplate = lineTemplate;
+        var logWriteRequests = getLogWriteRequests.call(this, lineCount, lineTemplate, (originalLine, soughtValue)=>{
+            var lineAsJSON = JSON.parse(originalLine);
+            lineAsJSON.message = soughtValue;
+            return JSON.stringify(lineAsJSON);
+        });
+        return $.expectAll(logWriteRequests).to.eventually.be.fulfilled;
     });
 
 }
