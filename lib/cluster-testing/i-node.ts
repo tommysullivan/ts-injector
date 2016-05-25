@@ -24,7 +24,7 @@ interface INode {
     newElasticSearchClient():ElasticSearchRestClient;
     executeShellCommands(shellCommands:IList<string>):IThenable<IList<ISSHResult>>;
     executeShellCommand(shellCommand:string):IThenable<ISSHResult>;
-    executeCopyCommand(localPath:string, remotePath:string):IThenable<ISSHResult>;
+    upload(localPath:string, remotePath:string):IThenable<ISSHResult>;
     versionGraph():IThenable<INodeVersionGraph>;
     hostNameAccordingToNode:IThenable<string>;
 }

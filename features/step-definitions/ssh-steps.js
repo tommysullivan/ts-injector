@@ -61,7 +61,7 @@ module.exports = function () {
         return $.expect(result).to.eventually.be.fulfilled;
     });
     this.When(/^I scp "([^"]*)" to "([^"]*)" on each node in the cluster$/, function (localPath, remotePath) {
-        var result = $.clusterUnderTest.executeCopyCommandOnEachNode(localPath, remotePath);
+        var result = $.clusterUnderTest.uploadToEachNode(localPath, remotePath);
         return $.expect(result).to.eventually.to.fulfilled;
     });
     this.Then(/^I get the clusterName$/, function () {

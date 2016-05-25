@@ -18,8 +18,11 @@ export default class SSHSession implements ISSHSession {
     private host:string;
     private writeCommandsToStdout:boolean;
     private fileSystem:IFileSystem;
+    private scp2Module:any;
+    private username:string;
+    private password:string;
 
-    constructor(nodemiralSession:any, promiseFactory:IPromiseFactory, nodeWrapperFactory:INodeWrapperFactory, collections:ICollections, api:ISSHAPI, host:string, writeCommandsToStdout:boolean, fileSystem:IFileSystem) {
+    constructor(nodemiralSession:any, promiseFactory:IPromiseFactory, nodeWrapperFactory:INodeWrapperFactory, collections:ICollections, api:ISSHAPI, host:string, writeCommandsToStdout:boolean, fileSystem:IFileSystem, scp2Module:any, username:string, password:string) {
         this.nodemiralSession = nodemiralSession;
         this.promiseFactory = promiseFactory;
         this.nodeWrapperFactory = nodeWrapperFactory;
@@ -28,6 +31,9 @@ export default class SSHSession implements ISSHSession {
         this.host = host;
         this.writeCommandsToStdout = writeCommandsToStdout;
         this.fileSystem = fileSystem;
+        this.scp2Module = scp2Module;
+        this.username = username;
+        this.password = password;
     }
 
     executeCommands(commands:IList<string>):IThenable<IList<ISSHResult>> {
@@ -75,9 +81,41 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
-    copyCommand(localPath:string, destinationFileName:string):IThenable<ISSHResult> {
+    upload(localPath:string, remotePath:string):IThenable<ISSHResult> {
         var fileContent = this.fileSystem.readFileSync(localPath);
-        var command = `printf "${fileContent}" > ${destinationFileName}`;
-        return this.executeCommand(command);
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            this.scp2Module.scp(localPath, this.getSCP2Options(remotePath), this.keyboardInteractiveClient, function(err) {
+                if(err) reject(err);
+                else resolve(null);
+            });
+        });
+    }
+
+    download(remotePath:string, localPath:string):IThenable<ISSHResult> {
+        var fileContent = this.fileSystem.readFileSync(localPath);
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            this.scp2Module.scp(this.getSCP2Options(remotePath), localPath, this.keyboardInteractiveClient, function(err) {
+                if(err) reject(err);
+                else resolve(null);
+            });
+        });
+    }
+
+    private getSCP2Options(path):any {
+        return {
+            host: this.host,
+            username: this.username,
+            password: this.password,
+            tryKeyboard: true,
+            path: path
+        }
+    }
+
+    private get keyboardInteractiveClient():any {
+        var client = new this.scp2Module.Client();
+        client.on('keyboard-interactive', (name, instr, lang, prompts, cb) => {
+            cb([this.password]);
+        });
+        return client;
     }
 }

@@ -1173,7 +1173,8 @@
           "features/hardware/disk-metrics.feature",
           "features/hardware/memory-metrics.feature",
           "features/hardware/network-metrics.feature",
-          "features/hardware/os-load-metrics.feature"
+          "features/hardware/os-load-metrics.feature",
+          "features/common/logs.feature"
         ]
       },
       {
@@ -1214,7 +1215,8 @@
           "features/hardware/disk-metrics.feature",
           "features/hardware/memory-metrics.feature",
           "features/hardware/network-metrics.feature",
-          "features/hardware/os-load-metrics.feature"
+          "features/hardware/os-load-metrics.feature",
+          "features/common/logs.feature"
         ]
       }
     ]
