@@ -28,6 +28,7 @@
     "promise": "latest",
     "readline-sync": "^1.4.1",
     "request": "latest",
+    "scp2": "^0.4.0",
     "shell-escape": "^0.2.0",
     "source-map-support": "^0.4.0",
     "valid-url": "latest"

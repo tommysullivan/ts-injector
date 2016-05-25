@@ -13,9 +13,12 @@ import ICollections from "../collections/i-collections";
 import SSHConfiguration from "./ssh-configuration";
 import SSHMultiCommandError from "./ssh-multi-command-error";
 import IList from "../collections/i-list";
+import ShellEscaper from "./shell-escaper";
 
 declare var require:any;
 require('./nodemiral-patch');
+var scp2Module = require('scp2');
+var shellEscapeModule = require('shell-escape');
 
 export default class SSHAPI implements ISSHAPI {
     private nodemiralModule:any;
@@ -32,7 +35,7 @@ export default class SSHAPI implements ISSHAPI {
         this.sshConfiguration = sshConfiguration;
     }
 
-    private newSSHSession(host:string, nodemiralSession:any):ISSHSession {
+    private newSSHSession(host:string, nodemiralSession:any, username:string, password:string):ISSHSession {
         return new SSHSession(
             nodemiralSession,
             this.promiseFactory,
@@ -41,7 +44,10 @@ export default class SSHAPI implements ISSHAPI {
             this,
             host,
             this.sshConfiguration.writeCommandsToStdout,
-            this.nodeWrapperFactory.fileSystem()
+            this.nodeWrapperFactory.fileSystem(),
+            scp2Module,
+            username,
+            password
         );
     }
 
@@ -59,5 +65,9 @@ export default class SSHAPI implements ISSHAPI {
 
     newSSHMultiCommandError(sshResults:IList<ISSHResult>):SSHMultiCommandError {
         return new SSHMultiCommandError(sshResults);
+    }
+
+    newShellEscaper():ShellEscaper {
+        return new ShellEscaper(shellEscapeModule);
     }
 }

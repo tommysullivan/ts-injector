@@ -23,7 +23,7 @@ module.exports = function() {
     this.Given(/^I prepare each node with the patch repo configuration$/, function () {
         return $.expectAll(
             $.clusterUnderTest.nodes().map(n=>{
-                return n.executeCopyCommand(`data/testing-resources/${n.repo.patchRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.patchRepoFileName}`);
+                return n.upload(`data/testing-resources/${n.repo.patchRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.patchRepoFileName}`);
             })
         ).to.eventually.be.fulfilled;
     });
@@ -72,8 +72,8 @@ module.exports = function() {
         return $.expectAll(
             $.clusterUnderTest.nodes().map(n=>{
                 return $.promiseFactory.newGroupPromiseFromArray([
-                    n.executeCopyCommand(`data/testing-resources/${n.repo.coreRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.coreRepoFileName}`),
-                    n.executeCopyCommand(`data/testing-resources/${n.repo.ecosystemRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.ecosystemRepoFileName}`)
+                    n.upload(`data/testing-resources/${n.repo.coreRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.coreRepoFileName}`),
+                    n.upload(`data/testing-resources/${n.repo.ecosystemRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.ecosystemRepoFileName}`)
                 ]);
             })
         ).to.eventually.be.fulfilled;
@@ -192,7 +192,7 @@ module.exports = function() {
         return $.expectAll(
             $.clusterUnderTest.nodes().map(n=>{
                 return $.promiseFactory.newGroupPromiseFromArray([
-                    n.executeCopyCommand(`data/testing-resources/${n.repo.spyglassRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.spyglassRepoFileName}`)
+                    n.upload(`data/testing-resources/${n.repo.spyglassRepoFileName}`, `${n.repo.repoConfigDirectory}${n.repo.spyglassRepoFileName}`)
                 ]);
             })
         ).to.eventually.be.fulfilled;

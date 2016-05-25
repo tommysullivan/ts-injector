@@ -38,8 +38,8 @@ module.exports = function() {
                         return prepareLine(originalLine, soughtValue);
                     }).join("\n");
                 })
-                .then(lines=>{
-                    return n.executeShellCommand(`echo ${$.shellEscape([lines])} >> ${this.logLocation}`);
+                .then(linesJoinedIntoSingleString=>{
+                    return n.executeShellCommand(`echo ${$.sshAPI.newShellEscaper().shellEscape(linesJoinedIntoSingleString)} >> ${this.logLocation}`);
                 });
         });
     }

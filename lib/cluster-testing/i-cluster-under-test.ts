@@ -30,7 +30,7 @@ interface IClusterUnderTest {
     executeShellCommandsOnEachNode(commands:IList<string>):IThenable<IList<IList<ISSHResult>>>;
     executeShellCommandOnEachNode(command:string):IThenable<IList<ISSHResult>>;
     versionGraph():IThenable<IClusterVersionGraph>;
-    executeCopyCommandOnEachNode(localPath:string, remotePath:string):IThenable<IList<ISSHResult>>;
+    uploadToEachNode(localPath:string, remotePath:string):IThenable<IList<ISSHResult>>;
     name:string;
 }
 

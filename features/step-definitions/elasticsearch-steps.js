@@ -29,8 +29,8 @@ module.exports = function () {
                     return prepareLine(originalLine, soughtValue);
                 }).join("\n");
             })
-                .then(function (lines) {
-                return n.executeShellCommand("echo " + $.shellEscape([lines]) + " >> " + _this.logLocation);
+                .then(function (linesJoinedIntoSingleString) {
+                return n.executeShellCommand("echo " + $.sshAPI.newShellEscaper().shellEscape(linesJoinedIntoSingleString) + " >> " + _this.logLocation);
             });
         });
     }

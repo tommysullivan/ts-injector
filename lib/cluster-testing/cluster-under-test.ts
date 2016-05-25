@@ -133,9 +133,9 @@ export default class ClusterUnderTest implements IClusterUnderTest {
         return this.nodesHosting(serviceName).first();
     }
 
-    executeCopyCommandOnEachNode(localPath:string, remotePath:string):IThenable<IList<ISSHResult>> {
+    uploadToEachNode(localPath:string, remotePath:string):IThenable<IList<ISSHResult>> {
         return this.promiseFactory.newGroupPromise(
-            this.clusterNodes.map(n=>n.executeCopyCommand(localPath, remotePath))
+            this.clusterNodes.map(n=>n.upload(localPath, remotePath))
         );
     }
 }

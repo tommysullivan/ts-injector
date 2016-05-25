@@ -80,9 +80,9 @@ export default class NodeUnderTest implements INode {
             .then(sshSession => sshSession.executeCommands(commands));
     }
     
-    executeCopyCommand(localPath:string, remotePath:string):IThenable<ISSHResult>{
+    upload(localPath:string, remotePath:string):IThenable<ISSHResult>{
         return this.newSSHSession()
-            .then(sshSession => sshSession.copyCommand(localPath, remotePath));
+            .then(sshSession => sshSession.upload(localPath, remotePath));
     }
 
     verifyMapRNotInstalled():IThenable<ISSHResult> {

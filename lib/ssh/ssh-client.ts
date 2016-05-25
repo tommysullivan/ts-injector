@@ -2,9 +2,8 @@ import IThenable from "../promise/i-thenable";
 import ISSHSession from "./i-ssh-session";
 import ISSHClient from "./i-ssh-client";
 import IPromiseFactory from "../promise/i-promise-factory";
-import ISSHAPI from "./i-ssh-api";
 
-interface ISSHSessionFactory { (host:string, nodemiralSession:any):ISSHSession }
+interface ISSHSessionFactory { (host:string, nodemiralSession:any, username:string, password:string):ISSHSession }
 
 export default class SSHClient implements ISSHClient {
     private promiseFactory:IPromiseFactory;
@@ -28,7 +27,7 @@ export default class SSHClient implements ISSHClient {
             }
         };
         var rawSession = this.nodemiral.session(host, credentials, options);
-        var wrappedSession = this.sshSessionFactory(host, rawSession);
+        var wrappedSession = this.sshSessionFactory(host, rawSession, username, password);
         return this.promiseFactory.newPromiseForImmediateValue(wrappedSession);
     }
 }

@@ -12,7 +12,7 @@ module.exports = function () {
     });
     this.Given(/^I prepare each node with the patch repo configuration$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
-            return n.executeCopyCommand("data/testing-resources/" + n.repo.patchRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.patchRepoFileName);
+            return n.upload("data/testing-resources/" + n.repo.patchRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.patchRepoFileName);
         })).to.eventually.be.fulfilled;
     });
     this.When(/^I install the latest patch$/, { timeout: 1000 * 60 * 20 }, function () {
@@ -47,8 +47,8 @@ module.exports = function () {
     this.Given(/^I prepare each node in the cluster with the correct repo configuration$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
             return $.promiseFactory.newGroupPromiseFromArray([
-                n.executeCopyCommand("data/testing-resources/" + n.repo.coreRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.coreRepoFileName),
-                n.executeCopyCommand("data/testing-resources/" + n.repo.ecosystemRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.ecosystemRepoFileName)
+                n.upload("data/testing-resources/" + n.repo.coreRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.coreRepoFileName),
+                n.upload("data/testing-resources/" + n.repo.ecosystemRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.ecosystemRepoFileName)
             ]);
         })).to.eventually.be.fulfilled;
     });
@@ -134,7 +134,7 @@ module.exports = function () {
         // Write code here that turns the phrase above into concrete actions
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
             return $.promiseFactory.newGroupPromiseFromArray([
-                n.executeCopyCommand("data/testing-resources/" + n.repo.spyglassRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.spyglassRepoFileName)
+                n.upload("data/testing-resources/" + n.repo.spyglassRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.spyglassRepoFileName)
             ]);
         })).to.eventually.be.fulfilled;
     });
