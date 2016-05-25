@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-4">
             <h2>{{testResult.clusterId()}}</h2>
-            <small>{{testResult.modifiedTime}}</small>
+            <p>{{testResult.startTime | date:'fullDate'}}</p>
+            <p style="margin-bottom: 10px">{{testResult.startTime | date:'mediumTime'}}</p>
             <div>Test Run ID: {{testResult.name | limitTo:30}}</div>
             <div class="dark" ng-switch on="testResult.contentType()">
                 <div ng-switch-when="vnd/mapr.test-portal.cluster-test-result+json;v=1.0.0">
