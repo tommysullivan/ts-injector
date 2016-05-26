@@ -18,7 +18,7 @@ export default class Collections implements ICollections {
     }
 
     newEmptyDictionary<T>():IDictionary<T> {
-        return new Dictionary<T>([], this);
+        return new Dictionary<T>({}, this);
     }
 
     newListOfSize(size:number):IList<number> {

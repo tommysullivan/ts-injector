@@ -90,7 +90,7 @@ export default class Framework {
         return this._testRunGUID;
     }
 
-    get openTSDB():OpenTSDB { return new OpenTSDB(this.rest, this.frameworkConfig.openTSDBConfig); }
+    get openTSDB():OpenTSDB { return new OpenTSDB(this.rest, this.frameworkConfig.openTSDBConfig, this.collections, this.typedJSON); }
     get spyglass():Spyglass { return new Spyglass(this.frameworkConfig.spyglassConfig, this.errors); }
     get esxi():ESXI { return new ESXI(this.sshAPI, this.collections, this.frameworkConfig.esxiConfiguration); }
     get clusters():Clusters { return new Clusters(this.frameworkConfig.clustersConfig, this.esxi, this.errors, this.collections); }

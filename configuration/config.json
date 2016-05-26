@@ -1211,7 +1211,7 @@
       "name": "aashreya.devops.lab",
       "nodes": [
         {
-          "host": "10.10.100.178",
+          "host": "10.10.100.177",
           "username": "root",
           "password": "mapr",
           "operatingSystem": {
