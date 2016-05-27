@@ -5,6 +5,6 @@ Feature: SCP
 
   Scenario: Upload
     When I scp "/Users/tsullivan/projects/private-spyglass/data/fixtures/esxi-snapshot.txt" to "10.10.30.147" at path "/tommy"
-  @wip3
+  
   Scenario: Download
     When I download "/opt/mapr/conf/cldb.key" from "10.10.30.147" to "./data/tmp/cldb.key"
