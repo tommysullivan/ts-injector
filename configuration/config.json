@@ -417,115 +417,6 @@
       ]
     },
     {
-      "id": "centos7.2",
-      "esxiServerId": "esxi-10.10.100.193",
-      "name": "centos7-2.devops.lab",
-      "nodes": [
-        {
-          "name": "qa-node219.qa.lab",
-          "username": "root",
-          "password": "mapr",
-          "esxi": {
-            "id": 15,
-            "states": [
-              {
-                "name": "readyForInstallation",
-                "snapshotId": 2
-              },
-              {
-                "name": "baseImage",
-                "snapshotId": 1
-              }
-            ]
-          },
-          "host": "10.10.100.219",
-          "operatingSystem": {
-            "name": "CentOS",
-            "version": "7.2"
-          },
-          "serviceNames": [
-            "mapr-installer",
-            "mapr-collectd",
-            "mapr-fluentd",
-            "mapr-nodemanager",
-            "mapr-fileserver",
-            "mapr-core",
-            "mapr-resourcemanager",
-            "mapr-zookeeper",
-            "mapr-cldb",
-            "mapr-hbase",
-            "mapr-historyserver",
-            "mapr-webserver"
-          ]
-        },
-        {
-          "name": "qa-node220.qa.lab",
-          "username": "root",
-          "password": "mapr",
-          "esxi": {
-            "id": 16,
-            "states": [
-              {
-                "name": "readyForInstallation",
-                "snapshotId": 2
-              },
-              {
-                "name": "baseImage",
-                "snapshotId": 1
-              }
-            ]
-          },
-          "host": "10.10.100.220",
-          "operatingSystem": {
-            "name": "CentOS",
-            "version": "7.2"
-          },
-          "serviceNames": [
-            "mapr-collectd",
-            "mapr-fluentd",
-            "mapr-nodemanager",
-            "mapr-fileserver",
-            "mapr-core",
-            "mapr-elasticsearch",
-            "mapr-kibana"
-          ]
-        },
-        {
-          "name": "qa-node221.qa.lab",
-          "username": "root",
-          "password": "mapr",
-          "esxi": {
-            "id": 17,
-            "states": [
-              {
-                "name": "readyForInstallation",
-                "snapshotId": 2
-              },
-              {
-                "name": "baseImage",
-                "snapshotId": 1
-              }
-            ]
-          },
-          "host": "10.10.100.221",
-          "operatingSystem": {
-            "name": "CentOS",
-            "version": "7.2"
-          },
-          "serviceNames": [
-            "mapr-collectd",
-            "mapr-fluentd",
-            "mapr-nodemanager",
-            "mapr-fileserver",
-            "mapr-core",
-            "mapr-opentsdb",
-            "mapr-asynchbase",
-            "mapr-grafana"
-          ]
-        }
-      ]
-    },
-    {
       "id": "ubuntu12",
       "esxiServerId": "esxi-10.10.99.71",
       "name": "ubunu12.devops.lab",
@@ -1237,6 +1128,977 @@
           ]
         }
       ]
+    },
+    {
+      "id": "upgrade3.1.1",
+      "esxiServerId": "esx-10.10.101.150",
+      "name": "upgrade3.1.1.devops.lab",
+      "nodes": [
+        {
+          "name": "v311n1-10.10.101.151",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 2,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.151",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-jobtracker",
+            "mapr-nfs",
+            "mapr-tasktracker",
+            "mapr-hbase-0.94"
+          ]
+        },
+        {
+          "name": "v311n2-10.10.101.152",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 3,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.152",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-jobtracker",
+            "mapr-nfs",
+            "mapr-tasktracker",
+            "mapr-hbase-0.94"
+          ]
+        },
+        {
+          "name": "v311n3-10.10.101.153",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 4,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.153",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-tasktracker",
+            "mapr-hbase-0.94"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade3.1.1Secure",
+      "esxiServerId": "esx-10.10.101.150",
+      "name": "upgrade3.1.1.secure.devops.lab",
+      "nodes": [
+        {
+          "name": "v311sn1-10.10.101.154",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 5,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.154",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-jobtracker",
+            "mapr-nfs",
+            "mapr-tasktracker",
+            "mapr-hbase-0.94"
+          ]
+        },
+        {
+          "name": "v311sn2-10.10.101.155",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 11,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.155",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-jobtracker",
+            "mapr-nfs",
+            "mapr-tasktracker",
+            "mapr-hbase-0.94"
+          ]
+        },
+        {
+          "name": "v311sn3-10.10.101.156",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 9,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.156",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-tasktracker",
+            "mapr-hbase-0.94"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade4.0.2",
+      "esxiServerId": "esx-10.10.101.150",
+      "name": "upgrade4.0.2.devops.lab",
+      "nodes": [
+        {
+          "name": "v402n1-10.10.101.157",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 12,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.157",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-historyserver",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v402n2-10.10.101.158",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 10,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.158",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v402n3-10.10.101.159",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 8,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.159",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-nfs",
+            "mapr-hbase-0.98"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade4.0.2Secure",
+      "esxiServerId": "esx-10.10.101.160",
+      "name": "upgrade4.0.2.secure.devops.lab",
+      "nodes": [
+        {
+          "name": "v402sn1-10.10.101.161",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 1,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.161",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-historyserver",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v402sn2-10.10.101.162",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 2,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.162",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v402sn3-10.10.101.163",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 3,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.163",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-nfs",
+            "mapr-hbase-0.98"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade4.1.0",
+      "esxiServerId": "esx-10.10.101.160",
+      "name": "upgrade4.1.0.devops.lab",
+      "nodes": [
+        {
+          "name": "v410n1-10.10.101.164",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 4,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.164",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-historyserver",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v410n2-10.10.101.165",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 5,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.165",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v410n3-10.10.101.166",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 8,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.166",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade4.1.0Secure",
+      "esxiServerId": "esx-10.10.101.160",
+      "name": "upgrade4.1.0.secure.devops.lab",
+      "nodes": [
+        {
+          "name": "v410sn1-10.10.101.167",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 6,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.167",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-historyserver",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v410sn2-10.10.101.168",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 7,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.168",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v410sn3-10.10.101.169",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 9,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.169",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade5.0.0",
+      "esxiServerId": "esx-10.10.101.170",
+      "name": "upgrade5.0.0.devops.lab",
+      "nodes": [
+        {
+          "name": "v500n1-10.10.101.171",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 1,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.171",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-historyserver",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v500n2-10.10.101.172",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 2,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.172",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v500n3-10.10.101.173",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 3,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.173",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade5.0.0Secure",
+      "esxiServerId": "esx-10.10.101.170",
+      "name": "upgrade5.0.0.secure.devops.lab",
+      "nodes": [
+        {
+          "name": "v500sn1-10.10.101.174",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 4,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.174",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v500sn2-10.10.101.175",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 5,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.175",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        },
+        {
+          "name": "v500sn3-10.10.101.176",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 6,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.176",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-gateway",
+            "mapr-hbase-0.98"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade5.1.0",
+      "esxiServerId": "esx-10.10.101.170",
+      "name": "upgrade5.1.0.devops.lab",
+      "nodes": [
+        {
+          "name": "v510n1-10.10.101.177",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 7,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.177",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-historyserver",
+            "mapr-hbase-1.1",
+            "mapr-kafka"
+          ]
+        },
+        {
+          "name": "v510n2-10.10.101.178",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 8,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.178",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-hbase-1.1",
+            "mapr-kafka",
+            "mapr-gateway"
+          ]
+        },
+        {
+          "name": "v510n3-10.10.101.179",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 11,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.179",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-hbase-1.1",
+            "mapr-kafka",
+            "mapr-gateway"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upgrade5.1.0Secure",
+      "esxiServerId": "esx-10.10.101.170",
+      "name": "upgrade5.1.0.secure.devops.lab",
+      "nodes": [
+        {
+          "name": "v510sn1-10.10.101.181",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 9,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.181",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-historyserver",
+            "mapr-hbase-1.1",
+            "mapr-kafka"
+          ]
+        },
+        {
+          "name": "v510sn2-10.10.101.182",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 12,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.182",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-hbase-1.1",
+            "mapr-kafka"
+          ]
+        },
+        {
+          "name": "v510sn3-10.10.101.183",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 10,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.101.183",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.7"
+          },
+          "serviceNames": [
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-zookeeper",
+            "mapr-webserver",
+            "mapr-nfs",
+            "mapr-hbase-1.1",
+            "mapr-kafka"
+          ]
+        }
+      ]
     }
   ],
   "cucumber": {
@@ -1354,16 +2216,28 @@
         "password": "maprmapr"
       },
       {
-        "id": "esxi-10.10.100.193",
-        "host": "10.10.100.193",
-        "username": "root",
-        "password": "maprmapr"
-      },
-      {
         "id": "esxi-10.10.1.100",
         "host": "10.10.1.100",
         "username": "root",
         "password": "maprwins"
+      },
+      {
+        "id": "esx-10.10.101.150",
+        "host": "10.10.101.150",
+        "username": "root",
+        "password": "maprmapr"
+      },
+      {
+        "id": "esx-10.10.101.160",
+        "host": "10.10.101.160",
+        "username": "root",
+        "password": "maprmapr"
+      },
+      {
+        "id": "esx-10.10.101.170",
+        "host": "10.10.101.170",
+        "username": "root",
+        "password": "maprmapr"
       }
     ]
   },
@@ -1473,7 +2347,9 @@
       { "name": "mapr-nodemanager", "version": "5.1.0" , "core": true, "healthCheckable": true },
       { "name": "mapr-resourcemanager", "version": "5.1.0" , "core": true, "healthCheckable": true },
       { "name": "mapr-fileserver", "version": "5.1.0", "core": true, "healthCheckable": true },
-      { "name": "mapr-historyserver", "version": "5.1.0", "core": true, "healthCheckable": true }
+      { "name": "mapr-historyserver", "version": "5.1.0", "core": true, "healthCheckable": true },
+      { "name": "mapr-gateway", "version": "5.1.0", "core": true, "healthCheckable": true },
+      { "name": "mapr-kafka", "version": "0.9.0", "core": false, "healthCheckable": false }
     ]
   }
 }

@@ -6,8 +6,8 @@ Feature: Package Manager Installation
     And I prepare each node in the cluster with the correct repo configuration
     And I perform the following ssh commands on each node in the cluster:
     """
-    id -u mapr || groupadd -g 500 mapr
-    id -u mapr || useradd -u 500 -g mapr mapr
+    id -u mapr || groupadd -g 5000 mapr
+    id -u mapr || useradd -u 5000 -g mapr mapr
     """
     And I have updated the package manager
     And I have installed Java

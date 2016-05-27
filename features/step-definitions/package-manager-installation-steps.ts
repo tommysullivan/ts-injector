@@ -1,5 +1,6 @@
 import Framework from "../../lib/framework/framework";
 import MCSDashboardInfo from "../../lib/mcs/mcs-dashboard-info";
+import Collections from "../../lib/collections/collections";
 declare var $:Framework;
 declare var module:any;
 
@@ -196,5 +197,69 @@ module.exports = function() {
                 ]);
             })
         ).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I run configure\.sh with genkeys and nostart option on first cldb node$/, function () {
+        this.cldb = $.clusterUnderTest.nodesHosting('mapr-cldb').first();
+        var cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(n=>n.host).join(',');
+        var zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
+        var historyHostString = $.clusterUnderTest.nodeHosting('mapr-historyserver').host;
+        var configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} -HS ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name} -F /root/disk.list -secure -genkeys -no-autostart`;
+        var result = this.cldb.executeShellCommand(configCommand);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I copy cldb key file to all other cldb nodes and zookeeper nodes$/, function () {
+        var result = this.cldb.download('/opt/mapr/conf/cldb.key', './data/tmp/cldb.key')
+            .then(n => $.clusterUnderTest.nodes().filter(n => n.isHostingService('mapr-cldb') || n.isHostingService('mapr-zookeeper'))
+            .filter(n => n.host != this.cldb.host).map(node => node.upload('./data/tmp/cldb.key', '/opt/mapr/conf/cldb.key')))
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I copy maprserverticket, ssl_keystore, ssl_truststore to all nodes$/, function () {
+        var result1 = this.cldb.download('/opt/mapr/conf/maprserverticket', 'data/tmp/maprserverticket')
+            .then(_ => $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes()
+                .filter(n => n.host != this.cldb.host).map(n => n.upload('data/tmp/maprserverticket', '/opt/mapr/conf/maprserverticket'))));
+
+        var result2 = this.cldb.download('/opt/mapr/conf/ssl_keystore', 'data/tmp/ssl_keystore')
+            .then(_ => $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes()
+                .filter(n => n.host != this.cldb.host).map(n => n.upload('data/tmp/ssl_keystore', '/opt/mapr/conf/ssl_keystore'))));
+
+        var result3 = this.cldb.download('/opt/mapr/conf/ssl_truststore', 'data/tmp/ssl_truststore')
+            .then(_ => $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes()
+                .filter(n => n.host != this.cldb.host).map(n => n.upload('data/tmp/ssl_truststore', '/opt/mapr/conf/ssl_truststore'))));
+
+        return $.expectAll($.collections.newList([result1, result2, result3])).to.eventually.be.fulfilled;
+
+    });
+
+    this.Given(/^I run configure\.sh with secure option on all nodes except first cldb node$/, function () {
+        var cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(n=>n.host).join(',');
+        var zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
+        var historyHostString = $.clusterUnderTest.nodeHosting('mapr-historyserver').host;
+        var configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} -HS ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name} -F /root/disk.list -secure -no-autostart`;
+        var result  = $.clusterUnderTest.nodes().filter(n => n.host != this.cldb.host).map(n => n.executeShellCommand(configCommand));
+        return $.expectAll(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I start zookeeper on all the nodes$/, function () {
+        return $.expectAll(
+            $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=> {
+                return n.executeShellCommand(`service mapr-zookeeper start`);
+            })
+        ).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I run configure\.sh on all nodes without \-F$/, function () {
+        var cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(n=>n.host).join(',');
+        var zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
+        var historyHostString = $.clusterUnderTest.nodeHosting('mapr-historyserver').host;
+        var configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} -HS ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name}`;
+        var result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I set the mfs instance to "([^"]*)"$/, function (mfsInstances) {
+       $.clusterUnderTest.nodes().first().executeShellCommand(`maprcli config save -values '{"multimfs.numinstances.pernode":"${mfsInstances}}'`)
     });
 }
