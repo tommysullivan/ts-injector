@@ -25,6 +25,7 @@ interface INode {
     executeShellCommands(shellCommands:IList<string>):IThenable<IList<ISSHResult>>;
     executeShellCommand(shellCommand:string):IThenable<ISSHResult>;
     upload(localPath:string, remotePath:string):IThenable<ISSHResult>;
+    download(remotePath:string, localPath:string):IThenable<ISSHResult>
     versionGraph():IThenable<INodeVersionGraph>;
     hostNameAccordingToNode:IThenable<string>;
 }

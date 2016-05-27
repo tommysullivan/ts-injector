@@ -85,6 +85,11 @@ export default class NodeUnderTest implements INode {
             .then(sshSession => sshSession.upload(localPath, remotePath));
     }
 
+    download(remotePath:string, localPath:string):IThenable<ISSHResult>{
+        return this.newSSHSession()
+            .then(sshSession => sshSession.download(remotePath, localPath));
+    }
+
     verifyMapRNotInstalled():IThenable<ISSHResult> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.newSSHSession()
