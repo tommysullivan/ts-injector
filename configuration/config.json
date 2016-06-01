@@ -30,6 +30,103 @@
   },
   "clusters": [
     {
+      "id": "demoCluster",
+      "esxiServerId": "esxi-10.10.88.131",
+      "name": "spyglass-demo.devops.lab",
+      "nodes": [
+        {
+          "name": "u1404_10.10.88.96",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 1,
+            "states": [
+              {
+                "name": "justPriorToAutomating",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.88.96",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.5"
+          },
+          "serviceNames": [
+            "mapr-installer",
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-historyserver",
+            "mapr-webserver"
+          ]
+        },
+        {
+          "name": "u1404_10.10.88.97",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 2,
+            "states": [
+              {
+                "name": "justPriorToAutomating",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.88.97",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.5"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-kibana"
+          ]
+        },
+        {
+          "name": "u1404_10.10.88.98",
+          "username": "root",
+          "password": "mapr",
+          "esxi": {
+            "id": 3,
+            "states": [
+              {
+                "name": "justPriorToAutomating",
+                "snapshotId": 1
+              }
+            ]
+          },
+          "host": "10.10.88.98",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "6.5"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-opentsdb",
+            "mapr-asynchbase",
+            "mapr-grafana",
+            "mapr-elasticsearch"
+          ]
+        }
+      ]
+    },
+    {
       "id": "suse12",
       "esxiServerId": "esxi-10.10.99.70",
       "name": "suse12.devops.lab",
@@ -2320,6 +2417,12 @@
       {
         "id": "esx-10.10.101.170",
         "host": "10.10.101.170",
+        "username": "root",
+        "password": "maprmapr"
+      },
+      {
+        "id": "esxi-10.10.88.131",
+        "host": "10.10.88.131",
         "username": "root",
         "password": "maprmapr"
       }
