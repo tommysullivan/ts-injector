@@ -6,7 +6,8 @@ interface ISSHSession {
     executeCommands(commands:IList<string>):IThenable<IList<ISSHResult>>;
     executeCommand(command:string):IThenable<ISSHResult>;
     upload(localPath:string, destPath:string):IThenable<any>;
-    download(remotePath:string, localPath:string):IThenable<any>
+    download(remotePath:string, localPath:string):IThenable<any>;
+    write(fileContent:string, destinationPath:string):IThenable<any>;
 }
 
 export default ISSHSession;

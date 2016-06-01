@@ -27,6 +27,7 @@ interface IList<T> {
     limitTo(maxResults:number):IList<T>;
     append(listToAppend:IList<T>):IList<T>;
     flatMap<T2>(mapFunction:(originalItem:T) => IList<T2>):IList<T2>;
+    flatMapArray<T2>(mapFunction:(originalItem:T) => Array<T2>):IList<T2>;
     notEmpty():boolean;
     everythingAfterIndex(index:number):IList<T>;
     last:T;

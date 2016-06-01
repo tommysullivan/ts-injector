@@ -25,9 +25,9 @@ module.exports = function () {
         var _this = this;
         var sshSession = this.sshSession;
         var sshServiceHost = this.sshServiceHost;
-        sshCommand = sshCommand.replace('[installerRepoURL]', sshServiceHost.repoUrlFor('mapr-installer'));
-        sshCommand = sshCommand.replace('[maprCoreRepoURL]', sshServiceHost.repoUrlFor('MapR Core'));
-        sshCommand = sshCommand.replace('[ecosystemRepoURL]', sshServiceHost.repoUrlFor('Ecosystem'));
+        sshCommand = sshCommand.replace('[installerRepoURL]', sshServiceHost.repoUrlFor('installer'));
+        sshCommand = sshCommand.replace('[maprCoreRepoURL]', sshServiceHost.repoUrlFor('core'));
+        sshCommand = sshCommand.replace('[ecosystemRepoURL]', sshServiceHost.repoUrlFor('ecosystem'));
         var sshRequest = sshSession.executeCommand(sshCommand)
             .then(function (result) { return _this.sshResult = result; })
             .catch(function (e) {

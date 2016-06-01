@@ -1,34 +1,14 @@
 import IRepository from "./i-repository";
 import IList from "../collections/i-list";
-import ICollections from "../collections/i-collections";
 
 export default class AptRepository implements IRepository {
 
-    private collections:ICollections;
-
-    constructor(collections:ICollections) {
-        this.collections = collections;
+    configFileContentFor(componentFamily:string, repoUrl:string):string {
+        return `deb ${repoUrl} binary/`
     }
 
-    get repoConfigDirectory():string {
-        return '/etc/apt/sources.list.d/';
-
-    }
-
-    get patchRepoFileName():string {
-        return 'mapr-patch-apt-get.list';
-    }
-
-    get coreRepoFileName():string {
-        return 'mapr-apt-get.list';
-    }
-
-    get ecosystemRepoFileName():string {
-        return 'ecosystem-apt-get.list';
-    }
-
-    get spyglassRepoFileName():string {
-        return 'spyglass-apt-get.list';
+    configFileLocationFor(componentFamily:string):string {
+        return `/etc/apt/sources.list.d/test-automation-${componentFamily}.list`;
     }
 
     installPackagesCommand(packageNames:IList<string>):string {
@@ -55,10 +35,6 @@ export default class AptRepository implements IRepository {
         return 'apt-get update';
     }
 
-    get host():string {
-        return 'apt.qa.lab';
-    }
-
     get packageCommand():string {
         return 'apt-get';
     }
@@ -69,19 +45,5 @@ export default class AptRepository implements IRepository {
 
     get packageListCommand():string {
         return 'dpkg -l';
-    }
-
-    //TODO: Deduplicate and enable configurability
-    private pathFor(componentFamily:string):string {
-        return {
-            "mapr-installer": "/installer-master-ui",
-            "MapR Core": "/v5.1.0",
-            "Ecosystem": "/opensource"
-        }[componentFamily];
-    }
-
-    //TODO: Deduplicate and enable configurability
-    urlFor(componentFamily:string):string {
-        return `http://${this.host}${this.pathFor(componentFamily)}`;
     }
 }

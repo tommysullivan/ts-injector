@@ -3,8 +3,19 @@ import IList from "../collections/i-list";
 
 export default class YumRepository implements IRepository {
 
-    get host():string {
-        return 'yum.qa.lab';
+    configFileContentFor(componentFamily:string, repoUrl:string):string {
+        return [
+            `[${componentFamily}]`,
+            `name = ${componentFamily}`,
+            `enabled = 1`,
+            `baseurl = ${repoUrl}`,
+            `protected = 1`,
+            `gpgcheck = 0`
+        ].join("\n");
+    }
+
+    configFileLocationFor(componentFamily:string):string {
+        return `/etc/yum.repos.d/test-automation-${componentFamily}.repo`;
     }
 
     get packageCommand():string {
@@ -14,23 +25,6 @@ export default class YumRepository implements IRepository {
     get repoConfigDirectory():string {
         return '/etc/yum.repos.d/';
     }
-
-    get patchRepoFileName():string {
-        return 'mapr-patch-yum.repo';
-    }
-
-    get coreRepoFileName():string {
-        return 'mapr-yum.repo';
-    }
-
-    get ecosystemRepoFileName():string {
-        return 'ecosystem-yum.repo';
-    }
-
-    get spyglassRepoFileName():string {
-        return 'spyglass-yum.repo';
-    }
-
 
     get uninstallCorePackagesCommand():string {
         return `rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;
@@ -62,19 +56,5 @@ export default class YumRepository implements IRepository {
 
     get packageListCommand():string {
         return 'yum list installed';
-    }
-
-    //TODO: Deduplicate and enable configurability
-    private pathFor(componentFamily:string):string {
-        return {
-            "mapr-installer": "/installer-master-ui",
-            "MapR Core": "/v5.1.0",
-            "Ecosystem": "/opensource"
-        }[componentFamily];
-    }
-
-    //TODO: Deduplicate and enable configurability
-    urlFor(componentFamily:string):string {
-        return `http://${this.host}${this.pathFor(componentFamily)}`;
     }
 }

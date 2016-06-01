@@ -1,7 +1,6 @@
-@metrics
 Feature: MapR DB Metrics
 
-  @SPYG-386
+  @SPYG-386 @healthCheck @metrics
   Scenario: Verify maprDB metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"

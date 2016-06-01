@@ -1,8 +1,7 @@
 import Framework from "../../lib/framework/framework";
 import ISSHSession from "../../lib/ssh/i-ssh-session";
-import INode from "../../lib/cluster-testing/i-node";
+import INodeUnderTest from "../../lib/cluster-testing/i-node-under-test";
 import ISSHResult from "../../lib/ssh/i-ssh-result";
-import ISSHError from "../../lib/ssh/i-ssh-error";
 declare var $:Framework;
 declare var module:any;
 
@@ -23,7 +22,7 @@ module.exports = function() {
 
     this.When(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the repository for the "([^"]*)" component family/, function (fileToRetrieve, destinationDirectory, componentFamily) {
         var sshSession:ISSHSession = this.sshSession;
-        var sshServiceHost:INode = this.sshServiceHost;
+        var sshServiceHost:INodeUnderTest = this.sshServiceHost;
         var commands = $.collections.newList<string>([
             `curl ${sshServiceHost.repoUrlFor(componentFamily)}${fileToRetrieve} > ${destinationDirectory}${fileToRetrieve}`,
             `chmod 744 ${destinationDirectory}${fileToRetrieve}`
@@ -33,10 +32,10 @@ module.exports = function() {
 
     this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 10 * 60 * 1000 }, function (sshCommand) {
         var sshSession:ISSHSession = this.sshSession;
-        var sshServiceHost:INode = this.sshServiceHost;
-        sshCommand = sshCommand.replace('[installerRepoURL]', sshServiceHost.repoUrlFor('mapr-installer'));
-        sshCommand = sshCommand.replace('[maprCoreRepoURL]', sshServiceHost.repoUrlFor('MapR Core'));
-        sshCommand = sshCommand.replace('[ecosystemRepoURL]', sshServiceHost.repoUrlFor('Ecosystem'));
+        var sshServiceHost:INodeUnderTest = this.sshServiceHost;
+        sshCommand = sshCommand.replace('[installerRepoURL]', sshServiceHost.repoUrlFor('installer'));
+        sshCommand = sshCommand.replace('[maprCoreRepoURL]', sshServiceHost.repoUrlFor('core'));
+        sshCommand = sshCommand.replace('[ecosystemRepoURL]', sshServiceHost.repoUrlFor('ecosystem'));
         var sshRequest = sshSession.executeCommand(sshCommand)
             .then(result=>this.sshResult=result)
             .catch((e:ISSHError)=>{
@@ -91,8 +90,6 @@ module.exports = function() {
                 $.expect(clusterName).is.not.null;
                 console.log(clusterName);
                 this.clustName=clusterName;
-
-
             });
         return $.expect(result).to.eventually.be.fulfilled;
     });
@@ -102,7 +99,6 @@ module.exports = function() {
         var command = "/opt/mapr/bin/maprcli volume create -name " + this.volumeName + " -json"
         console.log(command);
         var result = $.clusterUnderTest.nodes().first().newSSHSession()
-
             .then(sshSession=>sshSession.executeCommand(command))
             .then(commandResult=> {
                 var jsonString = commandResult.processResult().stdoutLines().join("");
@@ -131,7 +127,6 @@ module.exports = function() {
 
             });
         return $.expect(result).to.eventually.be.fulfilled;
-
     });
 
     this.Given(/^I set the volume quota to "([^"]*)"$/, function (quota) {
@@ -148,13 +143,10 @@ module.exports = function() {
 
             });
         return $.expect(result).to.eventually.be.fulfilled;
-
     });
 
     this.Given(/^I turn off compression on the volume$/, function () {
-
     });
-
 
     this.Given(/^I create a snapshot for the volume$/, function () {
         this.snapshot=this.volumeName+"_snapshot";
@@ -171,11 +163,7 @@ module.exports = function() {
 
             });
         return $.expect(result).to.eventually.be.fulfilled;
-
-
     });
-
-
 
     this.Then(/^I get the expected value using maprcli volume info command$/, function (){
         var command="/opt/mapr/bin/maprcli volume info -name "+this.volumeName+" -json";

@@ -1,16 +1,34 @@
 import IJSONObject from "../typed-json/i-json-object";
 import ClusterInstallerConfig from "./cluster-installer-config";
 import IPath from "../node-js-wrappers/i-path";
+import IProcess from "../node-js-wrappers/i-process";
 
 export default class ClusterTestingConfiguration {
     private configJSON:IJSONObject;
     private basePathToUseForConfiguredRelativePaths:string;
     private path:IPath;
+    private process:IProcess;
 
-    constructor(configJSON:IJSONObject, basePathToUseForConfiguredRelativePaths:string, path:IPath) {
+    constructor(configJSON:IJSONObject, basePathToUseForConfiguredRelativePaths:string, path:IPath, process:IProcess) {
         this.configJSON = configJSON;
         this.basePathToUseForConfiguredRelativePaths = basePathToUseForConfiguredRelativePaths;
         this.path = path;
+        this.process = process;
+    }
+    
+    private envVarOrConfiguredVal(propName:string):string {
+        return this.process.environmentVariableNamedOrLazyDefault(
+            propName,
+            () => this.configJSON.stringPropertyNamed(propName)
+        );
+    }
+
+    get phaseOfDevelopment():string {
+        return this.envVarOrConfiguredVal('phaseOfDevelopment');
+    }
+
+    get maprCoreVersion():string {
+        return this.envVarOrConfiguredVal('maprCoreVersion');
     }
 
     portalUrlWithId(id):string {
@@ -36,6 +54,4 @@ export default class ClusterTestingConfiguration {
             this.configJSON.jsonObjectNamed('clusterInstaller')
         );
     }
-
-    get defaultPhase():string { return this.configJSON.stringPropertyNamed('defaultPhase');}
 }

@@ -67,7 +67,8 @@ export default class FrameworkConfiguration {
         return new ClusterTestingConfiguration(
             this.frameworkConfigJSON.jsonObjectNamed('clusterTesting'),
             this.basePathToUseForConfiguredRelativePaths,
-            this.path
+            this.path,
+            this.process
         );
     }
 

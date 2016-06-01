@@ -13,6 +13,7 @@ require('../step-definitions/ssh-steps');
 require('../step-definitions/timing');
 require('../step-definitions/yarn-steps');
 require('../step-definitions/scp-steps');
+require('../step-definitions/repository-steps');
 var nodeframeworkLoader = new node_framework_loader_1.default();
 var $ = GLOBAL.$ = nodeframeworkLoader.loadFramework();
 module.exports = $.cucumber.world;

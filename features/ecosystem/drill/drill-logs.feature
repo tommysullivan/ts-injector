@@ -1,2 +1,2 @@
-@logs
+@logs @healthCheck
 Feature: Drill Logs

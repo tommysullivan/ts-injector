@@ -1,7 +1,6 @@
-@metrics
 Feature: MFS Volume Metrics
 
-  @SPYG-177
+  @SPYG-177 @metrics @healthCheck
   Scenario: Check for total logical size,total size and and used size per volume
     Given I have installed Spyglass
     And I get the clusterName

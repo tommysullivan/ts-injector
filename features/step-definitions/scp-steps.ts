@@ -14,4 +14,10 @@ module.exports = function() {
             .then(s=>s.download(remotePath, localPath));
         return $.expect(scpRequest).to.eventually.be.fulfilled;
     });
+
+    this.When(/^I write "([^"]*)" to "([^"]*)" at path "([^"]*)"$/, function (content, remoteHost, destPath) {
+        var scpRequest = $.sshAPI.newSSHClient().connect(remoteHost, 'root', 'mapr')
+            .then(s=>s.write(content, destPath));
+        return $.expect(scpRequest).to.eventually.be.fulfilled;
+    });
 }

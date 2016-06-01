@@ -10,5 +10,10 @@ module.exports = function () {
             .then(function (s) { return s.download(remotePath, localPath); });
         return $.expect(scpRequest).to.eventually.be.fulfilled;
     });
+    this.When(/^I write "([^"]*)" to "([^"]*)" at path "([^"]*)"$/, function (content, remoteHost, destPath) {
+        var scpRequest = $.sshAPI.newSSHClient().connect(remoteHost, 'root', 'mapr')
+            .then(function (s) { return s.write(content, destPath); });
+        return $.expect(scpRequest).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=scp-steps.js.map

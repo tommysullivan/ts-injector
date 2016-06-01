@@ -33,6 +33,10 @@ import IConsole from "../node-js-wrappers/i-console";
 import TestPortal from "../test-portal/test-portal";
 import ExpressWrappers from "../express-wrappers/express-wrappers";
 import Jira from "../jira/jira";
+import IRepositories from "../repositories/i-repositories";
+import Repositories from "../repositories/repositories";
+import IOperatingSystems from "../operating-systems/i-operating-systems";
+import OperatingSystems from "../operating-systems/operating-systems";
 
 export default class Framework {
     public frameworkConfig:FrameworkConfiguration;
@@ -90,10 +94,14 @@ export default class Framework {
         return this._testRunGUID;
     }
 
+    get repositories():IRepositories {
+        return new Repositories(this.typedJSON);
+    }
+
     get openTSDB():OpenTSDB { return new OpenTSDB(this.rest, this.frameworkConfig.openTSDBConfig, this.collections, this.typedJSON); }
     get spyglass():Spyglass { return new Spyglass(this.frameworkConfig.spyglassConfig, this.errors); }
     get esxi():ESXI { return new ESXI(this.sshAPI, this.collections, this.frameworkConfig.esxiConfiguration); }
-    get clusters():Clusters { return new Clusters(this.frameworkConfig.clustersConfig, this.esxi, this.errors, this.collections); }
+    get clusters():Clusters { return new Clusters(this.frameworkConfig.clustersConfig, this.esxi, this.errors, this.operatingSystems); }
     get versioning():IVersioning { return new Versioning(this.frameworkConfig.versioningConfig); }
 
     get serviceDiscoverer():ServiceDiscoverer {
@@ -136,7 +144,8 @@ export default class Framework {
             this.elasticSearch,
             this.serviceDiscoverer,
             this.esxi,
-            this.clusters
+            this.clusters,
+            this.repositories
         );
     }
 

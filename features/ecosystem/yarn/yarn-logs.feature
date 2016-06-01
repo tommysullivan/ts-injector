@@ -1,10 +1,9 @@
-@logs
 Feature: Yarn Logs
   As a Spyglass User
   In order to centrally query for and view YARN logs using a number of relevant parameters
   I use the Spyglass-Provided ElasticSearch REST API (or Kibana, which in turn uses ES REST API)
 
-  @SPYG-225
+  @SPYG-225 @logs @healthCheck
   Scenario: Logs for Successful YARN Jobs Appear in ElasticSearch with Application ID for services "nodemanager" and "resourcemanager"
     Given I have installed Spyglass
     And the cluster is running YARN
@@ -23,5 +22,8 @@ Feature: Yarn Logs
     Then I should see logs in ElasticSearch containing the application ID when I filter by service name "nodemanager"
     Then I should see logs in ElasticSearch containing the application ID when I filter by service name "resourcemanager"
 
+  @logs @healthCheck
   Scenario: Compare logs on filesystem to logs in ES
+
+  @logs @healthCheck
   Scenario: Failing Hadoop Job Logs are Identifiable with Application ID

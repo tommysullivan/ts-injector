@@ -1,30 +1,28 @@
 "use strict";
 module.exports = function () {
     this.Given(/^I have updated the package manager$/, function () {
-        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repo.packageUpdateCommand); })).to.eventually.be.fulfilled;
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repository.packageUpdateCommand); })).to.eventually.be.fulfilled;
     });
     this.When(/^I install the Core components$/, { timeout: 1000 * 60 * 20 }, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
             var coreServices = $.versioning.serviceSet().filter(function (s) { return n.isHostingService(s.name) && s.isCore; });
-            var command = n.repo.installPackagesCommand(coreServices.map(function (s) { return s.name; }));
+            var command = n.repository.installPackagesCommand(coreServices.map(function (s) { return s.name; }));
             return n.executeShellCommand(command);
         })).to.eventually.be.fulfilled;
     });
     this.Given(/^I prepare each node with the patch repo configuration$/, function () {
-        return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
-            return n.upload("data/testing-resources/" + n.repo.patchRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.patchRepoFileName);
-        })).to.eventually.be.fulfilled;
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.write(n.repoConfigFileContentFor('mapr-patch'), n.repoConfigFileLocationFor('mapr-patch')); })).to.eventually.be.fulfilled;
     });
     this.When(/^I install the latest patch$/, { timeout: 1000 * 60 * 20 }, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
-            var command = n.repo.installPackageCommand('mapr-patch');
+            var command = n.repository.installPackageCommand('mapr-patch');
             return n.executeShellCommand(command);
         })).to.eventually.be.fulfilled;
     });
     this.Given(/^I install all spyglass components$/, { timeout: 1000 * 60 * 20 }, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
             var spyglassServices = $.versioning.serviceSet().filter(function (s) { return n.isHostingService(s.name) && !s.isCore; });
-            var command = n.repo.installPackagesCommand(spyglassServices.map(function (s) { return s.name; }));
+            var command = n.repository.installPackagesCommand(spyglassServices.map(function (s) { return s.name; }));
             return n.executeShellCommand(command);
         })).to.eventually.be.fulfilled;
     });
@@ -45,11 +43,8 @@ module.exports = function () {
         });
     });
     this.Given(/^I prepare each node in the cluster with the correct repo configuration$/, function () {
-        return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
-            return $.promiseFactory.newGroupPromiseFromArray([
-                n.upload("data/testing-resources/" + n.repo.coreRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.coreRepoFileName),
-                n.upload("data/testing-resources/" + n.repo.ecosystemRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.ecosystemRepoFileName)
-            ]);
+        return $.expectAll($.clusterUnderTest.nodes().flatMapArray(function (n) {
+            return ['core', 'ecosystem'].map(function (c) { return n.write(n.repoConfigFileContentFor(c), n.repoConfigFileLocationFor(c)); });
         })).to.eventually.be.fulfilled;
     });
     this.Given(/^I prepare the disk\.list file$/, function () {
@@ -86,10 +81,10 @@ module.exports = function () {
         return $.expect(result).to.eventually.be.fulfilled;
     });
     this.Given(/^I have installed Java$/, { timeout: 1000 * 60 * 40 }, function () {
-        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repo.installJavaCommand); })).to.eventually.be.fulfilled;
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repository.installJavaCommand); })).to.eventually.be.fulfilled;
     });
     this.Given(/^I use the package manager to install the "([^"]*)" package$/, function (packageName) {
-        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repo.installPackageCommand(packageName)); })).to.eventually.be.fulfilled;
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repository.installPackageCommand(packageName)); })).to.eventually.be.fulfilled;
     });
     this.Given(/^the cluster has MapR Installed$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.verifyMapRIsInstalled(); })).to.eventually.be.fulfilled;
@@ -97,12 +92,12 @@ module.exports = function () {
     this.Given(/^I remove all spyglass components$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
             var spyglassServices = $.versioning.serviceSet().filter(function (s) { return n.isHostingService(s.name) && !s.isCore; });
-            var command = n.repo.uninstallPackagesCommand(spyglassServices.map(function (s) { return s.name; }));
+            var command = n.repository.uninstallPackagesCommand(spyglassServices.map(function (s) { return s.name; }));
             return n.executeShellCommand(command);
         })).to.eventually.be.fulfilled;
     });
     this.Given(/^I remove all the core components$/, function () {
-        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repo.uninstallCorePackagesCommand); })).to.eventually.be.fulfilled;
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommand(n.repository.uninstallCorePackagesCommand); })).to.eventually.be.fulfilled;
     });
     this.Given(/^I clear all mapr data$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
@@ -127,16 +122,11 @@ module.exports = function () {
     });
     this.Given(/^I remove the opensource repo$/, function () {
         return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
-            return n.executeShellCommand("rm -rf " + n.repo.repoConfigDirectory + n.repo.ecosystemRepoFileName);
+            return n.executeShellCommand("rm -rf " + n.repository.configFileLocationFor('ecosystem'));
         })).to.eventually.be.fulfilled;
     });
     this.Given(/^I prepare each node with the spyglass repo configuration$/, function () {
-        // Write code here that turns the phrase above into concrete actions
-        return $.expectAll($.clusterUnderTest.nodes().map(function (n) {
-            return $.promiseFactory.newGroupPromiseFromArray([
-                n.upload("data/testing-resources/" + n.repo.spyglassRepoFileName, "" + n.repo.repoConfigDirectory + n.repo.spyglassRepoFileName)
-            ]);
-        })).to.eventually.be.fulfilled;
+        return $.expectAll($.clusterUnderTest.nodes().map(function (n) { return n.write(n.repoConfigFileContentFor('spyglass'), n.repoConfigFileLocationFor('spyglass')); })).to.eventually.be.fulfilled;
     });
     this.Given(/^I run configure\.sh with genkeys and nostart option on first cldb node$/, function () {
         this.cldb = $.clusterUnderTest.nodesHosting('mapr-cldb').first();

@@ -10,7 +10,7 @@ import IESXIResponse from "../esxi/i-esxi-response";
 import ISSHResult from "../ssh/i-ssh-result";
 import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
 import IPromiseFactory from "../promise/i-promise-factory";
-import INode from "./i-node";
+import INodeUnderTest from "./i-node-under-test";
 import IVersioning from "../versioning/i-versioning";
 import IClusterConfiguration from "../clusters/i-cluster-configuration";
 import ServiceDiscoverer from "./service-discoverer";
@@ -20,14 +20,14 @@ import ClusterInstaller from "./cluster-installer";
 export default class ClusterUnderTest implements IClusterUnderTest {
     private clusterInstallerConfiguration:ClusterInstallerConfig;
     private promiseFactory:IPromiseFactory;
-    private clusterNodes:IList<INode>;
+    private clusterNodes:IList<INodeUnderTest>;
     private versioning:IVersioning;
     private clusterConfig:IClusterConfiguration;
     private serviceDiscoverer:ServiceDiscoverer;
     private clusterTesting:ClusterTesting;
     private clusterInstaller:ClusterInstaller;
 
-    constructor(clusterInstallerConfiguration:ClusterInstallerConfig, promiseFactory:IPromiseFactory, clusterNodes:IList<INode>, versioning:IVersioning, clusterConfig:IClusterConfiguration, serviceDiscoverer:ServiceDiscoverer, clusterTesting:ClusterTesting, clusterInstaller:ClusterInstaller) {
+    constructor(clusterInstallerConfiguration:ClusterInstallerConfig, promiseFactory:IPromiseFactory, clusterNodes:IList<INodeUnderTest>, versioning:IVersioning, clusterConfig:IClusterConfiguration, serviceDiscoverer:ServiceDiscoverer, clusterTesting:ClusterTesting, clusterInstaller:ClusterInstaller) {
         this.clusterInstallerConfiguration = clusterInstallerConfiguration;
         this.promiseFactory = promiseFactory;
         this.clusterNodes = clusterNodes;
@@ -42,7 +42,7 @@ export default class ClusterUnderTest implements IClusterUnderTest {
         return this.clusterInstallerConfiguration.installationTimeoutInMilliseconds;
     }
 
-    nodeWithHostName(hostName:string):INode {
+    nodeWithHostName(hostName:string):INodeUnderTest {
         return this.nodes().firstWhere(n=>n.host==hostName);
     }
 
@@ -121,15 +121,15 @@ export default class ClusterUnderTest implements IClusterUnderTest {
             });
     }
 
-    nodes():IList<INode> {
+    nodes():IList<INodeUnderTest> {
         return this.clusterNodes.clone();
     }
 
-    nodesHosting(serviceName:string):IList<INode> {
+    nodesHosting(serviceName:string):IList<INodeUnderTest> {
         return this.clusterNodes.filter(n=>n.isHostingService(serviceName));
     }
 
-    nodeHosting(serviceName:string):INode {
+    nodeHosting(serviceName:string):INodeUnderTest {
         return this.nodesHosting(serviceName).first();
     }
 

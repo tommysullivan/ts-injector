@@ -16,6 +16,7 @@ import '../step-definitions/ssh-steps';
 import '../step-definitions/timing';
 import '../step-definitions/yarn-steps';
 import '../step-definitions/scp-steps';
+import '../step-definitions/repository-steps';
 
 var nodeframeworkLoader = new NodeFrameworkLoader();
 var $ = GLOBAL.$ = nodeframeworkLoader.loadFramework();

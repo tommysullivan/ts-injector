@@ -1,2 +1,2 @@
-@metrics
+@metrics @healthCheck
 Feature: YARN Metrics

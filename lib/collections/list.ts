@@ -71,7 +71,11 @@ export default class List<T> implements IList<T> {
     }
 
     map<T2>(mapFunction:(originalItem:T)=>T2):IList<T2> {
-        return new List<T2>(this.listItems.map(mapFunction));
+        return new List<T2>(this.mapToArray(mapFunction));
+    }
+
+    mapToArray<T2>(mapFunction:(originalItem:T)=>T2):Array<T2> {
+        return this.listItems.map(mapFunction);
     }
 
     contains(soughtItem:T):boolean {
@@ -145,6 +149,10 @@ export default class List<T> implements IList<T> {
 
     flatMap<T2>(mapFunction:(originalItem:T) => IList<T2>):IList<T2> {
         return this.map(mapFunction).flatten<T2>();
+    }
+
+    flatMapArray<T2>(mapFunction:(originalItem:T) => Array<T2>):IList<T2> {
+        return new List<Array<T2>>(this.mapToArray(mapFunction)).flatten<T2>();
     }
 
     limitTo(maxResults:number):IList<T> {

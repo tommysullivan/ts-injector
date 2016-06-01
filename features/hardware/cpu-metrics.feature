@@ -1,6 +1,6 @@
-@metrics
 Feature: CPU Metrics
 
+  @metrics @healthCheck
   Scenario: Verify cpu metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"

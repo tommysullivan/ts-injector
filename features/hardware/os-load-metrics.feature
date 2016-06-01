@@ -1,6 +1,6 @@
-@metrics
 Feature: OS Load Metrics
 
+  @metrics @healthCheck
   Scenario: Load Metrics from OS
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"

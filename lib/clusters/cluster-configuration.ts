@@ -5,17 +5,17 @@ import IESXIServerConfiguration from "../esxi/configuration/i-esxi-server-config
 import IJSONObject from "../typed-json/i-json-object";
 import NodeConfiguration from "./../nodes/node-configuration";
 import IESXI from "../esxi/i-esxi";
-import ICollections from "../collections/i-collections";
+import IOperatingSystems from "../operating-systems/i-operating-systems";
 
 export default class ClusterConfiguration implements IClusterConfiguration {
     private configJSON:IJSONObject;
     private esxi:IESXI;
-    private collections:ICollections;
+    private operatingSystems:IOperatingSystems;
 
-    constructor(configJSON:IJSONObject, esxi:IESXI, collections:ICollections) {
+    constructor(configJSON:IJSONObject, esxi:IESXI, operatingSystems:IOperatingSystems) {
         this.configJSON = configJSON;
         this.esxi = esxi;
-        this.collections = collections;
+        this.operatingSystems = operatingSystems;
     }
 
     toJSON():any {
@@ -36,7 +36,7 @@ export default class ClusterConfiguration implements IClusterConfiguration {
 
     get nodes():IList<INodeConfiguration> {
         return this.configJSON.listOfJSONObjectsNamed('nodes').map(
-            nodeJSON=>new NodeConfiguration(nodeJSON, this.collections)
+            nodeJSON=>new NodeConfiguration(nodeJSON, this.operatingSystems)
         );
     }
 }
