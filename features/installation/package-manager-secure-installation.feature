@@ -4,12 +4,7 @@ Feature: Secure Package Manager Installation
   Scenario: Installation via Package Manager and Configure.sh
     Given the cluster does not have MapR Installed
     And I prepare each node in the cluster with the correct repo configuration
-    And I perform the following ssh commands on each node in the cluster:
-    """
-    id -u mapr || groupadd -g 500 mapr
-    id -u mapr || useradd -u 500 -g mapr mapr
-
-    """
+    And I create the user "mapr" with id "5000" group "mapr" and password "mapr"
     And I have updated the package manager
     And I have installed Java
     And I install the Core components
@@ -25,6 +20,14 @@ Feature: Secure Package Manager Installation
     """
     And I wait "45" seconds
     And I install the license on cluster
+    And I perform the following ssh commands on each node in the cluster:
+    """
+    echo 'mapr' | maprlogin password
+    """
+    And I perform the following ssh commands on each node in the cluster as user "mapr" with password "mapr":
+    """
+    echo 'mapr' | maprlogin password
+    """
     And I install all spyglass components
     And I run configure.sh for spyglass components
     And I restart the warden

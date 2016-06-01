@@ -192,5 +192,19 @@ module.exports = function () {
     this.Given(/^I set the mfs instance to "([^"]*)"$/, function (mfsInstances) {
         $.clusterUnderTest.nodes().first().executeShellCommand("maprcli config save -values '{\"multimfs.numinstances.pernode\":\"" + mfsInstances + "}'");
     });
+    this.Given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/, function (user, userId, userGroup, userPasswd) {
+        var userCreateComamnd = "id -u " + user + " || useradd -u " + userId + " -g " + userGroup + " -p $(openssl passwd -1 " + userPasswd + ") " + user;
+        var groupCreateCommand = "getent group " + userGroup + " || groupadd -g " + userId + " " + user;
+        var resultList = $.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommands($.collections.newList([groupCreateCommand, userCreateComamnd])); });
+        return $.expectAll(resultList).to.eventually.be.fulfilled;
+    });
+    this.Given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/, function (user, userPasswd, commands) {
+        var commandList = $.collections.newList(commands.split("\n"));
+        var nodeRequests = $.clusterUnderTest.nodes().map(function (n) {
+            return $.sshAPI.newSSHClient().connect(n.host, user, userPasswd)
+                .then(function (session) { return session.executeCommands(commandList); });
+        });
+        return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
+    });
 };
 //# sourceMappingURL=package-manager-installation-steps.js.map
