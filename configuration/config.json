@@ -250,7 +250,9 @@
           "serviceNames": [
             "mapr-opentsdb",
             "mapr-asynchbase",
-            "mapr-webserver"
+            "mapr-webserver",
+            "mapr-hbase-regionserver",
+            "mapr-hbase-master"
           ]
         },
         {
@@ -288,8 +290,7 @@
             "mapr-grafana",
             "mapr-resourcemanager",
             "mapr-nodemanager",
-            "mapr-hbase-master",
-            "mapr-hbase-regionserver"
+            "mapr-hbase-master"
           ]
         }
       ]

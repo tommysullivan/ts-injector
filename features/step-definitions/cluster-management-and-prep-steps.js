@@ -49,5 +49,13 @@ module.exports = function () {
     });
     this.Then(/^I manually update the configured "([^"]*)" state for the cluster with the snapshot ids$/, function (arg1) { });
     this.Given(/^I have installed Spyglass$/, function () { });
+    this.Given(/^I have a node running HBase RegionServer service$/, function () {
+        var isHostingHbaseRegionServers = $.clusterUnderTest.nodesHosting('mapr-hbase-regionserver').isEmpty;
+        return $.expect(isHostingHbaseRegionServers).to.be.false;
+    });
+    this.Given(/^I have a node running HBase Master service$/, function () {
+        var isHostingHbaseMasterServers = $.clusterUnderTest.nodesHosting('mapr-hbase-master').isEmpty;
+        return $.expect(isHostingHbaseMasterServers).to.be.false;
+    });
 };
 //# sourceMappingURL=cluster-management-and-prep-steps.js.map
