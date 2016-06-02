@@ -10,6 +10,8 @@ Feature: HBase Metrics
       | sum:mapr.hbase_master.dead_region_servers                  |
       | sum:mapr.hbase_master.regions_in_transition                |
       | sum:mapr.hbase_master.regions_in_transition_over_threshold |
+    Then I receive at least "1" values per metric covering that time period
+    And those values may be incorrect but we are only testing for presence
 
 
   Scenario: Check for the presence of HBaseRegionServer metrics
@@ -54,3 +56,5 @@ Feature: HBase Metrics
       | sum:mapr.hbase_region_server.authentication_successes         |
       | sum:mapr.hbase_region_server.authenticaiton_failures          |
       | sum:mapr.hbase_region_server.writes_without_wal               |
+    Then I receive at least "1" values per metric covering that time period
+    And those values may be incorrect but we are only testing for presence  
