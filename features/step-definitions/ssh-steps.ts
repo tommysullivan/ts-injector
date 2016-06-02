@@ -2,6 +2,7 @@ import Framework from "../../lib/framework/framework";
 import ISSHSession from "../../lib/ssh/i-ssh-session";
 import INodeUnderTest from "../../lib/cluster-testing/i-node-under-test";
 import ISSHResult from "../../lib/ssh/i-ssh-result";
+import ISSHError from "../../lib/ssh/i-ssh-error";
 declare var $:Framework;
 declare var module:any;
 
