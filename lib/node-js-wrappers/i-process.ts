@@ -7,6 +7,7 @@ interface IProcess {
     environmentVariables():IDictionary<string>;
     environmentVariableNamed(name:string):string;
     environmentVariableNamedOrDefault(name:string, defaultValueIfNotDefined:string):string;
+    environmentVariableNamedOrLazyDefault(name:string, defaultValueFuncIfNotDefined:()=>string):string;
     commandLineArguments():IList<string>;
     exit(exitCode:Number):void;
     getArgvOrThrow(argName:string, index:number):string;

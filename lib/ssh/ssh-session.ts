@@ -81,38 +81,47 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
-    upload(localPath:string, remotePath:string):IThenable<ISSHResult> {
-        var fileContent = this.fileSystem.readFileSync(localPath);
+    upload(localPath:string, remotePath:string):IThenable<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
-            this.scp2Module.scp(localPath, this.getSCP2Options(remotePath), this.keyboardInteractiveClient, function(err) {
+            this.scp2Module.scp(localPath, {path:remotePath}, this.newKeyboardInteractiveClient(), function(err) {
                 if(err) reject(err);
                 else resolve(null);
             });
         });
     }
 
-    download(remotePath:string, localPath:string):IThenable<ISSHResult> {
-        var fileContent = this.fileSystem.readFileSync(localPath);
+    download(remotePath:string, localPath:string):IThenable<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
-            this.scp2Module.scp(this.getSCP2Options(remotePath), localPath, this.keyboardInteractiveClient, function(err) {
+            var options = {
+                host: this.host,
+                path: remotePath
+            };
+            this.scp2Module.scp(options, localPath, this.newKeyboardInteractiveClient(), function(err) {
                 if(err) reject(err);
                 else resolve(null);
             });
         });
     }
 
-    private getSCP2Options(path):any {
-        return {
+    write(fileContent:string, destinationPath:string):IThenable<any> {
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            this.newKeyboardInteractiveClient().write({
+                destination: destinationPath,
+                content: this.nodeWrapperFactory.newStringBuffer(fileContent)
+            }, function(err) {
+                if(err) reject(err);
+                else resolve(null);
+            });
+        });
+    }
+
+    private newKeyboardInteractiveClient():any {
+        var client = new this.scp2Module.Client({
             host: this.host,
             username: this.username,
             password: this.password,
-            tryKeyboard: true,
-            path: path
-        }
-    }
-
-    private get keyboardInteractiveClient():any {
-        var client = new this.scp2Module.Client();
+            tryKeyboard: true
+        });
         client.on('keyboard-interactive', (name, instr, lang, prompts, cb) => {
             cb([this.password]);
         });

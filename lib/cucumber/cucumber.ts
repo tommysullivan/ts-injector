@@ -22,6 +22,8 @@ import IJSONObject from "../typed-json/i-json-object";
 import FeatureSet from "./feature-set";
 import IErrors from "../errors/i-errors";
 import IDictionary from "../collections/i-dictionary";
+import IStepDefinitions from "./i-step-definitions";
+import StepDefinitions from "./step-definitions";
 
 export default class Cucumber {
     private collections:ICollections;
@@ -38,6 +40,10 @@ export default class Cucumber {
 
     get allFeatureSets():IList<FeatureSet> {
         return this.cucumberConfig.featureSets;
+    }
+
+    stepDefinitionsFor<T>(thisObjectWithinStepDefinitionFileExportFunction:any):IStepDefinitions<T> {
+        return new StepDefinitions<T>(thisObjectWithinStepDefinitionFileExportFunction);
     }
 
     featureSetWithId(id:string):FeatureSet {

@@ -20,7 +20,7 @@ import IThenable from "../promise/i-thenable";
 import ClusterTestResult from "../cluster-testing/cluster-test-result";
 import ICollections from "../collections/i-collections";
 import IClusterUnderTest from "../cluster-testing/i-cluster-under-test";
-import INode from "../cluster-testing/i-node";
+import INodeUnderTest from "../cluster-testing/i-node-under-test";
 
 export default class ClusterTesterCliHelper {
     private process:IProcess;
@@ -94,7 +94,7 @@ export default class ClusterTesterCliHelper {
         }
     }
 
-    private nodesRunningRequestedServices(cluster:IClusterUnderTest):IList<INode> {
+    private nodesRunningRequestedServices(cluster:IClusterUnderTest):IList<INodeUnderTest> {
         var requisiteServiceNames = this.collections.newList<string>(this.process.environmentVariableNamed('nodesWith').split(','));
         return cluster.nodes().where(n=>n.serviceNames.containAll(requisiteServiceNames));
     }
@@ -111,7 +111,7 @@ export default class ClusterTesterCliHelper {
     private runCucumber(cucumberPassThruCommands:IList<string>):void {
         var env = this.process.environmentVariables();
         var testRunUUID = this.uuidGenerator.v4();
-        var phase = this.clusterTestingConfiguration.defaultPhase;
+        var phase = this.clusterTestingConfiguration.phaseOfDevelopment;
         var clusterIds = this.clusterIds;
         var clusterTestResultPromises = clusterIds.map(clusterId=>{
             var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);

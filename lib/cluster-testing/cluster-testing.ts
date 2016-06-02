@@ -4,7 +4,7 @@ import ClusterUnderTest from "./cluster-under-test";
 import ClusterTestingConfiguration from "./cluster-testing-configuration";
 import IPromiseFactory from "../promise/i-promise-factory";
 import INodeConfiguration from "../nodes/i-node-configuration";
-import INode from "./i-node";
+import INodeUnderTest from "./i-node-under-test";
 import NodeUnderTest from "./node-under-test";
 import ISSHClient from "../ssh/i-ssh-client";
 import ICollections from "../collections/i-collections";
@@ -24,6 +24,9 @@ import ICucumberTestResult from "../cucumber/i-cucumber-test-result";
 import FrameworkConfiguration from "../framework/framework-configuration";
 import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
 import IVersioning from "../versioning/i-versioning";
+import INodeRepoURLProvider from "./i-node-repo-url-provider";
+import NodeRepoUrlProvider from "./node-repo-url-provider";
+import IRepositories from "../repositories/i-repositories";
 
 export default class ClusterTesting {
     private clusterTestingConfiguration:ClusterTestingConfiguration;
@@ -38,8 +41,9 @@ export default class ClusterTesting {
     private serviceDiscoverer:ServiceDiscoverer;
     private esxi:IESXI;
     private clusters:Clusters;
+    private repositories:IRepositories;
 
-    constructor(clusterTestingConfiguration:ClusterTestingConfiguration, promiseFactory:IPromiseFactory, sshClient:ISSHClient, collections:ICollections, versioning:IVersioning, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, serviceDiscoverer:ServiceDiscoverer, esxi:IESXI, clusters:Clusters) {
+    constructor(clusterTestingConfiguration:ClusterTestingConfiguration, promiseFactory:IPromiseFactory, sshClient:ISSHClient, collections:ICollections, versioning:IVersioning, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, serviceDiscoverer:ServiceDiscoverer, esxi:IESXI, clusters:Clusters, repositories:IRepositories) {
         this.clusterTestingConfiguration = clusterTestingConfiguration;
         this.promiseFactory = promiseFactory;
         this.sshClient = sshClient;
@@ -52,6 +56,7 @@ export default class ClusterTesting {
         this.serviceDiscoverer = serviceDiscoverer;
         this.esxi = esxi;
         this.clusters = clusters;
+        this.repositories = repositories;
     }
 
     esxiManagedClusterForId(clusterId:string):ESXIManagedCluster {
@@ -81,7 +86,7 @@ export default class ClusterTesting {
         );
     }
 
-    newNodeUnderTest(nodeConfiguration:INodeConfiguration):INode {
+    newNodeUnderTest(nodeConfiguration:INodeConfiguration):INodeUnderTest {
         return new NodeUnderTest(
             nodeConfiguration,
             this.sshClient,
@@ -91,7 +96,16 @@ export default class ClusterTesting {
             this.openTSDB,
             this.installer,
             this.elasticSearch,
-            this.versioning
+            this.versioning,
+            this.newNodeRepoUrlProvider()
+        );
+    }
+
+    newNodeRepoUrlProvider():INodeRepoURLProvider {
+        return new NodeRepoUrlProvider(
+            this.repositories.newRepositoryUrlProvider(),
+            this.clusterTestingConfiguration.phaseOfDevelopment,
+            this.clusterTestingConfiguration.maprCoreVersion
         );
     }
 

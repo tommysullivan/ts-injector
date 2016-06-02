@@ -1,7 +1,6 @@
-@logs
 Feature: Logs
 
-  @wipKib
+  @healthCheck @logs
   Scenario Outline: Insert Log Lines directly and verify presence in ES
     Given I have installed Spyglass
     And the service of interest is "<service name>", tracked in elasticsearch as "<tracked as>"
@@ -30,7 +29,7 @@ Feature: Logs
       | mapr-collectd        | collectd         | /opt/mapr/collectd/collectd-*/var/log/collectd/collectd_daemon.log |
       | mapr-opentsdb        | opentsdb         | /opt/mapr/opentsdb/opentsdb-*/var/log/opentsdb/opentsdb_daemon.log |
 
-
+  @healthCheck @logs
   Scenario: Insert Log Lines directly and verify presence in ES
     Given I have installed Spyglass
     And the service of interest is "mapr-kibana", tracked in elasticsearch as "kibana"

@@ -15,6 +15,11 @@ import ITypedJSON from "../typed-json/i-typed-json";
 import IErrors from "../errors/i-errors";
 import FileStream from "./file-stream";
 import IFileStream from "./i-file-stream";
+import IBuffer from "./i-buffer";
+import StringHelper from "./string-helper";
+import IStringHelper from "./i-string-helper";
+
+declare var Buffer:any;
 
 export default class NodeWrapperFactory implements INodeWrapperFactory {
     private promiseFactory:IPromiseFactory;
@@ -35,6 +40,10 @@ export default class NodeWrapperFactory implements INodeWrapperFactory {
         this.errors = errors;
         this.pathModule = pathModule;
         this.readLineSyncModule = readLineSyncModule;
+    }
+
+    newStringHelper():IStringHelper {
+        return new StringHelper();
     }
 
     get path():IPath {
@@ -65,5 +74,9 @@ export default class NodeWrapperFactory implements INodeWrapperFactory {
             this.errors,
             this
         );
+    }
+
+    newStringBuffer(content:string):IBuffer {
+        return new Buffer(content);
     }
 }

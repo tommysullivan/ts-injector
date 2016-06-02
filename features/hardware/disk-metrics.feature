@@ -1,7 +1,6 @@
-@metrics
 Feature: Disk Metrics
 
-  @SPYG-124 @Manual
+  @SPYG-124 @Manual @metrics
   Scenario: Disk Metrics show in Grafana Dashboard
     Given I have installed Spyglass
     And I have determined the grafana server and port for that cluster
@@ -16,7 +15,7 @@ Feature: Disk Metrics
       | sum:rate:mapr.io.read_bytes |
     Then I see the corresponding graph with reasonably accurate data for the past 24 hours
 
-  @SPYG-124 @healthCheck
+  @SPYG-124 @metrics @healthCheck
   Scenario: Getting Simple Node Metrics via REST API
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
@@ -38,7 +37,7 @@ Feature: Disk Metrics
     Then I receive at least "50" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
-  @SPYG-386
+  @SPYG-386 @metrics @healthCheck
   Scenario: Verify diskFree metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
@@ -54,7 +53,7 @@ Feature: Disk Metrics
     Then I receive at least "1" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
-  @SPYG-386
+  @SPYG-386 @metrics @healthCheck
   Scenario: Verify disk metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"

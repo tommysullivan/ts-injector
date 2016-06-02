@@ -1,7 +1,6 @@
-@metrics
 Feature: CLDB Metrics
 
-  @SPYG-386
+  @SPYG-386 @metrics @healthCheck
   Scenario: Verify cldb metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"

@@ -5,10 +5,10 @@ import IList from "../collections/i-list";
 import INodeVersionGraph from "./../versioning/i-node-version-graph";
 import IPromiseFactory from "../promise/i-promise-factory";
 import IThenable from "../promise/i-thenable";
-import IOperatingSystemConfig from "./../operating-systems/i-operating-system-config";
+import IOperatingSystem from "./../operating-systems/i-operating-system";
 import ICollections from "../collections/i-collections";
 import ISSHResult from "../ssh/i-ssh-result";
-import INode from "./i-node";
+import INodeUnderTest from "./i-node-under-test";
 import ISSHError from "../ssh/i-ssh-error";
 import MCSRestSession from "../mcs/mcs-rest-session";
 import MCS from "../mcs/mcs";
@@ -20,8 +20,9 @@ import Installer from "../installer/installer";
 import ElasticSearch from "../elasticsearch/elasticsearch";
 import IVersioning from "../versioning/i-versioning";
 import IRepository from "../repositories/i-repository";
+import INodeRepoURLProvider from "./i-node-repo-url-provider";
 
-export default class NodeUnderTest implements INode {
+export default class NodeUnderTest implements INodeUnderTest {
     private nodeConfiguration:INodeConfiguration;
     private sshClient:ISSHClient;
     private promiseFactory:IPromiseFactory;
@@ -31,8 +32,9 @@ export default class NodeUnderTest implements INode {
     private installer:Installer;
     private elasticSearch:ElasticSearch;
     private versioning:IVersioning;
+    private nodeRepoUrlProvider:INodeRepoURLProvider;
 
-    constructor(nodeConfiguration:INodeConfiguration, sshClient:ISSHClient, promiseFactory:IPromiseFactory, collections:ICollections, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, versioning:IVersioning) {
+    constructor(nodeConfiguration:INodeConfiguration, sshClient:ISSHClient, promiseFactory:IPromiseFactory, collections:ICollections, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, versioning:IVersioning, nodeRepoUrlProvider:INodeRepoURLProvider) {
         this.nodeConfiguration = nodeConfiguration;
         this.sshClient = sshClient;
         this.promiseFactory = promiseFactory;
@@ -42,6 +44,7 @@ export default class NodeUnderTest implements INode {
         this.installer = installer;
         this.elasticSearch = elasticSearch;
         this.versioning = versioning;
+        this.nodeRepoUrlProvider = nodeRepoUrlProvider;
     }
 
     get hostNameAccordingToNode():IThenable<string> {
@@ -52,11 +55,7 @@ export default class NodeUnderTest implements INode {
             });
     }
 
-    repoUrlFor(componentFamily:string):string {
-        return this.repo.urlFor(componentFamily);
-    }
-
-    get repo():IRepository {
+    get repository():IRepository {
         return this.nodeConfiguration.operatingSystem.repository;
     }
 
@@ -66,6 +65,21 @@ export default class NodeUnderTest implements INode {
             this.nodeConfiguration.username,
             this.nodeConfiguration.password
         );
+    }
+
+    repoConfigFileContentFor(componentFamily:string):string {
+        return this.repository.configFileContentFor(
+            componentFamily,
+            this.repoUrlFor(componentFamily)
+        );
+    }
+
+    repoUrlFor(componentFamily:string):string {
+        return this.nodeRepoUrlProvider.urlFor(this.operatingSystem.name, componentFamily);
+    }
+
+    repoConfigFileLocationFor(componentFamily:string):string {
+        return this.repository.configFileLocationFor(componentFamily);
     }
 
     executeShellCommand(shellCommand:string):IThenable<ISSHResult> {
@@ -88,6 +102,11 @@ export default class NodeUnderTest implements INode {
     download(remotePath:string, localPath:string):IThenable<ISSHResult>{
         return this.newSSHSession()
             .then(sshSession => sshSession.download(remotePath, localPath));
+    }
+
+    write(content:string, remotePath:string):IThenable<ISSHResult> {
+        return this.newSSHSession()
+            .then(sshSession=>sshSession.write(content, remotePath));
     }
 
     verifyMapRNotInstalled():IThenable<ISSHResult> {
@@ -178,7 +197,7 @@ export default class NodeUnderTest implements INode {
         return this.nodeConfiguration.password;
     }
 
-    get operatingSystem():IOperatingSystemConfig {
+    get operatingSystem():IOperatingSystem {
         return this.nodeConfiguration.operatingSystem;
     }
 

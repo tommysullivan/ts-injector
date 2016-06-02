@@ -1,13 +1,13 @@
 import IList from "../collections/i-list";
 import ISnapshotConfiguration from "../esxi/configuration/i-snapshot-configuration";
 import IESXINodeConfiguration from "../esxi/configuration/i-esxi-node-configuration";
-import IOperatingSystemConfig from "./../operating-systems/i-operating-system-config";
+import IOperatingSystem from "./../operating-systems/i-operating-system";
 
 interface INodeConfiguration {
     host:string;
     username:string;
     password:string;
-    operatingSystem:IOperatingSystemConfig;
+    operatingSystem:IOperatingSystem;
     serviceNames:IList<string>;
     name:string;
     esxiNodeConfiguration:IESXINodeConfiguration;

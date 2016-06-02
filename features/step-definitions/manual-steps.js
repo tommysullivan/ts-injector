@@ -13,6 +13,7 @@ module.exports = function() {
         };
         return handlers[numParameters];
     }
+    this.Given(/^I the local destination file already exists$/, manualStep(0));
     this.Given(/^I am viewing a test result in test portal$/, manualStep(0));
     this.When(/^I click "([^"]*)"$/, manualStep(1));
     this.Then(/^it updates tagged JIRA issues with test result statuses$/, manualStep(0));

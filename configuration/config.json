@@ -1,7 +1,8 @@
 {
   "contentType": "vnd/testing.devops.lab/types/framework/FrameworkConfiguration+json;v=1.0.0",
   "clusterTesting": {
-    "defaultPhase": "latestBuild",
+    "phaseOfDevelopment": "latestBuild",
+    "maprCoreVersion": "5.1.0",
     "resultServers": {
       "local": "http://localhost:5001",
       "lab": "http://testing.devops.lab"
@@ -2456,23 +2457,6 @@
     "openTSDBUrlTemplate": "http://{host}:4242"
   },
   "repositories": {
-    "pathsForComponents": {
-      "mapr-installer": "/installer-master-ui",
-      "MapR Core": "/v5.1.0",
-      "Ecosystem": "/opensource"
-    },
-    "hosts": [
-      {
-        "type": "yum",
-        "phase": "latestBuild",
-        "host": "yum.qa.lab"
-      },
-      {
-        "type": "apt-get",
-        "phase": "latestBuild",
-        "host": "apt.qa.lab"
-      }
-    ]
   },
   "rest": {
     "debugHTTP": true

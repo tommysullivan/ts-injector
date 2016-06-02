@@ -25,7 +25,10 @@ module.exports = function () {
                 .then(function (r) { return r.processResult().stdoutLines().first(); })
                 .then(function (originalLine) {
                 return $.collections.newListOfSize(lineCount).map(function (lineNumber) {
-                    var soughtValue = lineTemplate.replace('{testRunGUID}', $.testRunGUID).replace("{lineNumber}", lineNumber + 1).replace(/-/g, '_');
+                    var soughtValue = lineTemplate
+                        .replace('{testRunGUID}', $.testRunGUID)
+                        .replace('{lineNumber}', lineNumber + 1)
+                        .replace(/-/g, '_');
                     return prepareLine(originalLine, soughtValue);
                 }).join("\n");
             })

@@ -1,6 +1,0 @@
-[MapR_Core]
-name = MapR Core Components
-enabled = 1
-baseurl=http://yum.qa.lab/mapr-suse
-protected = 1
-gpgcheck = 0

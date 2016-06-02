@@ -1,7 +1,6 @@
-@metrics
 Feature: Memory Metrics
 
-  @SPYG-466
+  @SPYG-466 @metrics @healthCheck
   Scenario: Verify memory metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
@@ -15,7 +14,7 @@ Feature: Memory Metrics
     Then I receive at least "1" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
-  @SPYG-466
+  @SPYG-466 @metrics @healthCheck
   Scenario: Verify swap memory metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
@@ -30,7 +29,7 @@ Feature: Memory Metrics
     Then I receive at least "10" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
-  @SPYG-466
+  @SPYG-466 @metrics @healthCheck
   Scenario: Verify virtual memory metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
@@ -40,6 +39,5 @@ Feature: Memory Metrics
       |avg:vmem.vmpage_faults.minflt            |
       |avg:vmem.vmpage_io.memory.in             |
       |avg:vmem.vmpage_io.memory.out            |
-#      |avg:vmem.vmpage_number                   |
     Then I receive at least "1" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence

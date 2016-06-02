@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "cluster logs and metrics collection and presentation",
   "main": "api.js",
-  "scripts": {},
+  "scripts": {
+    "test": "bin/spyglass-tester run cucumber --tags @healthCheck"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mapr/private-spyglass.git"
@@ -22,6 +24,7 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "cucumber": "^0.10.2",
+    "cucumber-tsflow": "^1.1.1",
     "express": "latest",
     "node-uuid": "^1.4.7",
     "nodemiral": "^1.1.1",

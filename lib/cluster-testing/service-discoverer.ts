@@ -1,7 +1,7 @@
 import IClusterUnderTest from "./i-cluster-under-test";
 import IVersioning from "../versioning/i-versioning";
 import IThenable from "../promise/i-thenable";
-import INode from "./i-node";
+import INodeUnderTest from "./i-node-under-test";
 import IList from "../collections/i-list";
 import IPromiseFactory from "../promise/i-promise-factory";
 import IInstallerServices from "../installer/i-installer-services";
@@ -18,14 +18,14 @@ export default class ServiceDiscoverer {
         this.errors = errors;
     }
 
-    nodesHostingServiceViaDiscovery(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INode>> {
+    nodesHostingServiceViaDiscovery(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INodeUnderTest>> {
         var possibleHostNodes = clusterUnderTest.nodesHosting(serviceName);
         return possibleHostNodes.isEmpty
             ? this.nodesHostingServiceAccordingToInstaller(clusterUnderTest, serviceName)
             : this.promiseFactory.newPromiseForImmediateValue(possibleHostNodes);
     }
 
-    nodesHostingServiceAccordingToInstaller(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INode>> {
+    nodesHostingServiceAccordingToInstaller(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INodeUnderTest>> {
         try {
             var desiredVersion = this.versioning.serviceSet().firstWhere(s=>s.name==serviceName).version;
             return clusterUnderTest.newAuthedInstallerSession()
@@ -45,7 +45,7 @@ export default class ServiceDiscoverer {
         }
     }
 
-    nodeHostingServiceViaDiscover(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<INode> {
+    nodeHostingServiceViaDiscover(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<INodeUnderTest> {
         return this.nodesHostingServiceViaDiscovery(clusterUnderTest, serviceName)
             .then(possibleNodes=>{
                 return possibleNodes.first();

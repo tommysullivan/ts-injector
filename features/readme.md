@@ -71,17 +71,21 @@ IntelliJ, use VCS -> Checkout from Version Control and follow the prompts.
 
 ## Running Tests
 
-Regardless of how you run, you will need to at least provide the following environment variables:
+Regardless of how you run, you must provide environment variable:
 
-    phase=[latestBuild|others] \
     clusterId=[id of cluster to test] 
+
+And optionally you can override the following values in config.json using environment variables of the same name:
+
+    phaseOfDevelopment: dev, staging, 'private beta', production
+    maprCoreVersion: 5.1.0, 5.2.0
 
 Some utility scripts will set defaults on your behalf if you do not specify them, but be careful
 that you do not interrupt testing on the default clusters!
 
 To see the available cluster configuration ids, run:
 
-    bin/view-cluster-configuration.js
+    bin/spyglass-tester cluster ids
 
 You can select the subset of tests to run by using [Test Tagging](#testTagging) or by listing
 the .feature files in the order you'd like to run them, omitting those you wish not to run.
@@ -108,7 +112,8 @@ cucumber run configuration.
 After cloning this repository, from the root directory:
 
     npm install
-    phase=[latestBuild|others] clusterId=[id of cluster to test] npm test -- [optional cucumber.js framework args]
+    export clusterId=[clusterId] 
+    bin/spyglass-tester run [cucumber | featureSet] - run either command to see more details
     
 The phase should be set to one of the phases in the repositories listed in configuration/config.json
 under the "repositories" property. You may omit phase and the CLI will yield a list of the available
@@ -130,19 +135,10 @@ To do that, review [the readme](lib/test-portal/readme.md)
 
 ## Sharing Results
 
-To share your test results to the server, you may use [the REST API](lib/test-portal/readme.md).
+Simply run bin/spyglass-tester run [cucumber | featureSet] with environment variable "portalId" set to
+either "local" or "lab" to sync result records to either your local portal or testing.devops.lab.
 
-Alternatively, you may use:
-
-    bin/sync-test-results-to-server.sh 
-    
-This script will rsync all of your results to the server, leaving any that were previously there
-untouched. 
-
-NOTE: You will need to enter the password three times, once per test result folder.
-
-NOTE: If you have updated a local script and wish to sync it with a previous version of the
-script on the server, you must use the REST API.
+To share your test results to the server, you may also use [the REST API](lib/test-portal/readme.md).
 
 ## Testing Links
 

@@ -1,7 +1,6 @@
-@metrics
 Feature: Network Metrics
 
-  @SPYG-124 @healthCheck
+  @SPYG-124 @healthCheck @metrics
   Scenario: Getting Simple Node Metrics via REST API
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
@@ -17,7 +16,7 @@ Feature: Network Metrics
     Then I receive at least "100" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
-  @SPYG-386
+  @SPYG-386 @healthCheck @metrics
   Scenario: Verify network metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"

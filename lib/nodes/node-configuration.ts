@@ -1,19 +1,18 @@
 import INodeConfiguration from "./i-node-configuration";
 import IList from "../collections/i-list";
 import ESXINodeConfiguration from "../esxi/configuration/esxi-node-configuration";
-import IOperatingSystemConfig from "./../operating-systems/i-operating-system-config";
-import OperatingSystemConfig from "./../operating-systems/operating-system-config";
+import IOperatingSystem from "./../operating-systems/i-operating-system";
 import IJSONObject from "../typed-json/i-json-object";
 import IESXINodeConfiguration from "../esxi/configuration/i-esxi-node-configuration";
-import ICollections from "../collections/i-collections";
+import IOperatingSystems from "../operating-systems/i-operating-systems";
 
 export default class NodeConfiguration implements INodeConfiguration {
     private nodeJSON:IJSONObject;
-    private collections:ICollections;
+    private operatingSystems:IOperatingSystems;
 
-    constructor(nodeJSON:IJSONObject, collections:ICollections) {
+    constructor(nodeJSON:IJSONObject, operatingSystems:IOperatingSystems) {
         this.nodeJSON = nodeJSON;
-        this.collections = collections;
+        this.operatingSystems = operatingSystems;
     }
 
     snapshotIdFromStateName(stateName:string):number {
@@ -32,11 +31,8 @@ export default class NodeConfiguration implements INodeConfiguration {
         );
     }
 
-    get operatingSystem():IOperatingSystemConfig {
-        return new OperatingSystemConfig(
-            this.nodeJSON.jsonObjectNamed('operatingSystem'),
-            this.collections
-        );
+    get operatingSystem():IOperatingSystem {
+        return this.operatingSystems.newOperatingSystemFromConfig(this.nodeJSON.jsonObjectNamed('operatingSystem'));
     }
 
     get serviceNames():IList<string> {

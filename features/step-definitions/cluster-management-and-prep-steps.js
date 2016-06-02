@@ -26,7 +26,9 @@ module.exports = function () {
         return $.expect($.clusterUnderTest.verifyMapRNotInstalled()).to.eventually.be.fulfilled;
     });
     this.When(/^I request the cluster version graph$/, function () {
-        throw new Error('not impl');
+        var _this = this;
+        return $.clusterUnderTest.versionGraph()
+            .then(function (v) { return _this.versionGraph = v; });
     });
     this.Then(/^it returns a valid JSON file$/, function () {
         var versionGraph = this.versionGraph;

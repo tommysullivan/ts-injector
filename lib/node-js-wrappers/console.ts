@@ -13,10 +13,6 @@ export default class Console implements IConsole {
         this.nativeConsole.log.apply(this.nativeConsole, args);
     }
 
-    logChar(char:string):void {
-        throw new Error('not impl');
-    }
-
     askQuestion(questionText:string) {
         this.readLineSyncModule.question(questionText, {});
     }

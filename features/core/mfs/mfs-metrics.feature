@@ -1,7 +1,6 @@
-@metrics
 Feature: MFS Metrics
 
-  @SPYG-386
+  @SPYG-386 @healthCheck @metrics
   Scenario: Verify maprIO metrics
     Given I have installed Spyglass
     When I specify the query range start as "1h-ago"
