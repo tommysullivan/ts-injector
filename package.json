@@ -20,25 +20,25 @@
   },
   "homepage": "https://github.com/mapr/private-spyglass#readme",
   "dependencies": {
-    "body-parser": "latest",
+    "body-parser": "^1.15.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "cucumber": "^0.10.2",
     "cucumber-tsflow": "^1.1.1",
-    "express": "latest",
+    "express": "^4.13.4",
     "node-uuid": "^1.4.7",
     "nodemiral": "^1.1.1",
-    "promise": "latest",
+    "promise": "^7.1.1",
     "readline-sync": "^1.4.1",
-    "request": "latest",
+    "request": "^2.72.0",
     "scp2": "^0.4.0",
     "shell-escape": "^0.2.0",
     "source-map-support": "^0.4.0",
-    "valid-url": "latest"
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
-    "bower": "latest",
+    "bower": "^1.7.9",
     "typescript": "^1.8.7",
-    "grab-typings": "1.1.10"
+    "grab-typings": "^1.1.10"
   }
 }
