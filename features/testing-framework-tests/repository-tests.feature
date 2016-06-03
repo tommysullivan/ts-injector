@@ -16,7 +16,7 @@ Feature: Package Repositories
     Then it contains a valid filename
     Examples:
       | release target | phase      | core version | OS Family | appropriate repository url                             |
-      | 5.1.0 GA       | production | 5.1.0        | ubuntu    | http://package.mapr.com/releases/v5.1.0/ubuntu         |
+      | 5.1.0 GA       | production | 5.1.0        | Ubuntu    | http://package.mapr.com/releases/v5.1.0/ubuntu         |
       | 5.1.0 GA       | production | 5.1.0        | redhat    | http://package.mapr.com/releases/v5.1.0/redhat         |
       | 5.1.0 GA       | production | 5.1.0        | suse      | http://package.mapr.com/releases/v5.1.0/suse           |
       | 5.2.0 GA       | production | 5.2.0        | ubuntu    | http://package.mapr.com/releases/v5.2.0/ubuntu         |
