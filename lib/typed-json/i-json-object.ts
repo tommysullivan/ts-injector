@@ -11,7 +11,8 @@ interface IJSONObject {
     numericPropertyNamed(propertyName:string):number;
     booleanPropertyNamed(propertyName:string):boolean;
     toRawJSON():any;
-    listNamed<T>(name:string):IList<T>
+    listNamed<T>(name:string):IList<T>;
+    listNamedOrDefaultToEmpty<T>(name:string):IList<T>;
     listOfJSONObjectsNamed(name:string):IList<IJSONObject>;
     listOfJSONObjectsNamedOrDefaultToEmpty(name:string):IList<IJSONObject>;
     toString():string;

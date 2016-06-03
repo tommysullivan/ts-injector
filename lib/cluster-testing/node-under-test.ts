@@ -19,8 +19,10 @@ import ElasticSearchRestClient from "../elasticsearch/elasticsearch-rest-client"
 import Installer from "../installer/installer";
 import ElasticSearch from "../elasticsearch/elasticsearch";
 import IVersioning from "../versioning/i-versioning";
-import IRepository from "../repositories/i-repository";
-import INodeRepoURLProvider from "./i-node-repo-url-provider";
+import IPackageManager from "../packaging/i-package-manager";
+import IPackaging from "../packaging/i-packaging";
+import IPackage from "../packaging/i-package";
+import IPhase from "../releasing/i-phase";
 
 export default class NodeUnderTest implements INodeUnderTest {
     private nodeConfiguration:INodeConfiguration;
@@ -32,9 +34,10 @@ export default class NodeUnderTest implements INodeUnderTest {
     private installer:Installer;
     private elasticSearch:ElasticSearch;
     private versioning:IVersioning;
-    private nodeRepoUrlProvider:INodeRepoURLProvider;
+    private packaging:IPackaging;
+    private releasePhase:IPhase;
 
-    constructor(nodeConfiguration:INodeConfiguration, sshClient:ISSHClient, promiseFactory:IPromiseFactory, collections:ICollections, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, versioning:IVersioning, nodeRepoUrlProvider:INodeRepoURLProvider) {
+    constructor(nodeConfiguration:INodeConfiguration, sshClient:ISSHClient, promiseFactory:IPromiseFactory, collections:ICollections, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, versioning:IVersioning, packaging:IPackaging, releasePhase:IPhase) {
         this.nodeConfiguration = nodeConfiguration;
         this.sshClient = sshClient;
         this.promiseFactory = promiseFactory;
@@ -44,7 +47,12 @@ export default class NodeUnderTest implements INodeUnderTest {
         this.installer = installer;
         this.elasticSearch = elasticSearch;
         this.versioning = versioning;
-        this.nodeRepoUrlProvider = nodeRepoUrlProvider;
+        this.packaging = packaging;
+        this.releasePhase = releasePhase;
+    }
+
+    get packageManager():IPackageManager {
+        return this.packaging.packageManagerFor(this.operatingSystem.name);
     }
 
     get hostNameAccordingToNode():IThenable<string> {
@@ -55,10 +63,6 @@ export default class NodeUnderTest implements INodeUnderTest {
             });
     }
 
-    get repository():IRepository {
-        return this.nodeConfiguration.operatingSystem.repository;
-    }
-
     newSSHSession():IThenable<ISSHSession> {
         return this.sshClient.connect(
             this.nodeConfiguration.host,
@@ -67,28 +71,13 @@ export default class NodeUnderTest implements INodeUnderTest {
         );
     }
 
-    repoConfigFileContentFor(componentFamily:string):string {
-        return this.repository.configFileContentFor(
-            componentFamily,
-            this.repoUrlFor(componentFamily)
-        );
-    }
-
-    repoUrlFor(componentFamily:string):string {
-        return this.nodeRepoUrlProvider.urlFor(this.operatingSystem.name, componentFamily);
-    }
-
-    repoConfigFileLocationFor(componentFamily:string):string {
-        return this.repository.configFileLocationFor(componentFamily);
-    }
-
     executeShellCommand(shellCommand:string):IThenable<ISSHResult> {
         return this.newSSHSession().then(s=>s.executeCommand(shellCommand));
     }
 
     executeShellCommands(commandsWithPlaceholders:IList<string>):IThenable<IList<ISSHResult>> {
         var commands:IList<string> = commandsWithPlaceholders.map(
-            c=>c.replace('{{packageCommand}}', this.packageCommand)
+            c=>c.replace('{{packageCommand}}', this.packageManager.packageCommand)
         );
         return this.newSSHSession()
             .then(sshSession => sshSession.executeCommands(commands));
@@ -173,16 +162,12 @@ export default class NodeUnderTest implements INodeUnderTest {
 
     versionGraph():IThenable<INodeVersionGraph> {
         var commands = this.collections.newList([
-            this.packageListCommand,
-            this.repoListCommand
+            this.packageManager.packageListCommand,
+            this.packageManager.repoListCommand
         ]);
         return this.newSSHSession()
             .then(shellSession=>shellSession.executeCommands(commands))
             .then(commandResultSet=>this.versioning.newNodeVersionGraph(this.host, commandResultSet));
-    }
-
-    get packageCommand():string {
-        return this.operatingSystem.repository.packageCommand;
     }
 
     get host():string {
@@ -201,14 +186,6 @@ export default class NodeUnderTest implements INodeUnderTest {
         return this.nodeConfiguration.operatingSystem;
     }
 
-    get repoListCommand():string {
-        return this.operatingSystem.repository.repoListCommand;
-    }
-
-    get packageListCommand():string {
-        return this.operatingSystem.repository.packageListCommand;
-    }
-
     isHostingService(serviceName:string):boolean {
         return this.nodeConfiguration.serviceNames.contain(serviceName);
     }
@@ -219,5 +196,11 @@ export default class NodeUnderTest implements INodeUnderTest {
 
     toJSON():any {
         return this.nodeConfiguration.toJSON();
+    }
+
+    get packages():IList<IPackage> {
+        return this.releasePhase.packages.filter(
+            p=>this.isHostingService(p.name)
+        );
     }
 }

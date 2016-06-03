@@ -9,7 +9,6 @@ import ClusterSnapshotCliHelper from "./cluster-snapshot-cli-helper";
 import ICollections from "../collections/i-collections";
 import ClusterTestingConfiguration from "../cluster-testing/cluster-testing-configuration";
 import IUUIDGenerator from "../uuid/i-uuid-generator";
-import Cucumber from "../cucumber/cucumber";
 import Clusters from "../clusters/clusters";
 import ClusterTesting from "../cluster-testing/cluster-testing";
 import FrameworkConfiguration from "../framework/framework-configuration";
@@ -19,6 +18,7 @@ import CliConfig from "./cli-config";
 import IFileSystem from "../node-js-wrappers/i-filesystem";
 import Rest from "../rest/rest";
 import IPromiseFactory from "../promise/i-promise-factory";
+import ICucumber from "../cucumber/i-cucumber";
 
 export default class Cli {
     private process:IProcess;
@@ -26,7 +26,7 @@ export default class Cli {
     private collections:ICollections;
     private clusterTestingConfiguration:ClusterTestingConfiguration;
     private uuidGenerator:IUUIDGenerator;
-    private cucumber:Cucumber;
+    private cucumber:ICucumber;
     private clusters:Clusters;
     private clusterTesting:ClusterTesting;
     private frameworkConfig:FrameworkConfiguration;
@@ -37,7 +37,7 @@ export default class Cli {
     private rest:Rest;
     private promiseFactory:IPromiseFactory;
 
-    constructor(process:IProcess, console:IConsole, collections:ICollections, clusterTestingConfiguration:ClusterTestingConfiguration, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusters:Clusters, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, testPortal:TestPortal, path:IPath, cliConfig:CliConfig, fileSystem:IFileSystem, rest:Rest, promiseFactory:IPromiseFactory) {
+    constructor(process:IProcess, console:IConsole, collections:ICollections, clusterTestingConfiguration:ClusterTestingConfiguration, uuidGenerator:IUUIDGenerator, cucumber:ICucumber, clusters:Clusters, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, testPortal:TestPortal, path:IPath, cliConfig:CliConfig, fileSystem:IFileSystem, rest:Rest, promiseFactory:IPromiseFactory) {
         this.process = process;
         this.console = console;
         this.collections = collections;

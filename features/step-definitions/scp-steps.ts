@@ -1,23 +1,31 @@
+import { binding as steps, given, when, then } from "cucumber-tsflow";
 import Framework from "../../lib/framework/framework";
+import PromisedAssertion = Chai.PromisedAssertion;
 declare var $:Framework;
 declare var module:any;
 
-module.exports = function() {
-    this.When(/^I scp "([^"]*)" to "([^"]*)" at path "([^"]*)"$/, function (source, destHost, destPath) {
-        var scpRequest = $.sshAPI.newSSHClient().connect(destHost, 'root', 'mapr')
-            .then(s=>s.upload(source, destPath));
-        return $.expect(scpRequest).to.eventually.be.fulfilled;
-    });
+@steps()
+export default class SCPSteps {
 
-    this.When(/^I download "([^"]*)" from "([^"]*)" to "([^"]*)"$/, function (remotePath, remoteHost, localPath) {
+    @when(/^I scp "([^"]*)" to "([^"]*)" at path "([^"]*)"$/)
+    scpToRemoteHost(sourceFilePath, destinationHost, destinationFilePath):PromisedAssertion {
+        var scpRequest = $.sshAPI.newSSHClient().connect(destinationHost, 'root', 'mapr')
+            .then(s=>s.upload(sourceFilePath, destinationFilePath));
+        return $.expect(scpRequest).to.eventually.be.fulfilled;
+    }
+
+    @when(/^I download "([^"]*)" from "([^"]*)" to "([^"]*)"$/)
+    downloadRemoteFileToLocalFilePath(remotePath, remoteHost, localPath):PromisedAssertion {
         var scpRequest = $.sshAPI.newSSHClient().connect(remoteHost, 'root', 'mapr')
             .then(s=>s.download(remotePath, localPath));
         return $.expect(scpRequest).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.When(/^I write "([^"]*)" to "([^"]*)" at path "([^"]*)"$/, function (content, remoteHost, destPath) {
+    @when(/^I write "([^"]*)" to "([^"]*)" at path "([^"]*)"$/)
+    writeStringContentFromMemoryToRemoteHost(content, remoteHost, destPath):PromisedAssertion {
         var scpRequest = $.sshAPI.newSSHClient().connect(remoteHost, 'root', 'mapr')
             .then(s=>s.write(content, destPath));
         return $.expect(scpRequest).to.eventually.be.fulfilled;
-    });
+    }
 }
+module.exports = SCPSteps;

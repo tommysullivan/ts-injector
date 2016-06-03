@@ -2,7 +2,7 @@
 Feature: HBase Metrics
 
   Scenario: Check for the presence of HBaseMaster metrics
-    Given I have a node running HBase Master service
+    Given I have a node running the "mapr-hbase-master" service
     When I specify the query range start as "1m-ago"
     And I query for the following metrics:
       | metric name                                                |
@@ -15,7 +15,7 @@ Feature: HBase Metrics
 
 
   Scenario: Check for the presence of HBaseRegionServer metrics
-    Given I have a node running HBase RegionServer service
+    Given I have a node running the "mapr-hbase-regionserver" service
     When I specify the query range start as "1m-ago"
     And I query for the following metrics:
       | metric name                                                   |

@@ -1,9 +1,9 @@
 import IJSONObject from "../typed-json/i-json-object";
 import IOperatingSystem from "./i-operating-system";
 import IOperatingSystems from "./i-operating-systems";
-import IRepositories from "../repositories/i-repositories";
+import IRepositories from "../packaging/i-packaging";
 import OperatingSystem from "./operating-system";
-import IRepository from "../repositories/i-repository";
+import IRepository from "../packaging/i-repository";
 
 export default class OperatingSystems implements IOperatingSystems {
     private repositories:IRepositories;
@@ -25,7 +25,7 @@ export default class OperatingSystems implements IOperatingSystems {
     private newSuse(configJSON:IJSONObject):IOperatingSystem {
         return new OperatingSystem(
             configJSON,
-            this.repositories.newZypperRepository(),
+            this.repositories.newZypperPackageManager(),
             'cat /etc/os-release'
         );
     }
@@ -33,7 +33,7 @@ export default class OperatingSystems implements IOperatingSystems {
     private newUbuntu(configJSON:IJSONObject):IOperatingSystem {
         return new OperatingSystem(
             configJSON,
-            this.repositories.newAptRepository(),
+            this.repositories.newAptPackageManager(),
             'lsb_release -a'
         );
     }
@@ -41,7 +41,7 @@ export default class OperatingSystems implements IOperatingSystems {
     private newCentos(configJSON:IJSONObject):IOperatingSystem {
         return new OperatingSystem(
             configJSON,
-            this.repositories.newYumRepository(),
+            this.repositories.newYumPackageManager(),
             'cat /etc/centos-release'
         );
     }

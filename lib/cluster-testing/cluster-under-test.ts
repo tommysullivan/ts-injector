@@ -16,6 +16,7 @@ import IClusterConfiguration from "../clusters/i-cluster-configuration";
 import ServiceDiscoverer from "./service-discoverer";
 import ClusterTesting from "./cluster-testing";
 import ClusterInstaller from "./cluster-installer";
+import IPackaging from "../packaging/i-packaging";
 
 export default class ClusterUnderTest implements IClusterUnderTest {
     private clusterInstallerConfiguration:ClusterInstallerConfig;
@@ -26,8 +27,9 @@ export default class ClusterUnderTest implements IClusterUnderTest {
     private serviceDiscoverer:ServiceDiscoverer;
     private clusterTesting:ClusterTesting;
     private clusterInstaller:ClusterInstaller;
+    private packaging:IPackaging;
 
-    constructor(clusterInstallerConfiguration:ClusterInstallerConfig, promiseFactory:IPromiseFactory, clusterNodes:IList<INodeUnderTest>, versioning:IVersioning, clusterConfig:IClusterConfiguration, serviceDiscoverer:ServiceDiscoverer, clusterTesting:ClusterTesting, clusterInstaller:ClusterInstaller) {
+    constructor(clusterInstallerConfiguration:ClusterInstallerConfig, promiseFactory:IPromiseFactory, clusterNodes:IList<INodeUnderTest>, versioning:IVersioning, clusterConfig:IClusterConfiguration, serviceDiscoverer:ServiceDiscoverer, clusterTesting:ClusterTesting, clusterInstaller:ClusterInstaller, packaging:IPackaging) {
         this.clusterInstallerConfiguration = clusterInstallerConfiguration;
         this.promiseFactory = promiseFactory;
         this.clusterNodes = clusterNodes;
@@ -36,6 +38,7 @@ export default class ClusterUnderTest implements IClusterUnderTest {
         this.serviceDiscoverer = serviceDiscoverer;
         this.clusterTesting = clusterTesting;
         this.clusterInstaller = clusterInstaller;
+        this.packaging = packaging;
     }
 
     get installationTimeoutInMilliseconds():number {
@@ -94,7 +97,6 @@ export default class ClusterUnderTest implements IClusterUnderTest {
         return this.clusterTesting.esxiManagedClusterForId(this.clusterConfig.id).captureSnapshotNamed(stateName);
     }
 
-    //TODO: Depend directly on clusterInstaller and then construct that with instance of this class
     verifyMapRNotInstalled():IThenable<IList<ISSHResult>> {
         return this.clusterInstaller.verifyMapRNotInstalled(this);
     }
@@ -138,4 +140,5 @@ export default class ClusterUnderTest implements IClusterUnderTest {
             this.clusterNodes.map(n=>n.upload(localPath, remotePath))
         );
     }
+
 }
