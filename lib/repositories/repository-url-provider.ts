@@ -21,7 +21,7 @@ export default class RepositoryUrlProvider implements IRepositoryUrlProvider {
                 'ubuntu': 'apt.qa.lab',
                 'redhat': 'yum.qa.lab',
                 'suse': 'yum.qa.lab'
-            }).stringPropertyNamed(operatingSystem);
+            }).stringPropertyNamed(operatingSystem.toLowerCase());
     }
 
     private basePathAfterDevPhase(phase:string, componentFamily:string):string {
@@ -34,10 +34,10 @@ export default class RepositoryUrlProvider implements IRepositoryUrlProvider {
 
     private productLocationDuringDevPhase(operatingSystem:string, componentFamily:string):string {
         return this.typedJson.newJSONObject({
-            'core': operatingSystem=='suse' ? 'mapr-suse' : 'mapr',
+            'core': operatingSystem.toLowerCase()=='suse' ? 'mapr-suse' : 'mapr',
             'ecosystem': 'opensource',
             'spyglass': 'opensource/spyglass-beta',
-            'MEP': `artifactory/list/prestage/releases-dev/MEP/MEP-1.0.0/${operatingSystem}`,
+            'MEP': `artifactory/list/prestage/releases-dev/MEP/MEP-1.0.0/${operatingSystem.toLowerCase()}`,
             'mapr-patch': 'v5.1.0-spyglass',
             'installer': 'installer-master-ui'
         }).stringPropertyNamed(componentFamily);
@@ -52,6 +52,6 @@ export default class RepositoryUrlProvider implements IRepositoryUrlProvider {
             'mapr-patch': 'spyglass',
             'installer': 'installer'
         }).stringPropertyNamed(componentFamily);
-        return `${productLocation}/${operatingSystem}`;
+        return `${productLocation}/${operatingSystem.toLowerCase()}`;
     }
 }
