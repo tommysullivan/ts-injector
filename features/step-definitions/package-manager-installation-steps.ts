@@ -274,4 +274,68 @@ module.exports = function() {
         });
         return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
     });
+
+    this.Given(/^I add the user "([^"]*)" to secondary group "([^"]*)"$/, function (user, secondaryGroup) {
+        var userToGroupCommand = `usermod -G ${secondaryGroup} ${user}`;
+        return $.expect(this.firstNonCldb.executeShellCommand(userToGroupCommand));
+    });
+
+    this.Given(/^I install maven on a non\-cldb node$/, function () {
+        var getMvn =`wget http://www.carfab.com/apachesoftware/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz`;
+        var untarMvn =`tar -zxf apache-maven-3.0.5-bin.tar.gz`;
+        var copyMvn =`cp -R apache-maven-3.0.5 /usr/local`;
+        var symLink =`ln -s /usr/local/apache-maven-3.0.5/bin/mvn /usr/bin/mvn`;
+        var delMvn = `rm apache-maven-3.0.5-bin.tar.gz`;
+        this.firstNonCldb = $.clusterUnderTest.nodes().filter(n => !n.isHostingService('mapr-cldb')).first();
+        var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn]));
+        return $.expect(resultList).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I install git on the non\-cldb node$/, function () {
+        var gitInstallCommand = this.firstNonCldb.repo.installPackageCommand('git');
+        var result = this.firstNonCldb.executeShellCommand(gitInstallCommand);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I copy the maven settings file to the non\-cldb node$/, function () {
+        var result = this.firstNonCldb.executeShellCommand("mkdir -p /root/.m2")
+            .then(r => this.firstNonCldb.upload('./data/ats-files/settings.xml', '/root/.m2/'));
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I clone ATS on the node from "([^"]*)"$/, {timeout: 10 * 1000 * 60}, function (atsPath) {
+        var result = this.firstNonCldb.executeShellCommand(`git clone ${atsPath}`);
+        return $.expect(result).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I setup passwordless ssh from non\-cldb node to all other nodes$/, function () {
+        var resultList = this.firstNonCldb.executeShellCommand(`echo -e  'y' | ssh-keygen -t rsa -P '' -f /root/.ssh/id_rsa`)
+            .then(_ => this.firstNonCldb.executeShellCommand(`cat /root/.ssh/id_rsa.pub`))
+            .then(result => {
+                var rsaKey = result.processResult().stdoutLines().join('\n');
+                return  $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes().map(node => node.executeShellCommand(`mkdir -p /root/.ssh`)
+                    .then(_ => node.executeShellCommand(`echo "${rsaKey}" > /root/.ssh/authorized_keys`))));
+            })
+        return $.expect(resultList).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I set StrictHostKeyChecking option to no on non\-cldb node$/, function () {
+        return $.expect(this.firstNonCldb.executeShellCommand('echo "StrictHostKeyChecking no" > /root/.ssh/config')).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I set the git ssh key$/, function () {
+        var changePerm =`chmod 600 /root/.ssh/maprqa_id_rsa`;
+        var addToConfig = `echo -e "StrictHostKeyChecking no\nhost github.com\nHostName github.com\nIdentityFile /root/.ssh/maprqa_id_rsa\nUser git" > /root/.ssh/config`;
+        var results = this.firstNonCldb.upload(`./data/ats-files/maprqa_id_rsa`, '/root/.ssh/').then(_ => {
+            return this.firstNonCldb.executeShellCommands($.collections.newList([changePerm, addToConfig]));
+        });
+        return $.expect(results).to.eventually.be.fulfilled;
+    });
+
+    this.Given(/^I remove the git ssh key$/, function () {
+        var deleteKey = `rm -rf /root/.ssh/maprqa_id_rsa`;
+        var deleteConfig = `rm -rf /root/.ssh/config`;
+        var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([deleteKey, deleteConfig]));
+        return $.expect(resultList).to.eventually.be.fulfilled;
+    });
 }
