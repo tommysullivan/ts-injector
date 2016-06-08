@@ -207,8 +207,8 @@ module.exports = function () {
         var symLink = "ln -s /usr/local/apache-maven-3.0.5/bin/mvn /usr/bin/mvn";
         var delMvn = "rm apache-maven-3.0.5-bin.tar.gz";
         this.firstNonCldb = $.clusterUnderTest.nodes().filter(function (n) { return !n.isHostingService('mapr-cldb'); }).first();
-        // var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn]));
-        // return $.expect(resultList).to.eventually.be.fulfilled;
+        var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn]));
+        return $.expect(resultList).to.eventually.be.fulfilled;
     });
     this.Given(/^I install git on the non\-cldb node$/, function () {
         var gitInstallCommand = this.firstNonCldb.repo.installPackageCommand('git');
