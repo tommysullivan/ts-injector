@@ -2630,7 +2630,8 @@
       { "name": "mapr-fileserver", "version": "5.1.0", "core": true, "healthCheckable": true },
       { "name": "mapr-historyserver", "version": "5.1.0", "core": true, "healthCheckable": true },
       { "name": "mapr-gateway", "version": "5.1.0", "core": true, "healthCheckable": true },
-      { "name": "mapr-kafka", "version": "0.9.0", "core": false, "healthCheckable": false }
+      { "name": "mapr-kafka", "version": "0.9.0", "core": false, "healthCheckable": false },
+      { "name": "mapr-drill", "version": "1.7.0", "core": false, "healthCheckable": false }
     ]
   }
 }

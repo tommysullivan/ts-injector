@@ -184,7 +184,7 @@ module.exports = function () {
     });
     this.Given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/, function (user, userId, userGroup, userPasswd) {
         var userCreateComamnd = "id -u " + user + " || useradd -u " + userId + " -g " + userGroup + " -p $(openssl passwd -1 " + userPasswd + ") " + user;
-        var groupCreateCommand = "getent group " + userGroup + " || groupadd -g " + userId + " " + user;
+        var groupCreateCommand = "getent group " + userGroup + " || groupadd -g " + userId + " " + userGroup;
         var resultList = $.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommands($.collections.newList([groupCreateCommand, userCreateComamnd])); });
         return $.expectAll(resultList).to.eventually.be.fulfilled;
     });
@@ -207,8 +207,8 @@ module.exports = function () {
         var symLink = "ln -s /usr/local/apache-maven-3.0.5/bin/mvn /usr/bin/mvn";
         var delMvn = "rm apache-maven-3.0.5-bin.tar.gz";
         this.firstNonCldb = $.clusterUnderTest.nodes().filter(function (n) { return !n.isHostingService('mapr-cldb'); }).first();
-        var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn]));
-        return $.expect(resultList).to.eventually.be.fulfilled;
+        // var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn]));
+        // return $.expect(resultList).to.eventually.be.fulfilled;
     });
     this.Given(/^I install git on the non\-cldb node$/, function () {
         var gitInstallCommand = this.firstNonCldb.repo.installPackageCommand('git');
