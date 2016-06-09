@@ -82,7 +82,9 @@ export default class Framework {
             this.process,
             this.promiseFactory,
             this.collections,
-            this.console
+            this.console,
+            this.frameworkConfig.toJSON().clusters,
+            this.clusterTesting
         );
     }
     

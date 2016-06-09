@@ -16,8 +16,10 @@ export default class TestPortalWebServer {
     private jiraSyncRequestController:IExpressController;
     private testPortalConfiguration:TestPortalConfiguration;
     private path:IPath;
+    private clustersController:IExpressController;
+    private clustersRevertRequestsController:IExpressController;
 
-    constructor(expressWrappers:ExpressWrappers, testResultsController:IExpressController, testResultController:IExpressController, testConfigController:IExpressController, testCliInvocationsController:IExpressController, jqlQueryController:IExpressController, jiraSyncRequestController:IExpressController, testPortalConfiguration:TestPortalConfiguration, path:IPath) {
+    constructor(expressWrappers:ExpressWrappers, testResultsController:IExpressController, testResultController:IExpressController, testConfigController:IExpressController, testCliInvocationsController:IExpressController, jqlQueryController:IExpressController, jiraSyncRequestController:IExpressController, testPortalConfiguration:TestPortalConfiguration, path:IPath, clustersController:IExpressController, clustersRevertRequestsController:IExpressController) {
         this.expressWrappers = expressWrappers;
         this.testResultsController = testResultsController;
         this.testResultController = testResultController;
@@ -27,6 +29,8 @@ export default class TestPortalWebServer {
         this.jiraSyncRequestController = jiraSyncRequestController;
         this.testPortalConfiguration = testPortalConfiguration;
         this.path = path;
+        this.clustersController = clustersController;
+        this.clustersRevertRequestsController = clustersRevertRequestsController;
     }
 
     startServer():IThenable<string> {
@@ -42,6 +46,8 @@ export default class TestPortalWebServer {
             .get(this.testPortalConfiguration.testResultWebRoute, this.testResultController)
             .put(this.testPortalConfiguration.testResultWebRoute, this.testResultController)
             .get(this.testPortalConfiguration.testResultsWebRoute, this.testResultsController)
+            .get(this.testPortalConfiguration.clustersWebRoute, this.clustersController)
+            .post('/cluster-revert-requests', this.clustersRevertRequestsController)
             .start();
     }
 }
