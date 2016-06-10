@@ -56,7 +56,7 @@
               "errors": {},
               "metric": "mapr.db.valuecache_hits",
               "refId": "A",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -117,7 +117,7 @@
               "isCounter": true,
               "metric": "mapr.db.valuecache_lookups",
               "refId": "A",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -260,7 +260,7 @@
               "errors": {},
               "metric": "mapr.db.put_rpcrows",
               "refId": "A",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -274,7 +274,7 @@
               "errors": {},
               "metric": "mapr.db.get_rpcrows",
               "refId": "B",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               },
@@ -289,7 +289,7 @@
               "errors": {},
               "metric": "mapr.db.scan_rpcrows",
               "refId": "C",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               },
@@ -364,7 +364,7 @@
               "errors": {},
               "metric": "mapr.db.put_rpcs",
               "refId": "A",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -378,7 +378,7 @@
               "errors": {},
               "metric": "mapr.db.scan_rpcs",
               "refId": "B",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               },
@@ -393,7 +393,7 @@
               "errors": {},
               "metric": "mapr.db.get_rpcs",
               "refId": "C",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               },
@@ -474,7 +474,7 @@
               "errors": {},
               "metric": "mapr.db.updateandget_rpcs",
               "refId": "A",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               }
@@ -488,7 +488,7 @@
               "errors": {},
               "metric": "mapr.db.append_rpcs",
               "refId": "B",
-              "shouldComputeRate": true,
+              "shouldComputeRate": false,
               "tags": {
                 "fqdn": "$fqdn"
               },
