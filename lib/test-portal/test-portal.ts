@@ -21,6 +21,9 @@ import JiraTestResultComment from "./models/jira-test-result-comment";
 import ICollections from "../collections/i-collections";
 import TestResultModel from "./models/test-result-model";
 import IConsole from "../node-js-wrappers/i-console";
+import ClustersController from "./controllers/clusters-controller";
+import ClustersRevertRequestsController from "./controllers/cluster-revert-requests-controller";
+import ClusterTesting from "../cluster-testing/cluster-testing";
 
 export default class TestPortal {
     private testPortalConfiguration:TestPortalConfiguration;
@@ -31,8 +34,10 @@ export default class TestPortal {
     private promiseFactory:IPromiseFactory;
     private collections:ICollections;
     private console:IConsole;
-
-    constructor(testPortalConfiguration:TestPortalConfiguration, expressWrappers:ExpressWrappers, nodeWrapperFactory:INodeWrapperFactory, jira:Jira, process:IProcess, promiseFactory:IPromiseFactory, collections:ICollections, console:IConsole) {
+    private clustersJSON:any;
+    private clusterTesting:ClusterTesting;
+    
+    constructor(testPortalConfiguration:TestPortalConfiguration, expressWrappers:ExpressWrappers, nodeWrapperFactory:INodeWrapperFactory, jira:Jira, process:IProcess, promiseFactory:IPromiseFactory, collections:ICollections, console:IConsole, clustersJSON:any, clusterTesting:ClusterTesting) {
         this.testPortalConfiguration = testPortalConfiguration;
         this.expressWrappers = expressWrappers;
         this.nodeWrapperFactory = nodeWrapperFactory;
@@ -41,6 +46,8 @@ export default class TestPortal {
         this.promiseFactory = promiseFactory;
         this.collections = collections;
         this.console = console;
+        this.clustersJSON = clustersJSON;
+        this.clusterTesting = clusterTesting;
     }
 
     newTestResultModel(json:IJSONObject):TestResultModel {
@@ -57,7 +64,6 @@ export default class TestPortal {
 
     newTestPortalWebServer(jiraUsername:string, jiraPassword:string):TestPortalWebServer {
         var fileSystem = this.nodeWrapperFactory.fileSystem();
-
         return new TestPortalWebServer(
             this.expressWrappers,
             new TestResultsController(
@@ -89,7 +95,9 @@ export default class TestPortal {
                 this
             ),
             this.testPortalConfiguration,
-            this.nodeWrapperFactory.path
+            this.nodeWrapperFactory.path,
+            new ClustersController(this.clustersJSON),
+            new ClustersRevertRequestsController(this.clusterTesting)
         );
     }
 

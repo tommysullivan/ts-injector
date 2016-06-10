@@ -179,6 +179,11 @@ button .dark {
     text-decoration: none;
 }
 
+button.red{
+    background-color: red;
+    data: "Reverting";
+}
+
 .errorMessage {
     font-family: monospace;
     background-color: black;

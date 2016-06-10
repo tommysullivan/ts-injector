@@ -19,6 +19,7 @@ export default class TestPortalConfiguration {
     private get envSpecificConfig():IJSONObject { return this.configJSON.jsonObjectNamed('environmentSpecificConfig').jsonObjectNamed(this.portalId); }
 
     get testResultsWebRoute():string { return this.configJSON.stringPropertyNamed('testResultsWebRoute'); }
+    get clustersWebRoute():string { return this.configJSON.stringPropertyNamed('clustersWebRoute'); }
     get testResultWebRoute():string { return this.configJSON.stringPropertyNamed('testResultWebRoute'); }
     get testConfigWebRouteRoute():string { return this.configJSON.stringPropertyNamed('testConfigWebRouteRoute'); }
     get testCliInvocationsWebRoute():string { return this.configJSON.stringPropertyNamed('testCliInvocationsWebRoute'); }
