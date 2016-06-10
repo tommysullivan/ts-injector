@@ -184,7 +184,7 @@ module.exports = function () {
     });
     this.Given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/, function (user, userId, userGroup, userPasswd) {
         var userCreateComamnd = "id -u " + user + " || useradd -u " + userId + " -g " + userGroup + " -p $(openssl passwd -1 " + userPasswd + ") " + user;
-        var groupCreateCommand = "getent group " + userGroup + " || groupadd -g " + userId + " " + user;
+        var groupCreateCommand = "getent group " + userGroup + " || groupadd -g " + userId + " " + userGroup;
         var resultList = $.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommands($.collections.newList([groupCreateCommand, userCreateComamnd])); });
         return $.expectAll(resultList).to.eventually.be.fulfilled;
     });
