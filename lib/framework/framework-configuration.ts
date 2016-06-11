@@ -7,10 +7,8 @@ import SSHConfiguration from "../ssh/ssh-configuration";
 import OpenTSDBConfig from "../open-tsdb/open-tsdb-config";
 import ElasticSearchConfiguration from "../elasticsearch/elasticsearch-configuration";
 import IJSONObject from "../typed-json/i-json-object";
-import SpyglassConfig from "../spyglass/spyglass-config";
 import IList from "../collections/i-list";
 import ESXIConfiguration from "../esxi/configuration/esxi-configuration";
-import VersioningConfig from "../versioning/versioning-config";
 import TestPortalConfiguration from "../test-portal/test-portal-configuration";
 import JiraConfiguration from "../jira/jira-configuration";
 import IPath from "../node-js-wrappers/i-path";
@@ -30,8 +28,20 @@ export default class FrameworkConfiguration {
         this.process = process;
     }
 
+    get releasingConfig():IJSONObject {
+        return this.frameworkConfigJSON.jsonObjectNamed('releasing');
+    }
+
+    get packagingConfigJSON():IJSONObject {
+        return this.frameworkConfigJSON.jsonObjectNamed('packaging');
+    }
+
     get rest():RestConfiguration {
         return new RestConfiguration(this.frameworkConfigJSON.jsonObjectNamed('rest'));
+    }
+
+    get grafanaConfig():IJSONObject {
+        return this.frameworkConfigJSON.jsonObjectNamed('grafana');
     }
 
     get cliConfig():CliConfig {
@@ -72,10 +82,6 @@ export default class FrameworkConfiguration {
         );
     }
 
-    get spyglassConfig():SpyglassConfig {
-        return new SpyglassConfig(this.frameworkConfigJSON.jsonObjectNamed('spyglass'));
-    }
-
     get cucumber():CucumberConfiguration {
         return new CucumberConfiguration(this.frameworkConfigJSON.jsonObjectNamed('cucumber'));
     }
@@ -94,10 +100,6 @@ export default class FrameworkConfiguration {
 
     get clustersConfig():IList<IJSONObject> {
         return this.frameworkConfigJSON.listOfJSONObjectsNamed('clusters');
-    }
-
-    get versioningConfig():VersioningConfig {
-        return new VersioningConfig(this.frameworkConfigJSON.jsonObjectNamed('versioning'));
     }
 
     get esxiConfiguration():ESXIConfiguration {

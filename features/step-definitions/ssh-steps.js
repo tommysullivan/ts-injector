@@ -1,57 +1,52 @@
 "use strict";
-module.exports = function () {
-    this.When(/^I perform the following ssh commands on each node in the cluster:$/, { timeout: 5 * 60 * 1000 }, function (commands) {
-        var commandList = $.collections.newList(commands.split("\n"));
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var cucumber_tsflow_1 = require("cucumber-tsflow");
+var SSHSteps = (function () {
+    function SSHSteps() {
+    }
+    SSHSteps.prototype.performSSHCommandsOnEachNodeInTheCluster = function (commandsSeparatedByNewLine) {
+        var commandList = $.collections.newList(commandsSeparatedByNewLine.split("\n"));
         return $.expect($.clusterUnderTest.executeShellCommandsOnEachNode(commandList))
             .to.eventually.be.fulfilled;
-    });
-    this.When(/^I ssh into the node hosting "([^"]*)"$/, function (serviceName) {
+    };
+    SSHSteps.prototype.sshIntoNodeHostingService = function (serviceName) {
         var _this = this;
         this.sshServiceHost = $.clusterUnderTest.nodeHosting(serviceName);
         var sshSessionRequest = this.sshServiceHost.newSSHSession()
             .then(function (sshSession) { return _this.sshSession = sshSession; });
         return $.expect(sshSessionRequest).to.eventually.be.fulfilled;
-    });
-    this.When(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the repository for the "([^"]*)" component family/, function (fileToRetrieve, destinationDirectory, componentFamily) {
-        var sshSession = this.sshSession;
-        var sshServiceHost = this.sshServiceHost;
-        var commands = $.collections.newList([
-            ("curl " + sshServiceHost.repoUrlFor(componentFamily) + fileToRetrieve + " > " + destinationDirectory + fileToRetrieve),
-            ("chmod 744 " + destinationDirectory + fileToRetrieve)
-        ]);
-        return $.expect(sshSession.executeCommands(commands)).to.eventually.be.fulfilled;
-    });
-    this.When(/^within my ssh session, I execute "([^"]*)"$/, { timeout: 10 * 60 * 1000 }, function (sshCommand) {
+    };
+    SSHSteps.prototype.downloadFromPackageFamilyRepoViaCurlUsingExistingSSHSession = function (fileToRetrieve, destinationDirectory, packageFamily) {
+        throw new Error('not impl');
+        // var commands = $.collections.newList<string>([
+        //     `curl ${this.sshServiceHost.repositoryForPackageFamily(packageFamily).url}${fileToRetrieve} > ${destinationDirectory}${fileToRetrieve}`,
+        //     `chmod 744 ${destinationDirectory}${fileToRetrieve}`
+        // ]);
+        // return $.expect(this.sshSession.executeCommands(commands)).to.eventually.be.fulfilled;
+    };
+    SSHSteps.prototype.executeSSHCommandInExistingSession = function (sshCommand) {
         var _this = this;
-        var sshSession = this.sshSession;
-        var sshServiceHost = this.sshServiceHost;
-        sshCommand = sshCommand.replace('[installerRepoURL]', sshServiceHost.repoUrlFor('installer'));
-        sshCommand = sshCommand.replace('[maprCoreRepoURL]', sshServiceHost.repoUrlFor('core'));
-        sshCommand = sshCommand.replace('[ecosystemRepoURL]', sshServiceHost.repoUrlFor('ecosystem'));
-        var sshRequest = sshSession.executeCommand(sshCommand)
+        function repoUrlFor(packageFamily) {
+            return this.sshServiceHost.repositoryForPackageFamily(packageFamily).url;
+        }
+        sshCommand = sshCommand.replace('[installerRepoURL]', repoUrlFor('installer'));
+        sshCommand = sshCommand.replace('[maprCoreRepoURL]', repoUrlFor('core'));
+        sshCommand = sshCommand.replace('[ecosystemRepoURL]', repoUrlFor('ecosystem'));
+        var sshRequest = this.sshSession.executeCommand(sshCommand)
             .then(function (result) { return _this.sshResult = result; })
             .catch(function (e) {
-            console.log(e.toJSON());
-            throw new Error(e.toString());
+            var error = e;
+            console.log(error.toJSON());
+            throw new Error(error.toString());
         });
         return $.expect(sshRequest).to.eventually.be.fulfilled;
-    });
-    this.Then(/^it successfully starts the installer web server and outputs its URL to the screen$/, function () {
-        var sshResult = this.sshResult;
-        var sshOutput = sshResult.processResult().stdoutLines().join('');
-        $.expect(sshOutput.indexOf('To continue installing MapR software, open the following URL in a web browser')).not.to.equal(-1);
-    });
-    this.Given(/^the cluster is running YARN$/, function () {
-        var result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(function (sshSession) { return sshSession.executeCommand('/opt/mapr/bin/maprcli cluster mapreduce get -json'); })
-            .then(function (commandResult) {
-            var jsonString = commandResult.processResult().stdoutLines().join("");
-            var json = JSON.parse(jsonString);
-            return json.data[0].default_mode;
-        });
-        return $.expect(result).to.eventually.equal('yarn');
-    });
-    this.When(/^I run the following commands on any given node in the cluster:$/, function (commandsString) {
+    };
+    SSHSteps.prototype.runSpecifiedCommandsOnFirstNodeInCluster = function (commandsString) {
         var _this = this;
         var commands = $.collections.newList(commandsString.split("\n"));
         commands = commands.map(function (c) { return c.replace('{testRunGUID}', $.testRunGUID).replace('{volumeMountPoint}', _this.mountPath); });
@@ -59,107 +54,52 @@ module.exports = function () {
             .then(function (sshSession) { return sshSession.executeCommands(commands); })
             .then(function (commandResultSet) { return _this.lastCommandResultSet = commandResultSet; });
         return $.expect(result).to.eventually.be.fulfilled;
-    });
-    this.When(/^I scp "([^"]*)" to "([^"]*)" on each node in the cluster$/, function (localPath, remotePath) {
+    };
+    SSHSteps.prototype.scpLocalPathToRemotePathOnEachNode = function (localPath, remotePath) {
         var result = $.clusterUnderTest.uploadToEachNode(localPath, remotePath);
         return $.expect(result).to.eventually.to.fulfilled;
-    });
-    this.Then(/^I get the clusterName$/, function () {
-        var _this = this;
-        var result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(function (sshSession) { return sshSession.executeCommand('/opt/mapr/bin/maprcli dashboard info -json'); })
-            .then(function (commandResult) {
-            var jsonString = commandResult.processResult().stdoutLines().join("");
-            var json = JSON.parse(jsonString);
-            var clusterName = json.data[0].cluster.name;
-            $.expect(clusterName).is.not.null;
-            console.log(clusterName);
-            _this.clustName = clusterName;
+    };
+    SSHSteps.prototype.performSSHCommandsAsSpecficUserOnEachNode = function (user, userPasswd, commandsSeparatedByNewLin) {
+        var commandList = $.collections.newList(commandsSeparatedByNewLin.split("\n"));
+        var nodeRequests = $.clusterUnderTest.nodes().map(function (n) {
+            return $.sshAPI.newSSHClient().connect(n.host, user, userPasswd)
+                .then(function (session) { return session.executeCommands(commandList); });
         });
-        return $.expect(result).to.eventually.be.fulfilled;
-    });
-    this.Given(/^A volume called "([^"]*)"is created$/, function (volumeNameTemplate) {
-        this.volumeName = volumeNameTemplate.replace('{testRunGUID}', $.testRunGUID);
-        var command = "/opt/mapr/bin/maprcli volume create -name " + this.volumeName + " -json";
-        console.log(command);
-        var result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(function (sshSession) { return sshSession.executeCommand(command); })
-            .then(function (commandResult) {
-            var jsonString = commandResult.processResult().stdoutLines().join("");
-            var json = JSON.parse(jsonString);
-            var status = json.status;
-            console.log(status);
-            $.expect(status).contain("OK");
-        });
-        return $.expect(result).to.eventually.be.fulfilled;
-    });
-    this.Given(/^The volume is mounted$/, function () {
-        this.mountPath = "/" + this.volumeName;
-        console.log("MountPath is " + this.mountPath);
-        var command = "/opt/mapr/bin/maprcli volume mount -cluster " + this.clustName + " -name " + this.volumeName + " -path " + this.mountPath + " -json";
-        console.log(command);
-        var result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(function (sshSession) { return sshSession.executeCommand(command); })
-            .then(function (commandResult) {
-            var jsonString = commandResult.processResult().stdoutLines().join("");
-            var json = JSON.parse(jsonString);
-            var status = json.status;
-            console.log(status);
-            $.expect(status).contain("OK");
-        });
-        return $.expect(result).to.eventually.be.fulfilled;
-    });
-    this.Given(/^I set the volume quota to "([^"]*)"$/, function (quota) {
-        var command = "/opt/mapr/bin/maprcli volume modify -cluster " + this.clustName + " -name " + this.volumeName + "  -quota " + quota + " -json";
-        console.log(command);
-        var result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(function (sshSession) { return sshSession.executeCommand(command); })
-            .then(function (commandResult) {
-            var jsonString = commandResult.processResult().stdoutLines().join("");
-            var json = JSON.parse(jsonString);
-            var status = json.status;
-            console.log(status);
-            $.expect(status).contain("OK");
-        });
-        return $.expect(result).to.eventually.be.fulfilled;
-    });
-    this.Given(/^I turn off compression on the volume$/, function () {
-    });
-    this.Given(/^I create a snapshot for the volume$/, function () {
-        this.snapshot = this.volumeName + "_snapshot";
-        var command = "/opt/mapr/bin/maprcli volume snapshot create -cluster " + this.clustName + " -snapshotname " + this.snapshot + " -volume " + this.volumeName + " -json";
-        console.log(command);
-        var result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(function (sshSession) { return sshSession.executeCommand(command); })
-            .then(function (commandResult) {
-            var jsonString = commandResult.processResult().stdoutLines().join("");
-            var json = JSON.parse(jsonString);
-            var status = json.status;
-            console.log(status);
-            $.expect(status).contain("OK");
-        });
-        return $.expect(result).to.eventually.be.fulfilled;
-    });
-    this.Then(/^I get the expected value using maprcli volume info command$/, function () {
-        var _this = this;
-        var command = "/opt/mapr/bin/maprcli volume info -name " + this.volumeName + " -json";
-        var result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(function (sshSession) { return sshSession.executeCommand(command); })
-            .then(function (commandResult) {
-            var jsonString = commandResult.processResult().stdoutLines().join("");
-            var json = JSON.parse(jsonString);
-            var logicalUsed = json.data[0].logicalUsed;
-            var totalUsed = json.data[0].totalused;
-            var usedSize = json.data[0].used;
-            var quota = json.data[0].quota;
-            var snapshotSize = json.data[0].snapshotused;
-            _this.snapshotSize = parseInt(snapshotSize);
-            _this.quota = parseInt(quota);
-            _this.logicalUsed = parseInt(logicalUsed);
-            _this.totalUsed = parseInt(totalUsed);
-            _this.usedSize = parseInt(usedSize);
-        });
-        return $.expect(result).to.eventually.be.fulfilled;
-    });
-};
+        return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
+    };
+    SSHSteps.prototype.restartService = function (operation, serviceName) {
+        return $.expect($.clusterUnderTest.executeShellCommandOnEachNode("service " + serviceName + " " + operation)).to.eventually.be.fulfilled;
+    };
+    __decorate([
+        cucumber_tsflow_1.when(/^I perform the following ssh commands on each node in the cluster:$/)
+    ], SSHSteps.prototype, "performSSHCommandsOnEachNodeInTheCluster", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^I ssh into the node hosting "([^"]*)"$/)
+    ], SSHSteps.prototype, "sshIntoNodeHostingService", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the repository for the "([^"]*)" package family/)
+    ], SSHSteps.prototype, "downloadFromPackageFamilyRepoViaCurlUsingExistingSSHSession", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^within my ssh session, I execute "([^"]*)"$/)
+    ], SSHSteps.prototype, "executeSSHCommandInExistingSession", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^I run the following commands on any given node in the cluster:$/)
+    ], SSHSteps.prototype, "runSpecifiedCommandsOnFirstNodeInCluster", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^I scp "([^"]*)" to "([^"]*)" on each node in the cluster$/)
+    ], SSHSteps.prototype, "scpLocalPathToRemotePathOnEachNode", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/)
+    ], SSHSteps.prototype, "performSSHCommandsAsSpecficUserOnEachNode", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^I ([^"]*) all "([^"]*)" services$/)
+    ], SSHSteps.prototype, "restartService", null);
+    SSHSteps = __decorate([
+        cucumber_tsflow_1.binding()
+    ], SSHSteps);
+    return SSHSteps;
+}());
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = SSHSteps;
+module.exports = SSHSteps;
 //# sourceMappingURL=ssh-steps.js.map

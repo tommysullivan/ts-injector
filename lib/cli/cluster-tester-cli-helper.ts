@@ -1,7 +1,7 @@
 import IProcess from "../node-js-wrappers/i-process";
 import IConsole from "../node-js-wrappers/i-console";
 import IUUIDGenerator from "../uuid/i-uuid-generator";
-import Cucumber from "../cucumber/cucumber";
+import ICucumber from "../cucumber/i-cucumber";
 import ClusterTestingConfiguration from "../cluster-testing/cluster-testing-configuration";
 import CliHelper from "./cli-helper";
 import IList from "../collections/i-list";
@@ -26,7 +26,7 @@ export default class ClusterTesterCliHelper {
     private process:IProcess;
     private console:IConsole;
     private uuidGenerator:IUUIDGenerator;
-    private cucumber:Cucumber;
+    private cucumber:ICucumber;
     private clusterTestingConfiguration:ClusterTestingConfiguration;
     private cliHelper:CliHelper;
     private clusterTesting:ClusterTesting;
@@ -38,7 +38,7 @@ export default class ClusterTesterCliHelper {
     private promiseFactory:IPromiseFactory;
     private collections:ICollections;
 
-    constructor(process:IProcess, console:IConsole, uuidGenerator:IUUIDGenerator, cucumber:Cucumber, clusterTestingConfiguration:ClusterTestingConfiguration, cliHelper:CliHelper, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, path:IPath, fileSystem:IFileSystem, rest:Rest, clusters:Clusters, promiseFactory:IPromiseFactory, collections:ICollections) {
+    constructor(process:IProcess, console:IConsole, uuidGenerator:IUUIDGenerator, cucumber:ICucumber, clusterTestingConfiguration:ClusterTestingConfiguration, cliHelper:CliHelper, clusterTesting:ClusterTesting, frameworkConfig:FrameworkConfiguration, path:IPath, fileSystem:IFileSystem, rest:Rest, clusters:Clusters, promiseFactory:IPromiseFactory, collections:ICollections) {
         this.process = process;
         this.console = console;
         this.uuidGenerator = uuidGenerator;
@@ -64,7 +64,7 @@ export default class ClusterTesterCliHelper {
             }
             else if(subCommand=='featureSet') {
                 var featureSetId = this.process.getArgvOrThrow('featureSetId', 4);
-                var featureSet = this.cucumber.allFeatureSets.firstWhere(f=>f.id==featureSetId);
+                var featureSet = this.cucumber.featureSets.setWithId(featureSetId);
                 var cucumberPassThruCommands = featureSet.featureFilesInExecutionOrder.append(this.process.commandLineArguments().everythingAfterIndex(4));
                 this.runCucumber(cucumberPassThruCommands);
             }
@@ -103,7 +103,9 @@ export default class ClusterTesterCliHelper {
         return this.collections.newList<string>(
             this.process.environmentVariables().hasKey('clusterIds')
                 ? this.process.environmentVariableNamed('clusterIds').split(',')
-                : [this.process.environmentVariableNamed('clusterId')]
+                : this.process.environmentVariables().hasKey('clusterId')
+                    ? [this.process.environmentVariableNamed('clusterId')]
+                    : []
         );
     }
 
@@ -111,12 +113,11 @@ export default class ClusterTesterCliHelper {
     private runCucumber(cucumberPassThruCommands:IList<string>):void {
         var env = this.process.environmentVariables();
         var testRunUUID = this.uuidGenerator.v4();
-        var phase = this.clusterTestingConfiguration.phaseOfDevelopment;
         var clusterIds = this.clusterIds;
         var clusterTestResultPromises = clusterIds.map(clusterId=>{
             var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
             var cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;
-            var uniqueFileIdentifier = `${testRunUUID}_${clusterId}_phase-${phase}_user-${this.process.currentUserName()}`;
+            var uniqueFileIdentifier = `${testRunUUID}_${clusterId}_user-${this.process.currentUserName()}`;
             var outputFileName = `${uniqueFileIdentifier}.json`;
             var jsonResultFilePath = this.path.join(cucumberOutputPath, outputFileName);
             var envVars = this.process.environmentVariables().clone();

@@ -1,15 +1,15 @@
 import IProcess from "../node-js-wrappers/i-process";
 import IConsole from "../node-js-wrappers/i-console";
-import Cucumber from "../cucumber/cucumber";
 import IList from "../collections/i-list";
+import ICucumber from "../cucumber/i-cucumber";
 
 export default class CucumberCliHelper {
     private console:IConsole;
-    private cucumber:Cucumber;
+    private cucumber:ICucumber;
     private process:IProcess;
     private temporaryTestRunOutputFilePath:string;
 
-    constructor(console:IConsole, cucumber:Cucumber, process:IProcess, temporaryTestRunOutputFilePath:string) {
+    constructor(console:IConsole, cucumber:ICucumber, process:IProcess, temporaryTestRunOutputFilePath:string) {
         this.console = console;
         this.cucumber = cucumber;
         this.process = process;
@@ -22,8 +22,8 @@ export default class CucumberCliHelper {
 
     showFeatureSets():void {
         var args = this.process.commandLineArguments();
-        if(args.itemAt(3)=='in' && args.itemAt(4)=='detail') this.outputJSON(this.cucumber.allFeatureSets);
-        else this.outputJSON(this.cucumber.allFeatureSets.map(t=>t.id));
+        if(args.itemAt(3)=='in' && args.itemAt(4)=='detail') this.outputJSON(this.cucumber.featureSets.all);
+        else this.outputJSON(this.cucumber.featureSets.all.map(t=>t.id));
     }
 
     executeTagsCli():void {

@@ -91,4 +91,10 @@ export default class JSONObject implements IJSONObject {
         if(!this.typedJSON.isArray(rawArray)) this.throwPropertyWrongTypeError(name, 'array', 'unknown (but not native array)')
         return this.collections.newList<T>(rawArray);
     }
+
+    listNamedOrDefaultToEmpty<T>(name:string):IList<T> {
+        return this.hasPropertyNamed(name)
+            ? this.listNamed<T>(name)
+            : this.collections.newEmptyList<T>();
+    }
 }

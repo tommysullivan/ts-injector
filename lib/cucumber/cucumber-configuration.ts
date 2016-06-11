@@ -13,7 +13,7 @@ export default class CucumberConfiguration {
         return this.cucumberConfigJSON.booleanPropertyNamed('embedAsyncErrorsInStepOutput');
     }
 
-    defaultCucumberStepTimeoutMS():number {
+    get defaultCucumberStepTimeoutMS():number {
         return this.cucumberConfigJSON.numericPropertyNamed('defaultCucumberStepTimeoutMS');
     }
 
@@ -21,10 +21,8 @@ export default class CucumberConfiguration {
         return this.cucumberConfigJSON.stringPropertyNamed('cucumberExecutablePath');
     }
 
-    get featureSets():IList<FeatureSet> {
-        return this.cucumberConfigJSON.listOfJSONObjectsNamed('featureSets').map(
-            testSuiteJSON=>new FeatureSet(testSuiteJSON)
-        )
+    get featureSetsJSONArray():IList<IJSONObject> {
+        return this.cucumberConfigJSON.listOfJSONObjectsNamed('featureSets');
     }
 
     toJSON():any { return this.cucumberConfigJSON.toRawJSON(); }

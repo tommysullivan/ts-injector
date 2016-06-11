@@ -71,26 +71,66 @@ IntelliJ, use VCS -> Checkout from Version Control and follow the prompts.
 
 ## Running Tests
 
-Regardless of how you run, you must provide environment variable:
+### Considerations before running
 
-    clusterId=[id of cluster to test] 
+There are many ways to run tests. The main considerations to make prior to running a test are:
 
-And optionally you can override the following values in config.json using environment variables of the same name:
+1. Which features do I want to run and in which order?
+2. Which clusters do I want to use for the test run? Do the features I run depend on which clusters I use?
+3. What versions of all of the packages do I want to use, and from where do I want to install them, and how?
+4. Do I want to save the result(s) of my tests to http://testing.devops.lab?
 
-    phaseOfDevelopment: dev, staging, 'private beta', production
-    maprCoreVersion: 5.1.0, 5.2.0
+### Run Cucumber.js Executable
 
-Some utility scripts will set defaults on your behalf if you do not specify them, but be careful
-that you do not interrupt testing on the default clusters!
+This is the simplest and most direct way to run the tests with minimal MapR-specific framwork involved.
+Depending on the tests being run, you may be prompted to enter certain environment variables.
 
-To see the available cluster configuration ids, run:
+Either install cucumber globally and run it:
+
+    > sudo npm install -g cucumber
+    > cucumber.js
+    
+Or use the local cucumber after doing an npm install:
+
+    > node_modules/cucumber/bin/cucumber.js
+    
+### Run Cucumber.js with the Test Framework
+
+This type of run captures additional information about the cluster and the testing environment, producing
+additional JSON output of the test run which may in turn be viewed at http://testing.devops.lab (or a locally
+running test-portal) if the portalId environment variable is set. It can also run cucumber against several clusters
+in parallel and report all of their results plus the net result.
+
+#### Run Framework with Plain Cucumber Arguments
+
+    > bin/spyglass-tester run cucumber [optional cucumber args here]
+    
+#### Run Framework with Plain Cucumber Arguments plus "FeatureSet"
+
+Instead of typing out the feature files in the order you'd like to run them as a cucumber argument, one may
+instead opt to run a featureSet, which uses the id of a list of feature files in the configuration/config.json file:
+
+    > bin/spyglass-tester run featureSet [featureSetName] [optional cucumber args here]
+
+#### Run Framework with Specific Test Suite, Release, Development Lifecycle Phase and Clusters in Mind
+
+Often we want to run a test across several clusters, using specific test cases in each, and specific
+versions of packages at various levels of promotion status based on the
+phase of the development lifecycle we happen to be in when we are testing.
+
+    > bin/spyglass-tester run suite "smoke test" for release "spyglass-beta-refresh" [for phase "<phase name>"]
+
+Note that each release has its own currentPhase property, which acts as the default if one
+does not specify the [for phase "<phase name>"] part.
+
+### List Available Cluster Ids
 
     bin/spyglass-tester cluster ids
 
 You can select the subset of tests to run by using [Test Tagging](#testTagging) or by listing
 the .feature files in the order you'd like to run them, omitting those you wish not to run.
 
-### Run in Jenkins
+### Jenkins Scheduled Builds
 
 Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-check/) and click 
 "Build with Parameters". From here you can override default test parameters or go with the defaults.
@@ -115,9 +155,9 @@ After cloning this repository, from the root directory:
     export clusterId=[clusterId] 
     bin/spyglass-tester run [cucumber | featureSet] - run either command to see more details
     
-The phase should be set to one of the phases in the repositories listed in configuration/config.json
-under the "repositories" property. You may omit phase and the CLI will yield a list of the available
-configured phases for your convenience.
+The promotionStatus should be set to one of the promotionStatuses in the repositories listed in configuration/config.json
+under the "repositories" property. You may omit promotionStatus and the CLI will yield a list of the available
+configured promotionStatuses for your convenience.
 
 ID of Cluster Under Test should be the id of one of the clusters defined in configuration/config.json
 under the "clusters" property. For example "tommy-cluster-1".

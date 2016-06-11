@@ -1,17 +1,14 @@
 {
   "contentType": "vnd/testing.devops.lab/types/framework/FrameworkConfiguration+json;v=1.0.0",
   "clusterTesting": {
-    "phaseOfDevelopment": "latestBuild",
-    "maprCoreVersion": "5.1.0",
     "resultServers": {
       "local": "http://localhost:5001",
       "lab": "http://testing.devops.lab"
     },
-    "testPortalHostAndPort": "http://testing.devops.lab",
     "cucumberOutputPathRelativeToThisConfigFile": "../data/test-run-output/cucumber",
     "frameworkOutputPathRelativeToThisConfigFile": "../data/test-run-output/framework",
     "clusterInstaller": {
-      "installationTimeoutInMilliseconds": 2700000,
+      "installationTimeoutInMilliseconds": 1200000,
       "licenseType": "M5",
       "sshMethod": "PASSWORD",
       "sshUsername": "root",
@@ -24,7 +21,9 @@
         "/dev/sdb",
         "/dev/sdc"
       ]
-    }
+    },
+    "defaultRelease": "spyglass-ga",
+    "defaultLifecyclePhase": "development"
   },
   "cli": {
     "temporaryTestRunOutputFilePathRelativeToThisConfigFile": "../data/tmp/tmp-test-run.json"
@@ -2334,176 +2333,80 @@
     }
   ],
   "cucumber": {
-    "defaultCucumberStepTimeoutMS": 120000,
+    "defaultCucumberStepTimeoutMS": 1200000,
     "embedAsyncErrorsInStepOutput": false,
     "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js  --require features",
     "featureSets": [
       {
-        "id": "dailyESXIRun",
-        "featureFilePaths": [
-          "features/installation/esxi/esxi-cluster-preparation.feature",
-          "features/installation/package-manager-installation.feature",
-          "features/installation/elasticsearch-setup.feature",
-          "features/core/cldb/cldb-logs.feature",
-          "features/core/cldb/cldb-metrics.feature",
-          "features/core/maprdb/maprdb-logs.feature",
-          "features/core/maprdb/maprdb-metrics.feature",
-          "features/core/mcs/mcs-health-check.feature",
-          "features/core/mcs/mcs-links-to-spyglass-ui.feature",
-          "features/core/mcs/mcs-logs.feature",
-          "features/core/mfs/mfs-logs.feature",
-          "features/core/mfs/mfs-metrics.feature",
-          "features/core/mfs/volume-metrics.feature",
-          "features/core/nfs/nfs-logs.feature",
-          "features/core/warden/warden-logs.feature",
-          "features/ecosystem/drill/drill-logs.feature",
-          "features/ecosystem/drill/drill-metrics.feature",
-          "features/ecosystem/hbase/hbase-logs.feature",
-          "features/ecosystem/hbase/hbase-metrics.feature",
-          "features/ecosystem/hive/hive-logs.feature",
-          "features/ecosystem/httpfs/httpfs-logs.feature",
-          "features/ecosystem/oozie/oozie-logs.feature",
-          "features/ecosystem/spark-history-server/spark-history-server-logs.feature",
-          "features/ecosystem/spyglass-components/collectd-logs.feature",
-          "features/ecosystem/spyglass-components/elasticsearch-logs.feature",
-          "features/ecosystem/spyglass-components/fluentd-logs.feature",
-          "features/ecosystem/spyglass-components/grafana-logs.feature",
-          "features/ecosystem/spyglass-components/kibana-logs.feature",
-          "features/ecosystem/spyglass-components/opentsdb-logs.feature",
-          "features/ecosystem/yarn/yarn-logs.feature",
-          "features/ecosystem/yarn/yarn-metrics.feature",
-          "features/hardware/cpu-metrics.feature",
-          "features/hardware/disk-metrics.feature",
-          "features/hardware/memory-metrics.feature",
-          "features/hardware/network-metrics.feature",
-          "features/hardware/os-load-metrics.feature",
-          "features/common/logs.feature"
+        "id": "esxiNonGUIInstallAndHealthCheck",
+        "features": [
+          { "file": "features/installation/esxi/esxi-cluster-preparation.feature" },
+          { "file": "features/installation/package-manager-installation.feature" },
+          { "featureSetRef": "spyglassNonGUISetupAndHealthCheck" }
         ]
       },
       {
-        "id": "dailyESXIRunSecure",
-        "featureFilePaths": [
-          "features/installation/esxi/esxi-cluster-preparation.feature",
-          "features/installation/package-manager-secure-installation.feature",
-          "features/installation/elasticsearch-setup.feature",
-          "features/core/cldb/cldb-logs.feature",
-          "features/core/cldb/cldb-metrics.feature",
-          "features/core/maprdb/maprdb-logs.feature",
-          "features/core/maprdb/maprdb-metrics.feature",
-          "features/core/mcs/mcs-health-check.feature",
-          "features/core/mcs/mcs-links-to-spyglass-ui.feature",
-          "features/core/mcs/mcs-logs.feature",
-          "features/core/mfs/mfs-logs.feature",
-          "features/core/mfs/mfs-metrics.feature",
-          "features/core/mfs/volume-metrics.feature",
-          "features/core/nfs/nfs-logs.feature",
-          "features/core/warden/warden-logs.feature",
-          "features/ecosystem/drill/drill-logs.feature",
-          "features/ecosystem/drill/drill-metrics.feature",
-          "features/ecosystem/hbase/hbase-logs.feature",
-          "features/ecosystem/hbase/hbase-metrics.feature",
-          "features/ecosystem/hive/hive-logs.feature",
-          "features/ecosystem/httpfs/httpfs-logs.feature",
-          "features/ecosystem/oozie/oozie-logs.feature",
-          "features/ecosystem/spark-history-server/spark-history-server-logs.feature",
-          "features/ecosystem/spyglass-components/collectd-logs.feature",
-          "features/ecosystem/spyglass-components/elasticsearch-logs.feature",
-          "features/ecosystem/spyglass-components/fluentd-logs.feature",
-          "features/ecosystem/spyglass-components/grafana-logs.feature",
-          "features/ecosystem/spyglass-components/kibana-logs.feature",
-          "features/ecosystem/spyglass-components/opentsdb-logs.feature",
-          "features/ecosystem/yarn/yarn-logs.feature",
-          "features/ecosystem/yarn/yarn-metrics.feature",
-          "features/hardware/cpu-metrics.feature",
-          "features/hardware/disk-metrics.feature",
-          "features/hardware/memory-metrics.feature",
-          "features/hardware/network-metrics.feature",
-          "features/hardware/os-load-metrics.feature",
-          "features/common/logs.feature"
+        "id": "esxiNonGUISecureInstallAndHealthCheck",
+        "features": [
+          { "file": "features/installation/esxi/esxi-cluster-preparation.feature" },
+          { "file": "features/installation/package-manager-secure-installation.feature" },
+          { "featureSetRef": "spyglassNonGUISetupAndHealthCheck" }
         ]
       },
       {
-        "id": "physicalBoxes",
-        "featureFilePaths": [
-          "features/installation/package-manager-uninstallation.feature",
-          "features/installation/package-manager-installation.feature",
-          "features/installation/elasticsearch-setup.feature",
-          "features/core/cldb/cldb-logs.feature",
-          "features/core/cldb/cldb-metrics.feature",
-          "features/core/maprdb/maprdb-logs.feature",
-          "features/core/maprdb/maprdb-metrics.feature",
-          "features/core/mcs/mcs-health-check.feature",
-          "features/core/mcs/mcs-links-to-spyglass-ui.feature",
-          "features/core/mcs/mcs-logs.feature",
-          "features/core/mfs/mfs-logs.feature",
-          "features/core/mfs/mfs-metrics.feature",
-          "features/core/mfs/volume-metrics.feature",
-          "features/core/nfs/nfs-logs.feature",
-          "features/core/warden/warden-logs.feature",
-          "features/ecosystem/drill/drill-logs.feature",
-          "features/ecosystem/drill/drill-metrics.feature",
-          "features/ecosystem/hbase/hbase-logs.feature",
-          "features/ecosystem/hbase/hbase-metrics.feature",
-          "features/ecosystem/hive/hive-logs.feature",
-          "features/ecosystem/httpfs/httpfs-logs.feature",
-          "features/ecosystem/oozie/oozie-logs.feature",
-          "features/ecosystem/spark-history-server/spark-history-server-logs.feature",
-          "features/ecosystem/spyglass-components/collectd-logs.feature",
-          "features/ecosystem/spyglass-components/elasticsearch-logs.feature",
-          "features/ecosystem/spyglass-components/fluentd-logs.feature",
-          "features/ecosystem/spyglass-components/grafana-logs.feature",
-          "features/ecosystem/spyglass-components/kibana-logs.feature",
-          "features/ecosystem/spyglass-components/opentsdb-logs.feature",
-          "features/ecosystem/yarn/yarn-logs.feature",
-          "features/ecosystem/yarn/yarn-metrics.feature",
-          "features/hardware/cpu-metrics.feature",
-          "features/hardware/disk-metrics.feature",
-          "features/hardware/memory-metrics.feature",
-          "features/hardware/network-metrics.feature",
-          "features/hardware/os-load-metrics.feature",
-          "features/common/logs.feature"
+        "id": "physicalNonGUIInstallAndHealthCheck",
+        "features": [
+          { "file": "features/installation/package-manager-uninstallation.feature" },
+          { "file": "features/installation/package-manager-installation.feature" },
+          { "featureSetRef": "spyglassNonGUISetupAndHealthCheck" }
         ]
       },
       {
-        "id": "physicalBoxesSecure",
-        "featureFilePaths": [
-          "features/installation/package-manager-uninstallation.feature",
-          "features/installation/package-manager-secure-installation.feature",
-          "features/installation/elasticsearch-setup.feature",
-          "features/core/cldb/cldb-logs.feature",
-          "features/core/cldb/cldb-metrics.feature",
-          "features/core/maprdb/maprdb-logs.feature",
-          "features/core/maprdb/maprdb-metrics.feature",
-          "features/core/mcs/mcs-health-check.feature",
-          "features/core/mcs/mcs-links-to-spyglass-ui.feature",
-          "features/core/mcs/mcs-logs.feature",
-          "features/core/mfs/mfs-logs.feature",
-          "features/core/mfs/mfs-metrics.feature",
-          "features/core/mfs/volume-metrics.feature",
-          "features/core/nfs/nfs-logs.feature",
-          "features/core/warden/warden-logs.feature",
-          "features/ecosystem/drill/drill-logs.feature",
-          "features/ecosystem/drill/drill-metrics.feature",
-          "features/ecosystem/hbase/hbase-logs.feature",
-          "features/ecosystem/hbase/hbase-metrics.feature",
-          "features/ecosystem/hive/hive-logs.feature",
-          "features/ecosystem/httpfs/httpfs-logs.feature",
-          "features/ecosystem/oozie/oozie-logs.feature",
-          "features/ecosystem/spark-history-server/spark-history-server-logs.feature",
-          "features/ecosystem/spyglass-components/collectd-logs.feature",
-          "features/ecosystem/spyglass-components/elasticsearch-logs.feature",
-          "features/ecosystem/spyglass-components/fluentd-logs.feature",
-          "features/ecosystem/spyglass-components/grafana-logs.feature",
-          "features/ecosystem/spyglass-components/kibana-logs.feature",
-          "features/ecosystem/spyglass-components/opentsdb-logs.feature",
-          "features/ecosystem/yarn/yarn-logs.feature",
-          "features/ecosystem/yarn/yarn-metrics.feature",
-          "features/hardware/cpu-metrics.feature",
-          "features/hardware/disk-metrics.feature",
-          "features/hardware/memory-metrics.feature",
-          "features/hardware/network-metrics.feature",
-          "features/hardware/os-load-metrics.feature",
-          "features/common/logs.feature"
+        "id": "physicalNonGUISecureInstallAndHealthCheck",
+        "features": [
+          { "file": "features/installation/package-manager-uninstallation.feature" },
+          { "file": "features/installation/package-manager-secure-installation.feature" },
+          { "featureSetRef": "spyglassNonGUISetupAndHealthCheck" }
+        ]
+      },
+      {
+        "id": "spyglassNonGUISetupAndHealthCheck",
+        "features": [
+          { "file": "features/installation/elasticsearch-setup.feature" },
+          { "file": "features/core/cldb/cldb-logs.feature" },
+          { "file": "features/core/cldb/cldb-metrics.feature" },
+          { "file": "features/core/maprdb/maprdb-logs.feature" },
+          { "file": "features/core/maprdb/maprdb-metrics.feature" },
+          { "file": "features/core/mcs/mcs-health-check.feature" },
+          { "file": "features/core/mcs/mcs-links-to-spyglass-ui.feature" },
+          { "file": "features/core/mcs/mcs-logs.feature" },
+          { "file": "features/core/mfs/mfs-logs.feature" },
+          { "file": "features/core/mfs/mfs-metrics.feature" },
+          { "file": "features/core/mfs/volume-metrics.feature" },
+          { "file": "features/core/nfs/nfs-logs.feature" },
+          { "file": "features/core/warden/warden-logs.feature" },
+          { "file": "features/ecosystem/drill/drill-logs.feature" },
+          { "file": "features/ecosystem/drill/drill-metrics.feature" },
+          { "file": "features/ecosystem/hbase/hbase-logs.feature" },
+          { "file": "features/ecosystem/hbase/hbase-metrics.feature" },
+          { "file": "features/ecosystem/hive/hive-logs.feature" },
+          { "file": "features/ecosystem/httpfs/httpfs-logs.feature" },
+          { "file": "features/ecosystem/oozie/oozie-logs.feature" },
+          { "file": "features/ecosystem/spark-history-server/spark-history-server-logs.feature" },
+          { "file": "features/ecosystem/spyglass-components/collectd-logs.feature" },
+          { "file": "features/ecosystem/spyglass-components/elasticsearch-logs.feature" },
+          { "file": "features/ecosystem/spyglass-components/fluentd-logs.feature" },
+          { "file": "features/ecosystem/spyglass-components/grafana-logs.feature" },
+          { "file": "features/ecosystem/spyglass-components/kibana-logs.feature" },
+          { "file": "features/ecosystem/spyglass-components/opentsdb-logs.feature" },
+          { "file": "features/ecosystem/yarn/yarn-logs.feature" },
+          { "file": "features/ecosystem/yarn/yarn-metrics.feature" },
+          { "file": "features/hardware/cpu-metrics.feature" },
+          { "file": "features/hardware/disk-metrics.feature" },
+          { "file": "features/hardware/memory-metrics.feature" },
+          { "file": "features/hardware/network-metrics.feature" },
+          { "file": "features/hardware/os-load-metrics.feature" },
+          { "file": "features/common/logs.feature" }
         ]
       }
     ]
@@ -2560,12 +2463,20 @@
         "host": "10.10.88.131",
         "username": "root",
         "password": "maprmapr"
+      },
+      {
+        "id": "esxi-10.10.100.193",
+        "host": "10.10.100.193",
+        "username": "root",
+        "password": "maprmapr"
       }
     ]
   },
   "grafana": {
     "grafanaDashboardImportPath": "/api/dashboards/db",
-    "grafanaLoginPath": "/login"
+    "grafanaLoginPath": "/login",
+    "defaultGrafanaUsername": "admin",
+    "defaultGrafanaPassword": "admin"
   },
   "installerClient": {
     "installerAPIPath": "/api/",
@@ -2590,20 +2501,277 @@
     "openTSDBQueryPathTemplate": "/api/query?start={start}&m={metricName}",
     "openTSDBUrlTemplate": "http://{host}:4242"
   },
-  "repositories": {
+  "packaging": {
+    "repositories": [
+      {
+        "url": "http://apt.qa.lab/mapr",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"]}
+        ]
+      },
+      {
+        "url": "http://yum.qa.lab/mapr",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "development", "operatingSystems": ["redhat","centos"]}
+        ]
+      },
+      {
+        "url": "http://yum.qa.lab/mapr-suse",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "development", "operatingSystems": ["suse"]}
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/v5.1.0/ubuntu",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.1.0", "promotionLevel": "production", "operatingSystems": ["ubuntu"]}
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/v5.1.0/redhat",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.1.0", "promotionLevel": "production", "operatingSystems": ["redhat", "centos"]}
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/v5.1.0/suse",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.1.0", "promotionLevel": "production", "operatingSystems": ["suse"]}
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/ecosystem-5.x/ubuntu",
+        "packages": [
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "production", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/ecosystem-5.x/redhat",
+        "packages": [
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "production", "operatingSystems": ["redhat", "centos"] }
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/ecosystem-5.x/suse",
+        "packages": [
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "production", "operatingSystems": ["suse"] }
+        ]
+      },
+      {
+        "url": "http://spyglass:monitoring@stage.mapr.com/beta/spyglass/ubuntu",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0-beta", "promotionLevel": "active-beta", "operatingSystems": ["ubuntu"] },
+          { "packageSetRef": "spyglass", "version": "1.0.0-beta-refresh", "promotionLevel": "active-beta", "operatingSystems": ["ubuntu"] },
+          { "packageSetRef": "patch", "version": "spyglass", "promotionLevel": "active-beta", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://spyglass:monitoring@stage.mapr.com/beta/spyglass/redhat",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0-beta", "promotionLevel": "active-beta", "operatingSystems": ["redhat","centos"] },
+          { "packageSetRef": "spyglass", "version": "1.0.0-beta-refresh", "promotionLevel": "active-beta", "operatingSystems": ["redhat","centos"] },
+          { "packageSetRef": "patch", "version": "spyglass", "promotionLevel": "active-beta", "operatingSystems": ["redhat","centos"] }
+        ]
+      },
+      {
+        "url": "http://apt.qa.lab/opensource/spyglass-beta",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0-beta-refresh", "promotionLevel": "testing", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://yum.qa.lab/opensource/spyglass-beta",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0-beta-refresh", "promotionLevel": "testing", "operatingSystems": ["centos","redhat"] }
+        ]
+      },
+      {
+        "url": "http://apt.qa.lab/opensource",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"] },
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://yum.qa.lab/opensource",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["centos","redhat"] },
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["centos","redhat"] }
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/installer/ubuntu",
+        "packages": [
+          { "name": "mapr-installer", "version": "1.2.0", "promotionLevel": "production", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://package.mapr.com/releases/installer/redhat",
+        "packages": [
+          { "name": "mapr-installer", "version": "1.2.0", "promotionLevel": "production", "operatingSystems": ["redhat"] }
+        ]
+      },
+      {
+        "url": "http://apt.qa.lab/installer-master-ui",
+        "packages": [
+          { "name": "mapr-installer", "version": "1.3.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://yum.qa.lab/installer-master-ui",
+        "packages": [
+          { "name": "mapr-installer", "version": "1.3.0", "promotionLevel": "development", "operatingSystems": ["redhat"] }
+        ]
+      }
+    ],
+    "packageSets": [
+      {
+        "id": "core",
+        "version": "5.1.0",
+        "packages": [
+          { "name": "mapr-hbase-common", "version": "1.1", "tags": ["core"] },
+          { "name": "mapr-hbase-rest", "version": "1.1", "tags": ["core"] },
+          { "name": "mapr-hbasethrift", "version": "1.1", "tags": ["core"] },
+          { "name": "mapr-cldb", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-core", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-zookeeper", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-nfs", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-webserver", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-nodemanager", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-resourcemanager", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-fileserver", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-historyserver", "version": "5.1.0", "tags": ["core"] },
+          { "name": "mapr-gateway", "version": "5.1.0", "tags": ["core"] }
+        ]
+      },
+      {
+        "id": "core",
+        "version": "5.2.0",
+        "packages": [
+          { "name": "mapr-hbase-common", "version": "1.1", "tags": ["core"] },
+          { "name": "mapr-hbase-rest", "version": "1.1", "tags": ["core"] },
+          { "name": "mapr-hbasethrift", "version": "1.1", "tags": ["core"] },
+          { "name": "mapr-cldb", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-core", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-zookeeper", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-nfs", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-webserver", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-nodemanager", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-resourcemanager", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-fileserver", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-historyserver", "version": "5.2.0", "tags": ["core"] },
+          { "name": "mapr-gateway", "version": "5.2.0", "tags": ["core"] }
+        ]
+      },
+      {
+        "id": "spyglass",
+        "version": "1.0.0-beta",
+        "packages": [
+          { "name": "mapr-collectd", "version": "5.5.1", "tags": ["spyglass"] },
+          { "name": "mapr-fluentd", "version": "0.12.26", "tags": ["spyglass"] },
+          { "name": "mapr-opentsdb", "version": "2.2.0", "tags": ["spyglass"] },
+          { "name": "mapr-elasticsearch", "version": "2.2.0", "tags": ["spyglass"] },
+          { "name": "mapr-grafana", "version": "2.6.0", "tags": ["spyglass"] },
+          { "name": "mapr-kibana", "version": "4.4.1", "tags": ["spyglass"] }
+        ]
+      },
+      {
+        "id": "spyglass",
+        "version": "1.0.0-beta-refresh",
+        "packages": [
+          { "name": "mapr-collectd", "version": "5.5.1", "tags": ["spyglass"] },
+          { "name": "mapr-fluentd", "version": "0.12.26", "tags": ["spyglass"] },
+          { "name": "mapr-opentsdb", "version": "2.2.0", "tags": ["spyglass"] },
+          { "name": "mapr-elasticsearch", "version": "2.3.3", "tags": ["spyglass"] },
+          { "name": "mapr-grafana", "version": "3.0.4", "tags": ["spyglass"] },
+          { "name": "mapr-kibana", "version": "4.5.1", "tags": ["spyglass"] }
+        ]
+      },
+      {
+        "id": "spyglass",
+        "version": "1.0.0",
+        "packages": [
+          { "name": "mapr-collectd", "version": "5.5.1", "tags": ["spyglass"] },
+          { "name": "mapr-fluentd", "version": "0.14.00", "tags": ["spyglass"] },
+          { "name": "mapr-opentsdb", "version": "2.2.0", "tags": ["spyglass"] },
+          { "name": "mapr-elasticsearch", "version": "2.3.3", "tags": ["spyglass"] },
+          { "name": "mapr-grafana", "version": "3.0.4", "tags": ["spyglass"] },
+          { "name": "mapr-kibana", "version": "4.5.1", "tags": ["spyglass"] }
+        ]
+      },
+      {
+        "id": "ecosystem",
+        "version": "1.0.0",
+        "packages": [
+          { "name": "mapr-asynchbase", "version": "1.7.0", "tags": ["ecosystem"] },
+          { "name": "mapr-kafka", "version": "0.9.0", "tags": ["ecosystem"] },
+          { "name": "mapr-drill", "version": "1.7.0", "tags": ["ecosystem"] }
+        ]
+      },
+      {
+        "id": "healthCheckable",
+        "version": "1.0.0",
+        "packages": [
+          { "name": "mapr-grafana" },
+          { "name": "mapr-kibana" },
+          { "name": "mapr-collectd" },
+          { "name": "mapr-fluentd" },
+          { "name": "mapr-elasticsearch" },
+          { "name": "mapr-opentsdb" },
+          { "name": "mapr-hbase-rest" },
+          { "name": "mapr-hbasethrift" },
+          { "name": "mapr-cldb" },
+          { "name": "nodemanager" },
+          { "name": "resourcemanager" },
+          { "name": "fileserver" },
+          { "name": "historyserver" },
+          { "name": "gateway" },
+          { "name": "mapr-drill" }
+        ]
+      },
+      {
+        "id": "patch",
+        "version": "spyglass",
+        "packages": [
+          { "name": "mapr-patch", "version": "5.1.0.37549.GA-38317", "tags": ["patch"] }
+        ]
+      }
+    ]
+  },
+  "releasing": {
+    "releases": [
+      {
+        "name": "spyglass-beta-refresh",
+        "phases": [
+          {
+            "name": "active-beta",
+            "packages": [
+              { "packageSetRef": "core", "version": "5.1.0", "promotionLevel": "production" },
+              { "packageSetRef": "spyglass", "version": "1.0.0-beta-refresh", "promotionLevel": "active-beta" },
+              { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "production" },
+              { "packageSetRef": "patch", "version": "spyglass", "promotionLevel": "active-beta" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "spyglass-ga",
+        "phases": [
+          {
+            "name": "development",
+            "packages": [
+              { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "development" },
+              { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "development" },
+              { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "development" },
+              { "package": "mapr-installer", "version": "1.3.0", "promotionLevel": "development" }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "rest": {
     "debugHTTP": true
-  },
-  "spyglass": {
-    "spyglassHealthCheckServiceNames": [
-      "collectd",
-      "fluentd",
-      "elasticsearch",
-      "opentsdb",
-      "kibana",
-      "grafana"
-    ]
   },
   "ssh": {
     "writeCommandsToStdout": true
@@ -2627,36 +2795,9 @@
     "testCliInvocationsWebRoute": "/test-cli-invocations/:cliDetailId",
     "jiraSyncRequestWebRoute": "/jira-sync-requests",
     "requestSizeLimitInMegabytes": 5,
-
     "maxResultsForExplorer": 20,
     "testResultPathRelativeToThisConfigFile": "../data/test-portal-file-store/test-results",
     "testConfigsPathRelativeToThisConfigFile": "../data/test-portal-file-store//test-configs",
     "cliInvocationsPathRelativeToThisConfigFile": "../data/test-portal-file-store/test-cli-invocations"
-  },
-  "versioning": {
-    "serviceSet": [
-      { "name": "mapr-asynchbase", "version": "1.7.0", "core": true, "healthCheckable": false },
-      { "name": "mapr-collectd", "version": "5.5.1", "core": false , "healthCheckable": true },
-      { "name": "mapr-elasticsearch", "version": "2.2.0" , "core": false, "healthCheckable": true },
-      { "name": "mapr-fluentd", "version": "0.12.22" , "core": false, "healthCheckable": true },
-      { "name": "mapr-grafana", "version": "2.6.0" , "core": false, "healthCheckable": true },
-      { "name": "mapr-hbase-common", "version": "1.1" , "core": true, "healthCheckable": false },
-      { "name": "mapr-hbase-rest", "version": "1.1" , "core": true, "healthCheckable": true },
-      { "name": "mapr-hbasethrift", "version": "1.1" , "core": true, "healthCheckable": true },
-      { "name": "mapr-kibana", "version": "4.4.1" , "core": false, "healthCheckable": true },
-      { "name": "mapr-opentsdb", "version": "2.2.0" , "core": false, "healthCheckable": true },
-      { "name": "mapr-cldb", "version": "5.1.0" , "core": true , "healthCheckable": true },
-      { "name": "mapr-core", "version": "5.1.0" , "core": true, "healthCheckable": false },
-      { "name": "mapr-zookeeper", "version": "5.1.0" , "core": true, "healthCheckable": false },
-      { "name": "mapr-nfs", "version": "5.1.0" , "core": true , "healthCheckable": false },
-      { "name": "mapr-webserver", "version": "5.1.0" , "core": true, "healthCheckable": false },
-      { "name": "mapr-nodemanager", "version": "5.1.0" , "core": true, "healthCheckable": true },
-      { "name": "mapr-resourcemanager", "version": "5.1.0" , "core": true, "healthCheckable": true },
-      { "name": "mapr-fileserver", "version": "5.1.0", "core": true, "healthCheckable": true },
-      { "name": "mapr-historyserver", "version": "5.1.0", "core": true, "healthCheckable": true },
-      { "name": "mapr-gateway", "version": "5.1.0", "core": true, "healthCheckable": true },
-      { "name": "mapr-kafka", "version": "0.9.0", "core": false, "healthCheckable": false },
-      { "name": "mapr-drill", "version": "1.7.0", "core": false, "healthCheckable": false }
-    ]
   }
 }

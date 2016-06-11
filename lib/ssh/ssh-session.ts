@@ -105,6 +105,7 @@ export default class SSHSession implements ISSHSession {
 
     write(fileContent:string, destinationPath:string):IThenable<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
+            console.log(`writing file content to "${destinationPath}"`, fileContent);
             this.newKeyboardInteractiveClient().write({
                 destination: destinationPath,
                 content: this.nodeWrapperFactory.newStringBuffer(fileContent)

@@ -2,7 +2,6 @@ Feature: Package Manager Installation
 
   @atsSetup
   Scenario: Setup ATS after cluster install
-    Given the cluster has MapR Installed
     And I install maven on a non-cldb node
     And I copy the maven settings file to the non-cldb node
     And I install git on the non-cldb node

@@ -30,6 +30,7 @@ interface IList<T> {
     flatMapArray<T2>(mapFunction:(originalItem:T) => Array<T2>):IList<T2>;
     notEmpty():boolean;
     everythingAfterIndex(index:number):IList<T>;
+    hasAtLeastOne(predicate:(item:T)=>boolean):boolean;
     last:T;
     isEmpty:boolean;
     length:number;

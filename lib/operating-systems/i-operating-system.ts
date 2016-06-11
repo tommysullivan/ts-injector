@@ -1,9 +1,9 @@
-import IRepository from "../repositories/i-repository";
+import IPackageManager from "../packaging/i-package-manager";
 
 interface IOperatingSystem {
     name:string;
     version:string;
-    repository:IRepository;
+    packageManager:IPackageManager;
     systemInfoCommand:string;
 }
 

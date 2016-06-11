@@ -1,5 +1,6 @@
-//<reference path="../../typings/chai/chai.d.ts" />
+///<reference path="../../typings/chai/chai.d.ts" />
 ///<reference path="../../typings/chai-as-promised/chai-as-promised.d.ts" />
+///<reference path="../../typings/sinon/sinon.d.ts" />
 
 import ExpectStatic = Chai.ExpectStatic;
 import ChaiStatic = Chai.ChaiStatic;
@@ -41,6 +42,7 @@ var nativeExpressModule = require('express');
 var readLineSyncModule = require('readline-sync');
 var bodyParserModule = require('body-parser');
 var nativeHttpModule = require('http');
+var sinon = require('sinon');
 
 chai.use(chaiAsPromised);
 
@@ -61,7 +63,9 @@ export default class NodeFrameworkLoader {
             chai,
             this.console,
             this.rest,
-            this.expressWrappers
+            this.expressWrappers,
+            uuidGenerator.v4(),
+            sinon
         )
     }
 

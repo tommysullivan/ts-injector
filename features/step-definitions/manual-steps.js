@@ -1,18 +1,5 @@
 module.exports = function() {
-    function manualStep(numParameters) {
-        var handlers = {
-            0: function() {
-                //callback.pending();
-            },
-            1: function(a) {
-                //callback.pending();
-            },
-            2: function(a,b) {
-                //callback.pending();
-            }
-        };
-        return handlers[numParameters];
-    }
+    var manualStep = $.cucumber.newManualStep;
     this.Given(/^I the local destination file already exists$/, manualStep(0));
     this.Given(/^I am viewing a test result in test portal$/, manualStep(0));
     this.When(/^I click "([^"]*)"$/, manualStep(1));
@@ -34,6 +21,7 @@ module.exports = function() {
     this.Then(/^I also see items that do not have @tag(\d+)$/, manualStep(1));
     this.Then(/^all the charts and summaries and statuses update to reflect the filtered view of the test$/,manualStep(0));
     this.When(/^I change the filter to "([^"]*)"$/, manualStep(1));
+    this.Given(/^I want to make sure the health check is accurate$/, manualStep(0));
     this.Then(/^I only see the manual tests$/, manualStep(0));
     this.Then(/^I only see the automated tests$/, manualStep(0));
     this.Then(/^I can see both automated and manual tests$/, manualStep(0));
@@ -77,4 +65,4 @@ module.exports = function() {
     this.Given(/^I can authenticate my browser using the GUI Installer Login Page$/, manualStep(0));
     this.When(/^I indicate I want a basic installation with Spyglass components and their dependencies only$/, manualStep(0));
     this.Then(/^the website indicates that the installation succeeds within "([^"]*)" minutes$/, manualStep(1));
-}
+};

@@ -162,4 +162,8 @@ export default class List<T> implements IList<T> {
             )
         );
     }
+
+    hasAtLeastOne(predicate:(item:T)=>boolean):boolean {
+        return !this.filter(predicate).isEmpty;
+    }
 }

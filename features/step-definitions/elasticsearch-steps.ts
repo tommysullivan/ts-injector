@@ -1,34 +1,23 @@
+import { binding as steps, given, when, then } from "cucumber-tsflow";
 import Framework from "../../lib/framework/framework";
-import ElasticSearchResult from "../../lib/elasticsearch/elasticsearch-result";
+import PromisedAssertion = Chai.PromisedAssertion;
 import IList from "../../lib/collections/i-list";
-
+import ISSHResult from "../../lib/ssh/i-ssh-result";
+import ElasticSearchResult from "../../lib/elasticsearch/elasticsearch-result";
+import IThenable from "../../lib/promise/i-thenable";
 declare var $:Framework;
 declare var module:any;
 
-module.exports = function() {
+@steps()
+export default class ElasticSearchSteps {
+    private serviceOfInterest:string;
+    private trackedAs:string;
+    private logsQueryResult:ElasticSearchResult;
+    private logLocation:string;
+    private lineTemplate:string;
+    private nodeLogResults:IList<ElasticSearchResult>;
 
-    this.When(/^I query for logs for service "([^"]*)"$/, function (serviceName) {
-        var logsQuery = $.clusterUnderTest.newElasticSearchClient()
-            .then(c=>c.logsForService(serviceName))
-            .then(logsQueryResult=>this.logsQueryResult=logsQueryResult);
-        return $.expect(logsQuery).to.eventually.be.fulfilled;
-    });
-
-    this.Then(/^I receive a result containing greater than "([^"]*)" entries$/, function (threshold) {
-        var logsQueryResult:ElasticSearchResult = this.logsQueryResult;
-        $.expect(logsQueryResult.numberOfHits).to.be.greaterThan(threshold);
-    });
-
-    this.Given(/^the service of interest is "([^"]*)", tracked in elasticsearch as "([^"]*)"$/, function (serviceOfInterest, trackedAs) {
-        this.serviceOfInterest = serviceOfInterest;
-        this.trackedAs = trackedAs;
-    });
-
-    this.Given(/^the log file for the service is located at "([^"]*)"$/, function (logPath) {
-        this.logLocation = logPath;
-    });
-
-    function getLogWriteRequests(lineCount:number, lineTemplate:string, prepareLine:(originalLine:string, soughtValue:string) => string) {
+    private getLogWriteRequests(lineCount:number, lineTemplate:string, prepareLine:(originalLine:string, soughtValue:string) => string):IList<IThenable<ISSHResult>> {
         return $.clusterUnderTest.nodesHosting(this.serviceOfInterest).map(n => {
             return n.executeShellCommand(`tail -n 1 ${this.logLocation}`)
                 .then(r => r.processResult().stdoutLines().first())
@@ -47,13 +36,40 @@ module.exports = function() {
         });
     }
 
-    this.When(/^I append "([^"]*)" fake log lines containing a string with the following format:$/, function (lineCount, lineTemplate:string) {
-        this.lineTemplate = lineTemplate;
-        var logWriteRequests = getLogWriteRequests.call(this, lineCount, lineTemplate, (originalLine, soughtValue)=>`${originalLine} ${soughtValue}`);
-        return $.expectAll(logWriteRequests).to.eventually.be.fulfilled;
-    });
+    @when(/^I query for logs for service "([^"]*)"$/)
+    queryForServiceLogs(serviceName:string):PromisedAssertion {
+        var logsQuery = $.clusterUnderTest.newElasticSearchClient()
+            .then(c=>c.logsForService(serviceName))
+            .then(logsQueryResult=>this.logsQueryResult=logsQueryResult);
+        return $.expect(logsQuery).to.eventually.be.fulfilled;
+    }
 
-    this.When(/^for each host running the service, I query for logs containing the above string on that host$/, function () {
+    @then(/^I receive a result containing greater than "([^"]*)" entries$/)
+    verifyResultContainsMinimumNumberOfQueries(threshold:string):void {
+        var logsQueryResult:ElasticSearchResult = this.logsQueryResult;
+        $.expect(logsQueryResult.numberOfHits).to.be.greaterThan(parseInt(threshold));
+    }
+
+    @given(/^the service of interest is "([^"]*)", tracked in elasticsearch as "([^"]*)"$/)
+    setServiceOfInterestAndAssociatedESTrackingName(serviceOfInterest:string, trackedAs:string):void {
+        this.serviceOfInterest = serviceOfInterest;
+        this.trackedAs = trackedAs;
+    }
+
+    @given(/^the log file for the service is located at "([^"]*)"$/)
+    setLogFileForService(logPath:string):void {
+        this.logLocation = logPath;
+    }
+
+    @when(/^I append "([^"]*)" fake log lines containing a string with the following format:$/)
+    appendNumberOfFakeLogLinesUsingSuppliedFormat(lineCount:string, lineTemplate:string):PromisedAssertion {
+        this.lineTemplate = lineTemplate;
+        var logWriteRequests = this.getLogWriteRequests.call(this, lineCount, lineTemplate, (originalLine, soughtValue)=>`${originalLine} ${soughtValue}`);
+        return $.expectAll(logWriteRequests).to.eventually.be.fulfilled;
+    }
+
+    @when(/^for each host running the service, I query for logs containing the above string on that host$/)
+    queryLogsForSpecificHostAndIdentifyingString():PromisedAssertion {
         var nodeLogRequests = $.clusterUnderTest.newElasticSearchClient()
             .then(es=> {
                 var nodeLogRequests = $.clusterUnderTest.nodesHosting(this.serviceOfInterest).map(n=>{
@@ -67,21 +83,31 @@ module.exports = function() {
             })
             .then(nodeLogResults => this.nodeLogResults = nodeLogResults);
         return $.expect(nodeLogRequests).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Then(/^I receive at least "([^"]*)" results per host$/, function (numberExpectedHits) {
+    @then(/^I receive at least "([^"]*)" results per host$/)
+    verifyRequisiteNumberOfHitsReceivedPerHost(numberExpectedHits:string):void {
         var nodeLogResults:IList<ElasticSearchResult> = this.nodeLogResults;
-        $.assertEmptyList(nodeLogResults.filter(r=>r.numberOfHits<numberExpectedHits));
-    });
+        $.expectEmptyList(nodeLogResults.filter(r=>r.numberOfHits < parseInt(numberExpectedHits)));
+    }
 
-    this.When(/^I append "([^"]*)" fake json log lines containing a message property with the following format:$/, function (lineCount, lineTemplate:string) {
+    @when(/^I append "([^"]*)" fake json log lines containing a message property with the following format:$/)
+    appendFakeLogLines(lineCount, lineTemplate:string):PromisedAssertion {
         this.lineTemplate = lineTemplate;
-        var logWriteRequests = getLogWriteRequests.call(this, lineCount, lineTemplate, (originalLine, soughtValue)=>{
+        var logWriteRequests = this.getLogWriteRequests.call(lineCount, lineTemplate, (originalLine, soughtValue)=>{
             var lineAsJSON = JSON.parse(originalLine);
             lineAsJSON.message = soughtValue;
             return JSON.stringify(lineAsJSON);
         });
         return $.expectAll(logWriteRequests).to.eventually.be.fulfilled;
-    });
+    }
 
+    @given(/^I run loadTemplate on one of the es nodes$/)
+    runLoadTemplateOnOneESNode():PromisedAssertion {
+        var esNode = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').first();
+        var nodeIp = esNode.host;
+        var result = esNode.executeShellCommand(`/opt/mapr/elasticsearch/elasticsearch-2.2.0/bin/es_cluster_mgmt.sh -loadTemplate ${nodeIp}`);
+        return $.expect(result).to.eventually.be.fulfilled;
+    }
 }
+module.exports = ElasticSearchSteps;

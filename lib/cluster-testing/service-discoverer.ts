@@ -26,23 +26,24 @@ export default class ServiceDiscoverer {
     }
 
     nodesHostingServiceAccordingToInstaller(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INodeUnderTest>> {
-        try {
-            var desiredVersion = this.versioning.serviceSet().firstWhere(s=>s.name==serviceName).version;
-            return clusterUnderTest.newAuthedInstallerSession()
-                .then(installerRestSession => installerRestSession.services())
-                .then((services:IInstallerServices) => {
-                    var serviceAccordingToInstaller = services.serviceMatchingNameAndVersion(
-                        serviceName, desiredVersion
-                    );
-                    return serviceAccordingToInstaller.hostNames()
-                })
-                .then(hostNames=>hostNames.map(
-                    hostName=>clusterUnderTest.nodeWithHostName(hostName)
-                ));
-        }
-        catch(e) {
-            throw this.errors.newErrorWithCause(e, `Could not use installer service to discover "${serviceName}" for cluster ${clusterUnderTest.name}`)
-        }
+        throw new Error('need services and versions for release test context');
+        // try {
+        //     var desiredVersion = this.versioning.serviceSet().firstWhere(s=>s.name==serviceName).version;
+        //     return clusterUnderTest.newAuthedInstallerSession()
+        //         .then(installerRestSession => installerRestSession.services())
+        //         .then((services:IInstallerServices) => {
+        //             var serviceAccordingToInstaller = services.serviceMatchingNameAndVersion(
+        //                 serviceName, desiredVersion
+        //             );
+        //             return serviceAccordingToInstaller.hostNames()
+        //         })
+        //         .then(hostNames=>hostNames.map(
+        //             hostName=>clusterUnderTest.nodeWithHostName(hostName)
+        //         ));
+        // }
+        // catch(e) {
+        //     throw this.errors.newErrorWithCause(e, `Could not use installer service to discover "${serviceName}" for cluster ${clusterUnderTest.name}`)
+        // }
     }
 
     nodeHostingServiceViaDiscover(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<INodeUnderTest> {

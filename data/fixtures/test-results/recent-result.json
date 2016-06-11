@@ -2960,8 +2960,8 @@
         }
       ]
     },
-    "jsonResultFilePath": "test-results/1be9ccfd-4a63-40ef-5529-df7bc04745fd_ubuntu14_phase-latestBuild_user-root.json",
-    "phase": "latestBuild",
+    "jsonResultFilePath": "test-results/1be9ccfd-4a63-40ef-5529-df7bc04745fd_ubuntu14_promotionStatus-latestBuild_user-root.json",
+    "promotionStatus": "latestBuild",
     "user": "root",
     "timestamp": "2016-04-11T19-50-00.708Z",
     "configJSON": {
@@ -2998,7 +2998,7 @@
         "kibana",
         "grafana"
       ],
-      "defaultPhase": "latestBuild",
+      "defaultPromotionStatus": "latestBuild",
       "testPortalHostAndPort": "http://testing.devops.lab",
       "defaultCucumberStepTimeoutMS": 120000,
       "testResultPath": "test-results",
@@ -3023,12 +3023,12 @@
         "repositories": [
           {
             "type": "yum",
-            "phase": "latestBuild",
+            "promotionStatus": "latestBuild",
             "host": "yum.qa.lab"
           },
           {
             "type": "apt-get",
-            "phase": "latestBuild",
+            "promotionStatus": "latestBuild",
             "host": "apt.qa.lab"
           }
         ]

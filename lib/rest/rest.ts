@@ -3,7 +3,6 @@ import RestResponse from "./rest-response";
 import RestConfiguration from "./rest-configuration";
 import RestClientAsPromised from "./rest-client-as-promised";
 import RestError from "./rest-error";
-import JiraRestSession from "../jira/jira-rest-session";
 import ITypedJSON from "../typed-json/i-typed-json";
 
 export default class Rest {

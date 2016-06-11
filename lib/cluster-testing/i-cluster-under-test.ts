@@ -8,6 +8,7 @@ import IInstallerRestSession from "../installer/i-installer-rest-session";
 import MCSRestSession from "../mcs/mcs-rest-session";
 import OpenTSDBRestClient from "../open-tsdb/open-tsdb-rest-client";
 import ElasticSearchRestClient from "../elasticsearch/elasticsearch-rest-client";
+import IPackage from "../packaging/i-package";
 
 interface IClusterUnderTest {
     installationTimeoutInMilliseconds:number;

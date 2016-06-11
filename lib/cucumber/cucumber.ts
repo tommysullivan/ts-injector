@@ -22,10 +22,12 @@ import IJSONObject from "../typed-json/i-json-object";
 import FeatureSet from "./feature-set";
 import IErrors from "../errors/i-errors";
 import IDictionary from "../collections/i-dictionary";
-import IStepDefinitions from "./i-step-definitions";
-import StepDefinitions from "./step-definitions";
+import ICucumber from "./i-cucumber";
+import IFeatureSet from "./i-feature-set";
+import FeatureSets from "./feature-sets";
+import IFeatureSets from "./i-feature-sets";
 
-export default class Cucumber {
+export default class Cucumber implements ICucumber {
     private collections:ICollections;
     private fileSystem:IFileSystem;
     private cucumberConfig:CucumberConfiguration;
@@ -38,22 +40,15 @@ export default class Cucumber {
         this.errors = errors;
     }
 
-    get allFeatureSets():IList<FeatureSet> {
-        return this.cucumberConfig.featureSets;
-    }
-
-    stepDefinitionsFor<T>(thisObjectWithinStepDefinitionFileExportFunction:any):IStepDefinitions<T> {
-        return new StepDefinitions<T>(thisObjectWithinStepDefinitionFileExportFunction);
-    }
-
-    featureSetWithId(id:string):FeatureSet {
-        return this.allFeatureSets.firstWhere(f=>f.id==id);
-    }
-
     get world():Function {
+        var timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
         return function setupCucumberWorldObject() {
-            this.setDefaultTimeout(120000);
+            this.setDefaultTimeout(timeout);
         }
+    }
+
+    newFeatureSet(configJSON:IJSONObject, featureSets:IFeatureSets):IFeatureSet {
+        return new FeatureSet(configJSON, this.collections, featureSets);
     }
 
     newCucumberRunConfiguration(isDryRun:boolean, jsonResultFilePath:string, cucumberAdditionalArgs:string, envVariables:IDictionary<string>):ICucumberRunConfiguration {
@@ -102,8 +97,25 @@ export default class Cucumber {
         );
     }
 
-    getArrayFromTable(table:any):IList<string> {
+    getListOfStringsFromTable(table:any):IList<string> {
         return this.collections.newList<string>(table.rows().map(r=>r[0]));
     }
-    
+
+    newManualStep(numberOfArgs:number):(...args:Array<any>)=>void {
+        return [
+            ()=>null,
+            (a)=>null,
+            (a,b)=>null,
+            (a,b,c)=>null,
+            (a,b,c,d)=>null
+        ][numberOfArgs];
+    }
+
+    get featureSets():IFeatureSets {
+        return this.newFeatureSets(this.cucumberConfig.featureSetsJSONArray);
+    }
+
+    newFeatureSets(featureSetsJSONArray:IList<IJSONObject>):IFeatureSets {
+        return new FeatureSets(featureSetsJSONArray, this);
+    }
 }

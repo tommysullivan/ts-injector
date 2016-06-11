@@ -8,7 +8,6 @@ import INodeUnderTest from "./i-node-under-test";
 import NodeUnderTest from "./node-under-test";
 import ISSHClient from "../ssh/i-ssh-client";
 import ICollections from "../collections/i-collections";
-import Versioning from "../versioning/versioning";
 import MCS from "../mcs/mcs";
 import OpenTSDB from "../open-tsdb/open-tsdb";
 import Installer from "../installer/installer";
@@ -24,9 +23,9 @@ import ICucumberTestResult from "../cucumber/i-cucumber-test-result";
 import FrameworkConfiguration from "../framework/framework-configuration";
 import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
 import IVersioning from "../versioning/i-versioning";
-import INodeRepoURLProvider from "./i-node-repo-url-provider";
-import NodeRepoUrlProvider from "./node-repo-url-provider";
-import IRepositories from "../repositories/i-repositories";
+import IPackaging from "../packaging/i-packaging";
+import IReleasing from "../releasing/i-releasing";
+import IPhase from "../releasing/i-phase";
 
 export default class ClusterTesting {
     private clusterTestingConfiguration:ClusterTestingConfiguration;
@@ -41,9 +40,10 @@ export default class ClusterTesting {
     private serviceDiscoverer:ServiceDiscoverer;
     private esxi:IESXI;
     private clusters:Clusters;
-    private repositories:IRepositories;
+    private packaging:IPackaging;
+    private releasing:IReleasing;
 
-    constructor(clusterTestingConfiguration:ClusterTestingConfiguration, promiseFactory:IPromiseFactory, sshClient:ISSHClient, collections:ICollections, versioning:IVersioning, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, serviceDiscoverer:ServiceDiscoverer, esxi:IESXI, clusters:Clusters, repositories:IRepositories) {
+    constructor(clusterTestingConfiguration:ClusterTestingConfiguration, promiseFactory:IPromiseFactory, sshClient:ISSHClient, collections:ICollections, versioning:IVersioning, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, serviceDiscoverer:ServiceDiscoverer, esxi:IESXI, clusters:Clusters, packaging:IPackaging, releasing:IReleasing) {
         this.clusterTestingConfiguration = clusterTestingConfiguration;
         this.promiseFactory = promiseFactory;
         this.sshClient = sshClient;
@@ -56,7 +56,8 @@ export default class ClusterTesting {
         this.serviceDiscoverer = serviceDiscoverer;
         this.esxi = esxi;
         this.clusters = clusters;
-        this.repositories = repositories;
+        this.packaging = packaging;
+        this.releasing = releasing;
     }
 
     esxiManagedClusterForId(clusterId:string):ESXIManagedCluster {
@@ -74,14 +75,14 @@ export default class ClusterTesting {
             clusterConfiguration,
             this.serviceDiscoverer,
             this,
-            this.newClusterInstaller()
+            this.newClusterInstaller(),
+            this.packaging
         );
     }
     
     newClusterInstaller() {
         return new ClusterInstaller(
             this.promiseFactory,
-            this.versioning.serviceSet(),
             this.clusterTestingConfiguration.clusterInstallerConfiguration
         );
     }
@@ -97,16 +98,15 @@ export default class ClusterTesting {
             this.installer,
             this.elasticSearch,
             this.versioning,
-            this.newNodeRepoUrlProvider()
+            this.packaging,
+            this.defaultReleasePhase
         );
     }
 
-    newNodeRepoUrlProvider():INodeRepoURLProvider {
-        return new NodeRepoUrlProvider(
-            this.repositories.newRepositoryUrlProvider(),
-            this.clusterTestingConfiguration.phaseOfDevelopment,
-            this.clusterTestingConfiguration.maprCoreVersion
-        );
+    get defaultReleasePhase():IPhase {
+        return this.releasing.defaultReleases
+            .releaseNamed(this.clusterTestingConfiguration.releaseUnderTest)
+            .phaseNamed(this.clusterTestingConfiguration.lifecyclePhase);
     }
 
     newESXIManagedCluster(clusterConfiguration:IClusterConfiguration):ESXIManagedCluster {

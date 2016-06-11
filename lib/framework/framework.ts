@@ -33,45 +33,34 @@ import IConsole from "../node-js-wrappers/i-console";
 import TestPortal from "../test-portal/test-portal";
 import ExpressWrappers from "../express-wrappers/express-wrappers";
 import Jira from "../jira/jira";
-import IRepositories from "../repositories/i-repositories";
-import Repositories from "../repositories/repositories";
 import IOperatingSystems from "../operating-systems/i-operating-systems";
 import OperatingSystems from "../operating-systems/operating-systems";
+import IPackaging from "../packaging/i-packaging";
+import Packaging from "../packaging/packaging";
+import Grafana from "../grafana/grafana";
+import ICucumber from "../cucumber/i-cucumber";
+import Releasing from "../releasing/releasing";
+import IReleasing from "../releasing/i-releasing";
 
 export default class Framework {
-    public frameworkConfig:FrameworkConfiguration;
-    public process:IProcess;
-    public fileSystem:IFileSystem;
-    public uuidGenerator:IUUIDGenerator;
-    public collections:ICollections;
-    public errors:IErrors;
-    public promiseFactory:IPromiseFactory;
-    public typedJSON:ITypedJSON;
-    public sshAPI:ISSHAPI;
-    public nodeWrapperFactory:INodeWrapperFactory;
-    public chai:ChaiStatic;
-    public console:IConsole;
-    public rest:Rest;
-    public expressWrappers:ExpressWrappers;
-    private _testRunGUID:string;
-
-    constructor(frameworkConfig:FrameworkConfiguration, process:IProcess, fileSystem:IFileSystem, uuidGenerator:IUUIDGenerator, collections:ICollections, errors:IErrors, promiseFactory:IPromiseFactory, typedJSON:ITypedJSON, sshAPI:ISSHAPI, nodeWrapperFactory:INodeWrapperFactory, chai:Chai.ChaiStatic, console:IConsole, rest:Rest, expressWrappers:ExpressWrappers) {
-        this.frameworkConfig = frameworkConfig;
-        this.process = process;
-        this.fileSystem = fileSystem;
-        this.uuidGenerator = uuidGenerator;
-        this.collections = collections;
-        this.errors = errors;
-        this.promiseFactory = promiseFactory;
-        this.typedJSON = typedJSON;
-        this.sshAPI = sshAPI;
-        this.nodeWrapperFactory = nodeWrapperFactory;
-        this.chai = chai;
-        this.console = console;
-        this.rest = rest;
-        this.expressWrappers = expressWrappers;
-        this._testRunGUID = this.uuidGenerator.v4();
-    }
+    constructor(
+        public frameworkConfig:FrameworkConfiguration,
+        public process:IProcess,
+        public fileSystem:IFileSystem,
+        public uuidGenerator:IUUIDGenerator,
+        public collections:ICollections,
+        public errors:IErrors,
+        public promiseFactory:IPromiseFactory,
+        public typedJSON:ITypedJSON,
+        public sshAPI:ISSHAPI,
+        public nodeWrapperFactory:INodeWrapperFactory,
+        public chai:ChaiStatic,
+        public console:IConsole,
+        public rest:Rest,
+        public expressWrappers:ExpressWrappers,
+        private _testRunGUID:string,
+        public sinon:Sinon.SinonStatic
+    ) {}
 
     get testPortal():TestPortal {
         return new TestPortal(
@@ -96,16 +85,29 @@ export default class Framework {
         return this._testRunGUID;
     }
 
-    get repositories():IRepositories {
-        return new Repositories(this.typedJSON);
+    get packaging():IPackaging {
+        return new Packaging(
+            this.typedJSON,
+            this.frameworkConfig.packagingConfigJSON,
+            this.collections
+        );
     }
 
     get openTSDB():OpenTSDB { return new OpenTSDB(this.rest, this.frameworkConfig.openTSDBConfig, this.collections, this.typedJSON); }
-    get spyglass():Spyglass { return new Spyglass(this.frameworkConfig.spyglassConfig, this.errors); }
+    get spyglass():Spyglass { return new Spyglass(this.errors, this.packaging.defaultPackageSets, this.clusterTesting.defaultReleasePhase); }
     get esxi():ESXI { return new ESXI(this.sshAPI, this.collections, this.frameworkConfig.esxiConfiguration); }
     get clusters():Clusters { return new Clusters(this.frameworkConfig.clustersConfig, this.esxi, this.errors, this.operatingSystems); }
-    get operatingSystems():IOperatingSystems { return new OperatingSystems(this.repositories); }
-    get versioning():IVersioning { return new Versioning(this.frameworkConfig.versioningConfig); }
+    get operatingSystems():IOperatingSystems { return new OperatingSystems(this.packaging); }
+    get versioning():IVersioning { return new Versioning(); }
+    get releasing():IReleasing { return new Releasing(this.packaging, this.frameworkConfig.releasingConfig); }
+
+    get grafana():Grafana {
+        return new Grafana(
+            this.frameworkConfig.grafanaConfig,
+            this.fileSystem,
+            this.rest
+        );
+    }
 
     get serviceDiscoverer():ServiceDiscoverer {
         return new ServiceDiscoverer(this.versioning, this.promiseFactory, this.errors);
@@ -148,7 +150,8 @@ export default class Framework {
             this.serviceDiscoverer,
             this.esxi,
             this.clusters,
-            this.repositories
+            this.packaging,
+            this.releasing
         );
     }
 
@@ -172,7 +175,7 @@ export default class Framework {
         );
     }
 
-    get cucumber():Cucumber {
+    get cucumber():ICucumber {
         return new Cucumber(
             this.collections,
             this.fileSystem,
@@ -209,7 +212,7 @@ export default class Framework {
         return this.expect(this.promiseFactory.newGroupPromise(target));
     }
 
-    assertEmptyList<T>(list:IList<T>):void {
+    expectEmptyList<T>(list:IList<T>):void {
         if(list.notEmpty())
             throw new this.chai.AssertionError(`expected empty list, got ${list.toJSONString()}`);
     }

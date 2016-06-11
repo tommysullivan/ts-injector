@@ -23,14 +23,6 @@ export default class ClusterTestingConfiguration {
         );
     }
 
-    get phaseOfDevelopment():string {
-        return this.envVarOrConfiguredVal('phaseOfDevelopment');
-    }
-
-    get maprCoreVersion():string {
-        return this.envVarOrConfiguredVal('maprCoreVersion');
-    }
-
     portalUrlWithId(id):string {
         return this.configJSON.jsonObjectNamed('resultServers').stringPropertyNamed(id);
     }
@@ -52,6 +44,20 @@ export default class ClusterTestingConfiguration {
     get clusterInstallerConfiguration():ClusterInstallerConfig {
         return new ClusterInstallerConfig(
             this.configJSON.jsonObjectNamed('clusterInstaller')
+        );
+    }
+
+    get releaseUnderTest():string {
+        return this.process.environmentVariableNamedOrDefault(
+            'release',
+            this.configJSON.stringPropertyNamed('defaultRelease')
+        );
+    }
+
+    get lifecyclePhase():string {
+        return this.process.environmentVariableNamedOrDefault(
+            'lifecyclePhase',
+            this.configJSON.stringPropertyNamed('defaultLifecyclePhase')
         );
     }
 }

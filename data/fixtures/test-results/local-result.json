@@ -102,7 +102,7 @@
          }
       ],
       "processResult": {
-         "command": "node_modules/cucumber/bin/cucumber.js features/elasticsearch-logs.feature features/grafana-metrics.feature features/kibana-logs.feature features/mcs.feature features/open-tsdb-metrics.feature --tags @wip -f json:test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_phase-latestBuild_user-tsullivan.json",
+         "command": "node_modules/cucumber/bin/cucumber.js features/elasticsearch-logs.feature features/grafana-metrics.feature features/kibana-logs.feature features/mcs.feature features/open-tsdb-metrics.feature --tags @wip -f json:test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_promotionStatus-latestBuild_user-tsullivan.json",
          "processExitCode": 1,
          "stdoutLines": [
             "Feature: MCS",
@@ -137,13 +137,13 @@
       },
       "cucumberRunConfig": {
          "environmentVariables": [],
-         "jsonResultFilePath": "test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_phase-latestBuild_user-tsullivan.json",
+         "jsonResultFilePath": "test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_promotionStatus-latestBuild_user-tsullivan.json",
          "cucumberAdditionalArgs": "features/elasticsearch-logs.feature features/grafana-metrics.feature features/kibana-logs.feature features/mcs.feature features/open-tsdb-metrics.feature --tags @wip"
       },
       "resultAcquisitionError": null
    },
    "processResult": {
-      "command": "node_modules/cucumber/bin/cucumber.js features/elasticsearch-logs.feature features/grafana-metrics.feature features/kibana-logs.feature features/mcs.feature features/open-tsdb-metrics.feature --tags @wip -f json:test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_phase-latestBuild_user-tsullivan.json",
+      "command": "node_modules/cucumber/bin/cucumber.js features/elasticsearch-logs.feature features/grafana-metrics.feature features/kibana-logs.feature features/mcs.feature features/open-tsdb-metrics.feature --tags @wip -f json:test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_promotionStatus-latestBuild_user-tsullivan.json",
       "processExitCode": 1,
       "stdoutLines": [
          "Feature: MCS",
@@ -178,7 +178,7 @@
    },
    "cucumberRunConfig": {
       "environmentVariables": [],
-      "jsonResultFilePath": "test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_phase-latestBuild_user-tsullivan.json",
+      "jsonResultFilePath": "test-results/58cb1206-0a0f-4430-9e46-0c2249f5bf2b_ubuntu14_promotionStatus-latestBuild_user-tsullivan.json",
       "cucumberAdditionalArgs": "features/elasticsearch-logs.feature features/grafana-metrics.feature features/kibana-logs.feature features/mcs.feature features/open-tsdb-metrics.feature --tags @wip"
    },
    "versionGraph": {
@@ -1946,7 +1946,7 @@
    "versionGraphError": null,
    "frameworkConfiguration": {
       "clusterTesting": {
-         "defaultPhase": "latestBuild",
+         "defaultPromotionStatus": "latestBuild",
          "clusterInstaller": {
             "installationTimeoutInMilliseconds": 2700000,
             "licenseType": "M5",
@@ -2404,12 +2404,12 @@
          "hosts": [
             {
                "type": "yum",
-               "phase": "latestBuild",
+               "promotionStatus": "latestBuild",
                "host": "yum.qa.lab"
             },
             {
                "type": "apt-get",
-               "phase": "latestBuild",
+               "promotionStatus": "latestBuild",
                "host": "apt.qa.lab"
             }
          ]
