@@ -1,6 +1,6 @@
 Feature: Package Manager Installation
 
-  @SPYG-497
+  @SPYG-497 @packageInstallation
   Scenario: Installation via Package Manager and Configure.sh
     Given the cluster does not have MapR Installed
     And I perform the following ssh commands on each node in the cluster:

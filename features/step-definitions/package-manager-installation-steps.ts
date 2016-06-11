@@ -2,11 +2,14 @@ import { binding as steps, given, when, then } from "cucumber-tsflow";
 import Framework from "../../lib/framework/framework";
 import PromisedAssertion = Chai.PromisedAssertion;
 import IPackage from "../../lib/packaging/i-package";
+import INodeUnderTest from "../../lib/cluster-testing/i-node-under-test";
 declare var $:Framework;
 declare var module:any;
 
 @steps()
 export default class PackageManagerInstallationSteps {
+
+    private firstNonCldb:INodeUnderTest;
 
     @given(/^I have updated the package manager$/)
     updatePackageManagerOnAllNodes():PromisedAssertion {
@@ -134,34 +137,41 @@ export default class PackageManagerInstallationSteps {
         var configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} -HS ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name}`;
         var result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
         return $.expect(result).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I set the mfs instance to "([^"]*)"$/, function (mfsInstances) {
-       $.clusterUnderTest.nodes().first().executeShellCommand(`maprcli config save -values '{"multimfs.numinstances.pernode":"${mfsInstances}}'`)
-    });
+    @given(/^I set the mfs instance to "([^"]*)"$/)
+    setMFSInstance(mfsInstances:string):PromisedAssertion {
+        return $.expect(
+            $.clusterUnderTest.nodes().first().executeShellCommand(`maprcli config save -values '{"multimfs.numinstances.pernode":"${mfsInstances}}'`)
+        ).to.eventually.be.fulfilled;
+    }
 
-    this.Given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/, function (user, userId, userGroup, userPasswd) {
+    @given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/)
+    createUserWithIdGroupAndPassword(user:string, userId:string, userGroup:string, userPasswd:string):PromisedAssertion {
         var userCreateComamnd = `id -u ${user} || useradd -u ${userId} -g ${userGroup} -p $(openssl passwd -1 ${userPasswd}) ${user}`;
         var groupCreateCommand = `getent group ${userGroup} || groupadd -g ${userId} ${userGroup}`;
         var resultList = $.clusterUnderTest.nodes().map(n => n.executeShellCommands($.collections.newList([groupCreateCommand,userCreateComamnd])));
         return $.expectAll(resultList).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/, function (user, userPasswd, commands:string) {
+    @given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/)
+    performSSHCommandsAsUser(user:string, userPasswd:string, commands:string) {
         var commandList = $.collections.newList(commands.split("\n"));
         var nodeRequests = $.clusterUnderTest.nodes().map(n=>{
             return $.sshAPI.newSSHClient().connect(n.host, user, userPasswd)
                 .then(session=>session.executeCommands(commandList))
         });
         return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I add the user "([^"]*)" to secondary group "([^"]*)"$/, function (user, secondaryGroup) {
+    @given(/^I add the user "([^"]*)" to secondary group "([^"]*)"$/)
+    addUserToSecondaryGroup(user:string, secondaryGroup:string):PromisedAssertion {
         var userToGroupCommand = `usermod -G ${secondaryGroup} ${user}`;
-        return $.expect(this.firstNonCldb.executeShellCommand(userToGroupCommand));
-    });
+        return $.expect(this.firstNonCldb.executeShellCommand(userToGroupCommand)).to.eventually.be.fulfilled;
+    }
 
-    this.Given(/^I install maven on a non\-cldb node$/, function () {
+    @given(/^I install maven on a non\-cldb node$/)
+   installMavenOnNonCLDBNode():PromisedAssertion {
         var getMvn =`wget http://www.carfab.com/apachesoftware/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz`;
         var untarMvn =`tar -zxf apache-maven-3.0.5-bin.tar.gz`;
         var copyMvn =`cp -R apache-maven-3.0.5 /usr/local`;
@@ -170,26 +180,30 @@ export default class PackageManagerInstallationSteps {
         this.firstNonCldb = $.clusterUnderTest.nodes().filter(n => !n.isHostingService('mapr-cldb')).first();
         var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn]));
         return $.expect(resultList).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I install git on the non\-cldb node$/, function () {
-        var gitInstallCommand = this.firstNonCldb.repo.installPackageCommand('git');
+    @given(/^I install git on the non\-cldb node$/)
+    installGitOnNonCLDBNode():PromisedAssertion {
+        var gitInstallCommand = this.firstNonCldb.packageManager.installPackageCommand('git');
         var result = this.firstNonCldb.executeShellCommand(gitInstallCommand);
         return $.expect(result).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I copy the maven settings file to the non\-cldb node$/, function () {
+    @given(/^I copy the maven settings file to the non\-cldb node$/)
+    copyMavenSettingsFileToNonCldbNode():PromisedAssertion {
         var result = this.firstNonCldb.executeShellCommand("mkdir -p /root/.m2")
             .then(r => this.firstNonCldb.upload('./data/ats-files/settings.xml', '/root/.m2/'));
         return $.expect(result).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I clone ATS on the node from "([^"]*)"$/, {timeout: 10 * 1000 * 60}, function (atsPath) {
+    @given(/^I clone ATS on the node from "([^"]*)"$/)
+    cloneATSOnNodeFrom(atsPath:string):PromisedAssertion {
         var result = this.firstNonCldb.executeShellCommand(`git clone ${atsPath}`);
         return $.expect(result).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I setup passwordless ssh from non\-cldb node to all other nodes$/, function () {
+    @given(/^I setup passwordless ssh from non\-cldb node to all other nodes$/)
+    setupPasswordlessSSHFromCLDBNodeToOtherNodes():PromisedAssertion {
         var resultList = this.firstNonCldb.executeShellCommand(`echo -e  'y' | ssh-keygen -t rsa -P '' -f /root/.ssh/id_rsa`)
             .then(_ => this.firstNonCldb.executeShellCommand(`cat /root/.ssh/id_rsa.pub`))
             .then(result => {
@@ -198,28 +212,29 @@ export default class PackageManagerInstallationSteps {
                     .then(_ => node.executeShellCommand(`echo "${rsaKey}" > /root/.ssh/authorized_keys`))));
             })
         return $.expect(resultList).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I set StrictHostKeyChecking option to no on non\-cldb node$/, function () {
+    @given(/^I set StrictHostKeyChecking option to no on non\-cldb node$/)
+    setStrictHostKeyCheckingToNoNonCLDBNode():PromisedAssertion {
         return $.expect(this.firstNonCldb.executeShellCommand('echo "StrictHostKeyChecking no" > /root/.ssh/config')).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I set the git ssh key$/, function () {
+    @given(/^I set the git ssh key$/)
+    setGitSSHKey():PromisedAssertion {
         var changePerm =`chmod 600 /root/.ssh/maprqa_id_rsa`;
         var addToConfig = `echo -e "StrictHostKeyChecking no\nhost github.com\nHostName github.com\nIdentityFile /root/.ssh/maprqa_id_rsa\nUser git" > /root/.ssh/config`;
         var results = this.firstNonCldb.upload(`./data/ats-files/maprqa_id_rsa`, '/root/.ssh/').then(_ => {
             return this.firstNonCldb.executeShellCommands($.collections.newList([changePerm, addToConfig]));
         });
         return $.expect(results).to.eventually.be.fulfilled;
-    });
+    }
 
-    this.Given(/^I remove the git ssh key$/, function () {
+    @given(/^I remove the git ssh key$/)
+    removeGitSSHKey():PromisedAssertion {
         var deleteKey = `rm -rf /root/.ssh/maprqa_id_rsa`;
         var deleteConfig = `rm -rf /root/.ssh/config`;
         var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([deleteKey, deleteConfig]));
         return $.expect(resultList).to.eventually.be.fulfilled;
-    });
-}
-
+    }
 }
 module.exports = PackageManagerInstallationSteps;

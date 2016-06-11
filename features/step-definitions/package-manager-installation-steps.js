@@ -95,6 +95,81 @@ var PackageManagerInstallationSteps = (function () {
         var result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
         return $.expect(result).to.eventually.be.fulfilled;
     };
+    PackageManagerInstallationSteps.prototype.setMFSInstance = function (mfsInstances) {
+        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand("maprcli config save -values '{\"multimfs.numinstances.pernode\":\"" + mfsInstances + "}'")).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.createUserWithIdGroupAndPassword = function (user, userId, userGroup, userPasswd) {
+        var userCreateComamnd = "id -u " + user + " || useradd -u " + userId + " -g " + userGroup + " -p $(openssl passwd -1 " + userPasswd + ") " + user;
+        var groupCreateCommand = "getent group " + userGroup + " || groupadd -g " + userId + " " + userGroup;
+        var resultList = $.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommands($.collections.newList([groupCreateCommand, userCreateComamnd])); });
+        return $.expectAll(resultList).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.performSSHCommandsAsUser = function (user, userPasswd, commands) {
+        var commandList = $.collections.newList(commands.split("\n"));
+        var nodeRequests = $.clusterUnderTest.nodes().map(function (n) {
+            return $.sshAPI.newSSHClient().connect(n.host, user, userPasswd)
+                .then(function (session) { return session.executeCommands(commandList); });
+        });
+        return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.addUserToSecondaryGroup = function (user, secondaryGroup) {
+        var userToGroupCommand = "usermod -G " + secondaryGroup + " " + user;
+        return $.expect(this.firstNonCldb.executeShellCommand(userToGroupCommand)).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.installMavenOnNonCLDBNode = function () {
+        var getMvn = "wget http://www.carfab.com/apachesoftware/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz";
+        var untarMvn = "tar -zxf apache-maven-3.0.5-bin.tar.gz";
+        var copyMvn = "cp -R apache-maven-3.0.5 /usr/local";
+        var symLink = "ln -s /usr/local/apache-maven-3.0.5/bin/mvn /usr/bin/mvn";
+        var delMvn = "rm apache-maven-3.0.5-bin.tar.gz";
+        this.firstNonCldb = $.clusterUnderTest.nodes().filter(function (n) { return !n.isHostingService('mapr-cldb'); }).first();
+        var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn]));
+        return $.expect(resultList).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.installGitOnNonCLDBNode = function () {
+        var gitInstallCommand = this.firstNonCldb.packageManager.installPackageCommand('git');
+        var result = this.firstNonCldb.executeShellCommand(gitInstallCommand);
+        return $.expect(result).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.copyMavenSettingsFileToNonCldbNode = function () {
+        var _this = this;
+        var result = this.firstNonCldb.executeShellCommand("mkdir -p /root/.m2")
+            .then(function (r) { return _this.firstNonCldb.upload('./data/ats-files/settings.xml', '/root/.m2/'); });
+        return $.expect(result).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.cloneATSOnNodeFrom = function (atsPath) {
+        var result = this.firstNonCldb.executeShellCommand("git clone " + atsPath);
+        return $.expect(result).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.setupPasswordlessSSHFromCLDBNodeToOtherNodes = function () {
+        var _this = this;
+        var resultList = this.firstNonCldb.executeShellCommand("echo -e  'y' | ssh-keygen -t rsa -P '' -f /root/.ssh/id_rsa")
+            .then(function (_) { return _this.firstNonCldb.executeShellCommand("cat /root/.ssh/id_rsa.pub"); })
+            .then(function (result) {
+            var rsaKey = result.processResult().stdoutLines().join('\n');
+            return $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes().map(function (node) { return node.executeShellCommand("mkdir -p /root/.ssh")
+                .then(function (_) { return node.executeShellCommand("echo \"" + rsaKey + "\" > /root/.ssh/authorized_keys"); }); }));
+        });
+        return $.expect(resultList).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.setStrictHostKeyCheckingToNoNonCLDBNode = function () {
+        return $.expect(this.firstNonCldb.executeShellCommand('echo "StrictHostKeyChecking no" > /root/.ssh/config')).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.setGitSSHKey = function () {
+        var _this = this;
+        var changePerm = "chmod 600 /root/.ssh/maprqa_id_rsa";
+        var addToConfig = "echo -e \"StrictHostKeyChecking no\nhost github.com\nHostName github.com\nIdentityFile /root/.ssh/maprqa_id_rsa\nUser git\" > /root/.ssh/config";
+        var results = this.firstNonCldb.upload("./data/ats-files/maprqa_id_rsa", '/root/.ssh/').then(function (_) {
+            return _this.firstNonCldb.executeShellCommands($.collections.newList([changePerm, addToConfig]));
+        });
+        return $.expect(results).to.eventually.be.fulfilled;
+    };
+    PackageManagerInstallationSteps.prototype.removeGitSSHKey = function () {
+        var deleteKey = "rm -rf /root/.ssh/maprqa_id_rsa";
+        var deleteConfig = "rm -rf /root/.ssh/config";
+        var resultList = this.firstNonCldb.executeShellCommands($.collections.newList([deleteKey, deleteConfig]));
+        return $.expect(resultList).to.eventually.be.fulfilled;
+    };
     __decorate([
         cucumber_tsflow_1.given(/^I have updated the package manager$/)
     ], PackageManagerInstallationSteps.prototype, "updatePackageManagerOnAllNodes", null);
@@ -131,6 +206,42 @@ var PackageManagerInstallationSteps = (function () {
     __decorate([
         cucumber_tsflow_1.given(/^I run configure\.sh on all nodes without \-F$/)
     ], PackageManagerInstallationSteps.prototype, "runConfigureOnAllNodesWithoutDashFOption", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I set the mfs instance to "([^"]*)"$/)
+    ], PackageManagerInstallationSteps.prototype, "setMFSInstance", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/)
+    ], PackageManagerInstallationSteps.prototype, "createUserWithIdGroupAndPassword", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/)
+    ], PackageManagerInstallationSteps.prototype, "performSSHCommandsAsUser", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I add the user "([^"]*)" to secondary group "([^"]*)"$/)
+    ], PackageManagerInstallationSteps.prototype, "addUserToSecondaryGroup", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I install maven on a non\-cldb node$/)
+    ], PackageManagerInstallationSteps.prototype, "installMavenOnNonCLDBNode", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I install git on the non\-cldb node$/)
+    ], PackageManagerInstallationSteps.prototype, "installGitOnNonCLDBNode", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I copy the maven settings file to the non\-cldb node$/)
+    ], PackageManagerInstallationSteps.prototype, "copyMavenSettingsFileToNonCldbNode", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I clone ATS on the node from "([^"]*)"$/)
+    ], PackageManagerInstallationSteps.prototype, "cloneATSOnNodeFrom", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I setup passwordless ssh from non\-cldb node to all other nodes$/)
+    ], PackageManagerInstallationSteps.prototype, "setupPasswordlessSSHFromCLDBNodeToOtherNodes", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I set StrictHostKeyChecking option to no on non\-cldb node$/)
+    ], PackageManagerInstallationSteps.prototype, "setStrictHostKeyCheckingToNoNonCLDBNode", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I set the git ssh key$/)
+    ], PackageManagerInstallationSteps.prototype, "setGitSSHKey", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I remove the git ssh key$/)
+    ], PackageManagerInstallationSteps.prototype, "removeGitSSHKey", null);
     PackageManagerInstallationSteps = __decorate([
         cucumber_tsflow_1.binding()
     ], PackageManagerInstallationSteps);

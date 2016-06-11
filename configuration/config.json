@@ -2463,6 +2463,12 @@
         "host": "10.10.88.131",
         "username": "root",
         "password": "maprmapr"
+      },
+      {
+        "id": "esxi-10.10.100.193",
+        "host": "10.10.100.193",
+        "username": "root",
+        "password": "maprmapr"
       }
     ]
   },
