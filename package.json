@@ -33,6 +33,7 @@
     "request": "^2.72.0",
     "scp2": "^0.4.0",
     "shell-escape": "^0.2.0",
+    "sinon": "^1.17.4",
     "source-map-support": "^0.4.0",
     "valid-url": "^1.0.9"
   },
