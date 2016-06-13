@@ -23,7 +23,7 @@ var PackageManagerInstallationSteps = (function () {
             var taggedPackages = n.packages.where(function (p) { return p.tags.contain(tagName); });
             var nodeRepoConfigWrites = taggedPackages.map(function (p) {
                 var repo = $.packaging.defaultRepositories.repositoryHosting(p.name, p.version.toString(), p.promotionLevel.name, n.operatingSystem.name);
-                var repoConfigContent = n.packageManager.clientConfigurationFileContentFor(repo, "repo-for-" + p.name);
+                var repoConfigContent = n.packageManager.clientConfigurationFileContentFor(repo, "repo-for-" + p.name, p.tags.first());
                 var repoConfigLocation = n.packageManager.clientConfigurationFileLocationFor(p.name);
                 return n.write(repoConfigContent, repoConfigLocation);
             });

@@ -91,7 +91,7 @@ var ClusterManagementSteps = (function () {
         cucumber_tsflow_1.given(/^I have a node running the "([^"]*)" service$/)
     ], ClusterManagementSteps.prototype, "verifyNodeRunningSpecifiedServiceIsRunning", null);
     __decorate([
-        cucumber_tsflow_1.given(/^I "([^"]*)" all "([^"]*)" services$/)
+        cucumber_tsflow_1.when(/^I ([^"]*) all "([^"]*)" services$/)
     ], ClusterManagementSteps.prototype, "stopServiceOnAllNodesThatHostIt", null);
     ClusterManagementSteps = __decorate([
         cucumber_tsflow_1.binding()

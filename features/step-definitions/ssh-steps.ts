@@ -85,12 +85,5 @@ export default class SSHSteps {
         });
         return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
     }
-    
-    @when(/^I ([^"]*) all "([^"]*)" services$/)
-    restartService(operation:string, serviceName:string):PromisedAssertion {
-        return $.expect(
-            $.clusterUnderTest.executeShellCommandOnEachNode(`service ${serviceName} ${operation}`)
-        ).to.eventually.be.fulfilled;
-    }
 }
 module.exports = SSHSteps;
