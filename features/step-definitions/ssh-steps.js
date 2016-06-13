@@ -67,9 +67,6 @@ var SSHSteps = (function () {
         });
         return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
     };
-    SSHSteps.prototype.restartService = function (operation, serviceName) {
-        return $.expect($.clusterUnderTest.executeShellCommandOnEachNode("service " + serviceName + " " + operation)).to.eventually.be.fulfilled;
-    };
     __decorate([
         cucumber_tsflow_1.when(/^I perform the following ssh commands on each node in the cluster:$/)
     ], SSHSteps.prototype, "performSSHCommandsOnEachNodeInTheCluster", null);
@@ -91,9 +88,6 @@ var SSHSteps = (function () {
     __decorate([
         cucumber_tsflow_1.given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/)
     ], SSHSteps.prototype, "performSSHCommandsAsSpecficUserOnEachNode", null);
-    __decorate([
-        cucumber_tsflow_1.when(/^I ([^"]*) all "([^"]*)" services$/)
-    ], SSHSteps.prototype, "restartService", null);
     SSHSteps = __decorate([
         cucumber_tsflow_1.binding()
     ], SSHSteps);

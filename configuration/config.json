@@ -2718,8 +2718,6 @@
           { "name": "mapr-fluentd" },
           { "name": "mapr-elasticsearch" },
           { "name": "mapr-opentsdb" },
-          { "name": "mapr-hbase-rest" },
-          { "name": "mapr-hbasethrift" },
           { "name": "mapr-cldb" },
           { "name": "nodemanager" },
           { "name": "resourcemanager" },

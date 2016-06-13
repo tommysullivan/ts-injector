@@ -11,8 +11,8 @@ export default class ZypperPackageManager implements IPackageManager {
         this.configFileContent = configFileContent;
     }
 
-    clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string):string {
-        return this.configFileContent.clientConfigurationFileContentFor(repository, descriptiveName);
+    clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string, tagName:string):string {
+        return this.configFileContent.clientConfigurationFileContentFor(repository, descriptiveName, tagName);
     }
 
     clientConfigurationFileLocationFor(packageName:string):string {

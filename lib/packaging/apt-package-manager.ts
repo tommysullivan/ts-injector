@@ -4,8 +4,11 @@ import IRepository from "./i-repository";
 
 export default class AptPackageManager implements IPackageManager {
 
-    clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string):string {
-        return `deb ${repository.url} binary/`
+    clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string, tagName:string):string {
+        if (tagName == 'core')
+            return `deb ${repository.url} mapr optional`;
+        else
+            return `deb ${repository.url} binary/`;
     }
 
     clientConfigurationFileLocationFor(packageName:string):string {
