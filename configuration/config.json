@@ -197,8 +197,8 @@
             "mapr-core",
             "mapr-elasticsearch",
             "mapr-opentsdb",
-            "mapr-asynchbase",
-            "mapr-grafana"
+            "mapr-grafana",
+            "mapr-gateway"
           ]
         },
         {
@@ -367,8 +367,10 @@
             "mapr-core",
             "mapr-elasticsearch",
             "mapr-opentsdb",
-            "mapr-asynchbase",
-            "mapr-grafana"
+            "mapr-hbase-master",
+            "mapr-hbase",
+            "mapr-grafana",
+            "mapr-gateway"
           ]
         },
         {
@@ -399,7 +401,9 @@
             "mapr-nodemanager",
             "mapr-fileserver",
             "mapr-core",
-            "mapr-elasticsearch",
+            "mapr-hbase",
+            "mapr-hbase-regionserver",
+            "mapr-opentsdb",
             "mapr-kibana"
           ]
         }
@@ -475,8 +479,11 @@
             "mapr-nodemanager",
             "mapr-fileserver",
             "mapr-core",
+            "mapr-hbase",
+            "mapr-hbase-master",
             "mapr-elasticsearch",
-            "mapr-kibana"
+            "mapr-kibana",
+            "mapr-gateway"
           ]
         },
         {
@@ -508,7 +515,7 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
-            "mapr-asynchbase",
+            "mapr-hbase-regionserver",
             "mapr-grafana"
           ]
         }
@@ -584,8 +591,11 @@
             "mapr-nodemanager",
             "mapr-fileserver",
             "mapr-core",
+            "mapr-hbase",
+            "mapr-hbase-master",
             "mapr-elasticsearch",
-            "mapr-kibana"
+            "mapr-kibana",
+            "mapr-gateway"
           ]
         },
         {
@@ -617,7 +627,8 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
-            "mapr-asynchbase",
+            "mapr-hbase",
+            "mapr-hbase-regionserver",
             "mapr-grafana"
           ]
         }
@@ -660,6 +671,7 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
+            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver"
           ]
@@ -692,8 +704,11 @@
             "mapr-nodemanager",
             "mapr-fileserver",
             "mapr-core",
+            "mapr-hbase",
+            "mapr-hbase-master",
             "mapr-elasticsearch",
-            "mapr-kibana"
+            "mapr-kibana",
+            "mapr-gateway"
           ]
         },
         {
@@ -725,7 +740,7 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
-            "mapr-asynchbase",
+            "mapr-hbase-regionserver",
             "mapr-grafana"
           ]
         }
@@ -772,6 +787,7 @@
             "mapr-resourcemanager",
             "mapr-zookeeper",
             "mapr-cldb",
+            "mapr-hbase",
             "mapr-historyserver",
             "mapr-webserver"
           ]
@@ -808,8 +824,10 @@
             "mapr-nodemanager",
             "mapr-fileserver",
             "mapr-core",
+            "mapr-hbase-master",
             "mapr-elasticsearch",
-            "mapr-kibana"
+            "mapr-kibana",
+            "mapr-gateway"
           ]
         },
         {
@@ -845,7 +863,7 @@
             "mapr-fileserver",
             "mapr-core",
             "mapr-opentsdb",
-            "mapr-asynchbase",
+            "mapr-hbase-regionserver",
             "mapr-grafana",
             "mapr-elasticsearch"
           ]
@@ -2595,8 +2613,8 @@
       {
         "url": "http://yum.qa.lab/opensource",
         "packages": [
-          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["centos","redhat"] },
-          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["centos","redhat"] }
+          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["centos","redhat","suse"] },
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["centos","redhat", "suse"] }
         ]
       },
       {
@@ -2629,9 +2647,6 @@
         "id": "core",
         "version": "5.1.0",
         "packages": [
-          { "name": "mapr-hbase-common", "version": "1.1", "tags": ["core"] },
-          { "name": "mapr-hbase-rest", "version": "1.1", "tags": ["core"] },
-          { "name": "mapr-hbasethrift", "version": "1.1", "tags": ["core"] },
           { "name": "mapr-cldb", "version": "5.1.0", "tags": ["core"] },
           { "name": "mapr-core", "version": "5.1.0", "tags": ["core"] },
           { "name": "mapr-zookeeper", "version": "5.1.0", "tags": ["core"] },
@@ -2648,9 +2663,6 @@
         "id": "core",
         "version": "5.2.0",
         "packages": [
-          { "name": "mapr-hbase-common", "version": "1.1", "tags": ["core"] },
-          { "name": "mapr-hbase-rest", "version": "1.1", "tags": ["core"] },
-          { "name": "mapr-hbasethrift", "version": "1.1", "tags": ["core"] },
           { "name": "mapr-cldb", "version": "5.2.0", "tags": ["core"] },
           { "name": "mapr-core", "version": "5.2.0", "tags": ["core"] },
           { "name": "mapr-zookeeper", "version": "5.2.0", "tags": ["core"] },
@@ -2705,7 +2717,12 @@
         "packages": [
           { "name": "mapr-asynchbase", "version": "1.7.0", "tags": ["ecosystem"] },
           { "name": "mapr-kafka", "version": "0.9.0", "tags": ["ecosystem"] },
-          { "name": "mapr-drill", "version": "1.7.0", "tags": ["ecosystem"] }
+          { "name": "mapr-drill", "version": "1.7.0", "tags": ["ecosystem"] },
+          { "name": "mapr-hbase", "version": "1.1.1", "tags": ["ecosystem"] },
+          { "name": "mapr-hbase-master", "version": "1.1.1", "tags": ["ecosystem"] },
+          { "name": "mapr-hbase-regionserver", "version": "1.1.1", "tags": ["ecosystem"] },
+          { "name": "mapr-hbase-rest", "version": "1.1.1", "tags": ["ecosystem"] },
+          { "name": "mapr-hbasethrift", "version": "1.1.1", "tags": ["ecosystem"] }
         ]
       },
       {
@@ -2719,12 +2736,11 @@
           { "name": "mapr-elasticsearch" },
           { "name": "mapr-opentsdb" },
           { "name": "mapr-cldb" },
-          { "name": "nodemanager" },
-          { "name": "resourcemanager" },
-          { "name": "fileserver" },
-          { "name": "historyserver" },
-          { "name": "gateway" },
-          { "name": "mapr-drill" }
+          { "name": "mapr-nodemanager" },
+          { "name": "mapr-resourcemanager" },
+          { "name": "mapr-fileserver" },
+          { "name": "mapr-historyserver" },
+          { "name": "mapr-gateway" }
         ]
       },
       {
