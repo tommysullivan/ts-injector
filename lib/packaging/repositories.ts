@@ -39,7 +39,12 @@ export default class Repositories implements IRepositories {
                 }
             )
         );
-        if(possibleRepositories.hasMany) throw new Error(`specified package hosted by more than one repository. ${packageName}`)
+        if(possibleRepositories.length == 0) {
+            throw new Error(`specified package not hosted by any repository. ${packageName}`);
+        }
+        else if(possibleRepositories.hasMany) {
+            throw new Error(`specified package hosted by more than one repository. ${packageName}`);
+        }
         return possibleRepositories.first();
     }
 

@@ -36,7 +36,7 @@ export default class ZypperPackageManager implements IPackageManager {
     }
 
     get installJavaCommand():string {
-        return this.installPackageCommand('java-1_7_0-openjdk');
+        return this.installPackageCommand('java-1_7_0-openjdk-devel');
     }
 
     installPackagesCommand(packageNames:IList<string>):string {
