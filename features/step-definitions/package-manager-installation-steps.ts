@@ -146,14 +146,6 @@ export default class PackageManagerInstallationSteps {
         ).to.eventually.be.fulfilled;
     }
 
-    @given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/)
-    createUserWithIdGroupAndPassword(user:string, userId:string, userGroup:string, userPasswd:string):PromisedAssertion {
-        var userCreateComamnd = `id -u ${user} || useradd -u ${userId} -g ${userGroup} -p $(openssl passwd -1 ${userPasswd}) ${user}`;
-        var groupCreateCommand = `getent group ${userGroup} || groupadd -g ${userId} ${userGroup}`;
-        var resultList = $.clusterUnderTest.nodes().map(n => n.executeShellCommands($.collections.newList([groupCreateCommand,userCreateComamnd])));
-        return $.expectAll(resultList).to.eventually.be.fulfilled;
-    }
-
     @given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/)
     performSSHCommandsAsUser(user:string, userPasswd:string, commands:string) {
         var commandList = $.collections.newList(commands.split("\n"));

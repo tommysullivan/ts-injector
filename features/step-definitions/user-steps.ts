@@ -9,7 +9,7 @@ export default class UserSteps {
     @given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/)
     createNewLinuxUser(username:string, numericUserId:string, userGroupName:string, password:string):PromisedAssertion {
         var userCreateComamnd = `id -u ${username} || useradd -u ${numericUserId} -g ${userGroupName} -p $(openssl passwd -1 ${password}) ${username}`;
-        var groupCreateCommand = `getent group ${userGroupName} || groupadd -g ${numericUserId} ${username}`;
+        var groupCreateCommand = `getent group ${userGroupName} || groupadd -g ${numericUserId} ${userGroupName}`;
         var resultList = $.clusterUnderTest.nodes().map(
             n => n.executeShellCommands(
                 $.collections.newList([groupCreateCommand,userCreateComamnd])

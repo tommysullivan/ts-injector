@@ -98,12 +98,6 @@ var PackageManagerInstallationSteps = (function () {
     PackageManagerInstallationSteps.prototype.setMFSInstance = function (mfsInstances) {
         return $.expect($.clusterUnderTest.nodes().first().executeShellCommand("maprcli config save -values '{\"multimfs.numinstances.pernode\":\"" + mfsInstances + "}'")).to.eventually.be.fulfilled;
     };
-    PackageManagerInstallationSteps.prototype.createUserWithIdGroupAndPassword = function (user, userId, userGroup, userPasswd) {
-        var userCreateComamnd = "id -u " + user + " || useradd -u " + userId + " -g " + userGroup + " -p $(openssl passwd -1 " + userPasswd + ") " + user;
-        var groupCreateCommand = "getent group " + userGroup + " || groupadd -g " + userId + " " + userGroup;
-        var resultList = $.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommands($.collections.newList([groupCreateCommand, userCreateComamnd])); });
-        return $.expectAll(resultList).to.eventually.be.fulfilled;
-    };
     PackageManagerInstallationSteps.prototype.performSSHCommandsAsUser = function (user, userPasswd, commands) {
         var commandList = $.collections.newList(commands.split("\n"));
         var nodeRequests = $.clusterUnderTest.nodes().map(function (n) {
@@ -209,9 +203,6 @@ var PackageManagerInstallationSteps = (function () {
     __decorate([
         cucumber_tsflow_1.given(/^I set the mfs instance to "([^"]*)"$/)
     ], PackageManagerInstallationSteps.prototype, "setMFSInstance", null);
-    __decorate([
-        cucumber_tsflow_1.given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/)
-    ], PackageManagerInstallationSteps.prototype, "createUserWithIdGroupAndPassword", null);
     __decorate([
         cucumber_tsflow_1.given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/)
     ], PackageManagerInstallationSteps.prototype, "performSSHCommandsAsUser", null);
