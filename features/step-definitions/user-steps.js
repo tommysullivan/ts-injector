@@ -11,7 +11,7 @@ var UserSteps = (function () {
     }
     UserSteps.prototype.createNewLinuxUser = function (username, numericUserId, userGroupName, password) {
         var userCreateComamnd = "id -u " + username + " || useradd -u " + numericUserId + " -g " + userGroupName + " -p $(openssl passwd -1 " + password + ") " + username;
-        var groupCreateCommand = "getent group " + userGroupName + " || groupadd -g " + numericUserId + " " + username;
+        var groupCreateCommand = "getent group " + userGroupName + " || groupadd -g " + numericUserId + " " + userGroupName;
         var resultList = $.clusterUnderTest.nodes().map(function (n) { return n.executeShellCommands($.collections.newList([groupCreateCommand, userCreateComamnd])); });
         return $.expectAll(resultList).to.eventually.be.fulfilled;
     };
