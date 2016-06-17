@@ -14,9 +14,11 @@ Feature: Secure Package Manager Installation
     And I copy maprserverticket, ssl_keystore, ssl_truststore to all nodes
     And I run configure.sh with secure option on all nodes except first cldb node
     And I start all "mapr-zookeeper" services
-    And I start all "mapr-warden" services
+    And I perform the following ssh commands on each node in the cluster:
+    """
+    service mapr-warden start
+    """
     And I wait "45" seconds
-    And I install the license on cluster
     And I perform the following ssh commands on each node in the cluster:
     """
     echo 'mapr' | maprlogin password
@@ -25,6 +27,7 @@ Feature: Secure Package Manager Installation
     """
     echo 'mapr' | maprlogin password
     """
+    And I install the license on cluster
     And I install packages with the "spyglass" tag
     And I run configure.sh for spyglass components
     And I restart all "mapr-warden" services

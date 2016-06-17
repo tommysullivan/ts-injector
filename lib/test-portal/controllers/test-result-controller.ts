@@ -52,6 +52,7 @@ export default class TestResultController extends BaseExpressController {
             },
             cucumberTestResult: {
                 cucumberFeatureResults: testResultJSON.hasPropertyNamed('cucumberTestResult')
+                && testResultJSON.jsonObjectNamed('cucumberTestResult').getProperty('cucumberFeatureResults')
                     ? testResultJSON.jsonObjectNamed('cucumberTestResult').listNamed('cucumberFeatureResults').toArray()
                     : []
             }
