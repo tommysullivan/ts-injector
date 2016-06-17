@@ -16,6 +16,7 @@
             <ul>
                 <li ng-repeat="node in cluster.nodes">{{node.host}}</li>
             </ul>
+            <a ng-href="https://{{cluster.nodes[0].host}}:8443"><h4 style="text-align:center">MCS Link</h4></a>
             <button style="width: 240px; border-radius:10px;" ng-click="revertCluster(cluster.id)" class="btn btn-primary center" ng-class="{red:isReverting}">Revert</button>
         </div>
     </div>

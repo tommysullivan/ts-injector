@@ -1372,7 +1372,7 @@
               },
               {
                 "name": "readyForUpgrade",
-                "snapshotId": 2
+                "snapshotId": 3
               }
             ]
           },
@@ -1406,7 +1406,7 @@
               },
               {
                 "name": "readyForUpgrade",
-                "snapshotId": 2
+                "snapshotId": 3
               }
             ]
           },
@@ -1440,7 +1440,7 @@
               },
               {
                 "name": "readyForUpgrade",
-                "snapshotId": 2
+                "snapshotId": 3
               }
             ]
           },
@@ -1480,7 +1480,7 @@
               },
               {
                 "name": "readyForUpgrade",
-                "snapshotId": 2
+                "snapshotId": 3
               }
             ]
           },
@@ -1514,7 +1514,7 @@
               },
               {
                 "name": "readyForUpgrade",
-                "snapshotId": 2
+                "snapshotId": 3
               }
             ]
           },
@@ -1548,7 +1548,7 @@
               },
               {
                 "name": "readyForUpgrade",
-                "snapshotId": 2
+                "snapshotId": 3
               }
             ]
           },
@@ -1584,6 +1584,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -1615,6 +1619,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -1645,6 +1653,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -1679,6 +1691,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -1710,6 +1726,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -1740,6 +1760,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -1774,6 +1798,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -1805,6 +1833,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -1836,6 +1868,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -1871,6 +1907,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -1902,6 +1942,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -1933,6 +1977,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -1968,6 +2016,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -1999,6 +2051,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -2030,6 +2086,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -2065,6 +2125,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -2095,6 +2159,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -2126,6 +2194,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 2
               }
             ]
           },
@@ -2164,6 +2236,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -2196,6 +2272,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -2228,6 +2308,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -2265,6 +2349,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -2297,6 +2385,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
@@ -2328,6 +2420,10 @@
               {
                 "name": "baseImage",
                 "snapshotId": 1
+              },
+              {
+                "name": "readyForUpgrade",
+                "snapshotId": 3
               }
             ]
           },
