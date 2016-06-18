@@ -105,8 +105,9 @@ export default class ElasticSearchSteps {
     @given(/^I run loadTemplate on one of the es nodes$/)
     runLoadTemplateOnOneESNode():PromisedAssertion {
         var esNode = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').first();
+        var esVersion = esNode.packages.where(p => p.name == 'mapr-elasticsearch').first().version;
         var nodeIp = esNode.host;
-        var result = esNode.executeShellCommand(`/opt/mapr/elasticsearch/elasticsearch-2.2.0/bin/es_cluster_mgmt.sh -loadTemplate ${nodeIp}`);
+        var result = esNode.executeShellCommand(`/opt/mapr/elasticsearch/elasticsearch-${esVersion}/bin/es_cluster_mgmt.sh -loadTemplate ${nodeIp}`);
         return $.expect(result).to.eventually.be.fulfilled;
     }
 }

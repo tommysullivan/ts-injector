@@ -7,11 +7,11 @@ Feature: Memory Metrics
     And I query for the following metrics:
       |metric name              |
       |avg:memory.memory        |
-    Then I receive at least "1" values per metric covering that time period
+    Then I receive at least "10" values per metric covering that time period
     And I query the following tag names for "avg:memory.memory" metric:
       |tag name       |values               |
       |memory_type    |free, used, buffered |
-    Then I receive at least "1" values per metric covering that time period
+    Then I receive at least "10" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
   @SPYG-466 @metrics @healthCheck
@@ -22,10 +22,9 @@ Feature: Memory Metrics
       |metric name              |
       |avg:swap.swap            |
       |avg:swap.swap_io         |
-    Then I receive at least "1" values per metric covering that time period
+    Then I receive at least "10" values per metric covering that time period
     And I query the following tag names for "avg:swap.swap" metric:
       |tag name         |values               |
-      |swap_type        |free, used, buffered |
     Then I receive at least "10" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
@@ -39,5 +38,5 @@ Feature: Memory Metrics
       |avg:vmem.vmpage_faults.minflt            |
       |avg:vmem.vmpage_io.memory.in             |
       |avg:vmem.vmpage_io.memory.out            |
-    Then I receive at least "1" values per metric covering that time period
+    Then I receive at least "10" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence

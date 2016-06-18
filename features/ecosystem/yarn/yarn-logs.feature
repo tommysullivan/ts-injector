@@ -15,7 +15,7 @@ Feature: Yarn Logs
     When I run the following commands on any given node in the cluster:
     """
     hadoop fs -mkdir -p /spyglass-test-results/{testRunGUID}/yarn
-    hadoop jar /opt/mapr/hadoop/hadoop-2.7.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.0-mapr-*.jar teragen 100 /spyglass-test-results/{testRunGUID}/teragen
+    hadoop jar /opt/mapr/hadoop/hadoop-2.7.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.0-mapr-*SNAPSHOT.jar teragen 1000 /spyglass-test-results/{testRunGUID}/teragen
     """
     And I obtain the application id from the stdout
     And I wait "3" seconds
