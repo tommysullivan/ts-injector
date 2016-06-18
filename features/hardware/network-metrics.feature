@@ -13,7 +13,7 @@ Feature: Network Metrics
       | sum:rate:interface.if_octets.tx               |
       | sum:rate:interface.if_packets.rx              |
       | sum:rate:interface.if_packets.tx              |
-    Then I receive at least "100" values per metric covering that time period
+    Then I receive at least "10" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
   @SPYG-386 @healthCheck @metrics
@@ -28,9 +28,9 @@ Feature: Network Metrics
       |avg:interface.if_octets.tx        |
       |avg:interface.if_packets.rx       |
       |avg:interface.if_packets.tx       |
-    Then I receive at least "1" values per metric covering that time period
+    Then I receive at least "10" values per metric covering that time period
     And I query the following tag names for "avg:interface.if_errors.rx" metric:
       |tag name         |values          |
       |interface_name   |*               |
-    Then I receive at least "1" values per metric covering that time period
+    Then I receive at least "10" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
