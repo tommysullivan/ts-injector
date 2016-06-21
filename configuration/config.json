@@ -2520,7 +2520,8 @@
           { "file": "features/hardware/memory-metrics.feature" },
           { "file": "features/hardware/network-metrics.feature" },
           { "file": "features/hardware/os-load-metrics.feature" },
-          { "file": "features/common/logs.feature" }
+          { "file": "features/common/logs.feature" },
+          { "file": "features/common/purge-data.feature" }
         ]
       }
     ]

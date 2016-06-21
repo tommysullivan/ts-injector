@@ -15,7 +15,7 @@ Feature: Package Manager Installation
     And I install packages with the "ecosystem" tag
     And I prepare the disk.list file
     And I run configure.sh on all nodes
-    And I wait "45" seconds
+    And I wait "60" seconds
     And I install the license on cluster
     And I install packages with the "spyglass" tag
     And I run configure.sh for spyglass components
