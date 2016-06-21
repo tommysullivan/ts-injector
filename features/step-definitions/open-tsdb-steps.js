@@ -68,6 +68,17 @@ var OpenTSBBSteps = (function () {
             .then(function (openTSDBResults) { return _this.openTSDBResults = openTSDBResults; });
         return $.expect(metricGroupRequest).to.eventually.be.fulfilled;
     };
+    OpenTSBBSteps.prototype.checkForTSDBCronJob = function () {
+        var tsdbVersion = $.clusterUnderTest.nodesHosting('mapr-opentsdb').first().packages.where(function (p) { return p.name == 'mapr-opentsdb'; }).first().version;
+        var checkString = "/opt/mapr/opentsdb/opentsdb-" + tsdbVersion + "/bin/tsdb_cluster_mgmt.sh -purgeData";
+        var results = $.clusterUnderTest.nodesHosting('mapr-opentsdb').map(function (n) {
+            return n.executeShellCommand("crontab -u mapr -l | grep opentsdb")
+                .then(function (cmdResult) {
+                $.expect(cmdResult.processResult().stdoutLines().first().indexOf("" + checkString) > -1).to.be.true;
+            });
+        });
+        return $.expectAll(results).to.eventually.be.fulfilled;
+    };
     __decorate([
         cucumber_tsflow_1.when(/^I specify the query range start as "([^"]*)"$/)
     ], OpenTSBBSteps.prototype, "specifyRangeStart", null);
@@ -92,6 +103,9 @@ var OpenTSBBSteps = (function () {
     __decorate([
         cucumber_tsflow_1.when(/^I query the following tag names for "([^"]*)" metric:$/)
     ], OpenTSBBSteps.prototype, "queryTagNamesForMetric", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I make sure cron job for tsdb is started on nodes hosting opentsdb$/)
+    ], OpenTSBBSteps.prototype, "checkForTSDBCronJob", null);
     OpenTSBBSteps = __decorate([
         cucumber_tsflow_1.binding()
     ], OpenTSBBSteps);

@@ -87,6 +87,17 @@ var ElasticSearchSteps = (function () {
         var result = esNode.executeShellCommand("/opt/mapr/elasticsearch/elasticsearch-" + esVersion + "/bin/es_cluster_mgmt.sh -loadTemplate " + nodeIp);
         return $.expect(result).to.eventually.be.fulfilled;
     };
+    ElasticSearchSteps.prototype.checkForESCronJob = function () {
+        var esVersion = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').first().packages.where(function (p) { return p.name == 'mapr-elasticsearch'; }).first().version;
+        var checkString = "/opt/mapr/elasticsearch/elasticsearch-" + esVersion + "/bin/curator --config /opt/mapr/elasticsearch/elasticsearch-" + esVersion + "/etc/elasticsearch/curator.yml /opt/mapr/elasticsearch/elasticsearch-" + esVersion + "/etc/elasticsearch/curator_actions/delete_indices.yml";
+        var results = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').map(function (n) {
+            return n.executeShellCommand("crontab -u mapr -l | grep elasticsearch")
+                .then(function (cmdResult) {
+                $.expect(cmdResult.processResult().stdoutLines().first().indexOf("" + checkString) > -1).to.be.true;
+            });
+        });
+        return $.expectAll(results).to.eventually.be.fulfilled;
+    };
     __decorate([
         cucumber_tsflow_1.when(/^I query for logs for service "([^"]*)"$/)
     ], ElasticSearchSteps.prototype, "queryForServiceLogs", null);
@@ -114,6 +125,9 @@ var ElasticSearchSteps = (function () {
     __decorate([
         cucumber_tsflow_1.given(/^I run loadTemplate on one of the es nodes$/)
     ], ElasticSearchSteps.prototype, "runLoadTemplateOnOneESNode", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I make sure cron job for ES is started on nodes hosting elasticsearch$/)
+    ], ElasticSearchSteps.prototype, "checkForESCronJob", null);
     ElasticSearchSteps = __decorate([
         cucumber_tsflow_1.binding()
     ], ElasticSearchSteps);
