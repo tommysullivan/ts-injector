@@ -1,6 +1,25 @@
 Feature: MFS Volume Metrics
 
-  @SPYG-177 @metrics @healthCheck
+  @SPYG-386 @healthCheck @metrics
+  Scenario: Verify Volume metrics
+    Given I have installed Spyglass
+    When I specify the query range start as "1h-ago"
+    And I query for the following metrics:
+      | metric name                   |
+      | avg:mapr.volume.logical_used  |
+      | avg:mapr.volume.snapshot_used |
+      | avg:mapr.volume.total_used    |
+      | avg:mapr.volume.used          |
+      | avg:mapr.volume.quota         |
+    Then I receive at least "1" values per metric covering that time period
+    And I query the following tag names for "avg:mapr.volume.logical_used" metric:
+      | tag name    | values                       |
+      | volume_name | mapr.apps, mapr.cluster.root |
+      | entity_name | root,mapr                    |
+    Then I receive at least "1" values per metric covering that time period
+    And those values may be incorrect but we are only testing for presence
+
+  @SPYG-177 @metrics
   Scenario: Check for total logical size,total size and and used size per volume
     Given I have installed Spyglass
     And I get the clusterName
@@ -38,12 +57,12 @@ Feature: MFS Volume Metrics
     Then I receive at least "1" values per metric covering that time period
     And the "usedSize" value from maprcli matches the value from OpenTSDB
     And I query for the following metrics using tags:
-      | metric name          |
+      | metric name           |
       | sum:mapr.volume.quota |
     Then I receive at least "1" values per metric covering that time period
     And the "quota" value from maprcli matches the value from OpenTSDB
     And I query for the following metrics using tags:
-      | metric name          |
-      | sum:mapr.volume.snapshot_used|
+      | metric name                   |
+      | sum:mapr.volume.snapshot_used |
     Then I receive at least "1" values per metric covering that time period
     And the "snapshotSize" value from maprcli matches the value from OpenTSDB

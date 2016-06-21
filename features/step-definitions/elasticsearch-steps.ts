@@ -110,5 +110,19 @@ export default class ElasticSearchSteps {
         var result = esNode.executeShellCommand(`/opt/mapr/elasticsearch/elasticsearch-${esVersion}/bin/es_cluster_mgmt.sh -loadTemplate ${nodeIp}`);
         return $.expect(result).to.eventually.be.fulfilled;
     }
+
+    @given(/^I make sure cron job for ES is started on nodes hosting elasticsearch$/)
+    checkForESCronJob () {
+        var esVersion = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').first().packages.where(p => p.name == 'mapr-elasticsearch').first().version;
+        var checkString = `/opt/mapr/elasticsearch/elasticsearch-${esVersion}/bin/curator --config /opt/mapr/elasticsearch/elasticsearch-${esVersion}/etc/elasticsearch/curator.yml /opt/mapr/elasticsearch/elasticsearch-${esVersion}/etc/elasticsearch/curator_actions/delete_indices.yml`;
+        var results = $.clusterUnderTest.nodesHosting('mapr-elasticsearch').map(n => {
+           return n.executeShellCommand(`crontab -u mapr -l | grep elasticsearch`)
+                    .then(cmdResult => {
+                        $.expect(cmdResult.processResult().stdoutLines().first().indexOf(`${checkString}`) > -1).to.be.true;
+                    })
+            }
+        );
+        return $.expectAll(results).to.eventually.be.fulfilled;
+    }
 }
 module.exports = ElasticSearchSteps;

@@ -104,5 +104,19 @@ export default class OpenTSBBSteps {
             .then(openTSDBResults=>this.openTSDBResults=openTSDBResults);
         return $.expect(metricGroupRequest).to.eventually.be.fulfilled;
     }
+
+    @given(/^I make sure cron job for tsdb is started on nodes hosting opentsdb$/)
+    checkForTSDBCronJob () {
+        var tsdbVersion = $.clusterUnderTest.nodesHosting('mapr-opentsdb').first().packages.where(p => p.name == 'mapr-opentsdb').first().version;
+        var checkString = `/opt/mapr/opentsdb/opentsdb-${tsdbVersion}/bin/tsdb_cluster_mgmt.sh -purgeData`;
+        var results = $.clusterUnderTest.nodesHosting('mapr-opentsdb').map(n => {
+                return n.executeShellCommand(`crontab -u mapr -l | grep opentsdb`)
+                    .then(cmdResult => {
+                        $.expect(cmdResult.processResult().stdoutLines().first().indexOf(`${checkString}`) > -1).to.be.true;
+                    })
+            }
+        );
+        return $.expectAll(results).to.eventually.be.fulfilled;
+    }
 }
 module.exports = OpenTSBBSteps;
