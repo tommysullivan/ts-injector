@@ -19,7 +19,7 @@ export default class SpyglassHealthChecker {
 
     serviceIsUnhealthy(mcsDashboardInfo:MCSDashboardInfo, serviceName:string):boolean {
         try {
-            return !mcsDashboardInfo.services().firstWhere(s=>s.name==serviceName).isHealthy;
+            return !mcsDashboardInfo.services().firstWhere(s=>(`mapr-`+s.name==serviceName)).isHealthy;
         }
         catch(e) {
             return true;
