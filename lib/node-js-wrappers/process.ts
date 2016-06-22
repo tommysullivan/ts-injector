@@ -79,19 +79,39 @@ export default class Process implements IProcess {
             var stderrParts = this.collections.newEmptyList<string>();
             var cukeProcess = this.childProcess.exec(
                 `${this.pathToNodeJSExecutable()} ${command}`,
-                { env: env.toJSON() }
+                {
+                    env: env.toJSON(),
+                    maxBuffer: 10 * 1024 * 1024
+                }
             );
 
             cukeProcess.stdout.on('data', (data) => { stdoutParts.push(data) });
             cukeProcess.stderr.on('data', (data) => { stderrParts.push(data) });
 
+            var closed = false;
+            var exited = false;
+
+            var attemptToResolvePromise = (processExitCode) => {
+                if(closed && exited) {
+                    var stdoutLines = this.collections.newList(stdoutParts.join('').split("\n"));
+                    var stderrLines = this.collections.newList(stderrParts.join('').split("\n"));
+                    var processResult = this.nodeWrapperFactory.newProcessResult(command, processExitCode, stdoutLines, stderrLines, null);
+                    if(processResult.hasError()) reject(processResult);
+                    else resolve(processResult);
+                }
+            }
+
             cukeProcess.on('close', processExitCode => {
-                var stdoutLines = this.collections.newList(stdoutParts.join('').split("\n"));
-                var stderrLines = this.collections.newList(stderrParts.join('').split("\n"));
-                var processResult = this.nodeWrapperFactory.newProcessResult(command, processExitCode, stdoutLines, stderrLines, null);
-                if(processResult.hasError()) reject(processResult);
-                else resolve(processResult);
+                closed = true;
+                attemptToResolvePromise(processExitCode);
             });
+
+            cukeProcess.on('exit', (processExitCode, signal) => {
+                exited = true;
+                console.log("SignalKill : " + signal);
+                attemptToResolvePromise(processExitCode);
+            });
+
         });
     }
 
