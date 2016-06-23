@@ -2,6 +2,7 @@ import IProcess from "../node-js-wrappers/i-process";
 import FrameworkConfiguration from "./framework-configuration";
 import IFileSystem from "../node-js-wrappers/i-filesystem";
 import IPath from "../node-js-wrappers/i-path";
+import ICollections from "../collections/i-collections";
 
 export default class ConfigLoader {
     private DEFAULT_CONFIG_PATH:string = 'configuration/config.json';
@@ -10,11 +11,13 @@ export default class ConfigLoader {
     private process:IProcess;
     private fileSystem:IFileSystem;
     private path:IPath;
+    private collections:ICollections;
 
-    constructor(process:IProcess, fileSystem:IFileSystem, path:IPath) {
+    constructor(process:IProcess, fileSystem:IFileSystem, path:IPath, collections:ICollections) {
         this.process = process;
         this.fileSystem = fileSystem;
         this.path = path;
+        this.collections = collections;
     }
 
     loadConfig():FrameworkConfiguration {
@@ -22,7 +25,8 @@ export default class ConfigLoader {
             this.fileSystem.readJSONObjectFileSync(this.configPath),
             this.basePathToUseForConfiguredRelativePaths,
             this.path,
-            this.process
+            this.process,
+            this.collections
         );
     }
 

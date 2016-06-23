@@ -26,44 +26,97 @@ import IVersioning from "../versioning/i-versioning";
 import IPackaging from "../packaging/i-packaging";
 import IReleasing from "../releasing/i-releasing";
 import IPhase from "../releasing/i-phase";
+import MultiClusterTester from "./multi-cluster-tester";
+import IUUIDGenerator from "../uuid/i-uuid-generator";
+import IFileSystem from "../node-js-wrappers/i-filesystem";
+import Rest from "../rest/rest";
+import IPath from "../node-js-wrappers/i-path";
+import IProcess from "../node-js-wrappers/i-process";
+import ICucumber from "../cucumber/i-cucumber";
+import IConsole from "../node-js-wrappers/i-console";
+import ResultReporter from "./result-reporter";
+import ClusterLogCapturer from "./cluster-log-capturer";
+import IList from "../collections/i-list";
+import NodeLog from "./node-log";
 
 export default class ClusterTesting {
-    private clusterTestingConfiguration:ClusterTestingConfiguration;
-    private promiseFactory:IPromiseFactory;
-    private sshClient:ISSHClient;
-    private collections:ICollections;
-    private versioning:IVersioning;
-    private mcs:MCS;
-    private openTSDB:OpenTSDB;
-    private installer:Installer;
-    private elasticSearch:ElasticSearch;
-    private serviceDiscoverer:ServiceDiscoverer;
-    private esxi:IESXI;
-    private clusters:Clusters;
-    private packaging:IPackaging;
-    private releasing:IReleasing;
 
-    constructor(clusterTestingConfiguration:ClusterTestingConfiguration, promiseFactory:IPromiseFactory, sshClient:ISSHClient, collections:ICollections, versioning:IVersioning, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, serviceDiscoverer:ServiceDiscoverer, esxi:IESXI, clusters:Clusters, packaging:IPackaging, releasing:IReleasing) {
-        this.clusterTestingConfiguration = clusterTestingConfiguration;
-        this.promiseFactory = promiseFactory;
-        this.sshClient = sshClient;
-        this.collections = collections;
-        this.versioning = versioning;
-        this.mcs = mcs;
-        this.openTSDB = openTSDB;
-        this.installer = installer;
-        this.elasticSearch = elasticSearch;
-        this.serviceDiscoverer = serviceDiscoverer;
-        this.esxi = esxi;
-        this.clusters = clusters;
-        this.packaging = packaging;
-        this.releasing = releasing;
+    constructor(
+        private clusterTestingConfiguration:ClusterTestingConfiguration,
+        private promiseFactory:IPromiseFactory,
+        private sshClient:ISSHClient,
+        private collections:ICollections,
+        private versioning:IVersioning,
+        private mcs:MCS,
+        private openTSDB:OpenTSDB,
+        private installer:Installer,
+        private elasticSearch:ElasticSearch,
+        private serviceDiscoverer:ServiceDiscoverer,
+        private esxi:IESXI,
+        private clusters:Clusters,
+        private packaging:IPackaging,
+        private releasing:IReleasing,
+        private uuidGenerator:IUUIDGenerator,
+        private process:IProcess,
+        private cucumber:ICucumber,
+        private console:IConsole,
+        private frameworkConfig:FrameworkConfiguration,
+        private fileSystem:IFileSystem,
+        private rest:Rest,
+        private path:IPath
+    ) {}
+
+    clusterForId(clusterId:string):IClusterUnderTest {
+        return this.newClusterUnderTest(
+            this.clusters.clusterConfigurationWithId(clusterId)
+        );
     }
 
     esxiManagedClusterForId(clusterId:string):ESXIManagedCluster {
         return this.newESXIManagedCluster(
             this.clusters.clusterConfigurationWithId(clusterId)
         );
+    }
+    
+    newMultiClusterTester():MultiClusterTester {
+        return new MultiClusterTester(
+            this.uuidGenerator,
+            this.path,
+            this.clusterTestingConfiguration,
+            this.clusters,
+            this.process,
+            this.cucumber,
+            this.console,
+            this.promiseFactory,
+            this,
+            this.newResultReporter(),
+            this.newClusterLogCapturer(),
+            this.collections
+        )
+    }
+
+    newClusterLogCapturer():ClusterLogCapturer {
+        return new ClusterLogCapturer(
+            this.clusterTestingConfiguration.mcsLogFileLocation,
+            this.clusterTestingConfiguration.wardenLogLocation,
+            this.clusterTestingConfiguration.configureShLogLocation,
+            this.clusterTestingConfiguration.mfsInitLogFileLocation,
+            this.promiseFactory
+        );
+    }
+    
+    newResultReporter():ResultReporter {
+        return new ResultReporter(
+            this.frameworkConfig,
+            this.fileSystem,
+            this.rest,
+            this,
+            this.console,
+            this.clusterTestingConfiguration,
+            this.process,
+            this.promiseFactory,
+            this.path
+        )
     }
 
     newClusterUnderTest(clusterConfiguration:IClusterConfiguration):IClusterUnderTest {
@@ -117,14 +170,14 @@ export default class ClusterTesting {
         );
     }
 
-    newClusterTestResult(cucumberRunConfig:ICucumberRunConfiguration, cucumberTestResult:ICucumberTestResult, frameworkConfiguration:FrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration):ClusterTestResult {
+    newClusterTestResult(cucumberTestResult:ICucumberTestResult, frameworkConfiguration:FrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>):ClusterTestResult {
         return new ClusterTestResult(
-            cucumberRunConfig,
             cucumberTestResult,
             frameworkConfiguration,
             versionGraph,
             versionGraphError,
-            clusterConfiguration
+            clusterConfiguration,
+            logs
         );
     }
 }

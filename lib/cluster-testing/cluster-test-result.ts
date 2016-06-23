@@ -3,24 +3,19 @@ import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
 import ICucumberTestResult from "../cucumber/i-cucumber-test-result";
 import ICucumberRunConfiguration from "../cucumber/i-cucumber-run-configuration";
 import IClusterConfiguration from "../clusters/i-cluster-configuration";
+import NodeLog from "./node-log";
+import IList from "../collections/i-list";
 
 export default class ClusterTestResult {
 
-    private cucumberRunConfig:ICucumberRunConfiguration;
-    private cucumberTestResult:ICucumberTestResult;
-    private frameworkConfiguration:FrameworkConfiguration;
-    private versionGraph:IClusterVersionGraph;
-    private versionGraphError:string;
-    clusterConfiguration:IClusterConfiguration;
-
-    constructor(cucumberRunConfig:ICucumberRunConfiguration, cucumberTestResult:ICucumberTestResult, frameworkConfiguration:FrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration) {
-        this.cucumberRunConfig = cucumberRunConfig;
-        this.cucumberTestResult = cucumberTestResult;
-        this.frameworkConfiguration = frameworkConfiguration;
-        this.versionGraph = versionGraph;
-        this.versionGraphError = versionGraphError;
-        this.clusterConfiguration = clusterConfiguration;
-    }
+    constructor(
+        private cucumberTestResult:ICucumberTestResult,
+        private frameworkConfiguration:FrameworkConfiguration,
+        private versionGraph:IClusterVersionGraph,
+        private versionGraphError:string,
+        private clusterConfiguration:IClusterConfiguration,
+        private logs:IList<NodeLog>
+    ) {}
 
     get clusterId():string { return this.clusterConfiguration.id; }
 
@@ -32,7 +27,8 @@ export default class ClusterTestResult {
             versionGraphError: this.versionGraphError,
             clusterConfiguration: this.clusterConfiguration.toJSON(),
             frameworkConfiguration: this.frameworkConfiguration.toJSON(),
-            passed: this.passed()
+            passed: this.passed(),
+            logs: this.logs.toJSON()
         }
     }
 

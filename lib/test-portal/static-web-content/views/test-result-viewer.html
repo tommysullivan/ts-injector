@@ -49,6 +49,7 @@
         <input ng-model="showTestConfig" type="checkbox"> Full Test Run Configuration<br/>
         <input ng-model="showTestRunConsoleOutput" type="checkbox"> Raw Console Output<br/>
         <input ng-model="showRawJSONForTestResult" type="checkbox"> Raw JSON Result<br/>
+        <input ng-model="showLogs" type="checkbox"> Cluster Logs from /opt/mapr/logs<br/>
         <div ng-if="showCluserSpecificConfig">
             <div json-viewer="flattenedClusterConfig"></div>
         </div>
@@ -57,6 +58,16 @@
         </div>
         <div ng-if="showTestConfig">
             <div json-viewer="configJSON"></div>
+        </div>
+        <div ng-if="showLogs" style="margin-left: 20px;">
+            <div ng-repeat="log in logs">
+                <input ng-model="logCheckboxes[$index]" type="checkbox"> {{log.logTitle}} - {{log.nodeHost}}
+                <pre ng-show="logCheckboxes[$index]">
+                    <code>
+{{log.logContent.join("\n")}}
+                     </code>
+                </pre>
+            </div>
         </div>
         <div ng-if="showTestRunConsoleOutput">
             <pre>

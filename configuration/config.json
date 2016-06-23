@@ -23,7 +23,11 @@
       ]
     },
     "defaultRelease": "spyglass-ga",
-    "defaultLifecyclePhase": "development"
+    "defaultLifecyclePhase": "development",
+    "mcsLogFileLocation": "/opt/mapr/logs/adminuiapp.log",
+    "wardenLogLocation": "/opt/mapr/logs/warden.log",
+    "configureShLogLocation": "/opt/mapr/logs/configure.log",
+    "mfsInitLogFileLocation": "/opt/mapr/logs/mfsinit.log"
   },
   "cli": {
     "temporaryTestRunOutputFilePathRelativeToThisConfigFile": "../data/tmp/tmp-test-run.json"
@@ -2885,7 +2889,8 @@
     "debugHTTP": true
   },
   "ssh": {
-    "writeCommandsToStdout": true
+    "writeCommandsToStdout": true,
+    "temporaryStorageLocation": "data/tmp"
   },
   "testPortal": {
     "environmentSpecificConfig": {

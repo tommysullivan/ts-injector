@@ -14,18 +14,21 @@ import JiraConfiguration from "../jira/jira-configuration";
 import IPath from "../node-js-wrappers/i-path";
 import CliConfig from "../cli/cli-config";
 import IProcess from "../node-js-wrappers/i-process";
+import ICollections from "../collections/i-collections";
 
 export default class FrameworkConfiguration {
     private frameworkConfigJSON:IJSONObject;
     private basePathToUseForConfiguredRelativePaths:string;
     private path:IPath;
     private process:IProcess;
+    private collections:ICollections;
 
-    constructor(frameworkConfigJSON:IJSONObject, basePathToUseForConfiguredRelativePaths:string, path:IPath, process:IProcess) {
+    constructor(frameworkConfigJSON:IJSONObject, basePathToUseForConfiguredRelativePaths:string, path:IPath, process:IProcess, collections:ICollections) {
         this.frameworkConfigJSON = frameworkConfigJSON;
         this.basePathToUseForConfiguredRelativePaths = basePathToUseForConfiguredRelativePaths;
         this.path = path;
         this.process = process;
+        this.collections = collections;
     }
 
     get releasingConfig():IJSONObject {
@@ -78,7 +81,8 @@ export default class FrameworkConfiguration {
             this.frameworkConfigJSON.jsonObjectNamed('clusterTesting'),
             this.basePathToUseForConfiguredRelativePaths,
             this.path,
-            this.process
+            this.process,
+            this.collections
         );
     }
 

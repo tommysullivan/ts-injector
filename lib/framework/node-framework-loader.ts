@@ -106,7 +106,7 @@ export default class NodeFrameworkLoader {
     }
 
     get frameworkConfigLoader():ConfigLoader {
-        return new ConfigLoader(this.process, this.fileSystem, this.nodeWrapperFactory.path);
+        return new ConfigLoader(this.process, this.fileSystem, this.nodeWrapperFactory.path, this.collections);
     }
 
     get sshAPI():ISSHAPI {
@@ -115,7 +115,10 @@ export default class NodeFrameworkLoader {
             this.promiseFactory,
             this.nodeWrapperFactory,
             this.collections,
-            this.frameworkConfig.ssh
+            this.frameworkConfig.ssh,
+            uuidGenerator,
+            this.nodeWrapperFactory.path,
+            this.errors
         );
     }
 

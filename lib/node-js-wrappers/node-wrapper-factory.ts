@@ -22,25 +22,17 @@ import IStringHelper from "./i-string-helper";
 declare var Buffer:any;
 
 export default class NodeWrapperFactory implements INodeWrapperFactory {
-    private promiseFactory:IPromiseFactory;
-    private childProcessModule:any;
-    private collections:ICollections;
-    private fsModule:any;
-    private typedJSON:ITypedJSON;
-    private errors:IErrors;
-    private pathModule:any;
-    private readLineSyncModule:any;
 
-    constructor(promiseFactory:IPromiseFactory, childProcessModule:any, collections:ICollections, fsModule:any, typedJSON:ITypedJSON, errors:IErrors, pathModule:any, readLineSyncModule:any) {
-        this.promiseFactory = promiseFactory;
-        this.childProcessModule = childProcessModule;
-        this.collections = collections;
-        this.fsModule = fsModule;
-        this.typedJSON = typedJSON;
-        this.errors = errors;
-        this.pathModule = pathModule;
-        this.readLineSyncModule = readLineSyncModule;
-    }
+    constructor(
+        private promiseFactory:IPromiseFactory,
+        private childProcessModule:any,
+        private collections:ICollections,
+        private fsModule:any,
+        private typedJSON:ITypedJSON,
+        private errors:IErrors,
+        private pathModule:any,
+        private readLineSyncModule:any
+    ) {}
 
     newStringHelper():IStringHelper {
         return new StringHelper();
@@ -72,7 +64,8 @@ export default class NodeWrapperFactory implements INodeWrapperFactory {
             this.typedJSON,
             this.collections,
             this.errors,
-            this
+            this,
+            this.promiseFactory
         );
     }
 

@@ -9,25 +9,16 @@ import Clusters from "../clusters/clusters";
 import ClusterTesting from "../cluster-testing/cluster-testing";
 
 export default class ClusterCliHelper {
-    private process:IProcess;
-    private console:IConsole;
-    private collections:ICollections;
-    private clusterTestingConfiguration:ClusterTestingConfiguration;
-    private cliHelper:CliHelper;
-    private clusterSnapshotCliHelper:ClusterSnapshotCliHelper;
-    private clusters:Clusters;
-    private clusterTesting:ClusterTesting;
 
-    constructor(process:IProcess, console:IConsole, collections:ICollections, clusterTestingConfiguration:ClusterTestingConfiguration, cliHelper:CliHelper, clusterSnapshotCliHelper:ClusterSnapshotCliHelper, clusters:Clusters, clusterTesting:ClusterTesting) {
-        this.process = process;
-        this.console = console;
-        this.collections = collections;
-        this.clusterTestingConfiguration = clusterTestingConfiguration;
-        this.cliHelper = cliHelper;
-        this.clusterSnapshotCliHelper = clusterSnapshotCliHelper;
-        this.clusters = clusters;
-        this.clusterTesting = clusterTesting;
-    }
+    constructor(
+        private process:IProcess,
+        private console:IConsole,
+        private collections:ICollections,
+        private cliHelper:CliHelper,
+        private clusterSnapshotCliHelper:ClusterSnapshotCliHelper,
+        private clusters:Clusters,
+        private clusterTesting:ClusterTesting
+    ) {}
 
     executeClusterCli():void {
         try {
@@ -64,7 +55,7 @@ export default class ClusterCliHelper {
             else if(subCommand=='versions') {
                 this.cliHelper.verifyFillerWord('for', 4);
                 var clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                var cluster = this.cliHelper.clusterForId(clusterId);
+                var cluster = this.clusterTesting.clusterForId(clusterId);
                 cluster.versionGraph()
                     .then(versionGraph=>this.console.log(versionGraph.toJSONString()))
                     .catch(e => this.cliHelper.logError(e));

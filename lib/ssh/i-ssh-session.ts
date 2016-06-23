@@ -8,6 +8,7 @@ interface ISSHSession {
     upload(localPath:string, destPath:string):IThenable<any>;
     download(remotePath:string, localPath:string):IThenable<any>;
     write(fileContent:string, destinationPath:string):IThenable<any>;
+    read(remotePath:string):IThenable<string>;
 }
 
 export default ISSHSession;

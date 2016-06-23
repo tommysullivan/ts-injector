@@ -151,7 +151,15 @@ export default class Framework {
             this.esxi,
             this.clusters,
             this.packaging,
-            this.releasing
+            this.releasing,
+            this.uuidGenerator,
+            this.process,
+            this.cucumber,
+            this.console,
+            this.frameworkConfig,
+            this.fileSystem,
+            this.rest,
+            this.nodeWrapperFactory.path
         );
     }
 
@@ -161,16 +169,11 @@ export default class Framework {
             this.console,
             this.collections,
             this.frameworkConfig.clusterTesting,
-            this.uuidGenerator,
             this.cucumber,
             this.clusters,
             this.clusterTesting,
-            this.frameworkConfig,
             this.testPortal,
-            this.nodeWrapperFactory.path,
             this.frameworkConfig.cliConfig,
-            this.fileSystem,
-            this.rest,
             this.promiseFactory
         );
     }
