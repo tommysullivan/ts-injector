@@ -3,7 +3,7 @@ Feature: Yarn Metrics
   @metrics @healthCheck
   Scenario: Verify presence of RM per queue via JMX metrics
     Given I have installed Spyglass
-    And I restart "all" service named "resourcemanager" using maprcli
+    And I "restart" all service named "resourcemanager" using maprcli
     And I wait "40" seconds
     When I specify the query range start as "1h-ago"
     And I query for the following metrics:
@@ -72,7 +72,7 @@ Feature: Yarn Metrics
   @metrics @healthCheck
   Scenario: Verify presence of NodeManager metrics
     Given I have installed Spyglass
-    And I restart "all" service named "nodemanager" using maprcli
+    And I "restart" all service named "nodemanager" using maprcli
     And I wait "40" seconds
     When I specify the query range start as "1h-ago"
     And I query for the following metrics:
