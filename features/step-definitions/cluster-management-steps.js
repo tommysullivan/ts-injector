@@ -60,6 +60,16 @@ var ClusterManagementSteps = (function () {
             return n.executeShellCommand("service " + serviceName + " " + command);
         })).to.eventually.be.fulfilled;
     };
+    ClusterManagementSteps.prototype.maprcliServiceRestart = function (serviceAction, serviceName) {
+        var command = "maprcli node services -action " + serviceAction + " -name " + serviceName + " -nodes ";
+        if (serviceName == 'hbmaster')
+            var nodeList = $.clusterUnderTest.nodesHosting("mapr-hbase-master").map(function (n) { return n.host; }).join(" ");
+        else if (serviceName == 'hbregionserver')
+            var nodeList = $.clusterUnderTest.nodesHosting("mapr-hbase-regionserver").map(function (n) { return n.host; }).join(" ");
+        else
+            var nodeList = $.clusterUnderTest.nodesHosting("mapr-" + serviceName).map(function (n) { return n.host; }).join(" ");
+        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand(command + " " + nodeList)).to.eventually.be.fulfilled;
+    };
     __decorate([
         cucumber_tsflow_1.given(/^the Cluster Under Test is managed by ESXI$/)
     ], ClusterManagementSteps.prototype, "verifyClusterUnderTestIsESXI", null);
@@ -93,6 +103,9 @@ var ClusterManagementSteps = (function () {
     __decorate([
         cucumber_tsflow_1.when(/^I ([^"]*) all "([^"]*)" services$/)
     ], ClusterManagementSteps.prototype, "stopServiceOnAllNodesThatHostIt", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^I "([^"]*)" all service named "([^"]*)" using maprcli$/)
+    ], ClusterManagementSteps.prototype, "maprcliServiceRestart", null);
     ClusterManagementSteps = __decorate([
         cucumber_tsflow_1.binding()
     ], ClusterManagementSteps);

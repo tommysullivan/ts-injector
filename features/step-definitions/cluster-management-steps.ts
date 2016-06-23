@@ -84,5 +84,19 @@ export default class ClusterManagementSteps {
             })
         ).to.eventually.be.fulfilled;
     }
+
+    @when(/^I "([^"]*)" all service named "([^"]*)" using maprcli$/)
+    maprcliServiceRestart (serviceAction:string, serviceName:string) {
+        var command = `maprcli node services -action ${serviceAction} -name ${serviceName} -nodes `;
+        if(serviceName == 'hbmaster')
+            var nodeList = $.clusterUnderTest.nodesHosting(`mapr-hbase-master`).map(n => n.host).join(` `);
+        else if(serviceName == 'hbregionserver')
+            var nodeList = $.clusterUnderTest.nodesHosting(`mapr-hbase-regionserver`).map(n => n.host).join(` `);
+        else
+            var nodeList = $.clusterUnderTest.nodesHosting(`mapr-${serviceName}`).map(n => n.host).join(` `);
+
+        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand(command + ` ` + nodeList)).to.eventually.be.fulfilled;
+    }
+
 }
 module.exports = ClusterManagementSteps;

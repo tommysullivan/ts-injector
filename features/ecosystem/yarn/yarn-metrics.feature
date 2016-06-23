@@ -3,6 +3,8 @@ Feature: Yarn Metrics
   @metrics @healthCheck
   Scenario: Verify presence of RM per queue via JMX metrics
     Given I have installed Spyglass
+    And I "restart" all service named "resourcemanager" using maprcli
+    And I wait "40" seconds
     When I specify the query range start as "1h-ago"
     And I query for the following metrics:
       | metric name                                |
@@ -30,7 +32,7 @@ Feature: Yarn Metrics
       | avg:mapr.rm.reserved_vcores                |
     Then I receive at least "1" values per metric covering that time period
     And I query the following tag names for "avg:mapr.rm.active_applications" metric:
-      | tag name | values  |
+      | tag name | values           |
       | rm_queue | default-queue    |
     Then I receive at least "1" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
@@ -70,6 +72,8 @@ Feature: Yarn Metrics
   @metrics @healthCheck
   Scenario: Verify presence of NodeManager metrics
     Given I have installed Spyglass
+    And I "restart" all service named "nodemanager" using maprcli
+    And I wait "40" seconds
     When I specify the query range start as "1h-ago"
     And I query for the following metrics:
       | metric name                      |
