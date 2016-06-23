@@ -4,6 +4,9 @@ Feature: HBase Metrics
   Scenario: Check for the presence of HBaseMaster metrics
     Given I have a node running the "mapr-hbase-master" service
     When I specify the query range start as "1m-ago"
+    And I restart "hbmaster" hbase service on the cluster
+    And I restart "all" service named "collectd" using maprcli
+    And I wait "40" seconds
     And I query for the following metrics:
       | metric name                                                |
       | sum:mapr.hbase_master.region_servers                       |
@@ -13,10 +16,12 @@ Feature: HBase Metrics
     Then I receive at least "1" values per metric covering that time period
     And those values may be incorrect but we are only testing for presence
 
-
   Scenario: Check for the presence of HBaseRegionServer metrics
     Given I have a node running the "mapr-hbase-regionserver" service
     When I specify the query range start as "1m-ago"
+    And I restart "hbregionserver" hbase service on the cluster
+    And I restart "all" service named "collectd" using maprcli
+    And I wait "40" seconds
     And I query for the following metrics:
       | metric name                                                   |
       | sum:mapr.hbase_region_server.region_count                     |

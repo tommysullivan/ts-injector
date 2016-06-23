@@ -84,5 +84,23 @@ export default class ClusterManagementSteps {
             })
         ).to.eventually.be.fulfilled;
     }
+
+    //TODO: Changes to make specific set of nodes
+    @given(/^I restart "([^"]*)" service named "([^"]*)" using maprcli$/)
+    maprcliServiceRestart (nodeCount:string, serviceName:string) {
+        var command = `maprcli node services -action restart -name ${serviceName} -nodes `;
+        var nodeList = $.clusterUnderTest.nodesHosting(`mapr-${serviceName}`).map(n => n.host).join(` `);
+        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand(command + ` ` + nodeList)).to.eventually.be.fulfilled;
+    }
+
+    @when(/^I restart "([^"]*)" hbase service on the cluster$/)
+    restartHbaseService(hbservice:string) {
+        var command = `maprcli node services -action restart -name ${hbservice} -nodes `;
+        if(hbservice == 'hbmaster')
+            var nodeList = $.clusterUnderTest.nodesHosting(`mapr-hbase-master`).map(n => n.host).join(` `);
+        else if(hbservice == 'hbregionserver')
+            var nodeList = $.clusterUnderTest.nodesHosting(`mapr-hbase-regionserver`).map(n => n.host).join(` `);
+        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand(command + ` ` + nodeList)).to.eventually.be.fulfilled;
+    }
 }
 module.exports = ClusterManagementSteps;

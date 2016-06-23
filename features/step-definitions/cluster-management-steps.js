@@ -60,6 +60,20 @@ var ClusterManagementSteps = (function () {
             return n.executeShellCommand("service " + serviceName + " " + command);
         })).to.eventually.be.fulfilled;
     };
+    //TODO: Changes to make specific set of nodes
+    ClusterManagementSteps.prototype.maprcliServiceRestart = function (nodeCount, serviceName) {
+        var command = "maprcli node services -action restart -name " + serviceName + " -nodes ";
+        var nodeList = $.clusterUnderTest.nodesHosting("mapr-" + serviceName).map(function (n) { return n.host; }).join(" ");
+        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand(command + " " + nodeList)).to.eventually.be.fulfilled;
+    };
+    ClusterManagementSteps.prototype.restartHbaseService = function (hbservice) {
+        var command = "maprcli node services -action restart -name " + hbservice + " -nodes ";
+        if (hbservice == 'hbmaster')
+            var nodeList = $.clusterUnderTest.nodesHosting("mapr-hbase-master").map(function (n) { return n.host; }).join(" ");
+        else if (hbservice == 'hbregionserver')
+            var nodeList = $.clusterUnderTest.nodesHosting("mapr-hbase-regionserver").map(function (n) { return n.host; }).join(" ");
+        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand(command + " " + nodeList)).to.eventually.be.fulfilled;
+    };
     __decorate([
         cucumber_tsflow_1.given(/^the Cluster Under Test is managed by ESXI$/)
     ], ClusterManagementSteps.prototype, "verifyClusterUnderTestIsESXI", null);
@@ -93,6 +107,12 @@ var ClusterManagementSteps = (function () {
     __decorate([
         cucumber_tsflow_1.when(/^I ([^"]*) all "([^"]*)" services$/)
     ], ClusterManagementSteps.prototype, "stopServiceOnAllNodesThatHostIt", null);
+    __decorate([
+        cucumber_tsflow_1.given(/^I restart "([^"]*)" service named "([^"]*)" using maprcli$/)
+    ], ClusterManagementSteps.prototype, "maprcliServiceRestart", null);
+    __decorate([
+        cucumber_tsflow_1.when(/^I restart "([^"]*)" hbase service on the cluster$/)
+    ], ClusterManagementSteps.prototype, "restartHbaseService", null);
     ClusterManagementSteps = __decorate([
         cucumber_tsflow_1.binding()
     ], ClusterManagementSteps);
