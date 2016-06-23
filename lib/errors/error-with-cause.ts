@@ -1,16 +1,25 @@
 import IError from "./i-error";
 
-export default class ErrorWithCause implements IError {
+export default class ErrorWithCause extends Error implements IError {
     private cause:any;
-    private _message:string;
+    private __message:string;
 
     constructor(message:string, cause:Error) {
-        this._message = message;
+        super(message);
+        this.__message = message;
         this.cause = cause;
     }
 
     get message():string {
-        return this._message;
+        return `${super.message} - caused by ${this.causeMessage}`;
+    }
+
+    get causeMessage():string {
+        return this.cause.stack
+            ? this.cause.stack.split("\n")
+            : this.cause.toJSON
+                ? this.cause.toJSON()
+                : this.cause.toString();
     }
 
     toString():string {
@@ -19,12 +28,8 @@ export default class ErrorWithCause implements IError {
 
     toJSON():any {
         return {
-            message: this.message,
-            cause: this.cause.stack
-                ? this.cause.stack.split("\n")
-                : this.cause.toJSON
-                    ? this.cause.toJSON()
-                    : this.cause.toString()
+            message: this.__message,
+            cause: this.causeMessage
         }
     }
 }

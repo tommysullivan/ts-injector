@@ -8,33 +8,29 @@ import ISSHResult from "./i-ssh-result";
 import ISSHError from "./i-ssh-error";
 import ISSHAPI from "./i-ssh-api";
 import IFileSystem from "../node-js-wrappers/i-filesystem";
+import IUUIDGenerator from "../uuid/i-uuid-generator";
+import IPath from "../node-js-wrappers/i-path";
+import IErrors from "../errors/i-errors";
 
 export default class SSHSession implements ISSHSession {
-    private nodemiralSession:any;
-    private promiseFactory:IPromiseFactory;
-    private nodeWrapperFactory:INodeWrapperFactory;
-    private collections:ICollections;
-    private api:ISSHAPI;
-    private host:string;
-    private writeCommandsToStdout:boolean;
-    private fileSystem:IFileSystem;
-    private scp2Module:any;
-    private username:string;
-    private password:string;
 
-    constructor(nodemiralSession:any, promiseFactory:IPromiseFactory, nodeWrapperFactory:INodeWrapperFactory, collections:ICollections, api:ISSHAPI, host:string, writeCommandsToStdout:boolean, fileSystem:IFileSystem, scp2Module:any, username:string, password:string) {
-        this.nodemiralSession = nodemiralSession;
-        this.promiseFactory = promiseFactory;
-        this.nodeWrapperFactory = nodeWrapperFactory;
-        this.collections = collections;
-        this.api = api;
-        this.host = host;
-        this.writeCommandsToStdout = writeCommandsToStdout;
-        this.fileSystem = fileSystem;
-        this.scp2Module = scp2Module;
-        this.username = username;
-        this.password = password;
-    }
+    constructor(
+        private nodemiralSession:any,
+        private promiseFactory:IPromiseFactory,
+        private nodeWrapperFactory:INodeWrapperFactory,
+        private collections:ICollections,
+        private api:ISSHAPI,
+        private host:string,
+        private writeCommandsToStdout:boolean,
+        private fileSystem:IFileSystem,
+        private scp2Module:any,
+        private username:string,
+        private password:string,
+        private temporaryStorageLocation:string,
+        private uuidGenerator:IUUIDGenerator,
+        private path:IPath,
+        private errors:IErrors
+    ) {}
 
     executeCommands(commands:IList<string>):IThenable<IList<ISSHResult>> {
         return this.promiseFactory.newPromise((resolve, reject) => {
@@ -96,8 +92,15 @@ export default class SSHSession implements ISSHSession {
                 host: this.host,
                 path: remotePath
             };
-            this.scp2Module.scp(options, localPath, this.newKeyboardInteractiveClient(), function(err) {
-                if(err) reject(err);
+            this.scp2Module.scp(options, localPath, this.newKeyboardInteractiveClient(), error => {
+                if(error) {
+                    try {
+                        throw this.errors.newErrorWithCause(error, `remote path: ${remotePath}, local path: ${localPath}`);
+                    }
+                    catch(e) {
+                        reject(e);
+                    }
+                }
                 else resolve(null);
             });
         });
@@ -114,6 +117,13 @@ export default class SSHSession implements ISSHSession {
                 else resolve(null);
             });
         });
+    }
+
+    read(remotePath:string):IThenable<string> {
+        var localPath = this.path.join(this.temporaryStorageLocation, this.uuidGenerator.v4());
+        return this.download(remotePath, localPath)
+            .then(_ => this.fileSystem.readFile(localPath))
+            .then(fileContent => this.fileSystem.delete(localPath).then(() => fileContent.toString()));
     }
 
     private newKeyboardInteractiveClient():any {

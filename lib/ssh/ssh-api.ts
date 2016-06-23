@@ -14,6 +14,9 @@ import SSHConfiguration from "./ssh-configuration";
 import SSHMultiCommandError from "./ssh-multi-command-error";
 import IList from "../collections/i-list";
 import ShellEscaper from "./shell-escaper";
+import IUUIDGenerator from "../uuid/i-uuid-generator";
+import IPath from "../node-js-wrappers/i-path";
+import IErrors from "../errors/i-errors";
 
 declare var require:any;
 require('./nodemiral-patch');
@@ -21,19 +24,17 @@ var scp2Module = require('scp2');
 var shellEscapeModule = require('shell-escape');
 
 export default class SSHAPI implements ISSHAPI {
-    private nodemiralModule:any;
-    private promiseFactory:IPromiseFactory;
-    private nodeWrapperFactory:INodeWrapperFactory;
-    private collections:ICollections;
-    private sshConfiguration:SSHConfiguration;
 
-    constructor(nodemiralModule:any, promiseFactory:IPromiseFactory, nodeWrapperFactory:INodeWrapperFactory, collections:ICollections, sshConfiguration:SSHConfiguration) {
-        this.nodemiralModule = nodemiralModule;
-        this.promiseFactory = promiseFactory;
-        this.nodeWrapperFactory = nodeWrapperFactory;
-        this.collections = collections;
-        this.sshConfiguration = sshConfiguration;
-    }
+    constructor(
+        private nodemiralModule:any,
+        private promiseFactory:IPromiseFactory,
+        private nodeWrapperFactory:INodeWrapperFactory,
+        private collections:ICollections,
+        private sshConfiguration:SSHConfiguration,
+        private uuidGenerator:IUUIDGenerator,
+        private path:IPath,
+        private errors:IErrors
+    ) {}
 
     private newSSHSession(host:string, nodemiralSession:any, username:string, password:string):ISSHSession {
         return new SSHSession(
@@ -47,7 +48,11 @@ export default class SSHAPI implements ISSHAPI {
             this.nodeWrapperFactory.fileSystem(),
             scp2Module,
             username,
-            password
+            password,
+            this.sshConfiguration.temporaryStorageLocation,
+            this.uuidGenerator,
+            this.path,
+            this.errors
         );
     }
 

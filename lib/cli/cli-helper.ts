@@ -19,12 +19,6 @@ export default class CliHelper {
         this.clusterTesting = clusterTesting;
         this.clusters = clusters;
     }
-
-    clusterForId(clusterId:string):IClusterUnderTest {
-        return this.clusterTesting.newClusterUnderTest(
-            this.clusters.clusterConfigurationWithId(clusterId)
-        );
-    }
     
     logError(e:any):void {
         this.console.log(e.stack ? e.stack : e.toJSONString ? e.toJSONString() : e.toString());

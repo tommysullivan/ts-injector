@@ -10,4 +10,8 @@ export default class SSHConfiguration {
     get writeCommandsToStdout():boolean {
         return this.sshConfigJSON.booleanPropertyNamed('writeCommandsToStdout');
     }
+
+    get temporaryStorageLocation():string {
+        return this.sshConfigJSON.stringPropertyNamed('temporaryStorageLocation');
+    }
 }

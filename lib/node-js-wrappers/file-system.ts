@@ -8,24 +8,39 @@ import INodeWrapperFactory from "./i-node-wrapper-factory";
 import IFileStream from "./i-file-stream";
 import IFileStats from "./i-file-stats";
 import FileStats from "./file-stats";
+import IThenable from "../promise/i-thenable";
+import IPromiseFactory from "../promise/i-promise-factory";
 
 export default class FileSystem implements IFileSystem {
-    private fsModule:any;
-    private typedJSON:ITypedJSON;
-    private collections:ICollections;
-    private errors:IErrors;
-    private nodeWrapperFactory:INodeWrapperFactory;
-
-    constructor(fsModule:any, typedJSON:ITypedJSON, collections:ICollections, errors:IErrors, nodeWrapperFactory:INodeWrapperFactory) {
-        this.fsModule = fsModule;
-        this.typedJSON = typedJSON;
-        this.collections = collections;
-        this.errors = errors;
-        this.nodeWrapperFactory = nodeWrapperFactory;
-    }
+    constructor(
+        private fsModule:any,
+        private typedJSON:ITypedJSON,
+        private collections:ICollections,
+        private errors:IErrors,
+        private nodeWrapperFactory:INodeWrapperFactory,
+        private promiseFactory:IPromiseFactory
+    ) {}
 
     readFileSync(filePath:string):string {
         return <string>this.fsModule.readFileSync(filePath);
+    }
+
+    readFile(filePath:string):IThenable<string> {
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            this.fsModule.readFile(filePath, (error, data) => {
+                if(error) reject(error);
+                else resolve(data);
+            });
+        })
+    }
+
+    delete(filePath:string):IThenable<any> {
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            return this.fsModule.unlink(filePath, (error) => {
+                if(error) reject(error);
+                else resolve(null);
+            })
+        });
     }
 
     readdirSync(directoryPath:string):IList<string> {
