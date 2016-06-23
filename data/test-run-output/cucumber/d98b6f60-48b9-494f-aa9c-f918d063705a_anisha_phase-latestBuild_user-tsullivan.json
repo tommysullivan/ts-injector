@@ -1,0 +1,464 @@
+[
+  {
+    "id": "ElasticSearch-Logs",
+    "name": "ElasticSearch Logs",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/elasticsearch-logs.feature",
+    "elements": [
+      {
+        "name": "Warden Logs present in ES Query",
+        "id": "ElasticSearch-Logs;warden-logs-present-in-es-query",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-125",
+            "line": 3
+          },
+          {
+            "name": "@healthCheck",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 1670110
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I query the ElasticSearch Server for logs for index \"mapr_monitoring-*\"",
+            "line": 6,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 36933600
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/elasticsearch-steps.js:3"
+            }
+          },
+          {
+            "name": "The result has at least 1 log containing the word \"warden\"",
+            "line": 7,
+            "keyword": "Then ",
+            "result": {
+              "status": "failed",
+              "duration": 2818014,
+              "error_message": "AssertionError: expected '{\"mapr_monitoring-2016.04.30\":{\"aliases\":{},\"mappings\":{\"mapr_monitoringv1\":{\"properties\":{\"@timestamp\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"_time\":{\"type\":\"string\"},\"class\":{\"type\":\"string\"},\"clusterId\":{\"type\":\"string\"},\"event_time\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"fqdn\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_name\":{\"type\":\"string\"}}},\"fluentd\":{\"properties\":{\"@timestamp\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"class\":{\"type\":\"string\"},\"clusterId\":{\"type\":\"string\"},\"event_time\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"fqdn\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_name\":{\"type\":\"string\"}}}},\"settings\":{\"index\":{\"creation_date\":\"1461979452520\",\"uuid\":\"agFtn1L3TNumC9ja7JcMxA\",\"number_of_replicas\":\"1\",\"number_of_shards\":\"5\",\"version\":{\"created\":\"2020099\"}}},\"warmers\":{}},\"mapr_monitoring-2016.05.01\":{\"aliases\":{},\"mappings\":{\"mapr_monitoringv1\":{\"properties\":{\"@timestamp\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"_time\":{\"type\":\"string\"},\"class\":{\"type\":\"string\"},\"clusterId\":{\"type\":\"string\"},\"event_time\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"fqdn\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_name\":{\"type\":\"string\"}}},\"fluentd\":{\"properties\":{\"@timestamp\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"class\":{\"type\":\"string\"},\"clusterId\":{\"type\":\"string\"},\"event_time\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"fqdn\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_name\":{\"type\":\"string\"},\"thread\":{\"type\":\"string\"}}}},\"settings\":{\"index\":{\"creation_date\":\"1462060804036\",\"uuid\":\"Ysb0ImaWT7a-djyNL9IezQ\",\"number_of_replicas\":\"1\",\"number_of_shards\":\"5\",\"version\":{\"created\":\"2020099\"}}},\"warmers\":{}},\"mapr_monitoring-2016.05.02\":{\"aliases\":{},\"mappings\":{\"mapr_monitoringv1\":{\"properties\":{\"@timestamp\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"_time\":{\"type\":\"string\"},\"class\":{\"type\":\"string\"},\"clusterId\":{\"type\":\"string\"},\"event_time\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"fqdn\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_name\":{\"type\":\"string\"}}},\"fluentd\":{\"properties\":{\"@timestamp\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"class\":{\"type\":\"string\"},\"clusterId\":{\"type\":\"string\"},\"event_time\":{\"type\":\"date\",\"format\":\"strict_date_optional_time||epoch_millis\"},\"fqdn\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_name\":{\"type\":\"string\"},\"thread\":{\"type\":\"string\"}}}},\"settings\":{\"index\":{\"creation_date\":\"1462147207076\",\"uuid\":\"WNHVtVKFRla1OxqfSPiJrA\",\"number_of_replicas\":\"1\",\"number_of_shards\":\"5\",\"version\":{\"created\":\"2020099\"}}},\"warmers\":{}}}' to include 'warden'\n    at World.<anonymous> (/Users/tsullivan/projects/private-spyglass/features/step-definitions/elasticsearch-steps.ts:14:63)\n    at doNTCallback0 (node.js:428:9)\n    at process._tickCallback (node.js:357:13)"
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/elasticsearch-steps.js:10"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MCS",
+    "name": "MCS",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/mcs.feature",
+    "elements": [
+      {
+        "name": "Spyglass Services appear Healthy in MCS after Installation",
+        "id": "MCS;spyglass-services-appear-healthy-in-mcs-after-installation",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@healthCheck",
+            "line": 3
+          },
+          {
+            "name": "@SPYG-123",
+            "line": 3
+          },
+          {
+            "name": "@SPYG-143",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 102901
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 6,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 151577149
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:6"
+            }
+          },
+          {
+            "name": "I use the MCS Rest Client Session to retrieve dashboardInfo",
+            "line": 7,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 43637874
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:14"
+            }
+          },
+          {
+            "name": "I ask the dashboardInfo for unhealthySpyglassServices",
+            "line": 8,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 1196255
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:21"
+            }
+          },
+          {
+            "name": "I do not see any unhealthy spyglass services",
+            "line": 9,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 286635
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:25"
+            }
+          }
+        ]
+      },
+      {
+        "name": "MCS 3rd Party UI Links",
+        "id": "MCS;mcs-3rd-party-ui-links",
+        "line": 27,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@healthCheck",
+            "line": 26
+          },
+          {
+            "name": "@SPYG-126",
+            "line": 26
+          },
+          {
+            "name": "@wip",
+            "line": 26
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 28,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 222223
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I have an authenticated MCS Rest Client Session",
+            "line": 29,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 91706059
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:6"
+            }
+          },
+          {
+            "name": "I ask for a link to the following applications:",
+            "line": 30,
+            "keyword": "When ",
+            "rows": [
+              {
+                "cells": [
+                  "application"
+                ]
+              },
+              {
+                "cells": [
+                  "grafana"
+                ]
+              },
+              {
+                "cells": [
+                  "kibana"
+                ]
+              }
+            ],
+            "result": {
+              "status": "passed",
+              "duration": 23172891
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:28"
+            }
+          },
+          {
+            "name": "a GET request of each URL does not return an error status code",
+            "line": 34,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 14678013
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/mcs-steps.js:37"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "OpenTSDB-Metrics-REST-API",
+    "name": "OpenTSDB Metrics REST API",
+    "description": "",
+    "line": 1,
+    "keyword": "Feature",
+    "uri": "/Users/tsullivan/projects/private-spyglass/features/open-tsdb-metrics.feature",
+    "elements": [
+      {
+        "name": "Getting Simple Node Metrics via REST API",
+        "id": "OpenTSDB-Metrics-REST-API;getting-simple-node-metrics-via-rest-api",
+        "line": 4,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@SPYG-124",
+            "line": 3
+          },
+          {
+            "name": "@healthCheck",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "name": "I have installed Spyglass",
+            "line": 5,
+            "keyword": "Given ",
+            "result": {
+              "status": "passed",
+              "duration": 127313
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/cluster-management-and-prep-steps.js:46"
+            }
+          },
+          {
+            "name": "I specify the query range start as \"1h-ago\"",
+            "line": 6,
+            "keyword": "When ",
+            "result": {
+              "status": "passed",
+              "duration": 185668
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:3"
+            }
+          },
+          {
+            "name": "I query for the following metrics:",
+            "line": 7,
+            "keyword": "And ",
+            "rows": [
+              {
+                "cells": [
+                  "metric name"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.write_bytes"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:mapr.io.read_bytes"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_octets.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_io_time.io_time"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_io_time.weighted_io_time"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_merged.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_merged.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_octets.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_octets.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_ops.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_ops.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_time.read"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.disk_time.write"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:disk.pending_operations"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_errors.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_errors.tx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_octets.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_octets.tx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_packets.rx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:interface.if_packets.tx"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:load.load.longterm"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:load.load.midterm"
+                ]
+              },
+              {
+                "cells": [
+                  "sum:rate:load.load.shortterm"
+                ]
+              }
+            ],
+            "result": {
+              "status": "passed",
+              "duration": 134982954
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:6"
+            }
+          },
+          {
+            "name": "I receive at least \"200\" values per metric covering that time period",
+            "line": 32,
+            "keyword": "Then ",
+            "result": {
+              "status": "passed",
+              "duration": 4429570
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:18"
+            }
+          },
+          {
+            "name": "those values may be incorrect but we are only testing for presence",
+            "line": 33,
+            "keyword": "And ",
+            "result": {
+              "status": "passed",
+              "duration": 158820
+            },
+            "match": {
+              "location": "/Users/tsullivan/projects/private-spyglass/features/step-definitions/open-tsdb-steps.js:37"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
