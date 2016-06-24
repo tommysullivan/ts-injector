@@ -427,7 +427,7 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 2
+                "snapshotId": 5
               },
               {
                 "name": "baseImage",
@@ -464,7 +464,7 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 2
+                "snapshotId": 5
               },
               {
                 "name": "baseImage",
@@ -499,7 +499,7 @@
             "states": [
               {
                 "name": "readyForInstallation",
-                "snapshotId": 2
+                "snapshotId": 5
               },
               {
                 "name": "baseImage",
