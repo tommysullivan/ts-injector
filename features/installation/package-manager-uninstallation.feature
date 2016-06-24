@@ -8,7 +8,7 @@ Feature: Package Manager Uninstall
     """
     service mapr-warden stop
     """
-    And I stop all "mapr-zookeeper" services
+    And I "stop" all "mapr-zookeeper" services
     And I remove all the core components
     And I clear all mapr data
     Then the cluster does not have MapR Installed

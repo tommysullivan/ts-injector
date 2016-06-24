@@ -37,7 +37,7 @@ export default class TestPortalWebServer {
         return this.expressWrappers.newExpressApplication()
             .setPort(this.testPortalConfiguration.httpPort)
             .setHostName(this.testPortalConfiguration.hostName)
-            .addStaticWebContentPath(this.path.join(__dirname, 'static-web-content'))
+            .addStaticWebContentPath('lib/test-portal/static-web-content')
             .automaticallyParseJSONBody(this.testPortalConfiguration.requestSizeLimitInMegabytes)
             .get(this.testPortalConfiguration.testCliInvocationsWebRoute, this.testCliInvocationsController)
             .post(this.testPortalConfiguration.jiraSyncRequestWebRoute, this.jiraSyncRequestController)

@@ -2453,7 +2453,7 @@
   "cucumber": {
     "defaultCucumberStepTimeoutMS": 1200000,
     "embedAsyncErrorsInStepOutput": false,
-    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js  --require features",
+    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js  --require build/features",
     "featureSets": [
       {
         "id": "esxiNonGUIInstallAndHealthCheck",
