@@ -55,7 +55,7 @@ Other Factors by which Test Runs may Vary in Content or Result include:
 After cloning the repository from git, make sure to run: 
 
     npm install
-    node_modules/
+    node_modules/typescript/bin/tsc
  
 ### IntelliJ IDEA Setup
 
