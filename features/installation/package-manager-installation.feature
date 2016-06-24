@@ -20,6 +20,6 @@ Feature: Package Manager Installation
     And I install packages with the "spyglass" tag
     And I run configure.sh for spyglass components
     And I wait "60" seconds
-    And I restart all "mapr-warden" services
+    And I "restart" all "mapr-warden" services
     And I wait "120" seconds
     Then all health checkable services are healthy

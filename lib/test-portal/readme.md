@@ -41,8 +41,9 @@ Deployment:
 1. cd to /root/private-spyglass
 2. do a git pull
 3. npm install
-4. cd lib/test-portal/static-web-content
-5. bower install --allow-root
+4. node_modules/typescript/bin/tsc
+5. cd lib/test-portal/static-web-content
+6. bower install --allow-root
 
 If there are only web changes, the above will suffice. Server changes will require a process 
 restart. The process is governed by "forever", which ensures that processes stay running even

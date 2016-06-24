@@ -19,8 +19,8 @@ Feature: HBase Metrics
   Scenario: Check for the presence of HBaseRegionServer metrics
     Given I have a node running the "mapr-hbase-regionserver" service
     When I specify the query range start as "1m-ago"
-    And I restart all service named "hbregionserver" using maprcli
-    And I restart all service named "collectd" using maprcli
+    And I "restart" all service named "hbregionserver" using maprcli
+    And I "restart" all service named "collectd" using maprcli
     And I wait "40" seconds
     And I query for the following metrics:
       | metric name                                                   |

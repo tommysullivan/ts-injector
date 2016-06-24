@@ -1,1 +1,0 @@
-{"version":3,"file":"shell-escaper.js","sourceRoot":"","sources":["shell-escaper.ts"],"names":[],"mappings":";AAAA;IAGI,sBAAY,WAAe;QACvB,IAAI,CAAC,YAAY,GAAG,WAAW,CAAC;IACpC,CAAC;IAED,kCAAW,GAAX,UAAY,SAAgB;QACxB,MAAM,CAAS,IAAI,CAAC,YAAY,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC;IAClD,CAAC;IACL,mBAAC;AAAD,CAAC,AAVD,IAUC;AAVD;8BAUC,CAAA"}

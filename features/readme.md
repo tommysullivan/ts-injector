@@ -55,6 +55,7 @@ Other Factors by which Test Runs may Vary in Content or Result include:
 After cloning the repository from git, make sure to run: 
 
     npm install
+    node_modules/
  
 ### IntelliJ IDEA Setup
 
@@ -112,17 +113,6 @@ instead opt to run a featureSet, which uses the id of a list of feature files in
 
     > bin/spyglass-tester run featureSet [featureSetName] [optional cucumber args here]
 
-#### Run Framework with Specific Test Suite, Release, Development Lifecycle Phase and Clusters in Mind
-
-Often we want to run a test across several clusters, using specific test cases in each, and specific
-versions of packages at various levels of promotion status based on the
-phase of the development lifecycle we happen to be in when we are testing.
-
-    > bin/spyglass-tester run suite "smoke test" for release "spyglass-beta-refresh" [for phase "<phase name>"]
-
-Note that each release has its own currentPhase property, which acts as the default if one
-does not specify the [for phase "<phase name>"] part.
-
 ### List Available Cluster Ids
 
     bin/spyglass-tester cluster ids
@@ -140,7 +130,11 @@ Navigate to [Integration Test Job](http://10.10.1.153:8080/job/spyglass-health-c
 Make sure you have pulled in dependencies by running:
 
     npm install
+    node_modules/typescript/bin/tsc
  
+NOTE: IntelliJ will automatically file watch and compile your typescript files if you have configured it do
+do so in preferences. If you have done this, the second command is unnecessary.
+
 Assuing you have installed the cucumber.js plugin for IntelliJ IDEA, you may right click on a feature
 and run / debug it. You may also choose Run -> Edit Configurations to create a more specific
 cucumber run configuration.
@@ -199,42 +193,16 @@ For more information on tagging, please see [cucumber wiki](https://github.com/c
 
 Here is how to run scenarios with either @tag1 or @tag2 tags on them:
 
-    npm test -- --tags @tag1, @ptag2
+    npm test -- --require build/features --tags @tag1, @ptag2
 
 We can also run scenarios that have *both* @tag1 and @tag2 tags:
 
-    npm test -- --tags @tag1 --tags @tag2
+    npm test -- --require build/features --tags @tag1 --tags @tag2
    
 Run scenarios that *do not* have a tag1:
 
-    npm test -- --tags ~@tag1
+    npm test -- --require build/features --tags ~@tag1
     
-### Running tests based on JIRA issues
-
-To run tests based on issues in JIRA, use /bin/jql-to-cuke-tags along with an inline JIRA JQL query:
-
-    $ ./bin/jql-to-cuke-tags --username tsullivan@maprtech.com --jql "status = Proposed"
-    prompt: Enter corresponding password:  
-    Run the following command to execute cucumber tests:
-    npm test -- --tags @SPYG-97,@SPYG-81
-
-You will be prompted for data not provided via CLI args:
-
-    $ ./bin/jql-to-cuke-tags
-    prompt: Enter username for JIRA located at https://maprdrill.atlassian.net:  (tsullivan@maprtech.com) 
-    prompt: Enter corresponding password:  
-    prompt: Inline JQL or one of these preconfigured keys: (1.0.alpha,proposed):  (1.0.alpha) 
-    Run the following command to execute cucumber tests:
-    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
-
-In the above example, rather than providing inline JQL, a "preconfigured key" was used - 1.0.alpha. This
-key corresponds to a preconfigured query in the /configuration/config.json file.
-
-Non-Interactive Mode (uses CLI args or configured defaults in configuration/config.json):
-
-    $ ./bin/jql-to-cuke-tags -y -p $PASSWORD
-    Run the following command to execute cucumber tests:
-    npm test -- --tags @SPYG-177,@SPYG-176,@SPYG-175,@SPYG-174,@SPYG-173
 
 ### Traceability / Relationship Tags:
 

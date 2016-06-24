@@ -76,7 +76,7 @@ export default class ClusterManagementSteps {
         $.expect(isHostingHbaseMasterServers).to.be.false;
     }
 
-    @when(/^I ([^"]*) all "([^"]*)" services$/)
+    @when(/^I "([^"]*)" all "([^"]*)" services$/)
     stopServiceOnAllNodesThatHostIt(command:string, serviceName:string):PromisedAssertion {
         return $.expectAll(
             $.clusterUnderTest.nodesHosting(serviceName).map(n=> {

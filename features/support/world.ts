@@ -18,7 +18,7 @@ import '../step-definitions/rest-based-installation-steps';
 import '../step-definitions/scp-steps';
 import '../step-definitions/secure-cluster-steps';
 import '../step-definitions/ssh-steps';
-import '../step-definitions/timing';
+import '../step-definitions/timing-steps';
 import '../step-definitions/user-steps';
 import '../step-definitions/yarn-steps';
 import '../step-definitions/mfs-steps';

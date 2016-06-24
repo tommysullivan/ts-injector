@@ -1,1 +1,0 @@
-{"version":3,"file":"semantic-version.js","sourceRoot":"","sources":["semantic-version.ts"],"names":[],"mappings":";AAEA;IAGI,yBAAY,aAAoB;QAC5B,IAAI,CAAC,cAAc,GAAG,aAAa,CAAC;IACxC,CAAC;IAED,iCAAO,GAAP,UAAQ,aAAoB;QACxB,MAAM,CAAC,IAAI,CAAC,cAAc,IAAI,aAAa,CAAC;IAChD,CAAC;IAED,kCAAQ,GAAR;QACI,MAAM,CAAC,IAAI,CAAC,cAAc,CAAC;IAC/B,CAAC;IAEL,sBAAC;AAAD,CAAC,AAfD,IAeC;AAfD;iCAeC,CAAA"}
