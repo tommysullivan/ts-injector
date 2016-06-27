@@ -1,0 +1,203 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/5.0.0/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'version',
+1 verbose cli   'patch' ]
+2 info using npm@3.3.9
+3 info using node@v5.0.0
+4 info git [ 'status', '--porcelain' ]
+5 verbose stack Error: Git working directory not clean.
+5 verbose stack R  bin/spyglass-tester -> bin/devops-automation
+5 verbose stack D  dashboards/cldb_dashboard.json
+5 verbose stack D  dashboards/dbmetrics_dashboard.json
+5 verbose stack D  dashboards/kibana_dashboards_and_visualizations.json
+5 verbose stack D  dashboards/kibana_dashboards_and_visualizations_service_name.json
+5 verbose stack D  dashboards/node_dashboard.json
+5 verbose stack D  dashboards/volume_dashboard.json
+5 verbose stack D  dashboards/yarn_dashboard.json
+5 verbose stack R  features/testing-framework-tests/cluster-version-graph-capture.feature -> features/cluster-version-graph-capture.feature
+5 verbose stack D  features/common/logs.feature
+5 verbose stack D  features/common/purge-data.feature
+5 verbose stack D  features/core/cldb/cldb-logs.feature
+5 verbose stack D  features/core/cldb/cldb-metrics.feature
+5 verbose stack D  features/core/maprdb/maprdb-logs.feature
+5 verbose stack D  features/core/maprdb/maprdb-metrics.feature
+5 verbose stack D  features/core/mcs/mcs-health-check.feature
+5 verbose stack D  features/core/mcs/mcs-links-to-spyglass-ui.feature
+5 verbose stack D  features/core/mcs/mcs-logs.feature
+5 verbose stack D  features/core/mfs/mfs-logs.feature
+5 verbose stack D  features/core/mfs/mfs-metrics.feature
+5 verbose stack D  features/core/mfs/volume-metrics.feature
+5 verbose stack D  features/core/nfs/nfs-logs.feature
+5 verbose stack D  features/core/warden/warden-logs.feature
+5 verbose stack D  features/devops/spyglass-packaging.feature
+5 verbose stack D  features/devops/spyglass-releasing.feature
+5 verbose stack D  features/ecosystem/drill/drill-logs.feature
+5 verbose stack D  features/ecosystem/drill/drill-metrics.feature
+5 verbose stack D  features/ecosystem/hbase/hbase-logs.feature
+5 verbose stack D  features/ecosystem/hbase/hbase-metrics.feature
+5 verbose stack D  features/ecosystem/hive/hive-logs.feature
+5 verbose stack D  features/ecosystem/httpfs/httpfs-logs.feature
+5 verbose stack D  features/ecosystem/oozie/oozie-logs.feature
+5 verbose stack D  features/ecosystem/spark-history-server/spark-history-server-logs.feature
+5 verbose stack D  features/ecosystem/spyglass-components/collectd-logs.feature
+5 verbose stack D  features/ecosystem/spyglass-components/elasticsearch-logs.feature
+5 verbose stack D  features/ecosystem/spyglass-components/fluentd-logs.feature
+5 verbose stack D  features/ecosystem/spyglass-components/grafana-logs.feature
+5 verbose stack D  features/ecosystem/spyglass-components/kibana-logs.feature
+5 verbose stack D  features/ecosystem/spyglass-components/opentsdb-logs.feature
+5 verbose stack D  features/ecosystem/yarn/yarn-logs.feature
+5 verbose stack D  features/ecosystem/yarn/yarn-metrics.feature
+5 verbose stack R  features/testing-framework-tests/feature-sets.feature -> features/feature-sets.feature
+5 verbose stack D  features/hardware/cpu-metrics.feature
+5 verbose stack D  features/hardware/disk-metrics.feature
+5 verbose stack D  features/hardware/memory-metrics.feature
+5 verbose stack D  features/hardware/network-metrics.feature
+5 verbose stack D  features/hardware/os-load-metrics.feature
+5 verbose stack D  features/installation/ats-setup-secure.feature
+5 verbose stack D  features/installation/ats-setup.feature
+5 verbose stack D  features/installation/elasticsearch-setup.feature
+5 verbose stack D  features/installation/esxi/esxi-cluster-preparation.feature
+5 verbose stack D  features/installation/esxi/esxi-snapshot-preparation.feature
+5 verbose stack D  features/installation/grafana-dashboard-import.feature
+5 verbose stack D  features/installation/gui-installer.feature
+5 verbose stack D  features/installation/manually-install-using-github-docs.feature
+5 verbose stack D  features/installation/package-manager-installation.feature
+5 verbose stack D  features/installation/package-manager-secure-installation.feature
+5 verbose stack D  features/installation/package-manager-uninstallation.feature
+5 verbose stack D  features/installation/rest-installation.feature
+5 verbose stack R  features/testing-framework-tests/releasing.feature -> features/releasing.feature
+5 verbose stack R  features/testing-framework-tests/repositories.feature -> features/repositories.feature
+5 verbose stack R  features/testing-framework-tests/scp.feature -> features/scp.feature
+5 verbose stack D  features/step-definitions/cluster-management-steps.ts
+5 verbose stack D  features/step-definitions/elasticsearch-steps.ts
+5 verbose stack D  features/step-definitions/grafana-steps.ts
+5 verbose stack D  features/step-definitions/java-steps.ts
+5 verbose stack D  features/step-definitions/mcs-steps.ts
+5 verbose stack D  features/step-definitions/mfs-steps.ts
+5 verbose stack D  features/step-definitions/open-tsdb-steps.ts
+5 verbose stack D  features/step-definitions/package-manager-installation-steps.ts
+5 verbose stack D  features/step-definitions/rest-based-installation-steps.ts
+5 verbose stack D  features/step-definitions/secure-cluster-steps.ts
+5 verbose stack D  features/step-definitions/user-steps.ts
+5 verbose stack AM features/step-definitions/version-graph-capture-steps.ts
+5 verbose stack D  features/step-definitions/yarn-steps.ts
+5 verbose stack M features/support/world.ts
+5 verbose stack R  features/testing-framework-tests/test-transparency.feature -> features/test-transparency.feature
+5 verbose stack D  features/testing-framework-tests/mertics-query-check.feature
+5 verbose stack M lib/cli/readme.md
+5 verbose stack M lib/framework/framework.ts
+5 verbose stack D  lib/spyglass/spyglass-health-checker.ts
+5 verbose stack D  lib/spyglass/spyglass.ts
+5 verbose stack M lib/test-portal/readme.md
+5 verbose stack M package.json
+5 verbose stack RM features/readme.md -> readme.md
+5 verbose stack D  test.sh
+5 verbose stack D  tools/run_maprdb_loadtest.sh
+5 verbose stack D  tools/run_mr_jobs.sh
+5 verbose stack     at /usr/local/lib/node_modules/npm/lib/version.js:172:21
+5 verbose stack     at ChildProcess.exithandler (child_process.js:194:7)
+5 verbose stack     at emitTwo (events.js:87:13)
+5 verbose stack     at ChildProcess.emit (events.js:172:7)
+5 verbose stack     at maybeClose (internal/child_process.js:818:16)
+5 verbose stack     at Socket.<anonymous> (internal/child_process.js:319:11)
+5 verbose stack     at emitOne (events.js:77:13)
+5 verbose stack     at Socket.emit (events.js:169:7)
+5 verbose stack     at Pipe._onclose (net.js:469:12)
+6 verbose cwd /Users/tsullivan/projects/private-spyglass
+7 error Darwin 15.0.0
+8 error argv "/usr/local/Cellar/node/5.0.0/bin/node" "/usr/local/bin/npm" "version" "patch"
+9 error node v5.0.0
+10 error npm  v3.3.9
+11 error Git working directory not clean.
+11 error R  bin/spyglass-tester -> bin/devops-automation
+11 error D  dashboards/cldb_dashboard.json
+11 error D  dashboards/dbmetrics_dashboard.json
+11 error D  dashboards/kibana_dashboards_and_visualizations.json
+11 error D  dashboards/kibana_dashboards_and_visualizations_service_name.json
+11 error D  dashboards/node_dashboard.json
+11 error D  dashboards/volume_dashboard.json
+11 error D  dashboards/yarn_dashboard.json
+11 error R  features/testing-framework-tests/cluster-version-graph-capture.feature -> features/cluster-version-graph-capture.feature
+11 error D  features/common/logs.feature
+11 error D  features/common/purge-data.feature
+11 error D  features/core/cldb/cldb-logs.feature
+11 error D  features/core/cldb/cldb-metrics.feature
+11 error D  features/core/maprdb/maprdb-logs.feature
+11 error D  features/core/maprdb/maprdb-metrics.feature
+11 error D  features/core/mcs/mcs-health-check.feature
+11 error D  features/core/mcs/mcs-links-to-spyglass-ui.feature
+11 error D  features/core/mcs/mcs-logs.feature
+11 error D  features/core/mfs/mfs-logs.feature
+11 error D  features/core/mfs/mfs-metrics.feature
+11 error D  features/core/mfs/volume-metrics.feature
+11 error D  features/core/nfs/nfs-logs.feature
+11 error D  features/core/warden/warden-logs.feature
+11 error D  features/devops/spyglass-packaging.feature
+11 error D  features/devops/spyglass-releasing.feature
+11 error D  features/ecosystem/drill/drill-logs.feature
+11 error D  features/ecosystem/drill/drill-metrics.feature
+11 error D  features/ecosystem/hbase/hbase-logs.feature
+11 error D  features/ecosystem/hbase/hbase-metrics.feature
+11 error D  features/ecosystem/hive/hive-logs.feature
+11 error D  features/ecosystem/httpfs/httpfs-logs.feature
+11 error D  features/ecosystem/oozie/oozie-logs.feature
+11 error D  features/ecosystem/spark-history-server/spark-history-server-logs.feature
+11 error D  features/ecosystem/spyglass-components/collectd-logs.feature
+11 error D  features/ecosystem/spyglass-components/elasticsearch-logs.feature
+11 error D  features/ecosystem/spyglass-components/fluentd-logs.feature
+11 error D  features/ecosystem/spyglass-components/grafana-logs.feature
+11 error D  features/ecosystem/spyglass-components/kibana-logs.feature
+11 error D  features/ecosystem/spyglass-components/opentsdb-logs.feature
+11 error D  features/ecosystem/yarn/yarn-logs.feature
+11 error D  features/ecosystem/yarn/yarn-metrics.feature
+11 error R  features/testing-framework-tests/feature-sets.feature -> features/feature-sets.feature
+11 error D  features/hardware/cpu-metrics.feature
+11 error D  features/hardware/disk-metrics.feature
+11 error D  features/hardware/memory-metrics.feature
+11 error D  features/hardware/network-metrics.feature
+11 error D  features/hardware/os-load-metrics.feature
+11 error D  features/installation/ats-setup-secure.feature
+11 error D  features/installation/ats-setup.feature
+11 error D  features/installation/elasticsearch-setup.feature
+11 error D  features/installation/esxi/esxi-cluster-preparation.feature
+11 error D  features/installation/esxi/esxi-snapshot-preparation.feature
+11 error D  features/installation/grafana-dashboard-import.feature
+11 error D  features/installation/gui-installer.feature
+11 error D  features/installation/manually-install-using-github-docs.feature
+11 error D  features/installation/package-manager-installation.feature
+11 error D  features/installation/package-manager-secure-installation.feature
+11 error D  features/installation/package-manager-uninstallation.feature
+11 error D  features/installation/rest-installation.feature
+11 error R  features/testing-framework-tests/releasing.feature -> features/releasing.feature
+11 error R  features/testing-framework-tests/repositories.feature -> features/repositories.feature
+11 error R  features/testing-framework-tests/scp.feature -> features/scp.feature
+11 error D  features/step-definitions/cluster-management-steps.ts
+11 error D  features/step-definitions/elasticsearch-steps.ts
+11 error D  features/step-definitions/grafana-steps.ts
+11 error D  features/step-definitions/java-steps.ts
+11 error D  features/step-definitions/mcs-steps.ts
+11 error D  features/step-definitions/mfs-steps.ts
+11 error D  features/step-definitions/open-tsdb-steps.ts
+11 error D  features/step-definitions/package-manager-installation-steps.ts
+11 error D  features/step-definitions/rest-based-installation-steps.ts
+11 error D  features/step-definitions/secure-cluster-steps.ts
+11 error D  features/step-definitions/user-steps.ts
+11 error AM features/step-definitions/version-graph-capture-steps.ts
+11 error D  features/step-definitions/yarn-steps.ts
+11 error M features/support/world.ts
+11 error R  features/testing-framework-tests/test-transparency.feature -> features/test-transparency.feature
+11 error D  features/testing-framework-tests/mertics-query-check.feature
+11 error M lib/cli/readme.md
+11 error M lib/framework/framework.ts
+11 error D  lib/spyglass/spyglass-health-checker.ts
+11 error D  lib/spyglass/spyglass.ts
+11 error M lib/test-portal/readme.md
+11 error M package.json
+11 error RM features/readme.md -> readme.md
+11 error D  test.sh
+11 error D  tools/run_maprdb_loadtest.sh
+11 error D  tools/run_mr_jobs.sh
+12 error If you need help, you may report this error at:
+12 error     <https://github.com/npm/npm/issues>
+13 verbose exit [ 1, true ]

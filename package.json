@@ -1,14 +1,11 @@
 {
-  "name": "spyglass",
+  "name": "private-devops-automation-framework",
   "version": "1.0.0",
-  "description": "cluster logs and metrics collection and presentation",
-  "main": "api.js",
-  "scripts": {
-    "test": "bin/spyglass-tester run cucumber --tags @healthCheck"
-  },
+  "description": "collection of libraries for testing and automating infrastructure asynchronously",
+  "main": "bin/devops-automation",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapr/private-spyglass.git"
+    "url": "git+https://github.com/mapr/private-devops-automation-framework.git"
   },
   "keywords": [
     "spyglass"
@@ -16,9 +13,9 @@
   "author": "Tommy Sullivan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mapr/private-spyglass/issues"
+    "url": "https://github.com/mapr/private-devops-automation-framework/issues"
   },
-  "homepage": "https://github.com/mapr/private-spyglass#readme",
+  "homepage": "https://github.com/mapr/private-devops-automation-framework#readme",
   "dependencies": {
     "body-parser": "^1.15.1",
     "chai": "^3.5.0",
@@ -41,5 +38,8 @@
     "bower": "^1.7.9",
     "typescript": "^1.8.7",
     "grab-typings": "^1.1.10"
+  },
+  "publishConfig": {
+    "registry": "http://artifactory.devops.lab/local-npm-mapr/"
   }
 }

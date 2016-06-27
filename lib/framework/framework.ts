@@ -194,10 +194,6 @@ export default class Framework {
         return this.clusterTesting.newClusterUnderTest(clusterConfig);
     }
     
-    get spyglassHealthChecker():SpyglassHealthChecker {
-        return this.spyglass.newSpyglassHealthChecker();
-    }
-
     expect(target: any, message?: string):Assertion {
         if(typeof(target['then'])=='function') {
             var targetAsPromise:IThenable<any> = target;

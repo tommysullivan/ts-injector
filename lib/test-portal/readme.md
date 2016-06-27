@@ -19,7 +19,7 @@ Next, client side dependencies must be installed. From the lib/test-portal/stati
 
 Run the server with nodemon if you desire auto restart upon server source code change. Else skip word "nodemon":
 
-    bin/spyglass-tester server [with jira]
+    bin/devops-automation server [with jira]
  
 If optional text "with jira" is supplied, then you will be prompted for your JIRA credentials, which
 are stored in memory and used to sync data between the test portal and JIRA when requested to do so
@@ -57,7 +57,7 @@ Here are the commands to manage forever:
     info:    Forever processes running
     data:        uid  command       script                               forever pid   id logfile                 uptime         
     data:    [0] D2n2 /usr/bin/node bin/run-test-portal                  18205   18210    /root/.forever/D2n2.log STOPPED        
-    data:    [1] xRWv /usr/bin/node bin/spyglass-tester server with jira 9034    25616    /root/.forever/xRWv.log 0:19:49:13.615 
+    data:    [1] xRWv /usr/bin/node bin/devops-automation server with jira 9034    25616    /root/.forever/xRWv.log 0:19:49:13.615 
 
 Given that you have identified the "uid" of the process (if it is running), you may restart it using
 
