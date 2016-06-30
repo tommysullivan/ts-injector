@@ -1,6 +1,7 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import Framework from "../../lib/framework/framework";
 import PromisedAssertion = Chai.PromisedAssertion;
+import IClusterVersionGraph from "../../lib/versioning/i-cluster-version-graph";
 declare var $:Framework;
 declare var module:any;
 

@@ -2,7 +2,12 @@
   "name": "private-devops-automation-framework",
   "version": "1.0.0",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
-  "main": "bin/devops-automation",
+  "main": "lib/index.js",
+  "typings": "build/lib/index.d.ts",
+  "scripts": {
+    "test": "node_modules/cucumber/bin/cucumber.js --require build/features",
+    "prepublish": "node_modules/typescript/bin/tsc --rootDir ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mapr/private-devops-automation-framework.git"

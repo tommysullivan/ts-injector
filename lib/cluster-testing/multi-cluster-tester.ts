@@ -34,6 +34,7 @@ export default class MultiClusterTester {
 
     runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands:IList<string>):IThenable<IList<ClusterTestResult>> {
         var testRunUUID = this.uuidGenerator.v4();
+        if(this.clusterTestingConfiguration.clusterIds.isEmpty) this.console.log('WARN: No clusters specified. Set environment variable clusterId or clusterIds to value(s) from configuration/config.json');
         var clusterTestResultPromises = this.clusterTestingConfiguration.clusterIds.map(clusterId=>{
             var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
             var cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;

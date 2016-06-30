@@ -4,8 +4,6 @@ import ChaiStatic = Chai.ChaiStatic;
 import IClusterUnderTest from "../cluster-testing/i-cluster-under-test";
 import IThenable from "../promise/i-thenable";
 import Clusters from "../clusters/clusters";
-import SpyglassHealthChecker from "../spyglass/spyglass-health-checker";
-import Spyglass from "../spyglass/spyglass";
 import Cucumber from "../cucumber/cucumber";
 import IPromiseFactory from "../promise/i-promise-factory";
 import Rest from "../rest/rest";
@@ -94,7 +92,6 @@ export default class Framework {
     }
 
     get openTSDB():OpenTSDB { return new OpenTSDB(this.rest, this.frameworkConfig.openTSDBConfig, this.collections, this.typedJSON); }
-    get spyglass():Spyglass { return new Spyglass(this.errors, this.packaging.defaultPackageSets, this.clusterTesting.defaultReleasePhase); }
     get esxi():ESXI { return new ESXI(this.sshAPI, this.collections, this.frameworkConfig.esxiConfiguration); }
     get clusters():Clusters { return new Clusters(this.frameworkConfig.clustersConfig, this.esxi, this.errors, this.operatingSystems); }
     get operatingSystems():IOperatingSystems { return new OperatingSystems(this.packaging); }

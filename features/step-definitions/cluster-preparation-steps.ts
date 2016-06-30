@@ -1,7 +1,8 @@
-import { binding as steps, given, when, then } from "cucumber-tsflow";
+// import { binding as steps, given, when, then } from "cucumber-tsflow";
 import Framework from "../../lib/framework/framework";
 import PromisedAssertion = Chai.PromisedAssertion;
 import IError from "../../lib/errors/i-error";
+import {binding as steps, then, when} from "cucumber-tsflow";
 declare var $:Framework;
 declare var module:any;
 
