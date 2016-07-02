@@ -1,4 +1,3 @@
-// import { binding as steps, given, when, then } from "cucumber-tsflow";
 import Framework from "../../lib/framework/framework";
 import PromisedAssertion = Chai.PromisedAssertion;
 import IError from "../../lib/errors/i-error";
