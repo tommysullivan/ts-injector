@@ -10,7 +10,6 @@ import ICollections from "../collections/i-collections";
 import ClusterTestingConfiguration from "../cluster-testing/cluster-testing-configuration";
 import Clusters from "../clusters/clusters";
 import ClusterTesting from "../cluster-testing/cluster-testing";
-import TestPortal from "../test-portal/test-portal";
 import CliConfig from "./cli-config";
 import IPromiseFactory from "../promise/i-promise-factory";
 import ICucumber from "../cucumber/i-cucumber";
@@ -25,7 +24,6 @@ export default class Cli {
         private cucumber:ICucumber,
         private clusters:Clusters,
         private clusterTesting:ClusterTesting,
-        private testPortal:TestPortal,
         private cliConfig:CliConfig,
         private promiseFactory:IPromiseFactory
     ) {}
@@ -63,7 +61,6 @@ export default class Cli {
                 this.clusterTesting.newMultiClusterTester(),
                 cliHelper
             ),
-            this.testPortal,
             cliHelper
         );
     }

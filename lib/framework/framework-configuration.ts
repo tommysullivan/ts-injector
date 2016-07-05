@@ -9,7 +9,6 @@ import ElasticSearchConfiguration from "../elasticsearch/elasticsearch-configura
 import IJSONObject from "../typed-json/i-json-object";
 import IList from "../collections/i-list";
 import ESXIConfiguration from "../esxi/configuration/esxi-configuration";
-import TestPortalConfiguration from "../test-portal/test-portal-configuration";
 import JiraConfiguration from "../jira/jira-configuration";
 import IPath from "../node-js-wrappers/i-path";
 import CliConfig from "../cli/cli-config";
@@ -52,15 +51,6 @@ export default class FrameworkConfiguration {
             this.frameworkConfigJSON.jsonObjectNamed('cli'),
             this.basePathToUseForConfiguredRelativePaths,
             this.path
-        );
-    }
-
-    get testPortalConfig():TestPortalConfiguration {
-        return new TestPortalConfiguration(
-            this.frameworkConfigJSON.jsonObjectNamed('testPortal'),
-            this.basePathToUseForConfiguredRelativePaths,
-            this.path,
-            this.process
         );
     }
 

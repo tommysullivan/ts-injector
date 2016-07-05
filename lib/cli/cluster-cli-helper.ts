@@ -1,6 +1,5 @@
 import IProcess from "../node-js-wrappers/i-process";
 import ICollections from "../collections/i-collections";
-import ClusterTestingConfiguration from "../cluster-testing/cluster-testing-configuration";
 import IConsole from "../node-js-wrappers/i-console";
 import CliHelper from "./cli-helper";
 import ClusterSnapshotCliHelper from "./cluster-snapshot-cli-helper";

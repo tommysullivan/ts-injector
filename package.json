@@ -1,8 +1,21 @@
 {
   "name": "private-devops-automation-framework",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
-  "main": "bin/devops-automation",
+  "main": "./dist/index.js",
+  "typings": "./dist/lib/index.d.ts",
+  "bin": {
+    "devops": "bin/devops-automation"
+  },
+  "scripts": {
+    "start": "bin/devops-automation",
+    "test": "clusterId=ubuntu14 portalId=lab bin/devops-automation run cucumber --require dist/support --require dist/step-definitions",
+    "build": "tsc"
+  },
+  "files": [
+    "dist/*",
+    "bin/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mapr/private-devops-automation-framework.git"
@@ -30,16 +43,14 @@
     "request": "^2.72.0",
     "scp2": "^0.4.0",
     "shell-escape": "^0.2.0",
-    "sinon": "^1.17.4",
     "source-map-support": "^0.4.0",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "bower": "^1.7.9",
-    "typescript": "^1.8.7",
-    "grab-typings": "^1.1.10"
+    "typescript": "^1.8.7"
   },
   "publishConfig": {
-    "registry": "http://artifactory.devops.lab/local-npm-mapr/"
+    "registry": "http://artifactory.devops.lab/artifactory/api/npm/local-npm-mapr/"
   }
 }

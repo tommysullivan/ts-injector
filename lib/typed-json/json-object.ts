@@ -83,7 +83,7 @@ export default class JSONObject implements IJSONObject {
     }
 
     toString():string {
-        return JSON.stringify(this.jsonObject, null, this.spacingForStringify);
+        return JSON.stringify(this.jsonObject, null, this.spacingForStringify).substr(0, 1000);
     }
 
     listNamed<T>(name:string):IList<T> {
