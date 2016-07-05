@@ -51,6 +51,25 @@ export default class NodeUnderTest implements INodeUnderTest {
         this.releasePhase = releasePhase;
     }
 
+    executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IThenable<ISSHResult> {
+        return this.newSSHSession().then(s=>s.executeCommandWithRetryTimeout(shellCommand, timeout, maxTry));
+    }
+
+    writeBinaryData(content:ArrayBuffer, remotePath:string):IThenable<ISSHResult> {
+        return this.newSSHSession()
+            .then(sshSession=>sshSession.writeAsBinary(content, remotePath));
+    }
+
+    readAsBinary(remotePath:string):IThenable<ArrayBuffer> {
+        return this.newSSHSession()
+            .then(sshSession=>sshSession.readAsBinary(remotePath));
+    }
+
+    read(remotePath:string):IThenable<string> {
+        return this.newSSHSession()
+            .then(sshSession=>sshSession.read(remotePath));
+    }
+
     get packageManager():IPackageManager {
         return this.packaging.packageManagerFor(this.operatingSystem.name);
     }

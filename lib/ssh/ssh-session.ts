@@ -77,6 +77,34 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
+    executeCommandWithRetryTimeout(command:string, timeout:number, maxTryCount:number):IThenable<ISSHResult> {
+        var returnedPromise = this.promiseFactory.newPromise((resolve, reject) => {
+            this.nodemiralSession.onError(error=> {
+                reject(this.api.newSSHError(error, null));
+            });
+            setTimeout(() => this.nodemiralSession.execute(command, (err:string, code:number, logs:any) => {
+                if (this.writeCommandsToStdout) console.log(command);
+                var processResult = this.nodeWrapperFactory.newProcessResult(
+                    command,
+                    code,
+                    this.collections.newList<string>(logs.stdout.split("\n")),
+                    this.collections.newList<string>(logs.stderr.split("\n")),
+                    err
+                );
+                var result = this.api.newSSHResult(this.host, processResult);
+                if (err) reject(this.api.newSSHError(err, result));
+                else if (code != 0) reject(this.api.newSSHError(`Process exited with nonzero exit code: ${code}`, result));
+                else resolve(result);
+            }), timeout);
+        }).catch(error => {
+            if (maxTryCount <= 0) {
+                throw error;
+            }
+            return this.executeCommandWithRetryTimeout(command, timeout, maxTryCount - 1);
+        });
+        return returnedPromise;
+    }
+
     upload(localPath:string, remotePath:string):IThenable<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.scp2Module.scp(localPath, {path:remotePath}, this.newKeyboardInteractiveClient(), function(err) {
@@ -106,12 +134,12 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
-    write(fileContent:string, destinationPath:string):IThenable<any> {
+    private writeGeneral(content:Object, destinationPath:string):IThenable<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
-            console.log(`writing file content to "${destinationPath}"`, fileContent);
+            console.log(`writing content to "${destinationPath}"`, content);
             this.newKeyboardInteractiveClient().write({
                 destination: destinationPath,
-                content: this.nodeWrapperFactory.newStringBuffer(fileContent)
+                content: content
             }, function(err) {
                 if(err) reject(err);
                 else resolve(null);
@@ -119,11 +147,32 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
+    write(fileContent:string, destinationPath:string):IThenable<any> {
+        return this.writeGeneral(
+            this.nodeWrapperFactory.newStringBuffer(fileContent),
+            destinationPath
+        );
+    }
+
+    writeAsBinary(fileContent:ArrayBuffer, destinationPath:string):IThenable<any> {
+        return this.writeGeneral(
+            fileContent,
+            destinationPath
+        );
+    }
+
     read(remotePath:string):IThenable<string> {
+        return this.readAsBinary(remotePath).then(data => {
+            console.log(data.toString);
+            return data.toString()
+        });
+    }
+
+    readAsBinary(remotePath:string):IThenable<ArrayBuffer> {
         var localPath = this.path.join(this.temporaryStorageLocation, this.uuidGenerator.v4());
         return this.download(remotePath, localPath)
-            .then(_ => this.fileSystem.readFile(localPath))
-            .then(fileContent => this.fileSystem.delete(localPath).then(() => fileContent.toString()));
+            .then(_ => this.fileSystem.readFileAsBinary(localPath))
+            .then(fileContent => this.fileSystem.delete(localPath).then(() => fileContent));
     }
 
     private newKeyboardInteractiveClient():any {

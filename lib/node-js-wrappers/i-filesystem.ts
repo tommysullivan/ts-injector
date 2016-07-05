@@ -7,6 +7,7 @@ import IThenable from "../promise/i-thenable";
 interface IFileSystem {
     delete(filePath:string):IThenable<void>;
     readFile(filePath:string):IThenable<string>;
+    readFileAsBinary(filePath:string):IThenable<ArrayBuffer>;
     readFileSync(filePath:string):string;
     readJSONFileSync(filePath:string):Object;
     readJSONObjectFileSync(filePath:string):IJSONObject;

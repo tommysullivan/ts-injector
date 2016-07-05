@@ -23,7 +23,7 @@ Welcome to the DevOps Automation Framework Readme
 After cloning the repository from git, make sure to run: 
 
     npm install
-    node_modules/typescript/bin/tsc
+    npm run build
  
 ### IntelliJ IDEA Setup
 
@@ -49,20 +49,7 @@ There are many ways to run tests. The main considerations to make prior to runni
 3. What versions of all of the packages do I want to use, and from where do I want to install them, and how?
 4. Do I want to save the result(s) of my tests to http://testing.devops.lab?
 
-### Run Cucumber.js Executable
 
-This is the simplest and most direct way to run the tests with minimal MapR-specific framwork involved.
-Depending on the tests being run, you may be prompted to enter certain environment variables.
-
-Either install cucumber globally and run it:
-
-    > sudo npm install -g cucumber
-    > cucumber.js
-    
-Or use the local cucumber after doing an npm install:
-
-    > node_modules/cucumber/bin/cucumber.js
-    
 ### Run Cucumber.js with the Test Framework
 
 This type of run captures additional information about the cluster and the testing environment, producing
@@ -93,7 +80,7 @@ the .feature files in the order you'd like to run them, omitting those you wish 
 Make sure you have pulled in dependencies by running:
 
     npm install
-    node_modules/typescript/bin/tsc
+    npm run build
  
 NOTE: IntelliJ will automatically file watch and compile your typescript files if you have configured it do
 do so in preferences. If you have done this, the second command is unnecessary.
@@ -124,7 +111,8 @@ under the "clusters" property. For example "tommy-cluster-1".
 Test Runs send colored text to stdout for quick viewing, as well as store result and config JSON in
 the test-results, test-configs, and test-cli-invocations folders.
 
-One can view using an interactive web interface by running the [CI Server](../lib/test-portal/readme.md) and then
+One can view using an interactive web interface by running the 
+[Devops Portal](https://github.com/mapr/private-devops-test-portal) and then
 navigating to the generated URL using your browser of choice.
 
 One may also make a REST call to "publish" or update the test result to the QA version of the CI Server.
@@ -151,15 +139,15 @@ For more information on tagging, please see [cucumber wiki](https://github.com/c
 
 Here is how to run scenarios with either @tag1 or @tag2 tags on them:
 
-    npm test -- --require build/features --tags @tag1, @ptag2
+    npm test -- --tags @tag1, @ptag2
 
 We can also run scenarios that have *both* @tag1 and @tag2 tags:
 
-    npm test -- --require build/features --tags @tag1 --tags @tag2
+    npm test -- --tags @tag1 --tags @tag2
    
 Run scenarios that *do not* have a tag1:
 
-    npm test -- --require build/features --tags ~@tag1
+    npm test -- --tags ~@tag1
     
 
 ### Traceability / Relationship Tags:
