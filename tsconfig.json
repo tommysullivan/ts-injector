@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "build",
+    "outDir": "dist",
     "sourceMap": true,
     "target": "es5",
     "module": "commonjs",
@@ -11,11 +11,12 @@
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
+    "rootDir": "lib",
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true
   },
   "exclude": [
     "node_modules",
-    "build"
+    "dist"
   ]
 }

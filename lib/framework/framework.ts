@@ -1,6 +1,3 @@
-import Assertion = Chai.Assertion;
-import ChaiStatic = Chai.ChaiStatic;
-
 import IClusterUnderTest from "../cluster-testing/i-cluster-under-test";
 import IThenable from "../promise/i-thenable";
 import Clusters from "../clusters/clusters";
@@ -28,7 +25,6 @@ import ServiceDiscoverer from "../cluster-testing/service-discoverer";
 import Versioning from "../versioning/versioning";
 import IVersioning from "../versioning/i-versioning";
 import IConsole from "../node-js-wrappers/i-console";
-import TestPortal from "../test-portal/test-portal";
 import ExpressWrappers from "../express-wrappers/express-wrappers";
 import Jira from "../jira/jira";
 import IOperatingSystems from "../operating-systems/i-operating-systems";
@@ -39,6 +35,8 @@ import Grafana from "../grafana/grafana";
 import ICucumber from "../cucumber/i-cucumber";
 import Releasing from "../releasing/releasing";
 import IReleasing from "../releasing/i-releasing";
+import {ChaiStatic} from "../chai/chai-static";
+import {Assertion} from "../chai/assertion";
 
 export default class Framework {
     constructor(
@@ -56,24 +54,8 @@ export default class Framework {
         public console:IConsole,
         public rest:Rest,
         public expressWrappers:ExpressWrappers,
-        private _testRunGUID:string,
-        public sinon:Sinon.SinonStatic
+        private _testRunGUID:string
     ) {}
-
-    get testPortal():TestPortal {
-        return new TestPortal(
-            this.frameworkConfig.testPortalConfig,
-            this.expressWrappers,
-            this.nodeWrapperFactory,
-            this.jira,
-            this.process,
-            this.promiseFactory,
-            this.collections,
-            this.console,
-            this.frameworkConfig.toJSON().clusters,
-            this.clusterTesting
-        );
-    }
     
     get jira():Jira {
         return new Jira(this.frameworkConfig.jiraConfig, this.rest);
@@ -169,7 +151,6 @@ export default class Framework {
             this.cucumber,
             this.clusters,
             this.clusterTesting,
-            this.testPortal,
             this.frameworkConfig.cliConfig,
             this.promiseFactory
         );
@@ -210,6 +191,6 @@ export default class Framework {
 
     expectEmptyList<T>(list:IList<T>):void {
         if(list.notEmpty())
-            throw new this.chai.AssertionError(`expected empty list, got ${list.toJSONString()}`);
+            throw new Error(`expected empty list, got ${list.toJSONString()}`);
     }
 }

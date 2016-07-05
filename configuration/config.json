@@ -2453,7 +2453,7 @@
   "cucumber": {
     "defaultCucumberStepTimeoutMS": 1200000,
     "embedAsyncErrorsInStepOutput": false,
-    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js  --require build/features",
+    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js",
     "featureSets": [
       {
         "id": "esxiNonGUIInstallAndHealthCheck",
@@ -2891,29 +2891,5 @@
   "ssh": {
     "writeCommandsToStdout": true,
     "temporaryStorageLocation": "data/tmp"
-  },
-  "testPortal": {
-    "environmentSpecificConfig": {
-      "lab": {
-        "httpPort": 80,
-        "hostName": "testing.devops.lab"
-      },
-      "local": {
-        "httpPort": 5001,
-        "hostName": "localhost"
-      }
-    },
-    "testResultsWebRoute": "/test-results",
-    "testConfigWebRouteRoute": "/test-configs/:configId",
-    "jqlQueryWebRoute": "/jqlQueries",
-    "clustersWebRoute": "/clusters",
-    "testResultWebRoute": "/test-results/:resultId",
-    "testCliInvocationsWebRoute": "/test-cli-invocations/:cliDetailId",
-    "jiraSyncRequestWebRoute": "/jira-sync-requests",
-    "requestSizeLimitInMegabytes": 5,
-    "maxResultsForExplorer": 20,
-    "testResultPathRelativeToThisConfigFile": "../data/test-portal-file-store/test-results",
-    "testConfigsPathRelativeToThisConfigFile": "../data/test-portal-file-store//test-configs",
-    "cliInvocationsPathRelativeToThisConfigFile": "../data/test-portal-file-store/test-cli-invocations"
   }
 }
