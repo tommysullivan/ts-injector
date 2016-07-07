@@ -33,6 +33,10 @@ interface INodeUnderTest {
     download(remotePath:string, localPath:string):IThenable<ISSHResult>;
     operatingSystem:IOperatingSystem;
     packages:IList<IPackage>;
+    executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IThenable<ISSHResult>;
+    writeBinaryData(content:ArrayBuffer, remotePath:string):IThenable<ISSHResult>;
+    read(remotePath:string):IThenable<string>;
+    readAsBinary(remotePath:string):IThenable<ArrayBuffer>;
 }
 
 export default INodeUnderTest;

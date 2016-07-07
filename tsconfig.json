@@ -13,7 +13,8 @@
     "noLib": false,
     "rootDir": "lib",
     "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules",

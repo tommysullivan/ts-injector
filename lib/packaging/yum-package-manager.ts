@@ -36,7 +36,7 @@ export default class YumPackageManager implements IPackageManager {
     }
 
     get installJavaCommand():string {
-        return this.installPackageCommand('java-1.7.0-openjdk');
+        return this.installPackageCommand('java-1.7.0-openjdk-devel');
     }
 
     installPackagesCommand(packageNames:IList<string>):string {

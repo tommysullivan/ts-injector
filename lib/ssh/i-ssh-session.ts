@@ -9,6 +9,9 @@ interface ISSHSession {
     download(remotePath:string, localPath:string):IThenable<any>;
     write(fileContent:string, destinationPath:string):IThenable<any>;
     read(remotePath:string):IThenable<string>;
+    executeCommandWithRetryTimeout(command:string, timeout:number, maxTryCount:number):IThenable<ISSHResult>;
+    readAsBinary(remotePath:string):IThenable<ArrayBuffer>;
+    writeAsBinary(fileContent:ArrayBuffer, destinationPath:string):IThenable<any>;
 }
 
 export default ISSHSession;

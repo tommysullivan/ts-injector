@@ -25,6 +25,15 @@ export default class FileSystem implements IFileSystem {
         return <string>this.fsModule.readFileSync(filePath);
     }
 
+    readFileAsBinary(filePath:string):IThenable<ArrayBuffer> {
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            this.fsModule.readFile(filePath, (error, data) => {
+                if(error) reject(error);
+                else resolve(data);
+            });
+        })
+    }
+
     readFile(filePath:string):IThenable<string> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.fsModule.readFile(filePath, (error, data) => {
