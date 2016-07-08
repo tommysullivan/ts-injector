@@ -8,7 +8,7 @@ export default class AptPackageManager implements IPackageManager {
         if (tagName == 'core')
             return `deb ${repository.url} mapr optional`;
         else
-            return `deb ${repository.url} binary/`;
+            return `deb ${repository.url} binary trusty`;
     }
 
     clientConfigurationFileLocationFor(packageName:string):string {
