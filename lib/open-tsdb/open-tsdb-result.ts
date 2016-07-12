@@ -47,6 +47,12 @@ export default class OpenTSDBResult {
             : this.typedJSONResult.dictionaryNamed<string>('dps').keys;
     }
 
+    lastValue(lastTimestamp:string):number{
+        var firstResult=this.resultJSONArray[0];
+        var result=this.typedJSONResult.dictionaryNamed<string>('dps').get(lastTimestamp);
+        return parseInt(result);
+    }
+
     toString():string {
         return JSON.stringify({
             metric: this.metric,
