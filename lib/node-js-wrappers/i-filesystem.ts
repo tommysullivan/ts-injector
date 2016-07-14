@@ -14,6 +14,7 @@ interface IFileSystem {
     readJSONArrayFileSync(filePath:string):IList<IJSONObject>;
     createReadStream(path:string):IFileStream;
     writeFileSync(filePath:string, content:string):IFileSystem;
+    writeFile(filePath:string, content:string):IThenable<any>;
     readdirSync(directoryPath:string):IList<string>;
     statSync(filePath:string):IFileStats;
 }

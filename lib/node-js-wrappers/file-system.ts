@@ -65,6 +65,15 @@ export default class FileSystem implements IFileSystem {
         return this;
     }
 
+    writeFile(filePath:string, content:string):IThenable<any>{
+        return this.promiseFactory.newPromise((resolve, reject) => {
+            this.fsModule.writeFile(filePath, content, (error) => {
+                if (error) reject(error);
+                else resolve(null);
+            })
+        });
+    }
+
     createReadStream(path:string):IFileStream {
         return this.nodeWrapperFactory.newFileStream(
             this.fsModule.createReadStream(path)
