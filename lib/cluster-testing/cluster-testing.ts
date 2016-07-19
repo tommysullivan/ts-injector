@@ -170,14 +170,16 @@ export default class ClusterTesting {
         );
     }
 
-    newClusterTestResult(cucumberTestResult:ICucumberTestResult, frameworkConfiguration:FrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>):ClusterTestResult {
+    newClusterTestResult(cucumberTestResult:ICucumberTestResult, frameworkConfiguration:FrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, id:string, testRunGUID:string):ClusterTestResult {
         return new ClusterTestResult(
             cucumberTestResult,
             frameworkConfiguration,
             versionGraph,
             versionGraphError,
             clusterConfiguration,
-            logs
+            logs,
+            id,
+            testRunGUID
         );
     }
 }

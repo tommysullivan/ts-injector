@@ -29,14 +29,16 @@ export default class ResultReporter {
         private path:IPath
     ) {}
 
-    saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>):IThenable<ClusterTestResult> {
+    saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, testRunGUID:string):IThenable<ClusterTestResult> {
         var clusterTestResult = this.clusterTesting.newClusterTestResult(
             cucumberTestResult,
             this.frameworkConfig,
             versionGraph,
             versionGraphError,
             clusterConfiguration,
-            logs
+            logs,
+            uniqueFileIdentifier,
+            testRunGUID
         );
 
         this.console.log(cucumberTestResult.consoleOutput());

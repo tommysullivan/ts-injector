@@ -14,7 +14,9 @@ export default class ClusterTestResult {
         private versionGraph:IClusterVersionGraph,
         private versionGraphError:string,
         private clusterConfiguration:IClusterConfiguration,
-        private logs:IList<NodeLog>
+        private logs:IList<NodeLog>,
+        private id:string,
+        private testRunGUID:string
     ) {}
 
     get clusterId():string { return this.clusterConfiguration.id; }
@@ -28,7 +30,9 @@ export default class ClusterTestResult {
             clusterConfiguration: this.clusterConfiguration.toJSON(),
             frameworkConfiguration: this.frameworkConfiguration.toJSON(),
             passed: this.passed(),
-            logs: this.logs.toJSON()
+            logs: this.logs.toJSON(),
+            id: this.id,
+            testRunGUID: this.testRunGUID
         }
     }
 

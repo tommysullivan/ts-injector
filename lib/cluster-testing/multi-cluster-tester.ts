@@ -61,8 +61,8 @@ export default class MultiClusterTester {
                         })
                         .then(logs => {
                             return cluster.versionGraph()
-                                .then(versionGraph=> this.resultReporter.saveResult(versionGraph, null, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs))
-                                .catch(versionGraphError => this.resultReporter.saveResult(null, versionGraphError, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs));
+                                .then(versionGraph=> this.resultReporter.saveResult(versionGraph, null, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs, testRunUUID))
+                                .catch(versionGraphError => this.resultReporter.saveResult(null, versionGraphError, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs, testRunUUID));
                         });
                 });
         });
