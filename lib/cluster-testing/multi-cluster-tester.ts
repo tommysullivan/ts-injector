@@ -14,6 +14,7 @@ import ResultReporter from "./result-reporter";
 import ClusterLogCapturer from "./cluster-log-capturer";
 import NodeLog from "./node-log";
 import ICollections from "../collections/i-collections";
+import IFileSystem from "../node-js-wrappers/i-filesystem";
 
 export default class MultiClusterTester {
 
@@ -29,7 +30,8 @@ export default class MultiClusterTester {
         private clusterTesting:ClusterTesting,
         private resultReporter:ResultReporter,
         private clusterLogCapturer:ClusterLogCapturer,
-        private collections:ICollections
+        private collections:ICollections,
+        private fileSystem:IFileSystem
     ) {}
 
     runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands:IList<string>):IThenable<IList<ClusterTestResult>> {
@@ -52,6 +54,8 @@ export default class MultiClusterTester {
 
             var cluster = this.clusterTesting.clusterForId(clusterId);
 
+            var packageJson = this.fileSystem.readJSONObjectFileSync('./package.json');
+
             return this.cucumber.newCucumberRunner(this.process, this.console).runCucumber(cucumberRunConfiguration)
                 .then(cucumberTestResult => {
                     return this.clusterLogCapturer.captureLogs(cluster)
@@ -61,8 +65,8 @@ export default class MultiClusterTester {
                         })
                         .then(logs => {
                             return cluster.versionGraph()
-                                .then(versionGraph=> this.resultReporter.saveResult(versionGraph, null, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs, testRunUUID))
-                                .catch(versionGraphError => this.resultReporter.saveResult(null, versionGraphError, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs, testRunUUID));
+                                .then(versionGraph=> this.resultReporter.saveResult(versionGraph, null, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs, testRunUUID, packageJson))
+                                .catch(versionGraphError => this.resultReporter.saveResult(null, versionGraphError, cucumberTestResult, uniqueFileIdentifier, clusterConfiguration, logs, testRunUUID, packageJson));
                         });
                 });
         });
