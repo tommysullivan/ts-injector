@@ -38,6 +38,7 @@ import ResultReporter from "./result-reporter";
 import ClusterLogCapturer from "./cluster-log-capturer";
 import IList from "../collections/i-list";
 import NodeLog from "./node-log";
+import IJSONObject from "../typed-json/i-json-object";
 
 export default class ClusterTesting {
 
@@ -91,7 +92,8 @@ export default class ClusterTesting {
             this,
             this.newResultReporter(),
             this.newClusterLogCapturer(),
-            this.collections
+            this.collections,
+            this.fileSystem
         )
     }
 
@@ -170,7 +172,7 @@ export default class ClusterTesting {
         );
     }
 
-    newClusterTestResult(cucumberTestResult:ICucumberTestResult, frameworkConfiguration:FrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, id:string, testRunGUID:string):ClusterTestResult {
+    newClusterTestResult(cucumberTestResult:ICucumberTestResult, frameworkConfiguration:FrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, id:string, testRunGUID:string, packageJson:IJSONObject):ClusterTestResult {
         return new ClusterTestResult(
             cucumberTestResult,
             frameworkConfiguration,
@@ -179,7 +181,8 @@ export default class ClusterTesting {
             clusterConfiguration,
             logs,
             id,
-            testRunGUID
+            testRunGUID,
+            packageJson
         );
     }
 }

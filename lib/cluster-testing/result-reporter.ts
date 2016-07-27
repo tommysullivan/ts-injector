@@ -14,6 +14,7 @@ import IPromiseFactory from "../promise/i-promise-factory";
 import IPath from "../node-js-wrappers/i-path";
 import IList from "../collections/i-list";
 import NodeLog from "./node-log";
+import IJSONObject from "../typed-json/i-json-object";
 
 export default class ResultReporter {
 
@@ -29,7 +30,7 @@ export default class ResultReporter {
         private path:IPath
     ) {}
 
-    saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, testRunGUID:string):IThenable<ClusterTestResult> {
+    saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, testRunGUID:string, packageJson:IJSONObject):IThenable<ClusterTestResult> {
         var clusterTestResult = this.clusterTesting.newClusterTestResult(
             cucumberTestResult,
             this.frameworkConfig,
@@ -38,7 +39,8 @@ export default class ResultReporter {
             clusterConfiguration,
             logs,
             uniqueFileIdentifier,
-            testRunGUID
+            testRunGUID,
+            packageJson
         );
 
         this.console.log(cucumberTestResult.consoleOutput());

@@ -5,6 +5,7 @@ import ICucumberRunConfiguration from "../cucumber/i-cucumber-run-configuration"
 import IClusterConfiguration from "../clusters/i-cluster-configuration";
 import NodeLog from "./node-log";
 import IList from "../collections/i-list";
+import IJSONObject from "../typed-json/i-json-object";
 
 export default class ClusterTestResult {
 
@@ -16,14 +17,15 @@ export default class ClusterTestResult {
         private clusterConfiguration:IClusterConfiguration,
         private logs:IList<NodeLog>,
         private id:string,
-        private testRunGUID:string
+        private testRunGUID:string,
+        private packageJson:IJSONObject
     ) {}
 
     get clusterId():string { return this.clusterConfiguration.id; }
 
     toJSON() {
         return {
-            contentType: 'vnd/mapr.test-portal.cluster-test-result+json;v=2.0.0',
+            contentType: 'vnd/mapr.test-portal.cluster-test-result+json;v=2.1.0',
             cucumberTestResult: this.cucumberTestResult.toJSON(),
             versionGraph: this.versionGraph ? this.versionGraph.toJSON() : null,
             versionGraphError: this.versionGraphError,
@@ -32,7 +34,8 @@ export default class ClusterTestResult {
             passed: this.passed(),
             logs: this.logs.toJSON(),
             id: this.id,
-            testRunGUID: this.testRunGUID
+            testRunGUID: this.testRunGUID,
+            packageJsonOfSystemUnderTest: this.packageJson.toRawJSON()
         }
     }
 
