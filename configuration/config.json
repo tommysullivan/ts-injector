@@ -23,7 +23,7 @@
       ]
     },
     "defaultRelease": "spyglass-ga",
-    "defaultLifecyclePhase": "development",
+    "defaultLifecyclePhase": "testing",
     "mcsLogFileLocation": "/opt/mapr/logs/adminuiapp.log",
     "wardenLogLocation": "/opt/mapr/logs/warden.log",
     "configureShLogLocation": "/opt/mapr/logs/configure.log",
@@ -136,6 +136,7 @@
       "name": "suse12.devops.lab",
       "nodes": [
         {
+          "name": "s12_10.10.99.75",
           "username": "root",
           "password": "mapr",
           "host": "10.10.99.75",
@@ -148,7 +149,7 @@
               },
               {
                 "name": "readyForInstallation",
-                "snapshotId": 2
+                "snapshotId": 3
               }
             ]
           },
@@ -173,6 +174,7 @@
           ]
         },
         {
+          "name": "s12_10.10.99.76",
           "username": "root",
           "password": "mapr",
           "host": "10.10.99.76",
@@ -182,6 +184,42 @@
               {
                 "name": "baseImage",
                 "snapshotId": 2
+              },
+              {
+                "name": "readyForInstallation",
+                "snapshotId": 4
+              }
+            ]
+          },
+          "operatingSystem": {
+            "name": "SuSE",
+            "version": "12"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-elasticsearch",
+            "mapr-hbase",
+            "mapr-hbase-master",
+            "mapr-opentsdb",
+            "mapr-grafana",
+            "mapr-gateway"
+          ]
+        },
+        {
+          "name": "s12_10.10.99.77",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.77",
+          "esxi": {
+            "id": 8,
+            "states": [
+              {
+                "name": "baseImage",
+                "snapshotId": 1
               },
               {
                 "name": "readyForInstallation",
@@ -199,39 +237,8 @@
             "mapr-nodemanager",
             "mapr-fileserver",
             "mapr-core",
-            "mapr-elasticsearch",
-            "mapr-opentsdb",
-            "mapr-grafana",
-            "mapr-gateway"
-          ]
-        },
-        {
-          "username": "root",
-          "password": "mapr",
-          "host": "10.10.99.77",
-          "esxi": {
-            "id": 8,
-            "states": [
-              {
-                "name": "baseImage",
-                "snapshotId": 1
-              },
-              {
-                "name": "readyForInstallation",
-                "snapshotId": 2
-              }
-            ]
-          },
-          "operatingSystem": {
-            "name": "SuSE",
-            "version": "12"
-          },
-          "serviceNames": [
-            "mapr-collectd",
-            "mapr-fluentd",
-            "mapr-nodemanager",
-            "mapr-fileserver",
-            "mapr-core",
+            "mapr-hbase",
+            "mapr-hbase-regionserver",
             "mapr-elasticsearch",
             "mapr-kibana"
           ]
@@ -293,7 +300,8 @@
             "mapr-grafana",
             "mapr-resourcemanager",
             "mapr-nodemanager",
-            "mapr-hbase-master"
+            "mapr-hbase-master",
+            "mapr-collectd"
           ]
         }
       ]
@@ -2453,7 +2461,7 @@
   "cucumber": {
     "defaultCucumberStepTimeoutMS": 1200000,
     "embedAsyncErrorsInStepOutput": false,
-    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js",
+    "cucumberExecutablePath": "node_modules/cucumber/bin/cucumber.js --require dist/support --require dist/step-definitions",
     "featureSets": [
       {
         "id": "esxiNonGUIInstallAndHealthCheck",
@@ -2525,7 +2533,9 @@
           { "file": "features/hardware/network-metrics.feature" },
           { "file": "features/hardware/os-load-metrics.feature" },
           { "file": "features/common/logs.feature" },
-          { "file": "features/common/purge-data.feature" }
+          { "file": "features/common/purge-data.feature" },
+          { "file": "features/common/core-check.feature" },
+          { "file": "features/core/warden/alarm-metrics.feature" }
         ]
       }
     ]
@@ -2625,19 +2635,37 @@
       {
         "url": "http://apt.qa.lab/mapr",
         "packages": [
-          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"]}
+          { "packageSetRef": "core", "version": "6.0.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"]}
         ]
       },
       {
         "url": "http://yum.qa.lab/mapr",
         "packages": [
-          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "development", "operatingSystems": ["redhat","centos"]}
+          { "packageSetRef": "core", "version": "6.0.0", "promotionLevel": "development", "operatingSystems": ["redhat","centos"]}
         ]
       },
       {
         "url": "http://yum.qa.lab/mapr-suse",
         "packages": [
-          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "development", "operatingSystems": ["suse"]}
+          { "packageSetRef": "core", "version": "6.0.0", "promotionLevel": "development", "operatingSystems": ["suse"]}
+        ]
+      },
+      {
+        "url": "http://apt.qa.lab/v5.2.0",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "testing", "operatingSystems": ["ubuntu"]}
+        ]
+      },
+      {
+        "url": "http://yum.qa.lab/v5.2.0",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "testing", "operatingSystems": ["redhat","centos"]}
+        ]
+      },
+      {
+        "url": "http://yum.qa.lab/v5.2.0-suse/",
+        "packages": [
+          { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "testing", "operatingSystems": ["suse"]}
         ]
       },
       {
@@ -2693,18 +2721,6 @@
         ]
       },
       {
-        "url": "http://apt.qa.lab/opensource/spyglass-beta",
-        "packages": [
-          { "packageSetRef": "spyglass", "version": "1.0.0-beta-refresh", "promotionLevel": "testing", "operatingSystems": ["ubuntu"] }
-        ]
-      },
-      {
-        "url": "http://yum.qa.lab/opensource/spyglass-beta",
-        "packages": [
-          { "packageSetRef": "spyglass", "version": "1.0.0-beta-refresh", "promotionLevel": "testing", "operatingSystems": ["centos","redhat"] }
-        ]
-      },
-      {
         "url": "http://apt.qa.lab/opensource",
         "packages": [
           { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"] },
@@ -2741,6 +2757,34 @@
         "packages": [
           { "name": "mapr-installer", "version": "1.3.0", "promotionLevel": "development", "operatingSystems": ["redhat"] }
         ]
+      },
+      {
+        "url": "http://artifactory.devops.lab/artifactory/prestage/releases-dev/MEP/MEP-1.0.0/ubuntu",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "testing", "operatingSystems": ["ubuntu"] },
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "testing", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://artifactory.devops.lab/artifactory/prestage/releases-dev/MEP/MEP-1.0.0/redhat",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "testing", "operatingSystems": ["centos","redhat","suse"] },
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "testing", "operatingSystems": ["centos","redhat", "suse"] }
+        ]
+      },
+      {
+        "url": "http://artifactory.devops.lab/artifactory/prestage/releases/MEP/MEP-1.0.0/ubuntu",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "staging", "operatingSystems": ["ubuntu"] },
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "staging", "operatingSystems": ["ubuntu"] }
+        ]
+      },
+      {
+        "url": "http://artifactory.devops.lab/artifactory/prestage/releases/MEP/MEP-1.0.0/redhat",
+        "packages": [
+          { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "staging", "operatingSystems": ["centos","redhat","suse"] },
+          { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "staging", "operatingSystems": ["centos","redhat", "suse"] }
+        ]
       }
     ],
     "packageSets": [
@@ -2774,6 +2818,22 @@
           { "name": "mapr-fileserver", "version": "5.2.0", "tags": ["core"] },
           { "name": "mapr-historyserver", "version": "5.2.0", "tags": ["core"] },
           { "name": "mapr-gateway", "version": "5.2.0", "tags": ["core"] }
+        ]
+      },
+      {
+        "id": "core",
+        "version": "6.0.0",
+        "packages": [
+          { "name": "mapr-cldb", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-core", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-zookeeper", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-nfs", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-webserver", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-nodemanager", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-resourcemanager", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-fileserver", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-historyserver", "version": "6.0.0", "tags": ["core"] },
+          { "name": "mapr-gateway", "version": "6.0.0", "tags": ["core"] }
         ]
       },
       {
@@ -2879,6 +2939,22 @@
               { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "development" },
               { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "development" },
               { "package": "mapr-installer", "version": "1.3.0", "promotionLevel": "development" }
+            ]
+          },
+          {
+            "name": "testing",
+            "packages": [
+              { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "testing" },
+              { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "testing" },
+              { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "testing" }
+            ]
+          },
+          {
+            "name": "staging",
+            "packages": [
+              { "packageSetRef": "core", "version": "5.2.0", "promotionLevel": "testing" },
+              { "packageSetRef": "spyglass", "version": "1.0.0", "promotionLevel": "staging" },
+              { "packageSetRef": "ecosystem", "version": "1.0.0", "promotionLevel": "staging" }
             ]
           }
         ]

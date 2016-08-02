@@ -1,11 +1,11 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../../lib/framework/framework";
-import INodeUnderTest from "../../lib/cluster-testing/i-node-under-test";
-import ISSHSession from "../../lib/ssh/i-ssh-session";
-import ISSHResult from "../../lib/ssh/i-ssh-result";
-import ISSHError from "../../lib/ssh/i-ssh-error";
-import IList from "../../lib/collections/i-list";
-import {PromisedAssertion} from "../../lib/chai-as-promised/promised-assertion";
+import Framework from "../framework/framework";
+import INodeUnderTest from "../cluster-testing/i-node-under-test";
+import ISSHSession from "../ssh/i-ssh-session";
+import ISSHResult from "../ssh/i-ssh-result";
+import ISSHError from "../ssh/i-ssh-error";
+import IList from "../collections/i-list";
+import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 
 declare var $:Framework;
 declare var module:any;

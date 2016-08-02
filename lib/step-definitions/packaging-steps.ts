@@ -1,11 +1,11 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../../lib/framework/framework";
-import IRepositories from "../../lib/packaging/i-repositories";
-import IPackageSets from "../../lib/packaging/i-package-sets";
-import IRepository from "../../lib/packaging/i-repository";
-import IList from "../../lib/collections/i-list";
-import IPackage from "../../lib/packaging/i-package";
-import IReleases from "../../lib/releasing/i-releases";
+import Framework from "../framework/framework";
+import IRepositories from "../packaging/i-repositories";
+import IPackageSets from "../packaging/i-package-sets";
+import IRepository from "../packaging/i-repository";
+import IList from "../collections/i-list";
+import IPackage from "../packaging/i-package";
+import IReleases from "../releasing/i-releases";
 declare var $:Framework;
 declare var module:any;
 
