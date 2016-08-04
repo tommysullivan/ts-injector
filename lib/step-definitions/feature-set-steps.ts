@@ -1,6 +1,6 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../../lib/framework/framework";
-import IList from "../../lib/collections/i-list";
+import Framework from "../framework/framework";
+import IList from "../collections/i-list";
 declare var $:Framework;
 declare var module:any;
 

@@ -1,7 +1,7 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../../lib/framework/framework";
-import IClusterVersionGraph from "../../lib/versioning/i-cluster-version-graph";
-import {PromisedAssertion} from "../../lib/chai-as-promised/promised-assertion";
+import Framework from "../framework/framework";
+import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
+import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 declare var $:Framework;
 declare var module:any;
 

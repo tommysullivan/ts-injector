@@ -1,7 +1,7 @@
-import Framework from "../../lib/framework/framework";
-import IError from "../../lib/errors/i-error";
+import Framework from "../framework/framework";
+import IError from "../errors/i-error";
 import {binding as steps, then, when} from "cucumber-tsflow";
-import {PromisedAssertion} from "../../lib/chai-as-promised/promised-assertion";
+import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 declare var $:Framework;
 declare var module:any;
 

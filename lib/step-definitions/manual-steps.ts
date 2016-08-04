@@ -1,5 +1,5 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../../lib/framework/framework";
+import Framework from "../framework/framework";
 declare var $:Framework;
 declare var module:any;
 
