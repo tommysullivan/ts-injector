@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "bin/devops-automation",
-    "test": "clusterId=ubuntu14 portalId=lab bin/devops-automation run cucumber --require dist/support --require dist/step-definitions",
+    "test": "clusterId=ubuntu14 portalId=lab bin/devops-automation run cucumber --require dist/support --require dist/step-definitions --tags @regression",
     "build": "tsc"
   },
   "files": [
