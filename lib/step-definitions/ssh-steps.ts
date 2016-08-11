@@ -6,17 +6,20 @@ import ISSHResult from "../ssh/i-ssh-result";
 import ISSHError from "../ssh/i-ssh-error";
 import IList from "../collections/i-list";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
+import SharedData from "../support/shared-data";
 
 declare var $:Framework;
 declare var module:any;
 
-@steps()
+@steps([SharedData])
 export default class SSHSteps {
     private sshServiceHost:INodeUnderTest;
     private sshSession:ISSHSession;
     private sshResult:ISSHResult;
-    private mountPath:string;
-    private lastCommandResultSet:IList<ISSHResult>;
+
+    constructor(
+        private sharedData:SharedData
+    ) {}
 
     @when(/^I perform the following ssh commands on each node in the cluster:$/)
     performSSHCommandsOnEachNodeInTheCluster(commandsSeparatedByNewLine:string):PromisedAssertion {
@@ -64,10 +67,10 @@ export default class SSHSteps {
     @when(/^I run the following commands on any given node in the cluster:$/)
     runSpecifiedCommandsOnFirstNodeInCluster(commandsString:string):PromisedAssertion {
         var commands = $.collections.newList<string>(commandsString.split("\n"));
-        commands = commands.map(c=>c.replace('{testRunGUID}', $.testRunGUID).replace('{volumeMountPoint}', this.mountPath));
+        commands = commands.map(c=>c.replace('{testRunGUID}', $.testRunGUID).replace('{volumeMountPoint}', this.sharedData.mountPath));
         var result = $.clusterUnderTest.nodes().first().newSSHSession()
             .then(sshSession=>sshSession.executeCommands(commands))
-            .then(commandResultSet=>this.lastCommandResultSet = commandResultSet);
+            .then(commandResultSet=>this.sharedData.lastCommandResultSet = commandResultSet);
         return $.expect(result).to.eventually.be.fulfilled;
     }
 
