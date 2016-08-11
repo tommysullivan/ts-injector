@@ -1,6 +1,6 @@
 {
   "name": "private-devops-automation-framework",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
   "main": "./dist/index.js",
   "typings": "./dist/lib/index.d.ts",
@@ -15,7 +15,8 @@
   "files": [
     "dist/*",
     "bin/*",
-    "features/*"
+    "features/*",
+    "configuration/*"
   ],
   "repository": {
     "type": "git",

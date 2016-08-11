@@ -57,7 +57,6 @@
             "version": "6.5"
           },
           "serviceNames": [
-            "mapr-installer",
             "mapr-collectd",
             "mapr-fluentd",
             "mapr-nodemanager",
