@@ -6,6 +6,7 @@ import IPackage from "../packaging/i-package";
 
 declare var $:Framework;
 declare var module:any;
+declare var __dirname;
 
 @steps()
 export default class PackageManagerInstallationSteps {
@@ -178,8 +179,9 @@ export default class PackageManagerInstallationSteps {
 
     @given(/^I copy the maven settings file to the non\-cldb node$/)
     copyMavenSettingsFileToNonCldbNode():PromisedAssertion {
+        const settingsPath:string = __dirname + '/../../ats-files/settings.xml';
         var result = this.firstNonCldb.executeShellCommand("mkdir -p /root/.m2")
-            .then(r => this.firstNonCldb.upload('./data/ats-files/settings.xml', '/root/.m2/'));
+            .then(r => this.firstNonCldb.upload(settingsPath, '/root/.m2/'));
         return $.expect(result).to.eventually.be.fulfilled;
     }
 
@@ -208,11 +210,13 @@ export default class PackageManagerInstallationSteps {
 
     @given(/^I set the git ssh key$/)
     setGitSSHKey():PromisedAssertion {
-        var changePerm =`chmod 600 /root/.ssh/maprqa_id_rsa`;
-        var addToConfig = `echo -e "StrictHostKeyChecking no\nhost github.com\nHostName github.com\nIdentityFile /root/.ssh/maprqa_id_rsa\nUser git" > /root/.ssh/config`;
-        var results = this.firstNonCldb.upload(`./data/ats-files/maprqa_id_rsa`, '/root/.ssh/').then(_ => {
-            return this.firstNonCldb.executeShellCommands($.collections.newList([changePerm, addToConfig]));
-        });
+        const createSSHDirCmd = 'mkdir -p /root/.ssh';
+        const idRSAPath:string = __dirname + '/../../ats-files/maprqa_id_rsa';
+        const changePerm =`chmod 600 /root/.ssh/maprqa_id_rsa`;
+        const addToConfig = `echo -e "StrictHostKeyChecking no\nhost github.com\nHostName github.com\nIdentityFile /root/.ssh/maprqa_id_rsa\nUser git" > /root/.ssh/config`;
+        var results = this.firstNonCldb.executeShellCommand(createSSHDirCmd).then(_ => this.firstNonCldb.upload(idRSAPath, '/root/.ssh/').then(_ => {
+            this.firstNonCldb.executeShellCommands($.collections.newList([changePerm, addToConfig]));
+        }));
         return $.expect(results).to.eventually.be.fulfilled;
     }
 
