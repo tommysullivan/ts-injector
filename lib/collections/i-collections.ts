@@ -7,6 +7,7 @@ interface ICollections {
     newDictionary<T>(initialHash:Object):IDictionary<T>;
     newEmptyDictionary<T>():IDictionary<T>;
     newListOfSize(size:number):IList<number>;
+    newRange(start:number, end:number):IList<number>;
 }
 
 export default ICollections;

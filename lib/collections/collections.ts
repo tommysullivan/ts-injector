@@ -13,6 +13,14 @@ export default class Collections implements ICollections {
         return this.newList<T>();
     }
 
+    newRange(start:number, end:number):IList<number> {
+        var arrayOfCorrectSize = [];
+        for(var c=start; c<end; c++) {
+            arrayOfCorrectSize.push(c);
+        }
+        return this.newList<number>(arrayOfCorrectSize);
+    }
+
     newDictionary<T>(initialItems:any):IDictionary<T> {
         return new Dictionary<T>(initialItems, this);
     }
