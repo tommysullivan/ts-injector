@@ -2455,6 +2455,145 @@
           ]
         }
       ]
+    },
+    {
+      "id": "ATSCluster",
+      "name": "ATS-Unsecure-Cluster",
+      "nodes": [
+        {
+          "name": "10.10.99.51",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.51",
+          "operatingSystem": {
+            "name": "CentOS",
+            "version": "7.2"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-historyserver",
+            "mapr-webserver",
+            "mapr-gateway",
+            "mapr-nfs",
+            "mapr-jobtracker",
+            "mapr-tasktracker",
+            "mapr-hbase",
+            "mapr-hbase-regionserver",
+            "mapr-hbase-master",
+            "mapr-kafka"
+          ]
+        },
+        {
+          "name": "10.10.99.52",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.52",
+          "operatingSystem": {
+            "name": "RedHat",
+            "version": "7.2"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-gateway",
+            "mapr-nfs",
+            "mapr-jobtracker",
+            "mapr-tasktracker",
+            "mapr-hbase",
+            "mapr-hbase-regionserver",
+            "mapr-hbase-master",
+            "mapr-kafka"
+          ]
+        },
+        {
+          "name": "10.10.99.59",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.59",
+          "operatingSystem": {
+            "name": "Ubuntu",
+            "version": "14.04"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-resourcemanager",
+            "mapr-zookeeper",
+            "mapr-cldb",
+            "mapr-webserver",
+            "mapr-gateway",
+            "mapr-nfs",
+            "mapr-jobtracker",
+            "mapr-tasktracker",
+            "mapr-hbase",
+            "mapr-hbase-regionserver",
+            "mapr-hbase-master",
+            "mapr-kafka"
+          ]
+        },
+        {
+          "name": "10.10.99.55",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.55",
+          "operatingSystem": {
+            "name": "SuSE",
+            "version": "12.1"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-tasktracker",
+            "mapr-zookeeper",
+            "mapr-gateway",
+            "mapr-elasticsearch",
+            "mapr-kibana"
+          ]
+        },
+        {
+          "name": "10.10.99.56",
+          "username": "root",
+          "password": "mapr",
+          "host": "10.10.99.56",
+          "operatingSystem": {
+            "name": "SuSE",
+            "version": "12.1"
+          },
+          "serviceNames": [
+            "mapr-collectd",
+            "mapr-fluentd",
+            "mapr-nodemanager",
+            "mapr-fileserver",
+            "mapr-core",
+            "mapr-tasktracker",
+            "mapr-zookeeper",
+            "mapr-gateway",
+            "mapr-opentsdb",
+            "mapr-hbase",
+            "mapr-grafana"
+          ]
+        }
+      ]
     }
   ],
   "cucumber": {

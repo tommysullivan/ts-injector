@@ -35,7 +35,7 @@ export default class ClusterTestResult {
             logs: this.logs.toJSON(),
             id: this.id,
             testRunGUID: this.testRunGUID,
-            packageJsonOfSystemUnderTest: this.packageJson.toRawJSON()
+            packageJsonOfSystemUnderTest: this.packageJson ? this.packageJson.toRawJSON() : null
         }
     }
 

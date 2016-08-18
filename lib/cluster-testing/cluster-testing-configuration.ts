@@ -90,4 +90,8 @@ export default class ClusterTestingConfiguration {
                 : []
         );
     }
+
+    get throwErrorIfPackageJsonMissing():boolean {
+        return this.process.environmentVariables().hasKey('portalId')
+    }
 }

@@ -15,6 +15,7 @@ import ClusterLogCapturer from "./cluster-log-capturer";
 import NodeLog from "./node-log";
 import ICollections from "../collections/i-collections";
 import IFileSystem from "../node-js-wrappers/i-filesystem";
+import IJSONObject from "../typed-json/i-json-object";
 
 export default class MultiClusterTester {
 
@@ -36,8 +37,8 @@ export default class MultiClusterTester {
 
     runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands:IList<string>):IThenable<IList<ClusterTestResult>> {
         var testRunUUID = this.uuidGenerator.v4();
-        if(this.clusterTestingConfiguration.clusterIds.isEmpty) this.console.log('WARN: No clusters specified. Set environment variable clusterId or clusterIds to value(s) from configuration/config.json');
-        var clusterTestResultPromises = this.clusterTestingConfiguration.clusterIds.map(clusterId=>{
+        if (this.clusterTestingConfiguration.clusterIds.isEmpty) this.console.log('WARN: No clusters specified. Set environment variable clusterId or clusterIds to value(s) from configuration/config.json');
+        var clusterTestResultPromises = this.clusterTestingConfiguration.clusterIds.map(clusterId=> {
             var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
             var cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;
             var uniqueFileIdentifier = `${testRunUUID}_${clusterId}_user-${this.process.currentUserName()}`;
@@ -54,7 +55,7 @@ export default class MultiClusterTester {
 
             var cluster = this.clusterTesting.clusterForId(clusterId);
 
-            var packageJson = this.fileSystem.readJSONObjectFileSync('./package.json');
+            var packageJson = this.clusterTestingConfiguration.throwErrorIfPackageJsonMissing ? this.fileSystem.readJSONObjectFileSync('./package.json') : null;
 
             return this.cucumber.newCucumberRunner(this.process, this.console).runCucumber(cucumberRunConfiguration)
                 .then(cucumberTestResult => {

@@ -75,6 +75,46 @@ instead opt to run a featureSet, which uses the id of a list of feature files in
 You can select the subset of tests to run by using [Test Tagging](#testTagging) or by listing
 the .feature files in the order you'd like to run them, omitting those you wish not to run.
 
+## Framework Setup to Install MapR
+In any required folder run [ local machine or remote node ]:
+
+    echo "registry = http://artifactory.devops.lab/artifactory/api/npm/npm-all/" > .npmrc
+    npm install private-devops-automation-framework
+
+Add your cluster details to the config file in the following location :
+
+    ./node_modules/private-devops-automation-framework/configuration/config.json
+
+Add you cluster details under 'clusters' section similar to the other clusters entered.
+Give your cluster a unique ID.
+
+#### Install MapR
+
+Run the following to install MapR after the setup is complete.
+NOTE: The existing repos must be removed before running this as this adds repo files under /etc/yum/* or /etc/apt/*.
+      The config file has 2 parameters defaultRelease and defaultLifecyclePhase [ takes the values development, testing, staging ]
+      Based on these set values the repo locations are automatically determined by the framework.
+
+    export clusterId=<clusterID>
+    export configPath=node_modules/private-devops-automation-framework/configuration/config.json
+    ./node_modules/private-devops-automation-framework/bin/devops-automation run cucumber --require ./node_modules/private-devops-automation-framework/dist/support --require ./node_modules/private-devops-automation-framework/dist/step-definitions --tags @packageInstallation
+
+This should successfully run a series of steps to install a cluster.
+
+
+#### Setup ATS
+
+ATS (Automated Test System) is a TestNG based set of Integration Tests. For more information
+visit the (ATS Github Page)[https://github.com/mapr/private-qa]
+
+After following the above steps to setup the framework. Please run the following command to setup ATS.
+
+    export clusterId=<clusterID>
+    export configPath=node_modules/private-devops-automation-framework/configuration/config.json
+    ./node_modules/private-devops-automation-framework/bin/devops-automation run cucumber --require ./node_modules/private-devops-automation-framework/dist/support --require ./node_modules/private-devops-automation-framework/dist/step-definitions --tags @atsSetup
+
+NOTE: ATS is installed on the first non-cldb node to reduce load on the CLDB.
+
 ### Run in IntelliJ IDEA
  
 Make sure you have pulled in dependencies by running:

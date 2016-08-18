@@ -40,11 +40,11 @@ export default class ZypperPackageManager implements IPackageManager {
     }
 
     installPackagesCommand(packageNames:IList<string>):string {
-        return `${this.packageCommand} install -y ${packageNames.join(' ')}`;
+        return `${this.packageCommand} --non-interactive install -y ${packageNames.join(' ')}`;
     }
 
     installPackageCommand(packageName:string):string {
-        return `${this.packageCommand} install -y ${packageName}`;
+        return `${this.packageCommand} --non-interactive install -y ${packageName}`;
     }
 
     get packageUpdateCommand():string {
