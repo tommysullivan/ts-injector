@@ -4,32 +4,27 @@ import IList from "../collections/i-list";
 import ICucumber from "../cucumber/i-cucumber";
 
 export default class CucumberCliHelper {
-    private console:IConsole;
-    private cucumber:ICucumber;
-    private process:IProcess;
-    private temporaryTestRunOutputFilePath:string;
-
-    constructor(console:IConsole, cucumber:ICucumber, process:IProcess, temporaryTestRunOutputFilePath:string) {
-        this.console = console;
-        this.cucumber = cucumber;
-        this.process = process;
-        this.temporaryTestRunOutputFilePath = temporaryTestRunOutputFilePath;
-    }
+    constructor(
+        private console:IConsole,
+        private cucumber:ICucumber,
+        private process:IProcess,
+        private temporaryTestRunOutputFilePath:()=>string
+    ) {}
 
     private outputJSON<T>(list:IList<T>):void {
         this.console.log(list.toJSONString());
     }
 
     showFeatureSets():void {
-        var args = this.process.commandLineArguments();
+        const args = this.process.commandLineArguments();
         if(args.itemAt(3)=='in' && args.itemAt(4)=='detail') this.outputJSON(this.cucumber.featureSets.all);
         else this.outputJSON(this.cucumber.featureSets.all.map(t=>t.id));
     }
 
     executeTagsCli():void {
-        var cucumberConfig = this.cucumber.newCucumberRunConfiguration(
+        const cucumberConfig = this.cucumber.newCucumberRunConfiguration(
             true,
-            this.temporaryTestRunOutputFilePath,
+            this.temporaryTestRunOutputFilePath(),
             '',
             this.process.environmentVariables().clone()
         );

@@ -22,7 +22,7 @@ export default class InstallerProcess {
     private checkOutcomePeriodically(stateChange:string, successState:string, resolve:Function, reject:Function) {
         this.authedRestClient.get(this.processResourceURL)
             .then(result => {
-                var state = result.jsonBody().state;
+                const state = result.jsonBody().state;
                 if(state == stateChange)
                     setTimeout(
                         ()=>this.checkOutcomePeriodically(stateChange, successState, resolve, reject),
@@ -37,7 +37,7 @@ export default class InstallerProcess {
 
     private performStateChange(stateChange, successState):IThenable<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
-            var patchArgs = {
+            const patchArgs = {
                 body: { state: stateChange },
                 json: true
             };
@@ -59,12 +59,12 @@ export default class InstallerProcess {
     }
 
     log():IThenable<string> {
-        var httpOptions = {
+        const httpOptions = {
             headers: {
                 'Accept': 'text/plain'
             }
         }
-        var url = this.processJSON.jsonObjectNamed('links').stringPropertyNamed('log');
+        const url = this.processJSON.jsonObjectNamed('links').stringPropertyNamed('log');
         return this.authedRestClient.get(url, httpOptions)
             .then(response=>response.body());
     }

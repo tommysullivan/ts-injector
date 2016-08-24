@@ -21,52 +21,52 @@ export default class ClusterCliHelper {
 
     executeClusterCli():void {
         try {
-            var subCommand = this.process.getArgvOrThrow('subCommand', 3);
+            const subCommand = this.process.getArgvOrThrow('subCommand', 3);
             if(subCommand=='ids') {
                 this.console.log(`clusterIds: ${this.clusters.allIds().join(',')}`);
             }
             else if(subCommand=='hosting') {
-                var hostName = this.process.getArgvOrThrow('hostName', 4);
-                var matchingClusterIds = this.clusters.allConfigurations.filter(
+                const hostName = this.process.getArgvOrThrow('hostName', 4);
+                const matchingClusterIds = this.clusters.allConfigurations.filter(
                     clusterConfig => clusterConfig.nodes.map(n=>n.host).contains(hostName)
                 ).map(c=>c.id);
                 this.console.log(`clusterIds: ${matchingClusterIds.toJSONString()}`);
             }
             else if(subCommand=='hosts') {
                 this.cliHelper.verifyFillerWord('for', 4);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                var hosts = this.clusters.clusterConfigurationWithId(clusterId)
+                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
+                const hosts = this.clusters.clusterConfigurationWithId(clusterId)
                     .nodes.map(n=>n.host);
                 this.console.log(`hosts: ${hosts.toJSONString()}`);
             }
             else if(subCommand=='esxi') {
                 this.cliHelper.verifyFillerWord('for', 4);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                var esxiHost = this.clusters.clusterConfigurationWithId(clusterId)
+                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
+                const esxiHost = this.clusters.clusterConfigurationWithId(clusterId)
                     .esxiServerConfiguration.host;
                 this.console.log(`esxiHost: ${esxiHost}`);
             }
             else if(subCommand=='config') {
                 this.cliHelper.verifyFillerWord('for', 4);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 5);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
                 this.console.log(this.clusters.clusterConfigurationWithId(clusterId).toString());
             }
             else if(subCommand=='versions') {
                 this.cliHelper.verifyFillerWord('for', 4);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                var cluster = this.clusterTesting.clusterForId(clusterId);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
+                const cluster = this.clusterTesting.clusterForId(clusterId);
                 cluster.versionGraph()
                     .then(versionGraph=>this.console.log(versionGraph.toJSONString()))
                     .catch(e => this.cliHelper.logError(e));
             }
             else if(subCommand=='power') {
-                var actionName = this.process.getArgvOrThrow('desiredPowerStatus(on|off|reset)', 4);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                var actions = this.collections.newEmptyDictionary<IESXIAction>()
+                const actionName = this.process.getArgvOrThrow('desiredPowerStatus(on|off|reset)', 4);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
+                const actions = this.collections.newEmptyDictionary<IESXIAction>()
                     .add('reset', e => e.powerReset())
                     .add('on', e => e.powerOn())
                     .add('off', e => e.powerOff());
-                var action = actions.getOrThrow(actionName, `invalid action ${actionName}`);
+                const action = actions.getOrThrow(actionName, `invalid action ${actionName}`);
                 this.clusterTesting.esxiManagedClusterForId(clusterId).performESXIAction(action)
                     .then(result=>this.console.log(result.toJSONString()));
             }

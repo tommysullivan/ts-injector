@@ -19,7 +19,7 @@ export default class RestResponse {
     }
 
     toJSON():any {
-        var body =  this.isJSON() ? this.jsonBody() : this.body();
+        const body =  this.isJSON() ? this.jsonBody() : this.body();
         return {
             originalURL: this._originalUrl,
             type: 'rest-response',

@@ -24,8 +24,8 @@ export default class JSONObject implements IJSONObject {
     }
     
     private getTypedProperty<T>(name:string, expectedTypeName:string):T {
-        var val = this.getProperty<T>(name);
-        var actualTypeName = typeof(val);
+        const val = this.getProperty<T>(name);
+        const actualTypeName = typeof(val);
         if(actualTypeName!=expectedTypeName) this.throwPropertyWrongTypeError(name, expectedTypeName, actualTypeName);
         return <T>val;
     }
@@ -57,7 +57,7 @@ export default class JSONObject implements IJSONObject {
     }
 
     dictionaryNamed<T>(name:string):IDictionary<T> {
-        var rawObject = this.getTypedProperty<Object>(name, 'object');
+        const rawObject = this.getTypedProperty<Object>(name, 'object');
         return this.collections.newDictionary<T>(rawObject);
     }
 
@@ -87,7 +87,7 @@ export default class JSONObject implements IJSONObject {
     }
 
     listNamed<T>(name:string):IList<T> {
-        var rawArray = this.getProperty<Array<T>>(name);
+        const rawArray = this.getProperty<Array<T>>(name);
         if(!this.typedJSON.isArray(rawArray)) this.throwPropertyWrongTypeError(name, 'array', 'unknown (but not native array)')
         return this.collections.newList<T>(rawArray);
     }

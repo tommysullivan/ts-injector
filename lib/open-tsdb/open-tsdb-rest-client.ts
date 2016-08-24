@@ -26,20 +26,19 @@ export default class OpenTSDBRestClient {
     }
 
     queryForMetricWithTags(startTime:string, metricName:string, soughtTags:IDictionary<string>):IThenable<OpenTSDBResult> {
-        var restClientAsPromised = this.rest.newRestClientAsPromised(this.openTSDBHostAndPort);
-        var openTSDBQueryPath = this.openTSDBQueryPathTemplate.replace('{start}', startTime);
-        openTSDBQueryPath = openTSDBQueryPath.replace('{metricName}', metricName);
-        var tagQuery = soughtTags.keys.isEmpty
+        const restClientAsPromised = this.rest.newRestClientAsPromised(this.openTSDBHostAndPort);
+        const openTSDBQueryPath = this.openTSDBQueryPathTemplate.replace('{start}', startTime).replace('{metricName}', metricName);
+        const tagQuery = soughtTags.keys.isEmpty
             ? ''
             : this.soughtTagsAsStringQuery(soughtTags);
-        var openTSDBQueryWithTags=`${openTSDBQueryPath}${tagQuery}`;
+        const openTSDBQueryWithTags=`${openTSDBQueryPath}${tagQuery}`;
         console.log(openTSDBQueryWithTags);
         return restClientAsPromised.get(openTSDBQueryWithTags)
             .then(response=>this.openTSDB.newOpenTSDBResponse(soughtTags, metricName, response.jsonBody()));
     }
 
     private soughtTagsAsStringQuery(soughtTags:IDictionary<string>):string {
-        var tagQueryParts = soughtTags.keys.map(k=>`${k}=${soughtTags.get(k).trim()}`);
+        const tagQueryParts = soughtTags.keys.map(k=>`${k}=${soughtTags.get(k).trim()}`);
         return `{${tagQueryParts.join(',')}}`;
     }
 }

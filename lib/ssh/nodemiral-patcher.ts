@@ -1,10 +1,10 @@
-declare var require:any;
-declare var SSHClient:any;
+declare const require:any;
+declare const SSHClient:any;
 
 export default class NodemiralPatch {
     applyPatch():void {
-        var NodemiralSSHClient = require('nodemiral/lib/ssh');
-        var NodemiralSession = require('nodemiral/lib/session');
+        const NodemiralSSHClient = require('nodemiral/lib/ssh');
+        const NodemiralSession = require('nodemiral/lib/session');
 
         NodemiralSession.prototype._withSshClient = function(callback) {
             if(this._keepAlive) {
@@ -14,7 +14,7 @@ export default class NodemiralPatch {
                 }
                 callback(this._keepAliveClient, function() {});
             } else {
-                var client = new NodemiralSSHClient();
+                const client = new NodemiralSSHClient();
                 var connectInfo = this._getSshConnInfo();
                 client._client.on('keyboard-interactive', function(name, instr, lang, prompts, cb) {
                     cb([connectInfo.password]);

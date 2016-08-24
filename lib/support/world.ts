@@ -1,6 +1,6 @@
-declare var GLOBAL:any;
-declare var module:any;
-declare var require:any;
+declare const GLOBAL:any;
+declare const module:any;
+declare const require:any;
 
 require('source-map-support').install();
 import NodeFrameworkLoader from '../framework/node-framework-loader';
@@ -19,6 +19,6 @@ import '../step-definitions/secure-cluster-steps';
 import '../step-definitions/user-steps';
 import './shared-data'
 
-var nodeframeworkLoader = new NodeFrameworkLoader();
-var $ = GLOBAL.$ = nodeframeworkLoader.loadFramework();
+const nodeframeworkLoader = new NodeFrameworkLoader();
+const $ = GLOBAL.$ = nodeframeworkLoader.loadFramework();
 module.exports = $.cucumber.world;

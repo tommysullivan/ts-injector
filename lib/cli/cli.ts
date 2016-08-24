@@ -29,11 +29,11 @@ export default class Cli {
     ) {}
 
     newExecutor():CliExecutor {
-        var cliHelper = new CliHelper(this.process, this.console, this.clusterTesting, this.clusters);
+        const cliHelper = new CliHelper(this.process, this.console, this.clusterTesting, this.clusters);
         return new CliExecutor(
             this.process,
             this.console,
-            new CucumberCliHelper(this.console, this.cucumber, this.process, this.cliConfig.temporaryTestRunOutputFilePath),
+            new CucumberCliHelper(this.console, this.cucumber, this.process, () => this.cliConfig.temporaryTestRunOutputFilePath),
             new ClusterCliHelper(
                 this.process,
                 this.console,

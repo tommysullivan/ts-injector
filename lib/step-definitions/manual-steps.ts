@@ -1,7 +1,7 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import Framework from "../framework/framework";
-declare var $:Framework;
-declare var module:any;
+declare const $:Framework;
+declare const module:any;
 
 @steps()
 export default class ManualSteps {

@@ -70,14 +70,14 @@ export default class Process implements IProcess {
     }
 
     executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IThenable<IProcessResult> {
-        var env = environmentVariables.clone();
-        var nodeExecutable = this.pathToNodeJSExecutable();
+        const env = environmentVariables.clone();
+        const nodeExecutable = this.pathToNodeJSExecutable();
         env.add('PATH', `${env.get('PATH')}:${this.pathToNodeJSExecutable()}`);
 
         return this.promiseFactory.newPromise((resolve, reject) => {
-            var stdoutParts = this.collections.newEmptyList<string>();
-            var stderrParts = this.collections.newEmptyList<string>();
-            var cukeProcess = this.childProcess.exec(
+            const stdoutParts = this.collections.newEmptyList<string>();
+            const stderrParts = this.collections.newEmptyList<string>();
+            const cukeProcess = this.childProcess.exec(
                 `${this.pathToNodeJSExecutable()} ${command}`,
                 {
                     env: env.toJSON(),
@@ -91,11 +91,11 @@ export default class Process implements IProcess {
             var closed = false;
             var exited = false;
 
-            var attemptToResolvePromise = (processExitCode) => {
+            const attemptToResolvePromise = (processExitCode) => {
                 if(closed && exited) {
-                    var stdoutLines = this.collections.newList(stdoutParts.join('').split("\n"));
-                    var stderrLines = this.collections.newList(stderrParts.join('').split("\n"));
-                    var processResult = this.nodeWrapperFactory.newProcessResult(command, processExitCode, stdoutLines, stderrLines, null);
+                    const stdoutLines = this.collections.newList(stdoutParts.join('').split("\n"));
+                    const stderrLines = this.collections.newList(stderrParts.join('').split("\n"));
+                    const processResult = this.nodeWrapperFactory.newProcessResult(command, processExitCode, stdoutLines, stderrLines, null);
                     if(processResult.hasError()) reject(processResult);
                     else resolve(processResult);
                 }

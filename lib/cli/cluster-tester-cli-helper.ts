@@ -29,28 +29,28 @@ export default class ClusterTesterCliHelper {
 
     executeTestRunCli():void {
         try {
-            var subCommand= this.process.getArgvOrThrow('subCommand', 3);
+            const subCommand= this.process.getArgvOrThrow('subCommand', 3);
             if(subCommand=='cucumber') {
-                var cucumberPassThruCommands = this.process.commandLineArguments().everythingAfterIndex(3);
+                const cucumberPassThruCommands = this.process.commandLineArguments().everythingAfterIndex(3);
                 this.runCucumber(cucumberPassThruCommands);
             }
             else if(subCommand=='featureSet') {
-                var featureSetId = this.process.getArgvOrThrow('featureSetId', 4);
-                var featureSet = this.cucumber.featureSets.setWithId(featureSetId);
-                var cucumberPassThruCommands = featureSet.featureFilesInExecutionOrder.append(this.process.commandLineArguments().everythingAfterIndex(4));
+                const featureSetId = this.process.getArgvOrThrow('featureSetId', 4);
+                const featureSet = this.cucumber.featureSets.setWithId(featureSetId);
+                const cucumberPassThruCommands = featureSet.featureFilesInExecutionOrder.append(this.process.commandLineArguments().everythingAfterIndex(4));
                 this.runCucumber(cucumberPassThruCommands);
             }
             else if(subCommand=='command') {
-                var command = this.process.commandLineArguments().everythingAfterIndex(3).join(' ');
-                var clusters = this.clusterTestingConfiguration.clusterIds.map(
+                const command = this.process.commandLineArguments().everythingAfterIndex(3).join(' ');
+                const clusters = this.clusterTestingConfiguration.clusterIds.map(
                     clusterId=>this.clusterTesting.newClusterUnderTest(this.clusters.clusterConfigurationWithId(clusterId))
                 );
-                var restrictNodesBasedOnServices = this.process.environmentVariables().hasKey('nodesWith');
+                const restrictNodesBasedOnServices = this.process.environmentVariables().hasKey('nodesWith');
                 clusters.forEach(cluster=>{
-                    var nodesForShellCommand = restrictNodesBasedOnServices
+                    const nodesForShellCommand = restrictNodesBasedOnServices
                         ? this.nodesRunningRequestedServices(cluster)
                         : cluster.nodes();
-                    var commandPromises = nodesForShellCommand.map(n=>n.executeShellCommand(command));
+                    const commandPromises = nodesForShellCommand.map(n=>n.executeShellCommand(command));
                     this.promiseFactory.newGroupPromise(commandPromises)
                         .then(result=>{
                             this.console.log('*****************************************');
@@ -71,7 +71,7 @@ export default class ClusterTesterCliHelper {
     private runCucumber(cucumberPassThruCommands:IList<string>):void {
         this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands)
             .then(clusterTestResults => {
-                var allPassed = clusterTestResults.all(t=>t.passed());
+                const allPassed = clusterTestResults.all(t=>t.passed());
                 if(clusterTestResults.length > 1) {
                     this.console.log(`Multi Cluster Test of ${clusterTestResults.length} clusters ${allPassed ? 'Passed' : 'Failed'}`);
                     clusterTestResults.forEach(result=>{
@@ -84,7 +84,7 @@ export default class ClusterTesterCliHelper {
     }
 
     private nodesRunningRequestedServices(cluster:IClusterUnderTest):IList<INodeUnderTest> {
-        var requisiteServiceNames = this.collections.newList<string>(this.process.environmentVariableNamed('nodesWith').split(','));
+        const requisiteServiceNames = this.collections.newList<string>(this.process.environmentVariableNamed('nodesWith').split(','));
         return cluster.nodes().where(n=>n.serviceNames.containAll(requisiteServiceNames));
     }
 

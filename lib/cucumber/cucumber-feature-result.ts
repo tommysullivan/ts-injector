@@ -21,7 +21,7 @@ export default class CucumberFeatureResult implements ICucumberFeatureResult {
     }
 
     scenarios():IList<ICucumberScenarioResult> {
-        var scenariosJSONs = this.rawCucumberFeatureJSON.listOfJSONObjectsNamed('elements');
+        const scenariosJSONs = this.rawCucumberFeatureJSON.listOfJSONObjectsNamed('elements');
         return scenariosJSONs.map(
             scenarioJSON => this.cucumber.newCucumberScenarioResult(scenarioJSON)
         );

@@ -5,8 +5,8 @@ import MCSRestSession from "../mcs/mcs-rest-session";
 import MCSDashboardInfo from "../mcs/mcs-dashboard-info";
 import IList from "../collections/i-list";
 
-declare var $:Framework;
-declare var module:any;
+declare const $:Framework;
+declare const module:any;
 
 @steps()
 export default class MCSSteps {
@@ -21,23 +21,23 @@ export default class MCSSteps {
 
     @given(/^I have an authenticated MCS Rest Client Session$/)
     getAuthenticatedMCSRestClient():PromisedAssertion {
-        var futureMCSSession = $.clusterUnderTest.newAuthedMCSSession()
+        const futureMCSSession = $.clusterUnderTest.newAuthedMCSSession()
             .then(mcsSession=>this.mcsSession = mcsSession);
         return $.expect(futureMCSSession).to.eventually.not.be.null;
     }
 
     @given(/^I use the MCS Rest Client Session to retrieve dashboardInfo$/)
     retrieveDashboardInfo():PromisedAssertion {
-        var futureDashboardInfo = this.mcsSession.dashboardInfo()
+        const futureDashboardInfo = this.mcsSession.dashboardInfo()
             .then(dashboardInfo => this.dashboardInfo = dashboardInfo);
         return $.expect(futureDashboardInfo).to.eventually.not.be.null;
     }
 
     @when(/^I ask for a link to the following applications:$/)
     getLinkToRequestedApplications(table):PromisedAssertion {
-        var applicationNames = $.cucumber.getListOfStringsFromTable(table);
-        var futureAppLinks = applicationNames.map(a => this.mcsSession.applicationLinkFor(a));
-        var allAppLinks = $.promiseFactory.newGroupPromise(futureAppLinks)
+        const applicationNames = $.cucumber.getListOfStringsFromTable(table);
+        const futureAppLinks = applicationNames.map(a => this.mcsSession.applicationLinkFor(a));
+        const allAppLinks = $.promiseFactory.newGroupPromise(futureAppLinks)
             .then(allLinks => this.appLinks = allLinks);
         return $.expect(allAppLinks).to.eventually.be.fulfilled;
     }
@@ -63,12 +63,12 @@ export default class MCSSteps {
 
     @then(/^all health checkable services are healthy$/)
     verifyAllHealthCheckableServicesAreReportingHealthy():PromisedAssertion {
-        var healthCheckableServiceNames = $.packaging.defaultPackageSets.all.firstWhere(ps=>ps.id=='healthCheckable').packages.map(p=>p.name);
-        var futureUnhealthyServices = $.clusterUnderTest.newAuthedMCSSession()
+        const healthCheckableServiceNames = $.packaging.defaultPackageSets.all.firstWhere(ps=>ps.id=='healthCheckable').packages.map(p=>p.name);
+        const futureUnhealthyServices = $.clusterUnderTest.newAuthedMCSSession()
             .then(mcsSession=>mcsSession.dashboardInfo())
             .then((dashboardInfo:MCSDashboardInfo)=>{
-                var unhealthyOrAbsentServices = healthCheckableServiceNames.filter(healthCheckableServiceName=>{
-                    var matchingServiceInMCS = dashboardInfo.services().firstWhere(
+                const unhealthyOrAbsentServices = healthCheckableServiceNames.filter(healthCheckableServiceName=>{
+                    const matchingServiceInMCS = dashboardInfo.services().firstWhere(
                         mcsService=>`mapr-${mcsService.name}`==healthCheckableServiceName,
                         `MCS service named ${healthCheckableServiceName} was not found`
                     );

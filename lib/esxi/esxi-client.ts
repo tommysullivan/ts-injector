@@ -40,7 +40,7 @@ export default class ESXIClient implements IESXIClient {
     }
 
     captureStateAsSnapshot(snapshotName:string):IThenable<IList<ISSHResult>> {
-        var commands = this.collections.newList([
+        const commands = this.collections.newList([
             `vim-cmd vmsvc/snapshot.create ${this.vmId} ${snapshotName}`,
             `vim-cmd vmsvc/get.snapshotinfo ${this.vmId}`
         ]);
@@ -49,7 +49,7 @@ export default class ESXIClient implements IESXIClient {
     }
 
     snapshotInfo():IThenable<ISSHResult> {
-        var command =  `vim-cmd vmsvc/get.snapshotinfo ${this.vmId}`;
+        const command =  `vim-cmd vmsvc/get.snapshotinfo ${this.vmId}`;
         return this.getSSHSession()
             .then(sshSession=>sshSession.executeCommand(command));
     }

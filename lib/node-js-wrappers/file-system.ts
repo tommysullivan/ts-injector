@@ -96,7 +96,7 @@ export default class FileSystem implements IFileSystem {
     }
 
     private readTypedJSONFileSync<T>(filePath:string, expectedTypeName:string):T {
-        var rawJSON = this.readJSONFileSync(filePath);
+        const rawJSON = this.readJSONFileSync(filePath);
         if(typeof(rawJSON) != expectedTypeName) this.throwWrongTypeError(filePath, expectedTypeName);
         return <T>rawJSON;
     }
@@ -106,7 +106,7 @@ export default class FileSystem implements IFileSystem {
     }
 
     readJSONArrayFileSync(filePath:string):IList<IJSONObject> {
-        var rawJSON = <Array<Object>>this.readJSONFileSync(filePath);
+        const rawJSON = <Array<Object>>this.readJSONFileSync(filePath);
         if(!this.typedJSON.isArray(rawJSON)) this.throwWrongTypeError(filePath, 'array');
         return this.collections.newList<IJSONObject>(rawJSON.map(j=>this.typedJSON.newJSONObject(j)));
     }

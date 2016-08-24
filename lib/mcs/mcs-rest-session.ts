@@ -29,11 +29,11 @@ export default class MCSRestSession {
     }
 
     applicationLinkFor(applicationName:string):IThenable<string> {
-        var applicationInfoPath = this.mcsConfiguration.mcsApplicationLinkPathTemplate
+        const applicationInfoPath = this.mcsConfiguration.mcsApplicationLinkPathTemplate
             .replace('{applicationName}', applicationName);
         return this.authedRestClient.post(applicationInfoPath)
             .then(response=>{
-                var jsonResponse = this.typedJSON.newJSONObject(response.jsonBody());
+                const jsonResponse = this.typedJSON.newJSONObject(response.jsonBody());
                 try {
                     return jsonResponse.listOfJSONObjectsNamed('data').first().stringPropertyNamed('url');
                 }

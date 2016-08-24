@@ -19,10 +19,10 @@ export default class ESXIManagedCluster {
     }
 
     performESXIAction(esxiAction:IESXIAction):IThenable<IList<ISSHResult>> {
-        var esxiServerConfig = this.clusterConfiguration.esxiServerConfiguration;
-        var esxiActionPromises = this.clusterConfiguration.nodes.map(
+        const esxiServerConfig = this.clusterConfiguration.esxiServerConfiguration;
+        const esxiActionPromises = this.clusterConfiguration.nodes.map(
             n=>{
-                var esxiClient = this.esxi.newESXIClient(
+                const esxiClient = this.esxi.newESXIClient(
                     esxiServerConfig.host,
                     esxiServerConfig.username,
                     esxiServerConfig.password,

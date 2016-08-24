@@ -4,8 +4,8 @@ import Framework from "../framework/framework";
 import IInstallerRestSession from "../installer/i-installer-rest-session";
 import ISSHResult from "../ssh/i-ssh-result";
 import InstallerProcess from "../installer/installer-process";
-declare var $:Framework;
-declare var module:any;
+declare const $:Framework;
+declare const module:any;
 
 @steps()
 export default class RestBasedInstallationSteps {
@@ -15,14 +15,14 @@ export default class RestBasedInstallationSteps {
 
     @given(/^I can authenticate my GUI Installer Rest Client$/)
     authenticateGUIInstallerRestClient():PromisedAssertion {
-        var installerSessionRequest = $.clusterUnderTest.newAuthedInstallerSession()
+        const installerSessionRequest = $.clusterUnderTest.newAuthedInstallerSession()
             .then(s=>this.installerSession = s);
         return $.expect(installerSessionRequest).to.eventually.be.fulfilled;
     }
 
     @given(/^I specify and save the desired Cluster Configuration$/)
     saveDesiredClusterConfiguration():PromisedAssertion {
-        var serverConfigSaveRequest = $.clusterTesting.newClusterInstaller().prepareAndSaveConfiguration(
+        const serverConfigSaveRequest = $.clusterTesting.newClusterInstaller().prepareAndSaveConfiguration(
             $.clusterUnderTest
         );
         return $.expect(serverConfigSaveRequest).to.eventually.be.fulfilled;
@@ -30,7 +30,7 @@ export default class RestBasedInstallationSteps {
 
     @when(/^I perform Cluster Configuration Verification$/)
     performClusterConfigurationVerification():PromisedAssertion {
-        var verificationRequest = this.installerSession.process()
+        const verificationRequest = this.installerSession.process()
             .then(p=>{
                 this.installerProcess = p;
                 return p.validate();
@@ -40,7 +40,7 @@ export default class RestBasedInstallationSteps {
 
     @then(/^it successfully starts the installer web server and outputs its URL to the screen$/)
     verifyInstallerWebServerStartsAndOutputsURLToStdOut():void {
-        var sshOutput = this.sshResult.processResult().stdoutLines().join('');
+        const sshOutput = this.sshResult.processResult().stdoutLines().join('');
         $.expect(
             sshOutput.indexOf(
                 'To continue installing MapR software, open the following URL in a web browser'

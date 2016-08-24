@@ -12,7 +12,7 @@ export default class ElasticSearch {
     }
 
     newElasticSearchClient(host:string):ElasticSearchRestClient {
-        var elasticSearchHostAndOptionalPort = this.config.elasticSearchURLTemplate.replace('{host}', host);
+        const elasticSearchHostAndOptionalPort = this.config.elasticSearchURLTemplate.replace('{host}', host);
         return new ElasticSearchRestClient(this.rest, elasticSearchHostAndOptionalPort);
     }
 }

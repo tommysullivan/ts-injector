@@ -20,22 +20,22 @@ import ExpressWrappers from "../express-wrappers/express-wrappers";
 import IHTTP from "../http/i-http";
 import HTTP from "../node-js-wrappers/http-wrapper";
 
-declare var require:any;
-declare var process:any;
+declare const require:any;
+declare const process:any;
 
-var promiseModule = require('promise');
-var childProcessModule = require('child_process');
-var fsModule = require('fs');
-var uuidGenerator = require('node-uuid');
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
-var pathModule = require("path");
-var nodemiralModule = require('nodemiral');
-var requestModule = require('request');
-var nativeExpressModule = require('express');
-var readLineSyncModule = require('readline-sync');
-var bodyParserModule = require('body-parser');
-var nativeHttpModule = require('http');
+const promiseModule = require('promise');
+const childProcessModule = require('child_process');
+const fsModule = require('fs');
+const uuidGenerator = require('node-uuid');
+const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
+const pathModule = require("path");
+const nodemiralModule = require('nodemiral');
+const requestModule = require('request');
+const nativeExpressModule = require('express');
+const readLineSyncModule = require('readline-sync');
+const bodyParserModule = require('body-parser');
+const nativeHttpModule = require('http');
 
 chai.use(chaiAsPromised);
 

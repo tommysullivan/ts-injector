@@ -25,8 +25,8 @@ export default class CliHelper {
     }
 
     verifyFillerWord(fillerWord:string, position:number):void {
-        var errorMessage = `expected clarifying word "${fillerWord}"`;
-        var val = this.process.getArgvOrThrow(errorMessage, position);
+        const errorMessage = `expected clarifying word "${fillerWord}"`;
+        const val = this.process.getArgvOrThrow(errorMessage, position);
         if(fillerWord!=val) throw new Error(`${errorMessage} in position ${position}`);
     }
 }

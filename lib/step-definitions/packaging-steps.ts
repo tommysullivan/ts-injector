@@ -6,8 +6,8 @@ import IRepository from "../packaging/i-repository";
 import IList from "../collections/i-list";
 import IPackage from "../packaging/i-package";
 import IReleases from "../releasing/i-releases";
-declare var $:Framework;
-declare var module:any;
+declare const $:Framework;
+declare const module:any;
 
 @steps()
 export default class PackagingSteps {
@@ -42,14 +42,14 @@ export default class PackagingSteps {
     
     @given(/^I am using a packageSets collection based on the following configuration:$/)
     createPackagSetsCollectionBasedOnConfig(packageSetsConfigJSONString:string):void {
-        var packageSetsJSONList = $.typedJSON.newListOfJSONObjects(JSON.parse(packageSetsConfigJSONString));
+        const packageSetsJSONList = $.typedJSON.newListOfJSONObjects(JSON.parse(packageSetsConfigJSONString));
         this.packageSets = $.packaging.newPackageSets(packageSetsJSONList);
         $.expect(this.packageSets).not.to.be.null;
     }
 
     @given(/^I am using a repositories collection based on the following configuration:$/)
     createRepositoriesCollectionBasedOnConfig(repositoriesConfigJSONString:string):void {
-        var repositoriesConfig = $.typedJSON.newListOfJSONObjects(JSON.parse(repositoriesConfigJSONString));
+        const repositoriesConfig = $.typedJSON.newListOfJSONObjects(JSON.parse(repositoriesConfigJSONString));
         this.repositories = $.packaging.newRepositories(repositoriesConfig, this.packageSets);
         $.expect(this.repositories).not.to.be.null;
     }
@@ -107,7 +107,7 @@ export default class PackagingSteps {
     
     @then(/^package "([^"]*)" is named "([^"]*)" with version "([^"]*)", promotionLevel "([^"]*)" and operating system "([^"]*)"$/)
     verifyMatchingPackagesHaveCorrectInfo(index:string, name:string, version:string, promotionLevel:string, operatingSystem:string):void {
-        var item = this.packagesMatchingConditions.itemAt(parseInt(index));
+        const item = this.packagesMatchingConditions.itemAt(parseInt(index));
         $.expect(item.name).to.equal(name);
         $.expect(item.version.toString()).to.equal(version);
         $.expect(item.promotionLevel.name).to.equal(promotionLevel);
@@ -116,7 +116,7 @@ export default class PackagingSteps {
 
     @then(/^package "([^"]*)" is named "([^"]*)" with version "([^"]*)", promotionLevel "([^"]*)"$/)
     verifyPackageNameVersionAndPromoLevel(index:string, name:string, version:string, promotionLevel:string):void {
-        var item = this.packagesMatchingConditions.itemAt(parseInt(index));
+        const item = this.packagesMatchingConditions.itemAt(parseInt(index));
         $.expect(item.name).to.equal(name);
         $.expect(item.version.toString()).to.equal(version);
         $.expect(item.promotionLevel.name).to.equal(promotionLevel);

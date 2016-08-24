@@ -47,7 +47,7 @@ export default class List<T> implements IList<T> {
     }
 
     unique():IList<T> {
-        var uniqueList = new List<T>();
+        const uniqueList = new List<T>();
         this.forEach(i=>uniqueList.contains(i) ? null : uniqueList.push(i));
         return uniqueList;
     }
@@ -61,7 +61,7 @@ export default class List<T> implements IList<T> {
     }
 
     toJSON():any {
-        var arr:Array<any> = this.toArray();
+        const arr:Array<any> = this.toArray();
         return arr.map(i=>(i != null && i.toJSON) ? i.toJSON() : i);
     }
 
@@ -83,7 +83,7 @@ export default class List<T> implements IList<T> {
     }
 
     containsAll(soughtItems:IList<T>):boolean {
-        var uniqueSoughtItems = soughtItems.unique();
+        const uniqueSoughtItems = soughtItems.unique();
         return this.filter(i=>uniqueSoughtItems.contains(i)).unique().length == uniqueSoughtItems.length;
     }
 
@@ -114,14 +114,14 @@ export default class List<T> implements IList<T> {
     flatten<T2>():IList<T2> {
         var newList:IList<T2> = new List<T2>();
         this.forEach(subArray=>{
-            var castedSubArray:IList<T2> = <any>subArray;
+            const castedSubArray:IList<T2> = <any>subArray;
             newList = newList.append(castedSubArray);
         });
         return newList;
     }
 
     append(listToAppend:IList<T>):IList<T> {
-        var newList = this.clone();
+        const newList = this.clone();
         listToAppend.forEach(i=>newList.push(i));
         return newList;
     }
@@ -135,7 +135,7 @@ export default class List<T> implements IList<T> {
     }
 
     toJSONString():string {
-        var arrayOfAny:Array<any> = <Array<any>>this.toArray();
+        const arrayOfAny:Array<any> = <Array<any>>this.toArray();
         return JSON.stringify(arrayOfAny.map(i=>i.toJSON ? i.toJSON() : i), null, 3);
     }
 

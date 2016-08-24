@@ -13,8 +13,8 @@ export default class MCSDashboardInfo {
     }
 
     services():IList<MCSServiceInfo> {
-        var dataJSONObject = this.dashboardInfoJSONObject.listOfJSONObjectsNamed('data').first();
-        var servicesDictionary = dataJSONObject.dictionaryNamed('services');
+        const dataJSONObject = this.dashboardInfoJSONObject.listOfJSONObjectsNamed('data').first();
+        const servicesDictionary = dataJSONObject.dictionaryNamed('services');
         return servicesDictionary.keys.map(serviceName=>this.mcs.newMCSServiceInfo(
             serviceName,
             dataJSONObject.jsonObjectNamed('services').jsonObjectNamed(serviceName)

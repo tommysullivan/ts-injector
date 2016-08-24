@@ -17,8 +17,8 @@ export default class MCSRestClient {
     }
 
     createAutheticatedSession(username:string, password:string):IThenable<MCSRestSession> {
-        var restClientAsPromised = this.rest.newRestClientAsPromised(this.mcsProtocolHostAndOptionalPort);
-        var postPayload = {
+        const restClientAsPromised = this.rest.newRestClientAsPromised(this.mcsProtocolHostAndOptionalPort);
+        const postPayload = {
             form: {
                 username: username,
                 password: password

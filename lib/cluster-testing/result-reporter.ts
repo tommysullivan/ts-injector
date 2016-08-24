@@ -31,7 +31,7 @@ export default class ResultReporter {
     ) {}
 
     saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, testRunGUID:string, packageJson:IJSONObject):IThenable<ClusterTestResult> {
-        var clusterTestResult = this.clusterTesting.newClusterTestResult(
+        const clusterTestResult = this.clusterTesting.newClusterTestResult(
             cucumberTestResult,
             this.frameworkConfig,
             versionGraph,
@@ -45,8 +45,8 @@ export default class ResultReporter {
 
         this.console.log(cucumberTestResult.consoleOutput());
 
-        var outputFileName = `${uniqueFileIdentifier}.json`;
-        var frameworkOutputPath = this.path.join(
+        const outputFileName = `${uniqueFileIdentifier}.json`;
+        const frameworkOutputPath = this.path.join(
             this.clusterTestingConfiguration.frameworkOutputPath,
             outputFileName
         );
@@ -56,21 +56,21 @@ export default class ResultReporter {
         );
 
         if(this.process.environmentVariables().hasKey('portalId')) {
-            var portalId = this.process.environmentVariableNamed('portalId');
-            var url = this.clusterTestingConfiguration.portalUrlWithId(portalId);
-            var fullUrl = `${url}/test-results/${uniqueFileIdentifier}`;
-            var putArgs = {
+            const portalId = this.process.environmentVariableNamed('portalId');
+            const url = this.clusterTestingConfiguration.portalUrlWithId(portalId);
+            const fullUrl = `${url}/test-results/${uniqueFileIdentifier}`;
+            const putArgs = {
                 body: clusterTestResult.toJSON(),
                 json: true
             }
-            var portalInfo = `portal id "${portalId}" at url "${fullUrl}"`;
+            const portalInfo = `portal id "${portalId}" at url "${fullUrl}"`;
             this.console.log(`Saving result to ${portalInfo}`);
             return this.rest.newRestClientAsPromised().put(fullUrl, putArgs)
                 .then(result => this.console.log('Success'))
                 .catch(error => this.console.log(error.toString()))
                 .then(_ => clusterTestResult);
         } else {
-            var locationOfConfiguredPortalUrls = 'the configuration json file, under "clusterTesting.resultServers"';
+            const locationOfConfiguredPortalUrls = 'the configuration json file, under "clusterTesting.resultServers"';
             this.console.log(`Not saving result to portal. To do so, set ENV variable "portalId" to value in ${locationOfConfiguredPortalUrls}`);
             return this.promiseFactory.newPromiseForImmediateValue(clusterTestResult);
         }

@@ -22,10 +22,10 @@ export default class ClusterSnapshotCliHelper {
 
     executeClusterSnapshotCli():void {
         try {
-            var actionName = this.process.getArgvOrThrow('action', 4);
+            const actionName = this.process.getArgvOrThrow('action', 4);
             if(actionName=='states') {
                 this.cliHelper.verifyFillerWord('for', 5);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 6);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 6);
                 this.console.log(
                     this.clusters.clusterConfigurationWithId(clusterId)
                         .nodes
@@ -37,31 +37,31 @@ export default class ClusterSnapshotCliHelper {
             }
             else if(actionName=='info') {
                 this.cliHelper.verifyFillerWord('for', 5);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 6);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 6);
                 this.clusterTesting.esxiManagedClusterForId(clusterId).snapshotInfo()
                     .then(r=>this.logESXIResponse(r))
                     .catch(e=>this.cliHelper.logError(e));
             }
             else if(actionName=='capture') {
-                var snapshotName = this.process.getArgvOrThrow('snapshotName', 5);
+                const snapshotName = this.process.getArgvOrThrow('snapshotName', 5);
                 this.cliHelper.verifyFillerWord('from', 6);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 7);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 7);
                 this.clusterTesting.esxiManagedClusterForId(clusterId).captureSnapshotNamed(snapshotName)
                     .then(r=>this.logESXIResponse(r))
                     .catch(e=>this.cliHelper.logError(e));
             }
             else if(actionName=='apply') {
-                var stateName = this.process.getArgvOrThrow('stateName', 5);
+                const stateName = this.process.getArgvOrThrow('stateName', 5);
                 this.cliHelper.verifyFillerWord('onto', 6);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 7);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 7);
                 this.clusterTesting.esxiManagedClusterForId(clusterId).revertToState(stateName)
                     .then(r=>this.logESXIResponse(r))
                     .catch(e=>this.cliHelper.logError(e));
             }
             else if(actionName=='delete') {
-                var stateName = this.process.getArgvOrThrow('stateName', 5);
+                const stateName = this.process.getArgvOrThrow('stateName', 5);
                 this.cliHelper.verifyFillerWord('from', 6);
-                var clusterId = this.process.getArgvOrThrow('clusterId', 7);
+                const clusterId = this.process.getArgvOrThrow('clusterId', 7);
                 this.clusterTesting.esxiManagedClusterForId(clusterId).deleteSnapshotsWithStateName(stateName)
                     .then(r=>this.logESXIResponse(r))
                     .catch(e=>this.cliHelper.logError(e));

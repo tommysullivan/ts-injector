@@ -24,8 +24,8 @@ export default class JiraRestSession {
     }
 
     addCommentToIssue(comment:IJiraComment):IThenable<RestResponse> {
-        var url = this.jiraConfiguration.commentPathTemplate.replace('{issueKey}', comment.issueKey);
-        var postOptions = {
+        const url = this.jiraConfiguration.commentPathTemplate.replace('{issueKey}', comment.issueKey);
+        const postOptions = {
             body: {
                 body: comment.text
             },
@@ -35,7 +35,7 @@ export default class JiraRestSession {
     }
 
     jsonForJQL(jqlQueryText:string, fields:Array<string>):IThenable<IJSONObject> {
-        var queryOptions = {
+        const queryOptions = {
             qs: {
                 jql: jqlQueryText,
                 fields: fields.join(',')

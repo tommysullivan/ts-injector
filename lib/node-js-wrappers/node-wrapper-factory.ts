@@ -19,7 +19,7 @@ import IBuffer from "./i-buffer";
 import StringHelper from "./string-helper";
 import IStringHelper from "./i-string-helper";
 
-declare var Buffer:any;
+declare const Buffer:any;
 
 export default class NodeWrapperFactory implements INodeWrapperFactory {
 

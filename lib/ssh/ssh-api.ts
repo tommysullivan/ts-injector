@@ -19,11 +19,11 @@ import IPath from "../node-js-wrappers/i-path";
 import IErrors from "../errors/i-errors";
 import NodemiralPatcher from "./nodemiral-patcher";
 
-declare var require:any;
+declare const require:any;
 
-var scp2Module = require('scp2');
-var shellEscapeModule = require('shell-escape');
-var nodemiralPatcher = new NodemiralPatcher();
+const scp2Module = require('scp2');
+const shellEscapeModule = require('shell-escape');
+const nodemiralPatcher = new NodemiralPatcher();
 
 nodemiralPatcher.applyPatch();
 

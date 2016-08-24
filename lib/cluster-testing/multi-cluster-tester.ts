@@ -36,26 +36,26 @@ export default class MultiClusterTester {
     ) {}
 
     runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands:IList<string>):IThenable<IList<ClusterTestResult>> {
-        var testRunUUID = this.uuidGenerator.v4();
+        const testRunUUID = this.uuidGenerator.v4();
         if (this.clusterTestingConfiguration.clusterIds.isEmpty) this.console.log('WARN: No clusters specified. Set environment variable clusterId or clusterIds to value(s) from configuration/config.json');
-        var clusterTestResultPromises = this.clusterTestingConfiguration.clusterIds.map(clusterId=> {
-            var clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
-            var cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;
-            var uniqueFileIdentifier = `${testRunUUID}_${clusterId}_user-${this.process.currentUserName()}`;
-            var outputFileName = `${uniqueFileIdentifier}.json`;
-            var jsonResultFilePath = this.path.join(cucumberOutputPath, outputFileName);
-            var envVars = this.process.environmentVariables().clone();
+        const clusterTestResultPromises = this.clusterTestingConfiguration.clusterIds.map(clusterId=> {
+            const clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
+            const cucumberOutputPath = this.clusterTestingConfiguration.cucumberOutputPath;
+            const uniqueFileIdentifier = `${testRunUUID}_${clusterId}_user-${this.process.currentUserName()}`;
+            const outputFileName = `${uniqueFileIdentifier}.json`;
+            const jsonResultFilePath = this.path.join(cucumberOutputPath, outputFileName);
+            const envVars = this.process.environmentVariables().clone();
             envVars.add('clusterId', clusterId);
-            var cucumberRunConfiguration = this.cucumber.newCucumberRunConfiguration(
+            const cucumberRunConfiguration = this.cucumber.newCucumberRunConfiguration(
                 false,
                 jsonResultFilePath,
                 cucumberPassThruCommands.join(' '),
                 envVars
             );
 
-            var cluster = this.clusterTesting.clusterForId(clusterId);
+            const cluster = this.clusterTesting.clusterForId(clusterId);
 
-            var packageJson = this.clusterTestingConfiguration.throwErrorIfPackageJsonMissing ? this.fileSystem.readJSONObjectFileSync('./package.json') : null;
+            const packageJson = this.clusterTestingConfiguration.throwErrorIfPackageJsonMissing ? this.fileSystem.readJSONObjectFileSync('./package.json') : null;
 
             return this.cucumber.newCucumberRunner(this.process, this.console).runCucumber(cucumberRunConfiguration)
                 .then(cucumberTestResult => {

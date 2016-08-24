@@ -41,7 +41,7 @@ export default class Cucumber implements ICucumber {
     }
 
     get world():Function {
-        var timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
+        const timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
         return function setupCucumberWorldObject() {
             this.setDefaultTimeout(timeout);
         }

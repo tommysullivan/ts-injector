@@ -37,10 +37,10 @@ export default class RestClientAsPromised {
     }
 
     request(method:Function, path:string, options?:any):IThenable<RestResponse> {
-        var url = path.indexOf('://')>=0 ? path : this.baseUrl + path;
+        const url = path.indexOf('://')>=0 ? path : this.baseUrl + path;
         return this.promiseFactory.newPromise((resolve, reject) => {
-            var responseHandler = (error, response, body) => {
-                var responseWrapper = this.rest.newRestResponse(error, response, url);
+            const responseHandler = (error, response, body) => {
+                const responseWrapper = this.rest.newRestResponse(error, response, url);
                 if(responseWrapper.isError()) reject(this.rest.newRestError(responseWrapper));
                 else resolve(responseWrapper);
             };

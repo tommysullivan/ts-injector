@@ -23,7 +23,7 @@ export default class MCS {
     }
 
     newMCSClient(host:string):MCSRestClient {
-        var url = this.mcsConfiguration.mcsUrlTemplate.replace('{host}', host);
+        const url = this.mcsConfiguration.mcsUrlTemplate.replace('{host}', host);
         return new MCSRestClient(this.rest, url, this.mcsConfiguration.mcsLoginPath, this);
     }
 

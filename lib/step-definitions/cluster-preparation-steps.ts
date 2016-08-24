@@ -2,8 +2,8 @@ import Framework from "../framework/framework";
 import IError from "../errors/i-error";
 import {binding as steps, then, when} from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-declare var $:Framework;
-declare var module:any;
+declare const $:Framework;
+declare const module:any;
 
 @steps()
 export default class ClusterPreparationSteps {
@@ -14,14 +14,14 @@ export default class ClusterPreparationSteps {
 
     @then(/^I retrieve the snapshot ids and output them to the stdout$/)
     retrieveSnapshotIdsAndOutputToConsole():PromisedAssertion {
-        var snapshotInfoRequest = $.clusterUnderTest.snapshotInfo()
+        const snapshotInfoRequest = $.clusterUnderTest.snapshotInfo()
             .then(snapshotInfo=>$.console.log(snapshotInfo.toJSONString()));
         return $.expect(snapshotInfoRequest).to.eventually.be.fulfilled;
     }
 
     @when(/^I revert the cluster to its configured "([^"]*)" state$/)
     revertClusterToState(desiredStateName:string):PromisedAssertion {
-        var revertRequest = $.clusterUnderTest.revertToState(desiredStateName)
+        const revertRequest = $.clusterUnderTest.revertToState(desiredStateName)
             .catch(e=>this.ensureFailureOutputWorksWithChaiAsPromised(e));
         return $.expect(revertRequest).to.eventually.be.fulfilled;
     }
@@ -43,7 +43,7 @@ export default class ClusterPreparationSteps {
 
     @when(/^I retrieve the latest snapshot info for the cluster and output it to stdout$/)
     retrieveLatestSnapshotInfoAndOutputToStdOut():PromisedAssertion {
-        var snapshotInfoRequest = $.clusterUnderTest.snapshotInfo().then(i=>console.log(i.toJSONString()));
+        const snapshotInfoRequest = $.clusterUnderTest.snapshotInfo().then(i=>console.log(i.toJSONString()));
         return $.expect(snapshotInfoRequest).to.eventually.be.fulfilled;
     }
 

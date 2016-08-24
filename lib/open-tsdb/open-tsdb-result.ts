@@ -41,15 +41,15 @@ export default class OpenTSDBResult {
     }
 
     get timestamps():IList<string> {
-        var firstResult = this.resultJSONArray[0];
+        const firstResult = this.resultJSONArray[0];
         return firstResult == null
             ? this.collections.newEmptyList<string>()
             : this.typedJSONResult.dictionaryNamed<string>('dps').keys;
     }
 
     lastValue(lastTimestamp:string):number{
-        var firstResult=this.resultJSONArray[0];
-        var result=this.typedJSONResult.dictionaryNamed<string>('dps').get(lastTimestamp);
+        const firstResult=this.resultJSONArray[0];
+        const result=this.typedJSONResult.dictionaryNamed<string>('dps').get(lastTimestamp);
         return parseInt(result);
     }
 

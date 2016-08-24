@@ -29,7 +29,7 @@ export default class Repositories implements IRepositories {
     }
 
     repositoryHosting(packageName:string, version:string, promotionLevel:string, operatingSystem:string):IRepository {
-        var possibleRepositories = this.all.filter(
+        const possibleRepositories = this.all.filter(
             r=>r.packages.hasAtLeastOne(
                 (p:IPackage)=>{
                     return p.name == packageName

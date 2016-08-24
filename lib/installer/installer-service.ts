@@ -24,10 +24,10 @@ export default class InstallerService {
     }
 
     hostNames():IThenable<IList<string>> {
-        var serviceHostsURL = this.installerServiceJSON.dictionaryNamed<string>('links').get('hosts');
+        const serviceHostsURL = this.installerServiceJSON.dictionaryNamed<string>('links').get('hosts');
         return this.authedRestClient.get(serviceHostsURL)
             .then(response=>{
-                var serviceHostsJSON = this.typedJSON.newJSONObject(response.jsonBody());
+                const serviceHostsJSON = this.typedJSON.newJSONObject(response.jsonBody());
                 return serviceHostsJSON.listNamed<any>('resources').map(r=>r.id);
             });
     }

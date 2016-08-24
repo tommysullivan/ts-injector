@@ -28,8 +28,8 @@ export default class GrafanaRestClient {
     }
 
     createAutheticatedSession(username:string, password:string):IThenable<GrafanaRestSession> {
-        var restClientAsPromised = this.rest.newRestClientAsPromised(this.grafanaHostAndOptionalPort);
-        var postPayload = {
+        const restClientAsPromised = this.rest.newRestClientAsPromised(this.grafanaHostAndOptionalPort);
+        const postPayload = {
             body: {
                 user: username,
                 email: '',

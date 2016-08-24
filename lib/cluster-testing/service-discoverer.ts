@@ -19,7 +19,7 @@ export default class ServiceDiscoverer {
     }
 
     nodesHostingServiceViaDiscovery(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INodeUnderTest>> {
-        var possibleHostNodes = clusterUnderTest.nodesHosting(serviceName);
+        const possibleHostNodes = clusterUnderTest.nodesHosting(serviceName);
         return possibleHostNodes.isEmpty
             ? this.nodesHostingServiceAccordingToInstaller(clusterUnderTest, serviceName)
             : this.promiseFactory.newPromiseForImmediateValue(possibleHostNodes);
@@ -28,11 +28,11 @@ export default class ServiceDiscoverer {
     nodesHostingServiceAccordingToInstaller(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INodeUnderTest>> {
         throw new Error('need services and versions for release test context');
         // try {
-        //     var desiredVersion = this.versioning.serviceSet().firstWhere(s=>s.name==serviceName).version;
+        //     const desiredVersion = this.versioning.serviceSet().firstWhere(s=>s.name==serviceName).version;
         //     return clusterUnderTest.newAuthedInstallerSession()
         //         .then(installerRestSession => installerRestSession.services())
         //         .then((services:IInstallerServices) => {
-        //             var serviceAccordingToInstaller = services.serviceMatchingNameAndVersion(
+        //             const serviceAccordingToInstaller = services.serviceMatchingNameAndVersion(
         //                 serviceName, desiredVersion
         //             );
         //             return serviceAccordingToInstaller.hostNames()

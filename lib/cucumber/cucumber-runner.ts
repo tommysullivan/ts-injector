@@ -28,11 +28,9 @@ export default class CucumberRunner implements ICucumberRunner {
     }
 
     runCucumber(cucumberRunConfiguration:ICucumberRunConfiguration):IThenable<ICucumberTestResult> {
-        var startTime = new Date();
-        var additionalArgs = cucumberRunConfiguration.cucumberAdditionalArgs();
-        if (cucumberRunConfiguration.isDryRun()) additionalArgs += ' --dry-run';
-
-        var runCucumberCommand = [
+        const startTime = new Date();
+        const additionalArgs = `${cucumberRunConfiguration.cucumberAdditionalArgs()}${cucumberRunConfiguration.isDryRun() ? ' --dry-run' : ''}`;
+        const runCucumberCommand = [
             this.cucumberConfig.cucumberExecutablePath(),
             additionalArgs,
             `-f json:${cucumberRunConfiguration.jsonResultFilePath()}`
@@ -52,7 +50,7 @@ export default class CucumberRunner implements ICucumberRunner {
     }
 
     private onCucumberProcessComplete(processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date):ICucumberTestResult {
-        var endTime = new Date();
+        const endTime = new Date();
         return this.constructResult(processResult, cucumberRunConfiguration, startTime, endTime);
     }
 
@@ -60,7 +58,7 @@ export default class CucumberRunner implements ICucumberRunner {
         var cucumberFeatureResults = null;
         var resultAcquisitionError = null;
         try {
-            var rawCucumberResultJSON = this.fileSystem.readJSONArrayFileSync(
+            const rawCucumberResultJSON = this.fileSystem.readJSONArrayFileSync(
                 cucumberRunConfiguration.jsonResultFilePath()
             );
             cucumberFeatureResults = rawCucumberResultJSON.map(

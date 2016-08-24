@@ -21,7 +21,7 @@ export default class OpenTSDB {
     }
 
     newOpenTSDBRestClient(host:string):OpenTSDBRestClient {
-        var openTSDBHostAndPort = this.openTSDBConfig.openTSDBUrlTemplate.replace('{host}', host);
+        const openTSDBHostAndPort = this.openTSDBConfig.openTSDBUrlTemplate.replace('{host}', host);
         return new OpenTSDBRestClient(
             this.rest,
             this.openTSDBConfig.openTSDBQueryPathTemplate,

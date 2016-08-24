@@ -95,7 +95,7 @@ export default class NodeUnderTest implements INodeUnderTest {
     }
 
     executeShellCommands(commandsWithPlaceholders:IList<string>):IThenable<IList<ISSHResult>> {
-        var commands:IList<string> = commandsWithPlaceholders.map(
+        const commands:IList<string> = commandsWithPlaceholders.map(
             c=>c.replace('{{packageCommand}}', this.packageManager.packageCommand)
         );
         return this.newSSHSession()
@@ -127,12 +127,12 @@ export default class NodeUnderTest implements INodeUnderTest {
                     reject(new Error(`/opt/mapr directory exists on host ${this.nodeConfiguration.host}`))
                 })
                 .catch((sshError:ISSHError) => {
-                    var processResult = sshError.sshResult ? sshError.sshResult.processResult() : null;
+                    const processResult = sshError.sshResult ? sshError.sshResult.processResult() : null;
                     if(processResult && processResult.processExitCode()==2) {
                         resolve(sshError.sshResult);
                     }
                     else {
-                        var errorMessage = [
+                        const errorMessage = [
                             `Could not determine if /opt/mapr exists on host ${this.nodeConfiguration.host}.`,
                             `Result: ${sshError.toString()}`
                         ].join('');
@@ -152,7 +152,7 @@ export default class NodeUnderTest implements INodeUnderTest {
                     resolve(shellCommandResult);
                 })
                 .catch((sshError:ISSHError) => {
-                    var errorMessage = [
+                    const errorMessage = [
                         `Could not determine if /opt/mapr exists on host ${this.nodeConfiguration.host}.`,
                         `Result: ${sshError.toString()}`
                     ].join('');
@@ -180,7 +180,7 @@ export default class NodeUnderTest implements INodeUnderTest {
     }
 
     versionGraph():IThenable<INodeVersionGraph> {
-        var commands = this.collections.newList([
+        const commands = this.collections.newList([
             this.packageManager.packageListCommand,
             this.packageManager.repoListCommand
         ]);

@@ -24,8 +24,8 @@ export default class InstallerRestClient {
     }
 
     createAutheticatedSession(installerProtocolHostAndOptionalPort:string, username:string, password:string):IThenable<IInstallerRestSession> {
-        var restClientAsPromised = this.rest.newRestClientAsPromised(installerProtocolHostAndOptionalPort);
-        var loginBody = {
+        const restClientAsPromised = this.rest.newRestClientAsPromised(installerProtocolHostAndOptionalPort);
+        const loginBody = {
             form: {
                 username: username,
                 password: password

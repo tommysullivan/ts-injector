@@ -166,7 +166,7 @@ export default class Framework {
     }
 
     get clusterUnderTest():IClusterUnderTest {
-        var clusterConfig = this.clusters.clusterConfigurationWithId(
+        const clusterConfig = this.clusters.clusterConfigurationWithId(
             this.process.environmentVariableNamed('clusterId')
         );
         return this.clusterTesting.newClusterUnderTest(clusterConfig);
@@ -174,8 +174,8 @@ export default class Framework {
     
     expect(target: any, message?: string):Assertion {
         if(typeof(target['then'])=='function') {
-            var targetAsPromise:IThenable<any> = target;
-            var targetWithErrorMessageHelper = targetAsPromise
+            const targetAsPromise:IThenable<any> = target;
+            const targetWithErrorMessageHelper = targetAsPromise
                 .catch(error=>{
                     if(this.frameworkConfig.cucumber.embedAsyncErrorsInStepOutput)
                         console.log(error.toJSON ? error.toJSON() : error.toString());

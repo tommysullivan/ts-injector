@@ -17,8 +17,8 @@ export default class JiraRestClient {
     }
 
     createAutheticatedSession(username:string, password:string):IThenable<JiraRestSession> {
-        var restClientAsPromised = this.rest.newRestClientAsPromised(this.jiraProtocolHostAndOptionalPort);
-        var postPayload = {
+        const restClientAsPromised = this.rest.newRestClientAsPromised(this.jiraProtocolHostAndOptionalPort);
+        const postPayload = {
             body: {
                 username: username,
                 password: password

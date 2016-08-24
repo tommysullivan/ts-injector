@@ -12,7 +12,7 @@ export default class ElasticSearchRestClient {
     }
 
     logsForServiceThatContainText(serviceName:string, soughtText:string):IThenable<ElasticSearchResult> {
-        var queryJSON = {
+        const queryJSON = {
             "query": {
                 "bool": {
                     "must": [
@@ -26,7 +26,7 @@ export default class ElasticSearchRestClient {
     }
 
     logsForServiceThatContainTextOnParticularHost(serviceName:string, soughtText:string, hostFQDN:string):IThenable<ElasticSearchResult> {
-        var queryJSON = {
+        const queryJSON = {
             "query": {
                 "bool": {
                     "must": [
@@ -41,8 +41,8 @@ export default class ElasticSearchRestClient {
     }
 
     executeQuery(queryJSON:any):IThenable<ElasticSearchResult> {
-        var restClient = this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort);
-        var options = {
+        const restClient = this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort);
+        const options = {
             body: JSON.stringify(queryJSON),
         };
         console.log('elasticsearch query: ', queryJSON);
@@ -51,7 +51,7 @@ export default class ElasticSearchRestClient {
     }
 
     logsForService(serviceName:string):IThenable<ElasticSearchResult> {
-        var queryJSON = {
+        const queryJSON = {
             "query": {
                 "bool": {
                     "must": [

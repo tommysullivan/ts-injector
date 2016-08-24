@@ -7,7 +7,7 @@ export default class SSHError implements ISSHError {
     private _stack:any;
 
     constructor(message:string, sshResult:ISSHResult) {
-        var e:any = new Error();
+        const e:any = new Error();
         this._stack = e.stack;
         this._sshResult = sshResult;
         this._message = message;

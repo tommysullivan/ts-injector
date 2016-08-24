@@ -34,10 +34,10 @@ export default class SSHSession implements ISSHSession {
 
     executeCommands(commands:IList<string>):IThenable<IList<ISSHResult>> {
         return this.promiseFactory.newPromise((resolve, reject) => {
-            var results = this.collections.newEmptyList<ISSHResult>();
-            var executeNextCommand:(commandsToExecute:IList<string>) => void = commandsToExecute => {
-                var commandToExecute = commandsToExecute.first();
-                var remainingCommands = commandsToExecute.rest();
+            const results = this.collections.newEmptyList<ISSHResult>();
+            const executeNextCommand:(commandsToExecute:IList<string>) => void = commandsToExecute => {
+                const commandToExecute = commandsToExecute.first();
+                const remainingCommands = commandsToExecute.rest();
                 if(commandToExecute==null) return reject(new Error('Attempted to execute null command'));
                 this.executeCommand(commandToExecute)
                     .then(result => {
@@ -62,14 +62,14 @@ export default class SSHSession implements ISSHSession {
                 reject(this.api.newSSHError(error, null));
             });
             this.nodemiralSession.execute(command, (err:string, code:number, logs:any) => {
-                var processResult = this.nodeWrapperFactory.newProcessResult(
+                const processResult = this.nodeWrapperFactory.newProcessResult(
                     command,
                     code,
                     this.collections.newList<string>(logs.stdout.split("\n")),
                     this.collections.newList<string>(logs.stderr.split("\n")),
                     err
                 );
-                var result = this.api.newSSHResult(this.host, processResult);
+                const result = this.api.newSSHResult(this.host, processResult);
                 if(err) reject(this.api.newSSHError(err, result));
                 else if(code!=0) reject(this.api.newSSHError(`Process exited with nonzero exit code: ${code}`, result));
                 else resolve(result);
@@ -78,20 +78,20 @@ export default class SSHSession implements ISSHSession {
     }
 
     executeCommandWithRetryTimeout(command:string, timeout:number, maxTryCount:number):IThenable<ISSHResult> {
-        var returnedPromise = this.promiseFactory.newPromise((resolve, reject) => {
+        const returnedPromise = this.promiseFactory.newPromise((resolve, reject) => {
             this.nodemiralSession.onError(error=> {
                 reject(this.api.newSSHError(error, null));
             });
             setTimeout(() => this.nodemiralSession.execute(command, (err:string, code:number, logs:any) => {
                 if (this.writeCommandsToStdout) console.log(command);
-                var processResult = this.nodeWrapperFactory.newProcessResult(
+                const processResult = this.nodeWrapperFactory.newProcessResult(
                     command,
                     code,
                     this.collections.newList<string>(logs.stdout.split("\n")),
                     this.collections.newList<string>(logs.stderr.split("\n")),
                     err
                 );
-                var result = this.api.newSSHResult(this.host, processResult);
+                const result = this.api.newSSHResult(this.host, processResult);
                 if (err) reject(this.api.newSSHError(err, result));
                 else if (code != 0) reject(this.api.newSSHError(`Process exited with nonzero exit code: ${code}`, result));
                 else resolve(result);
@@ -116,7 +116,7 @@ export default class SSHSession implements ISSHSession {
 
     download(remotePath:string, localPath:string):IThenable<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
-            var options = {
+            const options = {
                 host: this.host,
                 path: remotePath
             };
@@ -169,14 +169,14 @@ export default class SSHSession implements ISSHSession {
     }
 
     readAsBinary(remotePath:string):IThenable<ArrayBuffer> {
-        var localPath = this.path.join(this.temporaryStorageLocation, this.uuidGenerator.v4());
+        const localPath = this.path.join(this.temporaryStorageLocation, this.uuidGenerator.v4());
         return this.download(remotePath, localPath)
             .then(_ => this.fileSystem.readFileAsBinary(localPath))
             .then(fileContent => this.fileSystem.delete(localPath).then(() => fileContent));
     }
 
     private newKeyboardInteractiveClient():any {
-        var client = new this.scp2Module.Client({
+        const client = new this.scp2Module.Client({
             host: this.host,
             username: this.username,
             password: this.password,

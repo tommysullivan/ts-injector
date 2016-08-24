@@ -44,7 +44,7 @@ export default class InstallerServerConfiguration implements IInstallerServerCon
     setClusterName(newValue:string):IInstallerServerConfiguration { this.serverConfigJSON.setProperty('cluster_name', newValue); return this; }
 
     save():IThenable<IInstallerServerConfiguration> {
-        var putArgs = {
+        const putArgs = {
             body: this.serverConfigJSON.toRawJSON(),
             json: true
         }

@@ -17,8 +17,8 @@ export default class GrafanaRestSession {
     uploadGrafanaDashboard(dashboardName:string, fqdns:IList<string>):IThenable<any> {
         //TODO: Replace dashboard JSON fqdns with those passed in as an arg
         //TODO: Determine why we receive 404 here
-        var dashboardJSON = this.fileSystem.readFileSync(`../../dashboards/${dashboardName}_dashboard.json`);
-        var postPayload = {
+        const dashboardJSON = this.fileSystem.readFileSync(`../../dashboards/${dashboardName}_dashboard.json`);
+        const postPayload = {
             body: {
                 dashboard: dashboardJSON,
                 overwrite: false

@@ -18,7 +18,7 @@ export default class CliExecutor {
 
     execute():void {
         try {
-            var command = this.process.getArgvOrThrow('command', 2);
+            const command = this.process.getArgvOrThrow('command', 2);
             if(command=='tags') this.cucumberCliHelper.executeTagsCli();
             else if(command=='featureSets') this.cucumberCliHelper.showFeatureSets();
             else if(command=='cluster') this.clusterCliHelper.executeClusterCli();
