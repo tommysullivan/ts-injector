@@ -163,7 +163,11 @@ export default class PackageManagerInstallationSteps {
         var copyMvn =`cp -R apache-maven-3.0.5 /usr/local`;
         var symLink =`ln -s /usr/local/apache-maven-3.0.5/bin/mvn /usr/bin/mvn`;
         var delMvn = `rm apache-maven-3.0.5-bin.tar.gz`;
-        this.firstNonCldb = $.clusterUnderTest.nodes().filter(n => !n.isHostingService('mapr-cldb')).first();
+        const nodes = $.clusterUnderTest.nodes();
+        const withoutCLDB = n=>!n.isHostingService('mapr-cldb');
+        this.firstNonCldb = nodes.hasAtLeastOne(withoutCLDB)
+            ? nodes.firstWhere(withoutCLDB)
+            : nodes.first();
         var result = this.firstNonCldb.executeShellCommand(`mvn -v`).catch(e =>
             (this.firstNonCldb.executeShellCommands($.collections.newList([getMvn, untarMvn, copyMvn, symLink, delMvn])))
         );
