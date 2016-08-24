@@ -45,11 +45,13 @@ export default class ExpressApplication implements IExpressApplication {
     }
 
     automaticallyParseJSONBody(sizeLimitInMegabytes:number):ExpressApplication {
-        this.nativeExpressApp.use(
-            this.bodyParser.json(
-                {limit: `${sizeLimitInMegabytes}mb`}
-            )
-        );
+        this.nativeExpressApp.use(this.bodyParser.text(
+            {
+                limit: `${sizeLimitInMegabytes}mb`,
+                type: `*/*`
+            }
+        ));
+
         return this;
     }
 

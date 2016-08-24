@@ -6,8 +6,11 @@ interface IHttpRequest {
     bodyAsJSONObject:IJSONObject;
     bodyAsListOfJSONObjects:IList<IJSONObject>;
     body:any;
+    bodyAsString:string;
     accepts(contentType:string):boolean;
     params:IDictionary<string>;
+    contentType:string;
+    isContentType(contentType:string):boolean;
 }
 
 export default IHttpRequest;

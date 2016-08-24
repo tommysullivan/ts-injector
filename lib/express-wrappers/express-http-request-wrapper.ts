@@ -21,19 +21,31 @@ export default class ExpressHttpRequestWrapper implements IHttpRequest {
     }
 
     get bodyAsJSONObject():IJSONObject {
-        return this.typedJSON.newJSONObject(this.body);
+        return this.typedJSON.newJSONObject(JSON.parse(this.body));
     }
 
     get bodyAsListOfJSONObjects():IList<IJSONObject> {
-        return this.collections.newList(this.body).map(i=>this.typedJSON.newJSONObject(i));
+        return this.collections.newList(JSON.parse(this.body)).map(i=>this.typedJSON.newJSONObject(i));
     }
 
     get body():any {
         return this.nativeExpressHttpRequest.body;
     }
 
+    get bodyAsString():string {
+        return this.body.toString();
+    }
+    
     get params():IDictionary<string> {
         return this.collections.newDictionary<string>(this.nativeExpressHttpRequest.params);
+    }
+    
+    get contentType():string {
+        return this.nativeExpressHttpRequest.get('Content-Type');
+    }
+
+    isContentType(contentType:string):boolean {
+        return (this.nativeExpressHttpRequest.get('Content-Type') == contentType);
     }
 
 }

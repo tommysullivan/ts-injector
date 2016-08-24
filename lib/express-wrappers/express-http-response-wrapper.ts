@@ -43,4 +43,8 @@ export default class ExpressHttpResponseWrapper implements IHttpResponse {
     emit(...args:Array<any>):any {
         return this.nativeExpressHttpResponse.emit(...args);
     }
+
+    location(resourcePath:string):void {
+        return this.nativeExpressHttpResponse.location(resourcePath);
+    }
 }
