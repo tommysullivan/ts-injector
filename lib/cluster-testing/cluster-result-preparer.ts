@@ -12,6 +12,7 @@ import {IClusterResultPreparer} from "./i-cluster-result-preparer";
 import {IClusterTesting} from "./i-cluster-testing";
 import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 import {INodeLog} from "./i-node-log";
+import {IProcess} from "../node-js-wrappers/i-process";
 
 export class ClusterResultPreparer implements IClusterResultPreparer {
     constructor(
@@ -23,7 +24,8 @@ export class ClusterResultPreparer implements IClusterResultPreparer {
         private fileSystem:IFileSystem,
         private clusters:IClusters,
         private clusterTesting:IClusterTesting,
-        private frameworkConfig:IFrameworkConfiguration
+        private frameworkConfig:IFrameworkConfiguration,
+        private process:IProcess
     ) {}
 
     prepareAndSaveClusterResult(clusterId:string, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, testRunGUID:string):IFuture<any> {
@@ -39,6 +41,12 @@ export class ClusterResultPreparer implements IClusterResultPreparer {
         }
         const clusterConfiguration = this.clusters.clusterConfigurationWithId(clusterId);
         const cluster = this.clusterTesting.clusterForId(clusterId);
+        
+        const jenkinsURL = this.process.environmentVariableNamedOrDefault('BUILD_URL', null);
+        const currentUser = this.process.environmentVariableNamedOrDefault('USER', null);
+        const gitCloneURL = this.process.environmentVariableNamedOrDefault('gitCloneURL', null);
+        const gitSHA = this.process.environmentVariableNamedOrDefault('gitSHA', null);
+
         return this.clusterLogCapturer.captureLogs(cluster)
             .catch(error => {
                 this.console.log(`Warning: could not capture logs for cluster: ${error.toString()}`);
@@ -55,7 +63,11 @@ export class ClusterResultPreparer implements IClusterResultPreparer {
                         logs,
                         uniqueFileIdentifier,
                         testRunGUID,
-                        packageJson
+                        packageJson,
+                        jenkinsURL,
+                        currentUser,
+                        gitCloneURL,
+                        gitSHA
                     );
                 };
                 return cluster.versionGraph()

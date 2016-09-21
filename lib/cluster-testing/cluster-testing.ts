@@ -113,7 +113,8 @@ export class ClusterTesting implements IClusterTesting {
             this.fileSystem,
             this.clusters,
             this,
-            this.frameworkConfig
+            this.frameworkConfig,
+            this.process
         );
     }
 
@@ -220,7 +221,19 @@ export class ClusterTesting implements IClusterTesting {
         );
     }
 
-    newClusterTestResult(cucumberTestResult:ICucumberTestResult, frameworkConfiguration:IFrameworkConfiguration, versionGraph:IClusterVersionGraph, versionGraphError:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, id:string, testRunGUID:string, packageJson:IJSONObject):IClusterTestResult {
+    newClusterTestResult(cucumberTestResult:ICucumberTestResult,
+                         frameworkConfiguration:IFrameworkConfiguration,
+                         versionGraph:IClusterVersionGraph,
+                         versionGraphError:string,
+                         clusterConfiguration:IClusterConfiguration,
+                         logs:IList<INodeLog>,
+                         id:string,
+                         testRunGUID:string,
+                         packageJson:IJSONObject,
+                         jenkinsURL?:string,
+                         currentUser?:string,
+                         gitCloneURL?:string,
+                         gitSHA?:string):IClusterTestResult {
         return new ClusterTestResult(
             cucumberTestResult,
             frameworkConfiguration,
@@ -231,7 +244,11 @@ export class ClusterTesting implements IClusterTesting {
             id,
             testRunGUID,
             packageJson,
-            this.jsonSerializer
+            this.jsonSerializer,
+            jenkinsURL,
+            currentUser,
+            gitCloneURL,
+            gitSHA
         );
     }
 }

@@ -31,15 +31,17 @@ export interface IClusterTesting {
     defaultReleasePhase:IPhase;
     newESXIManagedCluster(clusterConfiguration:IClusterConfiguration):IESXIManagedCluster;
     newNodeLog(nodeHost:string, logContent:Array<string>, logTitle:string):INodeLog;
-    newClusterTestResult(
-        cucumberTestResult:ICucumberTestResult,
-        frameworkConfiguration:IFrameworkConfiguration,
-        versionGraph:IClusterVersionGraph,
-        versionGraphError:string,
-        clusterConfiguration:IClusterConfiguration,
-        logs:IList<INodeLog>,
-        id:string,
-        testRunGUID:string,
-        packageJson:IJSONObject
-    ):IClusterTestResult;
+    newClusterTestResult(cucumberTestResult:ICucumberTestResult,
+                         frameworkConfiguration:IFrameworkConfiguration,
+                         versionGraph:IClusterVersionGraph,
+                         versionGraphError:string,
+                         clusterConfiguration:IClusterConfiguration,
+                         logs:IList<INodeLog>,
+                         id:string,
+                         testRunGUID:string,
+                         packageJson:IJSONObject,
+                         jenkinsURL?:string,
+                         currentUser?:string,
+                         gitCloneURL?:string,
+                         gitSHA?:string):IClusterTestResult;
 }

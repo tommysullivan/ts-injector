@@ -1,6 +1,6 @@
 {
   "name": "private-devops-automation-framework",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
   "main": "./dist/index.js",
   "typings": "./dist/lib/index.d.ts",
