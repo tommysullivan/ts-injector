@@ -1,10 +1,10 @@
-import IPackage from "./i-package";
-import IList from "../collections/i-list";
-import ISemanticVersion from "./i-semantic-version";
-import IPromotionLevel from "./i-promotion-level";
-import PackageComparer from "./package-comparer";
+import {IPackage} from "./i-package";
+import {IList} from "../collections/i-list";
+import {ISemanticVersion} from "./i-semantic-version";
+import {IPromotionLevel} from "./i-promotion-level";
+import {PackageComparer} from "./package-comparer";
 
-export default class PackageWithOverrides implements IPackage {
+export class PackageWithOverrides implements IPackage {
 
     constructor(
         private originalPackage:IPackage,
@@ -16,9 +16,24 @@ export default class PackageWithOverrides implements IPackage {
 
     get name():string { return this.originalPackage.name; }
     get version():ISemanticVersion { return this.originalPackage.version; }
-    get promotionLevel():IPromotionLevel { return this.promotionLevelOverride ? this.promotionLevelOverride : this.originalPackage.promotionLevel; }
-    get supportedOperatingSystems():IList<string> { return this.operatingSystemsOverride ? this.operatingSystemsOverride : this.originalPackage.supportedOperatingSystems; }
-    get tags():IList<string> { return this.tagsOverride ? this.tagsOverride : this.originalPackage.tags; }
+
+    get promotionLevel():IPromotionLevel {
+        return this.promotionLevelOverride
+            ? this.promotionLevelOverride
+            : this.originalPackage.promotionLevel;
+    }
+
+    get supportedOperatingSystems():IList<string> {
+        return this.operatingSystemsOverride
+            ? this.operatingSystemsOverride
+            : this.originalPackage.supportedOperatingSystems;
+    }
+
+    get tags():IList<string> {
+        return this.tagsOverride
+            ? this.tagsOverride
+            : this.originalPackage.tags;
+    }
 
     equals(other:IPackage):boolean {
         return this.packageComparer.equals(this, other);

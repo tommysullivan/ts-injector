@@ -1,17 +1,17 @@
-import IThenable from "../promise/i-thenable";
-import Rest from "../rest/rest";
-import ElasticSearchResult from "./elasticsearch-result";
+import {IFuture} from "../promise/i-future";
+import {IRest} from "../rest/i-rest";
+import {IElasticsearchRestClient} from "./i-elasticsearch-rest-client";
+import {IElasticsearch} from "./i-elasticsearch";
+import {IElasticsearchResult} from "./i-elasticsearch-result";
 
-export default class ElasticSearchRestClient {
-    private rest:Rest;
-    private elasticSearchHostAndOptionalPort:string;
+export class ElasticSearchRestClient implements IElasticsearchRestClient {
+    constructor(
+        private rest:IRest,
+        private elasticSearchHostAndOptionalPort:string,
+        private elasticsearch:IElasticsearch
+    ) {}
 
-    constructor(rest:Rest, elasticSearchHostAndOptionalPort:string) {
-        this.rest = rest;
-        this.elasticSearchHostAndOptionalPort = elasticSearchHostAndOptionalPort;
-    }
-
-    logsForServiceThatContainText(serviceName:string, soughtText:string):IThenable<ElasticSearchResult> {
+    logsForServiceThatContainText(serviceName:string, soughtText:string):IFuture<IElasticsearchResult> {
         const queryJSON = {
             "query": {
                 "bool": {
@@ -25,7 +25,7 @@ export default class ElasticSearchRestClient {
         return this.executeQuery(queryJSON);
     }
 
-    logsForServiceThatContainTextOnParticularHost(serviceName:string, soughtText:string, hostFQDN:string):IThenable<ElasticSearchResult> {
+    logsForServiceThatContainTextOnParticularHost(serviceName:string, soughtText:string, hostFQDN:string):IFuture<IElasticsearchResult> {
         const queryJSON = {
             "query": {
                 "bool": {
@@ -40,17 +40,17 @@ export default class ElasticSearchRestClient {
         return this.executeQuery(queryJSON);
     }
 
-    executeQuery(queryJSON:any):IThenable<ElasticSearchResult> {
+    executeQuery(queryJSON:any):IFuture<IElasticsearchResult> {
         const restClient = this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort);
         const options = {
             body: JSON.stringify(queryJSON),
         };
         console.log('elasticsearch query: ', queryJSON);
         return restClient.post(`/_search`, options)
-            .then(result=>new ElasticSearchResult(result.bodyAsJsonObject()));
+            .then(result=>this.elasticsearch.newElasticsearchResult(result.bodyAsJsonObject));
     }
 
-    logsForService(serviceName:string):IThenable<ElasticSearchResult> {
+    logsForService(serviceName:string):IFuture<IElasticsearchResult> {
         const queryJSON = {
             "query": {
                 "bool": {

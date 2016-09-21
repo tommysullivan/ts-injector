@@ -1,7 +1,5 @@
-import IPipeable from "./i-pipeable";
+import {IPipeable} from "./i-pipeable";
 
-interface IFileStream {
+export interface IFileStream {
     pipe(pipeable:IPipeable);
 }
-
-export default IFileStream;

@@ -216,3 +216,131 @@ Please see [this question](https://maprdrill.atlassian.net/browse/SPYG-72)
 ### Why Version Control the Product Requirements?
 
 Please see [this question](https://maprdrill.atlassian.net/browse/SPYG-69)
+
+
+## CLI
+
+The devops CLI can be used to manage the various capabilities of the
+framework.
+
+# Prerequisites
+
+Please ensure the following is installed and working in your environment:
+
+- node.js 5.0 or above
+
+
+# Installation
+
+After pulling the source locally, execute the following:
+
+    npm install
+
+
+# Usage
+
+Here is the general usage pattern:
+
+    bin/devops [command] [...]
+
+Where [command] is one of the following commands and some of the commands require
+additional parameters [...]
+Running with -h option provides help for each command.
+
+## tags
+
+Get a list of all the unique tags in the test, which can be used to run subsets of
+tests across multiple feature files using the "run tags" command
+
+    bin/devops tags
+    
+NOTE: There is a known defect where you must set environment variable clusterId in order
+to view tags, even though tags do not depend on which cluster you use.
+    
+## cluster
+
+Use this command to manage the clusters involved in testing. It has several subcommands
+and takes the following form:
+
+    bin/devops cluster [subCommand] [...]
+
+### cluster ids
+
+List the ids of all the configured clusters. These ids can be used with the "run" command as
+well as the "cluster snapshot" subcommand.
+
+    bin/devops cluster ids
+    
+### cluster hosting
+
+List the ids of the clusters that contain a particular host.
+
+    bin/devops cluster hosting --hostname <hostName>
+    
+### cluster hosts
+
+List the hosts for a particular cluster
+
+    bin/devops cluster hosts --clusterId <clusterID>
+    
+### cluster config for
+
+This shows the flattened configuration json for the requested cluster id. Since cluster
+configurations can contain an optional "inheritsFrom" property with the id of the 
+cluster from which it is inherited, this can be useful for viewing the "resolved" configuration
+after all levels of inheritance have been resolved.
+
+    bin/devops cluster config --clusterId <clusterID>
+    
+### cluster versions for
+
+This outputs a JSON "version graph" for the cluster. *NOTE* This can be a large amount
+of data so it is suggested that it be piped or written to file.
+
+    bin/devops cluster versions --clusterId <clusterID>
+    
+### cluster power
+
+Manage the power for each node in the cluster.
+
+    bin/devops cluster power --action [on|off|reset] --clusterId <clusterID>
+    
+### cluster snapshot
+
+This allows the user to manage the state of the clusters under test.
+
+    bin/devops cluster snapshot [action]
+    
+Where the following actions are supported:
+
+#### cluster snapshot states for
+
+Get the configured states for a cluster. (Note: There may be additional
+states that are not configured. To check this, run "cluster snapshot info for ..."
+
+    bin/devops cluster snapshot states --clusterId <clusterID>
+    
+### featureSets
+
+List the feature set ids which can be used with the bin/devops-automation run command. Add optional
+text "in detail" to view not only the ids but the details of each feature set.
+
+    bin/devops featureSet [ --detail ]
+
+### run
+
+#### run cucumber
+
+    bin/devops run cucumber -- [additional pass thru args for cucumber]
+
+NOTE: Whatever passed after the -- are sent directly to cucumber
+
+#### run featureSet
+
+    bin/devops run featureSet --featureSetId  <featureID>        run a suite of ordered cucumber features
+
+# Environment Variables
+
+    configPath=[path]        - defaults to ./configuration/config.json
+    debug=[true|false]       - defaults to false - outputs full stack traces when set to true
+    preventSave=[true|false] - defaults to false - will prevent automatic saving to the configured "testPortalHostAndPort"

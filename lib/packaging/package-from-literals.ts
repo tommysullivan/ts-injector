@@ -1,10 +1,10 @@
-import IPackage from "./i-package";
-import ISemanticVersion from "./i-semantic-version";
-import IPromotionLevel from "./i-promotion-level";
-import IList from "../collections/i-list";
-import PackageComparer from "./package-comparer";
+import {IPackage} from "./i-package";
+import {ISemanticVersion} from "./i-semantic-version";
+import {IPromotionLevel} from "./i-promotion-level";
+import {IList} from "../collections/i-list";
+import {PackageComparer} from "./package-comparer";
 
-export default class PackageFromLiterals implements IPackage {
+export class PackageFromLiterals implements IPackage {
     constructor(
         public name:string,
         public version:ISemanticVersion,

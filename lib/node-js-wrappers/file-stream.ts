@@ -1,7 +1,7 @@
-import IFileStream from "./i-file-stream";
-import IPipeable from "./i-pipeable";
+import {IFileStream} from "./i-file-stream";
+import {IPipeable} from "./i-pipeable";
 
-export default class FileStream implements IFileStream {
+export class FileStream implements IFileStream {
     private nativeFileStream:any;
 
     constructor(nativeFileStream:any) {

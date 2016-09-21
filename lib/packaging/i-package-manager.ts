@@ -1,8 +1,7 @@
-import IList from "../collections/i-list";
-import IRepository from "./i-repository";
-import IConfigFileContent from "./i-config-file-content";
+import {IList} from "../collections/i-list";
+import {IConfigFileContent} from "./i-config-file-content";
 
-interface IPackageManager extends IConfigFileContent {
+export interface IPackageManager extends IConfigFileContent {
     packageCommand:string;
     uninstallAllPackagesWithMapRInTheName:string;
     installJavaCommand:string;
@@ -14,5 +13,3 @@ interface IPackageManager extends IConfigFileContent {
     installPackageCommand(packageName:string):string;
     clientConfigurationFileLocationFor(packageName:string):string;
 }
-
-export default IPackageManager;

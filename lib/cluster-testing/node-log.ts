@@ -1,6 +1,4 @@
-import IList from "../collections/i-list";
-
-export default class NodeLog {
+export class NodeLog {
     constructor(
         private nodeHost:string,
         private logContent:Array<string>,

@@ -1,33 +1,25 @@
-import IThenable from "../promise/i-thenable";
-import GrafanaRestSession from "./grafana-rest-session";
-import Grafana from "./grafana";
-import IHTTP from "../http/i-http";
-import RestClientAsPromised from "../rest/rest-client-as-promised";
-import Rest from "../rest/rest";
+import {IFuture} from "../promise/i-future";
+import {IRest} from "../rest/i-rest";
+import {IGrafanaRestClient} from "./i-grafana-rest-client";
+import {IGrafana} from "./i-grafana";
+import {IGrafanaRestSession} from "./i-grafana-rest-session";
 
-export default class GrafanaRestClient {
+export class GrafanaRestClient implements IGrafanaRestClient {
 
-    private grafana:Grafana;
-    private grafanaHostAndOptionalPort:string;
-    private grafanaLoginPath:string;
-    private defaultUsername:string;
-    private defaultPassword:string;
-    private rest:Rest;
+    constructor(
+        private grafana:IGrafana,
+        private grafanaHostAndOptionalPort:string,
+        private grafanaLoginPath:string,
+        private defaultUsername:string,
+        private defaultPassword:string,
+        private rest:IRest
+    ) {}
 
-    constructor(grafana:Grafana, grafanaHostAndOptionalPort:string, grafanaLoginPath:string, defaultUsername:string, defaultPassword:string, rest:Rest) {
-        this.grafana = grafana;
-        this.grafanaHostAndOptionalPort = grafanaHostAndOptionalPort;
-        this.grafanaLoginPath = grafanaLoginPath;
-        this.defaultUsername = defaultUsername;
-        this.defaultPassword = defaultPassword;
-        this.rest = rest;
-    }
-
-    createAutheticatedSessionWithDefaultCredentials():IThenable<GrafanaRestSession> {
+    createAutheticatedSessionWithDefaultCredentials():IFuture<IGrafanaRestSession> {
         return this.createAutheticatedSession(this.defaultUsername, this.defaultPassword);
     }
 
-    createAutheticatedSession(username:string, password:string):IThenable<GrafanaRestSession> {
+    createAutheticatedSession(username:string, password:string):IFuture<IGrafanaRestSession> {
         const restClientAsPromised = this.rest.newRestClientAsPromised(this.grafanaHostAndOptionalPort);
         const postPayload = {
             body: {

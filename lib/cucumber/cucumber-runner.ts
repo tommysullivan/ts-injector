@@ -1,73 +1,53 @@
-import IProcess from "../node-js-wrappers/i-process";
-import IFileSystem from "../node-js-wrappers/i-filesystem";
-import IThenable from "../promise/i-thenable";
-import ICucumberTestResult from "./i-cucumber-test-result";
-import IConsole from "../node-js-wrappers/i-console";
-import ICucumberRunConfiguration from "./i-cucumber-run-configuration";
-import ICucumberRunner from "./i-cucumber-runner";
-import ICollections from "../collections/i-collections";
-import IProcessResult from "../node-js-wrappers/i-process-result";
-import Cucumber from "./cucumber";
-import CucumberConfiguration from "./cucumber-configuration";
+import {IProcess} from "../node-js-wrappers/i-process";
+import {IFuture} from "../promise/i-future";
+import {ICucumberTestResult} from "./i-cucumber-test-result";
+import {IConsole} from "../node-js-wrappers/i-console";
+import {ICucumberRunConfiguration} from "./i-cucumber-run-configuration";
+import {ICucumberRunner} from "./i-cucumber-runner";
+import {IProcessResult} from "../node-js-wrappers/i-process-result";
+import {ICollections} from "../collections/i-collections";
+import {ICucumberConfiguration} from "./i-cucumber-configuration";
+import {ICucumber} from "./i-cucumber";
 
-export default class CucumberRunner implements ICucumberRunner {
-    private process:IProcess;
-    private console:IConsole;
-    private fileSystem:IFileSystem;
-    private collections:ICollections;
-    private cucumber:Cucumber;
-    private cucumberConfig:CucumberConfiguration;
+export class CucumberRunner implements ICucumberRunner {
+    constructor(
+        private process:IProcess,
+        private console:IConsole,
+        private cucumber:ICucumber,
+        private cucumberConfig:ICucumberConfiguration,
+        private collections:ICollections
+    ) {}
 
-    constructor(process:IProcess, console:IConsole, fileSystem:IFileSystem, collections:ICollections, cucumber:Cucumber, cucumberConfig:CucumberConfiguration) {
-        this.process = process;
-        this.console = console;
-        this.fileSystem = fileSystem;
-        this.collections = collections;
-        this.cucumber = cucumber;
-        this.cucumberConfig = cucumberConfig;
-    }
-
-    runCucumber(cucumberRunConfiguration:ICucumberRunConfiguration):IThenable<ICucumberTestResult> {
+    runCucumber(runConfig:ICucumberRunConfiguration):IFuture<ICucumberTestResult> {
         const startTime = new Date();
-        const additionalArgs = `${cucumberRunConfiguration.cucumberAdditionalArgs()}${cucumberRunConfiguration.isDryRun() ? ' --dry-run' : ''}`;
+        const dryRunArg = runConfig.isDryRun ? ' --dry-run' : '';
+        const additionalArgs = `${runConfig.cucumberAdditionalArgs}${dryRunArg}`;
         const runCucumberCommand = [
-            this.cucumberConfig.cucumberExecutablePath(),
+            this.cucumberConfig.cucumberExecutablePath,
             additionalArgs,
-            `-f json:${cucumberRunConfiguration.jsonResultFilePath()}`
+            `-f json:${runConfig.jsonResultFilePath}`
         ].join(' ');
 
         this.console.log('cucumber command: ', runCucumberCommand);
         this.console.log(
             'environment variables: ',
-            cucumberRunConfiguration.environmentVariables().toJSONString()
+            runConfig.environmentVariables
         );
-
-        return this.process.executeNodeProcess(runCucumberCommand, cucumberRunConfiguration.environmentVariables())
+        const envVars = this.collections.newDictionary(runConfig.environmentVariables);
+        return this.process.executeNodeProcess(runCucumberCommand, envVars)
             .then(
-                r => this.onCucumberProcessComplete(r, cucumberRunConfiguration, startTime),
-                r => this.onCucumberProcessComplete(r, cucumberRunConfiguration, startTime)
+                r => this.onCucumberProcessComplete(r, runConfig, startTime),
+                r => this.onCucumberProcessComplete(r, runConfig, startTime)
             );
     }
 
     private onCucumberProcessComplete(processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date):ICucumberTestResult {
-        const endTime = new Date();
-        return this.constructResult(processResult, cucumberRunConfiguration, startTime, endTime);
-    }
-
-    private constructResult(processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date, endTime:Date):ICucumberTestResult {
-        var cucumberFeatureResults = null;
-        var resultAcquisitionError = null;
-        try {
-            const rawCucumberResultJSON = this.fileSystem.readJSONArrayFileSync(
-                cucumberRunConfiguration.jsonResultFilePath()
-            );
-            cucumberFeatureResults = rawCucumberResultJSON.map(
-                featureJSON => this.cucumber.newCucumberFeatureResult(featureJSON)
-            );
-        }
-        catch(e) {
-            resultAcquisitionError = e.toString();
-        }
-        return this.cucumber.newCucumberTestResult(cucumberFeatureResults, processResult, cucumberRunConfiguration, resultAcquisitionError, startTime, endTime);
+        return this.cucumber.newCucumberResultFromFilePath(
+            processResult,
+            cucumberRunConfiguration.jsonResultFilePath,
+            cucumberRunConfiguration,
+            startTime,
+            new Date()
+        );
     }
 }

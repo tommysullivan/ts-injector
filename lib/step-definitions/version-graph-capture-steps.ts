@@ -1,12 +1,13 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../framework/framework";
-import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
+import {Framework} from "../framework/framework";
+import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
+
 declare const $:Framework;
 declare const module:any;
 
 @steps()
-export default class VersionGraphCaptureSteps {
+export class VersionGraphCaptureSteps {
     private versionGraph:IClusterVersionGraph;
 
     @when(/^I request the cluster version graph$/)
@@ -19,7 +20,7 @@ export default class VersionGraphCaptureSteps {
     @then(/^it returns a valid JSON file$/)
     verifyVersionGraphIsValidJSON():void {
         const versionGraph:IClusterVersionGraph = this.versionGraph;
-        $.expect(() => versionGraph.toJSONString()).not.to.throw;
+        $.expect(() => versionGraph.toString()).not.to.throw;
     }
 }
 module.exports = VersionGraphCaptureSteps;

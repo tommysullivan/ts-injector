@@ -1,7 +1,7 @@
-import InstallerService from "./installer-service";
+import {IInstallerService} from "./i-installer-service";
+import {IList} from "../collections/i-list";
 
-interface IInstallerServices {
-    serviceMatchingNameAndVersion(serviceName:string, version:string):InstallerService;
+export interface IInstallerServices {
+    serviceMatchingNameAndVersion(serviceName:string, version:string):IInstallerService;
+    serviceList:IList<IInstallerService>;
 }
-
-export default IInstallerServices;

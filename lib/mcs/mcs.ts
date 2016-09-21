@@ -1,33 +1,34 @@
-import MCSRestClient from "./mcs-rest-client";
-import RestClientAsPromised from "../rest/rest-client-as-promised";
-import MCSRestSession from "./mcs-rest-session";
-import Rest from "../rest/rest";
-import MCSConfiguration from "./mcs-configuration";
-import MCSDashboardInfo from "./mcs-dashboard-info";
-import IJSONObject from "../typed-json/i-json-object";
-import MCSServiceInfo from "./mcs-service-info";
-import ITypedJSON from "../typed-json/i-typed-json";
-import IErrors from "../errors/i-errors";
+import {MCSRestClient} from "./mcs-rest-client";
+import {MCSRestSession} from "./mcs-rest-session";
+import {MCSDashboardInfo} from "./mcs-dashboard-info";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {MCSServiceInfo} from "./mcs-service-info";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IErrors} from "../errors/i-errors";
+import {IRest} from "../rest/i-rest";
+import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IMCS} from "./i-mcs";
+import {IMCSConfiguration} from "./i-mcs-configuration";
+import {IMCSRestSession} from "./i-mcs-rest-session";
+import {IMCSDashboardInfo} from "./i-mcs-dashboard-info";
+import {IMCSServiceInfo} from "./i-mcs-service-info";
+import {IMCSRestClient} from "./i-mcs-rest-client";
 
-export default class MCS {
-    private mcsConfiguration:MCSConfiguration;
-    private rest:Rest;
-    private typedJSON:ITypedJSON;
-    private errors:IErrors;
+export class MCS implements IMCS {
 
-    constructor(mcsConfiguration:MCSConfiguration, rest:Rest, typedJSON:ITypedJSON, errors:IErrors) {
-        this.mcsConfiguration = mcsConfiguration;
-        this.rest = rest;
-        this.typedJSON = typedJSON;
-        this.errors = errors;
-    }
+    constructor(
+        private mcsConfiguration:IMCSConfiguration,
+        private rest:IRest,
+        private typedJSON:ITypedJSON,
+        private errors:IErrors
+    ) {}
 
-    newMCSClient(host:string):MCSRestClient {
+    newMCSClient(host:string):IMCSRestClient {
         const url = this.mcsConfiguration.mcsUrlTemplate.replace('{host}', host);
         return new MCSRestClient(this.rest, url, this.mcsConfiguration.mcsLoginPath, this);
     }
 
-    newMCSRestSession(authedRestClient:RestClientAsPromised):MCSRestSession {
+    newMCSRestSession(authedRestClient:IRestClientAsPromised):IMCSRestSession {
         return new MCSRestSession(
             authedRestClient,
             this.mcsConfiguration,
@@ -37,11 +38,11 @@ export default class MCS {
         );
     }
 
-    newMCSDashboardInfo(dashboardInfoJSONObject:IJSONObject):MCSDashboardInfo {
+    newMCSDashboardInfo(dashboardInfoJSONObject:IJSONObject):IMCSDashboardInfo {
         return new MCSDashboardInfo(dashboardInfoJSONObject, this);
     }
 
-    newMCSServiceInfo(name:string, serviceJSONObject:IJSONObject):MCSServiceInfo {
+    newMCSServiceInfo(name:string, serviceJSONObject:IJSONObject):IMCSServiceInfo {
         return new MCSServiceInfo(name, serviceJSONObject);
     }
 }

@@ -1,50 +1,93 @@
-import IProcess from "../node-js-wrappers/i-process";
-import CucumberCliHelper from "./cucumber-cli-helper";
-import ClusterCliHelper from "./cluster-cli-helper";
-import IConsole from "../node-js-wrappers/i-console";
-import ClusterTesterCliHelper from "./cluster-tester-cli-helper";
-import CliHelper from "./cli-helper";
+import {CucumberCliHelper} from "./cucumber-cli-helper";
+import {ClusterCliHelper} from "./cluster-cli-helper";
+import {ClusterTesterCliHelper} from "./cluster-tester-cli-helper";
+import {ClusterSnapshotCliHelper} from "./cluster-snapshot-cli-helper";
+import {ClusterCliGenerator} from "./cluster-generator-cli-helper";
 
-export default class CliExecutor {
+export class CliExecutor {
 
     constructor(
-        private process:IProcess,
-        private console:IConsole,
         private cucumberCliHelper:CucumberCliHelper,
         private clusterCliHelper:ClusterCliHelper,
         private clusterTesterCliHelper:ClusterTesterCliHelper,
-        private cliHelper:CliHelper
+        private clusterSnapshotCliHelper:ClusterSnapshotCliHelper,
+        private clusterGeneratorCliHelper:ClusterCliGenerator
     ) {}
 
-    execute():void {
-        try {
-            const command = this.process.getArgvOrThrow('command', 2);
-            if(command=='tags') this.cucumberCliHelper.executeTagsCli();
-            else if(command=='featureSets') this.cucumberCliHelper.showFeatureSets();
-            else if(command=='cluster') this.clusterCliHelper.executeClusterCli();
-            else if(command=='run') this.clusterTesterCliHelper.executeTestRunCli();
-            else throw new Error(`Invalid command ${command}`);
-        }
-        catch(e) {
-            this.logUsage();
-            this.cliHelper.logError(e.message);
-            if(this.process.environmentVariables().get('debug')=='true') throw e;
-        }
+    executeShowFeatureSets(detail:boolean):void {
+        this.cucumberCliHelper.showFeatureSets(detail);
     }
 
-    private logUsage():void {
-        this.console.log([
-            '',
-            'Usage:',
-            `${this.process.processName()} [command] [command specific arguments]`,
-            '',
-            'commands                  description',
-            '--------                  -----------',
-            'run                       execute some tests',
-            'tags                      list available cucumber tags',
-            'featureSets [in detail]   list runnable featureSets, optionally "in detail"',
-            'cluster                   manage the cluster under test',
-            ''
-        ].join('\n'));
+    runExecuteTagsCli():void {
+        this.cucumberCliHelper.executeTagsCli();
     }
+
+    runShowClusterIds():void {
+        this.clusterCliHelper.showClusterIds();
+    }
+
+    runshowNodesHostingService(hostName:string):void {
+        this.clusterCliHelper.showNodesHostingService(hostName);
+    }
+
+    runShowConfigForCluster(clusterId:string):void {
+        this.clusterCliHelper.showConfigForCluster(clusterId);
+    }
+
+    runPowerForCluster(action:string, clusterId:string):void {
+        this.clusterCliHelper.powerForCluster(action, clusterId);
+    }
+
+    runShowVersionsForCluster(clusterId:string):void {
+        this.clusterCliHelper.showVersionsForCluster(clusterId);
+    }
+
+    runShowHostsForCluster(clusterId:string):void {
+        this.clusterCliHelper.showHostsForCluster(clusterId);
+    }
+
+    runshowESXIForCluster(clusterId:string):void {
+        this.clusterCliHelper.showESXIForCluster(clusterId);
+    }
+
+    runFeatureSetId(featureSetId, argv:any):void {
+        this.clusterTesterCliHelper.runFeatureSet(featureSetId, argv);
+    }
+
+    runCucucmberComamnd(argv:any):void {
+        this.clusterTesterCliHelper.runCucumberCommand(argv);
+    }
+    
+    runInstallCommand(secure:boolean){
+        this.clusterTesterCliHelper.runCucumberInstallCommand(secure);
+    }
+
+    runCommand(argv:any):void {
+        this.clusterTesterCliHelper.runCommand(argv);
+    }
+
+    runClusterSanpshotStatesCli(clusterId:string):void {
+        this.clusterSnapshotCliHelper.clusterSnapshotStatesCli(clusterId);
+    }
+
+    runClusterSanpshotInfoCli(clusterId:string):void {
+        this.clusterSnapshotCliHelper.clusterSnapshotInfoCli(clusterId);
+    }
+
+    runClusterSanpshotApplyCli(clusterId:string, stateName:string):void {
+        this.clusterSnapshotCliHelper.clusterSnapshotApplyCli(clusterId, stateName);
+    }
+
+    runClusterSanpshotCaptureCli(clusterId:string, snapshotName:string):void {
+        this.clusterSnapshotCliHelper.clusterSnapshotCaptureCli(clusterId, snapshotName);
+    }
+
+    runClusterSanpshotDeleteCli(clusterId:string, stateName:string):void {
+        this.clusterSnapshotCliHelper.clusterSnapshotDeleteCli(clusterId, stateName);
+    }
+    
+    runClusterGenerator():void {
+        this.clusterGeneratorCliHelper.generateClusterJson();
+    }
+
 }

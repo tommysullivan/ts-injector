@@ -1,11 +1,9 @@
-import IDictionary from "../collections/i-dictionary";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
+import {IHash} from "../collections/i-hash";
 
-interface ICucumberRunConfiguration {
-    environmentVariables():IDictionary<string>;
-    jsonResultFilePath():string;
-    cucumberAdditionalArgs():string;
-    isDryRun():boolean;
-    toJSON():any;
+export interface ICucumberRunConfiguration extends IJSONSerializable {
+    environmentVariables:IHash<string>;
+    jsonResultFilePath:string;
+    cucumberAdditionalArgs:string;
+    isDryRun:boolean;
 }
-
-export default ICucumberRunConfiguration;

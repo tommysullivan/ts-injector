@@ -1,8 +1,7 @@
-import IList from "../collections/i-list";
-import IFeatureSet from "./i-feature-set";
+import {IList} from "../collections/i-list";
+import {IFeatureSet} from "./i-feature-set";
 
-interface IFeatureSets {
+export interface IFeatureSets {
     setWithId(id:string):IFeatureSet;
     all:IList<IFeatureSet>;
 }
-export default IFeatureSets;

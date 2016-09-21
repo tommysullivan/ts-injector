@@ -1,12 +1,10 @@
-import IError from "../errors/i-error";
-import RestResponse from "./rest-response";
+import {IError} from "../errors/i-error";
+import {IRestResponse} from "./i-rest-response";
 
-export default class RestError implements IError {
-    public restResponse:RestResponse;
-
-    constructor(restResponse:RestResponse) {
-        this.restResponse = restResponse;
-    }
+export class RestError implements IError {
+    constructor(
+        private restResponse:IRestResponse
+    ) {}
 
     public get message():string {
         return this.toString();

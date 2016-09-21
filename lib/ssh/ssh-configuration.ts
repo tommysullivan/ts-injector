@@ -1,6 +1,7 @@
-import IJSONObject from "../typed-json/i-json-object";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {ISSHConfiguration} from "./i-ssh-configuration";
 
-export default class SSHConfiguration {
+export class SSHConfiguration implements ISSHConfiguration {
     private sshConfigJSON:IJSONObject;
 
     constructor(sshConfigJSON:IJSONObject) {

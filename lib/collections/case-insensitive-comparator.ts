@@ -1,3 +1,3 @@
-export default function compare(a:string, b:string):number {
+export function CaseInsensitiveComparator(a:string, b:string):number {
     return a.toLowerCase().localeCompare(b.toLowerCase());
 }

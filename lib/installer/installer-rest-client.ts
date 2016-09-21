@@ -1,29 +1,25 @@
-import Rest from "../rest/rest";
-import IInstallerRestSession from "./i-installer-rest-session";
-import Installer from "./installer";
-import InstallerClientConfiguration from "./installer-client-configuration";
-import IThenable from "../promise/i-thenable";
-import ITypedJSON from "../typed-json/i-typed-json";
+import {IInstallerRestSession} from "./i-installer-rest-session";
+import {IFuture} from "../promise/i-future";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IInstallerRestClient} from "./i-installer-rest-client";
+import {IInstallerClientConfiguration} from "./i-installer-client-configuration";
+import {IInstaller} from "./i-installer";
+import {IRest} from "../rest/i-rest";
 
-export default class InstallerRestClient {
+export class InstallerRestClient implements IInstallerRestClient {
 
-    private installer:Installer;
-    private configuration:InstallerClientConfiguration;
-    private rest:Rest;
-    private typedJSON:ITypedJSON;
-
-    constructor(installer:Installer, configuration:InstallerClientConfiguration, rest:Rest, typedJSON:ITypedJSON) {
-        this.installer = installer;
-        this.configuration = configuration;
-        this.rest = rest;
-        this.typedJSON = typedJSON;
-    }
+    constructor(
+        private installer:IInstaller,
+        private configuration:IInstallerClientConfiguration,
+        private rest:IRest,
+        private typedJSON:ITypedJSON
+    ) {}
 
     private apiLink(httpResponse, linkName) {
-        return httpResponse.jsonBody().links[linkName];
+        return httpResponse.jsonBody.links[linkName];
     }
 
-    createAutheticatedSession(installerProtocolHostAndOptionalPort:string, username:string, password:string):IThenable<IInstallerRestSession> {
+    createAutheticatedSession(installerProtocolHostAndOptionalPort:string, username:string, password:string):IFuture<IInstallerRestSession> {
         const restClientAsPromised = this.rest.newRestClientAsPromised(installerProtocolHostAndOptionalPort);
         const loginBody = {
             form: {
@@ -36,7 +32,7 @@ export default class InstallerRestClient {
             .then(apiResponse => {
                 return this.installer.newInstallerRestSession(
                     restClientAsPromised,
-                    this.typedJSON.newJSONObject(apiResponse.jsonBody())
+                    this.typedJSON.newJSONObject(apiResponse.jsonBody)
                 );
             });
     }

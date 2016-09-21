@@ -1,27 +1,29 @@
-import INodeWrapperFactory from "./i-node-wrapper-factory";
-import ProcessResult from "./process-result";
-import IProcess from "./i-process";
-import Process from "./process";
-import IPromiseFactory from "../promise/i-promise-factory";
-import IList from "../collections/i-list";
-import IProcessResult from "./i-process-result";
-import ICollections from "../collections/i-collections";
-import Console from "./console";
-import IConsole from "./i-console";
-import IPath from "./i-path";
-import IFileSystem from "./i-filesystem";
-import FileSystem from "./file-system";
-import ITypedJSON from "../typed-json/i-typed-json";
-import IErrors from "../errors/i-errors";
-import FileStream from "./file-stream";
-import IFileStream from "./i-file-stream";
-import IBuffer from "./i-buffer";
-import StringHelper from "./string-helper";
-import IStringHelper from "./i-string-helper";
+import {INodeWrapperFactory} from "./i-node-wrapper-factory";
+import {ProcessResult} from "./process-result";
+import {IProcess} from "./i-process";
+import {Process} from "./process";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IProcessResult} from "./i-process-result";
+import {ICollections} from "../collections/i-collections";
+import {Console} from "./console";
+import {IConsole} from "./i-console";
+import {IPath} from "./i-path";
+import {IFileSystem} from "./i-filesystem";
+import {FileSystem} from "./file-system";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IErrors} from "../errors/i-errors";
+import {FileStream} from "./file-stream";
+import {IFileStream} from "./i-file-stream";
+import {IBuffer} from "./i-buffer";
+import {StringHelper} from "./string-helper";
+import {IStringHelper} from "./i-string-helper";
+import {BaseProcessResult} from "./base-process-result";
+import {IList} from "../collections/i-list";
+import {ProcessResultForSeparateStdAndErrorStreams} from "./process-result-for-separate-std-and-error-streams";
 
 declare const Buffer:any;
 
-export default class NodeWrapperFactory implements INodeWrapperFactory {
+export class NodeWrapperFactory implements INodeWrapperFactory {
 
     constructor(
         private promiseFactory:IPromiseFactory,
@@ -46,16 +48,62 @@ export default class NodeWrapperFactory implements INodeWrapperFactory {
         return new FileStream(nativeFileStream);
     }
 
-    newProcessResult(command:string, processExitCode:number, stdoutParts:IList<string>, stderrParts:IList<string>, shellInvocationError:string):IProcessResult {
-        return new ProcessResult(command, processExitCode, stdoutParts, stderrParts, shellInvocationError);
+    newProcessResult(
+        command:string,
+        processExitCode:number,
+        stdOutIndices:Array<number>,
+        stdErrIndices:Array<number>,
+        allOutput:Array<string>,
+        shellInvocationError:string
+    ):IProcessResult {
+        return new ProcessResult(
+            this.newBaseProcessResult(command, processExitCode, shellInvocationError),
+            stdOutIndices,
+            stdErrIndices,
+            allOutput,
+            this.collections
+        );
+    }
+
+    newBaseProcessResult(command:string, processExitCode:number, shellInvocationError:string):IProcessResult {
+        return new BaseProcessResult(
+            command,
+            processExitCode,
+            shellInvocationError
+        );
+    }
+
+    newProcessResultForSeparateStdAndErrorStreams(
+        command:string,
+        processExitCode:number,
+        stdoutLines:IList<string>,
+        stderrLines:IList<string>,
+        shellInvocationError:string
+    ):IProcessResult {
+        return new ProcessResultForSeparateStdAndErrorStreams(
+            this.newBaseProcessResult(command, processExitCode, shellInvocationError),
+            stdoutLines,
+            stderrLines,
+            this.collections
+        );
     }
 
     newProcess(nativeProcess:any):IProcess {
-        return new Process(nativeProcess, this.promiseFactory, this.childProcessModule, this, this.collections);
+        return new Process(
+            nativeProcess,
+            this.promiseFactory,
+            this.childProcessModule,
+            this,
+            this.collections
+        );
     }
 
-    newConsole(nativeConsole:any):IConsole {
-        return new Console(nativeConsole, this.readLineSyncModule);
+    newConsole(nativeConsole:any, logLevel:string):IConsole {
+        return new Console(
+            nativeConsole,
+            this.readLineSyncModule,
+            logLevel
+        );
     }
 
     fileSystem():IFileSystem {

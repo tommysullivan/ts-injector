@@ -1,5 +1,3 @@
-interface IComparator<T> {
+export interface IComparator<T> {
     (a:T, b:T):number;
 }
-
-export default IComparator;

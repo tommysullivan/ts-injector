@@ -1,7 +1,7 @@
-import IList from "../collections/i-list";
-import ISSHResult from "../ssh/i-ssh-result";
+import {IList} from "../collections/i-list";
+import {ISSHResult} from "../ssh/i-ssh-result";
 
-export default class NodeVersionGraph {
+export class NodeVersionGraph {
     private host:string;
     private commandResultSet:IList<ISSHResult>;
 

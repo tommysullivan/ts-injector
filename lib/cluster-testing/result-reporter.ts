@@ -1,78 +1,19 @@
-import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
-import ICucumberTestResult from "../cucumber/i-cucumber-test-result";
-import IClusterConfiguration from "../clusters/i-cluster-configuration";
-import IFileSystem from "../node-js-wrappers/i-filesystem";
-import Rest from "../rest/rest";
-import FrameworkConfiguration from "../framework/framework-configuration";
-import IThenable from "../promise/i-thenable";
-import ClusterTestResult from "./cluster-test-result";
-import ClusterTesting from "./cluster-testing";
-import IConsole from "../node-js-wrappers/i-console";
-import ClusterTestingConfiguration from "./cluster-testing-configuration";
-import IProcess from "../node-js-wrappers/i-process";
-import IPromiseFactory from "../promise/i-promise-factory";
-import IPath from "../node-js-wrappers/i-path";
-import IList from "../collections/i-list";
-import NodeLog from "./node-log";
-import IJSONObject from "../typed-json/i-json-object";
+import {IFuture} from "../promise/i-future";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IResultReporter} from "./i-result-reporter";
+import {IList} from "../collections/i-list";
+import {IClusterTestResult} from "./i-cluster-test-result";
 
-export default class ResultReporter {
+export class MultiplexDelegateResultReporter implements IResultReporter {
 
     constructor(
-        private frameworkConfig:FrameworkConfiguration,
-        private fileSystem:IFileSystem,
-        private rest:Rest,
-        private clusterTesting:ClusterTesting,
-        private console:IConsole,
-        private clusterTestingConfiguration:ClusterTestingConfiguration,
-        private process:IProcess,
-        private promiseFactory:IPromiseFactory,
-        private path:IPath
+        private reportersToDelegateTo:IList<IResultReporter>,
+        private promiseFactory:IPromiseFactory
     ) {}
 
-    saveResult(versionGraph:IClusterVersionGraph, versionGraphError:string, cucumberTestResult:ICucumberTestResult, uniqueFileIdentifier:string, clusterConfiguration:IClusterConfiguration, logs:IList<NodeLog>, testRunGUID:string, packageJson:IJSONObject):IThenable<ClusterTestResult> {
-        const clusterTestResult = this.clusterTesting.newClusterTestResult(
-            cucumberTestResult,
-            this.frameworkConfig,
-            versionGraph,
-            versionGraphError,
-            clusterConfiguration,
-            logs,
-            uniqueFileIdentifier,
-            testRunGUID,
-            packageJson
-        );
-
-        this.console.log(cucumberTestResult.consoleOutput());
-
-        const outputFileName = `${uniqueFileIdentifier}.json`;
-        const frameworkOutputPath = this.path.join(
-            this.clusterTestingConfiguration.frameworkOutputPath,
-            outputFileName
-        );
-        this.fileSystem.writeFileSync(
-            frameworkOutputPath,
-            clusterTestResult.toString()
-        );
-
-        if(this.process.environmentVariables().hasKey('portalId')) {
-            const portalId = this.process.environmentVariableNamed('portalId');
-            const url = this.clusterTestingConfiguration.portalUrlWithId(portalId);
-            const fullUrl = `${url}/test-results/${uniqueFileIdentifier}`;
-            const putArgs = {
-                body: clusterTestResult.toJSON(),
-                json: true
-            }
-            const portalInfo = `portal id "${portalId}" at url "${fullUrl}"`;
-            this.console.log(`Saving result to ${portalInfo}`);
-            return this.rest.newRestClientAsPromised().put(fullUrl, putArgs)
-                .then(result => this.console.log('Success'))
-                .catch(error => this.console.log(error.toString()))
-                .then(_ => clusterTestResult);
-        } else {
-            const locationOfConfiguredPortalUrls = 'the configuration json file, under "clusterTesting.resultServers"';
-            this.console.log(`Not saving result to portal. To do so, set ENV variable "portalId" to value in ${locationOfConfiguredPortalUrls}`);
-            return this.promiseFactory.newPromiseForImmediateValue(clusterTestResult);
-        }
+    reportResult(uniqueFileIdentifier:string, clusterTestResult:IClusterTestResult):IFuture<IClusterTestResult> {
+        return this.promiseFactory.newGroupPromise(
+            this.reportersToDelegateTo.map(r=>r.reportResult(uniqueFileIdentifier, clusterTestResult))
+        ).then(results => clusterTestResult);
     }
 }

@@ -1,32 +1,48 @@
-import IList from "../collections/i-list";
-import IJSONObject from "../typed-json/i-json-object";
-import ICollections from "../collections/i-collections";
-import IFeatureSet from "./i-feature-set";
-import IFeatureSets from "./i-feature-sets";
+import {IList} from "../collections/i-list";
+import {ICollections} from "../collections/i-collections";
+import {IFeatureSet} from "./i-feature-set";
+import {IFeatureSets} from "./i-feature-sets";
+import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
+import {IFeatureSetRefConfiguration} from "./i-feature-set-ref-configuration";
+import {IFeatureConfiguration} from "./i-feature-configuration";
+import {IJSONSerializer} from "../typed-json/i-json-serializer";
 
-export default class FeatureSet implements IFeatureSet {
-    private configJSON:IJSONObject;
-    private collections:ICollections;
-    private featureSets:IFeatureSets;
+export class FeatureSet implements IFeatureSet {
 
-    constructor(configJSON:IJSONObject, collections:ICollections, featureSets:IFeatureSets) {
-        this.configJSON = configJSON;
-        this.collections = collections;
-        this.featureSets = featureSets;
-    }
+    constructor(
+        private featureSetConfiguration:IFeatureSetConfiguration,
+        private collections:ICollections,
+        private featureSets:IFeatureSets,
+        private jsonSerializer:IJSONSerializer
+    ) {}
 
     get id():string {
-        return this.configJSON.stringPropertyNamed('id');
+        return this.featureSetConfiguration.id;
+    }
+
+    private referencedFeatureFiles(config:IFeatureSetRefConfiguration):IList<string> {
+        return this.featureSets.setWithId(
+            config.featureSetRef
+        ).featureFilesInExecutionOrder;
+    }
+
+    private immediateFeatureFiles(config:IFeatureConfiguration):IList<string> {
+        return this.collections.newList(
+            [config.file]
+        )
     }
 
     get featureFilesInExecutionOrder():IList<string> {
-        return this.configJSON.listOfJSONObjectsNamed('features').flatMap(
-            f=> f.hasPropertyNamed('file')
-                ? this.collections.newList<string>([f.stringPropertyNamed('file')])
-                : this.featureSets.setWithId(f.stringPropertyNamed('featureSetRef')).featureFilesInExecutionOrder
+        const featureAndFeatureSetRefConfigs = this.collections.newList(
+            this.featureSetConfiguration.features
+        );
+        return featureAndFeatureSetRefConfigs.flatMap(
+            f => (<IFeatureSetRefConfiguration> f).featureSetRef != null
+                ? this.referencedFeatureFiles(<IFeatureSetRefConfiguration> f)
+                : this.immediateFeatureFiles(<IFeatureConfiguration> f)
         );
     }
 
-    toJSON():any { return this.configJSON.toRawJSON(); }
-    toString():any { return this.configJSON.toString(); }
+    toJSON():any { return this.jsonSerializer.serialize(this.featureSetConfiguration); }
+    toString():any { return JSON.stringify(this.toJSON(), null, 3); }
 }

@@ -1,28 +1,24 @@
-import IReleases from "./i-releases";
-import IList from "../collections/i-list";
-import IJSONObject from "../typed-json/i-json-object";
-import IRelease from "./i-release";
-import IReleasing from "./i-releasing";
-import IPackageSets from "../packaging/i-package-sets";
+import {IReleases} from "./i-releases";
+import {IList} from "../collections/i-list";
+import {IRelease} from "./i-release";
+import {IReleasing} from "./i-releasing";
+import {IPackageSets} from "../packaging/i-package-sets";
+import {IReleaseConfig} from "./i-release-config";
 
-export default class Releases implements IReleases {
-    private releasing:IReleasing;
-    private listOfReleaseJSONs:IList<IJSONObject>;
-    private packageSets:IPackageSets;
-
-    constructor(releasing:IReleasing, listOfReleaseJSONs:IList<IJSONObject>, packageSets:IPackageSets) {
-        this.releasing = releasing;
-        this.listOfReleaseJSONs = listOfReleaseJSONs;
-        this.packageSets = packageSets;
-    }
+export class Releases implements IReleases {
+    constructor(
+        private releasing:IReleasing,
+        private releaseConfigs:IList<IReleaseConfig>,
+        private packageSets:IPackageSets
+    ) {}
 
     releaseNamed(releaseName:string):IRelease {
         return this.all.firstWhere(r=>r.name==releaseName);
     }
     
     get all():IList<IRelease> {
-        return this.listOfReleaseJSONs.map(
-            releaseJSON=>this.releasing.newRelease(releaseJSON, this.packageSets)
+        return this.releaseConfigs.map(
+            releaseConfig=>this.releasing.newRelease(releaseConfig, this.packageSets)
         );
     }
 }

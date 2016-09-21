@@ -1,20 +1,18 @@
-import RestClientAsPromised from "../rest/rest-client-as-promised";
-import IList from "../collections/i-list";
-import IFileSystem from "../node-js-wrappers/i-filesystem";
-import IThenable from "../promise/i-thenable";
+import {IList} from "../collections/i-list";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {IFuture} from "../promise/i-future";
+import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IRestResponse} from "../rest/i-rest-response";
+import {IGrafanaRestSession} from "./i-grafana-rest-session";
 
-export default class GrafanaRestSession {
-    private authedRestClient:RestClientAsPromised;
-    private grafanaDashboardImportPath:string;
-    private fileSystem:IFileSystem;
+export class GrafanaRestSession implements IGrafanaRestSession {
+    constructor(
+        private authedRestClient:IRestClientAsPromised,
+        private grafanaDashboardImportPath:string,
+        private fileSystem:IFileSystem
+    ) {}
 
-    constructor(authedRestClient:RestClientAsPromised, grafanaDashboardImportPath:string, fileSystem:IFileSystem) {
-        this.authedRestClient = authedRestClient;
-        this.grafanaDashboardImportPath = grafanaDashboardImportPath;
-        this.fileSystem = fileSystem;
-    }
-
-    uploadGrafanaDashboard(dashboardName:string, fqdns:IList<string>):IThenable<any> {
+    uploadGrafanaDashboard(dashboardName:string, fqdns:IList<string>):IFuture<IRestResponse> {
         //TODO: Replace dashboard JSON fqdns with those passed in as an arg
         //TODO: Determine why we receive 404 here
         const dashboardJSON = this.fileSystem.readFileSync(`../../dashboards/${dashboardName}_dashboard.json`);

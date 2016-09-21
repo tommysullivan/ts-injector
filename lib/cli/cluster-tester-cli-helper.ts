@@ -1,81 +1,88 @@
-import IProcess from "../node-js-wrappers/i-process";
-import IConsole from "../node-js-wrappers/i-console";
-import ICucumber from "../cucumber/i-cucumber";
-import ClusterTestingConfiguration from "../cluster-testing/cluster-testing-configuration";
-import IList from "../collections/i-list";
-import ClusterTesting from "../cluster-testing/cluster-testing";
-import Clusters from "../clusters/clusters";
-import IPromiseFactory from "../promise/i-promise-factory";
-import ICollections from "../collections/i-collections";
-import IClusterUnderTest from "../cluster-testing/i-cluster-under-test";
-import INodeUnderTest from "../cluster-testing/i-node-under-test";
-import MultiClusterTester from "../cluster-testing/multi-cluster-tester";
-import CliHelper from "./cli-helper";
+import {IProcess} from "../node-js-wrappers/i-process";
+import {IConsole} from "../node-js-wrappers/i-console";
+import {ICucumber} from "../cucumber/i-cucumber";
+import {IList} from "../collections/i-list";
+import {IClusterTesting} from "../cluster-testing/i-cluster-testing";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {ICollections} from "../collections/i-collections";
+import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
+import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
+import {IMultiClusterTester} from "../cluster-testing/i-multi-cluster-tester";
+import {CliHelper} from "./cli-helper";
+import {IClusters} from "../clusters/i-clusters";
 
-export default class ClusterTesterCliHelper {
+export class ClusterTesterCliHelper {
 
     constructor(
         private process:IProcess,
         private console:IConsole,
         private cucumber:ICucumber,
-        private clusterTestingConfiguration:ClusterTestingConfiguration,
-        private clusterTesting:ClusterTesting,
-        private clusters:Clusters,
+        private clusterIds:() => IList<string>,
+        private clusterTesting:IClusterTesting,
+        private clusters:IClusters,
         private promiseFactory:IPromiseFactory,
         private collections:ICollections,
-        private multiClusterTester:MultiClusterTester,
+        private multiClusterTester:IMultiClusterTester,
         private cliHelper:CliHelper
     ) {}
 
-    executeTestRunCli():void {
-        try {
-            const subCommand= this.process.getArgvOrThrow('subCommand', 3);
-            if(subCommand=='cucumber') {
-                const cucumberPassThruCommands = this.process.commandLineArguments().everythingAfterIndex(3);
-                this.runCucumber(cucumberPassThruCommands);
-            }
-            else if(subCommand=='featureSet') {
-                const featureSetId = this.process.getArgvOrThrow('featureSetId', 4);
-                const featureSet = this.cucumber.featureSets.setWithId(featureSetId);
-                const cucumberPassThruCommands = featureSet.featureFilesInExecutionOrder.append(this.process.commandLineArguments().everythingAfterIndex(4));
-                this.runCucumber(cucumberPassThruCommands);
-            }
-            else if(subCommand=='command') {
-                const command = this.process.commandLineArguments().everythingAfterIndex(3).join(' ');
-                const clusters = this.clusterTestingConfiguration.clusterIds.map(
-                    clusterId=>this.clusterTesting.newClusterUnderTest(this.clusters.clusterConfigurationWithId(clusterId))
-                );
-                const restrictNodesBasedOnServices = this.process.environmentVariables().hasKey('nodesWith');
-                clusters.forEach(cluster=>{
-                    const nodesForShellCommand = restrictNodesBasedOnServices
-                        ? this.nodesRunningRequestedServices(cluster)
-                        : cluster.nodes();
-                    const commandPromises = nodesForShellCommand.map(n=>n.executeShellCommand(command));
-                    this.promiseFactory.newGroupPromise(commandPromises)
-                        .then(result=>{
-                            this.console.log('*****************************************');
-                            this.console.log(`Cluster Result for id "${cluster.name}`);
-                            this.console.log("\n");
-                            this.console.log(result.toJSONString());
-                        });
-                });
-            }
-            else throw new Error(`Invalid command ${subCommand}`);
-        }
-        catch(e) {
-            this.logTestRunUsage();
-            throw e;
-        }
+    runFeatureSet(featureSetId:string, argv:any){
+        const featureSet = this.cucumber.featureSets.setWithId(featureSetId);
+        const cucumberPassThruCommands = featureSet.featureFilesInExecutionOrder.append(
+            this.collections.newList(argv._)
+                .everythingAfterIndex(1).map(val => val.toString())
+        );
+        this.runCucumberOncePerClusterId(cucumberPassThruCommands);
     }
 
-    private runCucumber(cucumberPassThruCommands:IList<string>):void {
+    runCucumberCommand(argv:any):void {
+        const cucumberPassThruCommands = this.collections.newList(argv._)
+            .everythingAfterIndex(1).map(val => val.toString());
+        this.runCucumberOncePerClusterId(cucumberPassThruCommands);
+    }
+    
+    runCucumberInstallCommand(secure:boolean):void {
+        if(secure)
+            this.runCucumberOncePerClusterId(this.collections.newList(["--tags", "@packageInstallationSecure"]));
+        else
+            this.runCucumberOncePerClusterId(this.collections.newList(["--tags", "@packageInstallation"]));
+    }
+
+    runCommand(argv:any):void {
+        const command = this.collections.newList(argv._)
+            .everythingAfterIndex(1).map(val => val.toString()).join(' ');
+        const clusters = this.clusterIds().map(
+            clusterId=>this.clusterTesting.newClusterUnderTest(this.clusters.clusterConfigurationWithId(clusterId))
+        );
+        const restrictNodesBasedOnServices = this.process.environmentVariables.hasKey('nodesWith');
+        if(clusters.isEmpty) this.console.warn(
+            'No cluster id(s) set. Please set ENV clusterId or clusterIds',
+            'Valid IDS:',
+            this.clusters.allIds.toString()
+        );
+        clusters.forEach(cluster=>{
+            const nodesForShellCommand = restrictNodesBasedOnServices
+                ? this.nodesRunningRequestedServices(cluster)
+                : cluster.nodes;
+            const commandPromises = nodesForShellCommand.map(n=>n.executeShellCommand(command));
+            this.promiseFactory.newGroupPromise(commandPromises)
+                .then(result=>{
+                    this.console.log('*****************************************');
+                    this.console.log(`Cluster Result for id "${cluster.name}`);
+                    this.console.log("\n");
+                    this.console.log(result.toString());
+                });
+        });
+    }
+
+    private runCucumberOncePerClusterId(cucumberPassThruCommands:IList<string>):void {
         this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands)
             .then(clusterTestResults => {
-                const allPassed = clusterTestResults.all(t=>t.passed());
+                const allPassed = clusterTestResults.all(t=>t.passed);
                 if(clusterTestResults.length > 1) {
                     this.console.log(`Multi Cluster Test of ${clusterTestResults.length} clusters ${allPassed ? 'Passed' : 'Failed'}`);
                     clusterTestResults.forEach(result=>{
-                        this.console.log(`Cluster ${result.clusterId}: ${result.passed() ? 'passed' : 'failed'}`);
+                        this.console.log(`Cluster ${result.clusterId}: ${result.passed ? 'passed' : 'failed'}`);
                     })
                 }
                 this.process.exit(allPassed ? 0 : 1);
@@ -85,21 +92,7 @@ export default class ClusterTesterCliHelper {
 
     private nodesRunningRequestedServices(cluster:IClusterUnderTest):IList<INodeUnderTest> {
         const requisiteServiceNames = this.collections.newList<string>(this.process.environmentVariableNamed('nodesWith').split(','));
-        return cluster.nodes().where(n=>n.serviceNames.containAll(requisiteServiceNames));
+        return cluster.nodes.where(n=>n.serviceNames.containAll(requisiteServiceNames));
     }
 
-    private logTestRunUsage():void {
-        this.console.log([
-            '',
-            'Usage:',
-            `${this.process.processName()} run [target]`,
-            '',
-            'targets                                         description',
-            '-------                                         -----------',
-            'featureSet [featureSetId]                       run cucumber with the specified featureset (to list available run command "featureSets")',
-            'cucumber [args passed thru to cucumber.js]      reset cluster power or turn it off or on',
-            'command [command]                               run arbitrary command on each node in cluster(s). If environment variable "nodesWith" is set',
-            '                                                to a comma separated list of service names, then commands will only run on nodes that have those services'
-        ].join('\n'));
-    }
 }

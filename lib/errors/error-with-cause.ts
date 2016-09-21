@@ -1,6 +1,6 @@
-import IError from "./i-error";
+import {IError} from "./i-error";
 
-export default class ErrorWithCause extends Error implements IError {
+export class ErrorWithCause extends Error implements IError {
     private cause:any;
     private __message:string;
 

@@ -1,9 +1,9 @@
-import ErrorWithCause from "./error-with-cause";
-import IError from "./i-error";
-import ErrorWithJSONDetails from "./error-with-json-details";
-import IErrors from "./i-errors";
+import {ErrorWithCause} from "./error-with-cause";
+import {IError} from "./i-error";
+import {ErrorWithJSONDetails} from "./error-with-json-details";
+import {IErrors} from "./i-errors";
 
-export default class Errors implements IErrors {
+export class Errors implements IErrors {
     newErrorWithCause(cause:any, optionalMessage:string):IError {
         return new ErrorWithCause(optionalMessage, cause);
     }

@@ -1,54 +1,73 @@
-import ICollections from "../collections/i-collections";
-import ICucumberRunConfiguration from "./i-cucumber-run-configuration";
-import CucumberScenarioResult from "./cucumber-scenario-result";
-import ICucumberScenarioResult from "./i-cucumber-scenario-result";
-import ICucumberFeatureResult from "./i-cucumber-feature-result";
-import ICucumberTag from "./i-cucumber-tag";
-import CucumberTag from "./cucumber-tag";
-import CucumberTestResult from "./cucumber-test-result";
-import ICucumberTestResult from "./i-cucumber-test-result";
-import IProcessResult from "../node-js-wrappers/i-process-result";
-import IList from "../collections/i-list";
-import CaseInsensitiveComparator from "../collections/case-insensitive-comparator";
-import IProcess from "../node-js-wrappers/i-process";
-import IConsole from "../node-js-wrappers/i-console";
-import ICucumberRunner from "./i-cucumber-runner";
-import CucumberRunner from "./cucumber-runner";
-import IFileSystem from "../node-js-wrappers/i-filesystem";
-import CucumberRunConfiguration from "./cucumber-run-configuration";
-import CucumberFeatureResult from "./cucumber-feature-result";
-import CucumberConfiguration from "./cucumber-configuration";
-import IJSONObject from "../typed-json/i-json-object";
-import FeatureSet from "./feature-set";
-import IErrors from "../errors/i-errors";
-import IDictionary from "../collections/i-dictionary";
-import ICucumber from "./i-cucumber";
-import IFeatureSet from "./i-feature-set";
-import FeatureSets from "./feature-sets";
-import IFeatureSets from "./i-feature-sets";
+import {ICollections} from "../collections/i-collections";
+import {ICucumberRunConfiguration} from "./i-cucumber-run-configuration";
+import {CucumberScenarioResult} from "./cucumber-scenario-result";
+import {ICucumberScenarioResult} from "./i-cucumber-scenario-result";
+import {ICucumberFeatureResult} from "./i-cucumber-feature-result";
+import {ICucumberTag} from "./i-cucumber-tag";
+import {CucumberTag} from "./cucumber-tag";
+import {CucumberTestResult} from "./cucumber-test-result";
+import {ICucumberTestResult} from "./i-cucumber-test-result";
+import {IProcessResult} from "../node-js-wrappers/i-process-result";
+import {IList} from "../collections/i-list";
+import {CaseInsensitiveComparator} from "../collections/case-insensitive-comparator";
+import {IProcess} from "../node-js-wrappers/i-process";
+import {IConsole} from "../node-js-wrappers/i-console";
+import {ICucumberRunner} from "./i-cucumber-runner";
+import {CucumberRunner} from "./cucumber-runner";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {CucumberRunConfiguration} from "./cucumber-run-configuration";
+import {CucumberFeatureResult} from "./cucumber-feature-result";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {FeatureSet} from "./feature-set";
+import {IErrors} from "../errors/i-errors";
+import {IDictionary} from "../collections/i-dictionary";
+import {ICucumber} from "./i-cucumber";
+import {IFeatureSet} from "./i-feature-set";
+import {FeatureSets} from "./feature-sets";
+import {IFeatureSets} from "./i-feature-sets";
+import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
+import {ICucumberConfiguration} from "./i-cucumber-configuration";
+import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
+import {ExpectationWrapper} from "../chai/expectation-wrapper";
+import {ChaiStatic} from "../chai/chai-static";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IJSONSerializer} from "../typed-json/i-json-serializer";
 
-export default class Cucumber implements ICucumber {
-    private collections:ICollections;
-    private fileSystem:IFileSystem;
-    private cucumberConfig:CucumberConfiguration;
-    private errors:IErrors;
-
-    constructor(collections:ICollections, fileSystem:IFileSystem, cucumberConfig:CucumberConfiguration, errors:IErrors) {
-        this.collections = collections;
-        this.fileSystem = fileSystem;
-        this.cucumberConfig = cucumberConfig;
-        this.errors = errors;
-    }
+export class Cucumber implements ICucumber {
+    constructor(
+        private collections:ICollections,
+        private fileSystem:IFileSystem,
+        private cucumberConfig:ICucumberConfiguration,
+        private errors:IErrors,
+        private chai:ChaiStatic,
+        private promiseFactory:IPromiseFactory,
+        private jsonSerializer:IJSONSerializer
+    ) {}
 
     get world():Function {
         const timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
         return function setupCucumberWorldObject() {
-            this.setDefaultTimeout(timeout);
+            this.setDefaultTimeout(
+                timeout
+            );
         }
     }
 
-    newFeatureSet(configJSON:IJSONObject, featureSets:IFeatureSets):IFeatureSet {
-        return new FeatureSet(configJSON, this.collections, featureSets);
+    newExpectationWrapper():IExpectationWrapper {
+        return new ExpectationWrapper(
+            this.cucumberConfig,
+            this.chai,
+            this.promiseFactory
+        )
+    }
+
+    newFeatureSet(featureSetConfig:IFeatureSetConfiguration, featureSets:IFeatureSets):IFeatureSet {
+        return new FeatureSet(
+            featureSetConfig, 
+            this.collections, 
+            featureSets, 
+            this.jsonSerializer
+        );
     }
 
     newCucumberRunConfiguration(isDryRun:boolean, jsonResultFilePath:string, cucumberAdditionalArgs:string, envVariables:IDictionary<string>):ICucumberRunConfiguration {
@@ -82,7 +101,8 @@ export default class Cucumber implements ICucumber {
             resultAcquisitionError,
             this.errors,
             startTime,
-            endTime
+            endTime,
+            this.jsonSerializer
         );
     }
 
@@ -90,10 +110,9 @@ export default class Cucumber implements ICucumber {
         return new CucumberRunner(
             process,
             console,
-            this.fileSystem,
-            this.collections,
             this,
-            this.cucumberConfig
+            this.cucumberConfig,
+            this.collections
         );
     }
 
@@ -112,10 +131,30 @@ export default class Cucumber implements ICucumber {
     }
 
     get featureSets():IFeatureSets {
-        return this.newFeatureSets(this.cucumberConfig.featureSetsJSONArray);
+        return this.newFeatureSets(
+            this.collections.newList(this.cucumberConfig.featureSets)
+        );
     }
 
-    newFeatureSets(featureSetsJSONArray:IList<IJSONObject>):IFeatureSets {
-        return new FeatureSets(featureSetsJSONArray, this);
+    newFeatureSets(featureSetConfigurations:IList<IFeatureSetConfiguration>):IFeatureSets {
+        return new FeatureSets(
+            featureSetConfigurations,
+            this
+        );
+    }
+
+    newCucumberResultFromFilePath(processResult:IProcessResult, cucumberJSONFilePath:string, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date, endTime:Date):ICucumberTestResult {
+        var cucumberFeatureResults = null;
+        var resultAcquisitionError = null;
+        try {
+            const rawCucumberResultJSON = this.fileSystem.readJSONArrayFileSync(cucumberJSONFilePath);
+            cucumberFeatureResults = rawCucumberResultJSON.map(
+                featureJSON => this.newCucumberFeatureResult(featureJSON)
+            );
+        }
+        catch(e) {
+            resultAcquisitionError = e.toString();
+        }
+        return this.newCucumberTestResult(cucumberFeatureResults, processResult, cucumberRunConfiguration, resultAcquisitionError, startTime, endTime);
     }
 }

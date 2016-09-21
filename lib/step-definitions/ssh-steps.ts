@@ -1,18 +1,17 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../framework/framework";
-import INodeUnderTest from "../cluster-testing/i-node-under-test";
-import ISSHSession from "../ssh/i-ssh-session";
-import ISSHResult from "../ssh/i-ssh-result";
-import ISSHError from "../ssh/i-ssh-error";
-import IList from "../collections/i-list";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import SharedData from "../support/shared-data";
+import {Framework} from "../framework/framework";
+import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
+import {ISSHSession} from "../ssh/i-ssh-session";
+import {ISSHResult} from "../ssh/i-ssh-result";
+import {ISSHError} from "../ssh/i-ssh-error";
+import {SharedData} from "../support/shared-data";
 
 declare const $:Framework;
 declare const module:any;
 
 @steps([SharedData])
-export default class SSHSteps {
+export class SSHSteps {
     private sshServiceHost:INodeUnderTest;
     private sshSession:ISSHSession;
     private sshResult:ISSHResult;
@@ -23,8 +22,8 @@ export default class SSHSteps {
 
     @when(/^I perform the following ssh commands on each node in the cluster:$/)
     performSSHCommandsOnEachNodeInTheCluster(commandsSeparatedByNewLine:string):PromisedAssertion {
-        const commandList = $.collections.newList(commandsSeparatedByNewLine.split("\n"));
-        return $.expect($.clusterUnderTest.executeShellCommandsOnEachNode(commandList))
+        const commandList = commandsSeparatedByNewLine.split("\n");
+        return $.expect($.clusterUnderTest.executeShellCommandsOnEachNode(...commandList))
             .to.eventually.be.fulfilled;
     }
 
@@ -66,10 +65,10 @@ export default class SSHSteps {
 
     @when(/^I run the following commands on any given node in the cluster:$/)
     runSpecifiedCommandsOnFirstNodeInCluster(commandsString:string):PromisedAssertion {
-        const commands = $.collections.newList<string>(commandsString.split("\n"))
+        const commands = commandsString.split("\n")
             .map(c=>c.replace('{testRunGUID}', $.testRunGUID).replace('{volumeMountPoint}', this.sharedData.mountPath));
-        const result = $.clusterUnderTest.nodes().first().newSSHSession()
-            .then(sshSession=>sshSession.executeCommands(commands))
+        const result = $.clusterUnderTest.nodes.first.newSSHSession()
+            .then(sshSession=>sshSession.executeCommands(...commands))
             .then(commandResultSet=>this.sharedData.lastCommandResultSet = commandResultSet);
         return $.expect(result).to.eventually.be.fulfilled;
     }
@@ -81,11 +80,11 @@ export default class SSHSteps {
     }
 
     @given(/^I perform the following ssh commands on each node in the cluster as user "([^"]*)" with password "([^"]*)":$/)
-    performSSHCommandsAsSpecficUserOnEachNode(user:string, userPasswd:string, commandsSeparatedByNewLin:string):PromisedAssertion {
-        const commandList = $.collections.newList(commandsSeparatedByNewLin.split("\n"));
-        const nodeRequests = $.clusterUnderTest.nodes().map(n=>{
+    performSSHCommandsAsSpecficUserOnEachNode(user:string, userPasswd:string, commandsSeparatedByNewLine:string):PromisedAssertion {
+        const commands = commandsSeparatedByNewLine.split("\n");
+        const nodeRequests = $.clusterUnderTest.nodes.map(n=>{
             return $.sshAPI.newSSHClient().connect(n.host, user, userPasswd)
-                .then(session=>session.executeCommands(commandList))
+                .then(session=>session.executeCommands(...commands))
         });
         return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
     }

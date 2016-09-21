@@ -1,32 +1,35 @@
-import RestClientAsPromised from "../rest/rest-client-as-promised";
-import GrafanaRestSession from "./grafana-rest-session";
-import IJSONObject from "../typed-json/i-json-object";
-import IFileSystem from "../node-js-wrappers/i-filesystem";
-import GrafanaRestClient from "./grafana-rest-client";
-import Rest from "../rest/rest";
+import {GrafanaRestSession} from "./grafana-rest-session";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {GrafanaRestClient} from "./grafana-rest-client";
+import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IRest} from "../rest/i-rest";
+import {IGrafanaRestSession} from "./i-grafana-rest-session";
+import {IGrafana} from "./i-grafana";
+import {IGrafanaRestClient} from "./i-grafana-rest-client";
+import {IGrafanaConfig} from "./i-grafana-config";
 
-export default class Grafana {
-    private configJSON:IJSONObject;
-    private fileSystem:IFileSystem;
-    private rest:Rest;
+export class Grafana implements IGrafana {
+    constructor(
+        private config:IGrafanaConfig,
+        private fileSystem:IFileSystem,
+        private rest:IRest
+    ) {}
 
-    constructor(configJSON:IJSONObject, fileSystem:IFileSystem, rest:Rest) {
-        this.configJSON = configJSON;
-        this.fileSystem = fileSystem;
-        this.rest = rest;
+    newRestSession(authedRestClient:IRestClientAsPromised):IGrafanaRestSession {
+        return new GrafanaRestSession(
+            authedRestClient,
+            this.config.grafanaDashboardImportPath,
+            this.fileSystem
+        );
     }
 
-    newRestSession(authedRestClient:RestClientAsPromised):GrafanaRestSession {
-        return new GrafanaRestSession(authedRestClient, this.configJSON.stringPropertyNamed('grafanaDashboardImportPath'), this.fileSystem);
-    }
-
-    newGrafanaRestClient():GrafanaRestClient {
+    newGrafanaRestClient():IGrafanaRestClient {
         return new GrafanaRestClient(
             this,
-            this.configJSON.stringPropertyNamed('grafanaHostAndOptionalPort'),
-            this.configJSON.stringPropertyNamed('grafanaLoginPath'),
-            this.configJSON.stringPropertyNamed('defaultGrafanaUsername'),
-            this.configJSON.stringPropertyNamed('defaultGrafanaPassword'),
+            this.config.grafanaHostAndOptionalPort,
+            this.config.grafanaLoginPath,
+            this.config.defaultGrafanaUsername,
+            this.config.defaultGrafanaPassword,
             this.rest
         );
     }

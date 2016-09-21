@@ -1,52 +1,70 @@
-import RestConfiguration from "../rest/rest-configuration";
-import MCSConfiguration from "../mcs/mcs-configuration";
-import InstallerClientConfiguration from "../installer/installer-client-configuration";
-import ClusterTestingConfiguration from "../cluster-testing/cluster-testing-configuration";
-import CucumberConfiguration from "../cucumber/cucumber-configuration";
-import SSHConfiguration from "../ssh/ssh-configuration";
-import OpenTSDBConfig from "../open-tsdb/open-tsdb-config";
-import ElasticSearchConfiguration from "../elasticsearch/elasticsearch-configuration";
-import IJSONObject from "../typed-json/i-json-object";
-import IList from "../collections/i-list";
-import ESXIConfiguration from "../esxi/configuration/esxi-configuration";
-import JiraConfiguration from "../jira/jira-configuration";
-import IPath from "../node-js-wrappers/i-path";
-import CliConfig from "../cli/cli-config";
-import IProcess from "../node-js-wrappers/i-process";
-import ICollections from "../collections/i-collections";
+import {RestConfiguration} from "../rest/rest-configuration";
+import {MCSConfiguration} from "../mcs/mcs-configuration";
+import {InstallerClientConfiguration} from "../installer/installer-client-configuration";
+import {CucumberConfiguration} from "../cucumber/cucumber-configuration";
+import {SSHConfiguration} from "../ssh/ssh-configuration";
+import {OpenTSDBConfiguration} from "../open-tsdb/open-tsdb-configuration";
+import {ElasticSearchConfiguration} from "../elasticsearch/elasticsearch-configuration";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IList} from "../collections/i-list";
+import {ESXIConfiguration} from "../esxi/configuration/esxi-configuration";
+import {IPath} from "../node-js-wrappers/i-path";
+import {CliConfig} from "../cli/cli-config";
+import {IProcess} from "../node-js-wrappers/i-process";
+import {ICollections} from "../collections/i-collections";
+import {ICliConfig} from "../cli/i-cli-config";
+import {IFrameworkConfiguration} from "./i-framework-configuration";
+import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
+import {ClusterTestingConfiguration} from "../cluster-testing/cluster-testing-configuration";
+import {IReleasingConfig} from "../releasing/i-releasing-config";
+import {IPackagingConfig} from "../packaging/i-packaging-config";
+import {IRestConfiguration} from "../rest/i-rest-configuration";
+import {IGrafanaConfig} from "../grafana/i-grafana-config";
+import {IMCSConfiguration} from "../mcs/i-mcs-configuration";
+import {IInstallerClientConfiguration} from "../installer/i-installer-client-configuration";
+import {IOpenTSDBConfiguration} from "../open-tsdb/i-open-tsdb-configuration";
+import {ISSHConfiguration} from "../ssh/i-ssh-configuration";
+import {ICucumberConfiguration} from "../cucumber/i-cucumber-configuration";
+import {IElasticsearchConfiguration} from "../elasticsearch/i-elasticsearch-configuration";
+import {IESXIConfiguration} from "../esxi/configuration/i-esxi-configuration";
+import {GrafanaConfig} from "../grafana/grafana-config";
+import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
+import {ClusterConfiguration} from "../clusters/cluster-configuration";
+import {PackagingConfig} from "../packaging/packaging-config";
+import {ReleasingConfig} from "../releasing/releasing-config";
 
-export default class FrameworkConfiguration {
-    private frameworkConfigJSON:IJSONObject;
-    private basePathToUseForConfiguredRelativePaths:string;
-    private path:IPath;
-    private process:IProcess;
-    private collections:ICollections;
+export class FrameworkConfiguration implements IFrameworkConfiguration {
+    constructor(
+        private frameworkConfigJSON:IJSONObject,
+        private basePathToUseForConfiguredRelativePaths:string,
+        private path:IPath,
+        private process:IProcess,
+        private collections:ICollections
+    ) {}
 
-    constructor(frameworkConfigJSON:IJSONObject, basePathToUseForConfiguredRelativePaths:string, path:IPath, process:IProcess, collections:ICollections) {
-        this.frameworkConfigJSON = frameworkConfigJSON;
-        this.basePathToUseForConfiguredRelativePaths = basePathToUseForConfiguredRelativePaths;
-        this.path = path;
-        this.process = process;
-        this.collections = collections;
+    get releasing():IReleasingConfig {
+        return new ReleasingConfig(
+            this.frameworkConfigJSON.jsonObjectNamed('releasing')
+        );
     }
 
-    get releasingConfig():IJSONObject {
-        return this.frameworkConfigJSON.jsonObjectNamed('releasing');
+    get packaging():IPackagingConfig {
+        return new PackagingConfig(
+            this.frameworkConfigJSON.jsonObjectNamed('packaging')
+        );
     }
 
-    get packagingConfigJSON():IJSONObject {
-        return this.frameworkConfigJSON.jsonObjectNamed('packaging');
-    }
-
-    get rest():RestConfiguration {
+    get rest():IRestConfiguration {
         return new RestConfiguration(this.frameworkConfigJSON.jsonObjectNamed('rest'));
     }
 
-    get grafanaConfig():IJSONObject {
-        return this.frameworkConfigJSON.jsonObjectNamed('grafana');
+    get grafana():IGrafanaConfig {
+        return new GrafanaConfig(
+            this.frameworkConfigJSON.jsonObjectNamed('grafana')
+        );
     }
 
-    get cliConfig():CliConfig {
+    get cli():ICliConfig {
         return new CliConfig(
             this.frameworkConfigJSON.jsonObjectNamed('cli'),
             this.basePathToUseForConfiguredRelativePaths,
@@ -54,19 +72,15 @@ export default class FrameworkConfiguration {
         );
     }
 
-    get jiraConfig():JiraConfiguration {
-        return new JiraConfiguration(this.frameworkConfigJSON.jsonObjectNamed('jira'));
-    }
-
-    get mcs():MCSConfiguration {
+    get mcs():IMCSConfiguration {
         return new MCSConfiguration(this.frameworkConfigJSON.jsonObjectNamed('mcs'));
     }
 
-    get installerClient():InstallerClientConfiguration {
+    get installerClient():IInstallerClientConfiguration {
         return new InstallerClientConfiguration(this.frameworkConfigJSON.jsonObjectNamed('installerClient'));
     }
 
-    get clusterTesting():ClusterTestingConfiguration {
+    get clusterTesting():IClusterTestingConfiguration {
         return new ClusterTestingConfiguration(
             this.frameworkConfigJSON.jsonObjectNamed('clusterTesting'),
             this.basePathToUseForConfiguredRelativePaths,
@@ -76,31 +90,35 @@ export default class FrameworkConfiguration {
         );
     }
 
-    get cucumber():CucumberConfiguration {
-        return new CucumberConfiguration(this.frameworkConfigJSON.jsonObjectNamed('cucumber'));
+    get cucumber():ICucumberConfiguration {
+        return new CucumberConfiguration(
+            this.frameworkConfigJSON.jsonObjectNamed('cucumber')
+        );
     }
 
-    get ssh():SSHConfiguration {
+    get ssh():ISSHConfiguration {
         return new SSHConfiguration(this.frameworkConfigJSON.jsonObjectNamed('ssh'));
     }
 
-    get openTSDBConfig():OpenTSDBConfig {
-        return new OpenTSDBConfig(this.frameworkConfigJSON.jsonObjectNamed('openTSDB'));
+    get openTSDB():IOpenTSDBConfiguration {
+        return new OpenTSDBConfiguration(this.frameworkConfigJSON.jsonObjectNamed('openTSDB'));
     }
 
-    get elasticSearchConfiguration():ElasticSearchConfiguration {
+    get elasticsearch():IElasticsearchConfiguration {
         return new ElasticSearchConfiguration(this.frameworkConfigJSON.jsonObjectNamed('elasticsearch'));
     }
 
-    get clustersConfig():IList<IJSONObject> {
-        return this.frameworkConfigJSON.listOfJSONObjectsNamed('clusters');
+    get clusters():Array<IClusterConfiguration> {
+        return this.frameworkConfigJSON.listOfJSONObjectsNamed('clusters')
+            .map(clusterConfigJSON=>new ClusterConfiguration(clusterConfigJSON, null, null))
+            .toArray();
     }
 
-    get esxiConfiguration():ESXIConfiguration {
+    get esxi():IESXIConfiguration {
         return new ESXIConfiguration(this.frameworkConfigJSON.jsonObjectNamed('esxi'));
     }
 
     toJSON():any {
-        return this.frameworkConfigJSON.toRawJSON();
+        return this.frameworkConfigJSON.toJSON();
     }
 }

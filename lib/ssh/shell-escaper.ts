@@ -1,4 +1,4 @@
-export default class ShellEscaper {
+export class ShellEscaper {
     private _shellEscape:any;
 
     constructor(shellEscape:any) {

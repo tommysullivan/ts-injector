@@ -1,7 +1,8 @@
-import ICucumberRunConfiguration from "./i-cucumber-run-configuration";
-import IDictionary from "../collections/i-dictionary";
+import {ICucumberRunConfiguration} from "./i-cucumber-run-configuration";
+import {IDictionary} from "../collections/i-dictionary";
+import {IHash} from "../collections/i-hash";
 
-export default class CucumberRunConfiguration implements ICucumberRunConfiguration {
+export class CucumberRunConfiguration implements ICucumberRunConfiguration {
     private _environmentVariables:IDictionary<string>;
     private _cucumberAdditionalArgs:string;
     private _isDryRun:boolean;
@@ -16,27 +17,27 @@ export default class CucumberRunConfiguration implements ICucumberRunConfigurati
         this._jsonResultFilePath = jsonResultFilePath;
     }
 
-    environmentVariables():IDictionary<string> {
-        return this._environmentVariables;
+    get environmentVariables():IHash<string> {
+        return <IHash<string>> this._environmentVariables.toJSON();
     }
 
-    jsonResultFilePath():string {
+    get jsonResultFilePath():string {
         return this._jsonResultFilePath;
     }
 
-    cucumberAdditionalArgs():string {
+    get cucumberAdditionalArgs():string {
         return this._cucumberAdditionalArgs;
     }
 
-    isDryRun():boolean {
+    get isDryRun():boolean {
         return this._isDryRun;
     }
 
     toJSON():any {
         return {
-            environmentVariables: this.environmentVariables().toJSON(),
-            jsonResultFilePath: this.jsonResultFilePath(),
-            cucumberAdditionalArgs: this.cucumberAdditionalArgs()
+            environmentVariables: this.environmentVariables,
+            jsonResultFilePath: this.jsonResultFilePath,
+            cucumberAdditionalArgs: this.cucumberAdditionalArgs
         }
     }
 }

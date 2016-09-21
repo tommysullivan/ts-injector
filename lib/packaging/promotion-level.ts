@@ -1,6 +1,6 @@
-import IPromotionLevel from "./i-promotion-level";
+import {IPromotionLevel} from "./i-promotion-level";
 
-export default class PromotionLevel implements IPromotionLevel {
+export class PromotionLevel implements IPromotionLevel {
     private _name:string;
 
     constructor(name:string) {

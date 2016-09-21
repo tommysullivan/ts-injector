@@ -1,24 +1,19 @@
-import IList from "../collections/i-list";
-import ICollections from "../collections/i-collections";
-import ITypedJSON from "../typed-json/i-typed-json";
-import IJSONObject from "../typed-json/i-json-object";
-import IDictionary from "../collections/i-dictionary";
+import {IList} from "../collections/i-list";
+import {ICollections} from "../collections/i-collections";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IDictionary} from "../collections/i-dictionary";
+import {IOpenTSDBResult} from "./i-open-tsdb-result";
 
-export default class OpenTSDBResult {
+export class OpenTSDBResult implements IOpenTSDBResult {
 
-    private _soughtTags:IDictionary<string>;
-    private metricName:string;
-    private resultJSONArray:any;
-    private collections:ICollections;
-    private typedJSON:ITypedJSON;
-
-    constructor(soughtTags:IDictionary<string>, metricName:string, resultJSONArray:any, collections:ICollections, typedJSON:ITypedJSON) {
-        this._soughtTags = soughtTags;
-        this.metricName = metricName;
-        this.resultJSONArray = resultJSONArray;
-        this.collections = collections;
-        this.typedJSON = typedJSON;
-    }
+    constructor(
+        private _soughtTags:IDictionary<string>,
+        private metricName:string,
+        private resultJSONArray:Array<any>,
+        private collections:ICollections,
+        private typedJSON:ITypedJSON
+    ) {}
 
     private get typedJSONResult():IJSONObject {
         return this.typedJSON.newJSONObject(this.resultJSONArray[0]);

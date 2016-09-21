@@ -1,4 +1,3 @@
-interface ICliExecutor {
+export interface ICliExecutor {
     execute():void;
 }
-export default ICliExecutor;

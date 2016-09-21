@@ -1,14 +1,9 @@
-import INodeConfiguration from "./../nodes/i-node-configuration";
-import IList from "../collections/i-list";
-import IESXIServerConfiguration from "../esxi/configuration/i-esxi-server-configuration";
+import {INodeConfiguration} from "./../nodes/i-node-configuration";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-interface IClusterConfiguration {
+export interface IClusterConfiguration extends IJSONSerializable {
     id:string;
     name:string;
-    nodes:IList<INodeConfiguration>;
-    adminPassword:string;
-    esxiServerConfiguration:IESXIServerConfiguration;
-    toJSON():any;
+    nodes:Array<INodeConfiguration>;
+    esxiServerId?:string;
 }
-
-export default IClusterConfiguration;

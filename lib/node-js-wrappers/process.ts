@@ -1,34 +1,28 @@
-import IProcess from "./i-process";
-import IList from "../collections/i-list";
-import IThenable from "../promise/i-thenable";
-import IDictionary from "./../collections/i-dictionary";
-import IProcessResult from "./i-process-result";
-import IPromiseFactory from "../promise/i-promise-factory";
-import INodeWrapperFactory from "./i-node-wrapper-factory";
-import ICollections from "../collections/i-collections";
+import {IProcess} from "./i-process";
+import {IList} from "../collections/i-list";
+import {IFuture} from "../promise/i-future";
+import {IDictionary} from "./../collections/i-dictionary";
+import {IProcessResult} from "./i-process-result";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {INodeWrapperFactory} from "./i-node-wrapper-factory";
+import {ICollections} from "../collections/i-collections";
 
-export default class Process implements IProcess {
-    private nativeProcess:any;
-    private promiseFactory:IPromiseFactory;
-    private childProcess:any;
-    private nodeWrapperFactory:INodeWrapperFactory;
-    private collections:ICollections;
+export class Process implements IProcess {
+    constructor(
+        private nativeProcess:any,
+        private promiseFactory:IPromiseFactory,
+        private nativeChildProcessModule:any,
+        private nodeWrapperFactory:INodeWrapperFactory,
+        private collections:ICollections
+    ) {}
 
-    constructor(nativeProcess:any, promiseFactory:IPromiseFactory, childProcess:any, nodeWrapperFactory:INodeWrapperFactory, collections:ICollections) {
-        this.nativeProcess = nativeProcess;
-        this.promiseFactory = promiseFactory;
-        this.childProcess = childProcess;
-        this.nodeWrapperFactory = nodeWrapperFactory;
-        this.collections = collections;
-    }
-
-    environmentVariables():IDictionary<string> {
+    get environmentVariables():IDictionary<string> {
         return this.collections.newDictionary<string>(this.nativeProcess.env);
     }
 
     environmentVariableNamed(name:string):string {
         try {
-            return this.environmentVariables().getOrThrow(name);
+            return this.environmentVariables.getOrThrow(name);
         }
         catch(e) {
             throw new Error(`environment variable "${name}" was not defined`);
@@ -40,12 +34,12 @@ export default class Process implements IProcess {
     }
 
     environmentVariableNamedOrLazyDefault(name:string, defaultValueFuncIfNotDefined:()=>string):string {
-        return this.environmentVariables().hasKey(name)
+        return this.environmentVariables.hasKey(name)
             ? this.environmentVariableNamed(name)
             : defaultValueFuncIfNotDefined();
     }
 
-    commandLineArguments():IList<string> {
+    get commandLineArguments():IList<string> {
         return this.collections.newList<string>(this.nativeProcess.argv);
     }
 
@@ -58,48 +52,56 @@ export default class Process implements IProcess {
     }
 
     getArgvOrThrow(argName:string, index:number):string {
-        return this.commandLineArguments().itemAt(index) || this.throwForMissingArg(argName, index);
+        return this.commandLineArguments.itemAt(index) || this.throwForMissingArg(argName, index);
     }
 
-    currentUserName():string {
-        return this.environmentVariables().get('USER');
+    get currentUserName():string {
+        return this.environmentVariables.get('USER');
     }
 
-    pathToNodeJSExecutable():string {
+    get pathToNodeJSExecutable():string {
         return this.nativeProcess.execPath;
     }
 
-    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IThenable<IProcessResult> {
+    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFuture<IProcessResult> {
         const env = environmentVariables.clone();
-        const nodeExecutable = this.pathToNodeJSExecutable();
-        env.add('PATH', `${env.get('PATH')}:${this.pathToNodeJSExecutable()}`);
+        const nodeExecutable = this.pathToNodeJSExecutable;
+        env.add('PATH', `${env.get('PATH')}:${nodeExecutable}`);
 
         return this.promiseFactory.newPromise((resolve, reject) => {
-            const stdoutParts = this.collections.newEmptyList<string>();
-            const stderrParts = this.collections.newEmptyList<string>();
-            const cukeProcess = this.childProcess.exec(
-                `${this.pathToNodeJSExecutable()} ${command}`,
+            var stdOutIndices:Array<number> = [];
+            var stdErrIndices:Array<number> = [];
+            var allOutput:Array<string> = [];
+
+            const cukeProcess = this.nativeChildProcessModule.exec(
+                `${nodeExecutable} ${command}`,
                 {
                     env: env.toJSON(),
                     maxBuffer: 10 * 1024 * 1024
                 }
             );
 
-            cukeProcess.stdout.on('data', (data) => { stdoutParts.push(data) });
-            cukeProcess.stderr.on('data', (data) => { stderrParts.push(data) });
+            const addTo = (index:Array<number>) => (data:string) => index.push(allOutput.push(data) - 1);
+            cukeProcess.stdout.on('data', addTo(stdOutIndices));
+            cukeProcess.stderr.on('data', addTo(stdErrIndices));
 
             var closed = false;
             var exited = false;
 
             const attemptToResolvePromise = (processExitCode) => {
                 if(closed && exited) {
-                    const stdoutLines = this.collections.newList(stdoutParts.join('').split("\n"));
-                    const stderrLines = this.collections.newList(stderrParts.join('').split("\n"));
-                    const processResult = this.nodeWrapperFactory.newProcessResult(command, processExitCode, stdoutLines, stderrLines, null);
-                    if(processResult.hasError()) reject(processResult);
+                    const processResult = this.nodeWrapperFactory.newProcessResult(
+                        command,
+                        processExitCode,
+                        stdOutIndices,
+                        stdErrIndices,
+                        allOutput,
+                        null
+                    );
+                    if(processResult.hasError) reject(processResult);
                     else resolve(processResult);
                 }
-            }
+            };
 
             cukeProcess.on('close', processExitCode => {
                 closed = true;
@@ -108,14 +110,13 @@ export default class Process implements IProcess {
 
             cukeProcess.on('exit', (processExitCode, signal) => {
                 exited = true;
-                console.log("SignalKill : " + signal);
                 attemptToResolvePromise(processExitCode);
             });
 
         });
     }
 
-    processName():string {
+    get processName():string {
         return this.getArgvOrThrow('processName', 1);
     }
 }

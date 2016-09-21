@@ -1,45 +1,41 @@
-import IJSONObject from "../typed-json/i-json-object";
-import ITypedJSON from "../typed-json/i-typed-json";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IRestResponse} from "./i-rest-response";
 
-export default class RestResponse {
-    private error:any;
-    private nativeResponse:any;
-    private _originalUrl:string;
-    private typedJSON:ITypedJSON;
-
-    constructor(error:any, nativeResponse:any, originalUrl:string, typedJSON:ITypedJSON) {
-        this.error = error;
-        this.nativeResponse = nativeResponse;
-        this._originalUrl = originalUrl;
-        this.typedJSON = typedJSON;
-    }
+export class RestResponse implements IRestResponse {
+    constructor(
+        private error:any,
+        private nativeResponse:any,
+        private _originalUrl:string,
+        private typedJSON:ITypedJSON
+    ) {}
 
     toString():string {
         return JSON.stringify(this.toJSON(), null, 3);
     }
 
     toJSON():any {
-        const body =  this.isJSON() ? this.jsonBody() : this.body();
+        const body =  this.isJSON() ? this.jsonBody : this.body;
         return {
             originalURL: this._originalUrl,
             type: 'rest-response',
             error: this.error,
-            statusCode: this.statusCode(),
+            statusCode: this.statusCode,
             body: body
         }
     }
 
-    isError():boolean {
+    get isError():boolean {
         return this.error || this.nativeResponse.statusCode >= 400;
     }
 
-    body():string {
+    get body():string {
         return (this.nativeResponse || {}).body;
     }
 
     isJSON():boolean {
         try {
-            this.jsonBody();
+            this.jsonBody;
             return true;
         }
         catch(e) {
@@ -47,19 +43,19 @@ export default class RestResponse {
         }
     }
 
-    originalUrl():string {
+    get originalUrl():string {
         return this._originalUrl;
     }
 
-    jsonBody():any {
-        return JSON.parse(this.body());
+    get jsonBody():any {
+        return JSON.parse(this.body);
     }
 
-    bodyAsJsonObject():IJSONObject {
-        return this.typedJSON.newJSONObject(this.jsonBody());
+    get bodyAsJsonObject():IJSONObject {
+        return this.typedJSON.newJSONObject(this.jsonBody);
     }
 
-    statusCode():number {
+    get statusCode():number {
         return (this.nativeResponse || {}).statusCode;
     }
 }

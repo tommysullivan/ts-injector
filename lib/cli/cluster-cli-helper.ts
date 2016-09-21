@@ -1,100 +1,69 @@
-import IProcess from "../node-js-wrappers/i-process";
-import ICollections from "../collections/i-collections";
-import IConsole from "../node-js-wrappers/i-console";
-import CliHelper from "./cli-helper";
-import ClusterSnapshotCliHelper from "./cluster-snapshot-cli-helper";
-import IESXIAction from "../esxi/i-esxi-action";
-import Clusters from "../clusters/clusters";
-import ClusterTesting from "../cluster-testing/cluster-testing";
+import {ICollections} from "../collections/i-collections";
+import {IConsole} from "../node-js-wrappers/i-console";
+import {CliHelper} from "./cli-helper";
+import {IESXIAction} from "../esxi/i-esxi-action";
+import {IClusters} from "../clusters/i-clusters";
+import {IClusterTesting} from "../cluster-testing/i-cluster-testing";
+import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
 
-export default class ClusterCliHelper {
+export class ClusterCliHelper {
 
     constructor(
-        private process:IProcess,
         private console:IConsole,
         private collections:ICollections,
         private cliHelper:CliHelper,
-        private clusterSnapshotCliHelper:ClusterSnapshotCliHelper,
-        private clusters:Clusters,
-        private clusterTesting:ClusterTesting
+        private clusters:IClusters,
+        private clusterTesting:IClusterTesting
     ) {}
 
-    executeClusterCli():void {
-        try {
-            const subCommand = this.process.getArgvOrThrow('subCommand', 3);
-            if(subCommand=='ids') {
-                this.console.log(`clusterIds: ${this.clusters.allIds().join(',')}`);
-            }
-            else if(subCommand=='hosting') {
-                const hostName = this.process.getArgvOrThrow('hostName', 4);
-                const matchingClusterIds = this.clusters.allConfigurations.filter(
-                    clusterConfig => clusterConfig.nodes.map(n=>n.host).contains(hostName)
-                ).map(c=>c.id);
-                this.console.log(`clusterIds: ${matchingClusterIds.toJSONString()}`);
-            }
-            else if(subCommand=='hosts') {
-                this.cliHelper.verifyFillerWord('for', 4);
-                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                const hosts = this.clusters.clusterConfigurationWithId(clusterId)
-                    .nodes.map(n=>n.host);
-                this.console.log(`hosts: ${hosts.toJSONString()}`);
-            }
-            else if(subCommand=='esxi') {
-                this.cliHelper.verifyFillerWord('for', 4);
-                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                const esxiHost = this.clusters.clusterConfigurationWithId(clusterId)
-                    .esxiServerConfiguration.host;
-                this.console.log(`esxiHost: ${esxiHost}`);
-            }
-            else if(subCommand=='config') {
-                this.cliHelper.verifyFillerWord('for', 4);
-                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                this.console.log(this.clusters.clusterConfigurationWithId(clusterId).toString());
-            }
-            else if(subCommand=='versions') {
-                this.cliHelper.verifyFillerWord('for', 4);
-                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                const cluster = this.clusterTesting.clusterForId(clusterId);
-                cluster.versionGraph()
-                    .then(versionGraph=>this.console.log(versionGraph.toJSONString()))
-                    .catch(e => this.cliHelper.logError(e));
-            }
-            else if(subCommand=='power') {
-                const actionName = this.process.getArgvOrThrow('desiredPowerStatus(on|off|reset)', 4);
-                const clusterId = this.process.getArgvOrThrow('clusterId', 5);
-                const actions = this.collections.newEmptyDictionary<IESXIAction>()
-                    .add('reset', e => e.powerReset())
-                    .add('on', e => e.powerOn())
-                    .add('off', e => e.powerOff());
-                const action = actions.getOrThrow(actionName, `invalid action ${actionName}`);
-                this.clusterTesting.esxiManagedClusterForId(clusterId).performESXIAction(action)
-                    .then(result=>this.console.log(result.toJSONString()));
-            }
-            else if(subCommand=='snapshot') {
-                this.clusterSnapshotCliHelper.executeClusterSnapshotCli();
-            }
-            else throw new Error(`invalid subCommand ${subCommand}`);
-        }
-        catch(e) {
-            this.logClusterUsage();
-            throw e;
-        }
+    showClusterIds():void {
+        this.console.log(`clusterIds: ${this.clusters.allIds.sort()}`);
     }
 
-    private logClusterUsage():void {
-        this.console.log([
-            '',
-            'Usage:',
-            `${this.process.processName()} cluster [subCommand]`,
-            '',
-            'subCommands                            description',
-            '-----------                            -----------',
-            'ids                                    list available cluster ids',
-            'hosting [hostName]                     yields cluster ids containing specified host',
-            'config for [clusterId]                 yields configuration for specified cluster',
-            'versions for [clusterId]               yields package / os version info for specified cluster',
-            'snapshot [action]                      manage snapshot / state of cluster',
-            'power [on|off|reset] [clusterId]       reset cluster power or turn it off or on'
-        ].join('\n'));
+    private clusterContainsHost(clusterConfig:IClusterConfiguration, hostName:string):boolean {
+        return this.collections.newList(clusterConfig.nodes).map(n=>n.host).contains(hostName);
     }
+
+    showNodesHostingService(hostName:string):void {
+        const matchingClusterIds = this.clusters.allConfigurations.filter(
+            clusterConfig => this.clusterContainsHost(clusterConfig, hostName)
+        ).map(c=>c.id);
+        this.console.log(`clusterIds: ${matchingClusterIds.join(',')}`);
+    }
+
+    showConfigForCluster(clusterId:string):void {
+        this.console.log(this.clusters.clusterConfigurationWithId(clusterId).toString());
+    }
+
+    powerForCluster(actionName:string, clusterId:string):void {
+        const actions = this.collections.newEmptyDictionary<IESXIAction>()
+            .add('reset', e => e.powerReset())
+            .add('on', e => e.powerOn())
+            .add('off', e => e.powerOff());
+        const action = actions.getOrThrow(actionName, `invalid action ${actionName}`);
+        this.clusterTesting.esxiManagedClusterForId(clusterId).performESXIAction(action)
+            .then(result=>this.console.log(result.toString()));
+    }
+
+    showVersionsForCluster(clusterId:string):void {
+        const cluster = this.clusterTesting.clusterForId(clusterId);
+        cluster.versionGraph()
+            .then(versionGraph=>this.console.log(versionGraph.toString()))
+            .catch(e => this.cliHelper.logError(e));
+    }
+
+    showHostsForCluster(clusterId:string):void {
+        const hosts = this.collections.newList(
+            this.clusters.clusterConfigurationWithId(clusterId)
+                .nodes.map(n=>n.host)
+        );
+        this.console.log(`hosts:`, hosts.sort().toString());
+    }
+
+    showESXIForCluster(clusterId:string):void {
+        const esxiHost = this.clusterTesting.clusterForId(clusterId)
+            .esxiServerConfiguration.host;
+        this.console.log(`esxiHost: ${esxiHost}`);
+    }
+
 }

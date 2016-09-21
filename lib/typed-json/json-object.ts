@@ -1,10 +1,11 @@
-import IJSONObject from "./i-json-object";
-import ICollections from "../collections/i-collections";
-import IDictionary from "../collections/i-dictionary";
-import IList from "../collections/i-list";
-import ITypedJSON from "./i-typed-json";
+import {IJSONObject} from "./i-json-object";
+import {ICollections} from "../collections/i-collections";
+import {IDictionary} from "../collections/i-dictionary";
+import {IList} from "../collections/i-list";
+import {ITypedJSON} from "./i-typed-json";
+import {IHash} from "../collections/i-hash";
 
-export default class JSONObject implements IJSONObject {
+export class JSONObject implements IJSONObject {
     private jsonObject:Object;
     private spacingForStringify:number;
     private collections:ICollections;
@@ -36,6 +37,10 @@ export default class JSONObject implements IJSONObject {
 
     getProperty<T>(name:string):T {
         if(!this.hasPropertyNamed(name)) throw new Error(`Missing property "${name}" in configuration: ${this.toString()}`);
+        return this.getPropertyAndReturnUndefinedIfNonExistant<T>(name);
+    }
+
+    getPropertyAndReturnUndefinedIfNonExistant<T>(name:string):T {
         return this.jsonObject[name];
     }
 
@@ -57,7 +62,7 @@ export default class JSONObject implements IJSONObject {
     }
 
     dictionaryNamed<T>(name:string):IDictionary<T> {
-        const rawObject = this.getTypedProperty<Object>(name, 'object');
+        const rawObject = this.getTypedProperty<IHash<T>>(name, 'object');
         return this.collections.newDictionary<T>(rawObject);
     }
 
@@ -78,7 +83,7 @@ export default class JSONObject implements IJSONObject {
         return this.getTypedProperty<boolean>(name, 'boolean');
     }
 
-    toRawJSON():any {
+    toJSON():any {
         return JSON.parse(JSON.stringify(this.jsonObject));
     }
 

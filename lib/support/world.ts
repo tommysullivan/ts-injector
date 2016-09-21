@@ -3,7 +3,8 @@ declare const module:any;
 declare const require:any;
 
 require('source-map-support').install();
-import NodeFrameworkLoader from '../framework/node-framework-loader';
+
+import {NodeFrameworkLoader} from '../framework/node-framework-loader';
 import '../step-definitions/cluster-preparation-steps';
 import '../step-definitions/java-steps';
 import '../step-definitions/packaging-steps';

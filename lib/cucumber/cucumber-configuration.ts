@@ -1,13 +1,12 @@
-import IJSONObject from "../typed-json/i-json-object";
-import FeatureSet from "./feature-set";
-import IList from "../collections/i-list";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {ICucumberConfiguration} from "./i-cucumber-configuration";
+import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
+import {FeatureSetConfiguration} from "./feature-set-configuration";
 
-export default class CucumberConfiguration {
-    private cucumberConfigJSON:IJSONObject;
-
-    constructor(cucumberConfigJSON:IJSONObject) {
-        this.cucumberConfigJSON = cucumberConfigJSON;
-    }
+export class CucumberConfiguration implements ICucumberConfiguration {
+    constructor(
+        private cucumberConfigJSON:IJSONObject
+    ) {}
 
     get embedAsyncErrorsInStepOutput():boolean {
         return this.cucumberConfigJSON.booleanPropertyNamed('embedAsyncErrorsInStepOutput');
@@ -17,14 +16,19 @@ export default class CucumberConfiguration {
         return this.cucumberConfigJSON.numericPropertyNamed('defaultCucumberStepTimeoutMS');
     }
 
-    cucumberExecutablePath():string {
+    get cucumberExecutablePath():string {
         return this.cucumberConfigJSON.stringPropertyNamed('cucumberExecutablePath');
     }
 
-    get featureSetsJSONArray():IList<IJSONObject> {
-        return this.cucumberConfigJSON.listOfJSONObjectsNamed('featureSets');
+    get featureSets():Array<IFeatureSetConfiguration> {
+        return this.cucumberConfigJSON.listOfJSONObjectsNamed('featureSets')
+            .map(featureSetJSON=>this.newFeatureSetConfiguration((featureSetJSON))).toArray();
     }
 
-    toJSON():any { return this.cucumberConfigJSON.toRawJSON(); }
+    private newFeatureSetConfiguration(featureSetJSON:IJSONObject):IFeatureSetConfiguration {
+        return new FeatureSetConfiguration(featureSetJSON);
+    }
+
+    toJSON():any { return this.cucumberConfigJSON.toJSON(); }
     toString():string { return this.cucumberConfigJSON.toString(); }
 }

@@ -1,8 +1,8 @@
-import IList from "../collections/i-list";
-import INodeVersionGraph from "./i-node-version-graph";
-import IClusterVersionGraph from "./i-cluster-version-graph";
+import {IList} from "../collections/i-list";
+import {INodeVersionGraph} from "./i-node-version-graph";
+import {IClusterVersionGraph} from "./i-cluster-version-graph";
 
-export default class ClusterVersionGraph implements IClusterVersionGraph {
+export class ClusterVersionGraph implements IClusterVersionGraph {
     private clusterId:string;
     private versionGraphs:IList<INodeVersionGraph>;
 
@@ -11,7 +11,7 @@ export default class ClusterVersionGraph implements IClusterVersionGraph {
         this.versionGraphs = versionGraphs;
     }
 
-    toJSONString():string {
+    toString():string {
         return JSON.stringify(this.toJSON(), null, 3);
     }
 

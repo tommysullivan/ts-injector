@@ -1,10 +1,5 @@
-import IPackageManager from "../packaging/i-package-manager";
-
-interface IOperatingSystem {
+export interface IOperatingSystem {
     name:string;
     version:string;
-    packageManager:IPackageManager;
     systemInfoCommand:string;
 }
-
-export default IOperatingSystem;

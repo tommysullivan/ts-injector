@@ -1,15 +1,12 @@
-import IList from "../collections/i-list";
+import {IList} from "../collections/i-list";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-interface IProcessResult {
-    hasError():boolean;
-    toString():string;
-    command():string;
-    stdoutLines():IList<string>;
-    stderrLines():IList<string>;
-    processExitCode():number;
-    shellInvocationError():string;
-    toJSON():any;
-    toJSONString():string;
+export interface IProcessResult extends IJSONSerializable {
+    hasError:boolean;
+    command:string;
+    stdoutLines:IList<string>;
+    stderrLines:IList<string>;
+    allOutputLines:IList<string>;
+    processExitCode:number;
+    shellInvocationError:string;
 }
-
-export default IProcessResult;

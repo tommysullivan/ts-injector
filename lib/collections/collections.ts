@@ -1,10 +1,10 @@
-import ICollections from "./i-collections";
-import List from "./list";
-import IList from "./i-list";
-import Dictionary from "./dictionary";
-import IDictionary from "./i-dictionary";
+import {ICollections} from "./i-collections";
+import {List} from "./list";
+import {IList} from "./i-list";
+import {Dictionary} from "./dictionary";
+import {IDictionary} from "./i-dictionary";
 
-export default class Collections implements ICollections {
+export class Collections implements ICollections {
     newList<T>(items:Array<T>=[]):IList<T> {
         return new List<T>(items);
     }

@@ -1,9 +1,9 @@
-import IProcess from "../node-js-wrappers/i-process";
-import IConsole from "../node-js-wrappers/i-console";
-import IList from "../collections/i-list";
-import ICucumber from "../cucumber/i-cucumber";
+import {IProcess} from "../node-js-wrappers/i-process";
+import {IConsole} from "../node-js-wrappers/i-console";
+import {IList} from "../collections/i-list";
+import {ICucumber} from "../cucumber/i-cucumber";
 
-export default class CucumberCliHelper {
+export class CucumberCliHelper {
     constructor(
         private console:IConsole,
         private cucumber:ICucumber,
@@ -12,13 +12,14 @@ export default class CucumberCliHelper {
     ) {}
 
     private outputJSON<T>(list:IList<T>):void {
-        this.console.log(list.toJSONString());
+        this.console.log(list.toString());
     }
 
-    showFeatureSets():void {
-        const args = this.process.commandLineArguments();
-        if(args.itemAt(3)=='in' && args.itemAt(4)=='detail') this.outputJSON(this.cucumber.featureSets.all);
-        else this.outputJSON(this.cucumber.featureSets.all.map(t=>t.id));
+    showFeatureSets(detail:boolean):void {
+        const allFeatureSets = this.cucumber.featureSets.all;
+        this.outputJSON<any>(
+            detail ? allFeatureSets : allFeatureSets.map(t=>t.id)
+        );
     }
 
     executeTagsCli():void {
@@ -26,14 +27,17 @@ export default class CucumberCliHelper {
             true,
             this.temporaryTestRunOutputFilePath(),
             '',
-            this.process.environmentVariables().clone()
+            this.process.environmentVariables.clone()
         );
-        this.cucumber.newCucumberRunner(this.process, this.console).runCucumber(cucumberConfig)
+        this.cucumber.newCucumberRunner(this.process, this.console)
+            .runCucumber(cucumberConfig)
             .then(t=>{
-                this.console.log(t.uniqueTagNames().toJSONString());
+                this.console.log(t.uniqueTagNames.toJSON());
             })
             .catch(error=>{
                 this.console.log(`There was an error fetching tags: ${error.stack ? error.stack : error.toString()}`);
             });
     }
 }
+
+

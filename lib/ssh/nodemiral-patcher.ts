@@ -1,7 +1,7 @@
 declare const require:any;
 declare const SSHClient:any;
 
-export default class NodemiralPatch {
+export class NodemiralPatcher {
     applyPatch():void {
         const NodemiralSSHClient = require('nodemiral/lib/ssh');
         const NodemiralSession = require('nodemiral/lib/session');

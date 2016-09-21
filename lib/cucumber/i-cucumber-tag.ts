@@ -1,5 +1,5 @@
-interface ICucumberTag {
-    name():string;
-}
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-export default ICucumberTag;
+export interface ICucumberTag extends IJSONSerializable {
+    name:string;
+}

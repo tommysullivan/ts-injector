@@ -1,16 +1,17 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../framework/framework";
-import IRepositories from "../packaging/i-repositories";
-import IPackageSets from "../packaging/i-package-sets";
-import IRepository from "../packaging/i-repository";
-import IList from "../collections/i-list";
-import IPackage from "../packaging/i-package";
-import IReleases from "../releasing/i-releases";
+import {Framework} from "../framework/framework";
+import {IRepositories} from "../packaging/i-repositories";
+import {IPackageSets} from "../packaging/i-package-sets";
+import {IRepository} from "../packaging/i-repository";
+import {IList} from "../collections/i-list";
+import {IPackage} from "../packaging/i-package";
+import {IReleases} from "../releasing/i-releases";
+
 declare const $:Framework;
 declare const module:any;
 
 @steps()
-export default class PackagingSteps {
+export class PackagingSteps {
     private promotionLevel:string;
     private operatingSystem:string;
     private version:string;
@@ -43,14 +44,14 @@ export default class PackagingSteps {
     @given(/^I am using a packageSets collection based on the following configuration:$/)
     createPackagSetsCollectionBasedOnConfig(packageSetsConfigJSONString:string):void {
         const packageSetsJSONList = $.typedJSON.newListOfJSONObjects(JSON.parse(packageSetsConfigJSONString));
-        this.packageSets = $.packaging.newPackageSets(packageSetsJSONList);
+        this.packageSets = $.packaging.newPackageSetsFromJSON(packageSetsJSONList);
         $.expect(this.packageSets).not.to.be.null;
     }
 
     @given(/^I am using a repositories collection based on the following configuration:$/)
     createRepositoriesCollectionBasedOnConfig(repositoriesConfigJSONString:string):void {
         const repositoriesConfig = $.typedJSON.newListOfJSONObjects(JSON.parse(repositoriesConfigJSONString));
-        this.repositories = $.packaging.newRepositories(repositoriesConfig, this.packageSets);
+        this.repositories = $.packaging.newRepositoriesFromJSON(repositoriesConfig, this.packageSets);
         $.expect(this.repositories).not.to.be.null;
     }
 
@@ -70,7 +71,7 @@ export default class PackagingSteps {
 
     @given(/^I am using a releases collection based on the following configuration:$/)
     createReleasesCollectionBasedOnConfig(releasesConfigJSONString:string):void {
-        this.releases = $.releasing.newReleases(
+        this.releases = $.releasing.newReleasesFromJSON(
             $.typedJSON.newListOfJSONObjects(JSON.parse(releasesConfigJSONString)),
             this.packageSets
         );

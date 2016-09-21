@@ -1,5 +1,7 @@
-import IJSONObject from "../typed-json/i-json-object";
-export default class InstallerClientConfiguration {
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IInstallerClientConfiguration} from "./i-installer-client-configuration";
+
+export class InstallerClientConfiguration implements IInstallerClientConfiguration {
     private configJSON:IJSONObject;
 
     constructor(configJSON:IJSONObject) {

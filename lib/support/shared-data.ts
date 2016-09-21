@@ -1,8 +1,8 @@
-import IList from "../collections/i-list";
-import IDictionary from "../collections/i-dictionary";
-import ISSHResult from "../ssh/i-ssh-result";
+import {IList} from "../collections/i-list";
+import {IDictionary} from "../collections/i-dictionary";
+import {ISSHResult} from "../ssh/i-ssh-result";
 
-export default class SharedData {
+export class SharedData {
     lastCommandResultSet:IList<ISSHResult>;
     clusterName:string;
     mountPath:string;

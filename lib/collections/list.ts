@@ -1,12 +1,45 @@
-import IList from "./i-list";
-import IComparator from "./i-comparator";
+import {IList} from "./i-list";
+import {IComparator} from "./i-comparator";
 
-export default class List<T> implements IList<T> {
+export class List<T> implements IList<T> {
     private listItems:Array<T>;
 
     constructor(listItems?:Array<T>) {
         this.listItems = listItems || [];
     }
+
+    get notEmpty():boolean {
+        return !this.isEmpty;
+    }
+
+    get isEmpty():boolean {
+        return this.listItems.length == 0;
+    }
+
+    get last():T {
+        return this.itemAt(this.length-1);
+    }
+
+    get hasMany():boolean {
+        return this.length > 1;
+    }
+
+    get rest():IList<T> {
+        return new List<T>(this.listItems.slice(1));
+    }
+
+    get unique():IList<T> {
+        const uniqueList = new List<T>();
+        this.forEach(i=>uniqueList.contains(i) ? null : uniqueList.push(i));
+        return uniqueList;
+    }
+
+    get first():T {
+        if(this.isEmpty) throw new Error('Cannot get first item in empty list');
+        return this.listItems[0];
+    }
+
+    get length():number { return this.listItems.length; }
 
     all(predicate:(originalItem:T)=>boolean):boolean {
         return this.filter(predicate).length == this.length;
@@ -17,25 +50,8 @@ export default class List<T> implements IList<T> {
     }
 
     toString():string {
-        return this.toJSONString();
-    }
-
-    notEmpty():boolean {
-        return !this.isEmpty;
-    }
-
-    get last():T {
-        return this.itemAt(this.length-1);
-    }
-
-    get isEmpty():boolean {
-        return this.listItems.length == 0;
-    }
-
-    get length():number { return this.listItems.length; }
-
-    rest():IList<T> {
-        return new List<T>(this.listItems.slice(1));
+        const arrayOfAny:Array<any> = <Array<any>>this.toArray();
+        return JSON.stringify(arrayOfAny.map(i=>i.toJSON ? i.toJSON() : i), null, 3);
     }
 
     filter(filterFunction:(originalItem:T)=>boolean):IList<T> {
@@ -46,28 +62,13 @@ export default class List<T> implements IList<T> {
         return this.filter(filterFunction);
     }
 
-    unique():IList<T> {
-        const uniqueList = new List<T>();
-        this.forEach(i=>uniqueList.contains(i) ? null : uniqueList.push(i));
-        return uniqueList;
-    }
-
     everythingAfterIndex(index:number):IList<T> {
         return new List<T>(this.toArray().slice(index+1));
-    }
-
-    get hasMany():boolean {
-        return this.length > 1;
     }
 
     toJSON():any {
         const arr:Array<any> = this.toArray();
         return arr.map(i=>(i != null && i.toJSON) ? i.toJSON() : i);
-    }
-
-    first(exceptionMessage?:string):T {
-        if(this.listItems.length==0) throw new Error(exceptionMessage || 'Cannot get first item in empty list');
-        return this.listItems[0];
     }
 
     map<T2>(mapFunction:(originalItem:T)=>T2):IList<T2> {
@@ -83,8 +84,11 @@ export default class List<T> implements IList<T> {
     }
 
     containsAll(soughtItems:IList<T>):boolean {
-        const uniqueSoughtItems = soughtItems.unique();
-        return this.filter(i=>uniqueSoughtItems.contains(i)).unique().length == uniqueSoughtItems.length;
+        const uniqueSoughtItems = soughtItems.unique;
+        return this
+                .filter(i=>uniqueSoughtItems.contains(i))
+                .unique
+                .length == uniqueSoughtItems.length;
     }
 
     containAll(soughtItems:IList<T>):boolean { return this.containsAll(soughtItems); }
@@ -126,17 +130,22 @@ export default class List<T> implements IList<T> {
         return newList;
     }
 
-    firstWhere(predicate:(item:T) =>boolean, exceptionMessage?:string):T {
-        return this.filter(predicate).first(exceptionMessage);
+    firstWhere(predicate:(item:T)=>boolean, defaultProvider?:()=>T):T {
+        const result = this.filter(predicate);
+        return result.isEmpty
+            ? defaultProvider
+                ? defaultProvider()
+                : result.first
+            : result.first;
+    }
+
+    firstOrThrow(predicate:(potentialMatch:T)=>boolean, errorFactory:()=>Error):T {
+        function throwError():any { throw errorFactory(); }
+        return this.firstWhere(predicate, throwError);
     }
 
     join(separator:string):string {
         return this.listItems.join(separator);
-    }
-
-    toJSONString():string {
-        const arrayOfAny:Array<any> = <Array<any>>this.toArray();
-        return JSON.stringify(arrayOfAny.map(i=>i.toJSON ? i.toJSON() : i), null, 3);
     }
 
     sort():IList<T> {
@@ -165,5 +174,9 @@ export default class List<T> implements IList<T> {
 
     hasAtLeastOne(predicate:(item:T)=>boolean):boolean {
         return !this.filter(predicate).isEmpty;
+    }
+
+    intersectionWith(other:IList<T>):IList<T> {
+        return this.filter(e => other.contains(e))
     }
 }

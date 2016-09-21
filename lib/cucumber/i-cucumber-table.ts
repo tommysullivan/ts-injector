@@ -1,4 +1,3 @@
-interface ICucumberTable {
+export interface ICucumberTable {
     rows():Array<string>;
 }
-export default ICucumberTable;

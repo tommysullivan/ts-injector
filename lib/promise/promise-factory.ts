@@ -1,9 +1,9 @@
-import IPromiseFactory from "./i-promise-factory";
-import IList from "../collections/i-list";
-import IThenable from "../promise/i-thenable";
-import ICollections from "../collections/i-collections";
+import {IPromiseFactory} from "./i-promise-factory";
+import {IList} from "../collections/i-list";
+import {IFuture} from "../promise/i-future";
+import {ICollections} from "../collections/i-collections";
 
-export default class PromiseFactory implements IPromiseFactory {
+export class PromiseFactory implements IPromiseFactory {
     private promiseModule:any;
     private collections:ICollections;
 
@@ -12,24 +12,31 @@ export default class PromiseFactory implements IPromiseFactory {
         this.collections = collections;
     }
 
-    newPromiseForImmediateValue<T>(value:T):IThenable<T> {
+    newPromiseForImmediateValue<T>(value:T):IFuture<T> {
         return this.promiseModule.resolve(value);
     }
 
-    newPromise<T>(resolver:(resolve: (value: T) => void, reject: (reason: any) => void) => void):IThenable<T> {
+    newPromise<T>(resolver:(resolve: (value: T) => void, reject: (reason: any) => void) => void):IFuture<T> {
         return new this.promiseModule(resolver);
     }
 
-    newGroupPromiseFromArray<T>(promises:Array<IThenable<T>>):IThenable<IList<T>> {
+    newGroupPromiseFromArray<T>(promises:Array<IFuture<T>>):IFuture<IList<T>> {
         return this.promiseModule.all(promises)
             .then(arrayOfResolvedValues => this.collections.newList<T>(arrayOfResolvedValues));
     }
 
-    newGroupPromise<T>(promises:IList<IThenable<T>>):IThenable<IList<T>> {
+    newGroupPromise<T>(promises:IList<IFuture<T>>):IFuture<IList<T>> {
         return this.newGroupPromiseFromArray(promises.toArray());
     }
 
-    newPromiseForRejectedImmediateValue<T>(value:T):IThenable<T> {
+    newPromiseForRejectedImmediateValue<T>(value:T):IFuture<T> {
         return this.promiseModule.reject(value);
+    }
+
+    delayedPromise<T>(timeout:number, delayedOperation:()=>IFuture<T>):IFuture<T> {
+        return this.newPromise((resolve, reject) => {
+            const executeDelayedOperation = () => delayedOperation().then(resolve, reject);
+            setTimeout(executeDelayedOperation, timeout);
+        });
     }
 }

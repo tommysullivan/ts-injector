@@ -1,5 +1,0 @@
-#!/usr/bin/env node
-require('source-map-support').install();
-var NodeFrameworkLoader = require('../dist/framework/node-framework-loader').default;
-var nodeFrameworkLoader = new NodeFrameworkLoader();
-nodeFrameworkLoader.loadFramework().cli.newExecutor().execute();

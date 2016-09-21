@@ -1,8 +1,6 @@
-import ISSHSession from './i-ssh-session';
-import IThenable from "../promise/i-thenable";
+import {ISSHSession} from './i-ssh-session';
+import {IFuture} from "../promise/i-future";
 
-interface ISSHClient {
-    connect(host:String, username:String, password:String):IThenable<ISSHSession>
+export interface ISSHClient {
+    connect(host:String, username:String, password:String):IFuture<ISSHSession>
 }
-
-export default ISSHClient;

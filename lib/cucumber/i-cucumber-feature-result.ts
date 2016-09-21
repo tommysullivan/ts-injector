@@ -1,8 +1,6 @@
-import IList from "../collections/i-list";
+import {IList} from "../collections/i-list";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-interface ICucumberFeatureResult {
-    uniqueTagNames():IList<string>;
-    toJSON():any;
+export interface ICucumberFeatureResult extends IJSONSerializable {
+    uniqueTagNames:IList<string>;
 }
-
-export default ICucumberFeatureResult;

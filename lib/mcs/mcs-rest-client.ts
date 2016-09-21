@@ -1,22 +1,19 @@
-import IThenable from "../promise/i-thenable";
-import MCSRestSession from "./mcs-rest-session";
-import Rest from "../rest/rest";
-import MCS from "./mcs";
+import {IFuture} from "../promise/i-future";
+import {IMCSRestClient} from "./i-mcs-rest-client";
+import {IRest} from "../rest/i-rest";
+import {IMCS} from "./i-mcs";
+import {IMCSRestSession} from "./i-mcs-rest-session";
 
-export default class MCSRestClient {
-    private rest:Rest;
-    private mcsProtocolHostAndOptionalPort:string;
-    private mcsLoginPath:string;
-    private mcs:MCS;
+export class MCSRestClient implements IMCSRestClient {
 
-    constructor(rest:Rest, mcsProtocolHostAndOptionalPort:string, mcsLoginPath:string, mcs:MCS) {
-        this.rest = rest;
-        this.mcsProtocolHostAndOptionalPort = mcsProtocolHostAndOptionalPort;
-        this.mcsLoginPath = mcsLoginPath;
-        this.mcs = mcs;
-    }
+    constructor(
+        private rest:IRest,
+        private mcsProtocolHostAndOptionalPort:string,
+        private mcsLoginPath:string,
+        private mcs:IMCS
+    ) {}
 
-    createAutheticatedSession(username:string, password:string):IThenable<MCSRestSession> {
+    createAutheticatedSession(username:string, password:string):IFuture<IMCSRestSession> {
         const restClientAsPromised = this.rest.newRestClientAsPromised(this.mcsProtocolHostAndOptionalPort);
         const postPayload = {
             form: {

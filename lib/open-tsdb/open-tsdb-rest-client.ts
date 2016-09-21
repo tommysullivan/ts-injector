@@ -1,31 +1,25 @@
-import Rest from "../rest/rest";
-import IDictionary from "../collections/i-dictionary";
-import IThenable from "../promise/i-thenable";
-import OpenTSDBResult from "./open-tsdb-result";
-import OpenTSDB from "./open-tsdb";
-import IList from "../collections/i-list";
-import ICollections from "../collections/i-collections";
+import {IDictionary} from "../collections/i-dictionary";
+import {IFuture} from "../promise/i-future";
+import {ICollections} from "../collections/i-collections";
+import {IOpenTSDBRestClient} from "./i-open-tsdb-rest-client";
+import {IRest} from "../rest/i-rest";
+import {IOpenTSDB} from "./i-open-tsdb";
+import {IOpenTSDBResult} from "./i-open-tsdb-result";
 
-export default class OpenTSDBRestClient {
-    private rest:Rest;
-    private openTSDBQueryPathTemplate:string;
-    private openTSDBHostAndPort:string;
-    private openTSDB:OpenTSDB;
-    private collections:ICollections;
+export class OpenTSDBRestClient implements IOpenTSDBRestClient {
+    constructor(
+        private rest:IRest,
+        private openTSDBQueryPathTemplate:string,
+        private openTSDBHostAndPort:string,
+        private openTSDB:IOpenTSDB,
+        private collections:ICollections
+    ) {}
 
-    constructor(rest:Rest, openTSDBQueryPathTemplate:string, openTSDBHostAndPort:string, openTSDB:OpenTSDB, collections:ICollections) {
-        this.rest = rest;
-        this.openTSDBQueryPathTemplate = openTSDBQueryPathTemplate;
-        this.openTSDBHostAndPort = openTSDBHostAndPort;
-        this.openTSDB = openTSDB;
-        this.collections = collections;
-    }
-
-    queryForMetric(startTime:string, metricName:string):IThenable<OpenTSDBResult> {
+    queryForMetric(startTime:string, metricName:string):IFuture<IOpenTSDBResult> {
         return this.queryForMetricWithTags(startTime, metricName, this.collections.newEmptyDictionary<string>());
     }
 
-    queryForMetricWithTags(startTime:string, metricName:string, soughtTags:IDictionary<string>):IThenable<OpenTSDBResult> {
+    queryForMetricWithTags(startTime:string, metricName:string, soughtTags:IDictionary<string>):IFuture<IOpenTSDBResult> {
         const restClientAsPromised = this.rest.newRestClientAsPromised(this.openTSDBHostAndPort);
         const openTSDBQueryPath = this.openTSDBQueryPathTemplate.replace('{start}', startTime).replace('{metricName}', metricName);
         const tagQuery = soughtTags.keys.isEmpty
@@ -34,7 +28,7 @@ export default class OpenTSDBRestClient {
         const openTSDBQueryWithTags=`${openTSDBQueryPath}${tagQuery}`;
         console.log(openTSDBQueryWithTags);
         return restClientAsPromised.get(openTSDBQueryWithTags)
-            .then(response=>this.openTSDB.newOpenTSDBResponse(soughtTags, metricName, response.jsonBody()));
+            .then(response=>this.openTSDB.newOpenTSDBResponse(soughtTags, metricName, response.jsonBody));
     }
 
     private soughtTagsAsStringQuery(soughtTags:IDictionary<string>):string {

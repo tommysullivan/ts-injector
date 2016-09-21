@@ -1,7 +1,9 @@
-import IDictionary from "../collections/i-dictionary";
-import IList from "../collections/i-list";
+import {IDictionary} from "../collections/i-dictionary";
+import {IList} from "../collections/i-list";
+import {IJSONSerializable} from "./i-json-serializable";
 
-interface IJSONObject {
+export interface IJSONObject extends IJSONSerializable {
+    toJSON():any;
     dictionaryNamed<T>(name:string):IDictionary<T>;
     jsonObjectNamed(name:string):IJSONObject;
     setProperty<T>(propertyName:string, value:T):IJSONObject;
@@ -10,12 +12,9 @@ interface IJSONObject {
     hasPropertyNamed(propertyName:string):boolean;
     numericPropertyNamed(propertyName:string):number;
     booleanPropertyNamed(propertyName:string):boolean;
-    toRawJSON():any;
     listNamed<T>(name:string):IList<T>;
     listNamedOrDefaultToEmpty<T>(name:string):IList<T>;
     listOfJSONObjectsNamed(name:string):IList<IJSONObject>;
     listOfJSONObjectsNamedOrDefaultToEmpty(name:string):IList<IJSONObject>;
-    toString():string;
+    getPropertyAndReturnUndefinedIfNonExistant<T>(name:string):T;
 }
-
-export default IJSONObject;

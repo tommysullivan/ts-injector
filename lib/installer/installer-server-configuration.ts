@@ -1,22 +1,17 @@
-import Installer from "./installer";
-import RestClientAsPromised from "../rest/rest-client-as-promised";
-import IThenable from "../promise/i-thenable";
-import IInstallerServerConfiguration from "./i-installer-server-configuration";
-import IJSONObject from "../typed-json/i-json-object";
-import IList from "../collections/i-list";
+import {IFuture} from "../promise/i-future";
+import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IList} from "../collections/i-list";
+import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IInstaller} from "./i-installer";
 
-export default class InstallerServerConfiguration implements IInstallerServerConfiguration {
-    private installer:Installer;
-    private serverConfigJSON:IJSONObject;
-    private authedRestClient:RestClientAsPromised;
-    private serverConfigResourceURL:string;
-
-    constructor(installer:Installer, serverConfigJSON:IJSONObject, authedRestClient:RestClientAsPromised, serverConfigResourceURL:string) {
-        this.installer = installer;
-        this.serverConfigJSON = serverConfigJSON;
-        this.authedRestClient = authedRestClient;
-        this.serverConfigResourceURL = serverConfigResourceURL;
-    }
+export class InstallerServerConfiguration implements IInstallerServerConfiguration {
+    constructor(
+        private installer:IInstaller,
+        private serverConfigJSON:IJSONObject,
+        private authedRestClient:IRestClientAsPromised,
+        private serverConfigResourceURL:string
+    ) {}
 
     private setServiceEnablement(serviceName:string, version:string, enabled:boolean):IInstallerServerConfiguration {
         this.serverConfigJSON.dictionaryNamed('services').add(serviceName, {
@@ -43,15 +38,15 @@ export default class InstallerServerConfiguration implements IInstallerServerCon
     setHosts(newValue:IList<string>):IInstallerServerConfiguration { this.serverConfigJSON.setProperty('hosts', newValue.toArray()); return this; }
     setClusterName(newValue:string):IInstallerServerConfiguration { this.serverConfigJSON.setProperty('cluster_name', newValue); return this; }
 
-    save():IThenable<IInstallerServerConfiguration> {
+    save():IFuture<IInstallerServerConfiguration> {
         const putArgs = {
-            body: this.serverConfigJSON.toRawJSON(),
+            body: this.serverConfigJSON.toJSON(),
             json: true
-        }
+        };
         return this.authedRestClient.put(this.serverConfigResourceURL, putArgs)
             .then(ignoredPutResult => this.authedRestClient.get(this.serverConfigResourceURL))
             .then(getResult=>{
-                this.serverConfigJSON = getResult.jsonBody();
+                this.serverConfigJSON = getResult.jsonBody;
                 return this.installer.newInstallerServerConfiguration(
                     this.serverConfigJSON,
                     this.authedRestClient,

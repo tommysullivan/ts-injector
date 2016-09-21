@@ -1,22 +1,22 @@
 {
   "name": "private-devops-automation-framework",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
   "main": "./dist/index.js",
   "typings": "./dist/lib/index.d.ts",
   "bin": {
-    "devops": "bin/devops-automation"
+    "devops": "bin/devops"
   },
   "scripts": {
-    "start": "bin/devops-automation",
-    "test": "clusterId=ubuntu14 portalId=lab bin/devops-automation run cucumber --require dist/support --require dist/step-definitions --tags @regression",
-    "build": "tsc"
+    "start": "bin/devops",
+    "test": "npm run build && portalId=lab clusterId=ubuntu14 bin/devops run cucumber -- --tags @regression",
+    "localTest": "npm run build && clusterId=ubuntu14 cucumber.js --require dist/support --require dist/step-definitions --tags @regression",
+    "build": "rm -rdf dist && tsc"
   },
   "files": [
     "dist/*",
     "bin/*",
     "features/*",
-    "configuration/*",
     "ats-files/*"
   ],
   "repository": {
@@ -33,21 +33,22 @@
   },
   "homepage": "https://github.com/mapr/private-devops-automation-framework#readme",
   "dependencies": {
-    "body-parser": "^1.15.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "cucumber": "^0.10.2",
     "cucumber-tsflow": "^1.1.1",
-    "express": "^4.13.4",
+    "moment": "^2.15.0",
     "node-uuid": "^1.4.7",
     "nodemiral": "^1.1.1",
+    "private-devops-configuration": "^1.0.0",
     "promise": "^7.1.1",
     "readline-sync": "^1.4.1",
     "request": "^2.72.0",
     "scp2": "^0.4.0",
     "shell-escape": "^0.2.0",
     "source-map-support": "^0.4.0",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "yargs": "^5.0.0"
   },
   "devDependencies": {
     "bower": "^1.7.9",

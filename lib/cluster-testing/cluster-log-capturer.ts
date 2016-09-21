@@ -1,28 +1,32 @@
-import IClusterUnderTest from "./i-cluster-under-test";
-import IThenable from "../promise/i-thenable";
-import IPromiseFactory from "../promise/i-promise-factory";
-import NodeLog from "./node-log";
-import INodeUnderTest from "./i-node-under-test";
-import IList from "../collections/i-list";
+import {IClusterUnderTest} from "./i-cluster-under-test";
+import {IFuture} from "../promise/i-future";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {INodeUnderTest} from "./i-node-under-test";
+import {IList} from "../collections/i-list";
+import {IClusterLogCapturer} from "./i-cluster-log-capturer";
+import {INodeLog} from "./i-node-log";
+import {IClusterTesting} from "./i-cluster-testing";
 
-export default class ClusterLogCapturer {
+export class ClusterLogCapturer implements IClusterLogCapturer {
     constructor(
         private mcsLogFileLocation:string,
         private wardenLogLocation:string,
         private configureShLogLocation:string,
         private mfsInitLogFileLocation:string,
-        private promiseFactory:IPromiseFactory
+        private promiseFactory:IPromiseFactory,
+        private clusterTesting:IClusterTesting
     ) {}
 
-    captureLogs(cluster:IClusterUnderTest):IThenable<IList<NodeLog>> {
+    captureLogs(cluster:IClusterUnderTest):IFuture<IList<INodeLog>> {
+        const allNodes = cluster.nodes;
         return this.promiseFactory.newGroupPromise(
             this.logsFor(
-                cluster.nodes(),
+                allNodes,
                 this.wardenLogLocation,
                 'Warden Log'
             ).append(
                 this.logsFor(
-                    cluster.nodes(),
+                    allNodes,
                     this.configureShLogLocation,
                     'Configure.sh Log'
                 )
@@ -34,7 +38,7 @@ export default class ClusterLogCapturer {
                 )
             ).append(
                 this.logsFor(
-                    cluster.nodes(),
+                    allNodes,
                     this.mfsInitLogFileLocation,
                     'MFS Init Log'
                 )
@@ -42,12 +46,16 @@ export default class ClusterLogCapturer {
         );
     }
 
-    private logsFor(nodes:IList<INodeUnderTest>, logLocation:string, logTitle:string):IList<IThenable<NodeLog>> {
+    private logsFor(nodes:IList<INodeUnderTest>, logLocation:string, logTitle:string):IList<IFuture<INodeLog>> {
         return nodes.map(node => {
             return node.newSSHSession()
                 .then(sshSession => {
                     return sshSession.read(logLocation)
-                        .then(logContent=>new NodeLog(node.host, logContent.split("\n"), logTitle));
+                        .then(logContent=>this.clusterTesting.newNodeLog(
+                            node.host,
+                            logContent.split("\n"),
+                            logTitle
+                        ));
                 });
         });
     }

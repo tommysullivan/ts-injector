@@ -1,12 +1,10 @@
-import IThenable from "../promise/i-thenable";
-import IInstallerServices from "./i-installer-services";
-import IInstallerServerConfiguration from "./i-installer-server-configuration";
-import InstallerProcess from "./installer-process";
+import {IFuture} from "../promise/i-future";
+import {IInstallerServices} from "./i-installer-services";
+import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
+import {InstallerProcess} from "./installer-process";
 
-interface IInstallerRestSession {
-    services():IThenable<IInstallerServices>;
-    configuration():IThenable<IInstallerServerConfiguration>;
-    process():IThenable<InstallerProcess>;
+export interface IInstallerRestSession {
+    services():IFuture<IInstallerServices>;
+    configuration():IFuture<IInstallerServerConfiguration>;
+    process():IFuture<InstallerProcess>;
 }
-
-export default IInstallerRestSession;

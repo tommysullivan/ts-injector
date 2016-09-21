@@ -1,12 +1,11 @@
-import IThenable from "./i-thenable";
-import IList from "../collections/i-list";
+import {IFuture} from "./i-future";
+import {IList} from "../collections/i-list";
 
-interface IPromiseFactory {
-    newPromiseForRejectedImmediateValue<T>(value:T):IThenable<T>;
-    newPromiseForImmediateValue<T>(value:T):IThenable<T>;
-    newPromise<T>(resolver:(resolve: (value: T) => void, reject: (reason: any) => void) => void):IThenable<T>;
-    newGroupPromiseFromArray<T>(promises:Array<IThenable<T>>):IThenable<IList<T>>;
-    newGroupPromise<T>(promises:IList<IThenable<T>>):IThenable<IList<T>>;
+export interface IPromiseFactory {
+    newPromiseForRejectedImmediateValue<T>(value:T):IFuture<T>;
+    newPromiseForImmediateValue<T>(value:T):IFuture<T>;
+    newPromise<T>(resolver:(resolve: (value: T) => void, reject: (reason: any) => void) => void):IFuture<T>;
+    newGroupPromiseFromArray<T>(promises:Array<IFuture<T>>):IFuture<IList<T>>;
+    newGroupPromise<T>(promises:IList<IFuture<T>>):IFuture<IList<T>>;
+    delayedPromise<T>(timeout:number, delayedOperation:()=>IFuture<T>):IFuture<T>;
 }
-
-export default IPromiseFactory;

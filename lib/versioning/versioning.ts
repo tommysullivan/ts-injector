@@ -1,12 +1,12 @@
-import INodeVersionGraph from "./i-node-version-graph";
-import NodeVersionGraph from "./node-version-graph";
-import IClusterVersionGraph from "./i-cluster-version-graph";
-import IList from "../collections/i-list";
-import ISSHResult from "../ssh/i-ssh-result";
-import ClusterVersionGraph from "./cluster-version-graph";
-import IVersioning from "./i-versioning";
+import {INodeVersionGraph} from "./i-node-version-graph";
+import {NodeVersionGraph} from "./node-version-graph";
+import {IClusterVersionGraph} from "./i-cluster-version-graph";
+import {IList} from "../collections/i-list";
+import {ISSHResult} from "../ssh/i-ssh-result";
+import {ClusterVersionGraph} from "./cluster-version-graph";
+import {IVersioning} from "./i-versioning";
 
-export default class Versioning implements IVersioning {
+export class Versioning implements IVersioning {
     newNodeVersionGraph(host:string, shellCommandResultSet:IList<ISSHResult>):INodeVersionGraph {
         return new NodeVersionGraph(host, shellCommandResultSet);
     }

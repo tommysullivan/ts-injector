@@ -1,30 +1,27 @@
-import IRepositories from "./i-repositories";
-import IList from "../collections/i-list";
-import IJSONObject from "../typed-json/i-json-object";
-import IRepository from "./i-repository";
-import IPackaging from "./i-packaging";
-import IPackageSets from "./i-package-sets";
-import IPackage from "./i-package";
+import {IRepositories} from "./i-repositories";
+import {IList} from "../collections/i-list";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IRepository} from "./i-repository";
+import {IPackaging} from "./i-packaging";
+import {IPackageSets} from "./i-package-sets";
+import {IPackage} from "./i-package";
+import {IRepositoryConfig} from "./i-repository-config";
 
-export default class Repositories implements IRepositories {
+export class Repositories implements IRepositories {
 
-    private repositoryJSONArray:IList<IJSONObject>;
-    private packaging:IPackaging;
-    private packageSets:IPackageSets;
-
-    constructor(repositoryJSONArray:IList<IJSONObject>, packaging:IPackaging, packageSets:IPackageSets) {
-        this.repositoryJSONArray = repositoryJSONArray;
-        this.packaging = packaging;
-        this.packageSets = packageSets;
-    }
+    constructor(
+        private repositoryConfigs:IList<IRepositoryConfig>,
+        private packaging:IPackaging,
+        private packageSets:IPackageSets
+    ) {}
 
     repositoryAtUrl(url:string):IRepository {
         return this.all.firstWhere(r=>r.url==url);
     }
 
     get all():IList<IRepository> {
-        return this.repositoryJSONArray.map(
-            repositoryJSON => this.packaging.newRepository(repositoryJSON, this.packageSets)
+        return this.repositoryConfigs.map(
+            repositoryConfig => this.packaging.newRepository(repositoryConfig, this.packageSets)
         );
     }
 
@@ -45,7 +42,7 @@ export default class Repositories implements IRepositories {
         else if(possibleRepositories.hasMany) {
             throw new Error(`specified package hosted by more than one repository. ${packageName}`);
         }
-        return possibleRepositories.first();
+        return possibleRepositories.first;
     }
 
 }

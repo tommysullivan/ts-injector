@@ -1,10 +1,7 @@
-import ISnapshotConfiguration from "./i-snapshot-configuration";
-import IList from "../../collections/i-list";
+import {ISnapshotConfiguration} from "./i-snapshot-configuration";
 
-interface IESXINodeConfiguration {
+export interface IESXINodeConfiguration {
     name:string;
     id:number;
-    states:IList<ISnapshotConfiguration>;
+    states:Array<ISnapshotConfiguration>;
 }
-
-export default IESXINodeConfiguration;

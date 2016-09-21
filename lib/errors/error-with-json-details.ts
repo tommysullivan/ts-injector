@@ -1,6 +1,6 @@
-import IError from "./i-error";
+import {IError} from "./i-error";
 
-export default class ErrorWithJSONDetails implements IError {
+export class ErrorWithJSONDetails implements IError {
     public message:string;
     public detailJSON:any;
 

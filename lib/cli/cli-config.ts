@@ -1,7 +1,8 @@
-import IJSONObject from "../typed-json/i-json-object";
-import IPath from "../node-js-wrappers/i-path";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IPath} from "../node-js-wrappers/i-path";
+import {ICliConfig} from "./i-cli-config";
 
-export default class CliConfig {
+export class CliConfig implements ICliConfig {
     private configJSON:IJSONObject;
     private basePathToUseForConfiguredRelativePaths:string;
     private path:IPath;
@@ -13,9 +14,10 @@ export default class CliConfig {
     }
 
     get temporaryTestRunOutputFilePath():string {
-        return this.path.join(
-            this.basePathToUseForConfiguredRelativePaths,
-            this.configJSON.stringPropertyNamed('temporaryTestRunOutputFilePathRelativeToThisConfigFile')
-        );
+        return 'data/tmp/tmp-test-run.json';
+        // return this.path.join(
+        //     this.basePathToUseForConfiguredRelativePaths,
+        //     this.configJSON.stringPropertyNamed('temporaryTestRunOutputFilePathRelativeToThisConfigFile')
+        // );
     }
 }

@@ -1,6 +1,6 @@
-import IPackage from "./i-package";
+import {IPackage} from "./i-package";
 
-export default class PackageComparer {
+export class PackageComparer {
     
     equals(package1:IPackage, package2:IPackage):boolean {
         return package1.name==package2.name

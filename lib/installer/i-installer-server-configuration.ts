@@ -1,7 +1,7 @@
-import IThenable from "../promise/i-thenable";
-import IList from "../collections/i-list";
+import {IFuture} from "../promise/i-future";
+import {IList} from "../collections/i-list";
 
-interface IInstallerServerConfiguration {
+export interface IInstallerServerConfiguration {
     enableService(serviceName:string, version:string):IInstallerServerConfiguration;
     disableService(serviceName:string, version:string):IInstallerServerConfiguration;
     setSSHPassword(newValue:string):IInstallerServerConfiguration;
@@ -12,8 +12,6 @@ interface IInstallerServerConfiguration {
     setDisks(newValue:IList<string>):IInstallerServerConfiguration;
     setHosts(newValue:IList<string>):IInstallerServerConfiguration;
     setClusterName(newValue:string):IInstallerServerConfiguration;
-    save():IThenable<IInstallerServerConfiguration>;
+    save():IFuture<IInstallerServerConfiguration>;
     toJSONString():string;
 }
-
-export default IInstallerServerConfiguration;

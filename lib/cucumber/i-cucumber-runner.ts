@@ -1,9 +1,7 @@
-import ICucumberRunConfiguration from "./i-cucumber-run-configuration";
-import ICucumberTestResult from "./i-cucumber-test-result";
-import IThenable from "../promise/i-thenable";
+import {ICucumberRunConfiguration} from "./i-cucumber-run-configuration";
+import {ICucumberTestResult} from "./i-cucumber-test-result";
+import {IFuture} from "../promise/i-future";
 
-interface ICucumberRunner {
-    runCucumber(cucumberRunConfiguration:ICucumberRunConfiguration):IThenable<ICucumberTestResult>;
+export interface ICucumberRunner {
+    runCucumber(cucumberRunConfiguration:ICucumberRunConfiguration):IFuture<ICucumberTestResult>;
 }
-
-export default ICucumberRunner;

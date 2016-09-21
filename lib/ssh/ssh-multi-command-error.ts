@@ -1,8 +1,8 @@
-import IError from "../errors/i-error";
-import ISSHResult from "./i-ssh-result";
-import IList from "../collections/i-list";
+import {IError} from "../errors/i-error";
+import {ISSHResult} from "./i-ssh-result";
+import {IList} from "../collections/i-list";
 
-export default class SSHMultiCommandError implements IError {
+export class SSHMultiCommandError implements IError {
     public sshResults:IList<ISSHResult>;
 
     public get message():string {

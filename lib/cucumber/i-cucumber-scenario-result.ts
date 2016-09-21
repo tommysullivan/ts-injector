@@ -1,8 +1,7 @@
-import IList from "../collections/i-list";
-import ICucumberTag from "./i-cucumber-tag";
+import {IList} from "../collections/i-list";
+import {ICucumberTag} from "./i-cucumber-tag";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-interface ICucumberScenarioResult {
-    tags():IList<ICucumberTag>;
+export interface ICucumberScenarioResult extends IJSONSerializable {
+    tags:IList<ICucumberTag>;
 }
-
-export default ICucumberScenarioResult;

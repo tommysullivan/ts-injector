@@ -1,6 +1,7 @@
-import IJSONObject from "../typed-json/i-json-object";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IElasticsearchConfiguration} from "./i-elasticsearch-configuration";
 
-export default class ElasticSearchConfiguration {
+export class ElasticSearchConfiguration implements IElasticsearchConfiguration {
     private elasticSearchConfigJSON:IJSONObject;
 
     constructor(elasticSearchConfigJSON:IJSONObject) {
@@ -9,5 +10,9 @@ export default class ElasticSearchConfiguration {
 
     get elasticSearchURLTemplate():string {
         return this.elasticSearchConfigJSON.getProperty<string>('elasticSearchURLTemplate');
+    }
+
+    toJSON():string {
+        return this.elasticSearchConfigJSON.toJSON();
     }
 }

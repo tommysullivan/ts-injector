@@ -1,41 +1,37 @@
-import IThenable from "../promise/i-thenable";
-import MCSDashboardInfo from "./mcs-dashboard-info";
-import RestClientAsPromised from "../rest/rest-client-as-promised";
-import MCSConfiguration from "./mcs-configuration";
-import MCS from "./mcs";
-import ITypedJSON from "../typed-json/i-typed-json";
-import IErrors from "../errors/i-errors";
+import {IFuture} from "../promise/i-future";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IErrors} from "../errors/i-errors";
+import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IMCSConfiguration} from "./i-mcs-configuration";
+import {IMCS} from "./i-mcs";
+import {IMCSRestSession} from "./i-mcs-rest-session";
+import {IMCSDashboardInfo} from "./i-mcs-dashboard-info";
 
-export default class MCSRestSession {
-    private authedRestClient:RestClientAsPromised;
-    private mcsConfiguration:MCSConfiguration;
-    private mcs:MCS;
-    private typedJSON:ITypedJSON;
-    private errors:IErrors;
+export class MCSRestSession implements IMCSRestSession {
 
-    constructor(authedRestClient:RestClientAsPromised, mcsConfiguration:MCSConfiguration, mcs:MCS, typedJSON:ITypedJSON, errors:IErrors) {
-        this.authedRestClient = authedRestClient;
-        this.mcsConfiguration = mcsConfiguration;
-        this.mcs = mcs;
-        this.typedJSON = typedJSON;
-        this.errors = errors;
-    }
+    constructor(
+        private authedRestClient:IRestClientAsPromised,
+        private mcsConfiguration:IMCSConfiguration,
+        private mcs:IMCS,
+        private typedJSON:ITypedJSON,
+        private errors:IErrors
+    ) {}
 
-    dashboardInfo():IThenable<MCSDashboardInfo> {
+    get dashboardInfo():IFuture<IMCSDashboardInfo> {
         return this.authedRestClient.post(this.mcsConfiguration.mcsDashboardInfoPath)
             .then(response=>this.mcs.newMCSDashboardInfo(
-                this.typedJSON.newJSONObject(response.jsonBody()))
+                this.typedJSON.newJSONObject(response.jsonBody))
             );
     }
 
-    applicationLinkFor(applicationName:string):IThenable<string> {
+    applicationLinkFor(applicationName:string):IFuture<string> {
         const applicationInfoPath = this.mcsConfiguration.mcsApplicationLinkPathTemplate
             .replace('{applicationName}', applicationName);
         return this.authedRestClient.post(applicationInfoPath)
             .then(response=>{
-                const jsonResponse = this.typedJSON.newJSONObject(response.jsonBody());
+                const jsonResponse = this.typedJSON.newJSONObject(response.jsonBody);
                 try {
-                    return jsonResponse.listOfJSONObjectsNamed('data').first().stringPropertyNamed('url');
+                    return jsonResponse.listOfJSONObjectsNamed('data').first.stringPropertyNamed('url');
                 }
                 catch(e) {
                     throw this.errors.newErrorWithCause(e, `mcs link json format was bad - ${jsonResponse.toString()}`);

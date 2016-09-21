@@ -1,18 +1,28 @@
-import ElasticSearchRestClient from "./elasticsearch-rest-client";
-import Rest from "../rest/rest";
-import ElasticSearchConfiguration from "./elasticsearch-configuration";
+import {ElasticSearchRestClient} from "./elasticsearch-rest-client";
+import {IElasticsearch} from "./i-elasticsearch";
+import {IRest} from "../rest/i-rest";
+import {IElasticsearchConfiguration} from "./i-elasticsearch-configuration";
+import {IElasticsearchRestClient} from "./i-elasticsearch-rest-client";
+import {ElasticsearchResult} from "./elasticsearch-result";
+import {IElasticsearchResult} from "./i-elasticsearch-result";
+import {IJSONObject} from "../typed-json/i-json-object";
 
-export default class ElasticSearch {
-    private rest:Rest;
-    private config:ElasticSearchConfiguration;
+export class ElasticSearch implements IElasticsearch {
+    constructor(
+        private rest:IRest,
+        private config:IElasticsearchConfiguration
+    ) {}
 
-    constructor(rest:Rest, config:ElasticSearchConfiguration) {
-        this.rest = rest;
-        this.config = config;
+    newElasticSearchClient(host:string):IElasticsearchRestClient {
+        const elasticSearchHostAndOptionalPort = this.config.elasticSearchURLTemplate.replace('{host}', host);
+        return new ElasticSearchRestClient(
+            this.rest,
+            elasticSearchHostAndOptionalPort,
+            this
+        );
     }
 
-    newElasticSearchClient(host:string):ElasticSearchRestClient {
-        const elasticSearchHostAndOptionalPort = this.config.elasticSearchURLTemplate.replace('{host}', host);
-        return new ElasticSearchRestClient(this.rest, elasticSearchHostAndOptionalPort);
+    newElasticsearchResult(resultJSON:IJSONObject):IElasticsearchResult {
+        return new ElasticsearchResult(resultJSON);
     }
 }

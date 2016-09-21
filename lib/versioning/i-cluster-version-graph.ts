@@ -1,6 +1,4 @@
-interface IClusterVersionGraph {
-    toJSONString():string;
-    toJSON():any;
-}
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-export default IClusterVersionGraph;
+export interface IClusterVersionGraph extends IJSONSerializable {
+}

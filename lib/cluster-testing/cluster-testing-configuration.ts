@@ -1,11 +1,12 @@
-import IJSONObject from "../typed-json/i-json-object";
-import ClusterInstallerConfig from "./cluster-installer-config";
-import IPath from "../node-js-wrappers/i-path";
-import IProcess from "../node-js-wrappers/i-process";
-import ICollections from "../collections/i-collections";
-import IList from "../collections/i-list";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IPath} from "../node-js-wrappers/i-path";
+import {IProcess} from "../node-js-wrappers/i-process";
+import {ICollections} from "../collections/i-collections";
+import {IClusterTestingConfiguration} from "./i-cluster-testing-configuration";
+import {ClusterInstallerConfig} from "../installer/cluster-installer-config";
+import {IClusterInstallerConfig} from "../installer/i-cluster-installer-config";
 
-export default class ClusterTestingConfiguration {
+export class ClusterTestingConfiguration implements IClusterTestingConfiguration {
     private configJSON:IJSONObject;
     private basePathToUseForConfiguredRelativePaths:string;
     private path:IPath;
@@ -20,15 +21,9 @@ export default class ClusterTestingConfiguration {
         this.collections = collections;
     }
 
-    private envVarOrConfiguredVal(propName:string):string {
-        return this.process.environmentVariableNamedOrLazyDefault(
-            propName,
-            () => this.configJSON.stringPropertyNamed(propName)
-        );
-    }
-
-    portalUrlWithId(id):string {
-        return this.configJSON.jsonObjectNamed('resultServers').stringPropertyNamed(id);
+    get portalUrl():string {
+        return this.configJSON.jsonObjectNamed('resultServers')
+            .stringPropertyNamed(this.process.environmentVariableNamed('portalId'));
     }
 
     get mcsLogFileLocation():string {
@@ -61,7 +56,7 @@ export default class ClusterTestingConfiguration {
         );
     }
 
-    get clusterInstallerConfiguration():ClusterInstallerConfig {
+    get clusterInstallerConfiguration():IClusterInstallerConfig {
         return new ClusterInstallerConfig(
             this.configJSON.jsonObjectNamed('clusterInstaller')
         );
@@ -81,17 +76,17 @@ export default class ClusterTestingConfiguration {
         );
     }
 
-    get clusterIds():IList<string> {
+    get clusterIds():Array<string> {
         return this.collections.newList<string>(
-            this.process.environmentVariables().hasKey('clusterIds')
+            this.process.environmentVariables.hasKey('clusterIds')
                 ? this.process.environmentVariableNamed('clusterIds').split(',')
-                : this.process.environmentVariables().hasKey('clusterId')
-                ? [this.process.environmentVariableNamed('clusterId')]
-                : []
-        );
+                : this.process.environmentVariables.hasKey('clusterId')
+                    ? [this.process.environmentVariableNamed('clusterId')]
+                    : []
+        ).toArray();
     }
 
     get throwErrorIfPackageJsonMissing():boolean {
-        return this.process.environmentVariables().hasKey('portalId')
+        return this.process.environmentVariables.hasKey('portalId')
     }
 }

@@ -1,41 +1,44 @@
-import IPackageSet from "./i-package-set";
-import IJSONObject from "../typed-json/i-json-object";
-import IPackaging from "./i-packaging";
-import IList from "../collections/i-list";
-import IPackage from "./i-package";
-import IPackageSets from "./i-package-sets";
-import ISemanticVersion from "./i-semantic-version";
+import {IPackageSet} from "./i-package-set";
+import {IPackaging} from "./i-packaging";
+import {IList} from "../collections/i-list";
+import {IPackage} from "./i-package";
+import {IPackageSets} from "./i-package-sets";
+import {ISemanticVersion} from "./i-semantic-version";
+import {IPackageSetRefConfig} from "./i-package-set-ref-config";
+import {ICollections} from "../collections/i-collections";
 
-export default class PackageSetReference implements IPackageSet {
-    private configJSON:IJSONObject;
-    private packaging:IPackaging;
-    private packageSets:IPackageSets;
-
-    constructor(configJSON:IJSONObject, packaging:IPackaging, packageSets:IPackageSets) {
-        this.configJSON = configJSON;
-        this.packaging = packaging;
-        this.packageSets = packageSets;
-    }
+export class PackageSetReference implements IPackageSet {
+    constructor(
+        private config:IPackageSetRefConfig,
+        private packaging:IPackaging,
+        private packageSets:IPackageSets,
+        private collections:ICollections
+    ) {}
 
     private get referredPackageSetId():string {
-        return this.configJSON.stringPropertyNamed('packageSetRef');
+        return this.config.packageSetRef;
     }
 
-    get id():string { return `reference-to-${this.referredPackageSetId}`; }
-    get version():ISemanticVersion { return this.packaging.newSemanticVersion(this.configJSON.stringPropertyNamed('version')); }
+    get id():string {
+        return `reference-to-${this.referredPackageSetId}`;
+    }
+
+    get version():ISemanticVersion {
+        return this.packaging.newSemanticVersion(this.config.version);
+    }
 
     get packages():IList<IPackage> {
         return this.packageSets.setWithIdAndVersion(this.referredPackageSetId, this.version).packages.map(
             originalPackage => this.packaging.newPackageWithOverrides(
                 originalPackage, 
-                this.configJSON.hasPropertyNamed('operatingSystems')
-                    ? this.configJSON.listNamed<string>('operatingSystems')
+                this.config.operatingSystems
+                    ? this.collections.newList<string>(this.config.operatingSystems)
                     : null,
-                this.configJSON.hasPropertyNamed('promotionLevel')
-                    ? this.packaging.newPromotionLevel(this.configJSON.stringPropertyNamed('promotionLevel'))
+                this.config.promotionLevel
+                    ? this.packaging.newPromotionLevel(this.config.promotionLevel)
                     : null,
-                this.configJSON.hasPropertyNamed('tags')
-                    ? this.configJSON.listNamed<string>('tags').clone()
+                this.config.tags
+                    ? this.collections.newList<string>(this.config.tags)
                     : null
             )
         );

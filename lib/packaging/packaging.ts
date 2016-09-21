@@ -1,43 +1,44 @@
-import YumPackageManager from "./yum-package-manager";
-import ZypperPackageManager from "./zypper-package-manager";
-import AptPackageManager from "./apt-package-manager";
-import ITypedJSON from "../typed-json/i-typed-json";
-import IPackaging from "./i-packaging";
-import IPackageManager from "./i-package-manager";
-import IConfigFileContent from "./i-config-file-content";
-import YumConfigFileContent from "./yum-config-file-content";
-import IJSONObject from "../typed-json/i-json-object";
-import Repository from "./repository";
-import IRepository from "./i-repository";
-import IList from "../collections/i-list";
-import IPackage from "./i-package";
-import Package from "./package";
-import IPromotionLevel from "./i-promotion-level";
-import ISemanticVersion from "./i-semantic-version";
-import PromotionLevel from "./promotion-level";
-import SemanticVersion from "./semantic-version";
-import IPackageSet from "./i-package-set";
-import PackageSet from "./package-set";
-import ICollections from "../collections/i-collections";
-import IRepositories from "./i-repositories";
-import Repositories from "./repositories";
-import IPackageSets from "./i-package-sets";
-import PackageSets from "./package-sets";
-import PackageFromLiterals from "./package-from-literals";
-import PackageSetReference from "./package-set-reference";
-import PackageWithOverrides from "./package-with-overrides";
-import PackageComparer from "./package-comparer";
+import {YumPackageManager} from "./yum-package-manager";
+import {ZypperPackageManager} from "./zypper-package-manager";
+import {AptPackageManager} from "./apt-package-manager";
+import {IPackaging} from "./i-packaging";
+import {IPackageManager} from "./i-package-manager";
+import {IConfigFileContent} from "./i-config-file-content";
+import {YumConfigFileContent} from "./yum-config-file-content";
+import {Repository} from "./repository";
+import {IRepository} from "./i-repository";
+import {IList} from "../collections/i-list";
+import {IPackage} from "./i-package";
+import {Package} from "./package";
+import {IPromotionLevel} from "./i-promotion-level";
+import {ISemanticVersion} from "./i-semantic-version";
+import {PromotionLevel} from "./promotion-level";
+import {SemanticVersion} from "./semantic-version";
+import {IPackageSet} from "./i-package-set";
+import {PackageSet} from "./package-set";
+import {ICollections} from "../collections/i-collections";
+import {IRepositories} from "./i-repositories";
+import {Repositories} from "./repositories";
+import {IPackageSets} from "./i-package-sets";
+import {PackageSets} from "./package-sets";
+import {PackageFromLiterals} from "./package-from-literals";
+import {PackageSetReference} from "./package-set-reference";
+import {PackageWithOverrides} from "./package-with-overrides";
+import {PackageComparer} from "./package-comparer";
+import {IPackagingConfig} from "./i-packaging-config";
+import {IPackageConfig} from "./i-package-config";
+import {IPackageSetRefConfig} from "./i-package-set-ref-config";
+import {IPackageSetConfig} from "./i-package-set-config";
+import {IRepositoryConfig} from "./i-repository-config";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {PackageSetConfig} from "./package-set-config";
+import {RepositoryConfig} from "./repository-config";
 
-export default class Packaging implements IPackaging {
-    private typedJson:ITypedJSON;
-    private configJSON:IJSONObject;
-    private collections:ICollections;
-
-    constructor(typedJson:ITypedJSON, configJSON:IJSONObject, collections:ICollections) {
-        this.typedJson = typedJson;
-        this.configJSON = configJSON;
-        this.collections = collections;
-    }
+export class Packaging implements IPackaging {
+    constructor(
+        private packagingConfig:IPackagingConfig,
+        private collections:ICollections
+    ) {}
 
     packageManagerFor(operatingSystemName:string):IPackageManager {
         switch(operatingSystemName.toLowerCase()) {
@@ -68,16 +69,25 @@ export default class Packaging implements IPackaging {
         return new PromotionLevel(levelName);
     }
 
-    newRepository(configJSON:IJSONObject, packageSets:IPackageSets):IRepository {
-        return new Repository(configJSON, this, packageSets);
+    newRepository(repositoryConfig:IRepositoryConfig, packageSets:IPackageSets):IRepository {
+        return new Repository(repositoryConfig, this, packageSets);
     }
 
-    newRepositories(repositoriesJSONList:IList<IJSONObject>, packageSets:IPackageSets):IRepositories {
+    newRepositories(repositoriesJSONList:IList<IRepositoryConfig>, packageSets:IPackageSets):IRepositories {
         return new Repositories(repositoriesJSONList, this, packageSets);
     }
 
-    newPackage(packageJSON:IJSONObject):IPackage{
-        return new Package(packageJSON, this, this.newPackageComparer());
+    newRepositoriesFromJSON(repositoryConfigJSONs:IList<IJSONObject>, packageSets:IPackageSets):IRepositories {
+        return this.newRepositories(repositoryConfigJSONs.map(r=>new RepositoryConfig(r)), packageSets);
+    }
+
+    newPackage(packageConfig:IPackageConfig):IPackage{
+        return new Package(
+            packageConfig,
+            this,
+            this.newPackageComparer(),
+            this.collections
+        );
     }
 
     newPackageComparer():PackageComparer {
@@ -88,12 +98,16 @@ export default class Packaging implements IPackaging {
         return new SemanticVersion(versionString);
     }
 
-    newPackageSet(packageSetConfig:IJSONObject, packageSets:IPackageSets):IPackageSet {
+    newPackageSet(packageSetConfig:IPackageSetConfig, packageSets:IPackageSets):IPackageSet {
         return new PackageSet(packageSetConfig, this, packageSets);
     }
     
-    newPackageSets(listOfPackageSetConfigJSONs:IList<IJSONObject>):IPackageSets {
-        return new PackageSets(listOfPackageSetConfigJSONs, this);
+    newPackageSets(packageSetConfigs:IList<IPackageSetConfig>):IPackageSets {
+        return new PackageSets(packageSetConfigs, this);
+    }
+
+    newPackageSetsFromJSON(packageSetJSONs:IList<IJSONObject>):IPackageSets {
+        return this.newPackageSets(packageSetJSONs.map(p=>new PackageSetConfig(p)));
     }
 
     newPackageFromLiterals(name:string, version:string, promotionLevel:string, operatingSystems:IList<string>, tags:IList<string>):IPackage {
@@ -107,8 +121,13 @@ export default class Packaging implements IPackaging {
         );
     }
 
-    newPackageSetRef(configJSON:IJSONObject, packageSets:IPackageSets):IPackageSet {
-        return new PackageSetReference(configJSON, this, packageSets);
+    newPackageSetRef(packageSetRefConfig:IPackageSetRefConfig, packageSets:IPackageSets):IPackageSet {
+        return new PackageSetReference(
+            packageSetRefConfig,
+            this,
+            packageSets,
+            this.collections
+        );
     }
     
     newPackageWithOverrides(original:IPackage, operatingSystemsOverride:IList<string>, promotionLevelOverride:IPromotionLevel, tagsOverride:IList<string>):IPackage {
@@ -121,23 +140,24 @@ export default class Packaging implements IPackaging {
         );
     }
 
-    newListOfPackagesFromJSONListOfPackageAndPackageSetRefs(listOfPackageAndPackageSetRefJSONs:IList<IJSONObject>, packageSets:IPackageSets):IList<IPackage> {
-        return listOfPackageAndPackageSetRefJSONs.flatMap(
-            packageJSON => packageJSON.hasPropertyNamed('packageSetRef')
-                ? this.newPackageSetRef(packageJSON, packageSets).packages
-                : this.collections.newList([this.newPackage(packageJSON)])
-        );
+    newListOfPackagesFromJSONListOfPackageAndPackageSetRefs(listOfPackageConfigs:Array<IPackageConfig | IPackageSetRefConfig>, packageSets:IPackageSets):IList<IPackage> {
+        return this.collections.newList<IPackageConfig | IPackageSetRefConfig>(listOfPackageConfigs)
+            .flatMap(
+                packageConfig => (<IPackageSetRefConfig> packageConfig).packageSetRef
+                    ? this.newPackageSetRef((<IPackageSetRefConfig> packageConfig), packageSets).packages
+                    : this.collections.newList([this.newPackage(<IPackageConfig> packageConfig)])
+            );
     }
 
     get defaultPackageSets():IPackageSets {
         return this.newPackageSets(
-            this.configJSON.listOfJSONObjectsNamed('packageSets')
+            this.collections.newList(this.packagingConfig.packageSets)
         );
     }
 
     get defaultRepositories():IRepositories {
         return this.newRepositories(
-            this.configJSON.listOfJSONObjectsNamed('repositories'),
+            this.collections.newList<IRepositoryConfig>(this.packagingConfig.repositories),
             this.defaultPackageSets
         );
     }

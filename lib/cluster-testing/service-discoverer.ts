@@ -1,13 +1,13 @@
-import IClusterUnderTest from "./i-cluster-under-test";
-import IVersioning from "../versioning/i-versioning";
-import IThenable from "../promise/i-thenable";
-import INodeUnderTest from "./i-node-under-test";
-import IList from "../collections/i-list";
-import IPromiseFactory from "../promise/i-promise-factory";
-import IInstallerServices from "../installer/i-installer-services";
-import IErrors from "../errors/i-errors";
+import {IClusterUnderTest} from "./i-cluster-under-test";
+import {IVersioning} from "../versioning/i-versioning";
+import {IFuture} from "../promise/i-future";
+import {INodeUnderTest} from "./i-node-under-test";
+import {IList} from "../collections/i-list";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IErrors} from "../errors/i-errors";
+import {IServiceDiscoverer} from "./i-service-discoverer";
 
-export default class ServiceDiscoverer {
+export class ServiceDiscoverer implements IServiceDiscoverer {
     private versioning:IVersioning;
     private promiseFactory:IPromiseFactory;
     private errors:IErrors;
@@ -18,14 +18,14 @@ export default class ServiceDiscoverer {
         this.errors = errors;
     }
 
-    nodesHostingServiceViaDiscovery(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INodeUnderTest>> {
+    nodesHostingServiceViaDiscovery(clusterUnderTest:IClusterUnderTest, serviceName:string):IFuture<IList<INodeUnderTest>> {
         const possibleHostNodes = clusterUnderTest.nodesHosting(serviceName);
         return possibleHostNodes.isEmpty
             ? this.nodesHostingServiceAccordingToInstaller(clusterUnderTest, serviceName)
             : this.promiseFactory.newPromiseForImmediateValue(possibleHostNodes);
     }
 
-    nodesHostingServiceAccordingToInstaller(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<IList<INodeUnderTest>> {
+    nodesHostingServiceAccordingToInstaller(clusterUnderTest:IClusterUnderTest, serviceName:string):IFuture<IList<INodeUnderTest>> {
         throw new Error('need services and versions for release test context');
         // try {
         //     const desiredVersion = this.versioning.serviceSet().firstWhere(s=>s.name==serviceName).version;
@@ -46,16 +46,16 @@ export default class ServiceDiscoverer {
         // }
     }
 
-    nodeHostingServiceViaDiscover(clusterUnderTest:IClusterUnderTest, serviceName:string):IThenable<INodeUnderTest> {
+    nodeHostingServiceViaDiscover(clusterUnderTest:IClusterUnderTest, serviceName:string):IFuture<INodeUnderTest> {
         return this.nodesHostingServiceViaDiscovery(clusterUnderTest, serviceName)
             .then(possibleNodes=>{
-                return possibleNodes.first();
+                return possibleNodes.first;
                 // if(possibleNodes.hasMany)
                 //     // throw this.errors.newErrorWithJSONDetails(
                 //     //     `Ambiguous request to discover node hosting service "${serviceName}"`,
                 //     //     possibleNodes.toJSON()
                 //     // );
-                // else return possibleNodes.first();
+                // else return possibleNodes.first;
             });
     }
 }

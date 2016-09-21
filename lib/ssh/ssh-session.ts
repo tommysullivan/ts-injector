@@ -1,18 +1,18 @@
-import IList from "../collections/i-list";
-import ISSHSession from "./i-ssh-session";
-import IThenable from "../promise/i-thenable";
-import IPromiseFactory from "../promise/i-promise-factory";
-import INodeWrapperFactory from "../node-js-wrappers/i-node-wrapper-factory";
-import ICollections from "../collections/i-collections";
-import ISSHResult from "./i-ssh-result";
-import ISSHError from "./i-ssh-error";
-import ISSHAPI from "./i-ssh-api";
-import IFileSystem from "../node-js-wrappers/i-filesystem";
-import IUUIDGenerator from "../uuid/i-uuid-generator";
-import IPath from "../node-js-wrappers/i-path";
-import IErrors from "../errors/i-errors";
+import {IList} from "../collections/i-list";
+import {ISSHSession} from "./i-ssh-session";
+import {IFuture} from "../promise/i-future";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
+import {ICollections} from "../collections/i-collections";
+import {ISSHResult} from "./i-ssh-result";
+import {ISSHError} from "./i-ssh-error";
+import {ISSHAPI} from "./i-ssh-api";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {IUUIDGenerator} from "../uuid/i-uuid-generator";
+import {IPath} from "../node-js-wrappers/i-path";
+import {IErrors} from "../errors/i-errors";
 
-export default class SSHSession implements ISSHSession {
+export class SSHSession implements ISSHSession {
 
     constructor(
         private nodemiralSession:any,
@@ -32,17 +32,18 @@ export default class SSHSession implements ISSHSession {
         private errors:IErrors
     ) {}
 
-    executeCommands(commands:IList<string>):IThenable<IList<ISSHResult>> {
+    executeCommands(...commands:Array<string>):IFuture<IList<ISSHResult>> {
+        const commandList = this.collections.newList(commands);
         return this.promiseFactory.newPromise((resolve, reject) => {
             const results = this.collections.newEmptyList<ISSHResult>();
             const executeNextCommand:(commandsToExecute:IList<string>) => void = commandsToExecute => {
-                const commandToExecute = commandsToExecute.first();
-                const remainingCommands = commandsToExecute.rest();
+                const commandToExecute = commandsToExecute.first;
+                const remainingCommands = commandsToExecute.rest;
                 if(commandToExecute==null) return reject(new Error('Attempted to execute null command'));
                 this.executeCommand(commandToExecute)
                     .then(result => {
                         results.push(result);
-                        remainingCommands.notEmpty()
+                        remainingCommands.notEmpty
                             ? executeNextCommand(remainingCommands)
                             : resolve(results);
                     })
@@ -51,18 +52,18 @@ export default class SSHSession implements ISSHSession {
                         reject(this.api.newSSHMultiCommandError(results));
                     });
             };
-            executeNextCommand(commands.map(i=>i));
+            executeNextCommand(commandList.map(i=>i));
         });
     }
 
-    executeCommand(command:string):IThenable<ISSHResult> {
+    executeCommand(command:string):IFuture<ISSHResult> {
         if(this.writeCommandsToStdout) console.log(command);
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.nodemiralSession.onError(error=>{
                 reject(this.api.newSSHError(error, null));
             });
             this.nodemiralSession.execute(command, (err:string, code:number, logs:any) => {
-                const processResult = this.nodeWrapperFactory.newProcessResult(
+                const processResult = this.nodeWrapperFactory.newProcessResultForSeparateStdAndErrorStreams(
                     command,
                     code,
                     this.collections.newList<string>(logs.stdout.split("\n")),
@@ -77,35 +78,24 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
-    executeCommandWithRetryTimeout(command:string, timeout:number, maxTryCount:number):IThenable<ISSHResult> {
-        const returnedPromise = this.promiseFactory.newPromise((resolve, reject) => {
-            this.nodemiralSession.onError(error=> {
-                reject(this.api.newSSHError(error, null));
-            });
-            setTimeout(() => this.nodemiralSession.execute(command, (err:string, code:number, logs:any) => {
-                if (this.writeCommandsToStdout) console.log(command);
-                const processResult = this.nodeWrapperFactory.newProcessResult(
-                    command,
-                    code,
-                    this.collections.newList<string>(logs.stdout.split("\n")),
-                    this.collections.newList<string>(logs.stderr.split("\n")),
-                    err
-                );
-                const result = this.api.newSSHResult(this.host, processResult);
-                if (err) reject(this.api.newSSHError(err, result));
-                else if (code != 0) reject(this.api.newSSHError(`Process exited with nonzero exit code: ${code}`, result));
-                else resolve(result);
-            }), timeout);
-        }).catch(error => {
-            if (maxTryCount <= 0) {
-                throw error;
-            }
-            return this.executeCommandWithRetryTimeout(command, timeout, maxTryCount - 1);
-        });
-        return returnedPromise;
+    executeCommandWithRetryTimeout(command:string, timeout:number, maxTryCount:number):IFuture<ISSHResult> {
+        return this.executeCommandWithRetryTimeoutInternal(command, timeout, maxTryCount, maxTryCount);
     }
 
-    upload(localPath:string, remotePath:string):IThenable<any> {
+    private executeCommandWithRetryTimeoutInternal(command:string, timeout:number, maxTryCount:number, originalMaxTryCount:number):IFuture<ISSHResult> {
+        return this.executeCommand(command)
+            .catch(error=>{
+                if(maxTryCount==0) throw new Error(
+                    `SSH command error after ${originalMaxTryCount} timeouts of ${timeout} milliseconds. Error: ${error.toSstring()}`
+                );
+                return this.promiseFactory.delayedPromise(
+                    timeout,
+                    () => this.executeCommandWithRetryTimeoutInternal(command, timeout, maxTryCount - 1, originalMaxTryCount)
+                );
+            });
+    }
+
+    upload(localPath:string, remotePath:string):IFuture<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.scp2Module.scp(localPath, {path:remotePath}, this.newKeyboardInteractiveClient(), function(err) {
                 if(err) reject(err);
@@ -114,7 +104,7 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
-    download(remotePath:string, localPath:string):IThenable<any> {
+    download(remotePath:string, localPath:string):IFuture<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             const options = {
                 host: this.host,
@@ -134,9 +124,8 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
-    private writeGeneral(content:Object, destinationPath:string):IThenable<any> {
+    private writeGeneral(content:Object, destinationPath:string):IFuture<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
-            console.log(`writing content to "${destinationPath}"`, content);
             this.newKeyboardInteractiveClient().write({
                 destination: destinationPath,
                 content: content
@@ -147,28 +136,28 @@ export default class SSHSession implements ISSHSession {
         });
     }
 
-    write(fileContent:string, destinationPath:string):IThenable<any> {
+    write(fileContent:string, destinationPath:string):IFuture<any> {
         return this.writeGeneral(
             this.nodeWrapperFactory.newStringBuffer(fileContent),
             destinationPath
         );
     }
 
-    writeAsBinary(fileContent:ArrayBuffer, destinationPath:string):IThenable<any> {
+    writeAsBinary(fileContent:ArrayBuffer, destinationPath:string):IFuture<any> {
         return this.writeGeneral(
             fileContent,
             destinationPath
         );
     }
 
-    read(remotePath:string):IThenable<string> {
+    read(remotePath:string):IFuture<string> {
         return this.readAsBinary(remotePath).then(data => {
             console.log(data.toString);
             return data.toString()
         });
     }
 
-    readAsBinary(remotePath:string):IThenable<ArrayBuffer> {
+    readAsBinary(remotePath:string):IFuture<ArrayBuffer> {
         const localPath = this.path.join(this.temporaryStorageLocation, this.uuidGenerator.v4());
         return this.download(remotePath, localPath)
             .then(_ => this.fileSystem.readFileAsBinary(localPath))

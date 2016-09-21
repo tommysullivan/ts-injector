@@ -1,40 +1,40 @@
-import IPackage from "./i-package";
-import IJSONObject from "../typed-json/i-json-object";
-import IPackaging from "./i-packaging";
-import ISemanticVersion from "./i-semantic-version";
-import IPromotionLevel from "./i-promotion-level";
-import IList from "../collections/i-list";
-import PackageComparer from "./package-comparer";
+import {IPackage} from "./i-package";
+import {IPackaging} from "./i-packaging";
+import {ISemanticVersion} from "./i-semantic-version";
+import {IPromotionLevel} from "./i-promotion-level";
+import {IList} from "../collections/i-list";
+import {PackageComparer} from "./package-comparer";
+import {IPackageConfig} from "./i-package-config";
+import {ICollections} from "../collections/i-collections";
 
-export default class Package implements IPackage {
-    private configJSON:IJSONObject;
-    private packaging:IPackaging;
-    private packageComparer:PackageComparer;
-
-    constructor(configJSON:IJSONObject, packaging:IPackaging, packageComparer:PackageComparer) {
-        this.configJSON = configJSON;
-        this.packaging = packaging;
-        this.packageComparer = packageComparer;
-    }
+export class Package implements IPackage {
+    constructor(
+        private packageConfig:IPackageConfig,
+        private packaging:IPackaging,
+        private packageComparer:PackageComparer,
+        private collections:ICollections
+    ) {}
 
     get name():string {
-        return this.configJSON.hasPropertyNamed('name')
-            ? this.configJSON.stringPropertyNamed('name')
-            : this.configJSON.stringPropertyNamed('package');
+        return this.packageConfig.name
+            ? this.packageConfig.name
+            : this.packageConfig.package;
     }
 
     get version():ISemanticVersion {
-        return this.packaging.newSemanticVersion(this.configJSON.stringPropertyNamed('version'));
+        return this.packaging.newSemanticVersion(this.packageConfig.version);
     }
 
     get promotionLevel():IPromotionLevel {
         return this.packaging.newPromotionLevel(
-            this.configJSON.stringPropertyNamed('promotionLevel')
+            this.packageConfig.promotionLevel
         );
     }
 
     get supportedOperatingSystems():IList<string> {
-        return this.configJSON.listNamed<string>('operatingSystems');
+        return this.collections.newList<string>(
+            this.packageConfig.operatingSystems
+        );
     }
 
     equals(other:IPackage):boolean {
@@ -42,6 +42,8 @@ export default class Package implements IPackage {
     }
 
     get tags():IList<string> {
-        return this.configJSON.listNamedOrDefaultToEmpty<string>('tags');
+        return this.collections.newList(
+            this.packageConfig.tags || []
+        );
     }
 }

@@ -1,20 +1,13 @@
-import IOperatingSystem from "./i-operating-system";
-import IJSONObject from "../typed-json/i-json-object";
-import IPackageManager from "../packaging/i-package-manager";
+import {IOperatingSystem} from "./i-operating-system";
+import {IOperatingSystemConfig} from "./i-operating-system-config";
 
-export default class OperatingSystem implements IOperatingSystem {
-    private configJSON:IJSONObject;
-    private _packageManager:IPackageManager;
-    private _systemInfoCommand:string;
+export class OperatingSystem implements IOperatingSystem {
+    constructor(
+        private config:IOperatingSystemConfig,
+        private _systemInfoCommand:string
+    ) {}
 
-    constructor(configJSON:IJSONObject, packageManager:IPackageManager, systemInfoCommand:string) {
-        this.configJSON = configJSON;
-        this._packageManager = packageManager;
-        this._systemInfoCommand = systemInfoCommand;
-    }
-
-    get name():string { return this.configJSON.stringPropertyNamed('name'); }
-    get version():string { return this.configJSON.stringPropertyNamed('version'); }
-    get packageManager():IPackageManager { return this._packageManager; }
+    get name():string { return this.config.name; }
+    get version():string { return this.config.version; }
     get systemInfoCommand():string { return this._systemInfoCommand; }
 }

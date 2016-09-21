@@ -1,7 +1,5 @@
-import IRepository from "./i-repository";
+import {IRepository} from "./i-repository";
 
-interface IConfigFileContent {
+export interface IConfigFileContent {
     clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string, tagName:string):string;
 }
-
-export default IConfigFileContent;

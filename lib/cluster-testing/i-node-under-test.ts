@@ -1,42 +1,39 @@
-import IThenable from "../promise/i-thenable";
-import IList from "../collections/i-list";
-import INodeVersionGraph from "./../versioning/i-node-version-graph";
-import ISSHResult from "../ssh/i-ssh-result";
-import ISSHSession from "../ssh/i-ssh-session";
-import MCSRestSession from "../mcs/mcs-rest-session";
-import IInstallerRestSession from "../installer/i-installer-rest-session";
-import OpenTSDBRestClient from "../open-tsdb/open-tsdb-rest-client";
-import ElasticSearchRestClient from "../elasticsearch/elasticsearch-rest-client";
-import IRepository from "../packaging/i-repository";
-import IPackageManager from "../packaging/i-package-manager";
-import IOperatingSystem from "../operating-systems/i-operating-system";
-import IPackage from "../packaging/i-package";
+import {IFuture} from "../promise/i-future";
+import {IList} from "../collections/i-list";
+import {INodeVersionGraph} from "./../versioning/i-node-version-graph";
+import {ISSHResult} from "../ssh/i-ssh-result";
+import {ISSHSession} from "../ssh/i-ssh-session";
+import {IInstallerRestSession} from "../installer/i-installer-rest-session";
+import {IPackageManager} from "../packaging/i-package-manager";
+import {IOperatingSystem} from "../operating-systems/i-operating-system";
+import {IPackage} from "../packaging/i-package";
+import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
+import {IOpenTSDBRestClient} from "../open-tsdb/i-open-tsdb-rest-client";
+import {IElasticsearchRestClient} from "../elasticsearch/i-elasticsearch-rest-client";
 
-interface INodeUnderTest {
+export interface INodeUnderTest {
     host:string;
-    newSSHSession():IThenable<ISSHSession>
-    verifyMapRNotInstalled():IThenable<ISSHResult>;
-    verifyMapRIsInstalled():IThenable<ISSHResult>;
+    newSSHSession():IFuture<ISSHSession>
+    verifyMapRNotInstalled():IFuture<ISSHResult>;
+    verifyMapRIsInstalled():IFuture<ISSHResult>;
     isHostingService(serviceName:string):boolean;
     serviceNames:IList<string>;
-    newAuthedMCSSession():IThenable<MCSRestSession>;
-    newAuthedInstallerSession():IThenable<IInstallerRestSession>;
-    newOpenTSDBRestClient():OpenTSDBRestClient;
-    newElasticSearchClient():ElasticSearchRestClient;
-    executeShellCommands(shellCommands:IList<string>):IThenable<IList<ISSHResult>>;
-    executeShellCommand(shellCommand:string):IThenable<ISSHResult>;
-    versionGraph():IThenable<INodeVersionGraph>;
-    hostNameAccordingToNode:IThenable<string>;
+    newAuthedMCSSession():IFuture<IMCSRestSession>;
+    newAuthedInstallerSession():IFuture<IInstallerRestSession>;
+    newOpenTSDBRestClient():IOpenTSDBRestClient;
+    newElasticSearchClient():IElasticsearchRestClient;
+    executeShellCommands(...shellCommands:Array<string>):IFuture<IList<ISSHResult>>;
+    executeShellCommand(shellCommand:string):IFuture<ISSHResult>;
+    versionGraph():IFuture<INodeVersionGraph>;
+    hostNameAccordingToNode:IFuture<string>;
     packageManager:IPackageManager;
-    upload(localPath:string, remotePath:string):IThenable<ISSHResult>;
-    write(content:string, remotePath:string):IThenable<ISSHResult>;
-    download(remotePath:string, localPath:string):IThenable<ISSHResult>;
+    upload(localPath:string, remotePath:string):IFuture<ISSHResult>;
+    write(content:string, remotePath:string):IFuture<ISSHResult>;
+    download(remotePath:string, localPath:string):IFuture<ISSHResult>;
     operatingSystem:IOperatingSystem;
     packages:IList<IPackage>;
-    executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IThenable<ISSHResult>;
-    writeBinaryData(content:ArrayBuffer, remotePath:string):IThenable<ISSHResult>;
-    read(remotePath:string):IThenable<string>;
-    readAsBinary(remotePath:string):IThenable<ArrayBuffer>;
+    executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IFuture<ISSHResult>;
+    writeBinaryData(content:ArrayBuffer, remotePath:string):IFuture<ISSHResult>;
+    read(remotePath:string):IFuture<string>;
+    readAsBinary(remotePath:string):IFuture<ArrayBuffer>;
 }
-
-export default INodeUnderTest;

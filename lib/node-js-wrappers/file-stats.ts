@@ -1,6 +1,6 @@
-import IFileStats from "./i-file-stats";
+import {IFileStats} from "./i-file-stats";
 
-export default class FileStats implements IFileStats {
+export class FileStats implements IFileStats {
     private nativeFileStats:any;
 
     constructor(nativeFileStats:any) {

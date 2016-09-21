@@ -1,11 +1,12 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../framework/framework";
+import {Framework} from "../framework/framework";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
+
 declare const $:Framework;
 declare const module:any;
 
 @steps()
-export default class SCPSteps {
+export class SCPSteps {
 
     @when(/^I scp "([^"]*)" to "([^"]*)" at path "([^"]*)"$/)
     scpToRemoteHost(sourceFilePath, destinationHost, destinationFilePath):PromisedAssertion {

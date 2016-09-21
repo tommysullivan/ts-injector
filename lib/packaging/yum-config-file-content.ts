@@ -1,7 +1,7 @@
-import IRepository from "./i-repository";
-import IConfigFileContent from "./i-config-file-content";
+import {IRepository} from "./i-repository";
+import {IConfigFileContent} from "./i-config-file-content";
 
-export default class YumConfigFileContent implements IConfigFileContent {
+export class YumConfigFileContent implements IConfigFileContent {
     clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string, tagName:string):string {
         return [
             `[${descriptiveName}]`,

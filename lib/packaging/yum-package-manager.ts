@@ -1,9 +1,9 @@
-import IList from "../collections/i-list";
-import IPackageManager from "./i-package-manager";
-import IRepository from "./i-repository";
-import IConfigFileContent from "./i-config-file-content";
+import {IList} from "../collections/i-list";
+import {IPackageManager} from "./i-package-manager";
+import {IRepository} from "./i-repository";
+import {IConfigFileContent} from "./i-config-file-content";
 
-export default class YumPackageManager implements IPackageManager {
+export class YumPackageManager implements IPackageManager {
 
     private configFileContent:IConfigFileContent;
 

@@ -1,19 +1,17 @@
-import IList from "../collections/i-list";
-import IJSONObject from "../typed-json/i-json-object";
-import MCS from "./mcs";
-import MCSServiceInfo from "./mcs-service-info";
+import {IList} from "../collections/i-list";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IMCSDashboardInfo} from "./i-mcs-dashboard-info";
+import {IMCS} from "./i-mcs";
+import {IMCSServiceInfo} from "./i-mcs-service-info";
 
-export default class MCSDashboardInfo {
-    private dashboardInfoJSONObject:IJSONObject;
-    private mcs:MCS;
+export class MCSDashboardInfo implements IMCSDashboardInfo {
+    constructor(
+        private dashboardInfoJSONObject:IJSONObject,
+        private mcs:IMCS
+    ) {}
 
-    constructor(dashboardInfoJSONObject:IJSONObject, mcs:MCS) {
-        this.dashboardInfoJSONObject = dashboardInfoJSONObject;
-        this.mcs = mcs;
-    }
-
-    services():IList<MCSServiceInfo> {
-        const dataJSONObject = this.dashboardInfoJSONObject.listOfJSONObjectsNamed('data').first();
+    get services():IList<IMCSServiceInfo> {
+        const dataJSONObject = this.dashboardInfoJSONObject.listOfJSONObjectsNamed('data').first;
         const servicesDictionary = dataJSONObject.dictionaryNamed('services');
         return servicesDictionary.keys.map(serviceName=>this.mcs.newMCSServiceInfo(
             serviceName,
@@ -21,6 +19,6 @@ export default class MCSDashboardInfo {
         ));
     }
 
-    toJSON():any { return this.dashboardInfoJSONObject.toRawJSON(); }
+    toJSON():any { return this.dashboardInfoJSONObject.toJSON(); }
     toString():string { return this.dashboardInfoJSONObject.toString(); }
 }

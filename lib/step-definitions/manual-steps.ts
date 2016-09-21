@@ -1,10 +1,10 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import Framework from "../framework/framework";
+import {Framework} from "../framework/framework";
 declare const $:Framework;
 declare const module:any;
 
 @steps()
-export default class ManualSteps {
+export class ManualSteps {
     @given(/^I the local destination file already exists$/)
     @given(/^I am viewing a test result in test portal$/)
     @given(/^it updates tagged JIRA issues with test result statuses$/)
@@ -59,6 +59,9 @@ export default class ManualSteps {
     @given(/^I indicate I want a basic installation with Spyglass components and their dependencies only$/)
     @given(/^I have determined the grafana server and port for that cluster$/)
     @given(/^the GUI Installer web server is running$/)
+    @given(/^I have a manual scenario$/)
+    @when(/^I view it in the portal$/)
+    @then(/^it works as described in the portal requirements and tests$/)
     manualStep0():void {}
 
     @when(/^I click "([^"]*)"$/)
@@ -79,5 +82,6 @@ export default class ManualSteps {
 
     @given(/^the view updates to only show features \/ scenarios tagged with either @tag(\d+) or @tag(\d+)$/)
     manualStep2(arg1:any, arg2:any):void {}
+
 }
 module.exports = ManualSteps;

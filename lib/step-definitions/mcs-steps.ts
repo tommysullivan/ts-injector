@@ -1,18 +1,19 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import Framework from "../framework/framework";
-import MCSRestSession from "../mcs/mcs-rest-session";
-import MCSDashboardInfo from "../mcs/mcs-dashboard-info";
-import IList from "../collections/i-list";
+import {Framework} from "../framework/framework";
+import {MCSRestSession} from "../mcs/mcs-rest-session";
+import {MCSDashboardInfo} from "../mcs/mcs-dashboard-info";
+import {IList} from "../collections/i-list";
+import {IMCSDashboardInfo} from "../mcs/i-mcs-dashboard-info";
+import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
 
 declare const $:Framework;
 declare const module:any;
 
 @steps()
-export default class MCSSteps {
-    private mcsSession:MCSRestSession;
-    private dashboardInfo:MCSDashboardInfo;
-    private unhealthySpyglassServices:IList<string>;
+export class MCSSteps {
+    private mcsSession:IMCSRestSession;
+    private dashboardInfo:IMCSDashboardInfo;
     private appLinks:IList<string>;
 
     private throwError(e):void {
@@ -28,7 +29,7 @@ export default class MCSSteps {
 
     @given(/^I use the MCS Rest Client Session to retrieve dashboardInfo$/)
     retrieveDashboardInfo():PromisedAssertion {
-        const futureDashboardInfo = this.mcsSession.dashboardInfo()
+        const futureDashboardInfo = this.mcsSession.dashboardInfo
             .then(dashboardInfo => this.dashboardInfo = dashboardInfo);
         return $.expect(futureDashboardInfo).to.eventually.not.be.null;
     }
@@ -65,12 +66,12 @@ export default class MCSSteps {
     verifyAllHealthCheckableServicesAreReportingHealthy():PromisedAssertion {
         const healthCheckableServiceNames = $.packaging.defaultPackageSets.all.firstWhere(ps=>ps.id=='healthCheckable').packages.map(p=>p.name);
         const futureUnhealthyServices = $.clusterUnderTest.newAuthedMCSSession()
-            .then(mcsSession=>mcsSession.dashboardInfo())
+            .then(mcsSession=>mcsSession.dashboardInfo)
             .then((dashboardInfo:MCSDashboardInfo)=>{
                 const unhealthyOrAbsentServices = healthCheckableServiceNames.filter(healthCheckableServiceName=>{
-                    const matchingServiceInMCS = dashboardInfo.services().firstWhere(
+                    const matchingServiceInMCS = dashboardInfo.services.firstOrThrow(
                         mcsService=>`mapr-${mcsService.name}`==healthCheckableServiceName,
-                        `MCS service named ${healthCheckableServiceName} was not found`
+                        () => new Error(`MCS service named ${healthCheckableServiceName} was not found`)
                     );
                     return !matchingServiceInMCS.isHealthy;
                 });

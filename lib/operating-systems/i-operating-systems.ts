@@ -1,8 +1,6 @@
-import IOperatingSystem from "./i-operating-system";
-import IJSONObject from "../typed-json/i-json-object";
+import {IOperatingSystem} from "./i-operating-system";
+import {IOperatingSystemConfig} from "./i-operating-system-config";
 
-interface IOperatingSystems {
-    newOperatingSystemFromConfig(configJSON:IJSONObject):IOperatingSystem;
+export interface IOperatingSystems {
+    newOperatingSystemFromConfig(config:IOperatingSystemConfig):IOperatingSystem;
 }
-
-export default IOperatingSystems;

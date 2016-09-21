@@ -1,11 +1,15 @@
-import IPromiseFactory from "../promise/i-promise-factory";
-import RestResponse from "./rest-response";
-import RestConfiguration from "./rest-configuration";
-import RestClientAsPromised from "./rest-client-as-promised";
-import RestError from "./rest-error";
-import ITypedJSON from "../typed-json/i-typed-json";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {RestResponse} from "./rest-response";
+import {RestConfiguration} from "./rest-configuration";
+import {RestClientAsPromised} from "./rest-client-as-promised";
+import {RestError} from "./rest-error";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IRest} from "./i-rest";
+import {IRestClientAsPromised} from "./i-rest-client-as-promised";
+import {IRestResponse} from "./i-rest-response";
+import {IError} from "../errors/i-error";
 
-export default class Rest {
+export class Rest implements IRest {
     private promiseFactory:IPromiseFactory;
     private requestModule:any;
     private restConfiguration:RestConfiguration;
@@ -18,7 +22,7 @@ export default class Rest {
         this.typedJSON = typedJSON;
     }
 
-    newRestClientAsPromised(baseURL?:string):RestClientAsPromised {
+    newRestClientAsPromised(baseURL?:string):IRestClientAsPromised {
         return new RestClientAsPromised(
             this.promiseFactory,
             this.newJSONRequestorWithCookies(),
@@ -41,11 +45,11 @@ export default class Rest {
         });
     }
 
-    newRestResponse(error:any, nativeResponse:any, originalURL:string):RestResponse {
+    newRestResponse(error:any, nativeResponse:any, originalURL:string):IRestResponse {
         return new RestResponse(error, nativeResponse, originalURL, this.typedJSON);
     }
 
-    newRestError(restResponse:RestResponse):RestError {
+    newRestError(restResponse:RestResponse):IError {
         return new RestError(restResponse);
     }
 }

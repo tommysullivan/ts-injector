@@ -1,8 +1,8 @@
-import IDictionary from "./i-dictionary";
-import ICollections from "./i-collections";
-import IList from "./i-list";
+import {IDictionary} from "./i-dictionary";
+import {ICollections} from "./i-collections";
+import {IList} from "./i-list";
 
-export default class Dictionary<ValueType> implements IDictionary<ValueType> {
+export class Dictionary<ValueType> implements IDictionary<ValueType> {
     private hash:any;
     private collections:ICollections;
 
@@ -37,7 +37,7 @@ export default class Dictionary<ValueType> implements IDictionary<ValueType> {
         return JSON.parse(JSON.stringify(this.hash));
     }
 
-    toJSONString():string {
+    toString():string {
         return JSON.stringify(this.toJSON(), null, 3);
     }
 

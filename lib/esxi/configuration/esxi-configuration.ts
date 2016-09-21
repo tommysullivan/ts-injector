@@ -1,16 +1,21 @@
-import IList from "../../collections/i-list";
-import IESXIServerConfiguration from "./i-esxi-server-configuration";
-import IJSONObject from "../../typed-json/i-json-object";
-import ESXIServerConfiguration from "./esxi-server-configuration";
+import {IESXIServerConfiguration} from "./i-esxi-server-configuration";
+import {IJSONObject} from "../../typed-json/i-json-object";
+import {ESXIServerConfiguration} from "./esxi-server-configuration";
+import {IESXIConfiguration} from "./i-esxi-configuration";
 
-export default class ESXIConfiguration {
-    private configJSON:IJSONObject;
+export class ESXIConfiguration implements IESXIConfiguration {
+    constructor(
+        private configJSON:IJSONObject
+    ) {}
 
-    constructor(configJSON:IJSONObject) {
-        this.configJSON = configJSON;
+    get servers():Array<IESXIServerConfiguration> {
+        return this.configJSON
+            .listOfJSONObjectsNamed('servers')
+            .map(c=>new ESXIServerConfiguration(c))
+            .toArray();
     }
 
-    get servers():IList<IESXIServerConfiguration> {
-        return this.configJSON.listOfJSONObjectsNamed('servers').map(c=>new ESXIServerConfiguration(c));
+    toJSON():any {
+        return this.configJSON.toJSON();
     }
 }

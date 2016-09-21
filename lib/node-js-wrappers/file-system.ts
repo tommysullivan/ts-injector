@@ -1,17 +1,17 @@
-import IFileSystem from "./i-filesystem";
-import ITypedJSON from "../typed-json/i-typed-json";
-import IJSONObject from "../typed-json/i-json-object";
-import IList from "../collections/i-list";
-import ICollections from "../collections/i-collections";
-import IErrors from "../errors/i-errors";
-import INodeWrapperFactory from "./i-node-wrapper-factory";
-import IFileStream from "./i-file-stream";
-import IFileStats from "./i-file-stats";
-import FileStats from "./file-stats";
-import IThenable from "../promise/i-thenable";
-import IPromiseFactory from "../promise/i-promise-factory";
+import {IFileSystem} from "./i-filesystem";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IList} from "../collections/i-list";
+import {ICollections} from "../collections/i-collections";
+import {IErrors} from "../errors/i-errors";
+import {INodeWrapperFactory} from "./i-node-wrapper-factory";
+import {IFileStream} from "./i-file-stream";
+import {IFileStats} from "./i-file-stats";
+import {FileStats} from "./file-stats";
+import {IFuture} from "../promise/i-future";
+import {IPromiseFactory} from "../promise/i-promise-factory";
 
-export default class FileSystem implements IFileSystem {
+export class FileSystem implements IFileSystem {
     constructor(
         private fsModule:any,
         private typedJSON:ITypedJSON,
@@ -25,7 +25,7 @@ export default class FileSystem implements IFileSystem {
         return <string>this.fsModule.readFileSync(filePath);
     }
 
-    readFileAsBinary(filePath:string):IThenable<ArrayBuffer> {
+    readFileAsBinary(filePath:string):IFuture<ArrayBuffer> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.fsModule.readFile(filePath, (error, data) => {
                 if(error) reject(error);
@@ -34,7 +34,7 @@ export default class FileSystem implements IFileSystem {
         })
     }
 
-    readFile(filePath:string):IThenable<string> {
+    readFile(filePath:string):IFuture<string> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.fsModule.readFile(filePath, (error, data) => {
                 if(error) reject(error);
@@ -43,7 +43,7 @@ export default class FileSystem implements IFileSystem {
         })
     }
 
-    delete(filePath:string):IThenable<any> {
+    delete(filePath:string):IFuture<any> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             return this.fsModule.unlink(filePath, (error) => {
                 if(error) reject(error);
@@ -65,7 +65,7 @@ export default class FileSystem implements IFileSystem {
         return this;
     }
 
-    writeFile(filePath:string, content:string):IThenable<any>{
+    writeFile(filePath:string, content:string):IFuture<any>{
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.fsModule.writeFile(filePath, content, (error) => {
                 if (error) reject(error);
@@ -109,5 +109,9 @@ export default class FileSystem implements IFileSystem {
         const rawJSON = <Array<Object>>this.readJSONFileSync(filePath);
         if(!this.typedJSON.isArray(rawJSON)) this.throwWrongTypeError(filePath, 'array');
         return this.collections.newList<IJSONObject>(rawJSON.map(j=>this.typedJSON.newJSONObject(j)));
+    }
+
+    checkFileExistSync(filePath:string):boolean {
+        return this.fsModule.existsSync(filePath);
     }
 }

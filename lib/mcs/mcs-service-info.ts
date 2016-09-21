@@ -1,6 +1,7 @@
-import IJSONObject from "../typed-json/i-json-object";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IMCSServiceInfo} from "./i-mcs-service-info";
 
-export default class MCSServiceInfo {
+export class MCSServiceInfo implements IMCSServiceInfo {
     private _name:string;
     private statusJSON:IJSONObject;
 

@@ -1,46 +1,55 @@
-import IClusterUnderTest from "../cluster-testing/i-cluster-under-test";
-import IThenable from "../promise/i-thenable";
-import Clusters from "../clusters/clusters";
-import Cucumber from "../cucumber/cucumber";
-import IPromiseFactory from "../promise/i-promise-factory";
-import Rest from "../rest/rest";
-import ICollections from "../collections/i-collections";
-import IProcess from "../node-js-wrappers/i-process";
-import ClusterTesting from "../cluster-testing/cluster-testing";
-import Cli from "../cli/cli";
-import IList from "../collections/i-list";
-import INodeWrapperFactory from "../node-js-wrappers/i-node-wrapper-factory";
-import FrameworkConfiguration from "./framework-configuration";
-import ITypedJSON from "../typed-json/i-typed-json";
-import IErrors from "../errors/i-errors";
-import IFileSystem from "../node-js-wrappers/i-filesystem";
-import OpenTSDB from "../open-tsdb/open-tsdb";
-import ESXI from "../esxi/esxi";
-import ElasticSearch from "../elasticsearch/elasticsearch";
-import MCS from "../mcs/mcs";
-import Installer from "../installer/installer";
-import ISSHAPI from "../ssh/i-ssh-api";
-import IUUIDGenerator from "../uuid/i-uuid-generator";
-import ServiceDiscoverer from "../cluster-testing/service-discoverer";
-import Versioning from "../versioning/versioning";
-import IVersioning from "../versioning/i-versioning";
-import IConsole from "../node-js-wrappers/i-console";
-import ExpressWrappers from "../express-wrappers/express-wrappers";
-import Jira from "../jira/jira";
-import IOperatingSystems from "../operating-systems/i-operating-systems";
-import OperatingSystems from "../operating-systems/operating-systems";
-import IPackaging from "../packaging/i-packaging";
-import Packaging from "../packaging/packaging";
-import Grafana from "../grafana/grafana";
-import ICucumber from "../cucumber/i-cucumber";
-import Releasing from "../releasing/releasing";
-import IReleasing from "../releasing/i-releasing";
+import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
+import {IFuture} from "../promise/i-future";
+import {Clusters} from "../clusters/clusters";
+import {Cucumber} from "../cucumber/cucumber";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {ICollections} from "../collections/i-collections";
+import {IProcess} from "../node-js-wrappers/i-process";
+import {ClusterTesting} from "../cluster-testing/cluster-testing";
+import {Cli} from "../cli/cli";
+import {IList} from "../collections/i-list";
+import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
+import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IErrors} from "../errors/i-errors";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {OpenTSDB} from "../open-tsdb/open-tsdb";
+import {ESXI} from "../esxi/esxi";
+import {ElasticSearch} from "../elasticsearch/elasticsearch";
+import {MCS} from "../mcs/mcs";
+import {Installer} from "../installer/installer";
+import {ISSHAPI} from "../ssh/i-ssh-api";
+import {IUUIDGenerator} from "../uuid/i-uuid-generator";
+import {ServiceDiscoverer} from "../cluster-testing/service-discoverer";
+import {Versioning} from "../versioning/versioning";
+import {IVersioning} from "../versioning/i-versioning";
+import {IConsole} from "../node-js-wrappers/i-console";
+import {IOperatingSystems} from "../operating-systems/i-operating-systems";
+import {OperatingSystems} from "../operating-systems/operating-systems";
+import {IPackaging} from "../packaging/i-packaging";
+import {Packaging} from "../packaging/packaging";
+import {Grafana} from "../grafana/grafana";
+import {ICucumber} from "../cucumber/i-cucumber";
+import {Releasing} from "../releasing/releasing";
+import {IReleasing} from "../releasing/i-releasing";
 import {ChaiStatic} from "../chai/chai-static";
 import {Assertion} from "../chai/assertion";
+import {IFrameworkConfiguration} from "./i-framework-configuration";
+import {IOpenTSDB} from "../open-tsdb/i-open-tsdb";
+import {IESXI} from "../esxi/i-esxi";
+import {IClusters} from "../clusters/i-clusters";
+import {IGrafana} from "../grafana/i-grafana";
+import {IServiceDiscoverer} from "../cluster-testing/i-service-discoverer";
+import {IMCS} from "../mcs/i-mcs";
+import {IInstaller} from "../installer/i-installer";
+import {IElasticsearch} from "../elasticsearch/i-elasticsearch";
+import {IClusterTesting} from "../cluster-testing/i-cluster-testing";
+import {IFramework} from "./i-framework";
+import {IRest} from "../rest/i-rest";
+import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
 
-export default class Framework {
+export class Framework implements IFramework {
     constructor(
-        public frameworkConfig:FrameworkConfiguration,
+        public frameworkConfig:IFrameworkConfiguration,
         public process:IProcess,
         public fileSystem:IFileSystem,
         public uuidGenerator:IUUIDGenerator,
@@ -52,51 +61,77 @@ export default class Framework {
         public nodeWrapperFactory:INodeWrapperFactory,
         public chai:ChaiStatic,
         public console:IConsole,
-        public rest:Rest,
-        public expressWrappers:ExpressWrappers,
+        public rest:IRest,
         private _testRunGUID:string
     ) {}
     
-    get jira():Jira {
-        return new Jira(this.frameworkConfig.jiraConfig, this.rest);
-    }
-
     get testRunGUID():string {
         return this._testRunGUID;
     }
 
     get packaging():IPackaging {
         return new Packaging(
-            this.typedJSON,
-            this.frameworkConfig.packagingConfigJSON,
+            this.frameworkConfig.packaging,
             this.collections
         );
     }
 
-    get openTSDB():OpenTSDB { return new OpenTSDB(this.rest, this.frameworkConfig.openTSDBConfig, this.collections, this.typedJSON); }
-    get esxi():ESXI { return new ESXI(this.sshAPI, this.collections, this.frameworkConfig.esxiConfiguration); }
-    get clusters():Clusters { return new Clusters(this.frameworkConfig.clustersConfig, this.esxi, this.errors, this.operatingSystems); }
-    get operatingSystems():IOperatingSystems { return new OperatingSystems(this.packaging); }
-    get versioning():IVersioning { return new Versioning(); }
-    get releasing():IReleasing { return new Releasing(this.packaging, this.frameworkConfig.releasingConfig); }
+    get openTSDB():IOpenTSDB {
+        return new OpenTSDB(
+            this.rest,
+            this.frameworkConfig.openTSDB,
+            this.collections,
+            this.typedJSON
+        );
+    }
 
-    get grafana():Grafana {
+    get esxi():IESXI {
+        return new ESXI(
+            this.sshAPI,
+            this.collections,
+            this.frameworkConfig.esxi
+        );
+    }
+
+    get clusters():IClusters {
+        return new Clusters(
+            this.collections.newList(this.frameworkConfig.clusters),
+            this.errors,
+            this.esxi,
+            this.operatingSystems
+        );
+    }
+    get operatingSystems():IOperatingSystems {
+        return new OperatingSystems();
+    }
+
+    get versioning():IVersioning { return new Versioning(); }
+
+    get releasing():IReleasing {
+        return new Releasing(
+            this.packaging,
+            this.frameworkConfig.releasing,
+            this.collections
+        );
+    }
+
+    get grafana():IGrafana {
         return new Grafana(
-            this.frameworkConfig.grafanaConfig,
+            this.frameworkConfig.grafana,
             this.fileSystem,
             this.rest
         );
     }
 
-    get serviceDiscoverer():ServiceDiscoverer {
+    get serviceDiscoverer():IServiceDiscoverer {
         return new ServiceDiscoverer(this.versioning, this.promiseFactory, this.errors);
     }
 
-    get elasticSearch():ElasticSearch {
-        return new ElasticSearch(this.rest, this.frameworkConfig.elasticSearchConfiguration);
+    get elasticSearch():IElasticsearch {
+        return new ElasticSearch(this.rest, this.frameworkConfig.elasticsearch);
     }
 
-    get mcs():MCS {
+    get mcs():IMCS {
         return new MCS(
             this.frameworkConfig.mcs,
             this.rest,
@@ -105,17 +140,16 @@ export default class Framework {
         )
     }
 
-    get installer():Installer {
+    get installer():IInstaller {
         return new Installer(
             this.frameworkConfig.installerClient,
             this.rest,
             this.promiseFactory,
-            this.collections,
             this.typedJSON
         );
     }
 
-    get clusterTesting():ClusterTesting {
+    get clusterTesting():IClusterTesting {
         return new ClusterTesting(
             this.frameworkConfig.clusterTesting,
             this.promiseFactory,
@@ -138,7 +172,9 @@ export default class Framework {
             this.frameworkConfig,
             this.fileSystem,
             this.rest,
-            this.nodeWrapperFactory.path
+            this.nodeWrapperFactory.path,
+            this.typedJSON.newJSONSerializer(),
+            this.operatingSystems
         );
     }
 
@@ -147,12 +183,13 @@ export default class Framework {
             this.process,
             this.console,
             this.collections,
-            this.frameworkConfig.clusterTesting,
+            () => this.collections.newList<string>(this.frameworkConfig.clusterTesting.clusterIds),
             this.cucumber,
             this.clusters,
             this.clusterTesting,
-            this.frameworkConfig.cliConfig,
-            this.promiseFactory
+            this.frameworkConfig.cli,
+            this.promiseFactory,
+            this.fileSystem
         );
     }
 
@@ -161,7 +198,10 @@ export default class Framework {
             this.collections,
             this.fileSystem,
             this.frameworkConfig.cucumber,
-            this.errors
+            this.errors,
+            this.chai,
+            this.promiseFactory,
+            this.typedJSON.newJSONSerializer()
         );
     }
 
@@ -171,26 +211,20 @@ export default class Framework {
         );
         return this.clusterTesting.newClusterUnderTest(clusterConfig);
     }
-    
-    expect(target: any, message?: string):Assertion {
-        if(typeof(target['then'])=='function') {
-            const targetAsPromise:IThenable<any> = target;
-            const targetWithErrorMessageHelper = targetAsPromise
-                .catch(error=>{
-                    if(this.frameworkConfig.cucumber.embedAsyncErrorsInStepOutput)
-                        console.log(error.toJSON ? error.toJSON() : error.toString());
-                    throw error.toString();
-                });
-            return this.chai.expect(targetWithErrorMessageHelper);
-        } else return this.chai.expect(target, message);
+
+    private get expectationWrapper():IExpectationWrapper {
+        return this.cucumber.newExpectationWrapper();
     }
 
-    expectAll<T>(target:IList<IThenable<T>>):Assertion {
-        return this.expect(this.promiseFactory.newGroupPromise(target));
+    expect(target:any, message?:string):Assertion {
+        return this.expectationWrapper.expect(target, message);
+    }
+
+    expectAll<T>(target:IList<IFuture<T>>):Assertion {
+        return this.expectationWrapper.expectAll(target);
     }
 
     expectEmptyList<T>(list:IList<T>):void {
-        if(list.notEmpty())
-            throw new Error(`expected empty list, got ${list.toJSONString()}`);
+        return this.expectationWrapper.expectEmptyList(list);
     }
 }

@@ -1,7 +1,7 @@
-import ISSHResult from "./i-ssh-result";
-import ISSHError from "./i-ssh-error";
+import {ISSHResult} from "./i-ssh-result";
+import {ISSHError} from "./i-ssh-error";
 
-export default class SSHError implements ISSHError {
+export class SSHError implements ISSHError {
     private _sshResult:ISSHResult;
     private _message:string;
     private _stack:any;

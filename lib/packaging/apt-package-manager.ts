@@ -1,8 +1,8 @@
-import IList from "../collections/i-list";
-import IPackageManager from "./i-package-manager";
-import IRepository from "./i-repository";
+import {IList} from "../collections/i-list";
+import {IPackageManager} from "./i-package-manager";
+import {IRepository} from "./i-repository";
 
-export default class AptPackageManager implements IPackageManager {
+export class AptPackageManager implements IPackageManager {
 
     clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string, tagName:string):string {
         if (tagName == 'core')

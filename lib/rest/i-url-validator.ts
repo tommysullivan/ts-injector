@@ -1,5 +1,3 @@
-interface IURLValidator {
+export interface IURLValidator {
     isUri(possibleUri:string):boolean;
 }
-
-export default IURLValidator;

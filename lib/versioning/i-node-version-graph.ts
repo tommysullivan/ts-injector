@@ -1,5 +1,3 @@
-interface INodeVersionGraph {
+export interface INodeVersionGraph {
     toJSON():any;
 }
-
-export default INodeVersionGraph;

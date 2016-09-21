@@ -1,11 +1,11 @@
-import IThenable from "../promise/i-thenable";
-import ISSHSession from "./i-ssh-session";
-import ISSHClient from "./i-ssh-client";
-import IPromiseFactory from "../promise/i-promise-factory";
+import {IFuture} from "../promise/i-future";
+import {ISSHSession} from "./i-ssh-session";
+import {ISSHClient} from "./i-ssh-client";
+import {IPromiseFactory} from "../promise/i-promise-factory";
 
 export interface ISSHSessionFactory { (host:string, nodemiralSession:any, username:string, password:string):ISSHSession }
 
-export default class SSHClient implements ISSHClient {
+export class SSHClient implements ISSHClient {
 
     constructor(
         private promiseFactory:IPromiseFactory,
@@ -13,7 +13,7 @@ export default class SSHClient implements ISSHClient {
         private nodemiral:any
     ) {}
 
-    connect(host:string, username:string, password:string):IThenable<ISSHSession> {
+    connect(host:string, username:string, password:string):IFuture<ISSHSession> {
         const credentials = {
             username: username,
             password: password

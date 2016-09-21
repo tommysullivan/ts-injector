@@ -1,6 +1,7 @@
-import IJSONObject from "../typed-json/i-json-object";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IRestConfiguration} from "./i-rest-configuration";
 
-export default class RestConfiguration {
+export class RestConfiguration implements IRestConfiguration {
     private restConfigJSON:IJSONObject;
 
     constructor(restConfigJSON:IJSONObject) {

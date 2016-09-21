@@ -1,8 +1,6 @@
-import IError from "./i-error";
+import {IError} from "./i-error";
 
-interface IErrors {
+export interface IErrors {
     newErrorWithCause(cause:IError, optionalMessage:string):IError;
     newErrorWithJSONDetails(message:string, jsonDetails:any):IError;
 }
-
-export default IErrors;

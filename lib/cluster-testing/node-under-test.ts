@@ -1,71 +1,61 @@
-import INodeConfiguration from "./../nodes/i-node-configuration";
-import ISSHClient from "../ssh/i-ssh-client";
-import ISSHSession from "../ssh/i-ssh-session";
-import IList from "../collections/i-list";
-import INodeVersionGraph from "./../versioning/i-node-version-graph";
-import IPromiseFactory from "../promise/i-promise-factory";
-import IThenable from "../promise/i-thenable";
-import IOperatingSystem from "./../operating-systems/i-operating-system";
-import ICollections from "../collections/i-collections";
-import ISSHResult from "../ssh/i-ssh-result";
-import INodeUnderTest from "./i-node-under-test";
-import ISSHError from "../ssh/i-ssh-error";
-import MCSRestSession from "../mcs/mcs-rest-session";
-import MCS from "../mcs/mcs";
-import OpenTSDBRestClient from "../open-tsdb/open-tsdb-rest-client";
-import OpenTSDB from "../open-tsdb/open-tsdb";
-import IInstallerRestSession from "../installer/i-installer-rest-session";
-import ElasticSearchRestClient from "../elasticsearch/elasticsearch-rest-client";
-import Installer from "../installer/installer";
-import ElasticSearch from "../elasticsearch/elasticsearch";
-import IVersioning from "../versioning/i-versioning";
-import IPackageManager from "../packaging/i-package-manager";
-import IPackaging from "../packaging/i-packaging";
-import IPackage from "../packaging/i-package";
-import IPhase from "../releasing/i-phase";
+import {INodeConfiguration} from "./../nodes/i-node-configuration";
+import {ISSHClient} from "../ssh/i-ssh-client";
+import {ISSHSession} from "../ssh/i-ssh-session";
+import {IList} from "../collections/i-list";
+import {INodeVersionGraph} from "./../versioning/i-node-version-graph";
+import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IFuture} from "../promise/i-future";
+import {IOperatingSystem} from "./../operating-systems/i-operating-system";
+import {ISSHResult} from "../ssh/i-ssh-result";
+import {INodeUnderTest} from "./i-node-under-test";
+import {ISSHError} from "../ssh/i-ssh-error";
+import {IInstallerRestSession} from "../installer/i-installer-rest-session";
+import {IVersioning} from "../versioning/i-versioning";
+import {IPackageManager} from "../packaging/i-package-manager";
+import {IPackaging} from "../packaging/i-packaging";
+import {IPackage} from "../packaging/i-package";
+import {IPhase} from "../releasing/i-phase";
+import {IOpenTSDBRestClient} from "../open-tsdb/i-open-tsdb-rest-client";
+import {IElasticsearchRestClient} from "../elasticsearch/i-elasticsearch-rest-client";
+import {IElasticsearch} from "../elasticsearch/i-elasticsearch";
+import {IInstaller} from "../installer/i-installer";
+import {IOpenTSDB} from "../open-tsdb/i-open-tsdb";
+import {IMCS} from "../mcs/i-mcs";
+import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
+import {ICollections} from "../collections/i-collections";
+import {IOperatingSystems} from "../operating-systems/i-operating-systems";
 
-export default class NodeUnderTest implements INodeUnderTest {
-    private nodeConfiguration:INodeConfiguration;
-    private sshClient:ISSHClient;
-    private promiseFactory:IPromiseFactory;
-    private collections:ICollections;
-    private mcs:MCS;
-    private openTSDB:OpenTSDB;
-    private installer:Installer;
-    private elasticSearch:ElasticSearch;
-    private versioning:IVersioning;
-    private packaging:IPackaging;
-    private releasePhase:IPhase;
+export class NodeUnderTest implements INodeUnderTest {
+    constructor(
+        private nodeConfiguration:INodeConfiguration,
+        private sshClient:ISSHClient,
+        private promiseFactory:IPromiseFactory,
+        private mcs:IMCS,
+        private openTSDB:IOpenTSDB,
+        private installer:IInstaller,
+        private elasticSearch:IElasticsearch,
+        private versioning:IVersioning,
+        private packaging:IPackaging,
+        private releasePhase:IPhase,
+        private collections:ICollections,
+        private operatingSystems:IOperatingSystems
+    ) {}
 
-    constructor(nodeConfiguration:INodeConfiguration, sshClient:ISSHClient, promiseFactory:IPromiseFactory, collections:ICollections, mcs:MCS, openTSDB:OpenTSDB, installer:Installer, elasticSearch:ElasticSearch, versioning:IVersioning, packaging:IPackaging, releasePhase:IPhase) {
-        this.nodeConfiguration = nodeConfiguration;
-        this.sshClient = sshClient;
-        this.promiseFactory = promiseFactory;
-        this.collections = collections;
-        this.mcs = mcs;
-        this.openTSDB = openTSDB;
-        this.installer = installer;
-        this.elasticSearch = elasticSearch;
-        this.versioning = versioning;
-        this.packaging = packaging;
-        this.releasePhase = releasePhase;
-    }
-
-    executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IThenable<ISSHResult> {
+    executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IFuture<ISSHResult> {
         return this.newSSHSession().then(s=>s.executeCommandWithRetryTimeout(shellCommand, timeout, maxTry));
     }
 
-    writeBinaryData(content:ArrayBuffer, remotePath:string):IThenable<ISSHResult> {
+    writeBinaryData(content:ArrayBuffer, remotePath:string):IFuture<ISSHResult> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.writeAsBinary(content, remotePath));
     }
 
-    readAsBinary(remotePath:string):IThenable<ArrayBuffer> {
+    readAsBinary(remotePath:string):IFuture<ArrayBuffer> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.readAsBinary(remotePath));
     }
 
-    read(remotePath:string):IThenable<string> {
+    read(remotePath:string):IFuture<string> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.read(remotePath));
     }
@@ -74,15 +64,12 @@ export default class NodeUnderTest implements INodeUnderTest {
         return this.packaging.packageManagerFor(this.operatingSystem.name);
     }
 
-    get hostNameAccordingToNode():IThenable<string> {
+    get hostNameAccordingToNode():IFuture<string> {
         return this.executeShellCommand('hostname')
-            .then(r=>{
-                console.log(r.processResult().stdoutLines().first());
-                return r.processResult().stdoutLines().first()
-            });
+            .then(r=>r.processResult.stdoutLines.first);
     }
 
-    newSSHSession():IThenable<ISSHSession> {
+    newSSHSession():IFuture<ISSHSession> {
         return this.sshClient.connect(
             this.nodeConfiguration.host,
             this.nodeConfiguration.username,
@@ -90,34 +77,34 @@ export default class NodeUnderTest implements INodeUnderTest {
         );
     }
 
-    executeShellCommand(shellCommand:string):IThenable<ISSHResult> {
+    executeShellCommand(shellCommand:string):IFuture<ISSHResult> {
         return this.newSSHSession().then(s=>s.executeCommand(shellCommand));
     }
 
-    executeShellCommands(commandsWithPlaceholders:IList<string>):IThenable<IList<ISSHResult>> {
-        const commands:IList<string> = commandsWithPlaceholders.map(
+    executeShellCommands(...commandsWithPlaceholders:Array<string>):IFuture<IList<ISSHResult>> {
+        const commands = commandsWithPlaceholders.map(
             c=>c.replace('{{packageCommand}}', this.packageManager.packageCommand)
         );
         return this.newSSHSession()
-            .then(sshSession => sshSession.executeCommands(commands));
+            .then(sshSession => sshSession.executeCommands(...commands));
     }
     
-    upload(localPath:string, remotePath:string):IThenable<ISSHResult>{
+    upload(localPath:string, remotePath:string):IFuture<ISSHResult>{
         return this.newSSHSession()
             .then(sshSession => sshSession.upload(localPath, remotePath));
     }
 
-    download(remotePath:string, localPath:string):IThenable<ISSHResult>{
+    download(remotePath:string, localPath:string):IFuture<ISSHResult>{
         return this.newSSHSession()
             .then(sshSession => sshSession.download(remotePath, localPath));
     }
 
-    write(content:string, remotePath:string):IThenable<ISSHResult> {
+    write(content:string, remotePath:string):IFuture<ISSHResult> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.write(content, remotePath));
     }
 
-    verifyMapRNotInstalled():IThenable<ISSHResult> {
+    verifyMapRNotInstalled():IFuture<ISSHResult> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.newSSHSession()
                 .then(sshSession => {
@@ -127,8 +114,8 @@ export default class NodeUnderTest implements INodeUnderTest {
                     reject(new Error(`/opt/mapr directory exists on host ${this.nodeConfiguration.host}`))
                 })
                 .catch((sshError:ISSHError) => {
-                    const processResult = sshError.sshResult ? sshError.sshResult.processResult() : null;
-                    if(processResult && processResult.processExitCode()==2) {
+                    const processResult = sshError.sshResult ? sshError.sshResult.processResult : null;
+                    if(processResult && processResult.processExitCode==2) {
                         resolve(sshError.sshResult);
                     }
                     else {
@@ -142,7 +129,7 @@ export default class NodeUnderTest implements INodeUnderTest {
         });
     }
 
-    verifyMapRIsInstalled():IThenable<ISSHResult> {
+    verifyMapRIsInstalled():IFuture<ISSHResult> {
         return this.promiseFactory.newPromise((resolve, reject) => {
             this.newSSHSession()
                 .then(sshSession => {
@@ -161,31 +148,30 @@ export default class NodeUnderTest implements INodeUnderTest {
         });
     }
 
-    newAuthedMCSSession():IThenable<MCSRestSession> {
+    newAuthedMCSSession():IFuture<IMCSRestSession> {
         return this.mcs.newMCSClient(this.host).createAutheticatedSession(this.username, this.password);
     }
 
-    newOpenTSDBRestClient():OpenTSDBRestClient {
+    newOpenTSDBRestClient():IOpenTSDBRestClient {
         return this.openTSDB.newOpenTSDBRestClient(this.host);
     }
 
-    newAuthedInstallerSession():IThenable<IInstallerRestSession> {
+    newAuthedInstallerSession():IFuture<IInstallerRestSession> {
         return this.installer.newInstallerClient().createAutheticatedSession(
             `https://${this.host}:9443`, this.username, this.password
         );
     }
 
-    newElasticSearchClient():ElasticSearchRestClient {
+    newElasticSearchClient():IElasticsearchRestClient {
         return this.elasticSearch.newElasticSearchClient(this.host);
     }
 
-    versionGraph():IThenable<INodeVersionGraph> {
-        const commands = this.collections.newList([
-            this.packageManager.packageListCommand,
-            this.packageManager.repoListCommand
-        ]);
+    versionGraph():IFuture<INodeVersionGraph> {
         return this.newSSHSession()
-            .then(shellSession=>shellSession.executeCommands(commands))
+            .then(shellSession=>shellSession.executeCommands(
+                this.packageManager.packageListCommand,
+                this.packageManager.repoListCommand
+            ))
             .then(commandResultSet=>this.versioning.newNodeVersionGraph(this.host, commandResultSet));
     }
 
@@ -202,15 +188,21 @@ export default class NodeUnderTest implements INodeUnderTest {
     }
 
     get operatingSystem():IOperatingSystem {
-        return this.nodeConfiguration.operatingSystem;
+        return this.operatingSystems.newOperatingSystemFromConfig(
+            this.nodeConfiguration.operatingSystem
+        );
+    }
+
+    private get listOfServiceNames():IList<string> {
+        return this.collections.newList(this.nodeConfiguration.serviceNames);
     }
 
     isHostingService(serviceName:string):boolean {
-        return this.nodeConfiguration.serviceNames.contain(serviceName);
+        return this.listOfServiceNames.contain(serviceName);
     }
 
     get serviceNames():IList<string> {
-        return this.nodeConfiguration.serviceNames.clone();
+        return this.listOfServiceNames.clone();
     }
 
     toJSON():any {

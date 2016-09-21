@@ -1,3 +1,1 @@
-interface IPipeable {}
-
-export default IPipeable;
+export interface IPipeable {}

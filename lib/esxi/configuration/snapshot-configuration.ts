@@ -1,7 +1,7 @@
-import ISnapshotConfiguration from "./i-snapshot-configuration";
-import IJSONObject from "../../typed-json/i-json-object";
+import {ISnapshotConfiguration} from "./i-snapshot-configuration";
+import {IJSONObject} from "../../typed-json/i-json-object";
 
-export default class SnapshotConfiguration implements ISnapshotConfiguration {
+export class SnapshotConfiguration implements ISnapshotConfiguration {
     private stateJSON:IJSONObject;
 
     constructor(stateJSON:IJSONObject) {

@@ -1,47 +1,37 @@
-import IJSONObject from "../typed-json/i-json-object";
-import IOperatingSystem from "./i-operating-system";
-import IOperatingSystems from "./i-operating-systems";
-import IRepositories from "../packaging/i-packaging";
-import OperatingSystem from "./operating-system";
-import IRepository from "../packaging/i-repository";
+import {IOperatingSystem} from "./i-operating-system";
+import {IOperatingSystems} from "./i-operating-systems";
+import {OperatingSystem} from "./operating-system";
+import {IPackaging} from "../packaging/i-packaging";
+import {IOperatingSystemConfig} from "./i-operating-system-config";
 
-export default class OperatingSystems implements IOperatingSystems {
-    private repositories:IRepositories;
-
-    constructor(repositories:IRepositories) {
-        this.repositories = repositories;
-    }
-
-    newOperatingSystemFromConfig(configJSON:IJSONObject):IOperatingSystem {
-        switch(configJSON.stringPropertyNamed('name').toLowerCase()) {
-            case 'suse': return this.newSuse(configJSON);
-            case 'ubuntu': return this.newUbuntu(configJSON);
-            case 'centos': return this.newCentos(configJSON);
+export class OperatingSystems implements IOperatingSystems {
+    newOperatingSystemFromConfig(config:IOperatingSystemConfig):IOperatingSystem {
+        switch(config.name.toLowerCase()) {
+            case 'suse': return this.newSuse(config);
+            case 'ubuntu': return this.newUbuntu(config);
+            case 'centos': return this.newCentos(config);
             default:
-                throw new Error(`Could not instantiate operating system for config ${configJSON.toString()}`);
+                throw new Error(`Could not instantiate operating system for config ${config.toString()}`);
         }
     }
 
-    private newSuse(configJSON:IJSONObject):IOperatingSystem {
+    private newSuse(config:IOperatingSystemConfig):IOperatingSystem {
         return new OperatingSystem(
-            configJSON,
-            this.repositories.newZypperPackageManager(),
+            config,
             'cat /etc/os-release'
         );
     }
 
-    private newUbuntu(configJSON:IJSONObject):IOperatingSystem {
+    private newUbuntu(config:IOperatingSystemConfig):IOperatingSystem {
         return new OperatingSystem(
-            configJSON,
-            this.repositories.newAptPackageManager(),
+            config,
             'lsb_release -a'
         );
     }
 
-    private newCentos(configJSON:IJSONObject):IOperatingSystem {
+    private newCentos(config:IOperatingSystemConfig):IOperatingSystem {
         return new OperatingSystem(
-            configJSON,
-            this.repositories.newYumPackageManager(),
+            config,
             'cat /etc/centos-release'
         );
     }

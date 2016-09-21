@@ -1,23 +1,19 @@
-import IClusterConfiguration from "./i-cluster-configuration";
-import IJSONObject from "../typed-json/i-json-object";
-import IList from "../collections/i-list";
-import ClusterConfiguration from "./cluster-configuration";
-import IESXI from "../esxi/i-esxi";
-import IErrors from "../errors/i-errors";
-import IOperatingSystems from "../operating-systems/i-operating-systems";
+import {IClusterConfiguration} from "./i-cluster-configuration";
+import {IList} from "../collections/i-list";
+import {IErrors} from "../errors/i-errors";
+import {IClusters} from "./i-clusters";
+import {ClusterConfiguration} from "./cluster-configuration";
+import {IJSONObject} from "../typed-json/i-json-object";
+import {IESXI} from "../esxi/i-esxi";
+import {IOperatingSystems} from "../operating-systems/i-operating-systems";
 
-export default class Clusters {
-    private clusterJSONs:IList<IJSONObject>;
-    private esxi:IESXI;
-    private errors:IErrors;
-    private operatingSystems:IOperatingSystems;
-
-    constructor(clusterJSONs:IList<IJSONObject>, esxi:IESXI, errors:IErrors, operatingSystems:IOperatingSystems) {
-        this.clusterJSONs = clusterJSONs;
-        this.esxi = esxi;
-        this.errors = errors;
-        this.operatingSystems = operatingSystems;
-    }
+export class Clusters implements IClusters {
+    constructor(
+        private clusterConfigurations:IList<IClusterConfiguration>,
+        private errors:IErrors,
+        private esxi:IESXI,
+        private operatingSystems:IOperatingSystems
+    ) {}
 
     clusterConfigurationWithId(id:string):IClusterConfiguration {
         try {
@@ -28,17 +24,11 @@ export default class Clusters {
         }
     }
 
-    allIds():IList<string> {
+    get allIds():IList<string> {
         return this.allConfigurations.map(c=>c.id);
     }
 
     get allConfigurations():IList<IClusterConfiguration> {
-        return this.clusterJSONs.map(
-            clusterConfigJSON=>this.newClusterConfiguration(clusterConfigJSON)
-        );
-    }
-
-    newClusterConfiguration(clusterConfigJSON:IJSONObject):IClusterConfiguration {
-        return new ClusterConfiguration(clusterConfigJSON, this.esxi, this.operatingSystems);
+        return this.clusterConfigurations;
     }
 }

@@ -1,20 +1,20 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import Framework from "../framework/framework";
-import IClusterVersionGraph from "../versioning/i-cluster-version-graph";
-import IList from "../collections/i-list";
+import {Framework} from "../framework/framework";
+import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
+import {IList} from "../collections/i-list";
 
 declare const $:Framework;
 declare const module:any;
 
 @steps()
-export default class ClusterManagementSteps {
+export class ClusterManagementSteps {
     private versionGraph:IClusterVersionGraph;
     private coreNodeHosts:IList<any>;
 
     @given(/^the Cluster Under Test is managed by ESXI$/)
     verifyClusterUnderTestIsESXI():void {
-        $.expect($.clusterUnderTest.isManagedByESXI()).to.be.true;
+        $.expect($.clusterUnderTest.isManagedByESXI).to.be.true;
     }
 
     @given(/^the Operating Systems of each node match what is configured$/)
@@ -42,7 +42,7 @@ export default class ClusterManagementSteps {
     @then(/^it returns a valid JSON file$/)
     verifyVersionGraphIsValidJSON():void {
         const versionGraph:IClusterVersionGraph = this.versionGraph;
-        $.expect(() => versionGraph.toJSONString()).not.to.throw;
+        $.expect(() => versionGraph.toString()).not.to.throw;
     }
 
     @given(/^I have installed Spyglass$/)
@@ -53,7 +53,7 @@ export default class ClusterManagementSteps {
     @given(/^the cluster has MapR Installed$/)
     verifyMaprInstalled():PromisedAssertion {
         return $.expectAll(
-            $.clusterUnderTest.nodes().map(n => n.verifyMapRIsInstalled())
+            $.clusterUnderTest.nodes.map(n => n.verifyMapRIsInstalled())
         ).to.eventually.be.fulfilled;
     }
 
@@ -80,13 +80,13 @@ export default class ClusterManagementSteps {
             'hbregionserver': 'mapr-hbase-regionserver',
         }[serviceName] || `mapr-${serviceName}`;
         const nodeList = $.clusterUnderTest.nodesHosting(packageNameForService).map(n => n.host).join(` `);
-        return $.expect($.clusterUnderTest.nodes().first().executeShellCommand(command + ` ` + nodeList)).to.eventually.be.fulfilled;
+        return $.expect($.clusterUnderTest.nodes.first.executeShellCommand(command + ` ` + nodeList)).to.eventually.be.fulfilled;
     }
 
     @given(/^I create a MapR auth ticket for the "([^"]*)" user with password "([^"]*)" on all nodes$/)
     generateUserTicket(userName:string, userPassword:string):PromisedAssertion {
         const ticketComamnd = `echo '${userPassword}' | maprlogin password`;
-        const resultList = $.clusterUnderTest.nodes().map(n => {
+        const resultList = $.clusterUnderTest.nodes.map(n => {
             return $.sshAPI.newSSHClient().connect(n.host, userName, userPassword)
                 .then(session=>session.executeCommand(ticketComamnd))
         })
@@ -98,7 +98,7 @@ export default class ClusterManagementSteps {
     checkIfCLDBRunning () {
         const command = `maprcli node cldbmaster`;
         const timeout:number = 10000;
-        const result = $.clusterUnderTest.nodes().first().executeShellCommandWithTimeouts(command, timeout, 10);
+        const result = $.clusterUnderTest.nodes.first.executeShellCommandWithTimeouts(command, timeout, 10);
         return $.expect(result).to.eventually.be.fulfilled;
     }
 
@@ -107,7 +107,7 @@ export default class ClusterManagementSteps {
         const ticketComamnd = `echo '${userPassword}' | maprlogin password`;
         const timeout:number = 10000;
         const maxTry:number = 10;
-        const resultList = $.clusterUnderTest.nodes().map(n => {
+        const resultList = $.clusterUnderTest.nodes.map(n => {
             return $.sshAPI.newSSHClient().connect(n.host, userName, userPassword)
                 .then(session=>session.executeCommandWithRetryTimeout(ticketComamnd, timeout, maxTry))
         });
@@ -116,8 +116,8 @@ export default class ClusterManagementSteps {
 
     @given(/^I change the volume metrics collection interval to "([^"]*)" seconds$/)
     changeVolumeCollectionInterval(interval:string) {
-        const collectDNode = $.clusterUnderTest.nodesHosting('mapr-collectd').first();
-        const collectDVersion = collectDNode.packages.where(p => p.name == 'mapr-collectd').first().version;
+        const collectDNode = $.clusterUnderTest.nodesHosting('mapr-collectd').first;
+        const collectDVersion = collectDNode.packages.where(p => p.name == 'mapr-collectd').first.version;
         const replaceComamnd = `sed -i 's/Interval "600"/Interval "${interval}"/g' /opt/mapr/collectd/collectd-${collectDVersion}/etc/collectd.conf`;
         const result = $.clusterUnderTest.nodesHosting(`mapr-collectd`).map(n => n.executeShellCommand(replaceComamnd));
         return $.expectAll(result).to.eventually.be.fulfilled;
@@ -126,9 +126,9 @@ export default class ClusterManagementSteps {
     @when(/^I check for any cores on the cluster$/)
     checkForCores(): PromisedAssertion {
         this.coreNodeHosts = $.collections.newEmptyList();
-        const result = $.clusterUnderTest.nodes().map(n => n.executeShellCommand(`ls -l /opt/cores/`)
+        const result = $.clusterUnderTest.nodes.map(n => n.executeShellCommand(`ls -l /opt/cores/`)
             .then(result => {
-                    if (result.processResult().stdoutLines().length > 2)
+                    if (result.processResult.stdoutLines.length > 2)
                         return this.coreNodeHosts.push(n);
                     else
                         return false;

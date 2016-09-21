@@ -1,6 +1,6 @@
-import ISemanticVersion from "./i-semantic-version";
+import {ISemanticVersion} from "./i-semantic-version";
 
-export default class SemanticVersion implements ISemanticVersion {
+export class SemanticVersion implements ISemanticVersion {
     private _versionString:string;
 
     constructor(versionString:string) {

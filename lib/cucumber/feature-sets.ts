@@ -1,25 +1,23 @@
-import IFeatureSet from "./i-feature-set";
-import IJSONObject from "../typed-json/i-json-object";
-import IList from "../collections/i-list";
-import IFeatureSets from "./i-feature-sets";
-import ICucumber from "./i-cucumber";
+import {IFeatureSet} from "./i-feature-set";
+import {IList} from "../collections/i-list";
+import {IFeatureSets} from "./i-feature-sets";
+import {ICucumber} from "./i-cucumber";
+import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
+import {IFeatureSetRefConfiguration} from "./i-feature-set-ref-configuration";
 
-export default class FeatureSets implements IFeatureSets {
-    private featureSetsJSONArray:IList<IJSONObject>;
-    private cucumber:ICucumber;
-
-    constructor(featureSetsJSONArray:IList<IJSONObject>, cucumber:ICucumber) {
-        this.featureSetsJSONArray = featureSetsJSONArray;
-        this.cucumber = cucumber;
-    }
+export class FeatureSets implements IFeatureSets {
+    constructor(
+        private featureSetConfigurations:IList<IFeatureSetConfiguration>,
+        private cucumber:ICucumber
+    ) {}
 
     setWithId(id:string):IFeatureSet {
         return this.all.firstWhere(f=>f.id==id);
     }
 
     get all():IList<IFeatureSet> {
-        return this.featureSetsJSONArray.map(
-            configJSON=>this.cucumber.newFeatureSet(configJSON, this)
+        return this.featureSetConfigurations.map(
+            featureSetConfig=>this.cucumber.newFeatureSet(featureSetConfig, this)
         );
     }
 }

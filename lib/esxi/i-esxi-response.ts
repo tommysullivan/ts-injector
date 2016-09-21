@@ -1,5 +1,3 @@
-interface IESXIResponse {
-    toJSONString():string;
-}
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-export default IESXIResponse;
+export interface IESXIResponse extends IJSONSerializable {}

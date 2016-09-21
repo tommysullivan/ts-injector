@@ -1,9 +1,9 @@
-import IList from "../collections/i-list";
-import IPackageManager from "./i-package-manager";
-import IRepository from "./i-repository";
-import IConfigFileContent from "./i-config-file-content";
+import {IList} from "../collections/i-list";
+import {IPackageManager} from "./i-package-manager";
+import {IRepository} from "./i-repository";
+import {IConfigFileContent} from "./i-config-file-content";
 
-export default class ZypperPackageManager implements IPackageManager {
+export class ZypperPackageManager implements IPackageManager {
 
     private configFileContent:IConfigFileContent;
 
