@@ -1,0 +1,106 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 6,
+        "name": "Login to the monet website",
+        "description": "",
+        "id": ";login-to-the-monet-website",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 3005789732,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "I am on the Monet login page",
+            "match": {
+              "location": "testSteps.i_am_on_the_Monet_login_page()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 137929542,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "I enter the username as \"root\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "root",
+                  "offset": 25
+                }
+              ],
+              "location": "testSteps.i_enter_the_username_as(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 157257508,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "password as \"mapr\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "mapr",
+                  "offset": 13
+                }
+              ],
+              "location": "testSteps.password_as(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 376191,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "the test as \"10\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "10",
+                  "offset": 13
+                }
+              ],
+              "location": "testSteps.the_test_as(Integer)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1151901905,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "I should be logged in to the application",
+            "match": {
+              "location": "testSteps.i_should_be_logged_in_to_the_application()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "line": 5,
+            "name": "@MON-2"
+          }
+        ]
+      }
+    ],
+    "name": "",
+    "description": "As a user\nI want to login to the Monet website",
+    "id": "",
+    "keyword": "Feature",
+    "uri": "test.feature"
+  }
+]

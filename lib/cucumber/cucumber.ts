@@ -32,6 +32,7 @@ import {ExpectationWrapper} from "../chai/expectation-wrapper";
 import {ChaiStatic} from "../chai/chai-static";
 import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
+import {IPath} from "../node-js-wrappers/i-path";
 
 export class Cucumber implements ICucumber {
     constructor(
@@ -92,7 +93,7 @@ export class Cucumber implements ICucumber {
         return new CucumberTag(tagJSON);
     }
 
-    newCucumberTestResult(cucumberFeatureResults:IList<ICucumberFeatureResult>, processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, resultAcquisitionError:Error, startTime:Date, endTime:Date):ICucumberTestResult {
+    newCucumberTestResult(cucumberFeatureResults:IList<ICucumberFeatureResult>, processResult:IProcessResult, cucumberRunConfiguration:ICucumberRunConfiguration, resultAcquisitionError:Error, startTime:Date, endTime:Date, passFailOverrideForWhenProcessResultUnavailable?:boolean):ICucumberTestResult {
         return new CucumberTestResult(
             cucumberFeatureResults,
             processResult,
@@ -102,7 +103,8 @@ export class Cucumber implements ICucumber {
             this.errors,
             startTime,
             endTime,
-            this.jsonSerializer
+            this.jsonSerializer,
+            passFailOverrideForWhenProcessResultUnavailable
         );
     }
 
@@ -144,6 +146,10 @@ export class Cucumber implements ICucumber {
     }
 
     newCucumberResultFromFilePath(processResult:IProcessResult, cucumberJSONFilePath:string, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date, endTime:Date):ICucumberTestResult {
+        return this.loadCucumberResult(processResult, cucumberJSONFilePath, cucumberRunConfiguration, startTime, endTime, null);
+    }
+
+    private loadCucumberResult(processResult:IProcessResult, cucumberJSONFilePath:string, cucumberRunConfiguration:ICucumberRunConfiguration, startTime:Date, endTime:Date, passFailOverrideForWhenProcessResultUnavailable?:boolean):ICucumberTestResult {
         var cucumberFeatureResults = null;
         var resultAcquisitionError = null;
         try {
@@ -155,6 +161,25 @@ export class Cucumber implements ICucumber {
         catch(e) {
             resultAcquisitionError = e.toString();
         }
-        return this.newCucumberTestResult(cucumberFeatureResults, processResult, cucumberRunConfiguration, resultAcquisitionError, startTime, endTime);
+        return this.newCucumberTestResult(
+            cucumberFeatureResults,
+            processResult,
+            cucumberRunConfiguration,
+            resultAcquisitionError,
+            startTime,
+            endTime,
+            passFailOverrideForWhenProcessResultUnavailable
+        );
+    }
+
+    newCucumberResultFromFilePathWhenProcessResultUnavailable(cucumberJSONFilePath:string, passFailOverrideForWhenProcessResultUnavailable:boolean):ICucumberTestResult {
+        const cucumberRunConfiguration:ICucumberRunConfiguration = {
+            cucumberAdditionalArgs: '',
+            isDryRun: false,
+            jsonResultFilePath: cucumberJSONFilePath,
+            environmentVariables: {}
+        };
+        const timestamp = new Date();
+        return this.loadCucumberResult(null, cucumberJSONFilePath, cucumberRunConfiguration, timestamp, timestamp, passFailOverrideForWhenProcessResultUnavailable);
     }
 }

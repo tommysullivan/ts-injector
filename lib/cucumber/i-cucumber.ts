@@ -35,7 +35,8 @@ export interface ICucumber {
         cucumberRunConfiguration:ICucumberRunConfiguration,
         resultAcquisitionError:Error,
         startTime:Date,
-        endTime:Date
+        endTime:Date,
+        passFailOverrideForWhenProcessResultUnavailable?:boolean
     ):ICucumberTestResult;
 
     newCucumberRunConfiguration(
@@ -44,6 +45,11 @@ export interface ICucumber {
         cucumberAdditionalArgs:string,
         envVariables:IDictionary<string>
     ):ICucumberRunConfiguration;
+
+    newCucumberResultFromFilePathWhenProcessResultUnavailable(
+        cucumberJSONFilePath:string,
+        passFailOverrideForWhenProcessResultUnavailable:boolean
+    ):ICucumberTestResult;
 
     newCucumberResultFromFilePath(
         processResult:IProcessResult,

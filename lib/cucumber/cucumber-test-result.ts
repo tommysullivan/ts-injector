@@ -17,7 +17,8 @@ export class CucumberTestResult implements ICucumberTestResult {
         private errors:IErrors,
         private startTime:Date,
         private endTime:Date,
-        private jsonSerializer:IJSONSerializer
+        private jsonSerializer:IJSONSerializer,
+        private passFailOverrideForWhenProcessResultUnavailable:boolean
     ) {}
 
     get uniqueTagNames():IList<string> {
@@ -42,7 +43,9 @@ export class CucumberTestResult implements ICucumberTestResult {
     }
 
     get passed():boolean {
-        return !this.processResult.hasError;
+        return this.processResult != null
+            ? !this.processResult.hasError
+            : this.passFailOverrideForWhenProcessResultUnavailable;
     }
 
     toJSON():any {
