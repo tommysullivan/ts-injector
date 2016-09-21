@@ -15,6 +15,12 @@ export const builder = {
         type: 'string',
         demand: true,
         describe: 'location of the cucumber.json result file'
+    },
+    passed: {
+        alias: 'p',
+        type: 'string',
+        demand: true,
+        describe: 'whether or not the test passed'
     }
 };
 
@@ -25,7 +31,7 @@ export const handler = (argv) => {
     const uniqueFileId = argv.sourceFile;
     const testRunGUID = framework.uuidGenerator.v4();
     const cucumberJSONFilePath = argv.sourceFile;
-    const passed = true;
+    const passed = argv.passed.toLowerCase().trim()=='true';
 
     const cucumberTestResult = framework
         .cucumber
