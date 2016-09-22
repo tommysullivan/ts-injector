@@ -60,6 +60,6 @@ export class ConfigLoader implements IConfigLoader {
     private get configPath():string {
         return this.process.environmentVariables.hasKey(this.CONFIG_PATH_ENV_VAR_NAME)
             ? this.process.environmentVariableNamed(this.CONFIG_PATH_ENV_VAR_NAME)
-            : null;
+            : this.DEFAULT_CONFIG_PATH;
     }
 }
