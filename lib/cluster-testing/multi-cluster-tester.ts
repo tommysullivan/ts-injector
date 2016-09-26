@@ -11,6 +11,7 @@ import {IClusterTestResult} from "./i-cluster-test-result";
 import {IClusters} from "../clusters/i-clusters";
 import {IMultiClusterTester} from "./i-multi-cluster-tester";
 import {IClusterResultPreparer} from "./i-cluster-result-preparer";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 
 export class MultiClusterTester implements IMultiClusterTester {
 
@@ -23,7 +24,8 @@ export class MultiClusterTester implements IMultiClusterTester {
         private cucumber:ICucumber,
         private console:IConsole,
         private promiseFactory:IPromiseFactory,
-        private clusterResultPreparer:IClusterResultPreparer
+        private clusterResultPreparer:IClusterResultPreparer,
+        private fileSystem:IFileSystem
     ) {}
 
     runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands:IList<string>):IFuture<IList<IClusterTestResult>> {
@@ -42,6 +44,8 @@ export class MultiClusterTester implements IMultiClusterTester {
             const jsonResultFilePath = this.path.join(cucumberOutputPath, outputFileName);
             const envVars = this.process.environmentVariables.clone();
             const envVarsWithClusterId = envVars.add('clusterId', clusterId);
+            if(!this.fileSystem.checkFileExistSync(cucumberOutputPath))
+                   this.fileSystem.makeDirRecursive(cucumberOutputPath);
             const cucumberRunConfiguration = this.cucumber.newCucumberRunConfiguration(
                 false,
                 jsonResultFilePath,

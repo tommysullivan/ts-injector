@@ -30,6 +30,7 @@ const pathModule = require("path");
 const nodemiralModule = require('nodemiral');
 const requestModule = require('request');
 const readLineSyncModule = require('readline-sync');
+const mkdirp = require('mkdirp');
 
 chai.use(chaiAsPromised);
 
@@ -114,7 +115,8 @@ export class NodeFrameworkLoader {
             this.typedJSON,
             this.errors,
             pathModule,
-            readLineSyncModule
+            readLineSyncModule,
+            mkdirp
         );
     }
 }

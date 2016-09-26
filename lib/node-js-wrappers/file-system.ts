@@ -18,7 +18,8 @@ export class FileSystem implements IFileSystem {
         private collections:ICollections,
         private errors:IErrors,
         private nodeWrapperFactory:INodeWrapperFactory,
-        private promiseFactory:IPromiseFactory
+        private promiseFactory:IPromiseFactory,
+        private mkdirp:any
     ) {}
 
     readFileSync(filePath:string):string {
@@ -113,5 +114,9 @@ export class FileSystem implements IFileSystem {
 
     checkFileExistSync(filePath:string):boolean {
         return this.fsModule.existsSync(filePath);
+    }
+
+    makeDirRecursive(path:string):void {
+        this.mkdirp.sync(path);
     }
 }

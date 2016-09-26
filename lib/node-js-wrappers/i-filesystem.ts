@@ -18,4 +18,5 @@ export interface IFileSystem {
     readdirSync(directoryPath:string):IList<string>;
     statSync(filePath:string):IFileStats;
     checkFileExistSync(filePath:string):boolean;
+    makeDirRecursive(filePath:string):void;
 }

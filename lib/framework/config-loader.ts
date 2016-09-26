@@ -30,7 +30,8 @@ export class ConfigLoader implements IConfigLoader {
             this.basePathToUseForConfiguredRelativePaths,
             this.path,
             this.process,
-            this.collections
+            this.collections,
+            this.fileSystem
         );
     }
 
@@ -54,7 +55,9 @@ export class ConfigLoader implements IConfigLoader {
     }
 
     private get basePathToUseForConfiguredRelativePaths():string {
-        return this.path.dirname(this.configPath);
+        return this.configPath 
+            ? this.path.dirname(this.configPath)
+            : this.path.dirname('package.json');
     }
 
     private get configPath():string {

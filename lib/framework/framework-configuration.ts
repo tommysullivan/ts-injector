@@ -32,6 +32,7 @@ import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
 import {ClusterConfiguration} from "../clusters/cluster-configuration";
 import {PackagingConfig} from "../packaging/packaging-config";
 import {ReleasingConfig} from "../releasing/releasing-config";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 
 export class FrameworkConfiguration implements IFrameworkConfiguration {
     constructor(
@@ -39,7 +40,8 @@ export class FrameworkConfiguration implements IFrameworkConfiguration {
         private basePathToUseForConfiguredRelativePaths:string,
         private path:IPath,
         private process:IProcess,
-        private collections:ICollections
+        private collections:ICollections,
+        private fileSystem:IFileSystem
     ) {}
 
     get releasing():IReleasingConfig {
@@ -68,7 +70,8 @@ export class FrameworkConfiguration implements IFrameworkConfiguration {
         return new CliConfig(
             this.frameworkConfigJSON.jsonObjectNamed('cli'),
             this.basePathToUseForConfiguredRelativePaths,
-            this.path
+            this.path,
+            this.fileSystem
         );
     }
 

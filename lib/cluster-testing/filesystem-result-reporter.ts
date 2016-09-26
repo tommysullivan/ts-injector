@@ -16,6 +16,8 @@ export class FilesystemResultReporter implements IResultReporter {
     
     reportResult(uniqueFileIdentifier:string, clusterTestResult:IClusterTestResult):IFuture<IClusterTestResult>  {
         const outputFileName = `${uniqueFileIdentifier}.json`;
+        if(!this.fileSystem.checkFileExistSync(this.clusterTestingConfiguration.frameworkOutputPath))
+            this.fileSystem.makeDirRecursive(this.clusterTestingConfiguration.frameworkOutputPath);
         const frameworkOutputPath = this.path.join(
             this.clusterTestingConfiguration.frameworkOutputPath,
             outputFileName

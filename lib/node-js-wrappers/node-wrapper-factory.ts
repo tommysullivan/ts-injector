@@ -33,7 +33,8 @@ export class NodeWrapperFactory implements INodeWrapperFactory {
         private typedJSON:ITypedJSON,
         private errors:IErrors,
         private pathModule:any,
-        private readLineSyncModule:any
+        private readLineSyncModule:any,
+        private mkdirp:any
     ) {}
 
     newStringHelper():IStringHelper {
@@ -113,7 +114,8 @@ export class NodeWrapperFactory implements INodeWrapperFactory {
             this.collections,
             this.errors,
             this,
-            this.promiseFactory
+            this.promiseFactory,
+            this.mkdirp
         );
     }
 

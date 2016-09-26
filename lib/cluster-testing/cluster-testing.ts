@@ -99,7 +99,8 @@ export class ClusterTesting implements IClusterTesting {
             this.cucumber,
             this.console,
             this.promiseFactory,
-            this.newClusterResultPreparer()
+            this.newClusterResultPreparer(),
+            this.fileSystem
         )
     }
 
