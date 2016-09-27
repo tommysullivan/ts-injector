@@ -7,4 +7,5 @@ export NVM_DIR="~/.nvm"
 source ~/.bashrc
 nvm install 5.0
 nvm use 5.0
+npm update -g npm
 npm install
