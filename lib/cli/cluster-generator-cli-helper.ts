@@ -17,6 +17,8 @@ export class ClusterCliGenerator{
     generateClusterJson():void{
 
         const nodeCount = this.console.askQuestion("Enter number of nodes in the cluster [1/3/5/10] ?");
+
+        // TODO: Needs to be edited later to support multiple nodes
         const nodeJsonAsString:string = nodeCount == "1" ?
             JSON.stringify(this.fileSystem.readJSONFileSync("data/topologies/singleNode.json"), null ,3) : null;
 
