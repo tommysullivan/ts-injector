@@ -58,13 +58,14 @@ export class PackageManagerInstallationSteps {
         const diskListCommand = `sfdisk -l | grep "/dev/sd[a-z]" |grep -v "/dev/sd[a-z][0-9]" | sort |cut -f2 -d' ' | tr ":" " "`; //| awk '{if(NR>1)print}' > /root/disk.list`;
         const finalList = $.collections.newEmptyList<string>();
         const diskListResult = $.clusterUnderTest.nodes.map(
-         n => n.executeShellCommand(diskListCommand).then(result =>{
-             const diskList = result.processResult.stdoutLines;
-             const diskResults = diskList.map( d => n.executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
-                 .then(r => r.processResult.stdoutLines.first == '2' ? finalList.push(d) : null));
-             return $.promiseFactory.newGroupPromise(diskResults);
-         })
-             .then(r => n.write(finalList.join('\n'), '/root/disk.list')));
+         n => n.executeShellCommand(diskListCommand)
+             .then(result => {
+                 const diskList = result.processResult.stdoutLines;
+                 const diskResults = diskList.map(d => n.executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
+                     .then(r => r.processResult.stdoutLines.first == '2' ? d : null));
+                 return $.promiseFactory.newGroupPromise(diskResults);
+             })
+             .then(r => n.write(r.filter(i=>i!=null).join('\n'), '/root/disk.list')));
         return $.expectAll(diskListResult).to.eventually.be.fulfilled;
     }
 
