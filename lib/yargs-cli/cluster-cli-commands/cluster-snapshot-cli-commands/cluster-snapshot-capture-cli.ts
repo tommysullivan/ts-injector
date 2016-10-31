@@ -18,5 +18,5 @@ export const builder = {
 };
 export const handler = (argv) => {
     var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runClusterSanpshotDeleteCli(argv.clusterId, argv.snapshotName);
+    nodeFrameworkLoader.loadFramework().cli.newExecutor().runClusterSanpshotCaptureCli(argv.clusterId, argv.snapshotName);
 };

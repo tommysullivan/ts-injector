@@ -47,6 +47,7 @@ import {IElasticsearch} from "../elasticsearch/i-elasticsearch";
 import {ClusterInstaller} from "../installer/cluster-installer";
 import {INodeLog} from "./i-node-log";
 import {IOperatingSystems} from "../operating-systems/i-operating-systems";
+import {IRelease} from "../releasing/i-release";
 
 export class ClusterTesting implements IClusterTesting {
 
@@ -209,9 +210,12 @@ export class ClusterTesting implements IClusterTesting {
     }
 
     get defaultReleasePhase():IPhase {
-        return this.releasing.defaultReleases
-            .releaseNamed(this.clusterTestingConfiguration.releaseUnderTest)
+        return this.defaultRelease
             .phaseNamed(this.clusterTestingConfiguration.lifecyclePhase);
+    }
+
+    get defaultRelease():IRelease {
+        return this.releasing.defaultReleases.releaseNamed(this.clusterTestingConfiguration.releaseUnderTest);
     }
 
     newESXIManagedCluster(clusterConfiguration:IClusterConfiguration):ESXIManagedCluster {
