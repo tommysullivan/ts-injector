@@ -15,6 +15,7 @@ import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 import {IClusterResultPreparer} from "./i-cluster-result-preparer";
 import {IMultiClusterTester} from "./i-multi-cluster-tester";
 import {IESXIManagedCluster} from "./i-esxi-managed-cluster";
+import {IRelease} from "../releasing/i-release";
 
 export interface IClusterTesting {
     clusterForId(clusterId:string):IClusterUnderTest;
@@ -29,6 +30,7 @@ export interface IClusterTesting {
     newClusterInstaller();
     newNodeUnderTest(nodeConfiguration:INodeConfiguration):INodeUnderTest;
     defaultReleasePhase:IPhase;
+    defaultRelease:IRelease;
     newESXIManagedCluster(clusterConfiguration:IClusterConfiguration):IESXIManagedCluster;
     newNodeLog(nodeHost:string, logContent:Array<string>, logTitle:string):INodeLog;
     newClusterTestResult(cucumberTestResult:ICucumberTestResult,

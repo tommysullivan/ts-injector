@@ -41,7 +41,7 @@ export class PackageManagerInstallationSteps {
                         p.version.toString(),
                         p.promotionLevel.name,
                         n.operatingSystem.name,
-                        $.clusterTesting.defaultReleasePhase.name
+                        $.clusterTesting.defaultRelease.name
                     )
                 ).unique;
                 const nodeRepoConfigWrites = uniqueRepos.map(repo => {
