@@ -112,6 +112,7 @@ export class List<T> implements IList<T> {
     }
 
     itemAt(index:number):T {
+        if(index >= this.listItems.length) throw new Error(`Attempted to read index ${index} but list only contains ${this.length} items.`);
         return this.listItems[index];
     }
 

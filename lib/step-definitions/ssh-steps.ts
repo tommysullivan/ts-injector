@@ -57,7 +57,7 @@ export class SSHSteps {
             .then(result=>this.sshResult=result)
             .catch(e => {
                 const error:ISSHError = e;
-                console.log(error.toJSON());
+                console.log(error.toString());
                 throw new Error(error.toString());
             });
         return $.expect(sshRequest).to.eventually.be.fulfilled;

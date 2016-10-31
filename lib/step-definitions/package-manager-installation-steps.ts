@@ -36,7 +36,13 @@ export class PackageManagerInstallationSteps {
             $.clusterUnderTest.nodes.map(n=>{
                 const taggedPackages = n.packages.where(p=>p.tags.contain(tagName));
                 const nodeRepoConfigWrites = taggedPackages.map((p:IPackage)=>{
-                    const repo = $.packaging.defaultRepositories.repositoryHosting(p.name, p.version.toString(), p.promotionLevel.name, n.operatingSystem.name);
+                    const repo = $.packaging.defaultRepositories.repositoryHosting(
+                        p.name,
+                        p.version.toString(),
+                        p.promotionLevel.name,
+                        n.operatingSystem.name,
+                        $.clusterTesting.defaultReleasePhase.name
+                    );
                     const repoConfigContent = n.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${p.name}`, p.tags.first);
                     const repoConfigLocation = n.packageManager.clientConfigurationFileLocationFor(p.name);
                     return n.write(repoConfigContent, repoConfigLocation);

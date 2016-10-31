@@ -1,11 +1,12 @@
 import {IRepositories} from "./i-repositories";
 import {IList} from "../collections/i-list";
-import {IJSONObject} from "../typed-json/i-json-object";
 import {IRepository} from "./i-repository";
 import {IPackaging} from "./i-packaging";
 import {IPackageSets} from "./i-package-sets";
 import {IPackage} from "./i-package";
 import {IRepositoryConfig} from "./i-repository-config";
+import {PackageRepositoryNotFoundException} from "./package-repository-not-found-exception";
+import {PackageRepositoryIsAmbiguousException} from "./package-repository-is-ambiguous-exception";
 
 export class Repositories implements IRepositories {
 
@@ -16,7 +17,12 @@ export class Repositories implements IRepositories {
     ) {}
 
     repositoryAtUrl(url:string):IRepository {
-        return this.all.firstWhere(r=>r.url==url);
+        try {
+            return this.all.firstWhere(r=>r.url==url);
+        }
+        catch(e) {
+            throw new Error(`Could not find repository at url: ${url}`);
+        }
     }
 
     get all():IList<IRepository> {
@@ -25,7 +31,7 @@ export class Repositories implements IRepositories {
         );
     }
 
-    repositoryHosting(packageName:string, version:string, promotionLevel:string, operatingSystem:string):IRepository {
+    repositoryHosting(packageName:string, version:string, promotionLevel:string, operatingSystem:string, releaseName:string):IRepository {
         const possibleRepositories = this.all.filter(
             r=>r.packages.hasAtLeastOne(
                 (p:IPackage)=>{
@@ -36,11 +42,19 @@ export class Repositories implements IRepositories {
                 }
             )
         );
+        const createNewRepositoryError = () => new PackageRepositoryNotFoundException(packageName, version, promotionLevel, operatingSystem, releaseName);
         if(possibleRepositories.length == 0) {
-            throw new Error(`specified package not hosted by any repository. ${packageName}`);
+            throw createNewRepositoryError();
         }
         else if(possibleRepositories.hasMany) {
-            throw new Error(`specified package hosted by more than one repository. ${packageName}`);
+            const preferredRepositories = possibleRepositories.where(
+                r=>r.isPreferredForRelease(releaseName)
+            );
+            if(preferredRepositories.length != 1) throw new PackageRepositoryIsAmbiguousException(
+                createNewRepositoryError(),
+                possibleRepositories,
+                preferredRepositories
+            );
         }
         return possibleRepositories.first;
     }

@@ -6,6 +6,8 @@ import {IList} from "../collections/i-list";
 import {PackageComparer} from "./package-comparer";
 import {IPackageConfig} from "./i-package-config";
 import {ICollections} from "../collections/i-collections";
+import {IRepository} from "./i-repository";
+import {IRepositories} from "./i-repositories";
 
 export class Package implements IPackage {
     constructor(

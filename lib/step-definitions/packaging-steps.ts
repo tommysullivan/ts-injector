@@ -20,10 +20,7 @@ export class PackagingSteps {
     private packageSets:IPackageSets;
     private packagesMatchingConditions:IList<IPackage>;
     private repositoryMatchingPackage:IRepository;
-
     private releases:IReleases;
-    private phaseName:string;
-    private releaseName:string;
 
     @given(/^I want the "([^"]*)" version of the "([^"]*)" package$/)
     setVersionAndNameOfDesiredPackage(version:string, packageName:string):void {
@@ -91,15 +88,18 @@ export class PackagingSteps {
             .packages;
     }
 
-    @when(/^I ask for the repository$/)
-    getRepository():void {
+
+    @when(/^I ask for the repository for the "([^"]*)" release$/)
+    public getRepository(releaseName:string): void {
         this.repositoryMatchingPackage = this.repositories.repositoryHosting(
             this.packageName,
             this.version,
             this.promotionLevel,
-            this.operatingSystem
+            this.operatingSystem,
+            releaseName
         );
     }
+
 
     @then(/^the repository has the correct url of "([^"]*)"$/)
     verifyRepositoryUrl(expectedUrl:string):void {
@@ -122,5 +122,6 @@ export class PackagingSteps {
         $.expect(item.version.toString()).to.equal(version);
         $.expect(item.promotionLevel.name).to.equal(promotionLevel);
     }
+
 }
 module.exports = PackagingSteps;

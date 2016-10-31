@@ -3,6 +3,7 @@ import {ISemanticVersion} from "./i-semantic-version";
 import {IPromotionLevel} from "./i-promotion-level";
 import {IList} from "../collections/i-list";
 import {PackageComparer} from "./package-comparer";
+import {IRepository} from "./i-repository";
 
 export class PackageFromLiterals implements IPackage {
     constructor(

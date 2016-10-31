@@ -70,7 +70,7 @@ export class Packaging implements IPackaging {
     }
 
     newRepository(repositoryConfig:IRepositoryConfig, packageSets:IPackageSets):IRepository {
-        return new Repository(repositoryConfig, this, packageSets);
+        return new Repository(repositoryConfig, this, packageSets, this.collections);
     }
 
     newRepositories(repositoriesJSONList:IList<IRepositoryConfig>, packageSets:IPackageSets):IRepositories {

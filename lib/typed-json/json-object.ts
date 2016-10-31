@@ -6,13 +6,13 @@ import {ITypedJSON} from "./i-typed-json";
 import {IHash} from "../collections/i-hash";
 
 export class JSONObject implements IJSONObject {
-    private jsonObject:Object;
+    private rawJSON:Object;
     private spacingForStringify:number;
     private collections:ICollections;
     private typedJSON:ITypedJSON;
 
-    constructor(jsonObject:Object, spacingForStringify:number, collections:ICollections, typedJSON:ITypedJSON) {
-        this.jsonObject = jsonObject;
+    constructor(rawJSON:Object, spacingForStringify:number, collections:ICollections, typedJSON:ITypedJSON) {
+        this.rawJSON = rawJSON;
         this.spacingForStringify = spacingForStringify;
         this.collections = collections;
         this.typedJSON = typedJSON;
@@ -32,7 +32,7 @@ export class JSONObject implements IJSONObject {
     }
 
     hasPropertyNamed(propertyName:string):boolean {
-        return this.jsonObject.hasOwnProperty(propertyName);
+        return this.rawJSON.hasOwnProperty(propertyName);
     }
 
     getProperty<T>(name:string):T {
@@ -41,7 +41,7 @@ export class JSONObject implements IJSONObject {
     }
 
     getPropertyAndReturnUndefinedIfNonExistant<T>(name:string):T {
-        return this.jsonObject[name];
+        return this.rawJSON[name];
     }
 
     jsonObjectNamed(name:string):IJSONObject {
@@ -67,7 +67,7 @@ export class JSONObject implements IJSONObject {
     }
 
     setProperty<T>(name:string, value:T):IJSONObject {
-        this.jsonObject[name]=value;
+        this.rawJSON[name]=value;
         return this;
     }
 
@@ -84,11 +84,11 @@ export class JSONObject implements IJSONObject {
     }
 
     toJSON():any {
-        return JSON.parse(JSON.stringify(this.jsonObject));
+        return JSON.parse(JSON.stringify(this.rawJSON));
     }
 
     toString():string {
-        return JSON.stringify(this.jsonObject, null, this.spacingForStringify);
+        return JSON.stringify(this.rawJSON, null, this.spacingForStringify);
     }
 
     listNamed<T>(name:string):IList<T> {

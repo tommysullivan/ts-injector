@@ -21,4 +21,8 @@ export class RepositoryConfig implements IRepositoryConfig {
                 : new PackageConfig(j)
             ).toArray();
     }
+
+    get releases():Array<string> {
+        return this.repositoryConfigJSON.listNamedOrDefaultToEmpty<string>('releases').toArray();
+    }
 }

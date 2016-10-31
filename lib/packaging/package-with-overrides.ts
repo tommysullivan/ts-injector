@@ -3,6 +3,7 @@ import {IList} from "../collections/i-list";
 import {ISemanticVersion} from "./i-semantic-version";
 import {IPromotionLevel} from "./i-promotion-level";
 import {PackageComparer} from "./package-comparer";
+import {IRepository} from "./i-repository";
 
 export class PackageWithOverrides implements IPackage {
 
