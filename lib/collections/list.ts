@@ -80,7 +80,13 @@ export class List<T> implements IList<T> {
     }
 
     contains(soughtItem:T):boolean {
-        return this.listItems.indexOf(soughtItem)>-1;
+        if(soughtItem['equals'] != null) {
+            for(var i in this.listItems) {
+                if (soughtItem['equals'](this.listItems[i])) return true;
+            }
+            return false;
+        }
+        else return this.listItems.indexOf(soughtItem)>-1;
     }
 
     containsAll(soughtItems:IList<T>):boolean {

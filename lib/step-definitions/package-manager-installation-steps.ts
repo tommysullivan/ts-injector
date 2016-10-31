@@ -35,16 +35,18 @@ export class PackageManagerInstallationSteps {
         return $.expectAll(
             $.clusterUnderTest.nodes.map(n=>{
                 const taggedPackages = n.packages.where(p=>p.tags.contain(tagName));
-                const nodeRepoConfigWrites = taggedPackages.map((p:IPackage)=>{
-                    const repo = $.packaging.defaultRepositories.repositoryHosting(
+                const uniqueRepos = taggedPackages.map((p:IPackage)=>
+                    $.packaging.defaultRepositories.repositoryHosting(
                         p.name,
                         p.version.toString(),
                         p.promotionLevel.name,
                         n.operatingSystem.name,
                         $.clusterTesting.defaultReleasePhase.name
-                    );
-                    const repoConfigContent = n.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${p.name}`, p.tags.first);
-                    const repoConfigLocation = n.packageManager.clientConfigurationFileLocationFor(p.name);
+                    )
+                ).unique;
+                const nodeRepoConfigWrites = uniqueRepos.map(repo => {
+                    const repoConfigContent = n.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`, tagName);
+                    const repoConfigLocation = n.packageManager.clientConfigurationFileLocationFor(tagName);
                     return n.write(repoConfigContent, repoConfigLocation);
                 });
                 return $.promiseFactory.newGroupPromise(nodeRepoConfigWrites)

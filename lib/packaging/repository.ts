@@ -31,4 +31,8 @@ export class Repository implements IRepository {
             this.repositoryConfig.releases
         ).hasAtLeastOne(r=>r==releaseName);
     }
+
+    equals(other:IRepository):boolean {
+        return other.url == this.url;
+    }
 }
