@@ -1,7 +1,8 @@
-#!/usr/bin/env bashset -e
+#!/usr/bin/env bash
+set -e
 bin/prepare-dependencies.sh
-export defaultRelease=mapr6.0.0
-export defaultLifecyclePhase=development
+export release=mapr6.0.0
+export lifecyclePhase=development
 export clusterId=centos7.1
 export portalId=lab
 ./bin/devops run featureSet --featureSetId esxiNonGUIInstallAndHealthCheck
