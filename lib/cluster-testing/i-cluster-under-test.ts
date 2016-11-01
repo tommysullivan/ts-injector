@@ -33,4 +33,5 @@ export interface IClusterUnderTest {
     versionGraph():IFuture<IClusterVersionGraph>;
     uploadToEachNode(localPath:string, remotePath:string):IFuture<IList<ISSHResult>>;
     name:string;
+    isHostingService(serviceName:string):boolean;
 }

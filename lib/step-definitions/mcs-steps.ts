@@ -65,10 +65,11 @@ export class MCSSteps {
     @then(/^all health checkable services are healthy$/)
     verifyAllHealthCheckableServicesAreReportingHealthy():PromisedAssertion {
         const healthCheckableServiceNames = $.packaging.defaultPackageSets.all.firstWhere(ps=>ps.id=='healthCheckable').packages.map(p=>p.name);
+        const healthCheckableInstalledServiceNames = healthCheckableServiceNames.filter(serviceName => $.clusterUnderTest.isHostingService(serviceName));
         const futureUnhealthyServices = $.clusterUnderTest.newAuthedMCSSession()
             .then(mcsSession=>mcsSession.dashboardInfo)
             .then((dashboardInfo:MCSDashboardInfo)=>{
-                const unhealthyOrAbsentServices = healthCheckableServiceNames.filter(healthCheckableServiceName=>{
+                const unhealthyOrAbsentServices = healthCheckableInstalledServiceNames.filter(healthCheckableServiceName=>{
                     const matchingServiceInMCS = dashboardInfo.services.firstOrThrow(
                         mcsService=>`mapr-${mcsService.name}`==healthCheckableServiceName,
                         () => new Error(`MCS service named ${healthCheckableServiceName} was not found`)

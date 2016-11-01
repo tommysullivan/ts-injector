@@ -127,6 +127,10 @@ export class ClusterUnderTest implements IClusterUnderTest {
     nodesHosting(serviceName:string):IList<INodeUnderTest> {
         return this.clusterNodes.filter(n=>n.isHostingService(serviceName));
     }
+    
+    isHostingService(serviceName:string):boolean {
+        return this.clusterNodes.hasAtLeastOne(n=>n.isHostingService(serviceName));
+    }
 
     nodeHosting(serviceName:string):INodeUnderTest {
         return this.nodesHosting(serviceName).first;
