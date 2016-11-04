@@ -45,7 +45,9 @@ export class ClusterCliGenerator{
         const nodeOSVerRepString:string  = nodeOSRepString.replace("${node1Version}", nodeOSVersion);
         
         this.fileSystem.writeFileSync(`./${clusterID}.json`, nodeOSVerRepString);
-        console.log(`NOTE: Please set this variable : export configPath=configuration/cluster-json/${clusterID}.json`);
-
+        console.log(`Config file generated in the current directory`);
+        console.log(`NOTE: To use this configuration when running automation, first run the following:`);
+        console.log(`export configPath={fullPathToCurrentDirectory}/${clusterID}.json`);
+        console.log('');
     }
 }
