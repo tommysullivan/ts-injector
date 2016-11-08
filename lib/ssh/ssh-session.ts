@@ -86,7 +86,7 @@ export class SSHSession implements ISSHSession {
         return this.executeCommand(command)
             .catch(error=>{
                 if(maxTryCount==0) throw new Error(
-                    `SSH command error after ${originalMaxTryCount} timeouts of ${timeout} milliseconds. Error: ${error.toSstring()}`
+                    `SSH command error after ${originalMaxTryCount} timeouts of ${timeout} milliseconds. Error: ${error.toString()}`
                 );
                 return this.promiseFactory.delayedPromise(
                     timeout,
