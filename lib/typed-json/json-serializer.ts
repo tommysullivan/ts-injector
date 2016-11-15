@@ -16,4 +16,8 @@ export class JSONSerializer implements IJSONSerializer {
             throw new Error(`Cannot serialize to JSON. Object must either be compatible with JSON.stringify or define a toJSON method. Original error: ${e}`);
         }
     }
+
+    serializeToString(maybeJSON:IJSONSerializable):string {
+        return JSON.stringify(this.serialize(maybeJSON), null, 3);
+    }
 }

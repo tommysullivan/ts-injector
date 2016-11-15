@@ -6,21 +6,18 @@ import {ITypedJSON} from "./i-typed-json";
 import {IHash} from "../collections/i-hash";
 
 export class JSONObject implements IJSONObject {
-    private rawJSON:Object;
-    private spacingForStringify:number;
-    private collections:ICollections;
-    private typedJSON:ITypedJSON;
 
-    constructor(rawJSON:Object, spacingForStringify:number, collections:ICollections, typedJSON:ITypedJSON) {
-        this.rawJSON = rawJSON;
-        this.spacingForStringify = spacingForStringify;
-        this.collections = collections;
-        this.typedJSON = typedJSON;
-    }
+    constructor(
+        private rawJSON:Object,
+        private spacingForStringify:number,
+        private collections:ICollections,
+        private typedJSON:ITypedJSON,
+        private maxConfigErrorOutputLength:number
+    ) {}
 
     private throwPropertyWrongTypeError(name:string, expectedTypeName:string, actualTypeName:string):void {
         throw new Error(
-            `Property "${name}" should be "${expectedTypeName}" but was a(n) ${actualTypeName} in configuration: ${this.toString()}`
+            `Property "${name}" should be "${expectedTypeName}" but was a(n) ${actualTypeName} in configuration: ${this.toString().substr(0, this.maxConfigErrorOutputLength)}`
         );
     }
     
@@ -36,7 +33,7 @@ export class JSONObject implements IJSONObject {
     }
 
     getProperty<T>(name:string):T {
-        if(!this.hasPropertyNamed(name)) throw new Error(`Missing property "${name}" in configuration: ${this.toString()}`);
+        if(!this.hasPropertyNamed(name)) throw new Error(`Missing property "${name}" in configuration: ${this.toString().substr(0, this.maxConfigErrorOutputLength)}`);
         return this.getPropertyAndReturnUndefinedIfNonExistant<T>(name);
     }
 

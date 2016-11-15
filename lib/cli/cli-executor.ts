@@ -3,6 +3,10 @@ import {ClusterCliHelper} from "./cluster-cli-helper";
 import {ClusterTesterCliHelper} from "./cluster-tester-cli-helper";
 import {ClusterSnapshotCliHelper} from "./cluster-snapshot-cli-helper";
 import {ClusterCliGenerator} from "./cluster-generator-cli-helper";
+import {ICollections} from "../collections/i-collections";
+import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
+import {CliHelper} from "./cli-helper";
+import {IProcess} from "../node-js-wrappers/i-process";
 
 export class CliExecutor {
 
@@ -11,7 +15,11 @@ export class CliExecutor {
         private clusterCliHelper:ClusterCliHelper,
         private clusterTesterCliHelper:ClusterTesterCliHelper,
         private clusterSnapshotCliHelper:ClusterSnapshotCliHelper,
-        private clusterGeneratorCliHelper:ClusterCliGenerator
+        private clusterGeneratorCliHelper:ClusterCliGenerator,
+        private collections:ICollections,
+        private clusterTestingConfiguration:IClusterTestingConfiguration,
+        private cliHelper:CliHelper,
+        private process:IProcess
     ) {}
 
     executeShowFeatureSets(detail:boolean):void {
@@ -54,8 +62,18 @@ export class CliExecutor {
         this.clusterTesterCliHelper.runFeatureSet(featureSetId, argv);
     }
 
-    runCucucmberComamnd(argv:any):void {
-        this.clusterTesterCliHelper.runCucumberCommand(argv);
+    runCucumberCommand(argv:any):void {
+        const cucumberPassThruCommands = this.collections.newList(argv._)
+            .everythingAfterIndex(1).map(val => val.toString());
+
+        const futureResult = this.clusterTestingConfiguration.clusterIds.length==0
+            ? this.cucumberCliHelper.runNonClusterCucumberTest(cucumberPassThruCommands)
+            : this.clusterTesterCliHelper.runCucumberOncePerClusterId(cucumberPassThruCommands);
+
+        futureResult.catch(e => {
+            this.cliHelper.logError(e);
+            this.process.exit(1);
+        });
     }
     
     runInstallCommand(secure:boolean){

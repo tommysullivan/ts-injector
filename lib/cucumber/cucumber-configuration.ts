@@ -2,11 +2,21 @@ import {IJSONObject} from "../typed-json/i-json-object";
 import {ICucumberConfiguration} from "./i-cucumber-configuration";
 import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
 import {FeatureSetConfiguration} from "./feature-set-configuration";
+import {IPath} from "../node-js-wrappers/i-path";
 
 export class CucumberConfiguration implements ICucumberConfiguration {
     constructor(
-        private cucumberConfigJSON:IJSONObject
+        private cucumberConfigJSON:IJSONObject,
+        private basePathToUseForConfiguredRelativePaths:string,
+        private path:IPath
     ) {}
+
+    get cucumberOutputPath():string {
+        return this.path.join(
+            this.basePathToUseForConfiguredRelativePaths,
+            this.cucumberConfigJSON.stringPropertyNamed('cucumberOutputPathRelativeToThisConfigFile')
+        );
+    }
 
     get embedAsyncErrorsInStepOutput():boolean {
         return this.cucumberConfigJSON.booleanPropertyNamed('embedAsyncErrorsInStepOutput');

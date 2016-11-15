@@ -15,6 +15,10 @@ import {IClusters} from "../clusters/i-clusters";
 import {IClusterTesting} from "../cluster-testing/i-cluster-testing";
 import {ClusterCliGenerator} from "./cluster-generator-cli-helper";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
+import {IUUIDGenerator} from "../uuid/i-uuid-generator";
+import {ITesting} from "../testing/i-testing";
+import {IJSONSerializer} from "../typed-json/i-json-serializer";
 
 export class Cli {
 
@@ -28,7 +32,11 @@ export class Cli {
         private clusterTesting:IClusterTesting,
         private cliConfig:ICliConfig,
         private promiseFactory:IPromiseFactory,
-        private fileSystem:IFileSystem
+        private fileSystem:IFileSystem,
+        private clusterTestingConfiguration:IClusterTestingConfiguration,
+        private uuidGenerator:IUUIDGenerator,
+        private testing:ITesting,
+        private jsonSerializer:IJSONSerializer
     ) {}
 
     newCliHelper():CliHelper {
@@ -43,7 +51,12 @@ export class Cli {
             this.console,
             this.cucumber,
             this.process,
-            () => this.cliConfig.temporaryTestRunOutputFilePath
+            () => this.cliConfig.temporaryTestRunOutputFilePath,
+            this.uuidGenerator,
+            this.newCliHelper(),
+            this.testing,
+            this.testing.newResultReporter(),
+            this.jsonSerializer
         );
     }
 
@@ -67,8 +80,7 @@ export class Cli {
             this.clusters,
             this.promiseFactory,
             this.collections,
-            this.clusterTesting.newMultiClusterTester(),
-            this.newCliHelper()
+            this.clusterTesting.newMultiClusterTester()
         )
     }
 
@@ -95,7 +107,11 @@ export class Cli {
             this.newClusterCliHelper(),
             this.newClusterTesterCliHelper(),
             this.newClusterSnapshotCliHelper(),
-            this.newClusterGeneratorCliHelper()
+            this.newClusterGeneratorCliHelper(),
+            this.collections,
+            this.clusterTestingConfiguration,
+            this.newCliHelper(),
+            this.process
         );
     }
 }

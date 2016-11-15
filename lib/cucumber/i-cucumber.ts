@@ -14,9 +14,11 @@ import {IFeatureSets} from "./i-feature-sets";
 import {IConsole} from "../node-js-wrappers/i-console";
 import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
 import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
-import {IFeatureSetRefConfiguration} from "./i-feature-set-ref-configuration";
+import {IFuture} from "../promise/i-future";
+import {CucumberCli} from "./cucumber-cli";
 
 export interface ICucumber {
+    newCucumberCli():CucumberCli;
     world:Function;
     newFeatureSet(featureSetConfig:IFeatureSetConfiguration, featureSets:IFeatureSets):IFeatureSet;
     newCucumberScenarioResult(resultJSON:IJSONObject):ICucumberScenarioResult;

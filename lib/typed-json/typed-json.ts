@@ -9,13 +9,11 @@ import {JSONMerger} from "./json-merger";
 import {IJSONMerger} from "./i-json-merger";
 
 export class TypedJSON implements ITypedJSON {
-    private spacingForStringify:number;
-    private collections:ICollections;
-
-    constructor(spacingForStringify:number, collections:ICollections) {
-        this.spacingForStringify = spacingForStringify;
-        this.collections = collections;
-    }
+    constructor(
+        private spacingForStringify:number,
+        private collections:ICollections,
+        private maxConfigErrorOutputLength:number
+    ) {}
 
     newJSONSerializer():IJSONSerializer {
         return new JSONSerializer();
@@ -26,7 +24,8 @@ export class TypedJSON implements ITypedJSON {
             rawJSONObject,
             this.spacingForStringify,
             this.collections,
-            this
+            this,
+            this.maxConfigErrorOutputLength
         );
     }
 

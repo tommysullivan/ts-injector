@@ -1,17 +1,21 @@
 {
   "name": "private-devops-automation-framework",
-  "version": "2.8.2",
+  "version": "3.0.0",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
-  "main": "./dist/index.js",
+  "main": "bin/devops",
   "typings": "./dist/lib/index.d.ts",
   "bin": {
     "devops": "bin/devops"
   },
   "scripts": {
     "start": "bin/devops",
-    "test": "npm run build && portalId=lab clusterId=ubuntu14 bin/devops run cucumber -- --tags @regression",
-    "localTest": "npm run build && clusterId=ubuntu14 cucumber.js --require dist/support --require dist/step-definitions --tags @regression",
-    "build": "rm -rdf dist && tsc"
+    "devops": "bin/devops",
+    "test": "bin/devops run cucumber -- --tags @regression",
+    "localTest": "cucumber.js --require dist/support --require dist/step-definitions --tags @regression",
+    "build": "rm -rdf dist && tsc",
+    "devRefresh": "rm -rdf node_modules/private-devops-* && npm install private-devops-configuration",
+    "tsc": "rm -rdf dist && tsc -w",
+    "cucumber": "cucumber.js --require dist/support --require dist/step-definitions"
   },
   "files": [
     "dist/*",
@@ -41,7 +45,7 @@
     "moment": "^2.15.0",
     "node-uuid": "^1.4.7",
     "nodemiral": "^1.1.1",
-    "private-devops-configuration": "^1.0.0",
+    "private-devops-configuration": "^2.0.0",
     "promise": "^7.1.1",
     "readline-sync": "^1.4.1",
     "request": "^2.72.0",
@@ -53,7 +57,7 @@
   },
   "devDependencies": {
     "bower": "^1.7.9",
-    "typescript": "^1.8.7"
+    "typescript": "^2.1.1"
   },
   "publishConfig": {
     "registry": "http://artifactory.devops.lab/artifactory/api/npm/local-npm-mapr/"

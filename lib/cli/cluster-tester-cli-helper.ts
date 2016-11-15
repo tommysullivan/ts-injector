@@ -8,8 +8,8 @@ import {ICollections} from "../collections/i-collections";
 import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
 import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
 import {IMultiClusterTester} from "../cluster-testing/i-multi-cluster-tester";
-import {CliHelper} from "./cli-helper";
 import {IClusters} from "../clusters/i-clusters";
+import {IFuture} from "../promise/i-future";
 
 export class ClusterTesterCliHelper {
 
@@ -22,8 +22,7 @@ export class ClusterTesterCliHelper {
         private clusters:IClusters,
         private promiseFactory:IPromiseFactory,
         private collections:ICollections,
-        private multiClusterTester:IMultiClusterTester,
-        private cliHelper:CliHelper
+        private multiClusterTester:IMultiClusterTester
     ) {}
 
     runFeatureSet(featureSetId:string, argv:any){
@@ -32,12 +31,6 @@ export class ClusterTesterCliHelper {
             this.collections.newList(argv._)
                 .everythingAfterIndex(1).map(val => val.toString())
         );
-        this.runCucumberOncePerClusterId(cucumberPassThruCommands);
-    }
-
-    runCucumberCommand(argv:any):void {
-        const cucumberPassThruCommands = this.collections.newList(argv._)
-            .everythingAfterIndex(1).map(val => val.toString());
         this.runCucumberOncePerClusterId(cucumberPassThruCommands);
     }
     
@@ -75,8 +68,8 @@ export class ClusterTesterCliHelper {
         });
     }
 
-    private runCucumberOncePerClusterId(cucumberPassThruCommands:IList<string>):void {
-        this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands)
+    public runCucumberOncePerClusterId(cucumberPassThruCommands:IList<string>):IFuture<any> {
+        return this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands)
             .then(clusterTestResults => {
                 const allPassed = clusterTestResults.all(t=>t.passed);
                 if(clusterTestResults.length > 1) {
@@ -86,8 +79,7 @@ export class ClusterTesterCliHelper {
                     })
                 }
                 this.process.exit(allPassed ? 0 : 1);
-            })
-            .catch(e => this.cliHelper.logError(e));
+            });
     }
 
     private nodesRunningRequestedServices(cluster:IClusterUnderTest):IList<INodeUnderTest> {

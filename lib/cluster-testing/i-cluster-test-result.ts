@@ -1,6 +1,5 @@
-import {IJSONSerializable} from "../typed-json/i-json-serializable";
+import {ITestResult} from "../testing/i-test-result";
 
-export interface IClusterTestResult extends IJSONSerializable {
+export interface IClusterTestResult extends ITestResult {
     clusterId:string;
-    passed:boolean;
 }

@@ -26,13 +26,11 @@ export const builder = {
 
 export const handler = (argv) => {
     const framework = new NodeFrameworkLoader().loadFramework();
-
     const clusterId = argv.clusterId;
-    const uniqueFileId = argv.sourceFile;
     const testRunGUID = framework.uuidGenerator.v4();
     const cucumberJSONFilePath = argv.sourceFile;
     const passed = argv.passed.toLowerCase().trim()=='true';
-
+    const uniqueFileIdentifier = framework.nodeWrapperFactory.path.basename(cucumberJSONFilePath).replace('.json','');
     const cucumberTestResult = framework
         .cucumber
         .newCucumberResultFromFilePathWhenProcessResultUnavailable(
@@ -40,14 +38,23 @@ export const handler = (argv) => {
         );
 
     framework.clusterTesting.newClusterResultPreparer()
-        .prepareAndSaveClusterResult(
+        .prepareClusterResult(
             clusterId,
             cucumberTestResult,
-            framework.nodeWrapperFactory.path.basename(cucumberJSONFilePath).replace('.json',''),
+            uniqueFileIdentifier,
             testRunGUID
+        )
+        .then(clusterTestResult =>
+            this.resultReporter.reportResult(
+                uniqueFileIdentifier,
+                framework.typedJSON.newJSONSerializer().serializeToString(clusterTestResult)
+            )
         )
         .then(
             r => framework.console.log('Success!'),
-            e => framework.console.error(e.stack)
+            e => {
+                framework.cli.newCliHelper().logError(e);
+                framework.process.exit(1);
+            }
         );
 };

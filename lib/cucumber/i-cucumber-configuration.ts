@@ -6,4 +6,5 @@ export interface ICucumberConfiguration extends IJSONSerializable {
     defaultCucumberStepTimeoutMS:number;
     cucumberExecutablePath:string;
     featureSets:Array<IFeatureSetConfiguration>;
+    cucumberOutputPath:string;
 }

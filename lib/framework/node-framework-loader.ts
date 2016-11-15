@@ -66,7 +66,7 @@ export class NodeFrameworkLoader {
     get fileSystem():IFileSystem { return this.nodeWrapperFactory.fileSystem(); }
     get frameworkConfig():any { return this.frameworkConfigLoader.loadConfig(); }
     get collections():ICollections { return new Collections(); }
-    get typedJSON():ITypedJSON { return new TypedJSON(3, this.collections); }
+    get typedJSON():ITypedJSON { return new TypedJSON(3, this.collections, 200); }
     get errors():IErrors { return new Errors(); }
 
     get promiseFactory():IPromiseFactory {

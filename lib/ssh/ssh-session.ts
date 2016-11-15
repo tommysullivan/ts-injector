@@ -151,10 +151,7 @@ export class SSHSession implements ISSHSession {
     }
 
     read(remotePath:string):IFuture<string> {
-        return this.readAsBinary(remotePath).then(data => {
-            console.log(data.toString);
-            return data.toString()
-        });
+        return this.readAsBinary(remotePath).then(data => data.toString());
     }
 
     readAsBinary(remotePath:string):IFuture<ArrayBuffer> {

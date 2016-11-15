@@ -46,6 +46,8 @@ import {IClusterTesting} from "../cluster-testing/i-cluster-testing";
 import {IFramework} from "./i-framework";
 import {IRest} from "../rest/i-rest";
 import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
+import {ITesting} from "../testing/i-testing";
+import {Testing} from "../testing/testing";
 
 export class Framework implements IFramework {
     constructor(
@@ -164,17 +166,30 @@ export class Framework implements IFramework {
             this.esxi,
             this.clusters,
             this.packaging,
-            this.releasing,
             this.uuidGenerator,
             this.process,
             this.cucumber,
             this.console,
             this.frameworkConfig,
-            this.fileSystem,
-            this.rest,
-            this.nodeWrapperFactory.path,
             this.typedJSON.newJSONSerializer(),
-            this.operatingSystems
+            this.operatingSystems,
+            this.testing
+        );
+    }
+
+    get testing():ITesting {
+        return new Testing(
+            this.process,
+            this.frameworkConfig,
+            this.fileSystem,
+            this.frameworkConfig.testing,
+            this.console,
+            this.typedJSON.newJSONSerializer(),
+            this.collections,
+            this.promiseFactory,
+            this.nodeWrapperFactory.path,
+            this.rest,
+            this.releasing
         );
     }
 
@@ -189,7 +204,11 @@ export class Framework implements IFramework {
             this.clusterTesting,
             this.frameworkConfig.cli,
             this.promiseFactory,
-            this.fileSystem
+            this.fileSystem,
+            this.frameworkConfig.clusterTesting,
+            this.uuidGenerator,
+            this.testing,
+            this.typedJSON.newJSONSerializer()
         );
     }
 
@@ -201,7 +220,10 @@ export class Framework implements IFramework {
             this.errors,
             this.chai,
             this.promiseFactory,
-            this.typedJSON.newJSONSerializer()
+            this.typedJSON.newJSONSerializer(),
+            this.nodeWrapperFactory.path,
+            this.process,
+            this.console
         );
     }
 

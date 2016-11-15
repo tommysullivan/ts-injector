@@ -13,25 +13,16 @@ import {ICucumberTestResult} from "../cucumber/i-cucumber-test-result";
 import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
 import {IVersioning} from "../versioning/i-versioning";
 import {IPackaging} from "../packaging/i-packaging";
-import {IReleasing} from "../releasing/i-releasing";
-import {IPhase} from "../releasing/i-phase";
 import {MultiClusterTester} from "./multi-cluster-tester";
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";
-import {IFileSystem} from "../node-js-wrappers/i-filesystem";
-import {IPath} from "../node-js-wrappers/i-path";
 import {IProcess} from "../node-js-wrappers/i-process";
 import {ICucumber} from "../cucumber/i-cucumber";
 import {IConsole} from "../node-js-wrappers/i-console";
-import {MultiplexDelegateResultReporter} from "./result-reporter";
 import {ClusterLogCapturer} from "./cluster-log-capturer";
 import {IList} from "../collections/i-list";
 import {NodeLog} from "./node-log";
-import {IJSONObject} from "../typed-json/i-json-object";
 import {IFrameworkConfiguration} from "../framework/i-framework-configuration";
 import {ClusterResultPreparer} from "./cluster-result-preparer";
-import {IResultReporter} from "./i-result-reporter";
-import {FilesystemResultReporter} from "./filesystem-result-reporter";
-import {PortalResultReporter} from "./portal-result-reporter";
 import {IClusterTestingConfiguration} from "./i-cluster-testing-configuration";
 import {IClusterTestResult} from "./i-cluster-test-result";
 import {ClusterTestResult} from "./cluster-test-result";
@@ -42,12 +33,14 @@ import {IOpenTSDB} from "../open-tsdb/i-open-tsdb";
 import {IInstaller} from "../installer/i-installer";
 import {IServiceDiscoverer} from "./i-service-discoverer";
 import {IClusters} from "../clusters/i-clusters";
-import {IRest} from "../rest/i-rest";
 import {IElasticsearch} from "../elasticsearch/i-elasticsearch";
 import {ClusterInstaller} from "../installer/cluster-installer";
 import {INodeLog} from "./i-node-log";
 import {IOperatingSystems} from "../operating-systems/i-operating-systems";
-import {IRelease} from "../releasing/i-release";
+import {IClusterResultPreparer} from "./i-cluster-result-preparer";
+import {ITestRunnerEnvironment} from "../testing/i-test-runner-environment";
+import {ITesting} from "../testing/i-testing";
+import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 
 export class ClusterTesting implements IClusterTesting {
 
@@ -65,17 +58,14 @@ export class ClusterTesting implements IClusterTesting {
         private esxi:IESXI,
         private clusters:IClusters,
         private packaging:IPackaging,
-        private releasing:IReleasing,
         private uuidGenerator:IUUIDGenerator,
         private process:IProcess,
         private cucumber:ICucumber,
         private console:IConsole,
         private frameworkConfig:IFrameworkConfiguration,
-        private fileSystem:IFileSystem,
-        private rest:IRest,
-        private path:IPath,
         private jsonSerializer:IJSONSerializer,
-        private operatingSystems:IOperatingSystems
+        private operatingSystems:IOperatingSystems,
+        private testing:ITesting
     ) {}
 
     clusterForId(clusterId:string):IClusterUnderTest {
@@ -93,41 +83,38 @@ export class ClusterTesting implements IClusterTesting {
     newMultiClusterTester():MultiClusterTester {
         return new MultiClusterTester(
             this.uuidGenerator,
-            this.path,
             this.clusterTestingConfiguration,
             this.clusters,
             this.process,
-            this.cucumber,
             this.console,
             this.promiseFactory,
             this.newClusterResultPreparer(),
-            this.fileSystem
+            this.cucumber.newCucumberCli(),
+            this.testing.newResultReporter(),
+            this.jsonSerializer
         )
     }
 
-    newClusterResultPreparer():ClusterResultPreparer {
+    newClusterResultPreparer():IClusterResultPreparer {
         return new ClusterResultPreparer(
             this.newClusterLogCapturer(),
             this.console,
-            this.newResultReporter(),
             this.collections,
-            this.clusterTestingConfiguration,
-            this.fileSystem,
             this.clusters,
             this,
             this.frameworkConfig,
-            this.process
+            this.promiseFactory,
+            this.jsonSerializer,
+            this.testing
         );
     }
 
-    newClusterLogCapturer():ClusterLogCapturer {
+    newClusterLogCapturer():IClusterLogCapturer {
         return new ClusterLogCapturer(
-            this.clusterTestingConfiguration.mcsLogFileLocation,
-            this.clusterTestingConfiguration.wardenLogLocation,
-            this.clusterTestingConfiguration.configureShLogLocation,
-            this.clusterTestingConfiguration.mfsInitLogFileLocation,
             this.promiseFactory,
-            this
+            this,
+            this.collections,
+            this.clusterTestingConfiguration.logsToCapture
         );
     }
 
@@ -138,42 +125,13 @@ export class ClusterTesting implements IClusterTesting {
             logTitle
         );
     }
-    
-    newResultReporter():MultiplexDelegateResultReporter {
-        return new MultiplexDelegateResultReporter(
-            this.collections.newList([
-                this.newFilesystemResultReporter(),
-                this.newPortalResultReporter()
-            ]),
-            this.promiseFactory
-        );
-    }
-
-    newFilesystemResultReporter():IResultReporter {
-        return new FilesystemResultReporter(
-            this.fileSystem,
-            this.clusterTestingConfiguration,
-            this.path,
-            this.console
-        );
-    }
-
-    newPortalResultReporter():IResultReporter {
-        return new PortalResultReporter(
-            this.rest,
-            this.console,
-            this.process,
-            this.clusterTestingConfiguration,
-            this.promiseFactory
-        );
-    }
 
     newClusterUnderTest(clusterConfiguration:IClusterConfiguration):IClusterUnderTest {
         const nodesUnderTest = this.collections.newList(
             clusterConfiguration.nodes.map(n=>this.newNodeUnderTest(n))
         );
         return new ClusterUnderTest(
-            this.clusterTestingConfiguration.clusterInstallerConfiguration,
+            this.clusterTestingConfiguration.clusterInstaller,
             this.promiseFactory,
             nodesUnderTest,
             this.versioning,
@@ -188,7 +146,7 @@ export class ClusterTesting implements IClusterTesting {
     newClusterInstaller() {
         return new ClusterInstaller(
             this.promiseFactory,
-            this.clusterTestingConfiguration.clusterInstallerConfiguration
+            this.clusterTestingConfiguration.clusterInstaller
         );
     }
 
@@ -203,19 +161,10 @@ export class ClusterTesting implements IClusterTesting {
             this.elasticSearch,
             this.versioning,
             this.packaging,
-            this.defaultReleasePhase,
+            this.testing.defaultReleasePhase,
             this.collections,
             this.operatingSystems
         );
-    }
-
-    get defaultReleasePhase():IPhase {
-        return this.defaultRelease
-            .phaseNamed(this.clusterTestingConfiguration.lifecyclePhase);
-    }
-
-    get defaultRelease():IRelease {
-        return this.releasing.defaultReleases.releaseNamed(this.clusterTestingConfiguration.releaseUnderTest);
     }
 
     newESXIManagedCluster(clusterConfiguration:IClusterConfiguration):ESXIManagedCluster {
@@ -229,31 +178,19 @@ export class ClusterTesting implements IClusterTesting {
     newClusterTestResult(cucumberTestResult:ICucumberTestResult,
                          frameworkConfiguration:IFrameworkConfiguration,
                          versionGraph:IClusterVersionGraph,
-                         versionGraphError:string,
                          clusterConfiguration:IClusterConfiguration,
                          logs:IList<INodeLog>,
                          id:string,
-                         testRunGUID:string,
-                         packageJson:IJSONObject,
-                         jenkinsURL?:string,
-                         currentUser?:string,
-                         gitCloneURL?:string,
-                         gitSHA?:string):IClusterTestResult {
+                         testRunnerEnvironment:ITestRunnerEnvironment):IClusterTestResult {
         return new ClusterTestResult(
             cucumberTestResult,
             frameworkConfiguration,
             versionGraph,
-            versionGraphError,
             clusterConfiguration,
             logs,
             id,
-            testRunGUID,
-            packageJson,
             this.jsonSerializer,
-            jenkinsURL,
-            currentUser,
-            gitCloneURL,
-            gitSHA
+            testRunnerEnvironment
         );
     }
 }

@@ -19,7 +19,7 @@ export class NodemiralPatcher {
                 client._client.on('keyboard-interactive', function(name, instr, lang, prompts, cb) {
                     cb([connectInfo.password]);
                 });
-                client._client.on('ready', () => callback(client, done));
+                client._client.on('ready', () => callback(client, () => client.close()));
                 client._client.on('error', error => {
                     if(this.onErrorHandler) this.onErrorHandler(error);
                 });
@@ -27,9 +27,6 @@ export class NodemiralPatcher {
                 connectInfo = this._getSshConnInfo();
                 connectInfo.tryKeyboard = true;
                 client.connect(connectInfo);
-                function done() {
-                    client.close();
-                }
             }
         };
 

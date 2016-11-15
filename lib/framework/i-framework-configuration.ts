@@ -13,6 +13,7 @@ import {IOpenTSDBConfiguration} from "../open-tsdb/i-open-tsdb-configuration";
 import {IElasticsearchConfiguration} from "../elasticsearch/i-elasticsearch-configuration";
 import {IESXIConfiguration} from "../esxi/configuration/i-esxi-configuration";
 import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
+import {ITestingConfiguration} from "../testing/i-testing-configuration";
 
 export interface IFrameworkConfiguration extends IJSONSerializable {
     releasing:IReleasingConfig;
@@ -29,4 +30,5 @@ export interface IFrameworkConfiguration extends IJSONSerializable {
     elasticsearch:IElasticsearchConfiguration;
     clusters:Array<IClusterConfiguration>;
     esxi:IESXIConfiguration;
+    testing:ITestingConfiguration;
 }

@@ -1,17 +1,9 @@
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
 import {IClusterInstallerConfig} from "../installer/i-cluster-installer-config";
+import {ILogCaptureConfiguration} from "./i-log-capture-configuration";
 
 export interface IClusterTestingConfiguration extends IJSONSerializable {
-    portalUrl:string;
-    mcsLogFileLocation:string;
-    wardenLogLocation:string;
-    configureShLogLocation:string;
-    mfsInitLogFileLocation:string;
-    frameworkOutputPath:string;
-    cucumberOutputPath:string;
-    clusterInstallerConfiguration:IClusterInstallerConfig;
-    releaseUnderTest:string;
-    lifecyclePhase:string;
+    clusterInstaller:IClusterInstallerConfig;
     clusterIds:Array<string>;
-    throwErrorIfPackageJsonMissing:boolean;
+    logsToCapture:Array<ILogCaptureConfiguration>;
 }

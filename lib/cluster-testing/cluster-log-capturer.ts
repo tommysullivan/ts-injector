@@ -6,41 +6,28 @@ import {IList} from "../collections/i-list";
 import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 import {INodeLog} from "./i-node-log";
 import {IClusterTesting} from "./i-cluster-testing";
+import {ICollections} from "../collections/i-collections";
+import {ILogCaptureConfiguration} from "./i-log-capture-configuration";
 
 export class ClusterLogCapturer implements IClusterLogCapturer {
     constructor(
-        private mcsLogFileLocation:string,
-        private wardenLogLocation:string,
-        private configureShLogLocation:string,
-        private mfsInitLogFileLocation:string,
         private promiseFactory:IPromiseFactory,
-        private clusterTesting:IClusterTesting
+        private clusterTesting:IClusterTesting,
+        private collections:ICollections,
+        private logsToCapture:Array<ILogCaptureConfiguration>
     ) {}
 
     captureLogs(cluster:IClusterUnderTest):IFuture<IList<INodeLog>> {
+        const configuredLogsList = this.collections.newList(this.logsToCapture);
         const allNodes = cluster.nodes;
         return this.promiseFactory.newGroupPromise(
-            this.logsFor(
-                allNodes,
-                this.wardenLogLocation,
-                'Warden Log'
-            ).append(
-                this.logsFor(
-                    allNodes,
-                    this.configureShLogLocation,
-                    'Configure.sh Log'
-                )
-            ).append(
-                this.logsFor(
-                    cluster.nodesHosting('mapr-webserver'),
-                    this.mcsLogFileLocation,
-                    'MCS Log'
-                )
-            ).append(
-                this.logsFor(
-                    allNodes,
-                    this.mfsInitLogFileLocation,
-                    'MFS Init Log'
+            configuredLogsList.flatMap(
+                configuredLog => this.logsFor(
+                    configuredLog.nodesHosting=="all"
+                        ? allNodes
+                        : cluster.nodesHosting(configuredLog.nodesHosting),
+                    configuredLog.location,
+                    configuredLog.title
                 )
             )
         );

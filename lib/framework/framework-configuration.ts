@@ -6,7 +6,6 @@ import {SSHConfiguration} from "../ssh/ssh-configuration";
 import {OpenTSDBConfiguration} from "../open-tsdb/open-tsdb-configuration";
 import {ElasticSearchConfiguration} from "../elasticsearch/elasticsearch-configuration";
 import {IJSONObject} from "../typed-json/i-json-object";
-import {IList} from "../collections/i-list";
 import {ESXIConfiguration} from "../esxi/configuration/esxi-configuration";
 import {IPath} from "../node-js-wrappers/i-path";
 import {CliConfig} from "../cli/cli-config";
@@ -33,6 +32,8 @@ import {ClusterConfiguration} from "../clusters/cluster-configuration";
 import {PackagingConfig} from "../packaging/packaging-config";
 import {ReleasingConfig} from "../releasing/releasing-config";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {ITestingConfiguration} from "../testing/i-testing-configuration";
+import {TestingConfiguration} from "../testing/testing-configuration";
 
 export class FrameworkConfiguration implements IFrameworkConfiguration {
     constructor(
@@ -43,6 +44,15 @@ export class FrameworkConfiguration implements IFrameworkConfiguration {
         private collections:ICollections,
         private fileSystem:IFileSystem
     ) {}
+
+    get testing():ITestingConfiguration {
+        return new TestingConfiguration(
+            this.basePathToUseForConfiguredRelativePaths,
+            this.frameworkConfigJSON.jsonObjectNamed('testing'),
+            this.process,
+            this.path
+        );
+    }
 
     get releasing():IReleasingConfig {
         return new ReleasingConfig(
@@ -86,8 +96,6 @@ export class FrameworkConfiguration implements IFrameworkConfiguration {
     get clusterTesting():IClusterTestingConfiguration {
         return new ClusterTestingConfiguration(
             this.frameworkConfigJSON.jsonObjectNamed('clusterTesting'),
-            this.basePathToUseForConfiguredRelativePaths,
-            this.path,
             this.process,
             this.collections
         );
@@ -95,7 +103,9 @@ export class FrameworkConfiguration implements IFrameworkConfiguration {
 
     get cucumber():ICucumberConfiguration {
         return new CucumberConfiguration(
-            this.frameworkConfigJSON.jsonObjectNamed('cucumber')
+            this.frameworkConfigJSON.jsonObjectNamed('cucumber'),
+            this.basePathToUseForConfiguredRelativePaths,
+            this.path
         );
     }
 
