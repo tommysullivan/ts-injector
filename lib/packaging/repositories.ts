@@ -47,7 +47,7 @@ export class Repositories implements IRepositories {
             throw createNewRepositoryError();
         }
         else if(possibleRepositories.hasMany) {
-            const preferredRepositories = possibleRepositories.where(
+            const preferredRepositories = possibleRepositories.filter(
                 r=>r.isPreferredForRelease(releaseName)
             );
             if(preferredRepositories.length != 1) throw new PackageRepositoryIsAmbiguousException(
@@ -55,8 +55,10 @@ export class Repositories implements IRepositories {
                 possibleRepositories,
                 preferredRepositories
             );
+            return preferredRepositories.first;
         }
-        return possibleRepositories.first;
+        else
+            return possibleRepositories.first;
     }
 
 }
