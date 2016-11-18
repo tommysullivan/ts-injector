@@ -11,7 +11,7 @@ export class ClusterTestingConfiguration implements IClusterTestingConfiguration
     constructor(
         private configJSON:IJSONObject,
         private process:IProcess,
-        private collections:ICollections,
+        private collections:ICollections
     ) {}
 
     get logsToCapture():Array<ILogCaptureConfiguration> {
