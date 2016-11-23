@@ -65,9 +65,12 @@ export class NodeFrameworkLoader {
     get process():IProcess { return this.nodeWrapperFactory.newProcess(process); }
     get fileSystem():IFileSystem { return this.nodeWrapperFactory.fileSystem(); }
     get frameworkConfig():any { return this.frameworkConfigLoader.loadConfig(); }
-    get collections():ICollections { return new Collections(); }
     get typedJSON():ITypedJSON { return new TypedJSON(3, this.collections, 200); }
     get errors():IErrors { return new Errors(); }
+
+    get collections():ICollections {
+        return new Collections(promises=>this.promiseFactory.newGroupPromise(promises));
+    }
 
     get promiseFactory():IPromiseFactory {
         return new PromiseFactory(promiseModule, this.collections);

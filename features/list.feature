@@ -11,3 +11,9 @@ Feature: List
     Given I have a list of items where two or more are the same
     When I ask for the unique items
     Then it gives the unique numbers
+
+  @regression
+  Scenario: Group Promises
+    Given I have a list of integers and an async map function
+    When I call mapToGroupPromise
+    Then I get a promise that behaves as expected

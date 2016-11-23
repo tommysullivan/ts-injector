@@ -1,11 +1,25 @@
 import {IList} from "./i-list";
 import {IComparator} from "./i-comparator";
+import {IFuture} from "../promise/i-future";
+import {IPromiseFactory} from "../promise/i-promise-factory";
 
 export class List<T> implements IList<T> {
-    private listItems:Array<T>;
+    constructor(
+        private listItems:Array<T> = [],
+        private createGroupPromise:<S>(promises:IList<IFuture<S>>)=>IFuture<IList<S>>
+    ) {}
 
-    constructor(listItems?:Array<T>) {
-        this.listItems = listItems || [];
+    mapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>> {
+        return this.createGroupPromise(this.map(mapFunction));
+    }
+
+    flatMapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>> {
+        return this.mapToGroupPromise(mapFunction)
+            .then(l => l.flatten());
+    }
+
+    private newList<S>(items?:Array<S>):IList<S> {
+        return new List<S>(items, this.createGroupPromise);
     }
 
     get notEmpty():boolean {
@@ -25,11 +39,11 @@ export class List<T> implements IList<T> {
     }
 
     get rest():IList<T> {
-        return new List<T>(this.listItems.slice(1));
+        return this.newList(this.listItems.slice(1));
     }
 
     get unique():IList<T> {
-        const uniqueList = new List<T>();
+        const uniqueList = this.newList<T>();
         this.forEach(i=>uniqueList.contains(i) ? null : uniqueList.push(i));
         return uniqueList;
     }
@@ -55,7 +69,7 @@ export class List<T> implements IList<T> {
     }
 
     filter(filterFunction:(originalItem:T)=>boolean):IList<T> {
-        return new List<T>(this.listItems.filter(filterFunction));
+        return this.newList<T>(this.listItems.filter(filterFunction));
     }
 
     where(filterFunction:(originalItem:T)=>boolean):IList<T> {
@@ -63,7 +77,7 @@ export class List<T> implements IList<T> {
     }
 
     everythingAfterIndex(index:number):IList<T> {
-        return new List<T>(this.toArray().slice(index+1));
+        return this.newList<T>(this.toArray().slice(index+1));
     }
 
     toJSON():any {
@@ -72,7 +86,7 @@ export class List<T> implements IList<T> {
     }
 
     map<T2>(mapFunction:(originalItem:T)=>T2):IList<T2> {
-        return new List<T2>(this.mapToArray(mapFunction));
+        return this.newList<T2>(this.mapToArray(mapFunction));
     }
 
     mapToArray<T2>(mapFunction:(originalItem:T)=>T2):Array<T2> {
@@ -105,7 +119,7 @@ export class List<T> implements IList<T> {
     }
 
     clone():IList<T> {
-        return new List<T>(this.toArray());
+        return this.newList<T>(this.toArray());
     }
 
     toArray():Array<T> {
@@ -123,7 +137,7 @@ export class List<T> implements IList<T> {
     }
 
     flatten<T2>():IList<T2> {
-        var newList:IList<T2> = new List<T2>();
+        var newList:IList<T2> = this.newList<T2>();
         this.forEach(subArray=>{
             const castedSubArray:IList<T2> = <any>subArray;
             newList = newList.append(castedSubArray);
@@ -156,11 +170,11 @@ export class List<T> implements IList<T> {
     }
 
     sort():IList<T> {
-        return new List<T>(this.toArray().sort());
+        return this.newList<T>(this.toArray().sort());
     }
 
     sortWith(comparator:IComparator<T>):IList<T> {
-        return new List<T>(this.toArray().sort(comparator));
+        return this.newList<T>(this.toArray().sort(comparator));
     }
 
     flatMap<T2>(mapFunction:(originalItem:T) => IList<T2>):IList<T2> {
@@ -168,11 +182,11 @@ export class List<T> implements IList<T> {
     }
 
     flatMapArray<T2>(mapFunction:(originalItem:T) => Array<T2>):IList<T2> {
-        return new List<Array<T2>>(this.mapToArray(mapFunction)).flatten<T2>();
+        return this.newList<Array<T2>>(this.mapToArray(mapFunction)).flatten<T2>();
     }
 
     limitTo(maxResults:number):IList<T> {
-        return new List<T>(
+        return this.newList<T>(
             this.listItems.slice(
                 Math.max(this.length - maxResults, 0)
             )

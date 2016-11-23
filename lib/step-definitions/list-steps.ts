@@ -2,6 +2,8 @@ import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {IList} from "../collections/i-list";
 import {IRepository} from "../packaging/i-repository";
 import {Framework} from "../framework/framework";
+import {IFuture} from "../promise/i-future";
+import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 
 declare var module:any;
 declare const $:Framework;
@@ -51,6 +53,34 @@ export class ListSteps {
     @then(/^it gives the unique numbers/)
     public thenNumbersAreUnique():void {
         $.expect(this.uniqueItems.toArray()).to.eql([1,2,3,4,5]);
+    }
+
+    private listOfInts:IList<number>;
+    private futureGroupPromise:IFuture<IList<string>>;
+    private funcThatReturnsAsync(i:number):IFuture<IList<string>> {
+        const retVal = $.collections.newList([`string${i}-a`, `string${i}-b`]);
+        return $.promiseFactory.newPromiseForImmediateValue(retVal);
+    }
+
+    @given(/^I have a list of integers and an async map function$/)
+    public GivenListOfIntsWithAsyncMap(): void {
+        this.listOfInts = $.collections.newList([1,2,3]);
+    }
+
+    @when(/^I call mapToGroupPromise$/)
+    public WhenICallMapToGroupPromise(): void {
+        this.futureGroupPromise = this.listOfInts.flatMapToGroupPromise(this.funcThatReturnsAsync);
+    }
+
+    @then(/^I get a promise that behaves as expected$/)
+    public ThenPromiseBehaves():PromisedAssertion {
+        return this.futureGroupPromise.then(
+            r => $.expect(r.toArray()).to.eql([
+                'string1-a','string1-b',
+                'string2-a', 'string2-b',
+                'string3-a', 'string3-b'
+            ])
+        );
     }
 }
 

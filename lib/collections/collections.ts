@@ -3,14 +3,19 @@ import {List} from "./list";
 import {IList} from "./i-list";
 import {Dictionary} from "./dictionary";
 import {IDictionary} from "./i-dictionary";
+import {IFuture} from "../promise/i-future";
 
 export class Collections implements ICollections {
+    constructor(
+        private createGroupPromise:<S>(promises:IList<IFuture<S>>)=>IFuture<IList<S>>
+    ) {}
+
     newList<T>(items:Array<T>=[]):IList<T> {
-        return new List<T>(items);
+        return new List<T>(items, items => this.createGroupPromise(items));
     }
 
     newEmptyList<T>():IList<T> {
-        return this.newList<T>();
+        return this.newList<T>([]);
     }
 
     newRange(start:number, end:number):IList<number> {

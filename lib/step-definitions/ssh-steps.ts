@@ -88,5 +88,13 @@ export class SSHSteps {
         });
         return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
     }
+
+    @given(/^I run the following commands on nodes hosting "([^"]*)" in the cluster:$/)
+    runCommandsOnNodesHostingService(serviceName:string, commandsString:string):PromisedAssertion {
+        const result = $.clusterUnderTest.nodesHosting(serviceName).mapToGroupPromise(
+            n => n.executeShellCommands(...commandsString.split("\n"))
+        );
+        return $.expect(result).to.eventually.be.fulfilled;
+    }
 }
 module.exports = SSHSteps;
