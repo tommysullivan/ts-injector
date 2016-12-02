@@ -12,6 +12,9 @@ import {IClusterResultPreparer} from "./i-cluster-result-preparer";
 import {CucumberCli} from "../cucumber/cucumber-cli";
 import {IResultReporter} from "../testing/i-result-reporter";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
+import {ICollections} from "../collections/i-collections";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {IURLCalculator} from "../testing/i-url-calculator";
 
 export class MultiClusterTester implements IMultiClusterTester {
 
@@ -25,7 +28,10 @@ export class MultiClusterTester implements IMultiClusterTester {
         private clusterResultPreparer:IClusterResultPreparer,
         private cucumberCli:CucumberCli,
         private resultReporter:IResultReporter,
-        private jsonSerializer:IJSONSerializer
+        private jsonSerializer:IJSONSerializer,
+        private collections:ICollections,
+        private fileSystem:IFileSystem,
+        private urlCalculator:IURLCalculator
     ) {}
 
     runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands:IList<string>):IFuture<IList<IClusterTestResult>> {
@@ -41,6 +47,13 @@ export class MultiClusterTester implements IMultiClusterTester {
             clusterId => this.runCucumberForClusterAndSaveResultToPortalIfApplicable(testRunUUID, clusterId, cucumberPassThruCommands)
         );
 
+        // Adds URL to properties file to be picked up by jenkins
+        const propertyFileUrlList:string = this.clusterTestingConfiguration.clusterIds.map(clusterId => {
+            return this.urlCalculator.calculateURL(`${testRunUUID}_${clusterId}_user-${this.process.currentUserName}`);
+        }).join(`,`);
+        this.fileSystem.writeFileSync("properties.txt", `TESTURLS=${propertyFileUrlList}`);
+
+
         return this.promiseFactory.newGroupPromiseFromArray(clusterTestResultPromises)
             .then(clusterTestResults => {
                 this.console.info(`Test Run GUID : ${testRunUUID}`);
@@ -54,11 +67,12 @@ export class MultiClusterTester implements IMultiClusterTester {
         const envVarsWithClusterId = envVars.add('clusterId', clusterId);
         return this.cucumberCli.configureAndRunCucumber(uniqueFileIdentifier, cucumberPassThruCommands, envVarsWithClusterId)
             .then(cucumberTestResult => this.clusterResultPreparer.prepareClusterResult(
-                clusterId,
-                cucumberTestResult,
-                uniqueFileIdentifier,
-                testRunUUID
-            ))
+                    clusterId,
+                    cucumberTestResult,
+                    uniqueFileIdentifier,
+                    testRunUUID
+                )
+            )
             .then(clusterTestResult =>
                 this.resultReporter.reportResult(
                     uniqueFileIdentifier,

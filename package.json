@@ -1,6 +1,6 @@
 {
   "name": "private-devops-automation-framework",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
   "main": "bin/devops",
   "typings": "./dist/lib/index.d.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "start": "bin/devops",
     "devops": "bin/devops",
-    "test": "bin/devops run cucumber -- --tags @regression",
+    "test": "portalId=lab bin/devops run cucumber -- --tags @regression",
     "localTest": "cucumber.js --require dist/support --require dist/step-definitions --tags @regression",
     "build": "rm -rdf dist && tsc",
     "devRefresh": "rm -rdf node_modules/private-devops-* && npm install private-devops-configuration",

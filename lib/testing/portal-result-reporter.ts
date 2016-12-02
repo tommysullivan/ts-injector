@@ -4,21 +4,20 @@ import {IConsole} from "../node-js-wrappers/i-console";
 import {IProcess} from "../node-js-wrappers/i-process";
 import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IRest} from "../rest/i-rest";
-import {ITestingConfiguration} from "./i-testing-configuration";
+import {IURLCalculator} from "./i-url-calculator";
 
 export class PortalResultReporter implements IResultReporter {
     constructor(
         private rest:IRest,
         private console:IConsole,
         private process:IProcess,
-        private testingConfiguration:ITestingConfiguration,
-        private promiseFactory:IPromiseFactory
+        private promiseFactory:IPromiseFactory,
+        private urlCalculator:IURLCalculator
     ) {}
 
     reportResult(uniqueFileIdentifier:string, portalCompatibleJSONResultString:string):IFuture<any> {
         if(this.process.environmentVariables.hasKey('portalId')) {
-            const url = this.testingConfiguration.portalUrl;
-            const fullUrl = `${url}/test-results/${uniqueFileIdentifier}`;
+            const fullUrl = this.urlCalculator.calculateURL(uniqueFileIdentifier);
             const putArgs = {
                 body: JSON.parse(portalCompatibleJSONResultString),
                 json: true

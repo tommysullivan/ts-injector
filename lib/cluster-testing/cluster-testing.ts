@@ -41,6 +41,8 @@ import {IClusterResultPreparer} from "./i-cluster-result-preparer";
 import {ITestRunnerEnvironment} from "../testing/i-test-runner-environment";
 import {ITesting} from "../testing/i-testing";
 import {IClusterLogCapturer} from "./i-cluster-log-capturer";
+import {IFileSystem} from "../node-js-wrappers/i-filesystem";
+import {IURLCalculator} from "../testing/i-url-calculator";
 
 export class ClusterTesting implements IClusterTesting {
 
@@ -65,7 +67,9 @@ export class ClusterTesting implements IClusterTesting {
         private frameworkConfig:IFrameworkConfiguration,
         private jsonSerializer:IJSONSerializer,
         private operatingSystems:IOperatingSystems,
-        private testing:ITesting
+        private testing:ITesting,
+        private fileSystem:IFileSystem,
+        private urlCalculator:IURLCalculator
     ) {}
 
     clusterForId(clusterId:string):IClusterUnderTest {
@@ -91,7 +95,10 @@ export class ClusterTesting implements IClusterTesting {
             this.newClusterResultPreparer(),
             this.cucumber.newCucumberCli(),
             this.testing.newResultReporter(),
-            this.jsonSerializer
+            this.jsonSerializer,
+            this.collections,
+            this.fileSystem,
+            this.urlCalculator
         )
     }
 

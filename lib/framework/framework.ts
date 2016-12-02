@@ -173,7 +173,9 @@ export class Framework implements IFramework {
             this.frameworkConfig,
             this.typedJSON.newJSONSerializer(),
             this.operatingSystems,
-            this.testing
+            this.testing,
+            this.fileSystem,
+            this.testing.newUrlCalculator()
         );
     }
 

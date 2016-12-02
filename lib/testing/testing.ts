@@ -21,6 +21,8 @@ import {IRest} from "../rest/i-rest";
 import {IRelease} from "../releasing/i-release";
 import {IPhase} from "../releasing/i-phase";
 import {IReleasing} from "../releasing/i-releasing";
+import {IURLCalculator} from "./i-url-calculator";
+import {URLCalculator} from "./url-calculator";
 
 export class Testing implements ITesting {
     constructor(
@@ -90,8 +92,14 @@ export class Testing implements ITesting {
             this.rest,
             this.console,
             this.process,
-            this.testingConfiguration,
-            this.promiseFactory
+            this.promiseFactory,
+            this.newUrlCalculator()
+        );
+    }
+
+    newUrlCalculator():IURLCalculator {
+        return new URLCalculator(
+            this.testingConfiguration
         );
     }
 }
