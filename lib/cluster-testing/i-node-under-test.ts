@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IList} from "../collections/i-list";
 import {INodeVersionGraph} from "./../versioning/i-node-version-graph";
 import {ISSHResult} from "../ssh/i-ssh-result";

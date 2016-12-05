@@ -2,7 +2,7 @@ import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {IList} from "../collections/i-list";
 import {IRepository} from "../packaging/i-repository";
 import {Framework} from "../framework/framework";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 
 declare var module:any;
@@ -59,7 +59,7 @@ export class ListSteps {
     private futureGroupPromise:IFuture<IList<string>>;
     private funcThatReturnsAsync(i:number):IFuture<IList<string>> {
         const retVal = $.collections.newList([`string${i}-a`, `string${i}-b`]);
-        return $.promiseFactory.newPromiseForImmediateValue(retVal);
+        return $.futures.newFutureForImmediateValue(retVal);
     }
 
     @given(/^I have a list of integers and an async map function$/)
@@ -67,9 +67,9 @@ export class ListSteps {
         this.listOfInts = $.collections.newList([1,2,3]);
     }
 
-    @when(/^I call mapToGroupPromise$/)
-    public WhenICallMapToGroupPromise(): void {
-        this.futureGroupPromise = this.listOfInts.flatMapToGroupPromise(this.funcThatReturnsAsync);
+    @when(/^I call flatMapToFutureList/)
+    public WhenICallFlatMapToFutureList(): void {
+        this.futureGroupPromise = this.listOfInts.flatMapToFutureList(this.funcThatReturnsAsync);
     }
 
     @then(/^I get a promise that behaves as expected$/)

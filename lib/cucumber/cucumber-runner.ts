@@ -1,5 +1,5 @@
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {ICucumberTestResult} from "./i-cucumber-test-result";
 import {IConsole} from "../node-js-wrappers/i-console";
 import {ICucumberRunConfiguration} from "./i-cucumber-run-configuration";

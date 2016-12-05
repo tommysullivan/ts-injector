@@ -1,5 +1,5 @@
 import {IClusterUnderTest} from "./i-cluster-under-test";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {MCSRestSession} from "../mcs/mcs-rest-session";
 import {IInstallerRestSession} from "../installer/i-installer-rest-session";
 import {OpenTSDBRestClient} from "../open-tsdb/open-tsdb-rest-client";
@@ -8,7 +8,6 @@ import {IList} from "../collections/i-list";
 import {IESXIResponse} from "../esxi/i-esxi-response";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {INodeUnderTest} from "./i-node-under-test";
 import {IVersioning} from "../versioning/i-versioning";
 import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
@@ -22,7 +21,6 @@ import {IESXI} from "../esxi/i-esxi";
 export class ClusterUnderTest implements IClusterUnderTest {
     constructor(
         private clusterInstallerConfiguration:IClusterInstallerConfig,
-        private promiseFactory:IPromiseFactory,
         private clusterNodes:IList<INodeUnderTest>,
         private versioning:IVersioning,
         private clusterConfig:IClusterConfiguration,
@@ -99,19 +97,15 @@ export class ClusterUnderTest implements IClusterUnderTest {
     }
 
     executeShellCommandOnEachNode(command:string):IFuture<IList<ISSHResult>> {
-        return this.promiseFactory.newGroupPromise(
-            this.clusterNodes.map(n=>n.executeShellCommand(command))
-        );
+        return this.clusterNodes.mapToFutureList(n=>n.executeShellCommand(command));
     }
 
     executeShellCommandsOnEachNode(...commands:Array<string>):IFuture<IList<IList<ISSHResult>>> {
-        return this.promiseFactory.newGroupPromise(
-            this.clusterNodes.map(n=>n.executeShellCommands(...commands))
-        );
+        return this.clusterNodes.mapToFutureList(n=>n.executeShellCommands(...commands));
     }
 
     versionGraph():IFuture<IClusterVersionGraph> {
-        return this.promiseFactory.newGroupPromise(this.clusterNodes.map(n=>n.versionGraph()))
+        return this.clusterNodes.mapToFutureList(n=>n.versionGraph())
             .then(versionGraphs=>{
                 return this.versioning.newClusterVersionGraph(
                     this.clusterConfig.id,
@@ -137,9 +131,7 @@ export class ClusterUnderTest implements IClusterUnderTest {
     }
 
     uploadToEachNode(localPath:string, remotePath:string):IFuture<IList<ISSHResult>> {
-        return this.promiseFactory.newGroupPromise(
-            this.clusterNodes.map(n=>n.upload(localPath, remotePath))
-        );
+        return this.clusterNodes.mapToFutureList(n=>n.upload(localPath, remotePath));
     }
 
 }

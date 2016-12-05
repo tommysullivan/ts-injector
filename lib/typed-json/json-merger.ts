@@ -33,11 +33,11 @@ export class JSONMerger implements IJSONMerger {
 
             const duplicateIds = list1
                 .map(l=>l.id)
-                .filter(i=>i)
+                .filter(i=>i!=null)
                 .intersectionWith(
                     list2
                         .map(l=>l.id)
-                        .filter(i=>i)
+                        .filter(i=>i!=null)
                 );
 
             if(duplicateIds.notEmpty){

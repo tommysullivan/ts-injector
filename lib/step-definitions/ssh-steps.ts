@@ -91,7 +91,7 @@ export class SSHSteps {
 
     @given(/^I run the following commands on nodes hosting "([^"]*)" in the cluster:$/)
     runCommandsOnNodesHostingService(serviceName:string, commandsString:string):PromisedAssertion {
-        const result = $.clusterUnderTest.nodesHosting(serviceName).mapToGroupPromise(
+        const result = $.clusterUnderTest.nodesHosting(serviceName).mapToFutureList(
             n => n.executeShellCommands(...commandsString.split("\n"))
         );
         return $.expect(result).to.eventually.be.fulfilled;

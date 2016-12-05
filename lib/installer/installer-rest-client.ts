@@ -1,5 +1,5 @@
 import {IInstallerRestSession} from "./i-installer-rest-session";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {ITypedJSON} from "../typed-json/i-typed-json";
 import {IInstallerRestClient} from "./i-installer-rest-client";
 import {IInstallerClientConfiguration} from "./i-installer-client-configuration";

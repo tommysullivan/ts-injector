@@ -1,5 +1,5 @@
 import {Installer} from "./installer";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IInstallerRestSession} from "./i-installer-rest-session";
 import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
 import {IJSONObject} from "../typed-json/i-json-object";

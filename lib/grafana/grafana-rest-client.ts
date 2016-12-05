@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IRest} from "../rest/i-rest";
 import {IGrafanaRestClient} from "./i-grafana-rest-client";
 import {IGrafana} from "./i-grafana";

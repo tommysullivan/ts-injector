@@ -1,5 +1,5 @@
 import {IMCSDashboardInfo} from "./i-mcs-dashboard-info";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export interface IMCSRestSession {
     dashboardInfo:IFuture<IMCSDashboardInfo>;

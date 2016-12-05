@@ -1,6 +1,6 @@
 import {IList} from "../collections/i-list";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
 import {IRestResponse} from "../rest/i-rest-response";
 import {IGrafanaRestSession} from "./i-grafana-rest-session";

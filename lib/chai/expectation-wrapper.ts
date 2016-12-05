@@ -1,17 +1,17 @@
 import {IList} from "../collections/i-list";
 import {Assertion} from "./assertion";
-import {IFuture} from "../promise/i-future";
 import {ICucumberConfiguration} from "../cucumber/i-cucumber-configuration";
 import {ChaiStatic} from "./chai-static";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IExpectationWrapper} from "./i-expectation-wrapper";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export class ExpectationWrapper implements IExpectationWrapper {
 
     constructor(
         private cucumberConfig:ICucumberConfiguration,
         private chai:ChaiStatic,
-        private promiseFactory:IPromiseFactory
+        private futures:IFutures
     ) {}
 
     expect(target:any, message?:string):Assertion {
@@ -28,7 +28,7 @@ export class ExpectationWrapper implements IExpectationWrapper {
     }
 
     expectAll<T>(target:IList<IFuture<T>>):Assertion {
-        return this.expect(this.promiseFactory.newGroupPromise(target));
+        return this.expect(this.futures.newFutureList(target));
     }
 
     expectEmptyList<T>(list:IList<T>):void {

@@ -45,7 +45,7 @@ export const handler = (argv) => {
             testRunGUID
         )
         .then(clusterTestResult =>
-            this.resultReporter.reportResult(
+            framework.testing.newResultReporter().reportResult(
                 uniqueFileIdentifier,
                 framework.typedJSON.newJSONSerializer().serializeToString(clusterTestResult)
             )

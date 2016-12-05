@@ -8,8 +8,8 @@ import {INodeWrapperFactory} from "./i-node-wrapper-factory";
 import {IFileStream} from "./i-file-stream";
 import {IFileStats} from "./i-file-stats";
 import {FileStats} from "./file-stats";
-import {IFuture} from "../promise/i-future";
-import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export class FileSystem implements IFileSystem {
     constructor(
@@ -18,16 +18,16 @@ export class FileSystem implements IFileSystem {
         private collections:ICollections,
         private errors:IErrors,
         private nodeWrapperFactory:INodeWrapperFactory,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private mkdirp:any
     ) {}
 
     readFileSync(filePath:string):string {
-        return <string>this.fsModule.readFileSync(filePath);
+        return this.fsModule.readFileSync(filePath).toString();
     }
 
     readFileAsBinary(filePath:string):IFuture<ArrayBuffer> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.fsModule.readFile(filePath, (error, data) => {
                 if(error) reject(error);
                 else resolve(data);
@@ -36,16 +36,16 @@ export class FileSystem implements IFileSystem {
     }
 
     readFile(filePath:string):IFuture<string> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.fsModule.readFile(filePath, (error, data) => {
                 if(error) reject(error);
-                else resolve(data);
+                else resolve(data.toString());
             });
         })
     }
 
     delete(filePath:string):IFuture<any> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             return this.fsModule.unlink(filePath, (error) => {
                 if(error) reject(error);
                 else resolve(null);
@@ -67,7 +67,7 @@ export class FileSystem implements IFileSystem {
     }
 
     writeFile(filePath:string, content:string):IFuture<any>{
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.fsModule.writeFile(filePath, content, (error) => {
                 if (error) reject(error);
                 else resolve(null);
@@ -83,7 +83,7 @@ export class FileSystem implements IFileSystem {
 
     readJSONFileSync(filePath:string):any {
         try {
-            return JSON.parse(this.fsModule.readFileSync(filePath));
+            return JSON.parse(this.readFileSync(filePath));
         }
         catch(e) {
             throw this.errors.newErrorWithCause(e, `could not parse or read json at path ${filePath}`);

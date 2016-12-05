@@ -1,7 +1,6 @@
 import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
 import {IClusterUnderTest} from "./i-cluster-under-test";
 import {ClusterUnderTest} from "./cluster-under-test";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {INodeConfiguration} from "../nodes/i-node-configuration";
 import {INodeUnderTest} from "./i-node-under-test";
 import {NodeUnderTest} from "./node-under-test";
@@ -43,12 +42,13 @@ import {ITesting} from "../testing/i-testing";
 import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IURLCalculator} from "../testing/i-url-calculator";
+import {IFutures} from "../futures/i-futures";
 
 export class ClusterTesting implements IClusterTesting {
 
     constructor(
         private clusterTestingConfiguration:IClusterTestingConfiguration,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private sshClient:ISSHClient,
         private collections:ICollections,
         private versioning:IVersioning,
@@ -88,15 +88,14 @@ export class ClusterTesting implements IClusterTesting {
         return new MultiClusterTester(
             this.uuidGenerator,
             this.clusterTestingConfiguration,
-            this.clusters,
             this.process,
             this.console,
-            this.promiseFactory,
             this.newClusterResultPreparer(),
             this.cucumber.newCucumberCli(),
             this.testing.newResultReporter(),
             this.jsonSerializer,
-            this.urlCalculator
+            this.urlCalculator,
+            this.collections
         )
     }
 
@@ -108,7 +107,7 @@ export class ClusterTesting implements IClusterTesting {
             this.clusters,
             this,
             this.frameworkConfig,
-            this.promiseFactory,
+            this.futures,
             this.jsonSerializer,
             this.testing
         );
@@ -116,10 +115,12 @@ export class ClusterTesting implements IClusterTesting {
 
     newClusterLogCapturer():IClusterLogCapturer {
         return new ClusterLogCapturer(
-            this.promiseFactory,
             this,
             this.collections,
-            this.clusterTestingConfiguration.logsToCapture
+            this.collections.newList(
+                this.clusterTestingConfiguration.logsToCapture
+            ),
+            this.fileSystem
         );
     }
 
@@ -137,7 +138,6 @@ export class ClusterTesting implements IClusterTesting {
         );
         return new ClusterUnderTest(
             this.clusterTestingConfiguration.clusterInstaller,
-            this.promiseFactory,
             nodesUnderTest,
             this.versioning,
             clusterConfiguration,
@@ -149,17 +149,14 @@ export class ClusterTesting implements IClusterTesting {
     }
     
     newClusterInstaller() {
-        return new ClusterInstaller(
-            this.promiseFactory,
-            this.clusterTestingConfiguration.clusterInstaller
-        );
+        return new ClusterInstaller();
     }
 
     newNodeUnderTest(nodeConfiguration:INodeConfiguration):INodeUnderTest {
         return new NodeUnderTest(
             nodeConfiguration,
             this.sshClient,
-            this.promiseFactory,
+            this.futures,
             this.mcs,
             this.openTSDB,
             this.installer,
@@ -176,7 +173,7 @@ export class ClusterTesting implements IClusterTesting {
         return new ESXIManagedCluster(
             clusterConfiguration,
             this.esxi,
-            this.promiseFactory
+            this.futures
         );
     }
 

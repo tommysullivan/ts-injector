@@ -1,5 +1,5 @@
 import {IESXIResponse} from "./i-esxi-response";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export interface IESXIClient {
     restoreSnapshot(snapshotID:number):IFuture<IESXIResponse>;

@@ -1,5 +1,5 @@
 import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IList} from "../collections/i-list";

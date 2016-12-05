@@ -1,12 +1,12 @@
-import {IFuture} from "../promise/i-future";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IRestClientAsPromised} from "./i-rest-client-as-promised";
 import {IRest} from "./i-rest";
 import {IRestResponse} from "./i-rest-response";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export class RestClientAsPromised implements IRestClientAsPromised {
     constructor(
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private requestor:any,
         private baseUrl:string,
         private rest:IRest
@@ -34,7 +34,7 @@ export class RestClientAsPromised implements IRestClientAsPromised {
 
     private request(method:Function, path:string, options?:any):IFuture<IRestResponse> {
         const url = path.indexOf('://')>=0 ? path : this.baseUrl + path;
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             const responseHandler = (error, response, body) => {
                 const responseWrapper = this.rest.newRestResponse(error, response, url);
                 if(responseWrapper.isError) reject(this.rest.newRestError(responseWrapper));

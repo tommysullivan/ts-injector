@@ -1,7 +1,6 @@
 import {IConsole} from "../node-js-wrappers/i-console";
 import {ICollections} from "../collections/i-collections";
 import {ICucumberTestResult} from "../cucumber/i-cucumber-test-result";
-import {IFuture} from "../promise/i-future";
 import {IFrameworkConfiguration} from "../framework/i-framework-configuration";
 import {IClusters} from "../clusters/i-clusters";
 import {IClusterResultPreparer} from "./i-cluster-result-preparer";
@@ -9,9 +8,10 @@ import {IClusterTesting} from "./i-cluster-testing";
 import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 import {INodeLog} from "./i-node-log";
 import {IClusterTestResult} from "./i-cluster-test-result";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {ITesting} from "../testing/i-testing";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export class ClusterResultPreparer implements IClusterResultPreparer {
     constructor(
@@ -21,7 +21,7 @@ export class ClusterResultPreparer implements IClusterResultPreparer {
         private clusters:IClusters,
         private clusterTesting:IClusterTesting,
         private frameworkConfig:IFrameworkConfiguration,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private jsonSerializer:IJSONSerializer,
         private testing:ITesting
     ) {}
@@ -44,15 +44,18 @@ export class ClusterResultPreparer implements IClusterResultPreparer {
             })
             .then(versionGraph => this.jsonSerializer.serialize(versionGraph));
 
-        return this.promiseFactory.newGroupPromiseFromArray([futureLogs,futureVersionGraph])
-            .then(results => this.clusterTesting.newClusterTestResult(
-                cucumberTestResult,
-                this.frameworkConfig,
-                results.itemAt(1),
-                clusterConfiguration,
-                results.itemAt(0),
-                clusterResultId,
-                testRunnerEnvironment
-            ));
+        return this.futures.newFutureListFromArray([futureLogs,futureVersionGraph])
+            .then(results => {
+                const [logs, versionGraph] = results.toArray();
+                return this.clusterTesting.newClusterTestResult(
+                    cucumberTestResult,
+                    this.frameworkConfig,
+                    versionGraph,
+                    clusterConfiguration,
+                    logs,
+                    clusterResultId,
+                    testRunnerEnvironment
+                )
+            });
     }
 }

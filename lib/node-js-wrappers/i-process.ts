@@ -1,6 +1,6 @@
 import {IList} from "../collections/i-list";
 import {IDictionary} from "./../collections/i-dictionary";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IProcessResult} from "./i-process-result";
 
 export interface IProcess {

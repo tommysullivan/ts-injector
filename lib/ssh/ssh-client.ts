@@ -1,14 +1,14 @@
-import {IFuture} from "../promise/i-future";
 import {ISSHSession} from "./i-ssh-session";
 import {ISSHClient} from "./i-ssh-client";
-import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export interface ISSHSessionFactory { (host:string, nodemiralSession:any, username:string, password:string):ISSHSession }
 
 export class SSHClient implements ISSHClient {
 
     constructor(
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private sshSessionFactory:ISSHSessionFactory,
         private nodemiral:any
     ) {}
@@ -25,6 +25,6 @@ export class SSHClient implements ISSHClient {
         };
         const rawSession = this.nodemiral.session(host, credentials, options);
         const wrappedSession = this.sshSessionFactory(host, rawSession, username, password);
-        return this.promiseFactory.newPromiseForImmediateValue(wrappedSession);
+        return this.futures.newFutureForImmediateValue(wrappedSession);
     }
 }

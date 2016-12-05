@@ -2,7 +2,7 @@ import {IJSONObject} from "../typed-json/i-json-object";
 import {IList} from "../collections/i-list";
 import {IFileStream} from "./i-file-stream";
 import {IFileStats} from "./i-file-stats";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export interface IFileSystem {
     delete(filePath:string):IFuture<void>;

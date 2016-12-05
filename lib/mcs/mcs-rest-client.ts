@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IMCSRestClient} from "./i-mcs-rest-client";
 import {IRest} from "../rest/i-rest";
 import {IMCS} from "./i-mcs";

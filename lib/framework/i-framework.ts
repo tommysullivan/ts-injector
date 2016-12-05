@@ -1,6 +1,5 @@
 import {IList} from "../collections/i-list";
 import {Assertion} from "../chai/assertion";
-import {IFuture} from "../promise/i-future";
 import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
 import {ICucumber} from "../cucumber/i-cucumber";
 import {Cli} from "../cli/cli";
@@ -22,7 +21,6 @@ import {IConsole} from "../node-js-wrappers/i-console";
 import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
 import {ISSHAPI} from "../ssh/i-ssh-api";
 import {ITypedJSON} from "../typed-json/i-typed-json";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IErrors} from "../errors/i-errors";
 import {ICollections} from "../collections/i-collections";
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";
@@ -30,6 +28,9 @@ import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IProcess} from "../node-js-wrappers/i-process";
 import {IFrameworkConfiguration} from "./i-framework-configuration";
 import {ChaiStatic} from "../chai/chai-static";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
+import {IPromiseFactory} from "../promise/i-promise-factory";
 
 export interface IFramework {
     frameworkConfig:IFrameworkConfiguration;
@@ -38,6 +39,7 @@ export interface IFramework {
     uuidGenerator:IUUIDGenerator;
     collections:ICollections;
     errors:IErrors;
+    futures:IFutures;
     promiseFactory:IPromiseFactory;
     typedJSON:ITypedJSON;
     sshAPI:ISSHAPI;

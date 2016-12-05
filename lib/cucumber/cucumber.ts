@@ -30,10 +30,10 @@ import {ICucumberConfiguration} from "./i-cucumber-configuration";
 import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
 import {ExpectationWrapper} from "../chai/expectation-wrapper";
 import {ChaiStatic} from "../chai/chai-static";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IPath} from "../node-js-wrappers/i-path";
 import {CucumberCli} from "./cucumber-cli";
+import {IFutures} from "../futures/i-futures";
 
 export class Cucumber implements ICucumber {
     constructor(
@@ -42,7 +42,7 @@ export class Cucumber implements ICucumber {
         private cucumberConfig:ICucumberConfiguration,
         private errors:IErrors,
         private chai:ChaiStatic,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private jsonSerializer:IJSONSerializer,
         private path:IPath,
         private process:IProcess,
@@ -73,7 +73,7 @@ export class Cucumber implements ICucumber {
         return new ExpectationWrapper(
             this.cucumberConfig,
             this.chai,
-            this.promiseFactory
+            this.futures
         )
     }
 

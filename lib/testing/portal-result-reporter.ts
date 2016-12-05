@@ -1,9 +1,10 @@
 import {IResultReporter} from "./i-result-reporter";
-import {IFuture} from "../promise/i-future";
 import {IConsole} from "../node-js-wrappers/i-console";
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IRest} from "../rest/i-rest";
+import {ITestingConfiguration} from "./i-testing-configuration";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 import {IURLCalculator} from "./i-url-calculator";
 
 export class PortalResultReporter implements IResultReporter {
@@ -11,8 +12,8 @@ export class PortalResultReporter implements IResultReporter {
         private rest:IRest,
         private console:IConsole,
         private process:IProcess,
-        private promiseFactory:IPromiseFactory,
-        private urlCalculator:IURLCalculator
+        private urlCalculator:IURLCalculator,
+        private futures:IFutures
     ) {}
 
     reportResult(uniqueFileIdentifier:string, portalCompatibleJSONResultString:string):IFuture<any> {
@@ -31,7 +32,7 @@ export class PortalResultReporter implements IResultReporter {
         } else {
             const locationOfConfiguredPortalUrls = 'the configuration json file, under "testing.resultServers"';
             this.console.log(`Not saving result to portal. To do so, set ENV variable "portalId" to value in ${locationOfConfiguredPortalUrls}`);
-            return this.promiseFactory.newPromiseForImmediateValue(null);
+            return this.futures.newFutureForImmediateValue(null);
         }
     }
 }

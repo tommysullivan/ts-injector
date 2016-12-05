@@ -44,18 +44,18 @@ export class PackageManagerInstallationSteps {
                         $.testing.defaultRelease.name
                     )
                 ).unique;
-                const nodeRepoConfigWrites = uniqueRepos.map(repo => {
+
+                return uniqueRepos.mapToFutureList(repo => {
                     const repoConfigContent = n.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`, tagName);
                     const repoConfigLocation = n.packageManager.clientConfigurationFileLocationFor(tagName);
                     return n.write(repoConfigContent, repoConfigLocation);
-                });
-                return $.promiseFactory.newGroupPromise(nodeRepoConfigWrites)
-                    .then(_=>n.executeShellCommands(
-                        n.packageManager.packageUpdateCommand,
-                        taggedPackages.notEmpty
-                            ? n.packageManager.installPackagesCommand(taggedPackages.map(p=>p.name))
-                            : '#no packages to install'
-                    ));
+                }).then(_=>n.executeShellCommands(
+                    n.packageManager.packageUpdateCommand,
+                    taggedPackages.notEmpty
+                        ? n.packageManager.installPackagesCommand(taggedPackages.map(p=>p.name))
+                        : '#no packages to install'
+                ));
+
             })
         ).to.eventually.be.fulfilled;
     }
@@ -64,14 +64,12 @@ export class PackageManagerInstallationSteps {
     prepareDiskListFile() {
         const diskCheckCmd = `sfdisk -l`;
         const diskListCommand = `sfdisk -l | grep "/dev/sd[a-z]" |grep -v "/dev/sd[a-z][0-9]" | sort |cut -f2 -d' ' | tr ":" " "`; //| awk '{if(NR>1)print}' > /root/disk.list`;
-        const finalList = $.collections.newEmptyList<string>();
         const diskListResult = $.clusterUnderTest.nodes.map(
          n => n.executeShellCommand(diskListCommand)
              .then(result => {
                  const diskList = result.processResult.stdoutLines;
-                 const diskResults = diskList.map(d => n.executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
+                 return diskList.mapToFutureList(d => n.executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
                      .then(r => r.processResult.stdoutLines.first == '2' ? d : null));
-                 return $.promiseFactory.newGroupPromise(diskResults);
              })
              .then(r => n.write(r.filter(i=>i!=null).join('\n'), '/root/disk.list')));
         return $.expectAll(diskListResult).to.eventually.be.fulfilled;
@@ -228,9 +226,9 @@ export class PackageManagerInstallationSteps {
             .then(_ => this.atsInstallationNode.executeShellCommand(`cat /root/.ssh/id_rsa.pub`))
             .then(result => {
                 const rsaKey = result.processResult.stdoutLines.join('\n');
-                return  $.promiseFactory.newGroupPromise($.clusterUnderTest.nodes.map(node => node.executeShellCommand(`mkdir -p /root/.ssh`)
-                    .then(_ => node.executeShellCommand(`echo "${rsaKey}" > /root/.ssh/authorized_keys`))));
-            })
+                return $.clusterUnderTest.nodes.mapToFutureList(node => node.executeShellCommand(`mkdir -p /root/.ssh`)
+                    .then(_ => node.executeShellCommand(`echo "${rsaKey}" > /root/.ssh/authorized_keys`)));
+            });
         return $.expect(resultList).to.eventually.be.fulfilled;
     }
 

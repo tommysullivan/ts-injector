@@ -1,19 +1,19 @@
 import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IESXI} from "../esxi/i-esxi";
 import {IESXIAction} from "../esxi/i-esxi-action";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IList} from "../collections/i-list";
 import {IESXIResponse} from "../esxi/i-esxi-response";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IESXIManagedCluster} from "./i-esxi-managed-cluster";
 import {IESXINodeConfiguration} from "../esxi/configuration/i-esxi-node-configuration";
+import {IFutures} from "../futures/i-futures";
 
 export class ESXIManagedCluster implements IESXIManagedCluster {
     constructor(
         private clusterConfiguration:IClusterConfiguration,
         private esxi:IESXI,
-        private promiseFactory:IPromiseFactory
+        private futures:IFutures
     ) {}
 
     private snapshotIdFromStateName(esxiNodeConfiguration:IESXINodeConfiguration, stateName:string):number {
@@ -41,7 +41,7 @@ export class ESXIManagedCluster implements IESXIManagedCluster {
                 return esxiAction(esxiClient, n);
             }
         );
-        return this.promiseFactory.newGroupPromiseFromArray(esxiActionPromises);
+        return this.futures.newFutureListFromArray(esxiActionPromises);
     }
 
     snapshotInfo():IFuture<IESXIResponse> {

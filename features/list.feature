@@ -13,7 +13,7 @@ Feature: List
     Then it gives the unique numbers
 
   @regression
-  Scenario: Group Promises
+  Scenario: Group Futures
     Given I have a list of integers and an async map function
-    When I call mapToGroupPromise
+    When I call flatMapToFutureList
     Then I get a promise that behaves as expected

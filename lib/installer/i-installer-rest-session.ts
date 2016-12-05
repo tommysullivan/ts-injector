@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IInstallerServices} from "./i-installer-services";
 import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
 import {InstallerProcess} from "./installer-process";

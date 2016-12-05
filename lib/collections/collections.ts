@@ -3,7 +3,7 @@ import {List} from "./list";
 import {IList} from "./i-list";
 import {Dictionary} from "./dictionary";
 import {IDictionary} from "./i-dictionary";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export class Collections implements ICollections {
     constructor(

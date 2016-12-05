@@ -1,16 +1,16 @@
 import {IProcess} from "./i-process";
 import {IList} from "../collections/i-list";
-import {IFuture} from "../promise/i-future";
-import {IDictionary} from "./../collections/i-dictionary";
 import {IProcessResult} from "./i-process-result";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {INodeWrapperFactory} from "./i-node-wrapper-factory";
 import {ICollections} from "../collections/i-collections";
+import {IFutures} from "../futures/i-futures";
+import {IDictionary} from "../collections/i-dictionary";
+import {IFuture} from "../futures/i-future";
 
 export class Process implements IProcess {
     constructor(
         private nativeProcess:any,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private nativeChildProcessModule:any,
         private nodeWrapperFactory:INodeWrapperFactory,
         private collections:ICollections
@@ -68,7 +68,7 @@ export class Process implements IProcess {
         const nodeExecutable = this.pathToNodeJSExecutable;
         env.add('PATH', `${env.get('PATH')}:${nodeExecutable}`);
 
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             var stdOutIndices:Array<number> = [];
             var stdErrIndices:Array<number> = [];
             var allOutput:Array<string> = [];

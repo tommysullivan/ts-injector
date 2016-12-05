@@ -1,5 +1,5 @@
 import {INodeUnderTest} from "./i-node-under-test";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IClusterUnderTest} from "./i-cluster-under-test";
 
 export interface IServiceDiscoverer {

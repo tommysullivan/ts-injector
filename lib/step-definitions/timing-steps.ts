@@ -9,7 +9,7 @@ declare const module:any;
 export class TimingSteps {
     @when(/^I wait "([^"]*)" seconds$/)
     waitABit(numSeconds:number):PromisedAssertion {
-        const promise = $.promiseFactory.newPromise((resolve, reject) => {
+        const promise = $.futures.newFuture((resolve, reject) => {
             setTimeout(() => resolve(null), numSeconds * 1000);
         });
         return $.expect(promise).to.eventually.be.fulfilled;

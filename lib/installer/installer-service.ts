@@ -1,6 +1,6 @@
 import {IJSONObject} from "../typed-json/i-json-object";
 import {IList} from "../collections/i-list";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {ITypedJSON} from "../typed-json/i-typed-json";
 import {IInstallerService} from "./i-installer-service";
 import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";

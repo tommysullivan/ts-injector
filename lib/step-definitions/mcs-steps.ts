@@ -1,7 +1,6 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 import {Framework} from "../framework/framework";
-import {MCSRestSession} from "../mcs/mcs-rest-session";
 import {MCSDashboardInfo} from "../mcs/mcs-dashboard-info";
 import {IList} from "../collections/i-list";
 import {IMCSDashboardInfo} from "../mcs/i-mcs-dashboard-info";
@@ -15,10 +14,6 @@ export class MCSSteps {
     private mcsSession:IMCSRestSession;
     private dashboardInfo:IMCSDashboardInfo;
     private appLinks:IList<string>;
-
-    private throwError(e):void {
-        throw new Error(e.toString());
-    }
 
     @given(/^I have an authenticated MCS Rest Client Session$/)
     getAuthenticatedMCSRestClient():PromisedAssertion {
@@ -37,8 +32,7 @@ export class MCSSteps {
     @when(/^I ask for a link to the following applications:$/)
     getLinkToRequestedApplications(table):PromisedAssertion {
         const applicationNames = $.cucumber.getListOfStringsFromTable(table);
-        const futureAppLinks = applicationNames.map(a => this.mcsSession.applicationLinkFor(a));
-        const allAppLinks = $.promiseFactory.newGroupPromise(futureAppLinks)
+        const allAppLinks = applicationNames.mapToFutureList(a => this.mcsSession.applicationLinkFor(a))
             .then(allLinks => this.appLinks = allLinks);
         return $.expect(allAppLinks).to.eventually.be.fulfilled;
     }

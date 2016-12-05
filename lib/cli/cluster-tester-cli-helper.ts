@@ -3,13 +3,13 @@ import {IConsole} from "../node-js-wrappers/i-console";
 import {ICucumber} from "../cucumber/i-cucumber";
 import {IList} from "../collections/i-list";
 import {IClusterTesting} from "../cluster-testing/i-cluster-testing";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {ICollections} from "../collections/i-collections";
 import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
 import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
 import {IMultiClusterTester} from "../cluster-testing/i-multi-cluster-tester";
 import {IClusters} from "../clusters/i-clusters";
-import {IFuture} from "../promise/i-future";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export class ClusterTesterCliHelper {
 
@@ -20,7 +20,7 @@ export class ClusterTesterCliHelper {
         private clusterIds:() => IList<string>,
         private clusterTesting:IClusterTesting,
         private clusters:IClusters,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private collections:ICollections,
         private multiClusterTester:IMultiClusterTester
     ) {}
@@ -57,8 +57,9 @@ export class ClusterTesterCliHelper {
             const nodesForShellCommand = restrictNodesBasedOnServices
                 ? this.nodesRunningRequestedServices(cluster)
                 : cluster.nodes;
-            const commandPromises = nodesForShellCommand.map(n=>n.executeShellCommand(command));
-            this.promiseFactory.newGroupPromise(commandPromises)
+
+            nodesForShellCommand
+                .mapToFutureList(n=>n.executeShellCommand(command))
                 .then(result=>{
                     this.console.log('*****************************************');
                     this.console.log(`Cluster Result for id "${cluster.name}`);

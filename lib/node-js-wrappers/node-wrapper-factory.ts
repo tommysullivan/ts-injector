@@ -2,7 +2,6 @@ import {INodeWrapperFactory} from "./i-node-wrapper-factory";
 import {ProcessResult} from "./process-result";
 import {IProcess} from "./i-process";
 import {Process} from "./process";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IProcessResult} from "./i-process-result";
 import {ICollections} from "../collections/i-collections";
 import {Console} from "./console";
@@ -20,13 +19,14 @@ import {IStringHelper} from "./i-string-helper";
 import {BaseProcessResult} from "./base-process-result";
 import {IList} from "../collections/i-list";
 import {ProcessResultForSeparateStdAndErrorStreams} from "./process-result-for-separate-std-and-error-streams";
+import {IFutures} from "../futures/i-futures";
 
 declare const Buffer:any;
 
 export class NodeWrapperFactory implements INodeWrapperFactory {
 
     constructor(
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private childProcessModule:any,
         private collections:ICollections,
         private fsModule:any,
@@ -92,7 +92,7 @@ export class NodeWrapperFactory implements INodeWrapperFactory {
     newProcess(nativeProcess:any):IProcess {
         return new Process(
             nativeProcess,
-            this.promiseFactory,
+            this.futures,
             this.childProcessModule,
             this,
             this.collections
@@ -114,7 +114,7 @@ export class NodeWrapperFactory implements INodeWrapperFactory {
             this.collections,
             this.errors,
             this,
-            this.promiseFactory,
+            this.futures,
             this.mkdirp
         );
     }

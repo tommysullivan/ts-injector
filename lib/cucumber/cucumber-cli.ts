@@ -1,5 +1,5 @@
 import {ICucumberTestResult} from "./i-cucumber-test-result";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IDictionary} from "../collections/i-dictionary";
 import {IList} from "../collections/i-list";
 import {ICucumberRunner} from "./i-cucumber-runner";

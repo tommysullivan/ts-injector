@@ -35,21 +35,44 @@ export class ConfigLoader implements IConfigLoader {
         );
     }
 
+    private configWithDynamicValues(originalJSONString:string):string {
+        return originalJSONString.replace(
+            /\$\{(.*?)\}/g,
+            (match, variableExpression) => {
+                const locationOfBar = variableExpression.indexOf('|');
+                return locationOfBar > -1
+                    ? this.process.environmentVariableNamedOrDefault(
+                        variableExpression.substring(0,locationOfBar),
+                        variableExpression.substring(locationOfBar+1)
+                    )
+                    : this.process.environmentVariableNamed(variableExpression);
+            }
+        );
+    }
+
+    private readAndParseConfigFile(path:string):any {
+        return JSON.parse(this.configWithDynamicValues(
+            this.fileSystem.readFileSync(path)
+        ))
+    }
+
     private get mergedJsonFile():IJSONObject {
         const configFile = require("private-devops-configuration/devops-configuration/config.json");
-        const copiedJsonConfig = JSON.parse(JSON.stringify(configFile));
-
+        const configFileAsString = JSON.stringify(configFile);
+        const copiedJsonConfig = JSON.parse(this.configWithDynamicValues(configFileAsString));
         const mergedWithDefaultJSON = this.fileSystem.checkFileExistSync(this.DEFAULT_CONFIG_PATH)
             ? this.jsonMerger.mergeJSON(
                 copiedJsonConfig,
-                this.fileSystem.readJSONObjectFileSync(this.DEFAULT_CONFIG_PATH).toJSON()
-            ) : copiedJsonConfig;
+                this.readAndParseConfigFile(this.DEFAULT_CONFIG_PATH)
+            )
+            : copiedJsonConfig;
 
         const finalJson = this.configPath
             ? this.jsonMerger.mergeJSON(
                 mergedWithDefaultJSON,
-                this.fileSystem.readJSONObjectFileSync(this.configPath).toJSON()
-            ) : mergedWithDefaultJSON;
+                this.readAndParseConfigFile(this.configPath)
+            )
+            : mergedWithDefaultJSON;
 
         return this.typedJson.newJSONObject(finalJson);
     }

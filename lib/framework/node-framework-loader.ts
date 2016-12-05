@@ -1,6 +1,5 @@
 import {Framework} from "./framework";
 import {Collections} from "../collections/collections";
-import {PromiseFactory} from "../promise/promise-factory";
 import {NodeWrapperFactory} from "../node-js-wrappers/node-wrapper-factory";
 import {ConfigLoader} from "./config-loader";
 import {TypedJSON} from "../typed-json/typed-json";
@@ -9,13 +8,15 @@ import {IProcess} from "../node-js-wrappers/i-process";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {ICollections} from "../collections/i-collections";
 import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {ITypedJSON} from "../typed-json/i-typed-json";
 import {SSHAPI} from "../ssh/ssh-api";
 import {ISSHAPI} from "../ssh/i-ssh-api";
 import {IErrors} from "../errors/i-errors";
 import {IConsole} from "../node-js-wrappers/i-console";
 import {Rest} from "../rest/rest";
+import {IFutures} from "../futures/i-futures";
+import {Futures} from "../futures/futures";
+import {IPromiseFactory} from "../promise/i-promise-factory";
 
 declare const require:any;
 declare const process:any;
@@ -44,14 +45,15 @@ export class NodeFrameworkLoader {
             uuidGenerator,
             this.collections,
             this.errors,
-            this.promiseFactory,
+            this.futures,
             this.typedJSON,
             this.sshAPI,
             this.nodeWrapperFactory,
             chai,
             this.console,
             this.rest,
-            uuidGenerator.v4()
+            uuidGenerator.v4(),
+            this.promiseFactory
         )
     }
 
@@ -69,16 +71,20 @@ export class NodeFrameworkLoader {
     get errors():IErrors { return new Errors(); }
 
     get collections():ICollections {
-        return new Collections(promises=>this.promiseFactory.newGroupPromise(promises));
+        return new Collections(promises=>this.futures.newFutureList(promises));
     }
 
     get promiseFactory():IPromiseFactory {
-        return new PromiseFactory(promiseModule, this.collections);
+        return new Futures(promiseModule, this.collections);
+    }
+
+    get futures():IFutures {
+        return new Futures(promiseModule, this.collections);
     }
 
     get rest():Rest {
         return new Rest(
-            this.promiseFactory,
+            this.futures,
             requestModule,
             this.frameworkConfig.rest,
             this.typedJSON
@@ -99,7 +105,7 @@ export class NodeFrameworkLoader {
     get sshAPI():ISSHAPI {
         return new SSHAPI(
             nodemiralModule,
-            this.promiseFactory,
+            this.futures,
             this.nodeWrapperFactory,
             this.collections,
             this.frameworkConfig.ssh,
@@ -111,7 +117,7 @@ export class NodeFrameworkLoader {
 
     get nodeWrapperFactory():INodeWrapperFactory {
         return new NodeWrapperFactory(
-            this.promiseFactory,
+            this.futures,
             childProcessModule,
             this.collections,
             fsModule,

@@ -1,5 +1,5 @@
 import {IRestResponse} from "./i-rest-response";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export interface IRestClientAsPromised {
     post(path:string, options?:any):IFuture<IRestResponse>;

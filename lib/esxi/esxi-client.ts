@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {ISSHSession} from "../ssh/i-ssh-session";
 import {IList} from "../collections/i-list";
 import {IESXIClient} from "./i-esxi-client";

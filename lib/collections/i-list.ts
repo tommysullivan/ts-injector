@@ -1,6 +1,6 @@
 import {IComparator} from "./i-comparator";
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export interface IList<T> extends IJSONSerializable {
     first:T;
@@ -14,7 +14,6 @@ export interface IList<T> extends IJSONSerializable {
     firstWhere(predicate:(potentialMatch:T)=>boolean, defaultProvider?:()=>T):T;
     firstOrThrow(predicate:(potentialMatch:T)=>boolean, errorFactory:()=>Error):T;
     all(predicate:(originalItem:T)=>boolean):boolean;
-    mapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>>;
     map<T2>(mapFunction:(originalItem:T) => T2):IList<T2>;
     filter(filterFunction:(originalItem:T)=>boolean):IList<T>;
     where(filterFunction:(originalItem:T)=>boolean):IList<T>;
@@ -35,8 +34,11 @@ export interface IList<T> extends IJSONSerializable {
     append(listToAppend:IList<T>):IList<T>;
     flatMap<T2>(mapFunction:(originalItem:T) => IList<T2>):IList<T2>;
     flatMapArray<T2>(mapFunction:(originalItem:T) => Array<T2>):IList<T2>;
-    flatMapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
     everythingAfterIndex(index:number):IList<T>;
     hasAtLeastOne(predicate:(item:T)=>boolean):boolean;
     intersectionWith(other:IList<T>):IList<T>;
+    flatMapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
+    flatMapToFutureList<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
+    mapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>>;
+    mapToFutureList<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>>;
 }

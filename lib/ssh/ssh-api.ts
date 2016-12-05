@@ -3,7 +3,6 @@ import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {ISSHSession} from "./i-ssh-session";
 import {ISSHAPI} from "./i-ssh-api";
 import {SSHClient} from "./ssh-client";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {SSHSession} from "./ssh-session";
 import {ISSHResult} from "./i-ssh-result";
 import {SSHError} from "./ssh-error";
@@ -18,6 +17,7 @@ import {IPath} from "../node-js-wrappers/i-path";
 import {IErrors} from "../errors/i-errors";
 import {NodemiralPatcher} from "./nodemiral-patcher";
 import {ISSHConfiguration} from "./i-ssh-configuration";
+import {IFutures} from "../futures/i-futures";
 
 declare const require:any;
 
@@ -31,7 +31,7 @@ export class SSHAPI implements ISSHAPI {
 
     constructor(
         private nodemiralModule:any,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private nodeWrapperFactory:INodeWrapperFactory,
         private collections:ICollections,
         private sshConfiguration:ISSHConfiguration,
@@ -43,7 +43,7 @@ export class SSHAPI implements ISSHAPI {
     private newSSHSession(host:string, nodemiralSession:any, username:string, password:string):ISSHSession {
         return new SSHSession(
             nodemiralSession,
-            this.promiseFactory,
+            this.futures,
             this.nodeWrapperFactory,
             this.collections,
             this,
@@ -61,7 +61,7 @@ export class SSHAPI implements ISSHAPI {
     }
 
     newSSHClient():ISSHClient {
-        return new SSHClient(this.promiseFactory, this.newSSHSession.bind(this), this.nodemiralModule);
+        return new SSHClient(this.futures, this.newSSHSession.bind(this), this.nodemiralModule);
     }
 
     newSSHError(message:string, sshResult:ISSHResult) {

@@ -14,7 +14,7 @@ import {IFeatureSets} from "./i-feature-sets";
 import {IConsole} from "../node-js-wrappers/i-console";
 import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
 import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {CucumberCli} from "./cucumber-cli";
 
 export interface ICucumber {

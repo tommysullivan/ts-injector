@@ -1,5 +1,5 @@
 import {IDictionary} from "../collections/i-dictionary";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {ICollections} from "../collections/i-collections";
 import {IOpenTSDBRestClient} from "./i-open-tsdb-rest-client";
 import {IRest} from "../rest/i-rest";

@@ -1,8 +1,6 @@
 import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
-import {IFuture} from "../promise/i-future";
 import {Clusters} from "../clusters/clusters";
 import {Cucumber} from "../cucumber/cucumber";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {ICollections} from "../collections/i-collections";
 import {IProcess} from "../node-js-wrappers/i-process";
 import {ClusterTesting} from "../cluster-testing/cluster-testing";
@@ -48,6 +46,10 @@ import {IRest} from "../rest/i-rest";
 import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
 import {ITesting} from "../testing/i-testing";
 import {Testing} from "../testing/testing";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
+import {deprecated} from "../annotations/deprecated";
+import {IPromiseFactory} from "../promise/i-promise-factory";
 
 export class Framework implements IFramework {
     constructor(
@@ -57,16 +59,22 @@ export class Framework implements IFramework {
         public uuidGenerator:IUUIDGenerator,
         public collections:ICollections,
         public errors:IErrors,
-        public promiseFactory:IPromiseFactory,
+        public futures:IFutures,
         public typedJSON:ITypedJSON,
         public sshAPI:ISSHAPI,
         public nodeWrapperFactory:INodeWrapperFactory,
         public chai:ChaiStatic,
         public console:IConsole,
         public rest:IRest,
-        private _testRunGUID:string
+        private _testRunGUID:string,
+        private _promiseFactory:IPromiseFactory
     ) {}
-    
+
+    @deprecated('Use futures instead')
+    get promiseFactory():IPromiseFactory {
+        return this._promiseFactory;
+    }
+
     get testRunGUID():string {
         return this._testRunGUID;
     }
@@ -126,7 +134,7 @@ export class Framework implements IFramework {
     }
 
     get serviceDiscoverer():IServiceDiscoverer {
-        return new ServiceDiscoverer(this.versioning, this.promiseFactory, this.errors);
+        return new ServiceDiscoverer(this.versioning, this.futures, this.errors);
     }
 
     get elasticSearch():IElasticsearch {
@@ -146,7 +154,7 @@ export class Framework implements IFramework {
         return new Installer(
             this.frameworkConfig.installerClient,
             this.rest,
-            this.promiseFactory,
+            this.futures,
             this.typedJSON
         );
     }
@@ -154,7 +162,7 @@ export class Framework implements IFramework {
     get clusterTesting():IClusterTesting {
         return new ClusterTesting(
             this.frameworkConfig.clusterTesting,
-            this.promiseFactory,
+            this.futures,
             this.sshAPI.newSSHClient(),
             this.collections,
             this.versioning,
@@ -188,7 +196,7 @@ export class Framework implements IFramework {
             this.console,
             this.typedJSON.newJSONSerializer(),
             this.collections,
-            this.promiseFactory,
+            this.futures,
             this.nodeWrapperFactory.path,
             this.rest,
             this.releasing
@@ -205,7 +213,7 @@ export class Framework implements IFramework {
             this.clusters,
             this.clusterTesting,
             this.frameworkConfig.cli,
-            this.promiseFactory,
+            this.futures,
             this.fileSystem,
             this.frameworkConfig.clusterTesting,
             this.uuidGenerator,
@@ -222,7 +230,7 @@ export class Framework implements IFramework {
             this.frameworkConfig.cucumber,
             this.errors,
             this.chai,
-            this.promiseFactory,
+            this.futures,
             this.typedJSON.newJSONSerializer(),
             this.nodeWrapperFactory.path,
             this.process,

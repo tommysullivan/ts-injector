@@ -1,4 +1,3 @@
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {RestResponse} from "./rest-response";
 import {RestConfiguration} from "./rest-configuration";
 import {RestClientAsPromised} from "./rest-client-as-promised";
@@ -8,15 +7,16 @@ import {IRest} from "./i-rest";
 import {IRestClientAsPromised} from "./i-rest-client-as-promised";
 import {IRestResponse} from "./i-rest-response";
 import {IError} from "../errors/i-error";
+import {IFutures} from "../futures/i-futures";
 
 export class Rest implements IRest {
-    private promiseFactory:IPromiseFactory;
+    private futures:IFutures;
     private requestModule:any;
     private restConfiguration:RestConfiguration;
     private typedJSON:ITypedJSON;
 
-    constructor(promiseFactory:IPromiseFactory, requestModule:any, restConfiguration:RestConfiguration, typedJSON:ITypedJSON) {
-        this.promiseFactory = promiseFactory;
+    constructor(futures:IFutures, requestModule:any, restConfiguration:RestConfiguration, typedJSON:ITypedJSON) {
+        this.futures = futures;
         this.requestModule = requestModule;
         this.restConfiguration = restConfiguration;
         this.typedJSON = typedJSON;
@@ -24,7 +24,7 @@ export class Rest implements IRest {
 
     newRestClientAsPromised(baseURL?:string):IRestClientAsPromised {
         return new RestClientAsPromised(
-            this.promiseFactory,
+            this.futures,
             this.newJSONRequestorWithCookies(),
             baseURL,
             this

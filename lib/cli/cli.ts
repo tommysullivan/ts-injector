@@ -7,7 +7,6 @@ import {ClusterTesterCliHelper} from "./cluster-tester-cli-helper";
 import {CliHelper} from "./cli-helper";
 import {ClusterSnapshotCliHelper} from "./cluster-snapshot-cli-helper";
 import {ICollections} from "../collections/i-collections";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {ICucumber} from "../cucumber/i-cucumber";
 import {IList} from "../collections/i-list";
 import {ICliConfig} from "./i-cli-config";
@@ -20,6 +19,7 @@ import {IUUIDGenerator} from "../uuid/i-uuid-generator";
 import {ITesting} from "../testing/i-testing";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IURLCalculator} from "../testing/i-url-calculator";
+import {IFutures} from "../futures/i-futures";
 
 export class Cli {
 
@@ -32,7 +32,7 @@ export class Cli {
         private clusters:IClusters,
         private clusterTesting:IClusterTesting,
         private cliConfig:ICliConfig,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private fileSystem:IFileSystem,
         private clusterTestingConfiguration:IClusterTestingConfiguration,
         private uuidGenerator:IUUIDGenerator,
@@ -81,7 +81,7 @@ export class Cli {
             this.clusterIds,
             this.clusterTesting,
             this.clusters,
-            this.promiseFactory,
+            this.futures,
             this.collections,
             this.clusterTesting.newMultiClusterTester()
         )

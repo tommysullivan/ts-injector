@@ -15,12 +15,12 @@ import {IResultReporter} from "./i-result-reporter";
 import {PortalResultReporter} from "./portal-result-reporter";
 import {MultiplexDelegateResultReporter} from "./multiplex-delegate-result-reporter";
 import {ICollections} from "../collections/i-collections";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IPath} from "../node-js-wrappers/i-path";
 import {IRest} from "../rest/i-rest";
 import {IRelease} from "../releasing/i-release";
 import {IPhase} from "../releasing/i-phase";
 import {IReleasing} from "../releasing/i-releasing";
+import {IFutures} from "../futures/i-futures";
 import {IURLCalculator} from "./i-url-calculator";
 import {URLCalculator} from "./url-calculator";
 
@@ -33,7 +33,7 @@ export class Testing implements ITesting {
         private console:IConsole,
         private jsonSerializer:IJSONSerializer,
         private collections:ICollections,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private path:IPath,
         private rest:IRest,
         private releasing:IReleasing
@@ -73,8 +73,7 @@ export class Testing implements ITesting {
             this.collections.newList([
                 this.newFilesystemResultReporter(),
                 this.newPortalResultReporter()
-            ]),
-            this.promiseFactory
+            ])
         );
     }
 
@@ -92,8 +91,8 @@ export class Testing implements ITesting {
             this.rest,
             this.console,
             this.process,
-            this.promiseFactory,
-            this.newUrlCalculator()
+            this.newUrlCalculator(),
+            this.futures
         );
     }
 

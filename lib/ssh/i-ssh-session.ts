@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {ISSHResult} from "./i-ssh-result";
 
 export interface ISSHSession {

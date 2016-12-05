@@ -1,20 +1,20 @@
 import {IClusterUnderTest} from "./i-cluster-under-test";
 import {IVersioning} from "../versioning/i-versioning";
-import {IFuture} from "../promise/i-future";
 import {INodeUnderTest} from "./i-node-under-test";
 import {IList} from "../collections/i-list";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {IErrors} from "../errors/i-errors";
 import {IServiceDiscoverer} from "./i-service-discoverer";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export class ServiceDiscoverer implements IServiceDiscoverer {
     private versioning:IVersioning;
-    private promiseFactory:IPromiseFactory;
+    private futures:IFutures;
     private errors:IErrors;
 
-    constructor(versioning:IVersioning, promiseFactory:IPromiseFactory, errors:IErrors) {
+    constructor(versioning:IVersioning, futures:IFutures, errors:IErrors) {
         this.versioning = versioning;
-        this.promiseFactory = promiseFactory;
+        this.futures = futures;
         this.errors = errors;
     }
 
@@ -22,7 +22,7 @@ export class ServiceDiscoverer implements IServiceDiscoverer {
         const possibleHostNodes = clusterUnderTest.nodesHosting(serviceName);
         return possibleHostNodes.isEmpty
             ? this.nodesHostingServiceAccordingToInstaller(clusterUnderTest, serviceName)
-            : this.promiseFactory.newPromiseForImmediateValue(possibleHostNodes);
+            : this.futures.newFutureForImmediateValue(possibleHostNodes);
     }
 
     nodesHostingServiceAccordingToInstaller(clusterUnderTest:IClusterUnderTest, serviceName:string):IFuture<IList<INodeUnderTest>> {

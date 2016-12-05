@@ -1,6 +1,6 @@
 import {IList} from "../collections/i-list";
 import {Assertion} from "./assertion";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export interface IExpectationWrapper {
     expect(target:any, message?:string):Assertion;

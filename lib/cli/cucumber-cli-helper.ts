@@ -4,11 +4,11 @@ import {IList} from "../collections/i-list";
 import {ICucumber} from "../cucumber/i-cucumber";
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";
 import {CliHelper} from "./cli-helper";
-import {IFuture} from "../promise/i-future";
 import {ITesting} from "../testing/i-testing";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IResultReporter} from "../testing/i-result-reporter";
 import {IURLCalculator} from "../testing/i-url-calculator";
+import {IFuture} from "../futures/i-future";
 
 export class CucumberCliHelper {
     constructor(
@@ -33,7 +33,7 @@ export class CucumberCliHelper {
         const testRunGUID = this.uuidGenerator.v4();
         return cli.configureAndRunCucumber(testRunGUID, cucumberPassThruCommands, this.process.environmentVariables)
             .then(cucumberTestResult => {
-                this.urlCalculator.writeUrlsToPropertiesFile(this.urlCalculator.calculateURL(testRunGUID));
+                this.urlCalculator.writeUrlToPropertiesFile(this.urlCalculator.calculateURL(testRunGUID));
                 const result = this.testing.newTestResult(testRunGUID, cucumberTestResult);
                 return this.resultReporter.reportResult(testRunGUID, this.jsonSerializer.serializeToString(result))
                     .then(_ => {

@@ -1,5 +1,5 @@
 import {IList} from "../collections/i-list";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 
 export interface IInstallerService {
     name:string;

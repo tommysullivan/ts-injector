@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IElasticsearchResult} from "./i-elasticsearch-result";
 
 export interface IElasticsearchRestClient {

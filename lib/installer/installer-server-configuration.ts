@@ -1,4 +1,4 @@
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
 import {IJSONObject} from "../typed-json/i-json-object";
 import {IList} from "../collections/i-list";

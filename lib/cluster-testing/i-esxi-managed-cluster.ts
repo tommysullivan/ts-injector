@@ -1,5 +1,5 @@
 import {IESXIResponse} from "../esxi/i-esxi-response";
-import {IFuture} from "../promise/i-future";
+import {IFuture} from "../futures/i-future";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IList} from "../collections/i-list";
 import {IESXIAction} from "../esxi/i-esxi-action";

@@ -1,7 +1,5 @@
 import {IList} from "../collections/i-list";
 import {ISSHSession} from "./i-ssh-session";
-import {IFuture} from "../promise/i-future";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
 import {ICollections} from "../collections/i-collections";
 import {ISSHResult} from "./i-ssh-result";
@@ -11,12 +9,14 @@ import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";
 import {IPath} from "../node-js-wrappers/i-path";
 import {IErrors} from "../errors/i-errors";
+import {IFutures} from "../futures/i-futures";
+import {IFuture} from "../futures/i-future";
 
 export class SSHSession implements ISSHSession {
 
     constructor(
         private nodemiralSession:any,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private nodeWrapperFactory:INodeWrapperFactory,
         private collections:ICollections,
         private api:ISSHAPI,
@@ -34,7 +34,7 @@ export class SSHSession implements ISSHSession {
 
     executeCommands(...commands:Array<string>):IFuture<IList<ISSHResult>> {
         const commandList = this.collections.newList(commands);
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             const results = this.collections.newEmptyList<ISSHResult>();
             const executeNextCommand:(commandsToExecute:IList<string>) => void = commandsToExecute => {
                 const commandToExecute = commandsToExecute.first;
@@ -58,7 +58,7 @@ export class SSHSession implements ISSHSession {
 
     executeCommand(command:string):IFuture<ISSHResult> {
         if(this.writeCommandsToStdout) console.log(command);
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.nodemiralSession.onError(error=>{
                 reject(this.api.newSSHError(error, null));
             });
@@ -88,15 +88,18 @@ export class SSHSession implements ISSHSession {
                 if(maxTryCount==0) throw new Error(
                     `SSH command error after ${originalMaxTryCount} timeouts of ${timeout} milliseconds. Error: ${error.toString()}`
                 );
-                return this.promiseFactory.delayedPromise(
-                    timeout,
-                    () => this.executeCommandWithRetryTimeoutInternal(command, timeout, maxTryCount - 1, originalMaxTryCount)
-                );
+                return this.futures.newDelayedFuture(timeout)
+                    .then(_ => this.executeCommandWithRetryTimeoutInternal(
+                        command,
+                        timeout,
+                        maxTryCount - 1,
+                        originalMaxTryCount
+                    ));
             });
     }
 
     upload(localPath:string, remotePath:string):IFuture<any> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.scp2Module.scp(localPath, {path:remotePath}, this.newKeyboardInteractiveClient(), function(err) {
                 if(err) reject(err);
                 else resolve(null);
@@ -105,7 +108,7 @@ export class SSHSession implements ISSHSession {
     }
 
     download(remotePath:string, localPath:string):IFuture<any> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             const options = {
                 host: this.host,
                 path: remotePath
@@ -125,7 +128,7 @@ export class SSHSession implements ISSHSession {
     }
 
     private writeGeneral(content:Object, destinationPath:string):IFuture<any> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.newKeyboardInteractiveClient().write({
                 destination: destinationPath,
                 content: content

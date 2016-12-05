@@ -3,8 +3,6 @@ import {ISSHClient} from "../ssh/i-ssh-client";
 import {ISSHSession} from "../ssh/i-ssh-session";
 import {IList} from "../collections/i-list";
 import {INodeVersionGraph} from "./../versioning/i-node-version-graph";
-import {IPromiseFactory} from "../promise/i-promise-factory";
-import {IFuture} from "../promise/i-future";
 import {IOperatingSystem} from "./../operating-systems/i-operating-system";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {INodeUnderTest} from "./i-node-under-test";
@@ -24,12 +22,14 @@ import {IMCS} from "../mcs/i-mcs";
 import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
 import {ICollections} from "../collections/i-collections";
 import {IOperatingSystems} from "../operating-systems/i-operating-systems";
+import {IFuture} from "../futures/i-future";
+import {IFutures} from "../futures/i-futures";
 
 export class NodeUnderTest implements INodeUnderTest {
     constructor(
         private nodeConfiguration:INodeConfiguration,
         private sshClient:ISSHClient,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private mcs:IMCS,
         private openTSDB:IOpenTSDB,
         private installer:IInstaller,
@@ -105,7 +105,7 @@ export class NodeUnderTest implements INodeUnderTest {
     }
 
     verifyMapRNotInstalled():IFuture<ISSHResult> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.newSSHSession()
                 .then(sshSession => {
                     return sshSession.executeCommand('ls /opt/mapr');
@@ -130,7 +130,7 @@ export class NodeUnderTest implements INodeUnderTest {
     }
 
     verifyMapRIsInstalled():IFuture<ISSHResult> {
-        return this.promiseFactory.newPromise((resolve, reject) => {
+        return this.futures.newFuture((resolve, reject) => {
             this.newSSHSession()
                 .then(sshSession => {
                     return sshSession.executeCommand('ls /opt/mapr');

@@ -3,7 +3,6 @@ import {InstallerRestClient} from "./installer-rest-client";
 import {InstallerServerConfiguration} from "./installer-server-configuration";
 import {InstallerRestSession} from "./installer-rest-session";
 import {InstallerProcess} from "./installer-process";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 import {InstallerServices} from "./installer-services";
 import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
 import {ITypedJSON} from "../typed-json/i-typed-json";
@@ -18,12 +17,13 @@ import {IInstallerServices} from "./i-installer-services";
 import {RestClientAsPromised} from "../rest/rest-client-as-promised";
 import {IInstallerService} from "./i-installer-service";
 import {IInstallerClientConfiguration} from "./i-installer-client-configuration";
+import {IFutures} from "../futures/i-futures";
 
 export class Installer implements IInstaller {
     constructor(
         private installerClientConfiguration:IInstallerClientConfiguration,
         private rest:IRest,
-        private promiseFactory:IPromiseFactory,
+        private futures:IFutures,
         private typedJSON:ITypedJSON
     ) {}
 
@@ -40,7 +40,7 @@ export class Installer implements IInstaller {
     }
 
     newInstallerProcess(processJSON:IJSONObject, authedRestClient:IRestClientAsPromised, processResourceURL:string):IInstallerProcess {
-        return new InstallerProcess(authedRestClient, processJSON, this.installerClientConfiguration, processResourceURL, this.promiseFactory);
+        return new InstallerProcess(authedRestClient, processJSON, this.installerClientConfiguration, processResourceURL, this.futures);
     }
 
     newInstallerServices(servicesJSON:IJSONObject, authedRestClient:IRestClientAsPromised):IInstallerServices {
