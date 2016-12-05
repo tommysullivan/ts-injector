@@ -12,8 +12,6 @@ import {IClusterResultPreparer} from "./i-cluster-result-preparer";
 import {CucumberCli} from "../cucumber/cucumber-cli";
 import {IResultReporter} from "../testing/i-result-reporter";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
-import {ICollections} from "../collections/i-collections";
-import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IURLCalculator} from "../testing/i-url-calculator";
 
 export class MultiClusterTester implements IMultiClusterTester {
@@ -29,8 +27,6 @@ export class MultiClusterTester implements IMultiClusterTester {
         private cucumberCli:CucumberCli,
         private resultReporter:IResultReporter,
         private jsonSerializer:IJSONSerializer,
-        private collections:ICollections,
-        private fileSystem:IFileSystem,
         private urlCalculator:IURLCalculator
     ) {}
 
@@ -51,7 +47,7 @@ export class MultiClusterTester implements IMultiClusterTester {
         const propertyFileUrlList:string = this.clusterTestingConfiguration.clusterIds.map(clusterId => {
             return this.urlCalculator.calculateURL(`${testRunUUID}_${clusterId}_user-${this.process.currentUserName}`);
         }).join(`,`);
-        this.fileSystem.writeFileSync("properties.txt", `TESTURLS=${propertyFileUrlList}`);
+        this.urlCalculator.writeUrlsToPropertiesFile(propertyFileUrlList);
 
 
         return this.promiseFactory.newGroupPromiseFromArray(clusterTestResultPromises)

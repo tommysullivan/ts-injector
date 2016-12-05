@@ -96,8 +96,6 @@ export class ClusterTesting implements IClusterTesting {
             this.cucumber.newCucumberCli(),
             this.testing.newResultReporter(),
             this.jsonSerializer,
-            this.collections,
-            this.fileSystem,
             this.urlCalculator
         )
     }

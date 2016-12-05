@@ -8,6 +8,7 @@ import {IFuture} from "../promise/i-future";
 import {ITesting} from "../testing/i-testing";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IResultReporter} from "../testing/i-result-reporter";
+import {IURLCalculator} from "../testing/i-url-calculator";
 
 export class CucumberCliHelper {
     constructor(
@@ -19,7 +20,8 @@ export class CucumberCliHelper {
         private cliHelper:CliHelper,
         private testing:ITesting,
         private resultReporter:IResultReporter,
-        private jsonSerializer:IJSONSerializer
+        private jsonSerializer:IJSONSerializer,
+        private urlCalculator:IURLCalculator
     ) {}
 
     private outputJSON<T>(list:IList<T>):void {
@@ -31,6 +33,7 @@ export class CucumberCliHelper {
         const testRunGUID = this.uuidGenerator.v4();
         return cli.configureAndRunCucumber(testRunGUID, cucumberPassThruCommands, this.process.environmentVariables)
             .then(cucumberTestResult => {
+                this.urlCalculator.writeUrlsToPropertiesFile(this.urlCalculator.calculateURL(testRunGUID));
                 const result = this.testing.newTestResult(testRunGUID, cucumberTestResult);
                 return this.resultReporter.reportResult(testRunGUID, this.jsonSerializer.serializeToString(result))
                     .then(_ => {

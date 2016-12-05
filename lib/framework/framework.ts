@@ -210,7 +210,8 @@ export class Framework implements IFramework {
             this.frameworkConfig.clusterTesting,
             this.uuidGenerator,
             this.testing,
-            this.typedJSON.newJSONSerializer()
+            this.typedJSON.newJSONSerializer(),
+            this.testing.newUrlCalculator()
         );
     }
 

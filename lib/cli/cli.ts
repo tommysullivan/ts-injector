@@ -19,6 +19,7 @@ import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";
 import {ITesting} from "../testing/i-testing";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
+import {IURLCalculator} from "../testing/i-url-calculator";
 
 export class Cli {
 
@@ -36,7 +37,8 @@ export class Cli {
         private clusterTestingConfiguration:IClusterTestingConfiguration,
         private uuidGenerator:IUUIDGenerator,
         private testing:ITesting,
-        private jsonSerializer:IJSONSerializer
+        private jsonSerializer:IJSONSerializer,
+        private urlCalculator:IURLCalculator
     ) {}
 
     newCliHelper():CliHelper {
@@ -56,7 +58,8 @@ export class Cli {
             this.newCliHelper(),
             this.testing,
             this.testing.newResultReporter(),
-            this.jsonSerializer
+            this.jsonSerializer,
+            this.urlCalculator
         );
     }
 

@@ -99,7 +99,8 @@ export class Testing implements ITesting {
 
     newUrlCalculator():IURLCalculator {
         return new URLCalculator(
-            this.testingConfiguration
+            this.testingConfiguration,
+            this.fileSystem
         );
     }
 }
