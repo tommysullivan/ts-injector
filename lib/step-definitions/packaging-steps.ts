@@ -90,13 +90,23 @@ export class PackagingSteps {
 
 
     @when(/^I ask for the repository for the "([^"]*)" release$/)
-    public getRepository(releaseName:string): void {
+    public getRepositoryForRelease(releaseName:string): void {
         this.repositoryMatchingPackage = this.repositories.repositoryHosting(
             this.packageName,
             this.version,
             this.promotionLevel,
             this.operatingSystem,
             releaseName
+        );
+    }
+
+    @when(/^I ask for the repository$/)
+    getRepository():void {
+        this.repositoryMatchingPackage = this.repositories.repositoryHosting(
+            this.packageName,
+            this.version,
+            this.promotionLevel,
+            this.operatingSystem
         );
     }
 
