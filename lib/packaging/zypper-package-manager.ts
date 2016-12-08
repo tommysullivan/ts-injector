@@ -43,6 +43,10 @@ export class ZypperPackageManager implements IPackageManager {
         return `${this.packageCommand} --non-interactive install -y ${packageNames.join(' ')}`;
     }
 
+    updatePackagesCommand(packageNames:IList<string>):string {
+        return `${this.packageCommand} --non-interactive update -y ${packageNames.join(' ')}`;
+    }
+
     installPackageCommand(packageName:string):string {
         return `${this.packageCommand} --non-interactive install -y ${packageName}`;
     }

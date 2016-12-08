@@ -13,7 +13,6 @@ import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 import {IClusterResultPreparer} from "./i-cluster-result-preparer";
 import {IMultiClusterTester} from "./i-multi-cluster-tester";
 import {IESXIManagedCluster} from "./i-esxi-managed-cluster";
-import {IRelease} from "../releasing/i-release";
 import {ITestRunnerEnvironment} from "../testing/i-test-runner-environment";
 
 export interface IClusterTesting {
@@ -22,7 +21,7 @@ export interface IClusterTesting {
     newMultiClusterTester():IMultiClusterTester;
     newClusterResultPreparer():IClusterResultPreparer;
     newClusterLogCapturer():IClusterLogCapturer;
-    newClusterUnderTest(clusterConfiguration:IClusterConfiguration):IClusterUnderTest;
+    newClusterUnderTest(clusterConfiguration:IClusterConfiguration, releasePhase?:IPhase):IClusterUnderTest;
     newClusterInstaller();
     newNodeUnderTest(nodeConfiguration:INodeConfiguration):INodeUnderTest;
     newESXIManagedCluster(clusterConfiguration:IClusterConfiguration):IESXIManagedCluster;

@@ -19,6 +19,10 @@ export class AptPackageManager implements IPackageManager {
         return `${this.packageCommand} install -y ${packageNames.join(' ')} --allow-unauthenticated`;
     }
 
+    updatePackagesCommand(packageNames:IList<string>):string {
+        return `${this.packageCommand} install -y ${packageNames.join(' ')} --allow-unauthenticated`;
+    }
+
     get uninstallAllPackagesWithMapRInTheName():string {
         return `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs apt-get purge -y`;
     }

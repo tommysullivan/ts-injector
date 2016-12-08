@@ -239,10 +239,13 @@ export class Framework implements IFramework {
     }
 
     get clusterUnderTest():IClusterUnderTest {
-        const clusterConfig = this.clusters.clusterConfigurationWithId(
-            this.process.environmentVariableNamed('clusterId')
+        return this.clusterTesting.newClusterUnderTest(
+            this.clusters.clusterConfigurationWithId(this.clusterId)
         );
-        return this.clusterTesting.newClusterUnderTest(clusterConfig);
+    }
+
+    get clusterId():string {
+        return this.process.environmentVariableNamed('clusterId');
     }
 
     private get expectationWrapper():IExpectationWrapper {

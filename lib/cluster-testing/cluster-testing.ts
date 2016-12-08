@@ -43,6 +43,7 @@ import {IClusterLogCapturer} from "./i-cluster-log-capturer";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IURLCalculator} from "../testing/i-url-calculator";
 import {IFutures} from "../futures/i-futures";
+import {IPhase} from "../releasing/i-phase";
 
 export class ClusterTesting implements IClusterTesting {
 
@@ -132,9 +133,9 @@ export class ClusterTesting implements IClusterTesting {
         );
     }
 
-    newClusterUnderTest(clusterConfiguration:IClusterConfiguration):IClusterUnderTest {
+    newClusterUnderTest(clusterConfiguration:IClusterConfiguration, releasePhase?:IPhase):IClusterUnderTest {
         const nodesUnderTest = this.collections.newList(
-            clusterConfiguration.nodes.map(n=>this.newNodeUnderTest(n))
+            clusterConfiguration.nodes.map(n=>this.newNodeUnderTest(n, releasePhase))
         );
         return new ClusterUnderTest(
             this.clusterTestingConfiguration.clusterInstaller,
@@ -152,7 +153,7 @@ export class ClusterTesting implements IClusterTesting {
         return new ClusterInstaller();
     }
 
-    newNodeUnderTest(nodeConfiguration:INodeConfiguration):INodeUnderTest {
+    newNodeUnderTest(nodeConfiguration:INodeConfiguration, releasePhase?:IPhase):INodeUnderTest {
         return new NodeUnderTest(
             nodeConfiguration,
             this.sshClient,
@@ -163,7 +164,7 @@ export class ClusterTesting implements IClusterTesting {
             this.elasticSearch,
             this.versioning,
             this.packaging,
-            this.testing.defaultReleasePhase,
+            releasePhase ? releasePhase : this.testing.defaultReleasePhase,
             this.collections,
             this.operatingSystems
         );

@@ -31,6 +31,7 @@ import {ChaiStatic} from "../chai/chai-static";
 import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
 import {IPromiseFactory} from "../promise/i-promise-factory";
+import {ITesting} from "../testing/i-testing";
 
 export interface IFramework {
     frameworkConfig:IFrameworkConfiguration;
@@ -67,4 +68,6 @@ export interface IFramework {
     expect(target: any, message?: string):Assertion;
     expectAll<T>(target:IList<IFuture<T>>):Assertion;
     expectEmptyList<T>(list:IList<T>):void;
+    testing:ITesting;
+    clusterId:string;
 }

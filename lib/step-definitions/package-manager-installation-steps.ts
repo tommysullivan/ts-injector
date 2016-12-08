@@ -1,10 +1,13 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {Framework} from "../framework/framework";
 import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
 import {IPackage} from "../packaging/i-package";
+import {IFramework} from "../framework/i-framework";
+import {IList} from "../collections/i-list";
+import {IFuture} from "../promise/i-future";
+import {ISSHResult} from "../ssh/i-ssh-result";
 
-declare const $:Framework;
+declare const $:IFramework;
 declare const module:any;
 declare const __dirname;
 
@@ -30,33 +33,57 @@ export class PackageManagerInstallationSteps {
         ).to.eventually.be.fulfilled;
     }
 
+    performPackageCommandOnEachNode(nodes:IList<INodeUnderTest>, tagName:string, releaseName:string, functionThatYieldsCommandToRun:(node:INodeUnderTest, packageNames:IList<string>)=>string):IList<IFuture<IList<ISSHResult>>> {
+        return nodes.map(node=>{
+            const taggedPackages = node.packages.where(p=>p.tags.contain(tagName));
+            const uniqueRepos = taggedPackages.map((p:IPackage)=>
+                $.packaging.defaultRepositories.repositoryHosting(
+                    p.name,
+                    p.version.toString(),
+                    p.promotionLevel.name,
+                    node.operatingSystem.name,
+                    releaseName
+                )
+            ).unique;
+
+            return uniqueRepos.mapToFutureList(repo => {
+                const repoConfigContent = node.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`, tagName);
+                const repoConfigLocation = node.packageManager.clientConfigurationFileLocationFor(tagName);
+                return node.write(repoConfigContent, repoConfigLocation);
+            }).then(_=>node.executeShellCommands(
+                node.packageManager.packageUpdateCommand,
+                taggedPackages.notEmpty
+                    ? functionThatYieldsCommandToRun(node, taggedPackages.map(p=>p.name))
+                    : '#no packages to install'
+            ));
+
+        })
+    }
+
     @when(/^I install packages with the "([^"]*)" tag$/)
     installPackagesWithTag(tagName:string):PromisedAssertion {
         return $.expectAll(
-            $.clusterUnderTest.nodes.map(n=>{
-                const taggedPackages = n.packages.where(p=>p.tags.contain(tagName));
-                const uniqueRepos = taggedPackages.map((p:IPackage)=>
-                    $.packaging.defaultRepositories.repositoryHosting(
-                        p.name,
-                        p.version.toString(),
-                        p.promotionLevel.name,
-                        n.operatingSystem.name,
-                        $.testing.defaultRelease.name
-                    )
-                ).unique;
+            this.performPackageCommandOnEachNode(
+                $.clusterUnderTest.nodes,
+                tagName,
+                $.testing.defaultRelease.name,
+                (node, packageNames) => node.packageManager.installPackagesCommand(packageNames)
+            )
+        ).to.eventually.be.fulfilled;
+    }
 
-                return uniqueRepos.mapToFutureList(repo => {
-                    const repoConfigContent = n.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`, tagName);
-                    const repoConfigLocation = n.packageManager.clientConfigurationFileLocationFor(tagName);
-                    return n.write(repoConfigContent, repoConfigLocation);
-                }).then(_=>n.executeShellCommands(
-                    n.packageManager.packageUpdateCommand,
-                    taggedPackages.notEmpty
-                        ? n.packageManager.installPackagesCommand(taggedPackages.map(p=>p.name))
-                        : '#no packages to install'
-                ));
-
-            })
+    @then(/^I update packages with the "([^"]*)" tag to release version "([^"]*)"$/)
+    updatePackagesForGivenTag(tagName:string, releaseName:string):PromisedAssertion {
+        return $.expectAll(
+            this.performPackageCommandOnEachNode(
+                $.clusterTesting.newClusterUnderTest(
+                    $.clusters.clusterConfigurationWithId($.clusterId),
+                    $.releasing.defaultReleases.releaseNamed(releaseName).phaseNamed($.testing.defaultPhaseName)
+                ).nodes,
+                tagName,
+                releaseName,
+                (node, packageNames) => node.packageManager.updatePackagesCommand(packageNames)
+            )
         ).to.eventually.be.fulfilled;
     }
 
