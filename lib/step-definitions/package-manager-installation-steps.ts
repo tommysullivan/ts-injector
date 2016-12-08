@@ -33,7 +33,7 @@ export class PackageManagerInstallationSteps {
         ).to.eventually.be.fulfilled;
     }
 
-    performPackageCommandOnEachNode(nodes:IList<INodeUnderTest>, tagName:string, releaseName:string, functionThatYieldsCommandToRun:(node:INodeUnderTest, packageNames:IList<string>)=>string):IList<IFuture<IList<ISSHResult>>> {
+    repositoriesContainingTaggedPackages(nodes:IList<INodeUnderTest>, tagName:string, releaseName:string, functionThatYieldsCommandToRun:(node:INodeUnderTest, packageNames:IList<string>)=>string):IList<IFuture<IList<ISSHResult>>> {
         return nodes.map(node=>{
             const taggedPackages = node.packages.where(p=>p.tags.contain(tagName));
             const uniqueRepos = taggedPackages.map((p:IPackage)=>
@@ -46,24 +46,26 @@ export class PackageManagerInstallationSteps {
                 )
             ).unique;
 
-            return uniqueRepos.mapToFutureList(repo => {
-                const repoConfigContent = node.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`, tagName);
-                const repoConfigLocation = node.packageManager.clientConfigurationFileLocationFor(tagName);
-                return node.write(repoConfigContent, repoConfigLocation);
-            }).then(_=>node.executeShellCommands(
-                node.packageManager.packageUpdateCommand,
-                taggedPackages.notEmpty
-                    ? functionThatYieldsCommandToRun(node, taggedPackages.map(p=>p.name))
-                    : '#no packages to install'
-            ));
-
+            return uniqueRepos
+                .mapToFutureList(repo => {
+                    const repoConfigContent = node.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`, tagName);
+                    const repoConfigLocation = node.packageManager.clientConfigurationFileLocationFor(tagName);
+                    return node.write(repoConfigContent, repoConfigLocation);
+                })
+                .then(_=> taggedPackages.notEmpty
+                    ? node.executeShellCommands(
+                        node.packageManager.packageUpdateCommand,
+                        functionThatYieldsCommandToRun(node, taggedPackages.map(p=>p.name))
+                    )
+                    : $.futures.newFutureForImmediateValue($.collections.newEmptyList<ISSHResult>())
+                );
         })
     }
 
     @when(/^I install packages with the "([^"]*)" tag$/)
     installPackagesWithTag(tagName:string):PromisedAssertion {
         return $.expectAll(
-            this.performPackageCommandOnEachNode(
+            this.repositoriesContainingTaggedPackages(
                 $.clusterUnderTest.nodes,
                 tagName,
                 $.testing.defaultRelease.name,
@@ -75,7 +77,7 @@ export class PackageManagerInstallationSteps {
     @then(/^I update packages with the "([^"]*)" tag to release version "([^"]*)"$/)
     updatePackagesForGivenTag(tagName:string, releaseName:string):PromisedAssertion {
         return $.expectAll(
-            this.performPackageCommandOnEachNode(
+            this.repositoriesContainingTaggedPackages(
                 $.clusterTesting.newClusterUnderTest(
                     $.clusters.clusterConfigurationWithId($.clusterId),
                     $.releasing.defaultReleases.releaseNamed(releaseName).phaseNamed($.testing.defaultPhaseName)
