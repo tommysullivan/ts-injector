@@ -7,6 +7,7 @@ Feature: Secure Package Manager Installation
     And I have updated the package manager
     And I have installed Java
     And I install packages with the "core" tag
+    And I install packages with the "patch" tag
     And I install packages with the "ecosystem" tag
     And I prepare the disk.list file
     And I run configure.sh with genkeys and nostart option on first cldb node
