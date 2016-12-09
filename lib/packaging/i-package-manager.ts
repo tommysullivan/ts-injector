@@ -12,4 +12,5 @@ export interface IPackageManager extends IConfigFileContent {
     installPackagesCommand(packageNames:IList<string>):string;
     installPackageCommand(packageName:string):string;
     clientConfigurationFileLocationFor(packageName:string):string;
+    updatePackagesCommand(packageNames:IList<string>):string;
 }

@@ -43,6 +43,10 @@ export class YumPackageManager implements IPackageManager {
         return `${this.packageCommand} install -y ${packageNames.join(' ')}`;
     }
 
+    updatePackagesCommand(packageNames:IList<string>):string {
+        return `${this.packageCommand} install -y ${packageNames.join(' ')}`;
+    }
+
     installPackageCommand(packageName:string):string {
         return `${this.packageCommand} install -y ${packageName}`;
     }

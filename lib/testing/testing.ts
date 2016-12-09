@@ -41,7 +41,11 @@ export class Testing implements ITesting {
 
     get defaultReleasePhase():IPhase {
         return this.defaultRelease
-            .phaseNamed(this.testingConfiguration.lifecyclePhase);
+            .phaseNamed(this.defaultPhaseName);
+    }
+
+    get defaultPhaseName():string {
+        return this.testingConfiguration.lifecyclePhase;
     }
 
     get defaultRelease():IRelease {

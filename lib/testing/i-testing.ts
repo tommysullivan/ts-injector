@@ -13,4 +13,5 @@ export interface ITesting {
     newUrlCalculator():IURLCalculator;
     defaultReleasePhase:IPhase;
     defaultRelease:IRelease;
+    defaultPhaseName:string;
 }

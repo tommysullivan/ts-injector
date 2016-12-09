@@ -17,6 +17,7 @@ import {Rest} from "../rest/rest";
 import {IFutures} from "../futures/i-futures";
 import {Futures} from "../futures/futures";
 import {IPromiseFactory} from "../promise/i-promise-factory";
+import {IPhase} from "../releasing/i-phase";
 
 declare const require:any;
 declare const process:any;
@@ -37,7 +38,7 @@ chai.use(chaiAsPromised);
 
 export class NodeFrameworkLoader {
 
-    loadFramework():Framework {
+    loadFramework(releasePhase?:IPhase):Framework {
         return new Framework(
             this.frameworkConfig,
             this.process,
