@@ -36,7 +36,8 @@ export const handler = (argv) => {
         .newCucumberResultFromFilePathWhenProcessResultUnavailable(
             cucumberJSONFilePath, passed
         );
-
+    const urlCalculator = framework.testing.newUrlCalculator();
+    urlCalculator.writeUrlToPropertiesFile(urlCalculator.calculateURL(uniqueFileIdentifier));
     framework.clusterTesting.newClusterResultPreparer()
         .prepareClusterResult(
             clusterId,
