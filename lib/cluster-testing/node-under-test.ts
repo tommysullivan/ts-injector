@@ -77,6 +77,14 @@ export class NodeUnderTest implements INodeUnderTest {
         );
     }
 
+    newSSHSessionAsUser(username:string, password:string):IFuture<ISSHSession> {
+        return this.sshClient.connect(
+            this.nodeConfiguration.host,
+            username,
+            password
+        );
+    }
+
     executeShellCommand(shellCommand:string):IFuture<ISSHResult> {
         return this.newSSHSession().then(s=>s.executeCommand(shellCommand));
     }
@@ -88,7 +96,15 @@ export class NodeUnderTest implements INodeUnderTest {
         return this.newSSHSession()
             .then(sshSession => sshSession.executeCommands(...commands));
     }
-    
+
+    executeShellCommandAsUser(shellCommand:string, username:string, password:string):IFuture<ISSHResult> {
+            return this.newSSHSessionAsUser(username, password).then(s=>s.executeCommand(shellCommand));
+    }
+
+    executeShellCommandsAsUser(username:string, password:string, ...commandsWithPlaceholders:Array<string>):IFuture<IList<ISSHResult>> {
+        return this.newSSHSessionAsUser(username, password).then(s=>s.executeCommands(...commandsWithPlaceholders));
+    }
+
     upload(localPath:string, remotePath:string):IFuture<ISSHResult>{
         return this.newSSHSession()
             .then(sshSession => sshSession.upload(localPath, remotePath));

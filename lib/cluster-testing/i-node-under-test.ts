@@ -13,7 +13,7 @@ import {IElasticsearchRestClient} from "../elasticsearch/i-elasticsearch-rest-cl
 
 export interface INodeUnderTest {
     host:string;
-    newSSHSession():IFuture<ISSHSession>
+    newSSHSession():IFuture<ISSHSession>;
     verifyMapRNotInstalled():IFuture<ISSHResult>;
     verifyMapRIsInstalled():IFuture<ISSHResult>;
     isHostingService(serviceName:string):boolean;
@@ -36,4 +36,6 @@ export interface INodeUnderTest {
     writeBinaryData(content:ArrayBuffer, remotePath:string):IFuture<ISSHResult>;
     read(remotePath:string):IFuture<string>;
     readAsBinary(remotePath:string):IFuture<ArrayBuffer>;
+    newSSHSessionAsUser(username:string, password:string):IFuture<ISSHSession>;
+    executeShellCommandAsUser(shellCommand:string, username:string, password:string):IFuture<ISSHResult>;
 }

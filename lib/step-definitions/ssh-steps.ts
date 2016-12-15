@@ -89,6 +89,15 @@ export class SSHSteps {
         return $.expectAll(nodeRequests).to.eventually.be.fulfilled;
     }
 
+    @given(/^perform the following ssh commands on the first node in the cluster as user "([^"]*)" with password "([^"]*)":$/,null,3600000)
+    performSSHCommandsOnFirstNodeAsSpecficUser(user:string, userPasswd:string, commandsSeparatedByNewLine:string):PromisedAssertion {
+        const commands = commandsSeparatedByNewLine.split("\n");
+        const firstNode = $.clusterUnderTest.nodes.first;
+        const sshResult = firstNode.newSSHSessionAsUser(user,userPasswd)
+                .then(session=>session.executeCommands(...commands));
+        return $.expect(sshResult).to.eventually.be.fulfilled;
+    }
+
     @given(/^I run the following commands on nodes hosting "([^"]*)" in the cluster:$/)
     runCommandsOnNodesHostingService(serviceName:string, commandsString:string):PromisedAssertion {
         const result = $.clusterUnderTest.nodesHosting(serviceName).mapToFutureList(
