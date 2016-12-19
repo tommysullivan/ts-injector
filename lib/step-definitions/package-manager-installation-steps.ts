@@ -93,14 +93,27 @@ export class PackageManagerInstallationSteps {
     prepareDiskListFile() {
         const diskCheckCmd = `sfdisk -l`;
         const diskListCommand = `sfdisk -l | grep "/dev/sd[a-z]" |grep -v "/dev/sd[a-z][0-9]" | sort |cut -f2 -d' ' | tr ":" " "`; //| awk '{if(NR>1)print}' > /root/disk.list`;
-        const diskListResult = $.clusterUnderTest.nodes.map(
-         n => n.executeShellCommand(diskListCommand)
-             .then(result => {
-                 const diskList = result.processResult.stdoutLines;
-                 return diskList.mapToFutureList(d => n.executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
-                     .then(r => r.processResult.stdoutLines.first == '2' ? d : null));
-             })
-             .then(r => n.write(r.filter(i=>i!=null).join('\n'), '/root/disk.list')));
+        const diskListResult = $.clusterUnderTest.nodes.map(n =>
+            n.executeShellCommand(diskListCommand)
+                 .then(result => {
+                     const diskList = result.processResult.stdoutLines;
+                     return diskList.mapToFutureList(d =>
+                        $.futures.newDelayedFuture(2000)
+                            .then(_ =>
+                                n
+                                    .executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
+                                    .then(r => {
+                                        console.log(r.processResult.stdoutLines.toJSON());
+                                        return r.processResult.stdoutLines.first == '2' ? d : null
+                                    })
+                            )
+                     );
+                 })
+                 .then(r => {
+                     console.log(r.filter(i=>i!=null).join('\n'));
+                     return n.write(r.filter(i=>i!=null).join('\n'), '/root/disk.list')
+                 })
+        );
         return $.expectAll(diskListResult).to.eventually.be.fulfilled;
     }
 
