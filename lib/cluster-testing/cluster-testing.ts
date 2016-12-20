@@ -44,6 +44,7 @@ import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IURLCalculator} from "../testing/i-url-calculator";
 import {IFutures} from "../futures/i-futures";
 import {IPhase} from "../releasing/i-phase";
+import {IServiceGroupConfig} from "../services/i-service-group-config";
 
 export class ClusterTesting implements IClusterTesting {
 
@@ -70,7 +71,8 @@ export class ClusterTesting implements IClusterTesting {
         private operatingSystems:IOperatingSystems,
         private testing:ITesting,
         private fileSystem:IFileSystem,
-        private urlCalculator:IURLCalculator
+        private urlCalculator:IURLCalculator,
+        private serviceGroups:IList<IServiceGroupConfig>
     ) {}
 
     clusterForId(clusterId:string):IClusterUnderTest {
@@ -166,7 +168,8 @@ export class ClusterTesting implements IClusterTesting {
             this.packaging,
             releasePhase ? releasePhase : this.testing.defaultReleasePhase,
             this.collections,
-            this.operatingSystems
+            this.operatingSystems,
+            this.serviceGroups
         );
     }
 

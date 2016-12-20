@@ -32,6 +32,7 @@ import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
 import {IPromiseFactory} from "../promise/i-promise-factory";
 import {ITesting} from "../testing/i-testing";
+import {IServiceGroupConfig} from "../services/i-service-group-config";
 
 export interface IFramework {
     frameworkConfig:IFrameworkConfiguration;

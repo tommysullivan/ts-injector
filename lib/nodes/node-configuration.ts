@@ -5,11 +5,14 @@ import {IESXINodeConfiguration} from "../esxi/configuration/i-esxi-node-configur
 import {IOperatingSystems} from "../operating-systems/i-operating-systems";
 import {OperatingSystemConfig} from "../operating-systems/operating-system-config";
 import {IOperatingSystemConfig} from "../operating-systems/i-operating-system-config";
+import {ServiceGroupConfig} from "../services/service-group-config";
+import {IServiceGroupConfig} from "../services/i-service-group-config";
+import {ServiceGroupRefConfiguration} from "../services/service-group-ref-config";
+import {IServiceGroupRefConfiguration} from "../services/i-service-group-ref-config";
 
 export class NodeConfiguration implements INodeConfiguration {
     constructor(
         private nodeJSON:IJSONObject,
-        private operatingSystems:IOperatingSystems
     ) {}
 
     get host():string { return this.nodeJSON.stringPropertyNamed('host'); }
@@ -29,9 +32,13 @@ export class NodeConfiguration implements INodeConfiguration {
         );
     }
 
-    get serviceNames():Array<string> {
-        return this.nodeJSON.listNamed<string>('serviceNames').toArray();
+    get serviceNames():Array<string | IServiceGroupRefConfiguration> {
+        return this.nodeJSON.listNamed<string | IServiceGroupRefConfiguration>('serviceNames')
+            .map(serviceNameOrReference => typeof(serviceNameOrReference) == "string"
+                ? <string>serviceNameOrReference
+                : new ServiceGroupRefConfiguration(serviceNameOrReference)
+            ).toArray();
     }
-    
+
     toJSON():string { return this.nodeJSON.toJSON(); }
 }

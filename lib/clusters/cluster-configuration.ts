@@ -29,7 +29,7 @@ export class ClusterConfiguration implements IClusterConfiguration {
 
     get nodes():Array<INodeConfiguration> {
         return this.configJSON.listOfJSONObjectsNamed('nodes').map(
-            nodeJSON=>new NodeConfiguration(nodeJSON, this.operatingSystems)
+            nodeJSON=>new NodeConfiguration(nodeJSON)
         ).toArray();
     }
 }

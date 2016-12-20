@@ -14,6 +14,7 @@ import {IElasticsearchConfiguration} from "../elasticsearch/i-elasticsearch-conf
 import {IESXIConfiguration} from "../esxi/configuration/i-esxi-configuration";
 import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
 import {ITestingConfiguration} from "../testing/i-testing-configuration";
+import {IServiceGroupConfig} from "../services/i-service-group-config";
 
 export interface IFrameworkConfiguration extends IJSONSerializable {
     releasing:IReleasingConfig;
@@ -31,4 +32,5 @@ export interface IFrameworkConfiguration extends IJSONSerializable {
     clusters:Array<IClusterConfiguration>;
     esxi:IESXIConfiguration;
     testing:ITestingConfiguration;
+    serviceGroups?:Array<IServiceGroupConfig>;
 }

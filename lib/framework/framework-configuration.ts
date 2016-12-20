@@ -34,6 +34,8 @@ import {ReleasingConfig} from "../releasing/releasing-config";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {ITestingConfiguration} from "../testing/i-testing-configuration";
 import {TestingConfiguration} from "../testing/testing-configuration";
+import {IServiceGroupConfig} from "../services/i-service-group-config";
+import {ServiceGroupConfig} from "../services/service-group-config";
 
 export class FrameworkConfiguration implements IFrameworkConfiguration {
     constructor(
@@ -133,5 +135,10 @@ export class FrameworkConfiguration implements IFrameworkConfiguration {
 
     toJSON():any {
         return this.frameworkConfigJSON.toJSON();
+    }
+
+    get serviceGroups():Array<IServiceGroupConfig> {
+        return this.frameworkConfigJSON.listOfJSONObjectsNamedOrDefaultToEmpty(`serviceGroups`)
+            .map(serviceConfig => new ServiceGroupConfig(serviceConfig.toJSON())).toArray();
     }
 }

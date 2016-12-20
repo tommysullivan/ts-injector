@@ -183,7 +183,8 @@ export class Framework implements IFramework {
             this.operatingSystems,
             this.testing,
             this.fileSystem,
-            this.testing.newUrlCalculator()
+            this.testing.newUrlCalculator(),
+            this.collections.newList(this.frameworkConfig.serviceGroups)
         );
     }
 

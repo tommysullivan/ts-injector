@@ -18,6 +18,7 @@ import '../step-definitions/package-manager-installation-steps';
 import '../step-definitions/rest-based-installation-steps';
 import '../step-definitions/secure-cluster-steps';
 import '../step-definitions/user-steps';
+import '../step-definitions/node-services-steps';
 import './shared-data'
 
 const nodeframeworkLoader = new NodeFrameworkLoader();

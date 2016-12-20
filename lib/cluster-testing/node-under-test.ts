@@ -24,6 +24,8 @@ import {ICollections} from "../collections/i-collections";
 import {IOperatingSystems} from "../operating-systems/i-operating-systems";
 import {IFuture} from "../futures/i-future";
 import {IFutures} from "../futures/i-futures";
+import {IServiceGroupRefConfiguration} from "../services/i-service-group-ref-config";
+import {IServiceGroupConfig} from "../services/i-service-group-config";
 
 export class NodeUnderTest implements INodeUnderTest {
     constructor(
@@ -38,7 +40,8 @@ export class NodeUnderTest implements INodeUnderTest {
         private packaging:IPackaging,
         private releasePhase:IPhase,
         private collections:ICollections,
-        private operatingSystems:IOperatingSystems
+        private operatingSystems:IOperatingSystems,
+        private serviceGroupConfig:IList<IServiceGroupConfig>
     ) {}
 
     executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IFuture<ISSHResult> {
@@ -210,7 +213,20 @@ export class NodeUnderTest implements INodeUnderTest {
     }
 
     private get listOfServiceNames():IList<string> {
-        return this.collections.newList(this.nodeConfiguration.serviceNames);
+        const serviceAndServiceGroupRefConfigs = this.collections.newList(
+            this.nodeConfiguration.serviceNames
+        );
+        return serviceAndServiceGroupRefConfigs.flatMapArray(
+            servicesAndGroupRef =>
+                typeof (servicesAndGroupRef) == "string"
+                    ? [servicesAndGroupRef]
+                    : this.referencedFeatureFiles(servicesAndGroupRef)
+        );
+    }
+
+    private referencedFeatureFiles(config:IServiceGroupRefConfiguration):Array<string> {
+        console.log(this.serviceGroupConfig.map(service => service.id));
+        return this.serviceGroupConfig.filter(groupConfig => groupConfig.id == config.serviceGroupRef).first.serviceNames
     }
 
     isHostingService(serviceName:string):boolean {
