@@ -28,7 +28,7 @@ export class YumPackageManager implements IPackageManager {
     }
 
     get uninstallAllPackagesWithMapRInTheName():string {
-        return `rpm -qa | grep mapr | sed ":a;N;$!ba;s/\\n/ /g" | xargs rpm -e`;
+        return `rpm -qa | grep mapr && rpm -qa | grep mapr | sed ":a;N;s/\\n/ /g" | tr ' ' '\\n' | xargs rpm -e`;
     }
 
     uninstallPackagesCommand(packageNames:IList<string>) {

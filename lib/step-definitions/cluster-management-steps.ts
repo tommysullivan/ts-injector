@@ -156,6 +156,15 @@ export class ClusterManagementSteps {
             throw new Error("Cores present and copied over");
     }
 
+    @given(/^I stop "([^"]*)" service on all nodes if they are running$/)
+    stopServiceAllNodesIfRunnign(serviceName): PromisedAssertion {
+        const serviceCheckCommand:string = `service ${serviceName} status`;
+        const serviceStopCommand:string = `service ${serviceName} stop`;
+        const commandRunResult = $.clusterUnderTest.nodes.map( n => n.executeShellCommands(serviceCheckCommand, serviceStopCommand)
+            .catch(error => console.log(`No such process running`)));
+        return $.expectAll(commandRunResult).to.eventually.be.fulfilled;
+    }
+
 
 }
 module.exports = ClusterManagementSteps;

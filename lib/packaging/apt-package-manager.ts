@@ -24,7 +24,7 @@ export class AptPackageManager implements IPackageManager {
     }
 
     get uninstallAllPackagesWithMapRInTheName():string {
-        return `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ':a;N;$!ba;s/\\n/ /g' | xargs apt-get purge -y`;
+        return `dpkg -l | grep mapr | cut -d ' ' -f 3 | sed ":a;N;s/\\n/ /g" | tr ' ' '\\n' | xargs apt-get purge -y`;
     }
 
     uninstallPackagesCommand(packageNames:IList<string>) {

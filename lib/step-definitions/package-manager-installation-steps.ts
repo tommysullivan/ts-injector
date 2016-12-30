@@ -175,9 +175,12 @@ export class PackageManagerInstallationSteps {
 
     @given(/^I remove all the core components$/)
     removeAllCoreComponents():PromisedAssertion {
-        return $.expectAll(
-            $.clusterUnderTest.nodes.map(n=>n.executeShellCommand(n.packageManager.uninstallAllPackagesWithMapRInTheName))
-        ).to.eventually.be.fulfilled;
+        const result = $.clusterUnderTest.nodes.map(n=> {
+                const checkPackagesCommand:string = `${n.packageManager.packageListCommand} | grep mapr`;
+                return n.executeShellCommands(checkPackagesCommand, n.packageManager.uninstallAllPackagesWithMapRInTheName)
+                    .catch(e => console.log(`No packages to Uninstall or some packages failed to get removed`));
+        });
+        return $.expectAll(result).to.eventually.be.fulfilled;
     }
 
     @given(/^I clear all mapr data$/)
