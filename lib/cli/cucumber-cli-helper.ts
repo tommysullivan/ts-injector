@@ -33,7 +33,9 @@ export class CucumberCliHelper {
         const testRunGUID = this.uuidGenerator.v4();
         return cli.configureAndRunCucumber(testRunGUID, cucumberPassThruCommands, this.process.environmentVariables)
             .then(cucumberTestResult => {
-                this.urlCalculator.writeUrlToPropertiesFile(this.urlCalculator.calculateURL(testRunGUID));
+                if(this.process.environmentVariables.hasKey('portalId'))
+                    this.urlCalculator.writeUrlToPropertiesFile(this.urlCalculator.calculateURL(testRunGUID));
+
                 const result = this.testing.newTestResult(testRunGUID, cucumberTestResult);
                 return this.resultReporter.reportResult(testRunGUID, this.jsonSerializer.serializeToString(result))
                     .then(_ => {
