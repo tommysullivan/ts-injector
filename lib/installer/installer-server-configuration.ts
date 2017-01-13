@@ -2,14 +2,14 @@ import {IFuture} from "../futures/i-future";
 import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
 import {IJSONObject} from "../typed-json/i-json-object";
 import {IList} from "../collections/i-list";
-import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IRestClient} from "../rest/common/i-rest-client";
 import {IInstaller} from "./i-installer";
 
 export class InstallerServerConfiguration implements IInstallerServerConfiguration {
     constructor(
         private installer:IInstaller,
         private serverConfigJSON:IJSONObject,
-        private authedRestClient:IRestClientAsPromised,
+        private authedRestClient:IRestClient,
         private serverConfigResourceURL:string
     ) {}
 
@@ -39,14 +39,10 @@ export class InstallerServerConfiguration implements IInstallerServerConfigurati
     setClusterName(newValue:string):IInstallerServerConfiguration { this.serverConfigJSON.setProperty('cluster_name', newValue); return this; }
 
     save():IFuture<IInstallerServerConfiguration> {
-        const putArgs = {
-            body: this.serverConfigJSON.toJSON(),
-            json: true
-        };
-        return this.authedRestClient.put(this.serverConfigResourceURL, putArgs)
+        return this.authedRestClient.put(this.serverConfigResourceURL, this.serverConfigJSON.toJSON())
             .then(ignoredPutResult => this.authedRestClient.get(this.serverConfigResourceURL))
             .then(getResult=>{
-                this.serverConfigJSON = getResult.jsonBody;
+                this.serverConfigJSON = getResult.bodyAsJsonObject;
                 return this.installer.newInstallerServerConfiguration(
                     this.serverConfigJSON,
                     this.authedRestClient,

@@ -5,8 +5,8 @@ import {IJSONObject} from "../typed-json/i-json-object";
 import {MCSServiceInfo} from "./mcs-service-info";
 import {ITypedJSON} from "../typed-json/i-typed-json";
 import {IErrors} from "../errors/i-errors";
-import {IRest} from "../rest/i-rest";
-import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IRest} from "../rest/common/i-rest";
+import {IRestClient} from "../rest/common/i-rest-client";
 import {IMCS} from "./i-mcs";
 import {IMCSConfiguration} from "./i-mcs-configuration";
 import {IMCSRestSession} from "./i-mcs-rest-session";
@@ -28,7 +28,7 @@ export class MCS implements IMCS {
         return new MCSRestClient(this.rest, url, this.mcsConfiguration.mcsLoginPath, this);
     }
 
-    newMCSRestSession(authedRestClient:IRestClientAsPromised):IMCSRestSession {
+    newMCSRestSession(authedRestClient:IRestClient):IMCSRestSession {
         return new MCSRestSession(
             authedRestClient,
             this.mcsConfiguration,

@@ -1,8 +1,9 @@
 import {binding as steps, when, then} from "cucumber-tsflow";
-import {Framework} from "../framework/framework";
 import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-declare const $:Framework;
+import {IFramework} from "../framework/common/i-framework";
+
+declare const $:IFramework;
 declare const module:any;
 
 @steps()
@@ -22,7 +23,7 @@ export class ListClusterIdsSteps {
         const output = this.processResult.allOutputLines.join('');
         const jsonPartOfOUtput = output.substr(output.indexOf('['));
         $.console.log(jsonPartOfOUtput);
-        $.expect(JSON.parse(jsonPartOfOUtput)).not.to.be.empty;
+        $.expect($.typedJSON.jsonParser.parse(jsonPartOfOUtput)).not.to.be.empty;
     }
 
 }

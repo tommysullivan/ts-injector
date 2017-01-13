@@ -1,11 +1,11 @@
 import {ITestRunnerEnvironment} from "./i-test-runner-environment";
 import {TestRunnerEnvironment} from "./test-runner-environment";
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IFrameworkConfiguration} from "../framework/i-framework-configuration";
+import {IFrameworkConfiguration} from "../framework/common/i-framework-configuration";
 import {ITesting} from "./i-testing";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {ITestingConfiguration} from "./i-testing-configuration";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {ITestResult} from "./i-test-result";
 import {TestResult} from "./test-result";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
@@ -16,13 +16,14 @@ import {PortalResultReporter} from "./portal-result-reporter";
 import {MultiplexDelegateResultReporter} from "./multiplex-delegate-result-reporter";
 import {ICollections} from "../collections/i-collections";
 import {IPath} from "../node-js-wrappers/i-path";
-import {IRest} from "../rest/i-rest";
+import {IRest} from "../rest/common/i-rest";
 import {IRelease} from "../releasing/i-release";
 import {IPhase} from "../releasing/i-phase";
 import {IReleasing} from "../releasing/i-releasing";
 import {IFutures} from "../futures/i-futures";
 import {IURLCalculator} from "./i-url-calculator";
 import {URLCalculator} from "./url-calculator";
+import {ITypedJSON} from "../typed-json/i-typed-json";
 
 export class Testing implements ITesting {
     constructor(
@@ -36,7 +37,8 @@ export class Testing implements ITesting {
         private futures:IFutures,
         private path:IPath,
         private rest:IRest,
-        private releasing:IReleasing
+        private releasing:IReleasing,
+        private typedJSON:ITypedJSON
     ) {}
 
     get defaultReleasePhase():IPhase {
@@ -96,7 +98,8 @@ export class Testing implements ITesting {
             this.console,
             this.process,
             this.newUrlCalculator(),
-            this.futures
+            this.futures,
+            this.typedJSON.jsonParser
         );
     }
 

@@ -1,5 +1,6 @@
 import {IJSONObject} from "../typed-json/i-json-object";
 import {IElasticsearchResult} from "./i-elasticsearch-result";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ElasticsearchResult implements IElasticsearchResult {
     constructor(
@@ -10,7 +11,7 @@ export class ElasticsearchResult implements IElasticsearchResult {
         return this.resultJSON.jsonObjectNamed('hits').numericPropertyNamed('total');
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return this.resultJSON.toJSON();
     }
 }

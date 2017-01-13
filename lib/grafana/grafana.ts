@@ -1,8 +1,8 @@
 import {GrafanaRestSession} from "./grafana-rest-session";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {GrafanaRestClient} from "./grafana-rest-client";
-import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
-import {IRest} from "../rest/i-rest";
+import {IRestClient} from "../rest/common/i-rest-client";
+import {IRest} from "../rest/common/i-rest";
 import {IGrafanaRestSession} from "./i-grafana-rest-session";
 import {IGrafana} from "./i-grafana";
 import {IGrafanaRestClient} from "./i-grafana-rest-client";
@@ -15,7 +15,7 @@ export class Grafana implements IGrafana {
         private rest:IRest
     ) {}
 
-    newRestSession(authedRestClient:IRestClientAsPromised):IGrafanaRestSession {
+    newRestSession(authedRestClient:IRestClient):IGrafanaRestSession {
         return new GrafanaRestSession(
             authedRestClient,
             this.config.grafanaDashboardImportPath,

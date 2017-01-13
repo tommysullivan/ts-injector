@@ -7,7 +7,7 @@ import {ICucumberConfiguration} from "./i-cucumber-configuration";
 import {IPath} from "../node-js-wrappers/i-path";
 import {ICucumber} from "./i-cucumber";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 
 export class CucumberCli {
     constructor(

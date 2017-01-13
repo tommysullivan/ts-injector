@@ -3,19 +3,19 @@ import {ISSHResult} from "../ssh/i-ssh-result";
 import {IInstallerServices} from "./i-installer-services";
 import {IInstallerServerConfiguration} from "./i-installer-server-configuration";
 import {IClusterInstaller} from "./i-cluster-installer";
-import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
+import {ICluster} from "../clusters/i-cluster";
 import {IFuture} from "../futures/i-future";
 
 export class ClusterInstaller implements IClusterInstaller {
-    verifyMapRNotInstalled(cluster:IClusterUnderTest):IFuture<IList<ISSHResult>> {
+    verifyMapRNotInstalled(cluster:ICluster):IFuture<IList<ISSHResult>> {
         return cluster.nodes.mapToFutureList(n=>n.verifyMapRNotInstalled())
     }
 
-    prepareAndSaveConfiguration(cluster:IClusterUnderTest):IFuture<IInstallerServerConfiguration> {
+    prepareAndSaveConfiguration(cluster:ICluster):IFuture<IInstallerServerConfiguration> {
         throw new Error('disabled - requires updates to ensure correct packages installed to correct nodes');
     }
 
-    services(cluster:IClusterUnderTest):IFuture<IInstallerServices> {
+    services(cluster:ICluster):IFuture<IInstallerServices> {
         return cluster.newAuthedInstallerSession()
             .then(installerSession=>{
                 return installerSession.services();

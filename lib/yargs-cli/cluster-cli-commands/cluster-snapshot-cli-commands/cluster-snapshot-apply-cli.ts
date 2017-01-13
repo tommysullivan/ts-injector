@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'apply';
 export const desc = 'applies snapshots defined by "stateName" to cluster';
@@ -17,6 +17,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runClusterSanpshotApplyCli(argv.clusterId, argv.stateName);
+    frameworkForNodeJSInstance.cli.newExecutor().runClusterSanpshotApplyCli(argv.clusterId, argv.stateName);
 };

@@ -4,8 +4,8 @@ import {IProcess} from "./i-process";
 import {Process} from "./process";
 import {IProcessResult} from "./i-process-result";
 import {ICollections} from "../collections/i-collections";
-import {Console} from "./console";
-import {IConsole} from "./i-console";
+import {Console} from "../console/console";
+import {IConsole} from "../console/i-console";
 import {IPath} from "./i-path";
 import {IFileSystem} from "./i-filesystem";
 import {FileSystem} from "./file-system";
@@ -115,7 +115,8 @@ export class NodeWrapperFactory implements INodeWrapperFactory {
             this.errors,
             this,
             this.futures,
-            this.mkdirp
+            this.mkdirp,
+            this.typedJSON.jsonParser
         );
     }
 

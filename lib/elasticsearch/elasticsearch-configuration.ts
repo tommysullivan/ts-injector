@@ -13,6 +13,6 @@ export class ElasticSearchConfiguration implements IElasticsearchConfiguration {
     }
 
     toJSON():string {
-        return this.elasticSearchConfigJSON.toJSON();
+        return JSON.stringify(this.elasticSearchConfigJSON.toJSON(), null, 3);
     }
 }

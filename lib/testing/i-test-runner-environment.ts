@@ -1,4 +1,5 @@
-import {IFrameworkConfiguration} from "../framework/i-framework-configuration";
+import {IFrameworkConfiguration} from "../framework/common/i-framework-configuration";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
 export interface ITestRunnerEnvironment {
     jenkinsURL:string,
@@ -6,6 +7,6 @@ export interface ITestRunnerEnvironment {
     gitCloneURL:string,
     frameworkConfiguration:IFrameworkConfiguration,
     gitSHA:string,
-    packageJsonOfSystemUnderTest:any,
+    packageJsonOfSystemUnderTest:IJSONSerializable,
     testRunGUID:string
 }

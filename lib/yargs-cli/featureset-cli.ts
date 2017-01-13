@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'featureSets';
 export const desc = 'list runnable featureSets, detail to true/false';
@@ -11,6 +11,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().executeShowFeatureSets(argv.detail);
+    frameworkForNodeJSInstance.cli.newExecutor().executeShowFeatureSets(argv.detail);
 };

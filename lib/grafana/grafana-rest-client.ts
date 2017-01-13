@@ -1,5 +1,5 @@
 import {IFuture} from "../futures/i-future";
-import {IRest} from "../rest/i-rest";
+import {IRest} from "../rest/common/i-rest";
 import {IGrafanaRestClient} from "./i-grafana-rest-client";
 import {IGrafana} from "./i-grafana";
 import {IGrafanaRestSession} from "./i-grafana-rest-session";
@@ -20,14 +20,11 @@ export class GrafanaRestClient implements IGrafanaRestClient {
     }
 
     createAutheticatedSession(username:string, password:string):IFuture<IGrafanaRestSession> {
-        const restClientAsPromised = this.rest.newRestClientAsPromised(this.grafanaHostAndOptionalPort);
+        const restClientAsPromised = this.rest.newRestClient(this.grafanaHostAndOptionalPort);
         const postPayload = {
-            body: {
-                user: username,
-                email: '',
-                password: password
-            },
-            json: true
+            user: username,
+            email: '',
+            password: password
         };
         return restClientAsPromised.post(this.grafanaLoginPath, postPayload)
             .then(_=>this.grafana.newRestSession(restClientAsPromised));

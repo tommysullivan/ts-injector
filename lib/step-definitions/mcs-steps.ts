@@ -1,12 +1,12 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {Framework} from "../framework/framework";
+import {IFramework} from "../framework/common/i-framework";
 import {MCSDashboardInfo} from "../mcs/mcs-dashboard-info";
 import {IList} from "../collections/i-list";
 import {IMCSDashboardInfo} from "../mcs/i-mcs-dashboard-info";
 import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
 
-declare const $:Framework;
+declare const $:IFramework;
 declare const module:any;
 
 @steps()
@@ -41,7 +41,7 @@ export class MCSSteps {
     verifyAllLinksAreValidAndWorking():PromisedAssertion {
         return $.expectAll(
             this.appLinks.map(
-                url=>$.rest.newRestClientAsPromised().get(url)
+                url=>$.rest.newRestClient().get(url)
             )
         ).to.eventually.be.fulfilled;
     }

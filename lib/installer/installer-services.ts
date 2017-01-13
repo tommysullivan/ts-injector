@@ -1,7 +1,7 @@
 import {IInstallerServices} from "./i-installer-services";
 import {IList} from "../collections/i-list";
 import {IJSONObject} from "../typed-json/i-json-object";
-import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IRestClient} from "../rest/common/i-rest-client";
 import {IInstaller} from "./i-installer";
 import {IInstallerService} from "./i-installer-service";
 
@@ -9,7 +9,7 @@ export class InstallerServices implements IInstallerServices {
     constructor(
         private servicesJSON:IJSONObject,
         private installer:IInstaller,
-        private authedRestClient:IRestClientAsPromised
+        private authedRestClient:IRestClient
     ) {}
 
     get serviceList():IList<IInstallerService> {

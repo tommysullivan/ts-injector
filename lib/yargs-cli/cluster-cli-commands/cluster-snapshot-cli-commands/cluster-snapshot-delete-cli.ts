@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'delete';
 export const desc = 'deletes snapshots defined by "stateName" from cluster';
@@ -17,6 +17,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runClusterSanpshotDeleteCli(argv.clusterId, argv.stateName);
+    frameworkForNodeJSInstance.cli.newExecutor().runClusterSanpshotDeleteCli(argv.clusterId, argv.stateName);
 };

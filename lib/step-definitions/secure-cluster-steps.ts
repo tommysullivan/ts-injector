@@ -1,17 +1,17 @@
 import { binding as steps, given } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
-import {Framework} from "../framework/framework";
+import {INode} from "../clusters/i-node";
+import {IFramework} from "../framework/common/i-framework";
 import {IList} from "../collections/i-list";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IFuture} from "../futures/i-future";
 
-declare const $:Framework;
+declare const $:IFramework;
 declare const module:any;
 
 @steps()
 export class SecureClusterSteps {
-    private cldbNode:INodeUnderTest;
+    private cldbNode:INode;
 
     @given(/^I run configure\.sh with genkeys and nostart option on first cldb node$/)
     generateAuthKeysViaNoStartAndGenKeysOptionOnFirstCLDBNode():PromisedAssertion {

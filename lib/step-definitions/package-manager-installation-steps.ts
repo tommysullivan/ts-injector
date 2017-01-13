@@ -1,11 +1,11 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
+import {INode} from "../clusters/i-node";
 import {IPackage} from "../packaging/i-package";
-import {IFramework} from "../framework/i-framework";
+import {IFramework} from "../framework/common/i-framework";
 import {IList} from "../collections/i-list";
-import {IFuture} from "../promise/i-future";
 import {ISSHResult} from "../ssh/i-ssh-result";
+import {IFuture} from "../futures/i-future";
 
 declare const $:IFramework;
 declare const module:any;
@@ -14,7 +14,7 @@ declare const __dirname;
 @steps()
 export class PackageManagerInstallationSteps {
 
-    private atsInstallationNode:INodeUnderTest;
+    private atsInstallationNode:INode;
 
     @given(/^I have updated the package manager$/)
     updatePackageManagerOnAllNodes():PromisedAssertion {
@@ -33,7 +33,7 @@ export class PackageManagerInstallationSteps {
         ).to.eventually.be.fulfilled;
     }
 
-    repositoriesContainingTaggedPackages(nodes:IList<INodeUnderTest>, tagName:string, releaseName:string, functionThatYieldsCommandToRun:(node:INodeUnderTest, packageNames:IList<string>)=>string):IList<IFuture<IList<ISSHResult>>> {
+    repositoriesContainingTaggedPackages(nodes:IList<INode>, tagName:string, releaseName:string, functionThatYieldsCommandToRun:(node:INode, packageNames:IList<string>)=>string):IList<IFuture<IList<ISSHResult>>> {
         return nodes.map(node=>{
             const taggedPackages = node.packages.where(p=>p.tags.contain(tagName));
             const uniqueRepos = taggedPackages.map((p:IPackage)=>
@@ -78,7 +78,7 @@ export class PackageManagerInstallationSteps {
     updatePackagesForGivenTag(tagName:string, releaseName:string):PromisedAssertion {
         return $.expectAll(
             this.repositoriesContainingTaggedPackages(
-                $.clusterTesting.newClusterUnderTest(
+                $.clusters.newCluster(
                     $.clusters.clusterConfigurationWithId($.clusterId),
                     $.releasing.defaultReleases.releaseNamed(releaseName).phaseNamed($.testing.defaultPhaseName)
                 ).nodes,

@@ -1,6 +1,6 @@
 import {CliExecutor} from "./cli-executor";
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {CucumberCliHelper} from "./cucumber-cli-helper";
 import {ClusterCliHelper} from "./cluster-cli-helper";
 import {ClusterTesterCliHelper} from "./cluster-tester-cli-helper";
@@ -79,11 +79,10 @@ export class Cli {
             this.console,
             this.cucumber,
             this.clusterIds,
-            this.clusterTesting,
             this.clusters,
-            this.futures,
             this.collections,
-            this.clusterTesting.newMultiClusterTester()
+            this.clusterTesting.newMultiClusterTester(),
+            this.testing
         )
     }
 

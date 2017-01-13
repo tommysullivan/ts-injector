@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'config';
 export const desc = 'yields configuration for specified cluster';
@@ -11,6 +11,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runShowConfigForCluster(argv.clusterId);
+    frameworkForNodeJSInstance.cli.newExecutor().runShowConfigForCluster(argv.clusterId);
 };

@@ -1,5 +1,6 @@
 import {IList} from "../collections/i-list";
 import {ISSHResult} from "../ssh/i-ssh-result";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class NodeVersionGraph {
     private host:string;
@@ -10,7 +11,7 @@ export class NodeVersionGraph {
         this.commandResultSet = commandResultSet;
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             host: this.host,
             sshCommandResults: this.commandResultSet.toJSON()

@@ -1,8 +1,8 @@
 import {IGrafanaRestSession} from "./i-grafana-rest-session";
-import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IRestClient} from "../rest/common/i-rest-client";
 import {IGrafanaRestClient} from "./i-grafana-rest-client";
 
 export interface IGrafana {
-    newRestSession(authedRestClient:IRestClientAsPromised):IGrafanaRestSession;
+    newRestSession(authedRestClient:IRestClient):IGrafanaRestSession;
     newGrafanaRestClient():IGrafanaRestClient;
 }

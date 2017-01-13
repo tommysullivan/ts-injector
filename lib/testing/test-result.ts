@@ -1,8 +1,9 @@
 import {ITestResult} from "./i-test-result";
 import {ICucumberTestResult} from "../cucumber/i-cucumber-test-result";
 import {ITestRunnerEnvironment} from "./i-test-runner-environment";
-import {IFrameworkConfiguration} from "../framework/i-framework-configuration";
+import {IFrameworkConfiguration} from "../framework/common/i-framework-configuration";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class TestResult implements ITestResult {
 
@@ -17,7 +18,7 @@ export class TestResult implements ITestResult {
         return this.cucumberTestResult.passed;
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         const serialize = (o) => this.jsonSerializer.serialize(o);
         return {
             contentType: 'vnd/mapr.test-portal.test-result+json;v=1.0.0',

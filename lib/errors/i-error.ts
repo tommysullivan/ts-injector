@@ -1,5 +1,6 @@
+import {IJSONValue} from "../typed-json/i-json-value";
 export interface IError {
     message:string;
-    toJSON():any;
+    toJSON():IJSONValue;
     toString():string;
 }

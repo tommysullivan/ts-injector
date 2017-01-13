@@ -1,5 +1,5 @@
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 
 export class CliHelper {
     constructor(

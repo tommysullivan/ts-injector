@@ -1,15 +1,16 @@
 import {IError} from "./i-error";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ErrorWithJSONDetails implements IError {
     public message:string;
-    public detailJSON:any;
+    public detailJSON:IJSONValue;
 
-    constructor(message:string, detailJSON:any) {
+    constructor(message:string, detailJSON:IJSONValue) {
         this.message = message;
         this.detailJSON = detailJSON;
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             message: this.message,
             detailJSON: this.detailJSON

@@ -1,18 +1,18 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {Framework} from "../framework/framework";
-import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
+import {IFramework} from "../framework/common/i-framework";
+import {INode} from "../clusters/i-node";
 import {ISSHSession} from "../ssh/i-ssh-session";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {ISSHError} from "../ssh/i-ssh-error";
 import {SharedData} from "../support/shared-data";
 
-declare const $:Framework;
+declare const $:IFramework;
 declare const module:any;
 
 @steps([SharedData])
 export class SSHSteps {
-    private sshServiceHost:INodeUnderTest;
+    private sshServiceHost:INode;
     private sshSession:ISSHSession;
     private sshResult:ISSHResult;
 

@@ -4,14 +4,15 @@ import {IList} from "./i-list";
 import {Dictionary} from "./dictionary";
 import {IDictionary} from "./i-dictionary";
 import {IFuture} from "../futures/i-future";
+import {IHash} from "./i-hash";
 
 export class Collections implements ICollections {
     constructor(
-        private createGroupPromise:<S>(promises:IList<IFuture<S>>)=>IFuture<IList<S>>
+        private createFutureList:<S>(listOfFutures:IList<IFuture<S>>)=>IFuture<IList<S>>
     ) {}
 
     newList<T>(items:Array<T>=[]):IList<T> {
-        return new List<T>(items, items => this.createGroupPromise(items));
+        return new List<T>(items, listOfFutures => this.createFutureList(listOfFutures));
     }
 
     newEmptyList<T>():IList<T> {
@@ -26,7 +27,7 @@ export class Collections implements ICollections {
         return this.newList<number>(arrayOfCorrectSize);
     }
 
-    newDictionary<T>(initialItems:any):IDictionary<T> {
+    newDictionary<T>(initialItems:IHash<T>):IDictionary<T> {
         return new Dictionary<T>(initialItems, this);
     }
 

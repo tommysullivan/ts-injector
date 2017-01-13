@@ -11,7 +11,7 @@ import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {IList} from "../collections/i-list";
 import {CaseInsensitiveComparator} from "../collections/case-insensitive-comparator";
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {ICucumberRunner} from "./i-cucumber-runner";
 import {CucumberRunner} from "./cucumber-runner";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";

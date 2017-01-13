@@ -9,6 +9,7 @@ import {ServiceGroupConfig} from "../services/service-group-config";
 import {IServiceGroupConfig} from "../services/i-service-group-config";
 import {ServiceGroupRefConfiguration} from "../services/service-group-ref-config";
 import {IServiceGroupRefConfiguration} from "../services/i-service-group-ref-config";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class NodeConfiguration implements INodeConfiguration {
     constructor(
@@ -40,5 +41,5 @@ export class NodeConfiguration implements INodeConfiguration {
             ).toArray();
     }
 
-    toJSON():string { return this.nodeJSON.toJSON(); }
+    toJSON():IJSONValue { return this.nodeJSON.toJSON(); }
 }

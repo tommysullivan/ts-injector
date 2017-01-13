@@ -6,6 +6,7 @@ import {IComparator} from "../collections/i-comparator";
 import {ICucumberRunConfiguration} from "./i-cucumber-run-configuration";
 import {IErrors} from "../errors/i-errors";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class CucumberTestResult implements ICucumberTestResult {
     constructor(
@@ -48,12 +49,12 @@ export class CucumberTestResult implements ICucumberTestResult {
             : this.passFailOverrideForWhenProcessResultUnavailable;
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             cucumberFeatureResults: this.jsonSerializer.serialize(this.cucumberFeatureResults),
             processResult: this.jsonSerializer.serialize(this.processResult),
             cucumberRunConfig: this.jsonSerializer.serialize(this.cucumberRunConfig),
-            resultAcquisitionError: this.resultAcquisitionError,
+            resultAcquisitionError: this.resultAcquisitionError ? this.resultAcquisitionError.toString() : null,
             startTime: this.startTime.getTime(),
             endTime: this.endTime.getTime()
         }

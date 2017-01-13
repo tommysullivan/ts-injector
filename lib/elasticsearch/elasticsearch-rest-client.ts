@@ -1,8 +1,9 @@
 import {IFuture} from "../futures/i-future";
-import {IRest} from "../rest/i-rest";
+import {IRest} from "../rest/common/i-rest";
 import {IElasticsearchRestClient} from "./i-elasticsearch-rest-client";
 import {IElasticsearch} from "./i-elasticsearch";
 import {IElasticsearchResult} from "./i-elasticsearch-result";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ElasticSearchRestClient implements IElasticsearchRestClient {
     constructor(
@@ -40,13 +41,9 @@ export class ElasticSearchRestClient implements IElasticsearchRestClient {
         return this.executeQuery(queryJSON);
     }
 
-    executeQuery(queryJSON:any):IFuture<IElasticsearchResult> {
-        const restClient = this.rest.newRestClientAsPromised(this.elasticSearchHostAndOptionalPort);
-        const options = {
-            body: JSON.stringify(queryJSON),
-        };
-        console.log('elasticsearch query: ', queryJSON);
-        return restClient.post(`/_search`, options)
+    executeQuery(queryJSON:IJSONValue):IFuture<IElasticsearchResult> {
+        const restClient = this.rest.newRestClient(this.elasticSearchHostAndOptionalPort);
+        return restClient.post(`/_search`, queryJSON)
             .then(result=>this.elasticsearch.newElasticsearchResult(result.bodyAsJsonObject));
     }
 

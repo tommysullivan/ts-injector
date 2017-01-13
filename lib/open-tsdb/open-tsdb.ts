@@ -3,7 +3,7 @@ import {OpenTSDBResult} from "./open-tsdb-result";
 import {ICollections} from "../collections/i-collections";
 import {ITypedJSON} from "../typed-json/i-typed-json";
 import {IDictionary} from "../collections/i-dictionary";
-import {IRest} from "../rest/i-rest";
+import {IRest} from "../rest/common/i-rest";
 import {IOpenTSDBRestClient} from "./i-open-tsdb-rest-client";
 import {IOpenTSDBResult} from "./i-open-tsdb-result";
 import {IOpenTSDB} from "./i-open-tsdb";

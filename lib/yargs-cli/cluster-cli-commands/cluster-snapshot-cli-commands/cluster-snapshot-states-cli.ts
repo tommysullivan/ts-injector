@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'states';
 export const desc = 'list states already captured for the cluster';
@@ -11,6 +11,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runClusterSanpshotStatesCli(argv.clusterId);
+    frameworkForNodeJSInstance.cli.newExecutor().runClusterSanpshotStatesCli(argv.clusterId);
 };

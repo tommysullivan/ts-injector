@@ -1,5 +1,6 @@
 import {IESXIServerConfiguration} from "./i-esxi-server-configuration";
 import {IJSONObject} from "../../typed-json/i-json-object";
+import {IJSONValue} from "../../typed-json/i-json-value";
 
 export class ESXIServerConfiguration implements IESXIServerConfiguration {
     private esxiServerJSON:IJSONObject;
@@ -14,5 +15,5 @@ export class ESXIServerConfiguration implements IESXIServerConfiguration {
     get password():string {return this.esxiServerJSON.stringPropertyNamed('password'); }
     get type():string {return this.esxiServerJSON.stringPropertyNamed('type'); }
 
-    toJSON():any { return this.esxiServerJSON.toJSON(); }
+    toJSON():IJSONValue { return this.esxiServerJSON.toJSON(); }
 }

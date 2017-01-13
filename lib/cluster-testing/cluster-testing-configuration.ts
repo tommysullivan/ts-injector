@@ -5,7 +5,7 @@ import {ICollections} from "../collections/i-collections";
 import {IClusterTestingConfiguration} from "./i-cluster-testing-configuration";
 import {ClusterInstallerConfig} from "../installer/cluster-installer-config";
 import {IClusterInstallerConfig} from "../installer/i-cluster-installer-config";
-import {ILogCaptureConfiguration} from "./i-log-capture-configuration";
+import {ILogCaptureConfiguration} from "../clusters/i-log-capture-configuration";
 
 export class ClusterTestingConfiguration implements IClusterTestingConfiguration {
     constructor(

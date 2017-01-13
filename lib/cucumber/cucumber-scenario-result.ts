@@ -3,6 +3,7 @@ import {IList} from "../collections/i-list";
 import {ICucumberTag} from "./i-cucumber-tag";
 import {Cucumber} from "./cucumber";
 import {IJSONObject} from "../typed-json/i-json-object";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class CucumberScenarioResult implements ICucumberScenarioResult {
     private scenarioJSON:IJSONObject;
@@ -19,7 +20,7 @@ export class CucumberScenarioResult implements ICucumberScenarioResult {
         );
     }
 
-    toJSON():string {
+    toJSON():IJSONValue {
         return this.scenarioJSON.toJSON();
     }
 }

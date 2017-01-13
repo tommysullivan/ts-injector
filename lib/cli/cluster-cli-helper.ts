@@ -1,5 +1,5 @@
 import {ICollections} from "../collections/i-collections";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {CliHelper} from "./cli-helper";
 import {IESXIAction} from "../esxi/i-esxi-action";
 import {IClusters} from "../clusters/i-clusters";
@@ -41,12 +41,12 @@ export class ClusterCliHelper {
             .add('on', e => e.powerOn())
             .add('off', e => e.powerOff());
         const action = actions.getOrThrow(actionName, `invalid action ${actionName}`);
-        this.clusterTesting.esxiManagedClusterForId(clusterId).performESXIAction(action)
+        this.clusters.esxiManagedClusterForId(clusterId).performESXIAction(action)
             .then(result=>this.console.log(result.toString()));
     }
 
     showVersionsForCluster(clusterId:string):void {
-        const cluster = this.clusterTesting.clusterForId(clusterId);
+        const cluster = this.clusters.clusterForId(clusterId);
         cluster.versionGraph()
             .then(versionGraph=>this.console.log(versionGraph.toString()))
             .catch(e => this.cliHelper.logError(e));
@@ -61,7 +61,7 @@ export class ClusterCliHelper {
     }
 
     showESXIForCluster(clusterId:string):void {
-        const esxiHost = this.clusterTesting.clusterForId(clusterId)
+        const esxiHost = this.clusters.clusterForId(clusterId)
             .esxiServerConfiguration.host;
         this.console.log(`esxiHost: ${esxiHost}`);
     }

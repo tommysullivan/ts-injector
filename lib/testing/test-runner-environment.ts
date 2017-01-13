@@ -1,9 +1,11 @@
 import {ITestRunnerEnvironment} from "./i-test-runner-environment";
-import {IFrameworkConfiguration} from "../framework/i-framework-configuration";
+import {IFrameworkConfiguration} from "../framework/common/i-framework-configuration";
 import {IProcess} from "../node-js-wrappers/i-process";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {ITestingConfiguration} from "./i-testing-configuration";
+import {IJSONValue} from "../typed-json/i-json-value";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
 export class TestRunnerEnvironment implements ITestRunnerEnvironment {
 
@@ -36,7 +38,7 @@ export class TestRunnerEnvironment implements ITestRunnerEnvironment {
         return this.process.environmentVariableNamedOrDefault('gitSHA', null);
     }
 
-    get packageJsonOfSystemUnderTest():any {
+    get packageJsonOfSystemUnderTest():IJSONSerializable {
         try {
             return this.fileSystem.readJSONObjectFileSync('./package.json');
         }

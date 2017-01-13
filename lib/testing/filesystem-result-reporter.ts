@@ -1,7 +1,7 @@
 import {IResultReporter} from "./i-result-reporter";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IPath} from "../node-js-wrappers/i-path";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {IFuture} from "../futures/i-future";
 import {ITestingConfiguration} from "./i-testing-configuration";
 

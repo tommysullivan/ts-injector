@@ -1,9 +1,10 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import {Framework} from "../framework/framework";
 import {IList} from "../collections/i-list";
 import {FeatureSetConfiguration} from "../cucumber/feature-set-configuration";
-import {FeatureSetRefConfiguration} from "../cucumber/feature-set-ref-configuration";
-declare const $:Framework;
+import {IFramework} from "../framework/common/i-framework";
+import {IJSONArray} from "../typed-json/i-json-value";
+
+declare const $:IFramework;
 declare const module:any;
 
 @steps()
@@ -19,7 +20,7 @@ export class FeatureSetSteps {
     @when(/^I query for a json array of feature files names for the "([^"]*)" feature set$/)
     queryForFeatureFilesForSet(featureSetId:string):void {
         const featureSetConfigs = $.typedJSON.newListOfJSONObjects(
-            (JSON.parse(this.featureSetConfigurations))
+            <IJSONArray> $.typedJSON.jsonParser.parse(this.featureSetConfigurations)
         ).map(j=>new FeatureSetConfiguration(j));
         this.featureFileNames = $.cucumber.newFeatureSets(featureSetConfigs)
             .setWithId(featureSetId).featureFilesInExecutionOrder;
@@ -27,7 +28,7 @@ export class FeatureSetSteps {
 
     @then(/^I get a json array that looks like this:$/)
     verifyJSONResult(expectedResultJSON:string):void {
-        $.expect(this.featureFileNames.toArray()).to.deep.equal(JSON.parse(expectedResultJSON));
+        $.expect(this.featureFileNames.toArray()).to.deep.equal($.typedJSON.jsonParser.parse(expectedResultJSON));
     }
 }
 module.exports = FeatureSetSteps;

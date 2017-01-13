@@ -11,7 +11,7 @@ import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {ICucumberRunner} from "./i-cucumber-runner";
 import {IProcess} from "../node-js-wrappers/i-process";
 import {IFeatureSets} from "./i-feature-sets";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
 import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
 import {IFuture} from "../futures/i-future";

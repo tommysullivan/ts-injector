@@ -3,6 +3,7 @@ import {IJSONObject} from "../typed-json/i-json-object";
 import {IMCSDashboardInfo} from "./i-mcs-dashboard-info";
 import {IMCS} from "./i-mcs";
 import {IMCSServiceInfo} from "./i-mcs-service-info";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class MCSDashboardInfo implements IMCSDashboardInfo {
     constructor(
@@ -19,6 +20,6 @@ export class MCSDashboardInfo implements IMCSDashboardInfo {
         ));
     }
 
-    toJSON():any { return this.dashboardInfoJSONObject.toJSON(); }
+    toJSON():IJSONValue { return this.dashboardInfoJSONObject.toJSON(); }
     toString():string { return this.dashboardInfoJSONObject.toString(); }
 }

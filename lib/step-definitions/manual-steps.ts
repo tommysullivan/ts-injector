@@ -1,6 +1,6 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import {Framework} from "../framework/framework";
-declare const $:Framework;
+import {IFramework} from "../framework/common/i-framework";
+declare const $:IFramework;
 declare const module:any;
 
 @steps()
@@ -62,7 +62,7 @@ export class ManualSteps {
     @given(/^I have a manual scenario$/)
     @when(/^I view it in the portal$/)
     @then(/^it works as described in the portal requirements and tests$/)
-    manualStep0():void {}
+    manualStep0():string { return 'pending'; }
 
     @when(/^I click "([^"]*)"$/)
     @given(/^the manual steps are editable and in a "([^"]*)" state$/)
@@ -78,10 +78,10 @@ export class ManualSteps {
     @given(/^the website indicates that the installation succeeds within "([^"]*)" minutes$/)
     @given(/^my grafana username is "([^"]*)"$/)
     @given(/^my grafana password is "([^"]*)"$/)
-    manualStep1(arg1:any):void {}
+    manualStep1(arg1:any):string { return 'pending'; }
 
     @given(/^the view updates to only show features \/ scenarios tagged with either @tag(\d+) or @tag(\d+)$/)
-    manualStep2(arg1:any, arg2:any):void {}
+    manualStep2(arg1:any, arg2:any):string { return 'pending'; }
 
 }
 module.exports = ManualSteps;

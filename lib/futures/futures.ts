@@ -3,9 +3,8 @@ import {IList} from "../collections/i-list";
 import {ICollections} from "../collections/i-collections";
 import {IFuture} from "./i-future";
 import {IFutures} from "./i-futures";
-import {IPromiseFactory} from "../promise/i-promise-factory";
 
-export class Futures implements IFutures, IPromiseFactory {
+export class Futures implements IFutures {
     private promiseModule:any;
     private collections:ICollections;
 

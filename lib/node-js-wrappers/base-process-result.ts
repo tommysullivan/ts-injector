@@ -1,5 +1,6 @@
 import {IProcessResult} from "./i-process-result";
 import {IList} from "../collections/i-list";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class BaseProcessResult implements IProcessResult {
     constructor(
@@ -40,7 +41,7 @@ export class BaseProcessResult implements IProcessResult {
         throw new Error("not implemented in base process result");
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         throw new Error("not implemented in base process result");
     }
 }

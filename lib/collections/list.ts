@@ -1,26 +1,15 @@
 import {IList} from "./i-list";
 import {IComparator} from "./i-comparator";
 import {IFuture} from "../futures/i-future";
-import {deprecated} from "../annotations/deprecated";
 
 export class List<T> implements IList<T> {
     constructor(
         private listItems:Array<T> = [],
-        private createFutureList:<S>(promises:IList<IFuture<S>>)=>IFuture<IList<S>>
+        private createFutureList:<S>(futureItems:IList<IFuture<S>>)=>IFuture<IList<S>>
     ) {}
-
-    @deprecated('use mapToFutureList() instead')
-    mapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>> {
-        return this.mapToFutureList(mapFunction);
-    }
 
     mapToFutureList<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>> {
         return this.createFutureList(this.map(mapFunction));
-    }
-
-    @deprecated('use flatMapToFutureList() instead')
-    flatMapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>> {
-        return this.flatMapToFutureList(mapFunction);
     }
 
     flatMapToFutureList<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>> {

@@ -1,9 +1,10 @@
 import {IDictionary} from "../collections/i-dictionary";
 import {IList} from "../collections/i-list";
 import {IJSONSerializable} from "./i-json-serializable";
+import {IJSONValue, IJSONHash} from "./i-json-value";
 
 export interface IJSONObject extends IJSONSerializable {
-    toJSON():any;
+    toJSON():IJSONValue;
     dictionaryNamed<T>(name:string):IDictionary<T>;
     jsonObjectNamed(name:string):IJSONObject;
     setProperty<T>(propertyName:string, value:T):IJSONObject;
@@ -17,4 +18,5 @@ export interface IJSONObject extends IJSONSerializable {
     listOfJSONObjectsNamed(name:string):IList<IJSONObject>;
     listOfJSONObjectsNamedOrDefaultToEmpty(name:string):IList<IJSONObject>;
     getPropertyAndReturnUndefinedIfNonExistant<T>(name:string):T;
+    jsonHashNamed(name:string):IJSONHash;
 }

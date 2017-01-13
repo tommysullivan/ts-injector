@@ -1,4 +1,5 @@
 import {IError} from "./i-error";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export declare class Error {
     public name:string;
@@ -23,7 +24,7 @@ export class Exception extends Error implements IError {
         }
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             type: 'Exception',
             message: this.message

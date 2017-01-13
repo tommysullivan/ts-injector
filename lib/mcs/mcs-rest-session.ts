@@ -1,7 +1,7 @@
 import {IFuture} from "../futures/i-future";
 import {ITypedJSON} from "../typed-json/i-typed-json";
 import {IErrors} from "../errors/i-errors";
-import {IRestClientAsPromised} from "../rest/i-rest-client-as-promised";
+import {IRestClient} from "../rest/common/i-rest-client";
 import {IMCSConfiguration} from "./i-mcs-configuration";
 import {IMCS} from "./i-mcs";
 import {IMCSRestSession} from "./i-mcs-rest-session";
@@ -10,7 +10,7 @@ import {IMCSDashboardInfo} from "./i-mcs-dashboard-info";
 export class MCSRestSession implements IMCSRestSession {
 
     constructor(
-        private authedRestClient:IRestClientAsPromised,
+        private authedRestClient:IRestClient,
         private mcsConfiguration:IMCSConfiguration,
         private mcs:IMCS,
         private typedJSON:ITypedJSON,
@@ -20,7 +20,7 @@ export class MCSRestSession implements IMCSRestSession {
     get dashboardInfo():IFuture<IMCSDashboardInfo> {
         return this.authedRestClient.post(this.mcsConfiguration.mcsDashboardInfoPath)
             .then(response=>this.mcs.newMCSDashboardInfo(
-                this.typedJSON.newJSONObject(response.jsonBody))
+                this.typedJSON.newJSONObject(response.jsonHash))
             );
     }
 
@@ -29,7 +29,7 @@ export class MCSRestSession implements IMCSRestSession {
             .replace('{applicationName}', applicationName);
         return this.authedRestClient.post(applicationInfoPath)
             .then(response=>{
-                const jsonResponse = this.typedJSON.newJSONObject(response.jsonBody);
+                const jsonResponse = this.typedJSON.newJSONObject(response.jsonHash);
                 try {
                     return jsonResponse.listOfJSONObjectsNamed('data').first.stringPropertyNamed('url');
                 }

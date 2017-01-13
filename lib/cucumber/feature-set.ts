@@ -6,6 +6,7 @@ import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
 import {IFeatureSetRefConfiguration} from "./i-feature-set-ref-configuration";
 import {IFeatureConfiguration} from "./i-feature-configuration";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class FeatureSet implements IFeatureSet {
 
@@ -43,6 +44,6 @@ export class FeatureSet implements IFeatureSet {
         );
     }
 
-    toJSON():any { return this.jsonSerializer.serialize(this.featureSetConfiguration); }
+    toJSON():IJSONValue { return this.jsonSerializer.serialize(this.featureSetConfiguration); }
     toString():any { return JSON.stringify(this.toJSON(), null, 3); }
 }

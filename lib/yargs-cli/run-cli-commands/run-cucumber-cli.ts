@@ -1,9 +1,8 @@
-import {NodeFrameworkLoader} from "../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'cucumber';
 export const desc = 'args passed thru to cucumber.js';
 export const builder = {};
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runCucumberCommand(argv);
+    frameworkForNodeJSInstance.cli.newExecutor().runCucumberCommand(argv);
 };

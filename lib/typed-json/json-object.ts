@@ -4,15 +4,18 @@ import {IDictionary} from "../collections/i-dictionary";
 import {IList} from "../collections/i-list";
 import {ITypedJSON} from "./i-typed-json";
 import {IHash} from "../collections/i-hash";
+import {IJSONHash, IJSONValue} from "./i-json-value";
+import {IJSONParser} from "./i-json-parser";
 
 export class JSONObject implements IJSONObject {
 
     constructor(
-        private rawJSON:Object,
+        private rawJSON:IJSONValue,
         private spacingForStringify:number,
         private collections:ICollections,
         private typedJSON:ITypedJSON,
-        private maxConfigErrorOutputLength:number
+        private maxConfigErrorOutputLength:number,
+        private jsonParser:IJSONParser
     ) {}
 
     private throwPropertyWrongTypeError(name:string, expectedTypeName:string, actualTypeName:string):void {
@@ -42,11 +45,11 @@ export class JSONObject implements IJSONObject {
     }
 
     jsonObjectNamed(name:string):IJSONObject {
-        return this.typedJSON.newJSONObject(this.getProperty(name));
+        return this.typedJSON.newJSONObject(this.jsonHashNamed(name));
     }
 
     listOfJSONObjectsNamed(name:string):IList<IJSONObject> {
-        return this.listNamed<Object>(name).map(i=>this.typedJSON.newJSONObject(i));
+        return this.listNamed<IJSONHash>(name).map(i=>this.typedJSON.newJSONObject(i));
     }
 
     listOfJSONObjectsNamedOrDefaultToEmpty(name:string):IList<IJSONObject> {
@@ -56,6 +59,10 @@ export class JSONObject implements IJSONObject {
         catch(e) {
             return this.collections.newEmptyList<IJSONObject>();
         }
+    }
+
+    jsonHashNamed(name:string):IJSONHash {
+        return this.getTypedProperty<IJSONHash>(name, 'object');
     }
 
     dictionaryNamed<T>(name:string):IDictionary<T> {
@@ -80,8 +87,8 @@ export class JSONObject implements IJSONObject {
         return this.getTypedProperty<boolean>(name, 'boolean');
     }
 
-    toJSON():any {
-        return JSON.parse(JSON.stringify(this.rawJSON));
+    toJSON():IJSONValue {
+        return this.jsonParser.parse(JSON.stringify(this.rawJSON));
     }
 
     toString():string {

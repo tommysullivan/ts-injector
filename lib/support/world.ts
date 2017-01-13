@@ -4,7 +4,7 @@ declare const require:any;
 
 require('source-map-support').install();
 
-import {NodeFrameworkLoader} from '../framework/node-framework-loader';
+import {frameworkForNodeJSInstance} from "../framework/nodejs/framework-for-node-js-instance";
 import '../step-definitions/cluster-preparation-steps';
 import '../step-definitions/java-steps';
 import '../step-definitions/packaging-steps';
@@ -21,6 +21,5 @@ import '../step-definitions/user-steps';
 import '../step-definitions/node-services-steps';
 import './shared-data'
 
-const nodeframeworkLoader = new NodeFrameworkLoader();
-const $ = GLOBAL.$ = nodeframeworkLoader.loadFramework();
+const $ = GLOBAL.$ = frameworkForNodeJSInstance;
 module.exports = $.cucumber.world;

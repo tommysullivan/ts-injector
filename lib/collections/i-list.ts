@@ -37,8 +37,6 @@ export interface IList<T> extends IJSONSerializable {
     everythingAfterIndex(index:number):IList<T>;
     hasAtLeastOne(predicate:(item:T)=>boolean):boolean;
     intersectionWith(other:IList<T>):IList<T>;
-    flatMapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
     flatMapToFutureList<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
-    mapToGroupPromise<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>>;
     mapToFutureList<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>>;
 }

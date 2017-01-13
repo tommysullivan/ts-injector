@@ -1,15 +1,14 @@
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {ICucumber} from "../cucumber/i-cucumber";
 import {IList} from "../collections/i-list";
-import {IClusterTesting} from "../cluster-testing/i-cluster-testing";
 import {ICollections} from "../collections/i-collections";
-import {IClusterUnderTest} from "../cluster-testing/i-cluster-under-test";
-import {INodeUnderTest} from "../cluster-testing/i-node-under-test";
+import {ICluster} from "../clusters/i-cluster";
+import {INode} from "../clusters/i-node";
 import {IMultiClusterTester} from "../cluster-testing/i-multi-cluster-tester";
 import {IClusters} from "../clusters/i-clusters";
-import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
+import {ITesting} from "../testing/i-testing";
 
 export class ClusterTesterCliHelper {
 
@@ -18,11 +17,10 @@ export class ClusterTesterCliHelper {
         private console:IConsole,
         private cucumber:ICucumber,
         private clusterIds:() => IList<string>,
-        private clusterTesting:IClusterTesting,
         private clusters:IClusters,
-        private futures:IFutures,
         private collections:ICollections,
-        private multiClusterTester:IMultiClusterTester
+        private multiClusterTester:IMultiClusterTester,
+        private testing:ITesting
     ) {}
 
     runFeatureSet(featureSetId:string, argv:any){
@@ -45,7 +43,7 @@ export class ClusterTesterCliHelper {
         const command = this.collections.newList(argv._)
             .everythingAfterIndex(1).map(val => val.toString()).join(' ');
         const clusters = this.clusterIds().map(
-            clusterId=>this.clusterTesting.newClusterUnderTest(this.clusters.clusterConfigurationWithId(clusterId))
+            clusterId=>this.clusters.newCluster(this.clusters.clusterConfigurationWithId(clusterId), this.testing.defaultReleasePhase)
         );
         const restrictNodesBasedOnServices = this.process.environmentVariables.hasKey('nodesWith');
         if(clusters.isEmpty) this.console.warn(
@@ -83,7 +81,7 @@ export class ClusterTesterCliHelper {
             });
     }
 
-    private nodesRunningRequestedServices(cluster:IClusterUnderTest):IList<INodeUnderTest> {
+    private nodesRunningRequestedServices(cluster:ICluster):IList<INode> {
         const requisiteServiceNames = this.collections.newList<string>(this.process.environmentVariableNamed('nodesWith').split(','));
         return cluster.nodes.where(n=>n.serviceNames.containAll(requisiteServiceNames));
     }

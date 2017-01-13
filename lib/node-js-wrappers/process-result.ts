@@ -1,6 +1,7 @@
 import {IProcessResult} from "./i-process-result";
 import {IList} from "../collections/i-list";
 import {ICollections} from "../collections/i-collections";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ProcessResult implements IProcessResult {
 
@@ -42,7 +43,7 @@ export class ProcessResult implements IProcessResult {
         return this.collections.newList(this.allOutput);
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             contentType: 'vnd/mapr.devops.process-result;v=2.0.0',
             command: this.command,

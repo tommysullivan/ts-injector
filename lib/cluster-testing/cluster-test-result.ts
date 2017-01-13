@@ -2,11 +2,13 @@ import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
 import {ICucumberTestResult} from "../cucumber/i-cucumber-test-result";
 import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
 import {IList} from "../collections/i-list";
-import {IFrameworkConfiguration} from "../framework/i-framework-configuration";
+import {IFrameworkConfiguration} from "../framework/common/i-framework-configuration";
 import {IClusterTestResult} from "./i-cluster-test-result";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
-import {INodeLog} from "./i-node-log";
+import {INodeLog} from "../clusters/i-node-log";
 import {ITestRunnerEnvironment} from "../testing/i-test-runner-environment";
+import {IJSONSerializable} from "../typed-json/i-json-serializable";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ClusterTestResult implements IClusterTestResult {
 
@@ -15,7 +17,7 @@ export class ClusterTestResult implements IClusterTestResult {
         private frameworkConfiguration:IFrameworkConfiguration,
         private versionGraph:IClusterVersionGraph,
         private clusterConfiguration:IClusterConfiguration,
-        private logs:IList<INodeLog>,
+        private logs:IJSONSerializable,
         private id:string,
         private jsonSerializer:IJSONSerializer,
         private testRunnerEnvironment:ITestRunnerEnvironment
@@ -23,7 +25,7 @@ export class ClusterTestResult implements IClusterTestResult {
 
     get clusterId():string { return this.clusterConfiguration.id; }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         const serialize = (o) => this.jsonSerializer.serialize(o);
         return {
             contentType: 'vnd/mapr.test-portal.cluster-test-result+json;v=3.1.0',

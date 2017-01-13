@@ -10,6 +10,8 @@ import {IFileStats} from "./i-file-stats";
 import {FileStats} from "./file-stats";
 import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
+import {IJSONHash, IJSONValue} from "../typed-json/i-json-value";
+import {IJSONParser} from "../typed-json/i-json-parser";
 
 export class FileSystem implements IFileSystem {
     constructor(
@@ -19,7 +21,8 @@ export class FileSystem implements IFileSystem {
         private errors:IErrors,
         private nodeWrapperFactory:INodeWrapperFactory,
         private futures:IFutures,
-        private mkdirp:any
+        private mkdirp:any,
+        private jsonParser:IJSONParser
     ) {}
 
     readFileSync(filePath:string):string {
@@ -81,9 +84,9 @@ export class FileSystem implements IFileSystem {
         );
     }
 
-    readJSONFileSync(filePath:string):any {
+    readJSONFileSync(filePath:string):IJSONValue {
         try {
-            return JSON.parse(this.readFileSync(filePath));
+            return this.jsonParser.parse(this.readFileSync(filePath));
         }
         catch(e) {
             throw this.errors.newErrorWithCause(e, `could not parse or read json at path ${filePath}`);
@@ -103,13 +106,13 @@ export class FileSystem implements IFileSystem {
     }
 
     readJSONObjectFileSync(filePath:string):IJSONObject {
-        return this.typedJSON.newJSONObject(this.readTypedJSONFileSync<Object>(filePath, 'object'));
+        return this.typedJSON.newJSONObject(this.readTypedJSONFileSync<IJSONHash>(filePath, 'object'));
     }
 
     readJSONArrayFileSync(filePath:string):IList<IJSONObject> {
         const rawJSON = <Array<Object>>this.readJSONFileSync(filePath);
         if(!this.typedJSON.isArray(rawJSON)) this.throwWrongTypeError(filePath, 'array');
-        return this.collections.newList<IJSONObject>(rawJSON.map(j=>this.typedJSON.newJSONObject(j)));
+        return this.collections.newList<IJSONObject>(rawJSON.map((j:IJSONHash)=>this.typedJSON.newJSONObject(j)));
     }
 
     checkFileExistSync(filePath:string):boolean {

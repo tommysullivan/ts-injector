@@ -7,6 +7,8 @@ import {IJSONSerializer} from "./i-json-serializer";
 import {JSONSerializer} from "./json-serializer";
 import {JSONMerger} from "./json-merger";
 import {IJSONMerger} from "./i-json-merger";
+import {IJSONValue} from "./i-json-value";
+import {IJSONParser} from "./i-json-parser";
 
 export class TypedJSON implements ITypedJSON {
     constructor(
@@ -15,21 +17,28 @@ export class TypedJSON implements ITypedJSON {
         private maxConfigErrorOutputLength:number
     ) {}
 
-    newJSONSerializer():IJSONSerializer {
-        return new JSONSerializer();
+    get jsonParser():IJSONParser {
+        return JSON;
     }
 
-    newJSONObject(rawJSONObject:Object):IJSONObject {
+    newJSONSerializer():IJSONSerializer {
+        return new JSONSerializer(
+            this.jsonParser
+        );
+    }
+
+    newJSONObject(rawJSONObject:IJSONValue):IJSONObject {
         return new JSONObject(
             rawJSONObject,
             this.spacingForStringify,
             this.collections,
             this,
-            this.maxConfigErrorOutputLength
+            this.maxConfigErrorOutputLength,
+            this.jsonParser
         );
     }
 
-    newListOfJSONObjects(rawArray:Array<any>):IList<IJSONObject> {
+    newListOfJSONObjects(rawArray:Array<IJSONValue>):IList<IJSONObject> {
         return this.collections.newList(rawArray.map(o=>this.newJSONObject(o)));
     }
 
@@ -37,7 +46,7 @@ export class TypedJSON implements ITypedJSON {
         return (Object.prototype.toString.call(potentialArray) == '[object Array]');
     }
 
-    isJSON(json):boolean{
+    isJSON(json:any):boolean{
         return json && json.constructor === {}.constructor;
     }
 

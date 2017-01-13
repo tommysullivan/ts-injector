@@ -3,6 +3,7 @@ import {ICucumberConfiguration} from "./i-cucumber-configuration";
 import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
 import {FeatureSetConfiguration} from "./feature-set-configuration";
 import {IPath} from "../node-js-wrappers/i-path";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class CucumberConfiguration implements ICucumberConfiguration {
     constructor(
@@ -39,6 +40,6 @@ export class CucumberConfiguration implements ICucumberConfiguration {
         return new FeatureSetConfiguration(featureSetJSON);
     }
 
-    toJSON():any { return this.cucumberConfigJSON.toJSON(); }
+    toJSON():IJSONValue { return this.cucumberConfigJSON.toJSON(); }
     toString():string { return this.cucumberConfigJSON.toString(); }
 }

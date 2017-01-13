@@ -1,5 +1,6 @@
 import {IJSONObject} from "../typed-json/i-json-object";
 import {IMCSConfiguration} from "./i-mcs-configuration";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class MCSConfiguration implements IMCSConfiguration {
 
@@ -14,7 +15,7 @@ export class MCSConfiguration implements IMCSConfiguration {
     get password():string { return this.configJSON.stringPropertyNamed('password'); }
     get mcsUrlTemplate():string { return this.configJSON.stringPropertyNamed('mcsUrlTemplate'); }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return this.configJSON.toJSON();
     }
 }

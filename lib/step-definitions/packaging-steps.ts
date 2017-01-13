@@ -1,13 +1,14 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import {Framework} from "../framework/framework";
+import {IFramework} from "../framework/common/i-framework";
 import {IRepositories} from "../packaging/i-repositories";
 import {IPackageSets} from "../packaging/i-package-sets";
 import {IRepository} from "../packaging/i-repository";
 import {IList} from "../collections/i-list";
 import {IPackage} from "../packaging/i-package";
 import {IReleases} from "../releasing/i-releases";
+import {IJSONArray} from "../typed-json/i-json-value";
 
-declare const $:Framework;
+declare const $:IFramework;
 declare const module:any;
 
 @steps()
@@ -40,14 +41,18 @@ export class PackagingSteps {
     
     @given(/^I am using a packageSets collection based on the following configuration:$/)
     createPackagSetsCollectionBasedOnConfig(packageSetsConfigJSONString:string):void {
-        const packageSetsJSONList = $.typedJSON.newListOfJSONObjects(JSON.parse(packageSetsConfigJSONString));
+        const packageSetsJSONList = $.typedJSON.newListOfJSONObjects(
+            <IJSONArray> $.typedJSON.jsonParser.parse(packageSetsConfigJSONString)
+        );
         this.packageSets = $.packaging.newPackageSetsFromJSON(packageSetsJSONList);
         $.expect(this.packageSets).not.to.be.null;
     }
 
     @given(/^I am using a repositories collection based on the following configuration:$/)
     createRepositoriesCollectionBasedOnConfig(repositoriesConfigJSONString:string):void {
-        const repositoriesConfig = $.typedJSON.newListOfJSONObjects(JSON.parse(repositoriesConfigJSONString));
+        const repositoriesConfig = $.typedJSON.newListOfJSONObjects(
+            <IJSONArray> $.typedJSON.jsonParser.parse(repositoriesConfigJSONString)
+        );
         this.repositories = $.packaging.newRepositoriesFromJSON(repositoriesConfig, this.packageSets);
         $.expect(this.repositories).not.to.be.null;
     }
@@ -69,7 +74,9 @@ export class PackagingSteps {
     @given(/^I am using a releases collection based on the following configuration:$/)
     createReleasesCollectionBasedOnConfig(releasesConfigJSONString:string):void {
         this.releases = $.releasing.newReleasesFromJSON(
-            $.typedJSON.newListOfJSONObjects(JSON.parse(releasesConfigJSONString)),
+            $.typedJSON.newListOfJSONObjects(
+                <IJSONArray> $.typedJSON.jsonParser.parse(releasesConfigJSONString)
+            ),
             this.packageSets
         );
         $.expect(this.releases).not.to.be.null;

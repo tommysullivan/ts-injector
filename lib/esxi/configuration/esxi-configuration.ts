@@ -2,6 +2,7 @@ import {IESXIServerConfiguration} from "./i-esxi-server-configuration";
 import {IJSONObject} from "../../typed-json/i-json-object";
 import {ESXIServerConfiguration} from "./esxi-server-configuration";
 import {IESXIConfiguration} from "./i-esxi-configuration";
+import {IJSONValue} from "../../typed-json/i-json-value";
 
 export class ESXIConfiguration implements IESXIConfiguration {
     constructor(
@@ -15,7 +16,7 @@ export class ESXIConfiguration implements IESXIConfiguration {
             .toArray();
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return this.configJSON.toJSON();
     }
 }

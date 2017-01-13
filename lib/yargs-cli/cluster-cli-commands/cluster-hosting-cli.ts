@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'hosting';
 export const desc = 'yields cluster ids containing specified host';
@@ -11,6 +11,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runshowNodesHostingService(argv.hostname);
+    frameworkForNodeJSInstance.cli.newExecutor().runshowNodesHostingService(argv.hostname);
 };

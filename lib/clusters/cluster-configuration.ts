@@ -1,19 +1,15 @@
 import {IClusterConfiguration} from "./i-cluster-configuration";
 import {INodeConfiguration} from "./../nodes/i-node-configuration";
-import {IESXIServerConfiguration} from "../esxi/configuration/i-esxi-server-configuration";
 import {IJSONObject} from "../typed-json/i-json-object";
 import {NodeConfiguration} from "./../nodes/node-configuration";
-import {IESXI} from "../esxi/i-esxi";
-import {IOperatingSystems} from "../operating-systems/i-operating-systems";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ClusterConfiguration implements IClusterConfiguration {
     constructor(
-        private configJSON:IJSONObject,
-        private esxi:IESXI,
-        private operatingSystems:IOperatingSystems
+        private configJSON:IJSONObject
     ) {}
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return this.configJSON.toJSON();
     }
 

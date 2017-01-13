@@ -1,6 +1,7 @@
 import {IProcessResult} from "./i-process-result";
 import {IList} from "../collections/i-list";
 import {ICollections} from "../collections/i-collections";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ProcessResultForSeparateStdAndErrorStreams implements IProcessResult {
     constructor(
@@ -47,13 +48,13 @@ export class ProcessResultForSeparateStdAndErrorStreams implements IProcessResul
         ]);
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             contentType: 'vnd/mapr.devops.process-result-for-separate-std-and-error-streams;v=1.0.0',
             command: this.command,
             processExitCode: this.processExitCode,
-            stdoutLines: this.stdoutLines,
-            stderrLines: this.stderrLines,
+            stdoutLines: this.stdoutLines.toJSON(),
+            stderrLines: this.stderrLines.toJSON(),
             shellInvocationError: this.shellInvocationError
         }
     }

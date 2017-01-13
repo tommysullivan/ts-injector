@@ -1,11 +1,11 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {Framework} from "../framework/framework";
+import {IFramework} from "../framework/common/i-framework";
 import {IInstallerRestSession} from "../installer/i-installer-rest-session";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {InstallerProcess} from "../installer/installer-process";
 
-declare const $:Framework;
+declare const $:IFramework;
 declare const module:any;
 
 @steps()
@@ -23,7 +23,7 @@ export class RestBasedInstallationSteps {
 
     @given(/^I specify and save the desired Cluster Configuration$/)
     saveDesiredClusterConfiguration():PromisedAssertion {
-        const serverConfigSaveRequest = $.clusterTesting.newClusterInstaller().prepareAndSaveConfiguration(
+        const serverConfigSaveRequest = $.clusters.newClusterInstaller().prepareAndSaveConfiguration(
             $.clusterUnderTest
         );
         return $.expect(serverConfigSaveRequest).to.eventually.be.fulfilled;

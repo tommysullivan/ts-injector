@@ -1,12 +1,12 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {IList} from "../collections/i-list";
 import {IRepository} from "../packaging/i-repository";
-import {Framework} from "../framework/framework";
 import {IFuture} from "../futures/i-future";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
+import {IFramework} from "../framework/common/i-framework";
 
 declare var module:any;
-declare const $:Framework;
+declare const $:IFramework;
 
 @steps()
 export class ListSteps {

@@ -1,7 +1,7 @@
 *.iml
-.idea
 node_modules
 data/test-run-output
 data/tmp
 dist
 npm-debug.log
+url.properties

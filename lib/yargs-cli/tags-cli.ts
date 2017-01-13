@@ -1,9 +1,8 @@
-import {NodeFrameworkLoader} from "../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'tags';
 export const desc = 'list available cucumber tags';
 export const builder = {};
 export const handler = _ => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runExecuteTagsCli();
+    frameworkForNodeJSInstance.cli.newExecutor().runExecuteTagsCli();
 };

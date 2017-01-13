@@ -1,5 +1,5 @@
 import yargs = require("../typings/yargs");
-import {NodeFrameworkLoader} from "../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'send';
 export const desc = 'Enhance an existing cucumber test json with cluster details and send to portal';
@@ -25,7 +25,7 @@ export const builder = {
 };
 
 export const handler = (argv) => {
-    const framework = new NodeFrameworkLoader().loadFramework();
+    const framework = frameworkForNodeJSInstance;
     const clusterId = argv.clusterId;
     const testRunGUID = framework.uuidGenerator.v4();
     const cucumberJSONFilePath = argv.sourceFile;

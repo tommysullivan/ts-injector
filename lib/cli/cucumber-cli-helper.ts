@@ -1,5 +1,5 @@
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {IList} from "../collections/i-list";
 import {ICucumber} from "../cucumber/i-cucumber";
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";

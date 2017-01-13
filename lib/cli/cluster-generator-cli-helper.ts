@@ -1,4 +1,4 @@
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 
 export class ClusterCliGenerator{

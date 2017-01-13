@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 // declare const require:any;
 // var exec = require('child_process').exec;
 
@@ -13,6 +13,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runInstallCommand(argv.secure);
+    frameworkForNodeJSInstance.cli.newExecutor().runInstallCommand(argv.secure);
 };

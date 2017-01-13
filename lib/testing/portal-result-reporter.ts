@@ -1,11 +1,12 @@
 import {IResultReporter} from "./i-result-reporter";
-import {IConsole} from "../node-js-wrappers/i-console";
+import {IConsole} from "../console/i-console";
 import {IProcess} from "../node-js-wrappers/i-process";
-import {IRest} from "../rest/i-rest";
+import {IRest} from "../rest/common/i-rest";
 import {ITestingConfiguration} from "./i-testing-configuration";
 import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
 import {IURLCalculator} from "./i-url-calculator";
+import {IJSONParser} from "../typed-json/i-json-parser";
 
 export class PortalResultReporter implements IResultReporter {
     constructor(
@@ -13,20 +14,21 @@ export class PortalResultReporter implements IResultReporter {
         private console:IConsole,
         private process:IProcess,
         private urlCalculator:IURLCalculator,
-        private futures:IFutures
+        private futures:IFutures,
+        private jsonParser:IJSONParser
     ) {}
 
     reportResult(uniqueFileIdentifier:string, portalCompatibleJSONResultString:string):IFuture<any> {
         if(this.process.environmentVariables.hasKey('portalId')) {
             const fullUrl = this.urlCalculator.calculateURL(uniqueFileIdentifier);
-            const putArgs = {
-                body: JSON.parse(portalCompatibleJSONResultString),
-                json: true
-            };
             const portalId = this.process.environmentVariableNamed('portalId');
             const portalInfo = `portal id "${portalId}" at url "${fullUrl}"`;
             this.console.log(`Saving result to ${portalInfo}`);
-            return this.rest.newRestClientAsPromised().put(fullUrl, putArgs)
+            return this.rest.newRestClient()
+                .put(
+                    fullUrl,
+                    this.jsonParser.parse(portalCompatibleJSONResultString)
+                )
                 .then(result => this.console.log('Success'))
                 .catch(error => this.console.log(error.toString()))
         } else {

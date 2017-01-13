@@ -1,6 +1,6 @@
 import {ElasticSearchRestClient} from "./elasticsearch-rest-client";
 import {IElasticsearch} from "./i-elasticsearch";
-import {IRest} from "../rest/i-rest";
+import {IRest} from "../rest/common/i-rest";
 import {IElasticsearchConfiguration} from "./i-elasticsearch-configuration";
 import {IElasticsearchRestClient} from "./i-elasticsearch-rest-client";
 import {ElasticsearchResult} from "./elasticsearch-result";

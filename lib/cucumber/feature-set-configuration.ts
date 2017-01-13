@@ -4,6 +4,7 @@ import {IFeatureConfiguration} from "./i-feature-configuration";
 import {FeatureConfiguration} from "./feature-configuration";
 import {IFeatureSetRefConfiguration} from "./i-feature-set-ref-configuration";
 import {FeatureSetRefConfiguration} from "./feature-set-ref-configuration";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class FeatureSetConfiguration implements IFeatureSetConfiguration {
     constructor(
@@ -23,7 +24,7 @@ export class FeatureSetConfiguration implements IFeatureSetConfiguration {
             .toArray();
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return this.jsonConfig.toJSON();
     }
 

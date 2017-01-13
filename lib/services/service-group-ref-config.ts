@@ -1,13 +1,14 @@
 import {IServiceGroupRefConfiguration} from "./i-service-group-ref-config";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ServiceGroupRefConfiguration implements IServiceGroupRefConfiguration {
     constructor(
-        private configJSON:any
+        private configJSON:IJSONValue
     ) {}
 
     get serviceGroupRef():string {
-        return this.configJSON.serviceGroupRef;
+        return this.configJSON['serviceGroupRef'];
     }
 
-    toJSON():string { return this.configJSON.toJSON(); }
+    toJSON():IJSONValue { return this.configJSON; }
 }

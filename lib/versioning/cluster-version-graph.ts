@@ -1,6 +1,7 @@
 import {IList} from "../collections/i-list";
 import {INodeVersionGraph} from "./i-node-version-graph";
 import {IClusterVersionGraph} from "./i-cluster-version-graph";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class ClusterVersionGraph implements IClusterVersionGraph {
     private clusterId:string;
@@ -15,10 +16,10 @@ export class ClusterVersionGraph implements IClusterVersionGraph {
         return JSON.stringify(this.toJSON(), null, 3);
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             clusterId: this.clusterId,
-            nodeLevelGraphs: this.versionGraphs.map(v=>v.toJSON())
+            nodeLevelGraphs: this.versionGraphs.map(v=>v.toJSON()).toArray()
         }
     }
 }

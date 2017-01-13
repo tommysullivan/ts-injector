@@ -3,13 +3,14 @@ import {IList} from "../collections/i-list";
 import {IFileStream} from "./i-file-stream";
 import {IFileStats} from "./i-file-stats";
 import {IFuture} from "../futures/i-future";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export interface IFileSystem {
     delete(filePath:string):IFuture<void>;
     readFile(filePath:string):IFuture<string>;
     readFileAsBinary(filePath:string):IFuture<ArrayBuffer>;
     readFileSync(filePath:string):string;
-    readJSONFileSync(filePath:string):Object;
+    readJSONFileSync(filePath:string):IJSONValue;
     readJSONObjectFileSync(filePath:string):IJSONObject;
     readJSONArrayFileSync(filePath:string):IList<IJSONObject>;
     createReadStream(path:string):IFileStream;

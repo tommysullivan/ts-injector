@@ -4,6 +4,7 @@ import {ICucumberScenarioResult} from "./i-cucumber-scenario-result";
 import {ICollections} from "../collections/i-collections";
 import {Cucumber} from "./cucumber";
 import {IJSONObject} from "../typed-json/i-json-object";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class CucumberFeatureResult implements ICucumberFeatureResult {
     private rawCucumberFeatureJSON:IJSONObject;
@@ -27,7 +28,7 @@ export class CucumberFeatureResult implements ICucumberFeatureResult {
         );
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return this.rawCucumberFeatureJSON.toJSON();
     }
 }

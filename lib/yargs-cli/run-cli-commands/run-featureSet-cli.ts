@@ -1,4 +1,4 @@
-import {NodeFrameworkLoader} from "../../framework/node-framework-loader";
+import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'featureSet';
 export const desc = 'run cucumber with the specified featureset (to list available run command "featureSets")';
@@ -11,6 +11,5 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    var nodeFrameworkLoader = new NodeFrameworkLoader();
-    nodeFrameworkLoader.loadFramework().cli.newExecutor().runFeatureSetId(argv.featureSetId, argv);
+    frameworkForNodeJSInstance.cli.newExecutor().runFeatureSetId(argv.featureSetId, argv);
 };

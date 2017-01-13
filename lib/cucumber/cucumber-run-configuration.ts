@@ -1,6 +1,7 @@
 import {ICucumberRunConfiguration} from "./i-cucumber-run-configuration";
 import {IDictionary} from "../collections/i-dictionary";
 import {IHash} from "../collections/i-hash";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class CucumberRunConfiguration implements ICucumberRunConfiguration {
     private _environmentVariables:IDictionary<string>;
@@ -33,7 +34,7 @@ export class CucumberRunConfiguration implements ICucumberRunConfiguration {
         return this._isDryRun;
     }
 
-    toJSON():any {
+    toJSON():IJSONValue {
         return {
             environmentVariables: this.environmentVariables,
             jsonResultFilePath: this.jsonResultFilePath,
