@@ -61,7 +61,7 @@ Feature: Test support for docker
     {
          "clusterTesting": {
             "defaultDockerId": "devopsMapr5.2",
-            "defaultDockerFarmId": "MesosDockerFarm"
+            "defaultMesosClusterId": "MesosDockerFarm"
          }
     }
     """

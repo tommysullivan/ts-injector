@@ -40,6 +40,6 @@ export class ClusterTestingConfiguration implements IClusterTestingConfiguration
 
 
     get defaultMesosClusterId(): string {
-        return this.configJSON.stringPropertyNamed(`defaultDockerFarmId`);
+        return this.configJSON.stringPropertyNamed(`defaultMesosClusterId`);
     }
 }
