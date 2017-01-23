@@ -199,4 +199,18 @@ export class List<T> implements IList<T> {
     intersectionWith(other:IList<T>):IList<T> {
         return this.filter(e => other.contains(e))
     }
+
+    fold<T2>(operation:(t:T, t2:T2)=>T2, identity:T2):T2 {
+        return this.isEmpty ? identity : operation(this.first, this.rest.fold(operation, identity));
+    }
+
+    get sum():number {
+        const thisAsListOfNumber:IList<number> = <IList<number>>(<any> this);
+        return thisAsListOfNumber.fold(
+            (a,b)=> {
+                if(typeof(a)!='number') throw new Error(`Cannot sum a list whose elements are not numeric. Bad element: ${a}`);
+                return a+b;
+            }
+            , 0);
+    }
 }

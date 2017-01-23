@@ -15,6 +15,7 @@ import {IESXIConfiguration} from "../../esxi/configuration/i-esxi-configuration"
 import {IClusterConfiguration} from "../../clusters/i-cluster-configuration";
 import {ITestingConfiguration} from "../../testing/i-testing-configuration";
 import {IServiceGroupConfig} from "../../services/i-service-group-config";
+import {IDockerInfrastructureConfiguration} from "../../docker/i-docker-infrastructure-config";
 
 export interface IFrameworkConfiguration extends IJSONSerializable {
     releasing:IReleasingConfig;
@@ -33,4 +34,5 @@ export interface IFrameworkConfiguration extends IJSONSerializable {
     esxi:IESXIConfiguration;
     testing:ITestingConfiguration;
     serviceGroups?:Array<IServiceGroupConfig>;
+    dockerInfrastructureConfig?:IDockerInfrastructureConfiguration;
 }

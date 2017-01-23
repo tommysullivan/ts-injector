@@ -37,6 +37,8 @@ import {TestingConfiguration} from "../../testing/testing-configuration";
 import {IServiceGroupConfig} from "../../services/i-service-group-config";
 import {ServiceGroupConfig} from "../../services/service-group-config";
 import {IJSONValue} from "../../typed-json/i-json-value";
+import {IDockerInfrastructureConfiguration} from "../../docker/i-docker-infrastructure-config";
+import {DockerInfrastructureConfiguration} from "../../docker/docker-infrastructure-config";
 
 export class FrameworkConfiguration implements IFrameworkConfiguration {
     constructor(
@@ -143,5 +145,9 @@ export class FrameworkConfiguration implements IFrameworkConfiguration {
             .listOfJSONObjectsNamedOrDefaultToEmpty(`serviceGroups`)
             .map(serviceConfig => new ServiceGroupConfig(serviceConfig))
             .toArray();
+    }
+
+    get dockerInfrastructureConfig(): IDockerInfrastructureConfiguration {
+        return new DockerInfrastructureConfiguration(this.frameworkConfigJSON.jsonObjectNamed(`dockerInfrastructure`));
     }
 }

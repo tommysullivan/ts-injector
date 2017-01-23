@@ -22,6 +22,7 @@ import {ICluster} from "../../clusters/i-cluster";
 import {Futures} from "../../futures/futures";
 import {RESTForBrowser} from "../../rest/browser/rest-for-browser";
 import {INodeWrapperFactory} from "../../node-js-wrappers/i-node-wrapper-factory";
+import {IMarathon} from "../../marathon/i-marathon";
 
 export class FrameworkForBrowser extends Framework implements IFramework {
     constructor(
@@ -120,6 +121,10 @@ export class FrameworkForBrowser extends Framework implements IFramework {
 
     get clusterTesting():IClusterTesting  {
         throw this.newNotAvailableInBrowserFrameworkContextError('clusterTesting');
+    }
+
+    get marathon():IMarathon {
+        throw this.newNotAvailableInBrowserFrameworkContextError('dockerInfrastructure');
     }
 
 }

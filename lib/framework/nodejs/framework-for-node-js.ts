@@ -30,6 +30,10 @@ import {IFramework} from "../common/i-framework";
 import {Framework} from "../common/framework";
 import {Grafana} from "../../grafana/grafana";
 import {IGrafana} from "../../grafana/i-grafana";
+import {IDockerLauncher} from "../../docker/i-docker-launcher";
+import {DockerLauncher} from "../../docker/docker-launcher";
+import {IMarathon} from "../../marathon/i-marathon";
+import {Marathon} from "../../marathon/marathon";
 
 export class FrameworkForNodeJS extends Framework implements IFramework {
     constructor(
@@ -143,6 +147,18 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
         );
     }
 
+    get dockerLauncher():IDockerLauncher {
+        return new DockerLauncher(
+            this.frameworkConfig.dockerInfrastructureConfig,
+            this.frameworkConfig.clusterTesting,
+            this.typedJSON,
+            this.collections,
+            this.marathon,
+            this.uuidGenerator,
+            this.futures
+        )
+    }
+
     get cli():Cli {
         return new Cli(
             this.process,
@@ -159,7 +175,8 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.uuidGenerator,
             this.testing,
             this.typedJSON.newJSONSerializer(),
-            this.testing.newUrlCalculator()
+            this.testing.newUrlCalculator(),
+            this.dockerLauncher
         );
     }
 
@@ -270,5 +287,14 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
 
     get futures():IFutures {
         return new Futures(this.promiseModule, this.collections);
+    }
+
+    get marathon(): IMarathon {
+        return new Marathon(
+            this.rest,
+            this.typedJSON,
+            this.sshAPI,
+            this.collections
+        );
     }
 }

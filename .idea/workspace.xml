@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="825f9570-724d-4780-8e5f-603204c4ac01" name="Default" comment="">
+    <list default="true" id="7e6c2017-9e8a-4658-810f-c73a845914f0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/framework/common/framework-configuration.ts" afterPath="$PROJECT_DIR$/lib/framework/common/framework-configuration.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/step-definitions/docker-steps.ts" afterPath="$PROJECT_DIR$/lib/step-definitions/docker-steps.ts" />
     </list>
     <ignored path="private-devops-automation-framework.iws" />
     <ignored path=".idea/workspace.xml" />
-    <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,109 +24,107 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="framework-for-node-js.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-js.ts">
+      <file leaf-file-name="docker-launcher.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/docker/docker-launcher.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="109" column="15" lean-forward="false" selection-start-line="109" selection-start-column="15" selection-end-line="109" selection-end-column="15" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="i-cluster-testing-configuration.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/cluster-testing/i-cluster-testing-configuration.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="docker.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/features/docker.feature">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="framework.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/framework/common/framework.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-60">
-              <caret line="32" column="22" lean-forward="false" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="framework-for-node-js-instance.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-js-instance.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="69" lean-forward="false" selection-start-line="6" selection-start-column="69" selection-end-line="6" selection-end-column="69" />
+              <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="14" />
               <folding>
-                <element signature="e#0#49#0" expanded="true" />
+                <marker date="1484878220000" expanded="true" signature="36:37" ph="Scenario: Json for marathon is generated" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="framework-for-browser.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/framework/browser/framework-for-browser.ts">
+      <file leaf-file-name="cluster-testing-configuration.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/cluster-testing/cluster-testing-configuration.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="39" column="31" lean-forward="true" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#49#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cluster-configuration.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/clusters/cluster-configuration.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#64#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rest.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/features/rest.feature">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="510">
+              <caret line="41" column="41" lean-forward="true" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="framework-configuration.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/framework/common/framework-configuration.ts">
+      <file leaf-file-name="mesos-slave-setup.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/scripts/mesos-slave-setup.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="128" column="78" lean-forward="false" selection-start-line="128" selection-start-column="78" selection-end-line="128" selection-end-column="78" />
+            <state relative-caret-position="165">
+              <caret line="11" column="80" lean-forward="false" selection-start-line="11" selection-start-column="80" selection-end-line="11" selection-end-column="80" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="console-for-browser.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/console/console-for-browser.ts">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="773">
+              <caret line="60" column="22" lean-forward="true" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="i-filesystem.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/node-js-wrappers/i-filesystem.ts">
+      <file leaf-file-name="setup-mesos-slaves.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/setup-mesos-slaves.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+            <state relative-caret-position="30">
+              <caret line="2" column="42" lean-forward="false" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="framework-for-browser-instance.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/framework/browser/framework-for-browser-instance.ts">
+      <file leaf-file-name="i-docker-infrastructure-config.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/docker/i-docker-infrastructure-config.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="26" />
+              <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="docker-infrastructure-config.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/docker/docker-infrastructure-config.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="19" column="80" lean-forward="true" selection-start-line="19" selection-start-column="80" selection-end-line="19" selection-end-column="80" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="docker-steps.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/step-definitions/docker-steps.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="75" column="104" lean-forward="false" selection-start-line="75" selection-start-column="104" selection-end-line="75" selection-end-column="104" />
               <folding>
-                <element signature="e#0#49#0" expanded="true" />
+                <marker date="1484944429000" expanded="true" signature="5805:5808" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -138,74 +135,48 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class.ts" />
+        <option value="Gherkin feature file" />
+        <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>import {FrameworkLoaderForNodeJS} from &quot;../../framework/deprecated/framework-loader-for-node-js&quot;;</find>
-      <find>childProces</find>
-      <find>uuidgen</find>
-      <find>frameworkConfigLoader</find>
-      <find>chai</find>
-      <find>get console</find>
-      <find>import {ICluster} from &quot;../cluster-testing/i-cluster-under-test&quot;;</find>
-      <find>import {ICluster} from &quot;./i-cluster-under-test&quot;;</find>
-      <find>expect</find>
-      <find>new FrameworkForNodeJS().cli.newExecutor().runShowConfigForCluster(argv.clusterId);</find>
-      <find>new FrameworkForNodeJS()</find>
-      <find>import {FrameworkForNodeJS} from &quot;../../framework/nodejs/framework-for-node-js&quot;;</find>
-      <find>import {FrameworkForNodeJS} from &quot;../../../framework/nodejs/framework-for-node-js&quot;;</find>
-      <find>require</find>
-      <find>cluster-testing/i-node-under-test</find>
-      <find>/i-node-under-test</find>
-      <find>newClusterUnder</find>
-      <find>logsToCapture</find>
-      <find>clusterTesting</find>
-      <find>clusterInstallerConfiguration</find>
-      <find>serviceDiscoverer</find>
-      <find>clusterInstaller</find>
-      <find>releasePhase</find>
-      <find>newNode</find>
-      <find>collections</find>
-      <find>framework-for-node-instance</find>
-      <find>JSON.parse</find>
-      <find>fileSystem</find>
-      <find>require 'promise</find>
-      <find>futures</find>
+      <find>runFeatureSet</find>
+      <find>url</find>
+      <find>mapr-installer</find>
+      <find>correc</find>
+      <find>ded</find>
+      <find>clusterUnderTest</find>
+      <find>clusterUnder</find>
+      <find>execute</find>
+      <find>_keepAlive</find>
+      <find>FeatureSetConfiguration</find>
+      <find>clusters</find>
+      <find>group</find>
+      <find>catc</find>
+      <find>list</find>
+      <find>remove</find>
+      <find>catch</find>
+      <find>installed</find>
+      <find>unins</find>
+      <find>open</find>
+      <find>ope</find>
+      <find>filter</find>
+      <find>contains</find>
+      <find>map</find>
+      <find>clone</find>
+      <find>disk</find>
+      <find>uu</find>
+      <find>license</find>
+      <find>kill</find>
+      <find>dockerID</find>
+      <find>conso</find>
     </findStrings>
-    <replaceStrings>
-      <replace>IFutures</replace>
-      <replace>Futures</replace>
-      <replace>futures</replace>
-      <replace>import {IFuture} from &quot;../futures/i-future&quot;;</replace>
-      <replace>newFutureForImmediateValue</replace>
-      <replace>FutureList</replace>
-      <replace>newFutureList</replace>
-      <replace>newFuture(</replace>
-      <replace />
-      <replace>i-rest-client</replace>
-      <replace>framework/framework-loader-for-node-js&quot;</replace>
-      <replace>import {IFramework} from &quot;../framework/common/i-framework&quot;;</replace>
-      <replace>declare const $:IFramework;</replace>
-      <replace>new FrameworkForNodeJS()</replace>
-      <replace>import {FrameworkForNodeJS} from &quot;../../framework/nodejs/framework-for-node-js&quot;;</replace>
-      <replace>import {ICluster} from &quot;../cluster-testing/i-cluster&quot;;</replace>
-      <replace>import {ICluster} from &quot;./i-cluster&quot;;</replace>
-      <replace>frameworkForNodeInstance.cli.newExecutor().runShowConfigForCluster(argv.clusterId);</replace>
-      <replace>frameworkForNodeInstance</replace>
-      <replace>import {frameworkForNodeInstance} from &quot;../../framework/nodejs/framework-for-node-instance&quot;;</replace>
-      <replace>import {frameworkForNodeInstance} from &quot;../../../framework/nodejs/framework-for-node-instance&quot;;</replace>
-      <replace>cluster-testing/i-node</replace>
-      <replace>/i-node</replace>
-      <replace>framework-for-node-js-instance</replace>
-    </replaceStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$/lib</dir>
-      <dir>$PROJECT_DIR$</dir>
-      <dir>$PROJECT_DIR$/features</dir>
-      <dir>$PROJECT_DIR$/node_modules/cucumber/lib</dir>
+      <dir>$PROJECT_DIR$/lib/cucumber</dir>
+      <dir>$PROJECT_DIR$/lib/step-definitions</dir>
     </dirStrings>
   </component>
   <component name="Git.Rebase.Settings">
@@ -214,60 +185,65 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lib/cluster-testing/i-cluster-testing.ts" />
-        <option value="$PROJECT_DIR$/lib/cli/cluster-tester-cli-helper.ts" />
+        <option value="$PROJECT_DIR$/lib/framework/i-framework.ts" />
+        <option value="$PROJECT_DIR$/lib/yargs-cli/docker-cli.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-marathon-rest-client.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/marathon-result.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-marathon-result.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/marathon-rest-client.ts" />
         <option value="$PROJECT_DIR$/lib/cli/cli.ts" />
-        <option value="$PROJECT_DIR$/lib/clusters/clusters.ts" />
-        <option value="$PROJECT_DIR$/lib/clusters/i-clusters.ts" />
-        <option value="$PROJECT_DIR$/lib/cluster-testing/cluster-testing.ts" />
-        <option value="$PROJECT_DIR$/lib/step-definitions/package-manager-installation-steps.ts" />
-        <option value="$PROJECT_DIR$/lib/step-definitions/rest-based-installation-steps.ts" />
-        <option value="$PROJECT_DIR$/lib/collections/i-list.ts" />
-        <option value="$PROJECT_DIR$/lib/collections/list.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/common/framework.ts" />
-        <option value="$PROJECT_DIR$/lib/collections/collections.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-instance.ts" />
-        <option value="$PROJECT_DIR$/lib/support/world.ts" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/lib/yargs-cli/send-cli.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/common/i-framework.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-js-instance.ts" />
-        <option value="$PROJECT_DIR$/lib/index.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/browser/framework-for-browser-instance.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/i-rest-client.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/nodejs/rest-client-for-node-js.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/browser/http-requestor-for-browser.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/rest-for-browser.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/nodejs/rest-response.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/browser/i-native-jquery-response.ts" />
-        <option value="$PROJECT_DIR$/lib/typed-json/i-json-parser.ts" />
-        <option value="$PROJECT_DIR$/lib/typed-json/json-parser.ts" />
-        <option value="$PROJECT_DIR$/lib/typed-json/i-typed-json.ts" />
-        <option value="$PROJECT_DIR$/lib/node-js-wrappers/file-system.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/nodejs/rest-response-for-node-js.ts" />
-        <option value="$PROJECT_DIR$/lib/step-definitions/feature-set-steps.ts" />
-        <option value="$PROJECT_DIR$/lib/step-definitions/list-cluster-ids-steps.ts" />
-        <option value="$PROJECT_DIR$/lib/step-definitions/node-services-steps.ts" />
-        <option value="$PROJECT_DIR$/lib/step-definitions/packaging-steps.ts" />
-        <option value="$PROJECT_DIR$/lib/testing/portal-result-reporter.ts" />
-        <option value="$PROJECT_DIR$/lib/typed-json/json-object.ts" />
-        <option value="$PROJECT_DIR$/lib/typed-json/json-serializer.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/nodejs/config-loader.ts" />
-        <option value="$PROJECT_DIR$/lib/node-js-wrappers/node-wrapper-factory.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/nodejs/rest-for-node-js.ts" />
-        <option value="$PROJECT_DIR$/lib/testing/testing.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-js.ts" />
-        <option value="$PROJECT_DIR$/lib/typed-json/typed-json.ts" />
-        <option value="$PROJECT_DIR$/lib/framework/browser/framework-for-browser.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/browser/rest-client-for-browser.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/browser/rest-for-browser.ts" />
-        <option value="$PROJECT_DIR$/lib/rest/browser/rest-response-for-browser.ts" />
-        <option value="$PROJECT_DIR$/lib/clusters/cluster-configuration.ts" />
-        <option value="$PROJECT_DIR$/features/rest.feature" />
+        <option value="$PROJECT_DIR$/lib/framework/i-framework-configuration.ts" />
+        <option value="$PROJECT_DIR$/lib/framework/framework-configuration.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-image-config.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-image-config.ts" />
+        <option value="$PROJECT_DIR$/lib/rest/rest-response.ts" />
+        <option value="$PROJECT_DIR$/lib/framework/framework.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-farm-config.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-farm-config.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-image-name-config.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-image-name-config.ts" />
+        <option value="$PROJECT_DIR$/lib/cli/cli-executor.ts" />
+        <option value="$PROJECT_DIR$/lib/cli/i-docker-cli-helper.ts" />
+        <option value="$PROJECT_DIR$/lib/marathon/i-marathon.ts" />
+        <option value="$PROJECT_DIR$/lib/yargs-cli/docker-cli-commands/docker-kill-cli.ts" />
+        <option value="$PROJECT_DIR$/lib/yargs-cli/docker-cli-commands/docker-launch-cli.ts" />
+        <option value="$PROJECT_DIR$/lib/framework/common/i-framework-configuration.ts" />
         <option value="$PROJECT_DIR$/lib/framework/common/framework-configuration.ts" />
+        <option value="$PROJECT_DIR$/lib/framework/browser/framework-for-browser.ts" />
+        <option value="$PROJECT_DIR$/lib/framework/common/i-framework.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-cluster-config.ts" />
+        <option value="$PROJECT_DIR$/data/docker-image/marathonrequest.json" />
+        <option value="$PROJECT_DIR$/lib/collections/list.ts" />
+        <option value="$PROJECT_DIR$/lib/collections/i-list.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-cluster-config.ts" />
+        <option value="$PROJECT_DIR$/lib/cli/dockerCliHelper.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-launcher.ts" />
+        <option value="$PROJECT_DIR$/lib/marathon/i-marathon-result.ts" />
+        <option value="$PROJECT_DIR$/lib/marathon/marathon-result.ts" />
+        <option value="$PROJECT_DIR$/lib/marathon/i-marathon-rest-client.ts" />
+        <option value="$PROJECT_DIR$/lib/marathon/marathon-rest-client.ts" />
+        <option value="$PROJECT_DIR$/lib/marathon/marathon.ts" />
+        <option value="$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-js.ts" />
+        <option value="$PROJECT_DIR$/features/docker.feature" />
+        <option value="$PROJECT_DIR$/lib/docker/i-mesos-cluster-config.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/mesos-cluster-config.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-infrastructure-config.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-infrastructure-config.ts" />
+        <option value="$PROJECT_DIR$/lib/cluster-testing/i-cluster-testing-configuration.ts" />
+        <option value="$PROJECT_DIR$/lib/cluster-testing/cluster-testing-configuration.ts" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-launcher.ts" />
+        <option value="$PROJECT_DIR$/bin/setup-mesos-slaves.js" />
+        <option value="$PROJECT_DIR$/lib/scripts/mesos-slave-setup.ts" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/lib/step-definitions/docker-steps.ts" />
       </list>
     </option>
   </component>
@@ -281,9 +257,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="773" />
+    <option name="x" value="1280" />
+    <option name="y" value="-525" />
+    <option name="width" value="2560" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -293,13 +270,15 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <autoscrollToSource />
+      <autoscrollToSource ProjectPane="false" />
       <autoscrollFromSource ProjectPane="true" />
       <sortByType />
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -340,47 +319,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="private-devops-automation-framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="private-devops-automation-framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="private-devops-automation-framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="private-devops-automation-framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clusters" />
+              <option name="myItemId" value="step-definitions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -398,60 +337,115 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="private-devops-automation-framework" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="private-devops-automation-framework" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dist/monet-test.js" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="245" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="270" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="274" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1059" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="330" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="336" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="339" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="843" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../private-mcs/testing/configuration/config.json" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/tsullivan/projects/private-devops-automation-framework/lib/cli/i-cli-config.ts" />
-    <property name="prop_add_unversioned_files" value="true" />
-    <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v7.0.0/bin/node" />
-    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="typescript-compiler-editor-notification" value="false" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/data/fixtures/test-results" />
-      <recent name="$PROJECT_DIR$/bin" />
-      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/lib/yargs-cli/docker-cli-commands" />
       <recent name="$PROJECT_DIR$/lib/yargs-cli" />
+      <recent name="$PROJECT_DIR$/features" />
+      <recent name="$PROJECT_DIR$/data/result-template" />
+      <recent name="$PROJECT_DIR$/lib/step-definitions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/rest/common" />
-      <recent name="$PROJECT_DIR$/lib/rest/browser" />
-      <recent name="$PROJECT_DIR$/lib/cluster-testing" />
-      <recent name="$PROJECT_DIR$/lib/clusters" />
-      <recent name="$PROJECT_DIR$/lib/framework/nodejs" />
+      <recent name="$PROJECT_DIR$/lib/marathon" />
+      <recent name="$PROJECT_DIR$/data/docker-image" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/lib/yargs-cli/cluster-cli-commands" />
+      <recent name="$PROJECT_DIR$/lib/yargs-cli" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.Dev Environment">
+  <component name="RunManager" selected="Node.js.Unnamed">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <method />
+    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -475,6 +469,65 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
     <configuration default="true" type="BashConfigurationType" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
@@ -484,6 +537,154 @@
       <option name="PARAMETERS" value="" />
       <module name="" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/Applications/Flash Player Debugger.app" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/Applications/Flash Player Debugger.app" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -516,7 +717,50 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -539,8 +783,6 @@
       <setting name="testName" value="" />
       <setting name="testKind" value="Class" />
       <setting name="showProgressMessages" value="true" />
-      <classRegexps />
-      <testRegexps />
       <envs />
       <method />
     </configuration>
@@ -556,15 +798,73 @@
       <setting name="testName" value="" />
       <setting name="testKind" value="Class" />
       <setting name="showProgressMessages" value="true" />
-      <classRegexps />
-      <testRegexps />
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="private-devops-automation-framework" />
+      <method />
+    </configuration>
     <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
-      <option name="cucumberJsArguments" value="--require dist/support --require dist/step-definitions --tags @regression" />
-      <option name="executablePath" value="$PROJECT_DIR$/node_modules/cucumber/bin/cucumber.js" />
-      <option name="filePath" value="$PROJECT_DIR$/features/rest.feature" />
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" value="$PROJECT_DIR$/features" />
+      <method />
+    </configuration>
+    <configuration default="true" type="executeSpecs" factoryName="Gauge Execution">
+      <setting name="environment" value="" />
+      <setting name="specsToExecute" value="" />
+      <setting name="tags" value="" />
+      <setting name="parallelNodes" value="" />
+      <setting name="execInParallel" value="false" />
+      <setting name="programParameters" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="moduleName" value="" />
+      <envMap />
+      <setting name="rowsRange" value="" />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -577,10 +877,16 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run" />
-      <scripts />
-      <node-interpreter value="project" />
-      <envs />
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run-script" />
+      <scripts>
+        <script value="cucumber" />
+      </scripts>
+      <arguments value="-- --tags @packageInstallation" />
+      <node-interpreter value="$USER_HOME$/.nvm/versions/node/v5.0.0/bin/node" />
+      <envs>
+        <env name="clusterId" value="centos6.5" />
+      </envs>
       <method />
     </configuration>
     <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
@@ -596,6 +902,122 @@
       <recursive>false</recursive>
       <method />
     </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="private-devops-automation-framework" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -608,31 +1030,58 @@
       <setting name="testName" value="" />
       <setting name="testKind" value="Class" />
       <setting name="showProgressMessages" value="true" />
-      <classRegexps />
-      <testRegexps />
       <envs />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Node.js.bin/devops run cucumber (no portal)" />
+    <configuration default="false" name="Unnamed" type="NodeJSConfigurationType" factoryName="Node.js" editBeforeRun="true" path-to-node="$USER_HOME$/.nvm/versions/node/v5.0.0/bin/node" path-to-js-file="node_modules/cucumber/bin/cucumber.js" application-parameters="--require dist/support --require dist/step-definitions --tags @wipDocker1" working-dir="$PROJECT_DIR$">
+      <envs>
+        <env name="clusterId" value="centos6.5" />
+      </envs>
+      <profiling v8-profiler-path="" />
+      <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
+        <profiling v8-profiler-path="" />
+      </EXTENSION>
+      <method />
+    </configuration>
+    <configuration default="false" name="cucumberDebug" type="js.build_tools.npm" factoryName="npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run-script" />
+      <scripts>
+        <script value="cucumber" />
+      </scripts>
+      <arguments value="-- --tags @packageInstallation" />
+      <node-interpreter value="$USER_HOME$/.nvm/versions/node/v5.0.0/bin/node" />
+      <envs>
+        <env name="clusterId" value="centos6.5" />
+      </envs>
+      <method />
+    </configuration>
+    <list size="6">
+      <item index="0" class="java.lang.String" itemvalue="npm.Dev Environment" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.bin/devops run cucumber (local portal)" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.cucumber" />
-      <item index="3" class="java.lang.String" itemvalue="npm.Dev Environment" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.bin/devops run cucumber (no portal)" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.cucumber" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.Unnamed" />
+      <item index="5" class="java.lang.String" itemvalue="npm.cucumberDebug" />
     </list>
-    <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-    </configuration>
-    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-    </configuration>
-    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
     </configuration>
   </component>
   <component name="SbtLocalSettings">
@@ -643,69 +1092,750 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7e6c2017-9e8a-4658-810f-c73a845914f0" name="Default" comment="" />
+      <created>1467849531812</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1467849531812</updated>
+      <workItem from="1467849533276" duration="734000" />
+      <workItem from="1467925899238" duration="5864000" />
+      <workItem from="1467940787405" duration="13000" />
+      <workItem from="1468022684153" duration="13000" />
+      <workItem from="1468444980570" duration="5619000" />
+      <workItem from="1468473408920" duration="21000" />
+      <workItem from="1468521144926" duration="3357000" />
+      <workItem from="1468544268926" duration="22000" />
+      <workItem from="1468954380097" duration="130000" />
+      <workItem from="1468961403102" duration="3901000" />
+      <workItem from="1468969473196" duration="1810000" />
+      <workItem from="1469148402469" duration="835000" />
+      <workItem from="1469166393451" duration="1719000" />
+      <workItem from="1469221824196" duration="6424000" />
+      <workItem from="1469571255746" duration="8802000" />
+      <workItem from="1469642039010" duration="1273000" />
+      <workItem from="1469644781947" duration="319000" />
+      <workItem from="1469746624821" duration="3054000" />
+      <workItem from="1469823459410" duration="2469000" />
+      <workItem from="1470076381159" duration="8856000" />
+      <workItem from="1470096984689" duration="2850000" />
+      <workItem from="1470159305572" duration="7474000" />
+      <workItem from="1470249508650" duration="1905000" />
+      <workItem from="1470331214199" duration="3705000" />
+      <workItem from="1470342471062" duration="2017000" />
+      <workItem from="1470353645599" duration="1831000" />
+      <workItem from="1470439021679" duration="102000" />
+      <workItem from="1470441282317" duration="833000" />
+      <workItem from="1470867061858" duration="4765000" />
+      <workItem from="1470938969596" duration="24000" />
+      <workItem from="1471284105360" duration="7525000" />
+      <workItem from="1471306828207" duration="8000" />
+      <workItem from="1471307394171" duration="1518000" />
+      <workItem from="1471324112425" duration="276000" />
+      <workItem from="1471326672693" duration="508000" />
+      <workItem from="1471368240485" duration="8230000" />
+      <workItem from="1471407223626" duration="86000" />
+      <workItem from="1471408706187" duration="2056000" />
+      <workItem from="1471455802646" duration="6623000" />
+      <workItem from="1471479092451" duration="2088000" />
+      <workItem from="1471541706856" duration="1538000" />
+      <workItem from="1471562425833" duration="2517000" />
+      <workItem from="1471627481144" duration="1066000" />
+      <workItem from="1471643825440" duration="4936000" />
+      <workItem from="1471909234199" duration="982000" />
+      <workItem from="1471971212739" duration="37000" />
+      <workItem from="1472060106869" duration="2663000" />
+      <workItem from="1472068578382" duration="944000" />
+      <workItem from="1472074737124" duration="772000" />
+      <workItem from="1472687051389" duration="1570000" />
+      <workItem from="1472688716999" duration="1059000" />
+      <workItem from="1472751970608" duration="5415000" />
+      <workItem from="1472765353039" duration="12000" />
+      <workItem from="1472768619859" duration="7431000" />
+      <workItem from="1472841849546" duration="11537000" />
+      <workItem from="1473143698186" duration="1249000" />
+      <workItem from="1473182088559" duration="10891000" />
+      <workItem from="1473289202580" duration="177000" />
+      <workItem from="1473290571754" duration="1102000" />
+      <workItem from="1473422528189" duration="77000" />
+      <workItem from="1473664711263" duration="2245000" />
+      <workItem from="1473668877636" duration="58000" />
+      <workItem from="1473673089442" duration="881000" />
+      <workItem from="1473675135167" duration="2233000" />
+      <workItem from="1473698758543" duration="1553000" />
+      <workItem from="1473745457121" duration="7995000" />
+      <workItem from="1473759004417" duration="2994000" />
+      <workItem from="1473764015141" duration="4526000" />
+      <workItem from="1473785762372" duration="294000" />
+      <workItem from="1473838634590" duration="20204000" />
+      <workItem from="1473920741166" duration="5462000" />
+      <workItem from="1473926220792" duration="12835000" />
+      <workItem from="1474009216155" duration="11086000" />
+      <workItem from="1474120915880" duration="113000" />
+      <workItem from="1474254243459" duration="19188000" />
+      <workItem from="1474348250509" duration="15423000" />
+      <workItem from="1474440156769" duration="456000" />
+      <workItem from="1474476022371" duration="1831000" />
+      <workItem from="1474538855899" duration="235000" />
+      <workItem from="1474555023951" duration="5124000" />
+      <workItem from="1474607848104" duration="8862000" />
+      <workItem from="1474870252560" duration="134000" />
+      <workItem from="1474870794672" duration="1168000" />
+      <workItem from="1474880672933" duration="9153000" />
+      <workItem from="1474964202468" duration="2197000" />
+      <workItem from="1474978389630" duration="185000" />
+      <workItem from="1475059150232" duration="2335000" />
+      <workItem from="1475218695074" duration="1376000" />
+      <workItem from="1475221229969" duration="11000" />
+      <workItem from="1476744435808" duration="1847000" />
+      <workItem from="1476812156823" duration="4498000" />
+      <workItem from="1476837858334" duration="9000" />
+      <workItem from="1476994281158" duration="117000" />
+      <workItem from="1477083662152" duration="67000" />
+      <workItem from="1477083810638" duration="283000" />
+      <workItem from="1477328690634" duration="18480000" />
+      <workItem from="1477423686348" duration="7004000" />
+      <workItem from="1477440073520" duration="4831000" />
+      <workItem from="1477518089478" duration="7617000" />
+      <workItem from="1477589104117" duration="3451000" />
+      <workItem from="1477602800683" duration="8872000" />
+      <workItem from="1477689988194" duration="8221000" />
+      <workItem from="1477893369326" duration="10000" />
+      <workItem from="1477939951784" duration="12184000" />
+      <workItem from="1478030726985" duration="12688000" />
+      <workItem from="1478109747417" duration="2946000" />
+      <workItem from="1478135023668" duration="146000" />
+      <workItem from="1478193020726" duration="2471000" />
+      <workItem from="1478280831527" duration="2014000" />
+      <workItem from="1478551656508" duration="827000" />
+      <workItem from="1478560699949" duration="5000" />
+      <workItem from="1478570936775" duration="487000" />
+      <workItem from="1478902442241" duration="2046000" />
+      <workItem from="1479413780935" duration="7123000" />
+      <workItem from="1479431797769" duration="2137000" />
+      <workItem from="1479436257928" duration="1134000" />
+      <workItem from="1479517679221" duration="152000" />
+      <workItem from="1479754706741" duration="7273000" />
+      <workItem from="1479927234653" duration="3980000" />
+      <workItem from="1479949675879" duration="165000" />
+      <workItem from="1480634524286" duration="6854000" />
+      <workItem from="1480649503063" duration="2376000" />
+      <workItem from="1480710446351" duration="8359000" />
+      <workItem from="1480962139383" duration="7000" />
+      <workItem from="1480965999767" duration="7931000" />
+      <workItem from="1481052024706" duration="1753000" />
+      <workItem from="1481066081265" duration="1212000" />
+      <workItem from="1481147036158" duration="1631000" />
+      <workItem from="1481156807910" duration="1576000" />
+      <workItem from="1481222291505" duration="10211000" />
+      <workItem from="1481249765338" duration="1000" />
+      <workItem from="1481305879374" duration="566000" />
+      <workItem from="1481569158400" duration="5488000" />
+      <workItem from="1481654926670" duration="3666000" />
+      <workItem from="1481750243943" duration="5292000" />
+      <workItem from="1481829279636" duration="3705000" />
+      <workItem from="1481842911210" duration="8000" />
+      <workItem from="1481909841067" duration="6360000" />
+      <workItem from="1482045942420" duration="2034000" />
+      <workItem from="1482171116356" duration="2260000" />
+      <workItem from="1482173476690" duration="3989000" />
+      <workItem from="1482177525044" duration="19733000" />
+      <workItem from="1482258671738" duration="3139000" />
+      <workItem from="1482267817080" duration="10000" />
+      <workItem from="1482267974770" duration="8904000" />
+      <workItem from="1482294821975" duration="41000" />
+      <workItem from="1482345507059" duration="6413000" />
+      <workItem from="1482434416247" duration="9102000" />
+      <workItem from="1483468197044" duration="2756000" />
+      <workItem from="1483482202343" duration="3618000" />
+      <workItem from="1483554954478" duration="8305000" />
+      <workItem from="1483569736149" duration="6027000" />
+      <workItem from="1483637848877" duration="20951000" />
+      <workItem from="1483681968410" duration="641000" />
+      <workItem from="1483726590552" duration="17658000" />
+      <workItem from="1483983758399" duration="11198000" />
+      <workItem from="1484074073452" duration="8883000" />
+      <workItem from="1484156967797" duration="12599000" />
+      <workItem from="1484244419440" duration="12727000" />
+      <workItem from="1484330105662" duration="4887000" />
+      <workItem from="1484591282129" duration="8771000" />
+      <workItem from="1484615786170" duration="1533000" />
+      <workItem from="1484678129052" duration="19627000" />
+      <workItem from="1484762122942" duration="6531000" />
+      <workItem from="1484786678738" duration="118000" />
+      <workItem from="1484858966198" duration="13439000" />
+      <workItem from="1484935036170" duration="6021000" />
+    </task>
+    <task id="LOCAL-00041" summary="Disk script adds already mounted disks #DIA-31">
+      <created>1477446308388</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1477446308388</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Disk script adds already mounted disks #DIA-31">
+      <created>1477518996685</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1477518996685</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Disk script adds already mounted disks #DIA-31">
+      <created>1477594772789</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1477594772789</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Build failing with Cannot read property 'replace' of null #DIA-208">
+      <created>1477600269269</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1477600269269</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Bump version">
+      <created>1477600840862</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1477600840862</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Disk script error changes #DIA-31">
+      <created>1477612041922</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1477612041922</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Bump version">
+      <created>1477612137418</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1477612137418</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Post build sanity check #DIA-86">
+      <created>1477952097369</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1477952097369</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Some bug fixes #DIA-196 #DIA-86">
+      <created>1477955981487</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1477955981487</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Bump version">
+      <created>1477956054980</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1477956054983</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Removing file">
+      <created>1477956448745</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1477956448745</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Revert config">
+      <created>1477956537714</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1477956537714</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Bump version">
+      <created>1477957054461</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1477957054461</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Fix for health checkable services and post build check #DIA-2 #DIA-86">
+      <created>1478039611286</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1478039611288</updated>
+    </task>
+    <task id="LOCAL-00055" summary="minor fix">
+      <created>1478041347225</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1478041347225</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Fixing review comments">
+      <created>1478042301080</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1478042301081</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Fixing a small">
+      <created>1478043824452</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1478043824452</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Bump version">
+      <created>1478043986914</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1478043986914</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Changes to generated display message #DIA-215">
+      <created>1478280939416</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1478280939417</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Fix a small bug">
+      <created>1478571174642</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1478571174643</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Bug fixes #SPYG-802">
+      <created>1479428969078</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1479428969079</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Improve jenkins result #DIA-99">
+      <created>1480642539333</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1480642539333</updated>
+    </task>
+    <task id="LOCAL-00063" summary="More fixes for improving jenkins result #DIA-99">
+      <created>1480716493855</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1480716493855</updated>
+    </task>
+    <task id="LOCAL-00064" summary="More fixes #DIA-99">
+      <created>1480716594828</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1480716594828</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Turning result submission back on #DIA-216">
+      <created>1480717087211</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1480717087211</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Addressing review comment">
+      <created>1480719348804</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1480719348805</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Fixes for pretty jenkins URL #DIA-99">
+      <created>1480722919086</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1480722919086</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Removing added file">
+      <created>1480723196318</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1480723196318</updated>
+    </task>
+    <task id="LOCAL-00069" summary="More fixes">
+      <created>1480724577080</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1480724577080</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Adding result template file #DIA-99">
+      <created>1480985892792</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1480985892793</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Adding and fixing unit tests from spyglass #DIA-226">
+      <created>1481158302806</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1481158302807</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Support upgrade path testing in framework #DIA-228">
+      <created>1481235036405</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1481235036405</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Adding review comments">
+      <created>1481240673721</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1481240673721</updated>
+    </task>
+    <task id="LOCAL-00074" summary="properties files fails to get created when send command is used #DIA-231">
+      <created>1481578268275</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1481578268277</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Fixing missed topology folder #DIA-232">
+      <created>1481655230846</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1481655230847</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Intermittent failure of ssh commands #DIA-242">
+      <created>1482179388848</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1482179388849</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Bump version">
+      <created>1482179496871</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1482179496871</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Change version">
+      <created>1482180062221</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1482180062221</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Support groups of packages #DIA-237">
+      <created>1482200839882</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1482200839882</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Adding review changes #DIA-237">
+      <created>1482269788952</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1482269788954</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Enhancements to uninstall #DIA-241">
+      <created>1482354700951</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1482354700952</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Check for service before stopping it #DIA-241">
+      <created>1482447339980</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1482447339981</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Support launching docker images #DIA-237">
+      <created>1483755501186</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1483755501188</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Launch multi node mapr clusters #DIA-246">
+      <created>1484611096187</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1484611096188</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Multi node mapr clusters managed by groups #DIA-246">
+      <created>1484775369113</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1484775369114</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Rebase with master">
+      <created>1484792493293</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1484792493293</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Rebase with master">
+      <created>1484867754018</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1484867754019</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Review changes">
+      <created>1484878558554</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1484878558555</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Review changes">
+      <created>1484944146685</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1484944146685</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="722544000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="773" extended-state="6" />
+    <frame x="1280" y="-525" width="2560" height="1440" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948422" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37099236" sideWeight="0.5218427" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45801526" sideWeight="0.49007148" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37099236" sideWeight="0.47815728" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.5996823" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32671756" sideWeight="0.5774424" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31374106" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39694658" sideWeight="0.4940429" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4357198" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29515418" sideWeight="0.5347334" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29515418" sideWeight="0.5347334" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41997063" sideWeight="0.47334412" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46097815" sideWeight="0.49353796" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24817519" sideWeight="0.51429707" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919708" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35095447" sideWeight="0.5266559" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31421646" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32452276" sideWeight="0.49030694" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25547445" sideWeight="0.48570293" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25985402" sideWeight="0.49841145" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14892772" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980143" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29489052" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23835616" sideWeight="0.49353796" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32043797" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/lib/esxi/configuration/esxi-node-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/configuration/snapshot-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/configuration/i-esxi-server-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/configuration/i-esxi-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/configuration/i-esxi-node-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/configuration/i-snapshot-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/services/service-group-config.js" />
+        <option value="$PROJECT_DIR$/lib/services/i-service-group-config.js" />
+        <option value="$PROJECT_DIR$/lib/services/i-service-group-ref-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-repositories.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/packaging.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-set-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/zypper-package-manager.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-repository.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/repository-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-comparer.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/promotion-levels.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-package-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-semantic-version.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-package-sets.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-repository-is-ambiguous-exception.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-promotion-level.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/yum-config-file-content.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-config-file-content.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-with-overrides.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-set-reference.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-packaging-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/semantic-version.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-package.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/repository.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-packaging.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/repositories.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-set.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-repository-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-package-set-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-package-set-ref-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-set-ref-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-package-manager.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-sets.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/promotion-level.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-from-literals.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-repository-not-found-exception.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/package-config.js" />
+        <option value="$PROJECT_DIR$/lib/packaging/i-package-set.js" />
+        <option value="$PROJECT_DIR$/lib/futures/i-futures.js" />
+        <option value="$PROJECT_DIR$/lib/futures/i-future.js" />
+        <option value="$PROJECT_DIR$/lib/grafana/grafana.js" />
+        <option value="$PROJECT_DIR$/lib/grafana/i-grafana-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/grafana/i-grafana-config.js" />
+        <option value="$PROJECT_DIR$/lib/grafana/i-grafana.js" />
+        <option value="$PROJECT_DIR$/lib/grafana/grafana-rest-session.js" />
+        <option value="$PROJECT_DIR$/lib/grafana/grafana-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/grafana/i-grafana-rest-session.js" />
+        <option value="$PROJECT_DIR$/lib/nodes/i-node-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/installer/installer-services.js" />
+        <option value="$PROJECT_DIR$/lib/installer/installer-service.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer-services.js" />
+        <option value="$PROJECT_DIR$/lib/installer/installer.js" />
+        <option value="$PROJECT_DIR$/lib/installer/installer-process.js" />
+        <option value="$PROJECT_DIR$/lib/installer/installer-rest-session.js" />
+        <option value="$PROJECT_DIR$/lib/installer/installer-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-cluster-installer-config.js" />
+        <option value="$PROJECT_DIR$/lib/installer/cluster-installer.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer-rest-session.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer-service.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer-server-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer-client-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer-process.js" />
+        <option value="$PROJECT_DIR$/lib/installer/installer-server-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-cluster-installer.js" />
+        <option value="$PROJECT_DIR$/lib/installer/i-installer.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/i-esxi-action.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/esxi.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/esxi-client.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/i-esxi.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/i-esxi-response.js" />
+        <option value="$PROJECT_DIR$/lib/esxi/i-esxi-client.js" />
+        <option value="$PROJECT_DIR$/lib/testing/multiplex-delegate-result-reporter.js" />
+        <option value="$PROJECT_DIR$/lib/testing/i-url-calculator.js" />
+        <option value="$PROJECT_DIR$/lib/testing/filesystem-result-reporter.js" />
+        <option value="$PROJECT_DIR$/lib/testing/i-test-runner-environment.js" />
+        <option value="$PROJECT_DIR$/lib/testing/testing.js" />
+        <option value="$PROJECT_DIR$/lib/testing/i-result-reporter.js" />
+        <option value="$PROJECT_DIR$/lib/testing/test-result.js" />
+        <option value="$PROJECT_DIR$/lib/testing/portal-result-reporter.js" />
+        <option value="$PROJECT_DIR$/lib/testing/i-testing-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/testing/test-runner-environment.js" />
+        <option value="$PROJECT_DIR$/lib/testing/i-test-result.js" />
+        <option value="$PROJECT_DIR$/lib/testing/i-testing.js" />
+        <option value="$PROJECT_DIR$/lib/testing/url-calculator.js" />
+        <option value="$PROJECT_DIR$/lib/typed-json/i-json-serializer.js" />
+        <option value="$PROJECT_DIR$/lib/typed-json/i-typed-json.js" />
+        <option value="$PROJECT_DIR$/lib/typed-json/i-json-object.js" />
+        <option value="$PROJECT_DIR$/lib/typed-json/i-json-merger.js" />
+        <option value="$PROJECT_DIR$/lib/typed-json/i-json-serializable.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/mcs-rest-session.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/i-mcs-dashboard-info.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/mcs.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/i-mcs.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/i-mcs-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/mcs-dashboard-info.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/i-mcs-service-info.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/i-mcs-rest-session.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/mcs-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/i-mcs-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/mcs/mcs-service-info.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-pipeable.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-filesystem.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-process.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-string-helper.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-node-wrapper-factory.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-file-stats.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-path.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-buffer.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-file-stream.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-console.js" />
+        <option value="$PROJECT_DIR$/lib/node-js-wrappers/i-process-result.js" />
+        <option value="$PROJECT_DIR$/lib/elasticsearch/i-elasticsearch-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/elasticsearch/elasticsearch-result.js" />
+        <option value="$PROJECT_DIR$/lib/elasticsearch/i-elasticsearch-result.js" />
+        <option value="$PROJECT_DIR$/lib/elasticsearch/i-elasticsearch.js" />
+        <option value="$PROJECT_DIR$/lib/elasticsearch/i-elasticsearch-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/elasticsearch/elasticsearch-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/elasticsearch/elasticsearch.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/i-phase.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/i-releases.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/i-phase-config.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/releases.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/phase.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/phase-config.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/i-releasing-config.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/i-releasing.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/i-release.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/release-config.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/i-release-config.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/releasing.js" />
+        <option value="$PROJECT_DIR$/lib/releasing/release.js" />
+        <option value="$PROJECT_DIR$/lib/uuid/i-uuid-generator.js" />
+        <option value="$PROJECT_DIR$/lib/promise/i-future.js" />
+        <option value="$PROJECT_DIR$/lib/promise/i-promise-factory.js" />
+        <option value="$PROJECT_DIR$/lib/open-tsdb/i-open-tsdb.js" />
+        <option value="$PROJECT_DIR$/lib/open-tsdb/i-open-tsdb-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/open-tsdb/i-open-tsdb-rest-client.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/i-ssh-configuration.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/i-ssh-error.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/i-ssh-session.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/shell-escaper.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/i-ssh-api.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/i-ssh-result.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/ssh-multi-command-error.js" />
+        <option value="$PROJECT_DIR$/lib/ssh/i-ssh-client.js" />
+        <option value="$PROJECT_DIR$/lib/errors/exception.js" />
+        <option value="$PROJECT_DIR$/lib/errors/i-error.js" />
+        <option value="$PROJECT_DIR$/lib/errors/i-errors.js" />
+        <option value="$PROJECT_DIR$/lib/operating-systems/i-operating-system-config.js" />
+        <option value="$PROJECT_DIR$/lib/operating-systems/operating-system-config.js" />
+        <option value="$PROJECT_DIR$/lib/operating-systems/i-operating-system.js" />
+        <option value="$PROJECT_DIR$/lib/operating-systems/i-operating-systems.js" />
+        <option value="$PROJECT_DIR$/lib/operating-systems/operating-systems.js" />
+        <option value="$PROJECT_DIR$/lib/operating-systems/operating-system.js" />
+        <option value="$PROJECT_DIR$/lib/versioning/i-cluster-version-graph.js" />
+        <option value="$PROJECT_DIR$/lib/versioning/cluster-version-graph.js" />
+        <option value="$PROJECT_DIR$/lib/versioning/node-version-graph.js" />
+        <option value="$PROJECT_DIR$/lib/versioning/i-versioning.js" />
+        <option value="$PROJECT_DIR$/lib/versioning/versioning.js" />
+        <option value="$PROJECT_DIR$/lib/versioning/i-node-version-graph.js" />
+        <option value="$PROJECT_DIR$/lib/typed-json/i-json-value.js" />
+        <option value="$PROJECT_DIR$/lib/docker/i-mesos-cluster-config.js" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-image-name-config.js" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-image-name-config.js" />
+        <option value="$PROJECT_DIR$/lib/docker/i-docker-cluster-config.js" />
+        <option value="$PROJECT_DIR$/lib/docker/docker-cluster-config.js" />
+      </list>
+    </option>
     <option name="configsExcludedFiles">
       <set>
         <option value="$PROJECT_DIR$/dist" />
@@ -724,249 +1854,242 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="ensuring latest npm is used for publishing #DIA-203&#10;&#10;also upgrading cucumber due to conflicting peer version constraint&#10;with tsflow" />
-    <MESSAGE value="Support multiple repositories with same exact package using release advice config #DIA-196&#10;&#10;also implemented extendable exception type in order to get better more reliable errors" />
-    <MESSAGE value="eliminate comments" />
-    <MESSAGE value="eliminate more comments add missing semicolon" />
-    <MESSAGE value="only write unique repos to apt config #DIA-9" />
-    <MESSAGE value="support optional log capture, cluster-free testing #DIA-4" />
-    <MESSAGE value=" code review items #DIA-4" />
-    <MESSAGE value=" code review items part deux #DIA-4" />
-    <MESSAGE value="adding promise apis to list apis for convenience" />
-    <MESSAGE value="adding general ssh cucumber step for nodes hosting specific service #SPYG-786" />
-    <MESSAGE value="fixing ilist signature" />
-    <MESSAGE value="ability to express env var overrides to json config items #DIA-221" />
-    <MESSAGE value="deprecating promiseFactory for futures, adding @deprecated attribute #DIA-221" />
-    <MESSAGE value="merging conflicts with aashreya code" />
-    <MESSAGE value="removing deprecated call to flatMapt that i had missed" />
-    <MESSAGE value="refactored out a couple usages of missed deprecations" />
-    <MESSAGE value="code review items" />
-    <MESSAGE value="update auth token #DIA-248" />
-    <MESSAGE value="Add test plan for REST refactor #DIA-52" />
-    <MESSAGE value="small IJSONValue fix to grafana rest session #DIA-52" />
-    <MESSAGE value="more fixes for native server response #DIA-52" />
-    <MESSAGE value="hardening type signatures of any -&gt; IJSONValue when possible #DIA-52" />
-    <MESSAGE value="tested rest and json serializing refactor #DIA-52 pending manual test fix #DIA-249" />
-    <MESSAGE value="simplifying instancing and ensuring works with webpack" />
-    <MESSAGE value="completed working impl of RestForBrowser #DIA-52" />
-    <option name="LAST_COMMIT_MESSAGE" value="completed working impl of RestForBrowser #DIA-52" />
+    <MESSAGE value="More fixes for improving jenkins result #DIA-99" />
+    <MESSAGE value="More fixes #DIA-99" />
+    <MESSAGE value="Turning result submission back on #DIA-216" />
+    <MESSAGE value="Addressing review comment" />
+    <MESSAGE value="Fixes for pretty jenkins URL #DIA-99" />
+    <MESSAGE value="Removing added file" />
+    <MESSAGE value="More fixes" />
+    <MESSAGE value="Adding result template file #DIA-99" />
+    <MESSAGE value="Adding and fixing unit tests from spyglass #DIA-226" />
+    <MESSAGE value="Support upgrade path testing in framework #DIA-228" />
+    <MESSAGE value="Adding review comments" />
+    <MESSAGE value="properties files fails to get created when send command is used #DIA-231" />
+    <MESSAGE value="Fixing missed topology folder #DIA-232" />
+    <MESSAGE value="Intermittent failure of ssh commands #DIA-242" />
+    <MESSAGE value="Bump version" />
+    <MESSAGE value="Change version" />
+    <MESSAGE value="Support groups of packages #DIA-237" />
+    <MESSAGE value="Adding review changes #DIA-237" />
+    <MESSAGE value="Enhancements to uninstall #DIA-241" />
+    <MESSAGE value="Check for service before stopping it #DIA-241" />
+    <MESSAGE value="Support launching docker images #DIA-237" />
+    <MESSAGE value="Launch multi node mapr clusters #DIA-246" />
+    <MESSAGE value="Multi node mapr clusters managed by groups #DIA-246" />
+    <MESSAGE value="Rebase with master" />
+    <MESSAGE value="Review changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Review changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/clusters/node.ts</url>
-          <line>96</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/step-definitions/ssh-steps.ts</url>
-          <line>58</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/packaging/repository.ts</url>
-          <line>31</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/lib/packaging/repositories.ts</url>
-          <line>45</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/packaging/package-repository-is-ambiguous-exception.ts</url>
-          <line>13</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/cli/cluster-tester-cli-helper.ts</url>
-          <line>79</line>
+          <line>34</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/step-definitions/list-cluster-ids-steps.ts</url>
-          <line>25</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/step-definitions/list-cluster-ids-steps.ts</url>
-          <line>14</line>
+          <url>file://$PROJECT_DIR$/lib/step-definitions/package-manager-installation-steps.ts</url>
+          <line>66</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/step-definitions/mcs-steps.ts</url>
-          <option name="timeStamp" value="65" />
+          <url>file://$PROJECT_DIR$/lib/packaging/repositories.ts</url>
+          <line>48</line>
+          <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/step-definitions/mcs-steps.ts</url>
+          <url>file://$PROJECT_DIR$/lib/packaging/repositories.ts</url>
+          <line>46</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/lib/packaging/repository.ts</url>
+          <line>29</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/lib/packaging/repositories.ts</url>
+          <line>49</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <condition expression="logs.stdout != &quot;2\n&quot; " language="TypeScript" />
+          <url>file://$PROJECT_DIR$/lib/ssh/ssh-session.ts</url>
           <line>65</line>
-          <option name="timeStamp" value="66" />
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/mcs/mcs-rest-session.ts</url>
-          <line>22</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/rest/browser/rest-response-for-browser.ts</url>
-          <line>21</line>
-          <properties />
-          <option name="timeStamp" value="72" />
+          <url>file://$PROJECT_DIR$/lib/ssh/nodemiral-patcher.ts</url>
+          <line>19</line>
+          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="74" />
+      <option name="time" value="105" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="NodeJSConfigurationType">
-        <watch expression="result.toJSON()" language="TypeScript" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/cluster-testing/cluster-testing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#74#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/clusters/i-clusters.ts">
+    <entry file="file://$PROJECT_DIR$/lib/yargs-cli/docker-cli-commands/docker-kill-cli.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#64#0" expanded="false" />
-          </folding>
+          <caret line="12" column="4" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="83" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/cluster-testing/i-cluster-testing.ts">
+    <entry file="file://$PROJECT_DIR$/lib/step-definitions/cluster-preparation-steps.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="54" lean-forward="false" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#59#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/step-definitions/rest-based-installation-steps.ts">
+    <entry file="file://$PROJECT_DIR$/lib/framework/nodejs/config-loader.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="25" column="78" lean-forward="false" selection-start-line="25" selection-start-column="78" selection-end-line="25" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/step-definitions/package-manager-installation-steps.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="78" column="27" lean-forward="false" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/collections/i-list.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="40" column="17" lean-forward="false" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/collections/list.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/collections/collections.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="11" column="8" lean-forward="false" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/futures/futures.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
+        <state relative-caret-position="328">
           <caret line="29" column="4" lean-forward="false" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#53#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/support/world.ts">
+    <entry file="file://$PROJECT_DIR$/lib/framework/common/i-config-loader.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="62" lean-forward="false" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
-          <folding />
+        <state relative-caret-position="45">
+          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/lib/framework/common/framework.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="328">
+          <caret line="64" column="37" lean-forward="true" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/framework/common/i-framework-configuration.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="36" column="66" lean-forward="false" selection-start-line="36" selection-start-column="66" selection-end-line="36" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/framework/common/framework-configuration.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/framework/browser/framework-for-browser.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="896">
+          <caret line="125" column="19" lean-forward="false" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/framework/common/i-framework.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="61" column="43" lean-forward="false" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="405">
+          <caret line="60" column="22" lean-forward="false" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/index.ts">
+    <entry file="file://$PROJECT_DIR$/lib/framework/browser/framework-for-browser-instance.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/typed-json/json-object.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/typed-json/i-json-value.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
+          <caret line="1" column="12" lean-forward="false" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/yargs-cli/send-cli.ts">
+    <entry file="file://$PROJECT_DIR$/lib/rest/nodejs/rest-response-for-node-js.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="27" column="31" lean-forward="true" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="626">
+          <caret line="57" column="8" lean-forward="false" selection-start-line="57" selection-start-column="8" selection-end-line="57" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/nodejs/i-request-headers-for-node-js.ts">
+    <entry file="file://$PROJECT_DIR$/lib/rest/common/i-rest-response.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="17" lean-forward="false" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="105">
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/rest/nodejs/rest-client-for-node-js.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="360">
+          <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/browser/rest-for-browser.ts">
+    <entry file="file://$PROJECT_DIR$/lib/rest/common/i-rest-client.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/marathon/i-marathon.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/clusters/i-cluster-log-capturer.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/cluster-testing/i-cluster-testing.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/installer/i-cluster-installer.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/installer/cluster-installer-config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/installer/i-cluster-installer-config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -974,370 +2097,244 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/common/i-rest-client.ts">
+    <entry file="file://$PROJECT_DIR$/lib/collections/i-list.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        <state relative-caret-position="630">
+          <caret line="42" column="15" lean-forward="false" selection-start-line="42" selection-start-column="15" selection-end-line="42" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/docker/docker-cluster-config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="61" lean-forward="false" selection-start-line="33" selection-start-column="61" selection-end-line="33" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/docker-image/marathonrequest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/cli/dockerCliHelper.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/typed-json/json-parser.ts">
+    <entry file="file://$PROJECT_DIR$/lib/marathon/i-marathon-result.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/collections/list.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3060">
+          <caret line="206" column="21" lean-forward="false" selection-start-line="206" selection-start-column="7" selection-end-line="206" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/typed-json/i-json-parser.ts">
+    <entry file="file://$PROJECT_DIR$/lib/marathon/marathon-result.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        <state relative-caret-position="585">
+          <caret line="43" column="62" lean-forward="false" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/collections/dictionary.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="38" column="15" lean-forward="false" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/typed-json/i-json-serializer.ts">
+    <entry file="file://$PROJECT_DIR$/lib/marathon/i-marathon-rest-client.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <caret line="6" column="29" lean-forward="false" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/node-js-wrappers/file-system.ts">
+    <entry file="file://$PROJECT_DIR$/lib/marathon/marathon-rest-client.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="86" column="48" lean-forward="false" selection-start-line="86" selection-start-column="48" selection-end-line="86" selection-end-column="48" />
+        <state relative-caret-position="330">
+          <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/nodejs/rest-response-for-node-js.ts">
+    <entry file="file://$PROJECT_DIR$/lib/marathon/marathon.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="54" column="31" lean-forward="false" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#59#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/step-definitions/feature-set-steps.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="30" column="86" lean-forward="false" selection-start-line="30" selection-start-column="86" selection-end-line="30" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/step-definitions/list-cluster-ids-steps.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="25" column="39" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/typed-json/i-typed-json.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="41" lean-forward="false" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/step-definitions/node-services-steps.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="38" column="24" lean-forward="false" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/step-definitions/packaging-steps.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="29" selection-end-line="77" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/typed-json/json-serializer.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#56#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/typed-json/json-object.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/testing/portal-result-reporter.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/framework/nodejs/config-loader.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="79" column="56" lean-forward="false" selection-start-line="79" selection-start-column="56" selection-end-line="79" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/node-js-wrappers/node-wrapper-factory.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="118" column="37" lean-forward="false" selection-start-line="118" selection-start-column="37" selection-end-line="118" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/nodejs/rest-for-node-js.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="57" column="37" lean-forward="false" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#66#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/testing/testing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="100" column="17" lean-forward="false" selection-start-line="100" selection-start-column="17" selection-end-line="100" selection-end-column="17" />
-          <folding>
-            <marker date="1484305875000" expanded="true" signature="1529:3980" ph="{...}" />
-            <marker date="1484305875000" expanded="true" signature="3584:3819" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/typed-json/typed-json.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-            <marker date="1484305910000" expanded="true" signature="826:907" ph="{...}" />
-            <marker date="1484305910000" expanded="true" signature="965:1200" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/browser/i-native-jquery-response.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/browser/rest-client-for-browser.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="57" lean-forward="false" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/browser/rest-for-browser.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="28" column="36" lean-forward="false" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rest/browser/rest-response-for-browser.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/framework/common/framework.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="32" column="22" lean-forward="false" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/node-js-wrappers/i-filesystem.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+        <state relative-caret-position="255">
+          <caret line="27" column="78" lean-forward="false" selection-start-line="27" selection-start-column="78" selection-end-line="27" selection-end-column="78" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-js.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        <state relative-caret-position="3915">
+          <caret line="296" column="28" lean-forward="false" selection-start-line="296" selection-start-column="28" selection-end-line="296" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/docker/i-docker-launcher.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/docker/i-docker-cluster-config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#68#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/docker/i-mesos-cluster-config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="27" lean-forward="false" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/docker/mesos-cluster-config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="76" lean-forward="false" selection-start-line="38" selection-start-column="76" selection-end-line="38" selection-end-column="76" />
+          <folding>
+            <element signature="e#0#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/yargs-cli/docker-cli-commands/docker-launch-cli.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="82" lean-forward="true" selection-start-line="13" selection-start-column="82" selection-end-line="13" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/support/world.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="24" column="47" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/framework/nodejs/framework-for-node-js-instance.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="69" lean-forward="false" selection-start-line="6" selection-start-column="69" selection-end-line="6" selection-end-column="69" />
+        <state relative-caret-position="75">
+          <caret line="6" column="94" lean-forward="true" selection-start-line="6" selection-start-column="94" selection-end-line="6" selection-end-column="94" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/docker/docker-infrastructure-config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="19" column="80" lean-forward="true" selection-start-line="19" selection-start-column="80" selection-end-line="19" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/cluster-testing/i-cluster-testing-configuration.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/cluster-testing/cluster-testing-configuration.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="41" column="41" lean-forward="true" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/docker/docker-launcher.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="109" column="15" lean-forward="false" selection-start-line="109" selection-start-column="15" selection-end-line="109" selection-end-column="15" />
           <folding>
-            <element signature="e#0#49#0" expanded="true" />
+            <element signature="e#0#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/framework/browser/framework-for-browser-instance.ts">
+    <entry file="file://$PROJECT_DIR$/lib/docker/i-docker-infrastructure-config.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/console/console-for-browser.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/framework/browser/framework-for-browser.ts">
+    <entry file="file://$PROJECT_DIR$/bin/setup-mesos-slaves.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="39" column="31" lean-forward="true" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/features/rest.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="2" column="42" lean-forward="false" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/clusters/cluster-configuration.ts">
+    <entry file="file://$PROJECT_DIR$/lib/scripts/mesos-slave-setup.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        <state relative-caret-position="165">
+          <caret line="11" column="80" lean-forward="false" selection-start-line="11" selection-start-column="80" selection-end-line="11" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="773">
+          <caret line="60" column="22" lean-forward="true" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features/docker.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="14" />
           <folding>
-            <element signature="e#0#64#0" expanded="true" />
+            <marker date="1484878220000" expanded="true" signature="36:37" ph="Scenario: Json for marathon is generated" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/framework/common/framework-configuration.ts">
+    <entry file="file://$PROJECT_DIR$/lib/step-definitions/docker-steps.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="128" column="78" lean-forward="false" selection-start-line="128" selection-start-column="78" selection-end-line="128" selection-end-column="78" />
-          <folding />
+        <state relative-caret-position="452">
+          <caret line="75" column="104" lean-forward="false" selection-start-line="75" selection-start-column="104" selection-end-line="75" selection-end-column="104" />
+          <folding>
+            <marker date="1484944429000" expanded="true" signature="5805:5808" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>private-devops-automation-framework</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
       <state key="ProjectJDKs.UI">
         <settings>
           <last-edited>1.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
           <splitter-proportions>
             <option name="proportions">
               <list>

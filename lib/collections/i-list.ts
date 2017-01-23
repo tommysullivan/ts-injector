@@ -39,4 +39,6 @@ export interface IList<T> extends IJSONSerializable {
     intersectionWith(other:IList<T>):IList<T>;
     flatMapToFutureList<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
     mapToFutureList<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>>;
+    fold<T2>(operation:(t:T, t2:T2)=>T2, identity:T2):T2;
+    sum:number;
 }

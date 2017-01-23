@@ -7,6 +7,7 @@ import {ICollections} from "../collections/i-collections";
 import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
 import {CliHelper} from "./cli-helper";
 import {IProcess} from "../node-js-wrappers/i-process";
+import {IDockerCliHelper} from "./i-docker-cli-helper";
 
 export class CliExecutor {
 
@@ -19,7 +20,8 @@ export class CliExecutor {
         private collections:ICollections,
         private clusterTestingConfiguration:IClusterTestingConfiguration,
         private cliHelper:CliHelper,
-        private process:IProcess
+        private process:IProcess,
+        private dockerCliHelper:IDockerCliHelper
     ) {}
 
     executeShowFeatureSets(detail:boolean):void {
@@ -66,6 +68,8 @@ export class CliExecutor {
         const cucumberPassThruCommands = this.collections.newList(argv._)
             .everythingAfterIndex(1).map(val => val.toString());
 
+        //TODO: construct cluster object run on docker
+
         const futureResult = this.clusterTestingConfiguration.clusterIds.length==0
             ? this.cucumberCliHelper.runNonClusterCucumberTest(cucumberPassThruCommands)
             : this.clusterTesterCliHelper.runCucumberOncePerClusterId(cucumberPassThruCommands);
@@ -108,4 +112,21 @@ export class CliExecutor {
         this.clusterGeneratorCliHelper.generateClusterJson();
     }
 
+    runDockerLauncher(imageName:string): void {
+        const futureResult = this.dockerCliHelper.launchDockerImage(imageName).then(result =>
+        console.log(`Launched Image ID : ${result}`));
+        futureResult.catch(e => {
+            this.cliHelper.logError(e);
+            this.process.exit(1);
+        });
+    }
+
+    runKillDockerImage(imageName:string): void {
+        const futureResult = this.dockerCliHelper.killDockerImage(imageName).then(result =>
+            console.log(`Killed Image : ${result}`));
+        futureResult.catch(e => {
+            this.cliHelper.logError(e);
+            this.process.exit(1);
+        });
+    }
 }

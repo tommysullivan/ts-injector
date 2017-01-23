@@ -33,4 +33,13 @@ export class ClusterTestingConfiguration implements IClusterTestingConfiguration
                     : []
         ).toArray();
     }
+
+    get defaultDockerId():string {
+        return this.configJSON.stringPropertyNamed(`defaultDockerId`);
+    }
+
+
+    get defaultMesosClusterId(): string {
+        return this.configJSON.stringPropertyNamed(`defaultDockerFarmId`);
+    }
 }

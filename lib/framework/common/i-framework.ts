@@ -31,6 +31,7 @@ import {ChaiStatic} from "../../chai/chai-static";
 import {IFutures} from "../../futures/i-futures";
 import {IFuture} from "../../futures/i-future";
 import {ITesting} from "../../testing/i-testing";
+import {IMarathon} from "../../marathon/i-marathon";
 
 export interface IFramework {
     frameworkConfig:IFrameworkConfiguration;
@@ -57,6 +58,7 @@ export interface IFramework {
     expectAll<T>(target:IList<IFuture<T>>):Assertion;
     expectEmptyList<T>(list:IList<T>):void;
     testing:ITesting;
+    marathon:IMarathon;
 
     //TODO: In order of "most likely to stay server side" to "most needed client side so split deps"
     nodeWrapperFactory:INodeWrapperFactory;

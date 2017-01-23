@@ -20,6 +20,9 @@ import {ITesting} from "../testing/i-testing";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IURLCalculator} from "../testing/i-url-calculator";
 import {IFutures} from "../futures/i-futures";
+import {IDockerCliHelper} from "./i-docker-cli-helper";
+import {DockerCliHelper} from "./dockerCliHelper";
+import {IDockerLauncher} from "../docker/i-docker-launcher";
 
 export class Cli {
 
@@ -38,7 +41,8 @@ export class Cli {
         private uuidGenerator:IUUIDGenerator,
         private testing:ITesting,
         private jsonSerializer:IJSONSerializer,
-        private urlCalculator:IURLCalculator
+        private urlCalculator:IURLCalculator,
+        private dockerLauncher:IDockerLauncher
     ) {}
 
     newCliHelper():CliHelper {
@@ -103,6 +107,10 @@ export class Cli {
         );
     }
 
+    newDockerCliHelper():IDockerCliHelper {
+        return new DockerCliHelper(this.dockerLauncher);
+    }
+
     newExecutor():CliExecutor {
         return new CliExecutor(
             this.newCucumberCliHelper(),
@@ -113,7 +121,8 @@ export class Cli {
             this.collections,
             this.clusterTestingConfiguration,
             this.newCliHelper(),
-            this.process
+            this.process,
+            this.newDockerCliHelper()
         );
     }
 }
