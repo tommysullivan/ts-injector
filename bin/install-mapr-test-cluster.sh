@@ -6,4 +6,4 @@ export lifecyclePhase=development
 export onDemandClusters=MesosDockerFarm:baseCentOS1Node
 export portalId=lab
 npm run build
-./bin/devops run featureSet --featureSetId esxiNonGUIInstallAndHealthCheck
+bin/devops run cucumber -- --tags @packageInstallation
