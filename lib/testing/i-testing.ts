@@ -11,6 +11,8 @@ export interface ITesting {
     newTestResult(testRunGUID:string, cucumberTestResult:ICucumberTestResult):ITestResult;
     newResultReporter():IResultReporter;
     newUrlCalculator():IURLCalculator;
+
+    //TODO: Remove
     defaultReleasePhase:IPhase;
     defaultRelease:IRelease;
     defaultPhaseName:string;

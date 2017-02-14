@@ -1,6 +1,3 @@
-import {IList} from "../../collections/i-list";
-import {Assertion} from "../../chai/assertion";
-import {ICluster} from "../../clusters/i-cluster";
 import {ICucumber} from "../../cucumber/i-cucumber";
 import {Cli} from "../../cli/cli";
 import {IClusterTesting} from "../../cluster-testing/i-cluster-testing";
@@ -29,12 +26,16 @@ import {IProcess} from "../../node-js-wrappers/i-process";
 import {IFrameworkConfiguration} from "./i-framework-configuration";
 import {ChaiStatic} from "../../chai/chai-static";
 import {IFutures} from "../../futures/i-futures";
-import {IFuture} from "../../futures/i-future";
 import {ITesting} from "../../testing/i-testing";
 import {IMarathon} from "../../marathon/i-marathon";
+import {IClusterLoaderForMesosEnvironment} from "../../clusters/i-mesos-cluster-loader";
+import {IDocker} from "../../docker/i-docker";
 
 export interface IFramework {
+    //TODO: Remove
     frameworkConfig:IFrameworkConfiguration;
+    testRunGUID:string;
+
     uuidGenerator:IUUIDGenerator;
     collections:ICollections;
     errors:IErrors;
@@ -43,7 +44,6 @@ export interface IFramework {
     chai:ChaiStatic;
     console:IConsole;
     rest:IRest;
-    testRunGUID:string;
     packaging:IPackaging;
     openTSDB:IOpenTSDB;
     operatingSystems:IOperatingSystems;
@@ -54,13 +54,8 @@ export interface IFramework {
     elasticSearch:IElasticsearch;
     mcs:IMCS;
     installer:IInstaller;
-    expect(target: any, message?: string):Assertion;
-    expectAll<T>(target:IList<IFuture<T>>):Assertion;
-    expectEmptyList<T>(list:IList<T>):void;
     testing:ITesting;
     marathon:IMarathon;
-
-    //TODO: In order of "most likely to stay server side" to "most needed client side so split deps"
     nodeWrapperFactory:INodeWrapperFactory;
     process:IProcess;
     fileSystem:IFileSystem;
@@ -70,9 +65,5 @@ export interface IFramework {
     clusterTesting:IClusterTesting;
     cucumber:ICucumber;
     clusters:IClusters;
-
-    //TODO: Can this be private? nodeWrapperFactory:INodeWrapperFactory;
-    //TODO: eliminate these particular instances from IFrameworkForNodeJS
-    clusterUnderTest:ICluster;
-    clusterId:string;
+    docker:IDocker;
 }

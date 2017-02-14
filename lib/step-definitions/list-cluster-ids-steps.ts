@@ -1,9 +1,9 @@
 import {binding as steps, when, then} from "cucumber-tsflow";
 import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps()

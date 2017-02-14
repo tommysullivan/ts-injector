@@ -2,12 +2,12 @@ import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 import {INode} from "../clusters/i-node";
 import {IPackage} from "../packaging/i-package";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {IList} from "../collections/i-list";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IFuture} from "../futures/i-future";
 
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 declare const __dirname;
 
@@ -90,41 +90,57 @@ export class PackageManagerInstallationSteps {
     }
 
     @given(/^I prepare the disk\.list file$/)
-    prepareDiskListFile() {
+    prepareDiskListFile(): PromisedAssertion {
         const diskCheckCmd = `sfdisk -l`;
-        const diskListCommand = `sfdisk -l | grep "/dev/sd[a-z]" |grep -v "/dev/sd[a-z][0-9]" | sort |cut -f2 -d' ' | tr ":" " "`; //| awk '{if(NR>1)print}' > /root/disk.list`;
-        const diskListResult = $.clusterUnderTest.nodes.map(n =>
-            n.executeShellCommand(diskListCommand)
-                 .then(result => {
-                     const diskList = result.processResult.stdoutLines;
-                     return diskList.mapToFutureList(d =>
-                        $.futures.newDelayedFuture(2000)
-                            .then(_ =>
-                                n
-                                    .executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
-                                    .then(r => {
-                                        console.log(r.processResult.stdoutLines.toJSON());
-                                        return r.processResult.stdoutLines.first == '2' ? d : null
-                                    })
-                            )
-                     );
-                 })
-                 .then(r => {
-                     console.log(r.filter(i=>i!=null).join('\n'));
-                     return n.write(r.filter(i=>i!=null).join('\n'), '/root/disk.list')
-                 })
-        );
-        return $.expectAll(diskListResult).to.eventually.be.fulfilled;
+        const diskListCommand = `sfdisk -l | grep "/dev/sd[a-z]" |grep -v "/dev/sd[a-z][0-9]" | sort |cut -f2 -d' ' | tr ":" " "`;
+        const dockerVolumeLocalPath = $.docker.newMesosEnvironmentFromConfig($.clusterId.split(`:`)[0]).dockerVolumeLocalPath;
+        const listDockerDisks = `ls ${dockerVolumeLocalPath}`;
+        if($.clusters.allIds.contain($.clusterId)) {
+            const diskListResult = $.clusterUnderTest.nodes.map(n =>
+                n.executeShellCommand(diskListCommand)
+                    .then(result => {
+                        const diskList = result.processResult.stdoutLines;
+                        return diskList.mapToFutureList(d =>
+                            $.futures.newDelayedFuture(2000)
+                                .then(_ => n
+                                        .executeShellCommand(`${diskCheckCmd} ${d} | wc -l`)
+                                        .then(r => r.processResult.stdoutLines.first == '2' ? d : null)
+                                )
+                        );
+                    })
+                    .then(r => n.write(r.filter(i => i != null).join('\n'), '/root/disk.list'))
+            );
+            return $.expectAll(diskListResult).to.eventually.be.fulfilled;
+        }
+        else {
+            const diskListResult = $.clusterUnderTest.nodes.map(n => n.executeShellCommand(listDockerDisks)
+                .then(result => result.processResult.stdoutLines)
+                .then(outLine => {
+                    const resultDisks = outLine.map(line => `${dockerVolumeLocalPath}/${line}`);
+                    return n.write(resultDisks.join(`\n`), '/root/disk.list')
+                })
+            );
+            return $.expectAll(diskListResult).to.eventually.be.fulfilled;
+        }
     }
 
     @given(/^I run configure\.sh on all nodes$/)
     runConfigureOnAllNodes():PromisedAssertion {
         const cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(n=>n.host).join(',');
         const zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
-        const historyHostString:string = $.clusterUnderTest.nodesHosting(`mapr-historyserver`).isEmpty ? `` : `-HS ${$.clusterUnderTest.nodeHosting('mapr-historyserver').host}`; 
-        const configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name} -F /root/disk.list`;
-        const result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
-        return $.expect(result).to.eventually.be.fulfilled;
+        const historyHostString:string = $.clusterUnderTest.nodesHosting(`mapr-historyserver`).isEmpty ? `` : `-HS ${$.clusterUnderTest.nodeHosting('mapr-historyserver').host}`;
+        const configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name} `;
+        if($.clusters.allIds.contain($.clusterId)) {
+            const result = $.clusterUnderTest.executeShellCommandOnEachNode(`${configCommand} -F /root/disk.list`);
+            return $.expect(result).to.eventually.be.fulfilled;
+        }
+        else {
+            const result = $.clusterUnderTest.nodes.mapToFutureList(node =>
+                node.executeShellCommand(`cat /root/disk.list`)
+                    .then(sshResult => node.executeShellCommand(`${configCommand} -D ${sshResult.processResult.stdoutLines.first}`))
+            );
+            return $.expect(result).to.eventually.be.fulfilled;
+        }
     }
 
     @given(/^I install the license on cluster$/)

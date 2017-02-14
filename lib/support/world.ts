@@ -1,10 +1,10 @@
 declare const GLOBAL:any;
 declare const module:any;
 declare const require:any;
+declare const process:any;
 
 require('source-map-support').install();
 
-import {frameworkForNodeJSInstance} from "../framework/nodejs/framework-for-node-js-instance";
 import '../step-definitions/cluster-preparation-steps';
 import '../step-definitions/java-steps';
 import '../step-definitions/packaging-steps';
@@ -21,6 +21,11 @@ import '../step-definitions/user-steps';
 import '../step-definitions/node-services-steps';
 import '../step-definitions/docker-steps';
 import './shared-data'
+import {CucumberStepHelper} from "../clusters/cucumber-step-helper";
+import {frameworkForNodeJSInstance} from "../framework/nodejs/framework-for-node-js-instance";
 
-const $ = GLOBAL.$ = frameworkForNodeJSInstance;
-module.exports = $.cucumber.world;
+
+const clusterTesting = frameworkForNodeJSInstance.clusterTesting;
+const clusterUnderTestReferencer = clusterTesting.newClusterUnderTestReferencer();
+const $ = GLOBAL.$ = new CucumberStepHelper(frameworkForNodeJSInstance.cucumber.newExpectationWrapper(), clusterUnderTestReferencer, require, process);
+module.exports = frameworkForNodeJSInstance.cucumber.world(clusterUnderTestReferencer);

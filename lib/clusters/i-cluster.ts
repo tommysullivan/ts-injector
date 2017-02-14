@@ -5,16 +5,16 @@ import {IFuture} from "../futures/i-future";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IESXIResponse} from "../esxi/i-esxi-response";
 import {IInstallerRestSession} from "../installer/i-installer-rest-session";
-import {MCSRestSession} from "../mcs/mcs-rest-session";
-import {OpenTSDBRestClient} from "../open-tsdb/open-tsdb-rest-client";
-import {ElasticSearchRestClient} from "../elasticsearch/elasticsearch-rest-client";
 import {IESXIServerConfiguration} from "../esxi/configuration/i-esxi-server-configuration";
+import {IOpenTSDBRestClient} from "../open-tsdb/i-open-tsdb-rest-client";
+import {IElasticsearchRestClient} from "../elasticsearch/i-elasticsearch-rest-client";
+import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
 
 export interface ICluster {
-    newAuthedMCSSession():IFuture<MCSRestSession>;
+    newAuthedMCSSession():IFuture<IMCSRestSession>;
     newAuthedInstallerSession():IFuture<IInstallerRestSession>;
-    newOpenTSDBRestClient():IFuture<OpenTSDBRestClient>;
-    newElasticSearchClient():IFuture<ElasticSearchRestClient>;
+    newOpenTSDBRestClient():IFuture<IOpenTSDBRestClient>;
+    newElasticSearchClient():IFuture<IElasticsearchRestClient>;
     isManagedByESXI:boolean;
     esxiServerConfiguration:IESXIServerConfiguration;
     revertToState(stateName:string):IFuture<IESXIResponse>;

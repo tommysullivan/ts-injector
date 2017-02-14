@@ -19,7 +19,6 @@ export class RESTForBrowser implements IRest {
         return new RestClientForBrowser(
             this.futures,
             this.nativeJQuery,
-            this.typedJSON.jsonParser,
             (n, path) => this.newRestResponseForBrowser(n, path)
         );
     }

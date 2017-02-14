@@ -14,12 +14,12 @@ import {IFeatureSets} from "./i-feature-sets";
 import {IConsole} from "../console/i-console";
 import {IFeatureSetConfiguration} from "./i-feature-set-configuration";
 import {IExpectationWrapper} from "../chai/i-expectation-wrapper";
-import {IFuture} from "../futures/i-future";
 import {CucumberCli} from "./cucumber-cli";
+import {IClusterUnderTestReferencer} from "../cluster-testing/i-cluster-under-test-referencer";
 
 export interface ICucumber {
     newCucumberCli():CucumberCli;
-    world:Function;
+    world(clusterUnderTestReferencer:IClusterUnderTestReferencer):Function;
     newFeatureSet(featureSetConfig:IFeatureSetConfiguration, featureSets:IFeatureSets):IFeatureSet;
     newCucumberScenarioResult(resultJSON:IJSONObject):ICucumberScenarioResult;
     newCucumberFeatureResult(rawCucumberFeatureJSON:IJSONObject):ICucumberFeatureResult;
@@ -60,4 +60,6 @@ export interface ICucumber {
         startTime:Date,
         endTime:Date
     ):ICucumberTestResult;
+
+    // newExpectationHelper():IExpectationHelper;
 }

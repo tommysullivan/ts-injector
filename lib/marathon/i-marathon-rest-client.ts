@@ -9,9 +9,11 @@ export interface IMarathonRestClient {
     killApplication(id:string):IFuture<IMarathonResult>;
     getApplicationIP(appId:string):IFuture<string>;
     createEmptyGroup(groupName:string): IFuture<string>;
-    createApplicationWithGroup(groupName:string,applicationBody:IList<IJSONObject>):IFuture<string>;
+    createApplicationsInGroup(groupName:string,applicationBody:IList<IJSONObject>):IFuture<string>;
     clearGroup(groupName:string):IFuture<string>;
     getApplicationIPInGroup(groupName:string, appId:string):IFuture<string>;
     getAllApplicationIPsInGroup(groupName:string):IFuture<IList<string>>;
     getAllApplicationIdsInGroup(groupName:string) :IFuture<IList<string>>;
+    getTaskStatus(appId:string):IFuture<string>;
+    getResult(appId:string):IFuture<IMarathonResult>;
 }

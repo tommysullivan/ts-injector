@@ -23,6 +23,8 @@ import {Futures} from "../../futures/futures";
 import {RESTForBrowser} from "../../rest/browser/rest-for-browser";
 import {INodeWrapperFactory} from "../../node-js-wrappers/i-node-wrapper-factory";
 import {IMarathon} from "../../marathon/i-marathon";
+import {NotImplementedError} from "../../errors/not-implemented-error";
+import {IDocker} from "../../docker/i-docker";
 
 export class FrameworkForBrowser extends Framework implements IFramework {
     constructor(
@@ -35,6 +37,10 @@ export class FrameworkForBrowser extends Framework implements IFramework {
 
     private newNotAvailableInBrowserFrameworkContextError(implementationName:string):Error {
         return new Error(`The requested implementation, ${implementationName}, is not available in the DIA Framework Browser context.`);
+    }
+
+    get promiseModule():any {
+        return this.nativePromise;
     }
 
     get console():IConsole {
@@ -54,7 +60,7 @@ export class FrameworkForBrowser extends Framework implements IFramework {
     }
 
     get frameworkConfigLoader():IConfigLoader  {
-        throw new Error('not impl');
+        throw new NotImplementedError();
     }
 
     //TODO: Separate out the server only interface or implement browser versions of the below:
@@ -127,4 +133,7 @@ export class FrameworkForBrowser extends Framework implements IFramework {
         throw this.newNotAvailableInBrowserFrameworkContextError('dockerInfrastructure');
     }
 
+    get docker(): IDocker {
+        throw this.newNotAvailableInBrowserFrameworkContextError('Docker');
+    }
 }

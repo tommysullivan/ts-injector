@@ -1,15 +1,21 @@
 import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 
 export const command = 'launch';
-export const desc = 'Launch a docker image specified in env variable dockerId';
+export const desc = 'Launch a docker image specified in env variable dockerClusterTemplateId';
 export const builder = {
-    dockerId: {
+    dockerClusterTemplateId: {
         alias: 'd',
         type: 'string',
-        demand: false,
-        describe: 'Docker Image name'
+        demand: true,
+        describe: 'Docker Template Id (from config.json)'
+    },
+    mesosEnvironmentId: {
+        alias: 'e',
+        type: 'string',
+        demand: true,
+        describe: 'Mesos Environment Id (from config.json)'
     }
 };
 export const handler = (argv) => {
-    frameworkForNodeJSInstance.cli.newExecutor().runDockerLauncher(argv.dockerId);
+    frameworkForNodeJSInstance.cli.newDockerCliHelper().provisionCluster(argv.dockerClusterTemplateId, argv.mesosEnvironmentId);
 };

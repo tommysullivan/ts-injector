@@ -6,6 +6,9 @@ import {IMCSConfiguration} from "./i-mcs-configuration";
 import {IMCS} from "./i-mcs";
 import {IMCSRestSession} from "./i-mcs-rest-session";
 import {IMCSDashboardInfo} from "./i-mcs-dashboard-info";
+import {IList} from "../collections/i-list";
+import {IMCSNodeInfo} from "./i-mcs-node-info";
+import {MCSNodeInfo} from "./mcs-node-info";
 
 export class MCSRestSession implements IMCSRestSession {
 
@@ -37,5 +40,10 @@ export class MCSRestSession implements IMCSRestSession {
                     throw this.errors.newErrorWithCause(e, `mcs link json format was bad - ${jsonResponse.toString()}`);
                 }
             });
+    }
+
+    get nodeList(): IFuture<IList<IMCSNodeInfo>> {
+        return this.authedRestClient.post(`/api/node/list`)
+            .then(response => this.typedJSON.newJSONObject(response.jsonHash).listOfJSONObjectsNamed(`data`).map(nodeData => new MCSNodeInfo(nodeData)));
     }
 }

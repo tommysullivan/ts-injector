@@ -1,4 +1,5 @@
 import {IConsole} from "./i-console";
+import {NotImplementedError} from "../errors/not-implemented-error";
 
 export class ConsoleForBrowser implements IConsole {
     constructor(
@@ -22,10 +23,10 @@ export class ConsoleForBrowser implements IConsole {
     }
 
     askQuestion(questionText: string) {
-        throw new Error('not implemented');
+        throw new NotImplementedError();
     }
 
     askSensitiveQuestion(questionText: string) {
-        throw new Error('not implemented');
+        throw new NotImplementedError();
     }
 }

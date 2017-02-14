@@ -1,13 +1,13 @@
 import {IJSONObject} from "../typed-json/i-json-object";
-import {IDockerImageNameConfig} from "./i-docker-image-name-config";
+import {INodeTemplateConfig} from "./i-node-template-config";
 
-export class DockerImageNameConfig implements IDockerImageNameConfig {
+export class NodeTemplateConfig implements INodeTemplateConfig {
     constructor (
         private imageJSON:IJSONObject
     ){}
 
-    get name(): string {
-        return this.imageJSON.stringPropertyNamed(`name`)
+    get dockerImageName(): string {
+        return this.imageJSON.stringPropertyNamed(`dockerImageName`);
     }
 
     get instances(): number {
@@ -23,5 +23,13 @@ export class DockerImageNameConfig implements IDockerImageNameConfig {
     get diskProvider(): boolean {
         return this.imageJSON.hasPropertyNamed(`diskProvider`) ?
             this.imageJSON.booleanPropertyNamed(`diskProvider`) : null;
+    }
+
+    get serviceNames():Array<string> {
+      return this.imageJSON.listNamedOrDefaultToEmpty<string>(`serviceNames`).toArray();
+    }
+
+    toJSON():any {
+        return this.imageJSON.toJSON();
     }
 }

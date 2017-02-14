@@ -1,9 +1,6 @@
 import {ICluster} from "./i-cluster";
 import {IFuture} from "../futures/i-future";
-import {MCSRestSession} from "../mcs/mcs-rest-session";
 import {IInstallerRestSession} from "../installer/i-installer-rest-session";
-import {OpenTSDBRestClient} from "../open-tsdb/open-tsdb-rest-client";
-import {ElasticSearchRestClient} from "../elasticsearch/elasticsearch-rest-client";
 import {IList} from "../collections/i-list";
 import {IESXIResponse} from "../esxi/i-esxi-response";
 import {ISSHResult} from "../ssh/i-ssh-result";
@@ -16,6 +13,9 @@ import {IClusterInstaller} from "../installer/i-cluster-installer";
 import {IESXIServerConfiguration} from "../esxi/configuration/i-esxi-server-configuration";
 import {IESXI} from "../esxi/i-esxi";
 import {IClusters} from "./i-clusters";
+import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
+import {IElasticsearchRestClient} from "../elasticsearch/i-elasticsearch-rest-client";
+import {IOpenTSDBRestClient} from "../open-tsdb/i-open-tsdb-rest-client";
 
 export class Cluster implements ICluster {
     constructor(
@@ -38,7 +38,7 @@ export class Cluster implements ICluster {
         return this.nodes.firstWhere(n=>n.host==hostName);
     }
 
-    newAuthedMCSSession():IFuture<MCSRestSession> {
+    newAuthedMCSSession():IFuture<IMCSRestSession> {
         return this.serviceDiscoverer.nodeHostingServiceViaDiscover(this, 'mapr-webserver')
             .then(node=>node.newAuthedMCSSession());
     }
@@ -48,12 +48,12 @@ export class Cluster implements ICluster {
             .then(node=>node.newAuthedInstallerSession());
     }
     
-    newOpenTSDBRestClient():IFuture<OpenTSDBRestClient> {
+    newOpenTSDBRestClient():IFuture<IOpenTSDBRestClient> {
         return this.serviceDiscoverer.nodeHostingServiceViaDiscover(this, 'mapr-opentsdb')
             .then(node=>node.newOpenTSDBRestClient());
     }
     
-    newElasticSearchClient():IFuture<ElasticSearchRestClient> {
+    newElasticSearchClient():IFuture<IElasticsearchRestClient> {
         return this.serviceDiscoverer.nodeHostingServiceViaDiscover(this, 'mapr-elasticsearch')
             .then(node=>node.newElasticSearchClient());
     }

@@ -19,12 +19,15 @@ export class RestResponseForNodeJS implements IRestResponse {
     }
 
     toJSON():IJSONValue {
-        const body =  this.isJSON() ? this.jsonBody : this.body;
+        const body = this.nativeResponse
+            ? this.isJSON() ? this.jsonBody : this.body
+            : null;
+
         return {
             originalURL: this._originalUrl,
             type: 'rest-response',
             error: this.error.toString(),
-            statusCode: this.statusCode,
+            statusCode: this.nativeResponse ? this.statusCode: null,
             body: body
         }
     }

@@ -8,7 +8,7 @@ export class List<T> implements IList<T> {
         private createFutureList:<S>(futureItems:IList<IFuture<S>>)=>IFuture<IList<S>>
     ) {}
 
-    mapToFutureList<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>> {
+    mapToFutureList<T2>(mapFunction:(i:T, index?:number)=>IFuture<T2>):IFuture<IList<T2>> {
         return this.createFutureList(this.map(mapFunction));
     }
 
@@ -84,11 +84,11 @@ export class List<T> implements IList<T> {
         return arr.map(i=>(i != null && i.toJSON) ? i.toJSON() : i);
     }
 
-    map<T2>(mapFunction:(originalItem:T)=>T2):IList<T2> {
+    map<T2>(mapFunction:(originalItem:T, index?:number)=>T2):IList<T2> {
         return this.newList<T2>(this.mapToArray(mapFunction));
     }
 
-    mapToArray<T2>(mapFunction:(originalItem:T)=>T2):Array<T2> {
+    mapToArray<T2>(mapFunction:(originalItem:T, index?:number)=>T2):Array<T2> {
         return this.listItems.map(mapFunction);
     }
 
@@ -212,5 +212,14 @@ export class List<T> implements IList<T> {
                 return a+b;
             }
             , 0);
+    }
+
+
+    zip<T2>(list1: IList<T2>): IList<[T,T2]> {
+        return this.map((element, index) => <[T,T2]>[element, list1.itemAt(index)]);
+    }
+
+    zip2<T2, T3>(list1: IList<T2>, list2: IList<T3>): IList<[T,T2,T3]> {
+        return this.map((element, index) => <[T,T2,T3]>[element, list1.itemAt(index), list2.itemAt(index)]);
     }
 }

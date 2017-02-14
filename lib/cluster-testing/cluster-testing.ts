@@ -1,4 +1,3 @@
-import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
 import {ICollections} from "../collections/i-collections";
 import {ICucumberTestResult} from "../cucumber/i-cucumber-test-result";
 import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
@@ -10,7 +9,6 @@ import {IConsole} from "../console/i-console";
 import {IFrameworkConfiguration} from "../framework/common/i-framework-configuration";
 import {ClusterResultPreparer} from "./cluster-result-preparer";
 import {IClusterTestingConfiguration} from "./i-cluster-testing-configuration";
-import {IClusterTestResult} from "./i-cluster-test-result";
 import {ClusterTestResult} from "./cluster-test-result";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IClusterTesting} from "./i-cluster-testing";
@@ -21,6 +19,11 @@ import {ITesting} from "../testing/i-testing";
 import {IURLCalculator} from "../testing/i-url-calculator";
 import {IFutures} from "../futures/i-futures";
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
+import {ClusterUnderTestReferencer} from "./cluster-under-test-referencer";
+import {IClusterUnderTestReferencer} from "./i-cluster-under-test-referencer";
+import {IDocker} from "../docker/i-docker";
+import {ITestResult} from "../testing/i-test-result";
+import {IMultiClusterTester} from "./i-multi-cluster-tester";
 
 export class ClusterTesting implements IClusterTesting {
 
@@ -36,21 +39,20 @@ export class ClusterTesting implements IClusterTesting {
         private frameworkConfig:IFrameworkConfiguration,
         private jsonSerializer:IJSONSerializer,
         private testing:ITesting,
-        private urlCalculator:IURLCalculator
+        private urlCalculator:IURLCalculator,
+        private docker:IDocker
     ) {}
 
-    newMultiClusterTester():MultiClusterTester {
+    newMultiClusterTester():IMultiClusterTester {
         return new MultiClusterTester(
             this.uuidGenerator,
-            this.clusterTestingConfiguration,
             this.process,
             this.console,
             this.newClusterResultPreparer(),
             this.cucumber.newCucumberCli(),
             this.testing.newResultReporter(),
             this.jsonSerializer,
-            this.urlCalculator,
-            this.collections
+            this.urlCalculator
         )
     }
 
@@ -65,17 +67,18 @@ export class ClusterTesting implements IClusterTesting {
             this.futures,
             this.jsonSerializer,
             this.testing,
-            this.clusterTestingConfiguration.logsToCapture
+            this.clusterTestingConfiguration.logsToCapture,
+            this.docker
         );
     }
 
     newClusterTestResult(cucumberTestResult:ICucumberTestResult,
                          frameworkConfiguration:IFrameworkConfiguration,
                          versionGraph:IClusterVersionGraph,
-                         clusterConfiguration:IClusterConfiguration,
+                         clusterConfiguration:IJSONSerializable,
                          logs:IJSONSerializable,
                          id:string,
-                         testRunnerEnvironment:ITestRunnerEnvironment):IClusterTestResult {
+                         testRunnerEnvironment:ITestRunnerEnvironment):ITestResult {
         return new ClusterTestResult(
             cucumberTestResult,
             frameworkConfiguration,
@@ -85,6 +88,12 @@ export class ClusterTesting implements IClusterTesting {
             id,
             this.jsonSerializer,
             testRunnerEnvironment
+        );
+    }
+
+    newClusterUnderTestReferencer():IClusterUnderTestReferencer {
+        return new ClusterUnderTestReferencer(
+            this.process,
         );
     }
 }

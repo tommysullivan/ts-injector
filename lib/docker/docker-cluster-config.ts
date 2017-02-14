@@ -1,10 +1,9 @@
-import {IDockerClusterConfiguration} from "./i-docker-cluster-config";
+import {IDockerClusterTemplateConfiguration} from "./i-docker-cluster-template-confiuration";
 import {IJSONObject} from "../typed-json/i-json-object";
-import {IDockerImageNameConfig} from "./i-docker-image-name-config";
-import {DockerImageNameConfig} from "./docker-image-name-config";
-import {IList} from "../collections/i-list";
+import {INodeTemplateConfig} from "./i-node-template-config";
+import {NodeTemplateConfig} from "./node-template-config";
 
-export class DockerClusterConfig implements IDockerClusterConfiguration {
+export class DockerClusterConfig implements IDockerClusterTemplateConfiguration {
 
     constructor(
       private dockerImageJson:IJSONObject
@@ -14,39 +13,15 @@ export class DockerClusterConfig implements IDockerClusterConfiguration {
           return this.dockerImageJson.stringPropertyNamed(`id`);
     }
 
-    get operatingSystem():string {
-          return this.dockerImageJson.stringPropertyNamed(`operatingSystem`);
-    }
-
-    get operatingSystemVersion():string {
-        return this.dockerImageJson.stringPropertyNamed(`operatingSystemVersion`);
-    }
-
     get maprVersion():string {
           return this.dockerImageJson.hasPropertyNamed(`maprVersion`) ?
               this.dockerImageJson.stringPropertyNamed(`maprVersion`)
               : null;
     }
 
-    get nodes():number {
-        return this.dockerImageJson.hasPropertyNamed(`nodes`) ?
-            this.dockerImageJson.numericPropertyNamed(`nodes`)
-            : this.imageNameAsList.map(i => i.instances).sum;
-    }
-
-    get templateId():string {
-        return this.dockerImageJson.hasPropertyNamed(`templateId`) ?
-            this.dockerImageJson.stringPropertyNamed(`templateId`)
-            : null;
-    }
-
-    get imageNameAsList():IList<IDockerImageNameConfig> {
-        return this.dockerImageJson.listOfJSONObjectsNamed(`imageNames`)
-            .map(imageJson => new DockerImageNameConfig(imageJson));
-    }
-
-    get imageNames():Array<IDockerImageNameConfig> {
-        return this.imageNameAsList.toArray();
+    get nodeTemplates():Array<INodeTemplateConfig> {
+        return this.dockerImageJson.listOfJSONObjectsNamed(`nodeTemplates`)
+            .map(imageJson => new NodeTemplateConfig(imageJson)).toArray();
     }
 
     get defaultCPUsPerContainer():number {
@@ -58,6 +33,6 @@ export class DockerClusterConfig implements IDockerClusterConfiguration {
     }
 
     toJSON(): any {
-        return null;
+        return this.dockerImageJson.toJSON();
     }
 }

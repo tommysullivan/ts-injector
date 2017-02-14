@@ -14,7 +14,7 @@ export interface IList<T> extends IJSONSerializable {
     firstWhere(predicate:(potentialMatch:T)=>boolean, defaultProvider?:()=>T):T;
     firstOrThrow(predicate:(potentialMatch:T)=>boolean, errorFactory:()=>Error):T;
     all(predicate:(originalItem:T)=>boolean):boolean;
-    map<T2>(mapFunction:(originalItem:T) => T2):IList<T2>;
+    map<T2>(mapFunction:(originalItem:T, index?:number) => T2):IList<T2>;
     filter(filterFunction:(originalItem:T)=>boolean):IList<T>;
     where(filterFunction:(originalItem:T)=>boolean):IList<T>;
     clone():IList<T>;
@@ -37,8 +37,10 @@ export interface IList<T> extends IJSONSerializable {
     everythingAfterIndex(index:number):IList<T>;
     hasAtLeastOne(predicate:(item:T)=>boolean):boolean;
     intersectionWith(other:IList<T>):IList<T>;
-    flatMapToFutureList<T2>(mapFunction:(i:T)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
-    mapToFutureList<T2>(mapFunction:(i:T)=>IFuture<T2>):IFuture<IList<T2>>;
+    flatMapToFutureList<T2>(mapFunction:(i:T, index?:number)=>IFuture<IList<T2>>):IFuture<IList<T2>>;
+    mapToFutureList<T2>(mapFunction:(i:T, index?:number)=>IFuture<T2>):IFuture<IList<T2>>;
     fold<T2>(operation:(t:T, t2:T2)=>T2, identity:T2):T2;
     sum:number;
+    zip<T2>(list1:IList<T2>):IList<[T, T2]>;
+    zip2<T2, T3>(list1:IList<T2>, list2:IList<T3>):IList<[T, T2, T3]>;
 }

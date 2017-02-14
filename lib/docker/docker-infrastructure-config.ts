@@ -1,8 +1,8 @@
 import {IDockerInfrastructureConfiguration} from "./i-docker-infrastructure-config";
-import {IMesosClusterConfiguration} from "./i-mesos-cluster-config";
-import {IDockerClusterConfiguration} from "./i-docker-cluster-config";
+import {IMesosEnvironmentConfiguration} from "./i-mesos-environment-configuration";
+import {IDockerClusterTemplateConfiguration} from "./i-docker-cluster-template-confiuration";
 import {IJSONObject} from "../typed-json/i-json-object";
-import {MesosClusterConfig} from "./mesos-cluster-config";
+import {MesosEnvironmentConfiguration} from "./mesos-environment-configuration";
 import {DockerClusterConfig} from "./docker-cluster-config";
 import {IList} from "../collections/i-list";
 
@@ -16,18 +16,18 @@ export class DockerInfrastructureConfiguration implements IDockerInfrastructureC
         return this.dockerInfraJSON.stringPropertyNamed(`dockerRepo`);
     }
 
-    get mesosClusters():Array<IMesosClusterConfiguration> {
-        return this.dockerInfraJSON.listOfJSONObjectsNamed('mesosClusters').map(
-            dockerJSON=>new MesosClusterConfig(dockerJSON)
+    get mesosClusters():Array<IMesosEnvironmentConfiguration> {
+        return this.dockerInfraJSON.listOfJSONObjectsNamed('mesosEnvironments').map(
+            dockerJSON=>new MesosEnvironmentConfiguration(dockerJSON)
         ).toArray();
     }
 
-    get dockerClusters(): Array<IDockerClusterConfiguration>{
+    get dockerClusterTemplates(): Array<IDockerClusterTemplateConfiguration>{
         return this.dockerImagesAsList.toArray();
     }
 
-    get dockerImagesAsList(): IList<IDockerClusterConfiguration> {
-        return this.dockerInfraJSON.listOfJSONObjectsNamed('dockerClusters').map(
+    get dockerImagesAsList(): IList<IDockerClusterTemplateConfiguration> {
+        return this.dockerInfraJSON.listOfJSONObjectsNamed('dockerClusterTemplates').map(
             imageJSON=>new DockerClusterConfig(imageJSON)
         )
     }

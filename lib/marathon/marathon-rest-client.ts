@@ -52,7 +52,7 @@ export class MarathonRestClient implements IMarathonRestClient {
         return restClientAsPromised.post(`/v2/groups`,jsonBody).then(response => response.bodyAsJsonObject.stringPropertyNamed(`deploymentId`));
     }
 
-    createApplicationWithGroup(groupName:string, applicationBody:IList<IJSONObject>) : IFuture<string> {
+    createApplicationsInGroup(groupName:string, applicationBody:IList<IJSONObject>) : IFuture<string> {
         const restClientAsPromised = this.rest.newRestClient(this.marathonURL);
         const jsonRequest = {
                 apps: applicationBody.toJSON()
@@ -83,9 +83,24 @@ export class MarathonRestClient implements IMarathonRestClient {
         const restClientAsPromised = this.rest.newRestClient(this.marathonURL);
         return restClientAsPromised.get(`/v2/groups/${groupName}`)
             .then(response => {
-                const appList = <IList<IJSONObject>>this.marathon.newMarathonResult(response.jsonBody).apps;
-                return appList.map(app => app.stringPropertyNamed(`id`));
+                const marathonResult = this.marathon.newMarathonResult(response.jsonBody);
+                const appIdsList = marathonResult.apps.map(app => app.stringPropertyNamed(`id`));
+                console.log(`IDs : ${appIdsList}`);
+                console.log(`All IDS: ${marathonResult.groups.flatMap(group => group.allApplicationIds)}`);
+                return appIdsList.append(marathonResult.groups.flatMap(group => group.allApplicationIds));
             })
+    }
+
+    getTaskStatus(appId:string):IFuture<string> {
+        const restClientAsPromised = this.rest.newRestClient(this.marathonURL);
+        return restClientAsPromised.get(`/v2/apps/${appId}`)
+            .then(response => this.marathon.newMarathonResult(response.jsonHash).taskState)
+    }
+
+    getResult(appId:string):IFuture<IMarathonResult> {
+        const restClientAsPromised = this.rest.newRestClient(this.marathonURL);
+        return restClientAsPromised.get(`/v2/apps/${appId}`)
+            .then(response => this.marathon.newMarathonResult(response.jsonHash))
     }
 
 }

@@ -1,17 +1,15 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
 import {ClusterTestingConfiguration} from "../cluster-testing/cluster-testing-configuration";
-import {DockerLauncher} from "../docker/docker-launcher";
 import {IDockerInfrastructureConfiguration} from "../docker/i-docker-infrastructure-config";
 import {DockerInfrastructureConfiguration} from "../docker/docker-infrastructure-config";
-import {IDockerLauncher} from "../docker/i-docker-launcher";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 import {IMarathonRestClient} from "../marathon/i-marathon-rest-client";
-import {IDictionary} from "../collections/i-dictionary";
 import {IList} from "../collections/i-list";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
+import {NotImplementedError} from "../errors/not-implemented-error";
 
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps()
@@ -19,7 +17,6 @@ export class DockerSteps {
 
     private dockerInfraConfig: IDockerInfrastructureConfiguration;
     private clusterTestingConfig: IClusterTestingConfiguration;
-    private dockerLauncher:IDockerLauncher;
     private imageName:string;
     private marathonRestClient:IMarathonRestClient;
     private createdImages:IList<string>;
@@ -39,21 +36,12 @@ export class DockerSteps {
     @then(/^I verify the Json being sent to marathon is the following$/)
     public verifyMarathonJson(jsonToSend): PromisedAssertion {
         const formattedJson = JSON.parse(jsonToSend);
-        this.dockerLauncher = new DockerLauncher(this.dockerInfraConfig, this.clusterTestingConfig, $.typedJSON, $.collections, $.marathon, $.uuidGenerator, $.futures);
-        const envVariables = <IDictionary<string>>$.collections.newEmptyDictionary();
-        envVariables.add(`generatedDockerName`, "testdockername");
-        envVariables.add(`clusterName`, `testCluster`);
-        return $.expect(formattedJson).to.deep.equals(this.dockerLauncher.generateJsonToLaunchDocker(this.dockerLauncher.currentDockerImageNames.first, envVariables).toJSON());
+        throw new NotImplementedError();
     }
 
     @then(/^I launch the docker image on marathon$/)
     public launchDockerImage(): PromisedAssertion {
-        const result = this.dockerLauncher.launch(null)
-            .then(name => {
-            console.log(name);
-            this.imageName = name;
-        });
-        return $.expect(result).to.eventually.be.fulfilled;
+        throw new NotImplementedError();
     }
 
     @then(/^I verify the image was created was "([^"]*)"$/)

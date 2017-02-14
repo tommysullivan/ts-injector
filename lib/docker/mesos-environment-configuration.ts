@@ -1,7 +1,7 @@
-import {IMesosClusterConfiguration} from "./i-mesos-cluster-config";
+import {IMesosEnvironmentConfiguration} from "./i-mesos-environment-configuration";
 import {IJSONObject} from "../typed-json/i-json-object";
 
-export class MesosClusterConfig implements IMesosClusterConfiguration {
+export class MesosEnvironmentConfiguration implements IMesosEnvironmentConfiguration {
 
     constructor(
       private mesosClusterJson:IJSONObject
@@ -48,7 +48,15 @@ export class MesosClusterConfig implements IMesosClusterConfiguration {
     }
 
     get mesosSlaves():Array<string> {
-          return this.mesosClusterJson.listNamed<string>(`mesosSlaves`).toArray();
+        return this.mesosClusterJson.listNamed<string>(`mesosSlaves`).toArray();
+    }
+
+    get dockerImagesUserName(): string {
+        return this.mesosClusterJson.stringPropertyNamed(`dockerImagesUserName`);
+    }
+
+    get dockerImagesPassword(): string {
+        return this.mesosClusterJson.stringPropertyNamed(`dockerImagesPassword`);
     }
 
     toJSON(): any {

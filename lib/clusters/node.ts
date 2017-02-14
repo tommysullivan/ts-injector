@@ -27,7 +27,9 @@ import {IFutures} from "../futures/i-futures";
 import {IServiceGroupRefConfiguration} from "../services/i-service-group-ref-config";
 import {IServiceGroupConfig} from "../services/i-service-group-config";
 import {IJSONValue} from "../typed-json/i-json-value";
+import {NotImplementedError} from "../errors/not-implemented-error";
 
+//TODO: Refactor out common Node / MesosNode methods into base class / composition
 export class Node implements INode {
     constructor(
         private nodeConfiguration:INodeConfiguration,
@@ -42,7 +44,8 @@ export class Node implements INode {
         private releasePhase:IPhase,
         private collections:ICollections,
         private operatingSystems:IOperatingSystems,
-        private serviceGroupConfig:IList<IServiceGroupConfig>
+        private serviceGroupConfig:IList<IServiceGroupConfig>,
+
     ) {}
 
     executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IFuture<ISSHResult> {
@@ -57,6 +60,11 @@ export class Node implements INode {
     readAsBinary(remotePath:string):IFuture<ArrayBuffer> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.readAsBinary(remotePath));
+    }
+
+
+    get actualServiceNames():IFuture<IList<string>> {
+        throw new NotImplementedError();
     }
 
     read(remotePath:string):IFuture<string> {
@@ -227,14 +235,14 @@ export class Node implements INode {
 
     private referencedFeatureFiles(config:IServiceGroupRefConfiguration):Array<string> {
         console.log(this.serviceGroupConfig.map(service => service.id));
-        return this.serviceGroupConfig.filter(groupConfig => groupConfig.id == config.serviceGroupRef).first.serviceNames
+        return this.serviceGroupConfig.firstWhere(groupConfig => groupConfig.id == config.serviceGroupRef).serviceNames
     }
 
     isHostingService(serviceName:string):boolean {
         return this.listOfServiceNames.contain(serviceName);
     }
 
-    get serviceNames():IList<string> {
+    get expectedServiceNames():IList<string> {
         return this.listOfServiceNames.clone();
     }
 

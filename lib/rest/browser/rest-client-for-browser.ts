@@ -5,17 +5,17 @@ import {IRestResponse} from "../common/i-rest-response";
 import {IHash} from "../../collections/i-hash";
 import {IJSONValue, IJSONHash} from "../../typed-json/i-json-value";
 import {IJSONParser} from "../../typed-json/i-json-parser";
+import {NotImplementedError} from "../../errors/not-implemented-error";
 
 export class RestClientForBrowser implements IRestClient {
     constructor(
         private futures:IFutures,
         private $:any,
-        private jsonParser:IJSONParser,
         private newRestResponse:(nativeJQueryResponseBody:string, originalURL:string)=>IRestResponse
     ) {}
 
     postFormEncodedBody(path: string, formKeyValuePairs: IHash<string>): IFuture<IRestResponse> {
-        throw new Error('not implemented');
+        throw new NotImplementedError();
     }
 
     get(path: string): IFuture<IRestResponse> {
@@ -23,15 +23,15 @@ export class RestClientForBrowser implements IRestClient {
     }
 
     getPlainText(path: string): IFuture<IRestResponse> {
-        throw new Error('not impl');
+        throw new NotImplementedError();
     }
 
     getWithQueryString(path: string, queryStringParams: IJSONHash): IFuture<IRestResponse> {
-        throw new Error('not impl');
+        throw new NotImplementedError();
     }
 
     patch(path: string, jsonObjectToStringify: IJSONValue): IFuture<IRestResponse> {
-        throw new Error('not impl');
+        throw new NotImplementedError();
     }
 
     getJSONWithSpecificContentType(path:string, contentType:string):IFuture<IRestResponse> {

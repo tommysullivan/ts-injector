@@ -17,7 +17,8 @@ export interface INode {
     verifyMapRNotInstalled():IFuture<ISSHResult>;
     verifyMapRIsInstalled():IFuture<ISSHResult>;
     isHostingService(serviceName:string):boolean;
-    serviceNames:IList<string>;
+    expectedServiceNames:IList<string>;
+    actualServiceNames:IFuture<IList<string>>;
     newAuthedMCSSession():IFuture<IMCSRestSession>;
     newAuthedInstallerSession():IFuture<IInstallerRestSession>;
     newOpenTSDBRestClient():IOpenTSDBRestClient;

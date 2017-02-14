@@ -19,10 +19,10 @@ import {IUUIDGenerator} from "../uuid/i-uuid-generator";
 import {ITesting} from "../testing/i-testing";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IURLCalculator} from "../testing/i-url-calculator";
-import {IFutures} from "../futures/i-futures";
 import {IDockerCliHelper} from "./i-docker-cli-helper";
-import {DockerCliHelper} from "./dockerCliHelper";
-import {IDockerLauncher} from "../docker/i-docker-launcher";
+import {DockerCliHelper} from "./docker-cli-helper";
+import {IDocker} from "../docker/i-docker";
+import {IFutures} from "../futures/i-futures";
 
 export class Cli {
 
@@ -35,14 +35,14 @@ export class Cli {
         private clusters:IClusters,
         private clusterTesting:IClusterTesting,
         private cliConfig:ICliConfig,
-        private futures:IFutures,
         private fileSystem:IFileSystem,
         private clusterTestingConfiguration:IClusterTestingConfiguration,
         private uuidGenerator:IUUIDGenerator,
         private testing:ITesting,
         private jsonSerializer:IJSONSerializer,
         private urlCalculator:IURLCalculator,
-        private dockerLauncher:IDockerLauncher
+        private docker:IDocker,
+        private futures:IFutures
     ) {}
 
     newCliHelper():CliHelper {
@@ -86,7 +86,10 @@ export class Cli {
             this.clusters,
             this.collections,
             this.clusterTesting.newMultiClusterTester(),
-            this.testing
+            this.testing,
+            this.clusterTestingConfiguration,
+            this.futures,
+            this.docker
         )
     }
 
@@ -108,7 +111,12 @@ export class Cli {
     }
 
     newDockerCliHelper():IDockerCliHelper {
-        return new DockerCliHelper(this.dockerLauncher);
+        return new DockerCliHelper(
+            this.docker,
+            this.process,
+            this.console,
+            this.newCliHelper()
+        );
     }
 
     newExecutor():CliExecutor {
@@ -121,8 +129,7 @@ export class Cli {
             this.collections,
             this.clusterTestingConfiguration,
             this.newCliHelper(),
-            this.process,
-            this.newDockerCliHelper()
+            this.process
         );
     }
 }

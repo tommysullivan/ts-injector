@@ -1,13 +1,14 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {INode} from "../clusters/i-node";
 import {ISSHSession} from "../ssh/i-ssh-session";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {ISSHError} from "../ssh/i-ssh-error";
 import {SharedData} from "../support/shared-data";
+import {NotImplementedError} from "../errors/not-implemented-error";
 
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps([SharedData])
@@ -37,7 +38,7 @@ export class SSHSteps {
 
     @when(/^within my ssh session, I download "([^"]*)" to "([^"]*)" from the repository for the "([^"]*)" package family/)
     downloadFromPackageFamilyRepoViaCurlUsingExistingSSHSession(fileToRetrieve:string, destinationDirectory:string, packageFamily:string):PromisedAssertion {
-        throw new Error('not impl');
+        throw new NotImplementedError();
         // const commands = $.collections.newList<string>([
         //     `curl ${this.sshServiceHost.repositoryForPackageFamily(packageFamily).url}${fileToRetrieve} > ${destinationDirectory}${fileToRetrieve}`,
         //     `chmod 744 ${destinationDirectory}${fileToRetrieve}`

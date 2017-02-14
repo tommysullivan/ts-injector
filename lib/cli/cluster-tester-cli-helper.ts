@@ -9,6 +9,10 @@ import {IMultiClusterTester} from "../cluster-testing/i-multi-cluster-tester";
 import {IClusters} from "../clusters/i-clusters";
 import {IFuture} from "../futures/i-future";
 import {ITesting} from "../testing/i-testing";
+import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
+import {IClusterRunningInMesos} from "../docker/i-cluster-running-in-mesos";
+import {IFutures} from "../futures/i-futures";
+import {IDocker} from "../docker/i-docker";
 
 export class ClusterTesterCliHelper {
 
@@ -20,10 +24,13 @@ export class ClusterTesterCliHelper {
         private clusters:IClusters,
         private collections:ICollections,
         private multiClusterTester:IMultiClusterTester,
-        private testing:ITesting
+        private testing:ITesting,
+        private clusterTestingConfiguration:IClusterTestingConfiguration,
+        private futures:IFutures,
+        private docker:IDocker
     ) {}
 
-    runFeatureSet(featureSetId:string, argv:any){
+    runFeatureSet(featureSetId:string, argv:any): void{
         const featureSet = this.cucumber.featureSets.setWithId(featureSetId);
         const cucumberPassThruCommands = featureSet.featureFilesInExecutionOrder.append(
             this.collections.newList(argv._)
@@ -67,23 +74,46 @@ export class ClusterTesterCliHelper {
         });
     }
 
+    private createOnDemandClusters():IFuture<IList<IClusterRunningInMesos>> {
+        const onDemandClusterCLIArgs = this.process.environmentVariableNamed('onDemandClusters').split(',');
+        return this.collections.newList(onDemandClusterCLIArgs).mapToFutureList(onDemandCLIArg => {
+            const [mesosEnvId, templateId] = onDemandCLIArg.split(':');
+            return this.docker.newClusterTemplateFromConfig(templateId).provision(this.docker.newMesosEnvironmentFromConfig(mesosEnvId));
+        })
+    }
+
+    private destroyOnDemandClusters(clusterIds: IList<string>): IFuture<IList<string>> {
+        return clusterIds.filter(id => id.indexOf(`:`)>-1).mapToFutureList(clusterId => {
+            const [mesosEnvironmentId, marathonApplicationId] = clusterId.split(':');
+            return this.docker.newMesosEnvironmentFromConfig(mesosEnvironmentId)
+                .loadCluster(marathonApplicationId)
+                .then(cluster => cluster.destroy())
+        })
+    }
+
     public runCucumberOncePerClusterId(cucumberPassThruCommands:IList<string>):IFuture<any> {
-        return this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(cucumberPassThruCommands)
-            .then(clusterTestResults => {
-                const allPassed = clusterTestResults.all(t=>t.passed);
-                if(clusterTestResults.length > 1) {
-                    this.console.log(`Multi Cluster Test of ${clusterTestResults.length} clusters ${allPassed ? 'Passed' : 'Failed'}`);
-                    clusterTestResults.forEach(result=>{
-                        this.console.log(`Cluster ${result.clusterId}: ${result.passed ? 'passed' : 'failed'}`);
-                    })
-                }
-                this.process.exit(allPassed ? 0 : 1);
-            });
+        const futureOnDemandClusters = this.process.environmentVariables.hasKey('onDemandClusters')
+            ? this.createOnDemandClusters()
+            : this.futures.newFutureForImmediateValue(this.collections.newEmptyList());
+
+        return futureOnDemandClusters.then(onDemandClusters => {
+            const clusterIds = onDemandClusters.map(c=>c.id).append(this.collections.newList(this.clusterTestingConfiguration.clusterIds));
+            return this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(clusterIds, cucumberPassThruCommands)
+                .then(clusterTestResults => {
+                    const allPassed = clusterTestResults.all(t=>t.passed);
+                    if(clusterTestResults.length > 1) {
+                        this.console.log(`Multi Cluster Test of ${clusterTestResults.length} clusters ${allPassed ? 'Passed' : 'Failed'}.`);
+                    } else {
+                        this.console.log(`Test ${clusterTestResults.first.passed ? 'passed' : 'failed'}`)
+                    }
+                    return this.destroyOnDemandClusters(clusterIds).then(_ => this.process.exit(allPassed ? 0 : 1));
+                });
+        });
     }
 
     private nodesRunningRequestedServices(cluster:ICluster):IList<INode> {
         const requisiteServiceNames = this.collections.newList<string>(this.process.environmentVariableNamed('nodesWith').split(','));
-        return cluster.nodes.where(n=>n.serviceNames.containAll(requisiteServiceNames));
+        return cluster.nodes.where(n=>n.expectedServiceNames.containAll(requisiteServiceNames));
     }
 
 }

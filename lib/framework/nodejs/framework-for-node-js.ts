@@ -2,16 +2,11 @@ import {IESXI} from "../../esxi/i-esxi";
 import {ESXI} from "../../esxi/esxi";
 import {IClusters} from "../../clusters/i-clusters";
 import {Clusters} from "../../clusters/clusters";
-import {ICluster} from "../../clusters/i-cluster";
 import {INodeWrapperFactory} from "../../node-js-wrappers/i-node-wrapper-factory";
 import {NodeWrapperFactory} from "../../node-js-wrappers/node-wrapper-factory";
 import {ConfigLoader} from "./config-loader";
 import {Futures} from "../../futures/futures";
 import {IFutures} from "../../futures/i-futures";
-import {IExpectationWrapper} from "../../chai/i-expectation-wrapper";
-import {Assertion} from "../../chai/assertion";
-import {IList} from "../../collections/i-list";
-import {IFuture} from "../../futures/i-future";
 import {IClusterTesting} from "../../cluster-testing/i-cluster-testing";
 import {ClusterTesting} from "../../cluster-testing/cluster-testing";
 import {ITesting} from "../../testing/i-testing";
@@ -30,10 +25,10 @@ import {IFramework} from "../common/i-framework";
 import {Framework} from "../common/framework";
 import {Grafana} from "../../grafana/grafana";
 import {IGrafana} from "../../grafana/i-grafana";
-import {IDockerLauncher} from "../../docker/i-docker-launcher";
-import {DockerLauncher} from "../../docker/docker-launcher";
 import {IMarathon} from "../../marathon/i-marathon";
 import {Marathon} from "../../marathon/marathon";
+import {IDocker} from "../../docker/i-docker";
+import {Docker} from "../../docker/docker";
 
 export class FrameworkForNodeJS extends Framework implements IFramework {
     constructor(
@@ -43,45 +38,12 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
         super();
     }
 
-    //TODO: Eliminate
-    get clusterUnderTest():ICluster {
-        return this.clusters.newCluster(
-            this.clusters.clusterConfigurationWithId(this.clusterId),
-            this.testing.defaultReleasePhase
-        );
-    }
-
     get grafana():IGrafana {
         return new Grafana(
             this.frameworkConfig.grafana,
             this.fileSystem,
             this.rest
         );
-    }
-
-    //TODO: Eliminate
-    get clusterId():string {
-        return this.process.environmentVariableNamed('clusterId');
-    }
-
-    //TODO: Eliminate
-    private get expectationWrapper():IExpectationWrapper {
-        return this.cucumber.newExpectationWrapper();
-    }
-
-    //TODO: Eliminate
-    expect(target:any, message?:string):Assertion {
-        return this.expectationWrapper.expect(target, message);
-    }
-
-    //TODO: Eliminate
-    expectAll<T>(target:IList<IFuture<T>>):Assertion {
-        return this.expectationWrapper.expectAll(target);
-    }
-
-    //TODO: Eliminate
-    expectEmptyList<T>(list:IList<T>):void {
-        return this.expectationWrapper.expectEmptyList(list);
     }
 
     get esxi():IESXI {
@@ -126,7 +88,8 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.frameworkConfig,
             this.typedJSON.newJSONSerializer(),
             this.testing,
-            this.testing.newUrlCalculator()
+            this.testing.newUrlCalculator(),
+            this.docker
         );
     }
 
@@ -147,18 +110,6 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
         );
     }
 
-    get dockerLauncher():IDockerLauncher {
-        return new DockerLauncher(
-            this.frameworkConfig.dockerInfrastructureConfig,
-            this.frameworkConfig.clusterTesting,
-            this.typedJSON,
-            this.collections,
-            this.marathon,
-            this.uuidGenerator,
-            this.futures
-        )
-    }
-
     get cli():Cli {
         return new Cli(
             this.process,
@@ -169,14 +120,34 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.clusters,
             this.clusterTesting,
             this.frameworkConfig.cli,
-            this.futures,
             this.fileSystem,
             this.frameworkConfig.clusterTesting,
             this.uuidGenerator,
             this.testing,
             this.typedJSON.newJSONSerializer(),
             this.testing.newUrlCalculator(),
-            this.dockerLauncher
+            this.docker,
+            this.futures
+        );
+    }
+
+    get docker():IDocker {
+        return new Docker(
+            this.frameworkConfig.dockerInfrastructureConfig,
+            this.marathon,
+            this.uuidGenerator,
+            this.collections,
+            this.testing,
+            this.sshAPI.newSSHClient(),
+            this.mcs,
+            this.typedJSON,
+            this.versioning,
+            this.installer,
+            this.openTSDB,
+            this.elasticSearch,
+            this.operatingSystems,
+            this.packaging,
+            this.futures,
         );
     }
 
@@ -191,7 +162,10 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.typedJSON.newJSONSerializer(),
             this.nodeWrapperFactory.path,
             this.process,
-            this.console
+            this.console,
+            this.docker,
+            this.frameworkConfig.clusterTesting,
+            this.clusters
         );
     }
 
@@ -293,7 +267,6 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
         return new Marathon(
             this.rest,
             this.typedJSON,
-            this.sshAPI,
             this.collections
         );
     }

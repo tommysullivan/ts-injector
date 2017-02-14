@@ -1,5 +1,5 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {NodeConfiguration} from "../nodes/node-configuration";
 import {INodeConfiguration} from "../nodes/i-node-configuration";
 import {ServiceGroupConfig} from "../services/service-group-config";
@@ -8,7 +8,7 @@ import {Node} from "../clusters/node";
 import {IList} from "../collections/i-list";
 import {IJSONHash} from "../typed-json/i-json-value";
 
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps()
@@ -29,7 +29,7 @@ export class NodeServiceSteps {
     public verifyServcieNamesReturned(listOfServiceNames:string) {
         var expectedList = $.collections.newList(listOfServiceNames.split(`\n`));
         const nodeUnderTest = new Node(this.nodeConfigObject, null, null, null, null, null, null, null, null, null, $.collections, null, this.serviceGroupObject);
-        var serviceNamesAsList = nodeUnderTest.serviceNames;
+        var serviceNamesAsList = nodeUnderTest.expectedServiceNames;
         $.expect(serviceNamesAsList.containAll(expectedList)).to.be.true;
     };
 

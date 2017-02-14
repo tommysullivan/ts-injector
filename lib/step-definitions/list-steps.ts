@@ -3,10 +3,10 @@ import {IList} from "../collections/i-list";
 import {IRepository} from "../packaging/i-repository";
 import {IFuture} from "../futures/i-future";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 
 declare var module:any;
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 
 @steps()
 export class ListSteps {

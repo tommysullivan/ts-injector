@@ -1,29 +1,24 @@
 import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
 import {ICucumberTestResult} from "../cucumber/i-cucumber-test-result";
-import {IClusterConfiguration} from "../clusters/i-cluster-configuration";
-import {IList} from "../collections/i-list";
 import {IFrameworkConfiguration} from "../framework/common/i-framework-configuration";
-import {IClusterTestResult} from "./i-cluster-test-result";
 import {IJSONSerializer} from "../typed-json/i-json-serializer";
-import {INodeLog} from "../clusters/i-node-log";
 import {ITestRunnerEnvironment} from "../testing/i-test-runner-environment";
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
 import {IJSONValue} from "../typed-json/i-json-value";
+import {ITestResult} from "../testing/i-test-result";
 
-export class ClusterTestResult implements IClusterTestResult {
+export class ClusterTestResult implements ITestResult {
 
     constructor(
         private cucumberTestResult:ICucumberTestResult,
         private frameworkConfiguration:IFrameworkConfiguration,
         private versionGraph:IClusterVersionGraph,
-        private clusterConfiguration:IClusterConfiguration,
+        private clusterConfiguration:IJSONSerializable,
         private logs:IJSONSerializable,
         private id:string,
         private jsonSerializer:IJSONSerializer,
         private testRunnerEnvironment:ITestRunnerEnvironment
     ) {}
-
-    get clusterId():string { return this.clusterConfiguration.id; }
 
     toJSON():IJSONValue {
         const serialize = (o) => this.jsonSerializer.serialize(o);

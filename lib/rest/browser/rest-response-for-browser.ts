@@ -2,6 +2,7 @@ import {IRestResponse} from "../common/i-rest-response";
 import {IJSONObject} from "../../typed-json/i-json-object";
 import {IJSONArray, IJSONHash, IJSONValue} from "../../typed-json/i-json-value";
 import {IJSONParser} from "../../typed-json/i-json-parser";
+import {NotImplementedError} from "../../errors/not-implemented-error";
 
 export class RestResponseForBrowser implements IRestResponse {
     constructor(
@@ -11,7 +12,7 @@ export class RestResponseForBrowser implements IRestResponse {
     ) {}
 
     get isError():boolean {
-        throw new Error('not impl');
+        throw new NotImplementedError();
     }
 
     get originalUrl():string {
@@ -35,11 +36,11 @@ export class RestResponseForBrowser implements IRestResponse {
     }
 
     get bodyAsJsonObject():IJSONObject {
-        throw new Error('not impl');
+        throw new NotImplementedError();
     }
 
     get statusCode():number {
-        throw new Error('not impl');
+        throw new NotImplementedError();
     }
 
     toJSON(): IJSONValue {

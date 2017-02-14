@@ -1,6 +1,6 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import {IFramework} from "../framework/common/i-framework";
-declare const $:IFramework;
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps()

@@ -34,6 +34,10 @@ import {IJSONSerializer} from "../typed-json/i-json-serializer";
 import {IPath} from "../node-js-wrappers/i-path";
 import {CucumberCli} from "./cucumber-cli";
 import {IFutures} from "../futures/i-futures";
+import {IClusterUnderTestReferencer} from "../cluster-testing/i-cluster-under-test-referencer";
+import {IDocker} from "../docker/i-docker";
+import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
+import {IClusters} from "../clusters/i-clusters";
 
 export class Cucumber implements ICucumber {
     constructor(
@@ -46,7 +50,10 @@ export class Cucumber implements ICucumber {
         private jsonSerializer:IJSONSerializer,
         private path:IPath,
         private process:IProcess,
-        private console:IConsole
+        private console:IConsole,
+        private docker:IDocker,
+        private clusterTestingConfiguration:IClusterTestingConfiguration,
+        private clusters:IClusters
     ) {}
 
     newCucumberCli():CucumberCli {
@@ -60,13 +67,41 @@ export class Cucumber implements ICucumber {
         );
     }
 
-    get world():Function {
-        const timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
-        return function setupCucumberWorldObject() {
-            this.setDefaultTimeout(
-                timeout
-            );
-        }
+   world(clusterUnderTestReferencer:IClusterUnderTestReferencer):Function {
+       const timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
+       if(this.isClusterIdInExistingClusters()){
+           const clusterUnderTest = this.clusterTestingConfiguration.clusterIds.length > 0
+               ? this.clusters.clusterForId(this.clusterTestingConfiguration.clusterIds[0])
+               : null;
+           return function setupCucumberWorldObject() {
+               this.Before(() => clusterUnderTestReferencer.clusterUnderTest = clusterUnderTest);
+               this.setDefaultTimeout(timeout);
+           }
+       }
+       else {
+           console.log(this.getMesosEnvIdFromClusterId());
+           console.log(this.getMarathonAppIdFromClusterId());
+           const loadResult = this.docker.newMesosEnvironmentFromConfig(this.getMesosEnvIdFromClusterId())
+               .loadCluster(this.getMarathonAppIdFromClusterId());
+           return function setupCucumberWorldObject() {
+               this.Before(() => loadResult.then(cluster => clusterUnderTestReferencer.clusterUnderTest = cluster));
+               this.setDefaultTimeout(timeout);
+           }
+       }
+   }
+
+    isClusterIdInExistingClusters(): boolean {
+        return this.clusterTestingConfiguration.clusterIds.length > 0
+            ? this.clusters.allIds.contain(this.clusterTestingConfiguration.clusterIds[0])
+            : true;
+    }
+
+    getMesosEnvIdFromClusterId(): string {
+        return this.clusterTestingConfiguration.clusterIds[0].split(`:`)[0];
+    }
+
+    getMarathonAppIdFromClusterId(): string {
+        return this.clusterTestingConfiguration.clusterIds[0].split(`:`)[1];
     }
 
     newExpectationWrapper():IExpectationWrapper {

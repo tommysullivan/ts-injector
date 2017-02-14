@@ -1,7 +1,7 @@
 import {binding as steps, given, when, then} from "cucumber-tsflow";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps()

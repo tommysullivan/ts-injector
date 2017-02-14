@@ -1,11 +1,11 @@
 import {IJSONObject} from "../typed-json/i-json-object";
-import {IPath} from "../node-js-wrappers/i-path";
 import {IProcess} from "../node-js-wrappers/i-process";
 import {ICollections} from "../collections/i-collections";
 import {IClusterTestingConfiguration} from "./i-cluster-testing-configuration";
 import {ClusterInstallerConfig} from "../installer/cluster-installer-config";
 import {IClusterInstallerConfig} from "../installer/i-cluster-installer-config";
 import {ILogCaptureConfiguration} from "../clusters/i-log-capture-configuration";
+import {NotImplementedError} from "../errors/not-implemented-error";
 
 export class ClusterTestingConfiguration implements IClusterTestingConfiguration {
     constructor(
@@ -32,14 +32,5 @@ export class ClusterTestingConfiguration implements IClusterTestingConfiguration
                     ? [this.process.environmentVariableNamed('clusterId')]
                     : []
         ).toArray();
-    }
-
-    get defaultDockerId():string {
-        return this.configJSON.stringPropertyNamed(`defaultDockerId`);
-    }
-
-
-    get defaultMesosClusterId(): string {
-        return this.configJSON.stringPropertyNamed(`defaultMesosClusterId`);
     }
 }

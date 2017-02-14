@@ -1,12 +1,12 @@
 import { binding as steps, given } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 import {INode} from "../clusters/i-node";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {IList} from "../collections/i-list";
 import {ISSHResult} from "../ssh/i-ssh-result";
 import {IFuture} from "../futures/i-future";
 
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps()

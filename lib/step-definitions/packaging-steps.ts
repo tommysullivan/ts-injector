@@ -1,5 +1,5 @@
 import { binding as steps, given, when, then } from "cucumber-tsflow";
-import {IFramework} from "../framework/common/i-framework";
+import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {IRepositories} from "../packaging/i-repositories";
 import {IPackageSets} from "../packaging/i-package-sets";
 import {IRepository} from "../packaging/i-repository";
@@ -8,7 +8,7 @@ import {IPackage} from "../packaging/i-package";
 import {IReleases} from "../releasing/i-releases";
 import {IJSONArray} from "../typed-json/i-json-value";
 
-declare const $:IFramework;
+declare const $:ICucumberStepHelper;
 declare const module:any;
 
 @steps()

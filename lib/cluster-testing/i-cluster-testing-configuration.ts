@@ -6,6 +6,4 @@ export interface IClusterTestingConfiguration extends IJSONSerializable {
     clusterInstaller:IClusterInstallerConfig;
     clusterIds:Array<string>;
     logsToCapture:Array<ILogCaptureConfiguration>;
-    defaultDockerId:string;
-    defaultMesosClusterId:string;
 }

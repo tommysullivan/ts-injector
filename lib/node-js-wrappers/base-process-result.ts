@@ -1,6 +1,7 @@
 import {IProcessResult} from "./i-process-result";
 import {IList} from "../collections/i-list";
 import {IJSONValue} from "../typed-json/i-json-value";
+import {NotImplementedError} from "../errors/not-implemented-error";
 
 export class BaseProcessResult implements IProcessResult {
     constructor(
@@ -30,18 +31,18 @@ export class BaseProcessResult implements IProcessResult {
     }
 
     get stdoutLines():IList<string> {
-        throw new Error("not implemented in base process result");
+        throw new NotImplementedError();
     }
 
     get stderrLines():IList<string> {
-        throw new Error("not implemented in base process result");
+        throw new NotImplementedError();
     }
 
     get allOutputLines():IList<string> {
-        throw new Error("not implemented in base process result");
+        throw new NotImplementedError();
     }
 
     toJSON():IJSONValue {
-        throw new Error("not implemented in base process result");
+        throw new NotImplementedError();
     }
 }

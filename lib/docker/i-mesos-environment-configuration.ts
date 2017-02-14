@@ -1,6 +1,6 @@
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
 
-export interface IMesosClusterConfiguration extends IJSONSerializable {
+export interface IMesosEnvironmentConfiguration extends IJSONSerializable {
     id:string;
     mesosMasterIP:string;
     mesosMasterPort:string;
@@ -12,4 +12,6 @@ export interface IMesosClusterConfiguration extends IJSONSerializable {
     maprNfsServerIP:string;
     dockerVolumeMountPath?:string;
     dockerVolumeLocalPath?:string;
+    dockerImagesUserName?:string;
+    dockerImagesPassword?:string;
 }

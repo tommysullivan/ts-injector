@@ -20,8 +20,7 @@ export class CliExecutor {
         private collections:ICollections,
         private clusterTestingConfiguration:IClusterTestingConfiguration,
         private cliHelper:CliHelper,
-        private process:IProcess,
-        private dockerCliHelper:IDockerCliHelper
+        private process:IProcess
     ) {}
 
     executeShowFeatureSets(detail:boolean):void {
@@ -60,7 +59,7 @@ export class CliExecutor {
         this.clusterCliHelper.showESXIForCluster(clusterId);
     }
 
-    runFeatureSetId(featureSetId, argv:any):void {
+    runFeatureSetId(featureSetId:string, argv:any):void {
         this.clusterTesterCliHelper.runFeatureSet(featureSetId, argv);
     }
 
@@ -68,9 +67,7 @@ export class CliExecutor {
         const cucumberPassThruCommands = this.collections.newList(argv._)
             .everythingAfterIndex(1).map(val => val.toString());
 
-        //TODO: construct cluster object run on docker
-
-        const futureResult = this.clusterTestingConfiguration.clusterIds.length==0
+        const futureResult = this.clusterTestingConfiguration.clusterIds.length==0 && !this.process.environmentVariables.hasKey('onDemandClusters')
             ? this.cucumberCliHelper.runNonClusterCucumberTest(cucumberPassThruCommands)
             : this.clusterTesterCliHelper.runCucumberOncePerClusterId(cucumberPassThruCommands);
 
@@ -110,23 +107,5 @@ export class CliExecutor {
     
     runClusterGenerator():void {
         this.clusterGeneratorCliHelper.generateClusterJson();
-    }
-
-    runDockerLauncher(imageName:string): void {
-        const futureResult = this.dockerCliHelper.launchDockerImage(imageName).then(result =>
-        console.log(`Launched Image ID : ${result}`));
-        futureResult.catch(e => {
-            this.cliHelper.logError(e);
-            this.process.exit(1);
-        });
-    }
-
-    runKillDockerImage(imageName:string): void {
-        const futureResult = this.dockerCliHelper.killDockerImage(imageName).then(result =>
-            console.log(`Killed Image : ${result}`));
-        futureResult.catch(e => {
-            this.cliHelper.logError(e);
-            this.process.exit(1);
-        });
     }
 }

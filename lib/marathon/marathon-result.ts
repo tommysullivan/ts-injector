@@ -3,6 +3,8 @@ import {ICollections} from "../collections/i-collections";
 import {ITypedJSON} from "../typed-json/i-typed-json";
 import {IList} from "../collections/i-list";
 import {IJSONObject} from "../typed-json/i-json-object";
+import {IMarathonGroupResult} from "./i-marathon-group-result";
+import {MarathonGroupResult} from "./marathon-group-result";
 
 export class MarathonResult implements IMarathonResult {
     constructor(
@@ -30,8 +32,15 @@ export class MarathonResult implements IMarathonResult {
     }
 
     get tasks():IList<IJSONObject> {
-        const apps = this.apps.first;
-        return apps.listOfJSONObjectsNamed(`tasks`);
+        const app = this.apps.first;
+        return app.listOfJSONObjectsNamed(`tasks`);
+    }
+
+    get taskState():string {
+        return this.tasks.length > 0
+            ? this.tasks.first.stringPropertyNamed(`state`)
+            : `WAITING`;
+
     }
 
     get ipAddressOfLaunchedImage(): string {
@@ -42,5 +51,13 @@ export class MarathonResult implements IMarathonResult {
         if(!this.typedJSONResult.hasPropertyNamed(`id`))
             throw new Error(`Id not found in the result`);
         return this.typedJSONResult.stringPropertyNamed(`id`);
+    }
+
+    get groups():IList<IMarathonGroupResult> {
+        return this.typedJSONResult.listOfJSONObjectsNamed(`groups`).map(group => new MarathonGroupResult(group));
+    }
+
+    get labels():IJSONObject {
+        return this.apps.first.jsonObjectNamed(`labels`);
     }
 }

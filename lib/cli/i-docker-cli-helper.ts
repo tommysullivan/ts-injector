@@ -1,5 +1,6 @@
 import {IFuture} from "../futures/i-future";
+
 export interface IDockerCliHelper {
-    launchDockerImage(imageId:string):IFuture<string>;
-    killDockerImage(imageId:string):IFuture<string>;
+    provisionCluster(imageId:string, mesosEnvironmentId:string):IFuture<string>;
+    destroyCluster(clusterId:string):IFuture<string>;
 }
