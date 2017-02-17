@@ -158,6 +158,7 @@ export class SSHSession implements ISSHSession {
     }
 
     readAsBinary(remotePath:string):IFuture<ArrayBuffer> {
+        this.fileSystem.makeDirRecursive(this.temporaryStorageLocation);
         const localPath = this.path.join(this.temporaryStorageLocation, this.uuidGenerator.v4());
         return this.download(remotePath, localPath)
             .then(_ => this.fileSystem.readFileAsBinary(localPath))
