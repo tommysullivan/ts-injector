@@ -2,7 +2,7 @@ import {IRepository} from "./i-repository";
 import {IConfigFileContent} from "./i-config-file-content";
 
 export class YumConfigFileContent implements IConfigFileContent {
-    clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string, tagName:string):string {
+    clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string):string {
         return [
             `[${descriptiveName}]`,
             `name = ${descriptiveName}`,

@@ -48,7 +48,7 @@ export class PackageManagerInstallationSteps {
 
             return uniqueRepos
                 .mapToFutureList(repo => {
-                    const repoConfigContent = node.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`, tagName);
+                    const repoConfigContent = node.packageManager.clientConfigurationFileContentFor(repo, `repo-for-${tagName}`);
                     const repoConfigLocation = node.packageManager.clientConfigurationFileLocationFor(tagName);
                     return node.write(repoConfigContent, repoConfigLocation);
                 })
