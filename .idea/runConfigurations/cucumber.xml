@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="cucumber" type="NodeJSConfigurationType" factoryName="Node.js" editBeforeRun="true" path-to-node="project" path-to-js-file="node_modules/cucumber/bin/cucumber.js" application-parameters="--require dist/support --require dist/step-definitions --tags @rest" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="cucumber" type="NodeJSConfigurationType" factoryName="Node.js" editBeforeRun="true" path-to-node="project" path-to-js-file="node_modules/cucumber/bin/cucumber.js" application-parameters="--require dist/support --require dist/step-definitions --tags @wip" working-dir="$PROJECT_DIR$">
     <profiling v8-profiler-path="" />
     <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
       <profiling v8-profiler-path="" />
