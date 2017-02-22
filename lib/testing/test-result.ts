@@ -31,7 +31,8 @@ export class TestResult implements ITestResult {
             jenkinsURL: this.testRunnerEnvironment.jenkinsURL,
             user: this.testRunnerEnvironment.user,
             gitCloneURL: this.testRunnerEnvironment.gitCloneURL,
-            gitSHA: this.testRunnerEnvironment.gitSHA
+            gitSHA: this.testRunnerEnvironment.gitSHA,
+            testName: this.testRunnerEnvironment.testName
         };
     }
 }

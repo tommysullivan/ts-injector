@@ -8,5 +8,6 @@ export interface ITestRunnerEnvironment {
     frameworkConfiguration:IFrameworkConfiguration,
     gitSHA:string,
     packageJsonOfSystemUnderTest:IJSONSerializable,
-    testRunGUID:string
+    testRunGUID:string,
+    testName:string
 }

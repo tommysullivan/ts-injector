@@ -56,4 +56,8 @@ export class TestRunnerEnvironment implements ITestRunnerEnvironment {
         return this._testRunGUID;
     }
 
+
+    get testName(): string {
+        return this.process.environmentVariableNamedOrDefault('testName', null);
+    }
 }
