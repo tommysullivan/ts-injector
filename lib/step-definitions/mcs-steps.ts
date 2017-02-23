@@ -70,9 +70,9 @@ export class MCSSteps {
                     );
                     return !matchingServiceInMCS.isHealthy;
                 });
-                return unhealthyOrAbsentServices;
+                return unhealthyOrAbsentServices.toArray();
             });
-        return $.expect(futureUnhealthyServices).to.eventually.not.be.empty;
+        return $.expect(futureUnhealthyServices).to.eventually.be.empty;
     }
 }
 module.exports = MCSSteps;
