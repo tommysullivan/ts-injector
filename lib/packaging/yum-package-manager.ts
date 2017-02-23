@@ -62,4 +62,8 @@ export class YumPackageManager implements IPackageManager {
     get packageListCommand():string {
         return 'yum list installed';
     }
+
+    get queryMetadataCommand():string {
+        return `rpm -qi`;
+    }
 }

@@ -53,4 +53,8 @@ export class AptPackageManager implements IPackageManager {
     get packageListCommand():string {
         return 'dpkg -l';
     }
+
+    get queryMetadataCommand():string {
+        return `dpkg-query -p`;
+    }
 }

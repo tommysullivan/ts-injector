@@ -8,6 +8,7 @@ export interface IPackageManager extends IConfigFileContent {
     repoListCommand:string;
     packageListCommand:string;
     packageUpdateCommand:string;
+    queryMetadataCommand:string;
     uninstallPackagesCommand(packageNames:IList<string>);
     installPackagesCommand(packageNames:IList<string>):string;
     installPackageCommand(packageName:string):string;

@@ -323,5 +323,14 @@ export class PackageManagerInstallationSteps {
         );
         return $.expect(resultList).to.eventually.be.fulfilled;
     }
+
+    @given(/^I query all the installed packages for the "([^"]*)" metadata$/)
+    public queryPackageForMetadata (metaData:string): PromisedAssertion {
+        const result = $.clusterUnderTest.nodes.mapToFutureList(node => {
+            const commandList = node.expectedServiceNames.map(serviceName => `${node.packageManager.queryMetadataCommand} ${serviceName} | grep ${metaData}`);
+            return node.executeShellCommands(...commandList.toArray())
+        });
+        return $.expect(result).to.eventually.be.fulfilled;
+    }
 }
 module.exports = PackageManagerInstallationSteps;

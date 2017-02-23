@@ -62,4 +62,8 @@ export class ZypperPackageManager implements IPackageManager {
     get packageListCommand():string {
         return 'rpm -qa';
     }
+
+    get queryMetadataCommand():string {
+        return `zypper info`;
+    }
 }
