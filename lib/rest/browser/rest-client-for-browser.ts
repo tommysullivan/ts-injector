@@ -4,8 +4,8 @@ import {IFuture} from "../../futures/i-future";
 import {IRestResponse} from "../common/i-rest-response";
 import {IHash} from "../../collections/i-hash";
 import {IJSONValue, IJSONHash} from "../../typed-json/i-json-value";
-import {IJSONParser} from "../../typed-json/i-json-parser";
 import {NotImplementedError} from "../../errors/not-implemented-error";
+import {IRestRequestOptions} from "../common/i-rest-request-options";
 
 export class RestClientForBrowser implements IRestClient {
     constructor(
@@ -18,8 +18,13 @@ export class RestClientForBrowser implements IRestClient {
         throw new NotImplementedError();
     }
 
-    get(path: string): IFuture<IRestResponse> {
-        return this.getJSONWithSpecificContentType(path, "application/json");
+    get(path: string, options?:IRestRequestOptions): IFuture<IRestResponse> {
+        const headers = options && options.headers ? options.headers : { Accept: "application/json" };
+        return this.futures.newFuture((resolve, reject) => {
+            this.$.ajax({ url: path, type: 'GET', headers: headers })
+                .then(r => resolve(this.newRestResponse(r, path)))
+                .fail(e => reject(e));
+        });
     }
 
     getPlainText(path: string): IFuture<IRestResponse> {
@@ -30,7 +35,7 @@ export class RestClientForBrowser implements IRestClient {
         throw new NotImplementedError();
     }
 
-    patch(path: string, jsonObjectToStringify: IJSONValue): IFuture<IRestResponse> {
+    patch(path: string, jsonObjectToStringify: IJSONValue, options?:IRestRequestOptions): IFuture<IRestResponse> {
         throw new NotImplementedError();
     }
 
@@ -56,17 +61,17 @@ export class RestClientForBrowser implements IRestClient {
         });
     }
 
-    put(path:string, json:IJSONValue):IFuture<IRestResponse> {
+    put(path:string, json:IJSONValue, options?:IRestRequestOptions):IFuture<IRestResponse> {
         return this.futures.newFuture((resolve, reject) => {
-            this.$.ajax({ url: path, data: JSON.stringify(json), type: 'PUT' })
+            this.$.ajax({ url: path, data: JSON.stringify(json), type: 'PUT', headers: options ? options.headers : null })
                 .then(r => resolve(this.newRestResponse(r, path)))
                 .fail(e => reject(e));
         });
     }
 
-    post(path:string, json:IJSONValue):IFuture<IRestResponse> {
+    post(path:string, json:IJSONValue, options?:IRestRequestOptions):IFuture<IRestResponse> {
         return this.futures.newFuture((resolve, reject) => {
-            this.$.ajax({ url: path, data: JSON.stringify(json), type: 'POST' })
+            this.$.ajax({ url: path, data: JSON.stringify(json), type: 'POST', headers: options ? options.headers : null })
                 .then(r => resolve(this.newRestResponse(r, path)))
                 .fail(e => reject(e));
         });

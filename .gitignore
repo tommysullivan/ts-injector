@@ -5,3 +5,4 @@ data/tmp
 dist
 npm-debug.log
 url.properties
+.idea/workspace.xml

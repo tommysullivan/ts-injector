@@ -1,9 +1,9 @@
-import {IRequestHeadersForNodeJS} from "./i-request-headers-for-node-js";
+import {IRestRequestHeaders} from "../common/i-rest-request-headers";
 
 export interface IDefaultOptions {
     jar:boolean,
     agentOptions?: {
         rejectUnauthorized:boolean
     },
-    headers?: IRequestHeadersForNodeJS
+    headers?: IRestRequestHeaders
 }

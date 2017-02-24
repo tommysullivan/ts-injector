@@ -107,8 +107,8 @@ export class SSHSession implements ISSHSession {
         });
     }
 
-    download(remotePath:string, localPath:string):IFuture<any> {
-        return this.futures.newFuture((resolve, reject) => {
+    download(remotePath:string, localPath:string):IFuture<void> {
+        return this.futures.newFuture<void>((resolve, reject) => {
             const options = {
                 host: this.host,
                 path: remotePath
@@ -122,19 +122,19 @@ export class SSHSession implements ISSHSession {
                         reject(e);
                     }
                 }
-                else resolve(null);
+                else resolve();
             });
         });
     }
 
-    private writeGeneral(content:Object, destinationPath:string):IFuture<any> {
-        return this.futures.newFuture((resolve, reject) => {
+    private writeGeneral(content:Object, destinationPath:string):IFuture<void> {
+        return this.futures.newFuture<void>((resolve, reject) => {
             this.newKeyboardInteractiveClient().write({
                 destination: destinationPath,
                 content: content
             }, function(err) {
                 if(err) reject(err);
-                else resolve(null);
+                else resolve();
             });
         });
     }
@@ -146,7 +146,7 @@ export class SSHSession implements ISSHSession {
         );
     }
 
-    writeAsBinary(fileContent:ArrayBuffer, destinationPath:string):IFuture<any> {
+    writeAsBinary(fileContent:ArrayBuffer, destinationPath:string):IFuture<void> {
         return this.writeGeneral(
             fileContent,
             destinationPath

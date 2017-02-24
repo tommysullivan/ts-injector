@@ -124,7 +124,7 @@ export class Cluster implements ICluster {
         return this.nodesHosting(serviceName).first;
     }
 
-    uploadToEachNode(localPath:string, remotePath:string):IFuture<IList<ISSHResult>> {
+    uploadToEachNode(localPath:string, remotePath:string):IFuture<IList<void>> {
         return this.clusterNodes.mapToFutureList(n=>n.upload(localPath, remotePath));
     }
 

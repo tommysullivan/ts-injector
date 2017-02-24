@@ -192,7 +192,8 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.futures,
             this.requestModule,
             this.frameworkConfig.rest,
-            this.typedJSON
+            this.typedJSON,
+            this.collections
         );
     }
 

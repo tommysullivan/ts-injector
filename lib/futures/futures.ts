@@ -3,6 +3,7 @@ import {IList} from "../collections/i-list";
 import {ICollections} from "../collections/i-collections";
 import {IFuture} from "./i-future";
 import {IFutures} from "./i-futures";
+import {IPair, ITriplet, I4Tuple} from "../collections/tuples";
 
 export class Futures implements IFutures {
     private promiseModule:any;
@@ -22,7 +23,7 @@ export class Futures implements IFutures {
         return this.newFutureForImmediateValue<T>(value);
     }
 
-    newFuture<T>(resolver:(resolve: (value: T) => void, reject: (reason: any) => void) => void):IFuture<T> {
+    newFuture<T>(resolver:(resolve: (value?: T) => void, reject: (reason: any) => void) => void):IFuture<T> {
         return new this.promiseModule(resolver);
     }
 
@@ -71,5 +72,43 @@ export class Futures implements IFutures {
             const executeDelayedOperation = () => delayedOperation().then(resolve, reject);
             setTimeout(executeDelayedOperation, timeout);
         });
+    }
+
+    newFutureArray<T>(futures:Array<IFuture<T>>):IFuture<Array<T>> {
+        return this.newFutureListFromArray(futures).then(r => r.toArray());
+    }
+
+    newFutureArrayFromList<T>(futures:IList<IFuture<T>>):IFuture<Array<T>> {
+        return this.newFutureList(futures).then(r => r.toArray());
+    }
+
+    newFuturePairFromPair<T1, T2>(pairOfFutures:IPair<IFuture<T1>, IFuture<T2>>):IFuture<IPair<T1, T2>> {
+        return this
+            .newFutureArray<T1 | T2>([pairOfFutures._1, pairOfFutures._2])
+            .then(result => this.collections.newPair(<T1> result[0], <T2> result[1]));
+    }
+
+    newFuturePair<T1, T2>(item1:IFuture<T1>, item2:IFuture<T2>):IFuture<IPair<T1, T2>> {
+        return this.newFuturePairFromPair(this.collections.newPair(item1, item2));
+    }
+
+    newFutureTripletFromTriplet<T1, T2, T3>(tripletOfFutures:ITriplet<IFuture<T1>, IFuture<T2>, IFuture<T3>>):IFuture<ITriplet<T1, T2, T3>> {
+        return this
+            .newFutureArray<T1 | T2 | T3>([tripletOfFutures._1, tripletOfFutures._2, tripletOfFutures._3])
+            .then(result => this.collections.newTriplet(<T1> result[0], <T2> result[1], <T3> result[2]));
+    }
+
+    newFutureTriplet<T1, T2, T3>(item1:IFuture<T1>, item2:IFuture<T2>, item3:IFuture<T3>):IFuture<ITriplet<T1, T2, T3>> {
+        return this.newFutureTripletFromTriplet(this.collections.newTriplet(item1, item2, item3));
+    }
+
+    newFuture4TupleFrom4Tuple<T1, T2, T3, T4>(fourTupleOfFutures:I4Tuple<IFuture<T1>, IFuture<T2>, IFuture<T3>, IFuture<T4>>):IFuture<I4Tuple<T1, T2, T3, T4>> {
+        return this
+            .newFutureArray<T1 | T2 | T3 | T4>([fourTupleOfFutures._1, fourTupleOfFutures._2, fourTupleOfFutures._3, fourTupleOfFutures._4])
+            .then(result => this.collections.new4Tuple(<T1> result[0], <T2> result[1], <T3> result[2], <T4> result[3]));
+    }
+
+    newFuture4Tuple<T1, T2, T3, T4>(item1:IFuture<T1>, item2:IFuture<T2>, item3:IFuture<T3>, item4:IFuture<T4>):IFuture<I4Tuple<T1, T2, T3, T4>> {
+        return this.newFuture4TupleFrom4Tuple(this.collections.new4Tuple(item1, item2, item3, item4));
     }
 }

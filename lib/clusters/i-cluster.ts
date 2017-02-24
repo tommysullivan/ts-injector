@@ -30,7 +30,7 @@ export interface ICluster {
     executeShellCommandsOnEachNode(...commands:Array<string>):IFuture<IList<IList<ISSHResult>>>;
     executeShellCommandOnEachNode(command:string):IFuture<IList<ISSHResult>>;
     versionGraph():IFuture<IClusterVersionGraph>;
-    uploadToEachNode(localPath:string, remotePath:string):IFuture<IList<ISSHResult>>;
+    uploadToEachNode(localPath:string, remotePath:string):IFuture<IList<void>>;
     name:string;
     isHostingService(serviceName:string):boolean;
 }

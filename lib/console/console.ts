@@ -1,6 +1,7 @@
 import {IConsole} from "./i-console";
 import {IHash} from "../collections/i-hash";
 import * as moment from 'moment';
+import {IFuture} from "../futures/i-future";
 
 export class Console implements IConsole {
     private logLevelPriorities:IHash<number> = {
@@ -55,4 +56,11 @@ export class Console implements IConsole {
     askSensitiveQuestion(questionText:string):string {
         return this.readLineSyncModule.question(questionText, { hideEchoBack: true });
     }
+
+    logInTheFuture<T>(message:string, ...futuresToLog:Array<IFuture<T>>):void {
+        futuresToLog.forEach(future => future
+            .then(v => this.log(`[Future Resolved] - ${message}`, v ? v.toString() : undefined))
+            .catch(e => this.log(`[Future Rejected] - ${message}`, e ? e.toString() : undefined))
+        )
+    };
 }

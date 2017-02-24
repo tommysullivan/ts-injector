@@ -162,17 +162,17 @@ export class MesosNode implements INode {
             .then(commandResultSet=>this.versioning.newNodeVersionGraph(this.host, commandResultSet));
     }
 
-    upload(localPath: string, remotePath: string): IFuture<ISSHResult> {
+    upload(localPath: string, remotePath: string): IFuture<void> {
         return this.newSSHSession()
             .then(sshSession => sshSession.upload(localPath, remotePath));
     }
 
-    write(content: string, remotePath: string): IFuture<ISSHResult> {
+    write(content: string, remotePath: string): IFuture<void> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.write(content, remotePath));
     }
 
-    download(remotePath: string, localPath: string): IFuture<ISSHResult> {
+    download(remotePath: string, localPath: string): IFuture<void> {
         return this.newSSHSession()
             .then(sshSession => sshSession.download(remotePath, localPath));
     }
@@ -181,7 +181,7 @@ export class MesosNode implements INode {
         return this.newSSHSession().then(s=>s.executeCommandWithRetryTimeout(shellCommand, timeout, maxTry));
     }
 
-    writeBinaryData(content: ArrayBuffer, remotePath: string): IFuture<ISSHResult> {
+    writeBinaryData(content: ArrayBuffer, remotePath: string):IFuture<void> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.writeAsBinary(content, remotePath));
     }

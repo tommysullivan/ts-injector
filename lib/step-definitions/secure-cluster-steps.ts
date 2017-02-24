@@ -35,7 +35,7 @@ export class SecureClusterSteps {
         return $.expect(result).to.eventually.be.fulfilled;
     }
 
-    private copyTextFileFromCLDBNodeToNonCLDBNodes(path:string):IFuture<IList<ISSHResult>> {
+    private copyTextFileFromCLDBNodeToNonCLDBNodes(path:string):IFuture<IList<void>> {
         return this.cldbNode
             .read(path)
             .then(data => $.clusterUnderTest.nodes
@@ -44,7 +44,7 @@ export class SecureClusterSteps {
             );
     }
 
-    private copyBinaryFileFromCLDBNodeToNonCLDBNodes(path:string):IFuture<IList<ISSHResult>> {
+    private copyBinaryFileFromCLDBNodeToNonCLDBNodes(path:string):IFuture<IList<void>> {
         return this.cldbNode
             .readAsBinary(path)
             .then(data => $.clusterUnderTest.nodes

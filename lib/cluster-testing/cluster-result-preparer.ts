@@ -55,14 +55,14 @@ export class ClusterResultPreparer implements IClusterResultPreparer {
             })
             .then(versionGraph => this.jsonSerializer.serialize(versionGraph)));
 
-        return this.futures.newFutureListFromArray([futureLogs,futureVersionGraph, futureClusterConfiguration])
-            .then(results => {
-                const [logs, versionGraph, futureClusterConfiguration ] = results.toArray();
+        return this.futures.newFutureTriplet(futureLogs, futureVersionGraph, futureClusterConfiguration)
+            .then(resultTriplet => {
+                const { _1:logs, _2:versionGraph, _3:clusterConfiguration} = resultTriplet;
                 return this.clusterTesting.newClusterTestResult(
                     cucumberTestResult,
                     this.frameworkConfig,
                     versionGraph,
-                    futureClusterConfiguration,
+                    clusterConfiguration,
                     logs,
                     clusterResultId,
                     testRunnerEnvironment

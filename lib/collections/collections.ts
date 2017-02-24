@@ -5,6 +5,7 @@ import {Dictionary} from "./dictionary";
 import {IDictionary} from "./i-dictionary";
 import {IFuture} from "../futures/i-future";
 import {IHash} from "./i-hash";
+import {IPair, ITriplet, I4Tuple} from "./tuples";
 
 export class Collections implements ICollections {
     constructor(
@@ -20,8 +21,8 @@ export class Collections implements ICollections {
     }
 
     newRange(start:number, end:number):IList<number> {
-        var arrayOfCorrectSize = [];
-        for(var c=start; c<end; c++) {
+        let arrayOfCorrectSize = [];
+        for(let c=start; c<end; c++) {
             arrayOfCorrectSize.push(c);
         }
         return this.newList<number>(arrayOfCorrectSize);
@@ -36,10 +37,21 @@ export class Collections implements ICollections {
     }
 
     newListOfSize(size:number):IList<number> {
-        var arrayOfCorrectSize = [];
-        for(var c=0; c<size; c++) {
+        let arrayOfCorrectSize = [];
+        for(let c=0; c<size; c++) {
             arrayOfCorrectSize.push(c);
         }
         return this.newList<number>(arrayOfCorrectSize);
+    }
+
+    newPair<T1, T2>(item1:T1, item2:T2):IPair<T1, T2> {
+        return { _1:item1, _2:item2 }
+    }
+
+    newTriplet<T1, T2, T3>(item1:T1, item2:T2, item3:T3):ITriplet<T1, T2, T3> {
+        return { _1:item1, _2:item2, _3:item3}
+    }
+    new4Tuple<T1, T2, T3, T4>(item1:T1, item2:T2, item3:T3, item4:T4):I4Tuple<T1, T2, T3, T4> {
+        return { _1:item1, _2:item2, _3:item3, _4:item4}
     }
 }

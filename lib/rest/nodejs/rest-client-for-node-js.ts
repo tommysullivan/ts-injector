@@ -9,9 +9,9 @@ import {IRestForNodeJS} from "./i-rest-for-node-js";
 import {INativeServerResponse} from "./i-native-server-response";
 import {INativeServerResponseHandler} from "./i-native-server-response-handler";
 import {IError} from "../../errors/i-error";
-import {IRequestHeadersForNodeJS} from "./i-request-headers-for-node-js";
 import {IHash} from "../../collections/i-hash";
 import {IJSONValue, IJSONHash} from "../../typed-json/i-json-value";
+import {IRestRequestOptions} from "../common/i-rest-request-options";
 
 type INativeInvoker = (fullURL:string, nativeResponseHandler:INativeServerResponseHandler)=>any;
 
@@ -40,7 +40,7 @@ export class RestClientForNodeJS implements IRestClient {
             path,
             (url, handler) => this.builtInNodeJSRequestor.post(
                 url,
-                this.jsonBodyWrapperFor(jsonObjectToStringify),
+                this.createNativeRequestOptions(jsonObjectToStringify),
                 handler
             )
         );
@@ -48,30 +48,32 @@ export class RestClientForNodeJS implements IRestClient {
 
     getWithQueryString(path:string, queryStringParams:IJSONHash):IFuture<IRestResponse> {
         return this.get(path, {
-            'qs': queryStringParams
+            queryString: queryStringParams
         });
     }
 
     getPlainText(path: string): IFuture<IRestResponse> {
         return this.get(path, {
-            'Accept': 'text/plain'
+            headers: {
+                Accept: 'text/plain'
+            }
         });
     }
 
     getJSONWithSpecificContentType(path:string, contentType:string):IFuture<IRestResponse> {
         return this.get(path, {
-            'Content-Type': contentType
-        })
+            headers: {
+                'Content-Type': contentType
+            }
+        });
     }
 
-    get(path:string, headers?:IRequestHeadersForNodeJS):IFuture<IRestResponse> {
+    get(path:string, options?:IRestRequestOptions):IFuture<IRestResponse> {
         return this.newFutureRestResponse(
             path,
             (url, handler) => this.builtInNodeJSRequestor.get(
                 url,
-                {
-                    headers: headers
-                },
+                this.createNativeRequestOptions(null, options),
                 handler
             )
         );
@@ -82,25 +84,26 @@ export class RestClientForNodeJS implements IRestClient {
             path,
             (url, handler) => this.builtInNodeJSRequestor.patch(
                 url,
-                this.jsonBodyWrapperFor(jsonObjectToStringify),
+                this.createNativeRequestOptions(jsonObjectToStringify),
                 handler
             )
         );
     }
 
     delete(path:string):IFuture<IRestResponse> {
+        //TODO: Will delete also need options?
         return this.newFutureRestResponse(
             path,
             (url, handler) => this.builtInNodeJSRequestor.delete(url, handler)
         );
     }
 
-    put(path:string, jsonObjectToStringify:IJSONValue):IFuture<IRestResponse> {
+    put(path:string, jsonObjectToStringify:IJSONValue, options?:IRestRequestOptions):IFuture<IRestResponse> {
         return this.newFutureRestResponse(
             path,
             (url, handler) => this.builtInNodeJSRequestor.put(
                 url,
-                this.jsonBodyWrapperFor(jsonObjectToStringify),
+                this.createNativeRequestOptions(jsonObjectToStringify, options),
                 handler
             )
         );
@@ -109,6 +112,14 @@ export class RestClientForNodeJS implements IRestClient {
     private jsonBodyWrapperFor(jsonObjectToStringify:IJSONValue):IJSONValue {
         return {
             body: JSON.stringify(jsonObjectToStringify)
+        }
+    }
+
+    private createNativeRequestOptions(requestBody:IJSONValue, options?:IRestRequestOptions):INativeRequestOptions {
+        return {
+            body: requestBody ? JSON.stringify(requestBody) : null,
+            headers: options ? options.headers : undefined,
+            qs: options ? options.queryString : null
         }
     }
 

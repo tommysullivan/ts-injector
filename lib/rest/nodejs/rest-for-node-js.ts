@@ -11,19 +11,16 @@ import {IRestForNodeJS} from "./i-rest-for-node-js";
 import {INativeServerRequestor} from "./i-native-server-requestor";
 import {INativeServerResponse} from "./i-native-server-response";
 import {IRestConfiguration} from "../common/i-rest-configuration";
+import {ICollections} from "../../collections/i-collections";
 
 export class RestForNodeJS implements IRestForNodeJS {
-    private futures:IFutures;
-    private requestModule:INativeServerRequestModule;
-    private restConfiguration:IRestConfiguration;
-    private typedJSON:ITypedJSON;
-
-    constructor(futures:IFutures, requestModule:INativeServerRequestModule, restConfiguration:IRestConfiguration, typedJSON:ITypedJSON) {
-        this.futures = futures;
-        this.requestModule = requestModule;
-        this.restConfiguration = restConfiguration;
-        this.typedJSON = typedJSON;
-    }
+    constructor(
+        private futures:IFutures,
+        private requestModule:INativeServerRequestModule,
+        private restConfiguration:IRestConfiguration,
+        private typedJSON:ITypedJSON,
+        private collections:ICollections
+    ) {}
 
     newRestClient(baseURL?:string):IRestClient {
         return new RestClientForNodeJS(
@@ -55,11 +52,12 @@ export class RestForNodeJS implements IRestForNodeJS {
             nativeResponse,
             originalURL,
             this.typedJSON,
-            this.typedJSON.jsonParser
+            this.typedJSON.jsonParser,
+            this.collections
         );
     }
 
-    newRestError(restResponse:RestResponseForNodeJS):IError {
+    newRestError(restResponse:IRestResponse):IError {
         return new RestError(restResponse);
     }
 }

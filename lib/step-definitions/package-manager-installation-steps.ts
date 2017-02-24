@@ -248,7 +248,7 @@ export class PackageManagerInstallationSteps {
         this.atsInstallationNode = nodes.hasAtLeastOne(withoutCLDB)
             ? nodes.firstWhere(withoutCLDB)
             : nodes.first;
-        const result = this.atsInstallationNode.executeShellCommand(`mvn -v`).catch(e =>
+        const result = this.atsInstallationNode.executeShellCommands(`mvn -v`).catch(e =>
             (this.atsInstallationNode.executeShellCommands(
                 getMvn,
                 untarMvn,

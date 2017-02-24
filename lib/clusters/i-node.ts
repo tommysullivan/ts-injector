@@ -28,13 +28,13 @@ export interface INode {
     versionGraph():IFuture<INodeVersionGraph>;
     hostNameAccordingToNode:IFuture<string>;
     packageManager:IPackageManager;
-    upload(localPath:string, remotePath:string):IFuture<ISSHResult>;
-    write(content:string, remotePath:string):IFuture<ISSHResult>;
-    download(remotePath:string, localPath:string):IFuture<ISSHResult>;
+    upload(localPath:string, remotePath:string):IFuture<void>;
+    write(content:string, remotePath:string):IFuture<void>;
+    download(remotePath:string, localPath:string):IFuture<void>;
     operatingSystem:IOperatingSystem;
     packages:IList<IPackage>;
     executeShellCommandWithTimeouts(shellCommand:string, timeout:number, maxTry:number):IFuture<ISSHResult>;
-    writeBinaryData(content:ArrayBuffer, remotePath:string):IFuture<ISSHResult>;
+    writeBinaryData(content:ArrayBuffer, remotePath:string):IFuture<void>;
     read(remotePath:string):IFuture<string>;
     readAsBinary(remotePath:string):IFuture<ArrayBuffer>;
     newSSHSessionAsUser(username:string, password:string):IFuture<ISSHSession>;

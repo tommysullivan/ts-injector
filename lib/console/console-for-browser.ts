@@ -1,4 +1,5 @@
 import {IConsole} from "./i-console";
+import {IFuture} from "../futures/i-future";
 import {NotImplementedError} from "../errors/not-implemented-error";
 
 export class ConsoleForBrowser implements IConsole {
@@ -29,4 +30,11 @@ export class ConsoleForBrowser implements IConsole {
     askSensitiveQuestion(questionText: string) {
         throw new NotImplementedError();
     }
+
+    logInTheFuture<T>(message:string, ...futuresToLog:Array<IFuture<T>>):void {
+        futuresToLog.forEach(future => future
+            .then(v => this.log(`[Future Resolved] - ${message}`, v ? v.toString() : undefined))
+            .catch(e => this.log(`[Future Rejected] - ${message}`, e ? e.toString() : undefined))
+        )
+    };
 }

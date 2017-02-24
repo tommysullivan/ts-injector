@@ -52,7 +52,7 @@ export class Node implements INode {
         return this.newSSHSession().then(s=>s.executeCommandWithRetryTimeout(shellCommand, timeout, maxTry));
     }
 
-    writeBinaryData(content:ArrayBuffer, remotePath:string):IFuture<ISSHResult> {
+    writeBinaryData(content:ArrayBuffer, remotePath:string):IFuture<void> {
         return this.newSSHSession()
             .then(sshSession=>sshSession.writeAsBinary(content, remotePath));
     }
@@ -117,19 +117,19 @@ export class Node implements INode {
         return this.newSSHSessionAsUser(username, password).then(s=>s.executeCommands(...commandsWithPlaceholders));
     }
 
-    upload(localPath:string, remotePath:string):IFuture<ISSHResult>{
+    upload(localPath:string, remotePath:string):IFuture<void>{
         return this.newSSHSession()
             .then(sshSession => sshSession.upload(localPath, remotePath));
     }
 
-    download(remotePath:string, localPath:string):IFuture<ISSHResult>{
+    download(remotePath:string, localPath:string):IFuture<void>{
         return this.newSSHSession()
             .then(sshSession => sshSession.download(remotePath, localPath));
     }
 
-    write(content:string, remotePath:string):IFuture<ISSHResult> {
-        return this.newSSHSession()
-            .then(sshSession=>sshSession.write(content, remotePath));
+    async write(content:string, remotePath:string):IFuture<void> {
+        const sshSession = await this.newSSHSession();
+        return sshSession.write(content, remotePath);
     }
 
     verifyMapRNotInstalled():IFuture<ISSHResult> {

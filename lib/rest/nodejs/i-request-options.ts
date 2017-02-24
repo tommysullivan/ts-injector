@@ -1,8 +1,10 @@
 import {IHash} from "../../collections/i-hash";
-import {IRequestHeadersForNodeJS} from "./i-request-headers-for-node-js";
+import {IJSONHash} from "../../typed-json/i-json-value";
+import {IRestRequestHeaders} from "../common/i-rest-request-headers";
 
 export interface INativeRequestOptions {
     body?:string;
     form?:IHash<string>;
-    headers?:IRequestHeadersForNodeJS;
+    headers?:IRestRequestHeaders;
+    qs?:IJSONHash;
 }

@@ -4,6 +4,9 @@ import {IRestResponse} from "../common/i-rest-response";
 import {IJSONArray, IJSONHash, IJSONValue} from "../../typed-json/i-json-value";
 import {INativeServerResponse} from "./i-native-server-response";
 import {IJSONParser} from "../../typed-json/i-json-parser";
+import {IList} from "../../collections/i-list";
+import {IDictionary} from "../../collections/i-dictionary";
+import {ICollections} from "../../collections/i-collections";
 
 export class RestResponseForNodeJS implements IRestResponse {
     constructor(
@@ -11,11 +14,16 @@ export class RestResponseForNodeJS implements IRestResponse {
         private nativeResponse:INativeServerResponse,
         private _originalUrl:string,
         private typedJSON:ITypedJSON,
-        private jsonParser:IJSONParser
+        private jsonParser:IJSONParser,
+        private collections:ICollections
     ) {}
 
     toString():string {
         return JSON.stringify(this.toJSON(), null, 3);
+    }
+
+    get bodyAsListOfJsonObjects():IList<IJSONObject> {
+        return this.typedJSON.newListOfJSONObjects(this.jsonArray);
     }
 
     toJSON():IJSONValue {
@@ -26,7 +34,7 @@ export class RestResponseForNodeJS implements IRestResponse {
         return {
             originalURL: this._originalUrl,
             type: 'rest-response',
-            error: this.error.toString(),
+            error: this.error ? this.error.toString() : null,
             statusCode: this.nativeResponse ? this.statusCode: null,
             body: body
         }
@@ -74,6 +82,10 @@ export class RestResponseForNodeJS implements IRestResponse {
     get jsonArray():IJSONArray {
         if(!this.typedJSON.isArray(this.jsonBody)) throw new Error(`Was not array: ${this.jsonBody}`);
         return <IJSONArray> this.jsonBody;
+    }
+
+    get headers():IDictionary<string> {
+        return this.collections.newDictionary<string>(<any> this.nativeResponse.headers);
     }
 
 }

@@ -127,7 +127,7 @@ export class ClusterRunningInMesos implements IClusterRunningInMesos {
             });
     }
 
-    uploadToEachNode(localPath: string, remotePath: string): IFuture<IList<ISSHResult>> {
+    uploadToEachNode(localPath: string, remotePath: string): IFuture<IList<void>> {
         return this.mesosNodes.mapToFutureList(n=>n.upload(localPath, remotePath));
     }
 
