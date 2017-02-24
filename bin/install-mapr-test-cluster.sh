@@ -6,4 +6,4 @@ export lifecyclePhase=development
 export onDemandClusters=MesosDockerFarm:baseCentOS1Node,MesosDockerFarm:baseUbuntu141Node
 export portalId=lab
 npm run build
-bin/devops run cucumber -- --tags @packageInstallation
+bin/devops run featureSet --featureSetId dockerInstallAndPackageCheck
