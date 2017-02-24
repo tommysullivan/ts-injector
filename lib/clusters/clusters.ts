@@ -67,9 +67,10 @@ export class Clusters implements IClusters {
         return this.clusterConfigurations;
     }
 
-    clusterForId(clusterId:string):ICluster {
+    clusterForId(clusterId:string, releasePhase?:IPhase):ICluster {
         return this.newCluster(
-            this.clusterConfigurationWithId(clusterId)
+            this.clusterConfigurationWithId(clusterId),
+            releasePhase
         );
     }
 

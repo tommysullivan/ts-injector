@@ -38,6 +38,7 @@ import {IClusterUnderTestReferencer} from "../cluster-testing/i-cluster-under-te
 import {IDocker} from "../docker/i-docker";
 import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
 import {IClusters} from "../clusters/i-clusters";
+import {ITesting} from "../testing/i-testing";
 
 export class Cucumber implements ICucumber {
     constructor(
@@ -53,7 +54,8 @@ export class Cucumber implements ICucumber {
         private console:IConsole,
         private docker:IDocker,
         private clusterTestingConfiguration:IClusterTestingConfiguration,
-        private clusters:IClusters
+        private clusters:IClusters,
+        private testing:ITesting
     ) {}
 
     newCucumberCli():CucumberCli {
@@ -71,7 +73,7 @@ export class Cucumber implements ICucumber {
        const timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
        if(this.isClusterIdInExistingClusters()){
            const clusterUnderTest = this.clusterTestingConfiguration.clusterIds.length > 0
-               ? this.clusters.clusterForId(this.clusterTestingConfiguration.clusterIds[0])
+               ? this.clusters.clusterForId(this.clusterTestingConfiguration.clusterIds[0], this.testing.defaultReleasePhase)
                : null;
            return function setupCucumberWorldObject() {
                this.Before(() => clusterUnderTestReferencer.clusterUnderTest = clusterUnderTest);

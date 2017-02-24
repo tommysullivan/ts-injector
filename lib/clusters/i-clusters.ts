@@ -8,12 +8,9 @@ import {INodeConfiguration} from "../nodes/i-node-configuration";
 import {ICluster} from "./i-cluster";
 import {IPhase} from "../releasing/i-phase";
 import {IClusterInstaller} from "../installer/i-cluster-installer";
-import {IMCSDashboardInfo} from "../mcs/i-mcs-dashboard-info";
-import {IMCSNodeInfo} from "../mcs/i-mcs-node-info";
-import {IClusterLoaderForMesosEnvironment} from "./i-mesos-cluster-loader";
 
 export interface IClusters {
-    clusterForId(clusterId:string):ICluster;
+    clusterForId(clusterId:string, releasePhase?:IPhase):ICluster;
     newCluster(clusterConfiguration:IClusterConfiguration, releasePhase:IPhase):ICluster;
     esxiManagedClusterForId(clusterId:string):IESXIManagedCluster;
     newNode(nodeConfiguration:INodeConfiguration, releasePhase:IPhase):INode;

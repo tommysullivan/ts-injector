@@ -165,7 +165,8 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.console,
             this.docker,
             this.frameworkConfig.clusterTesting,
-            this.clusters
+            this.clusters,
+            this.testing
         );
     }
 
