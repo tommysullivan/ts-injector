@@ -332,5 +332,16 @@ export class PackageManagerInstallationSteps {
         });
         return $.expect(result).to.eventually.be.fulfilled;
     }
+
+    @given(/^I query all the installed packages on "([^"]*)" for the "([^"]*)" metadata$/)
+    public queryPackageMetadataOnOS (osName, metaData): PromisedAssertion {
+        if(osName == $.clusterUnderTest.nodes.first.operatingSystem.name) {
+            const result = $.clusterUnderTest.nodes.mapToFutureList(node => {
+                const commandList = node.expectedServiceNames.map(serviceName => `${node.packageManager.queryMetadataCommand} ${serviceName} | grep ${metaData}`);
+                return node.executeShellCommands(...commandList.toArray())
+            });
+            return $.expect(result).to.eventually.be.fulfilled;
+        }
+    }
 }
 module.exports = PackageManagerInstallationSteps;
