@@ -35,4 +35,8 @@ export class DockerCliHelper implements IDockerCliHelper {
                 this.process.exit(1);
             });
     }
+
+    destroyAllApplications(mesosEnvironmentId:string):IFuture<any> {
+        return this.docker.newMesosEnvironmentFromConfig(mesosEnvironmentId).killAllApps();
+    }
 }

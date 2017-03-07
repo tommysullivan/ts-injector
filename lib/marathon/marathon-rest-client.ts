@@ -103,4 +103,11 @@ export class MarathonRestClient implements IMarathonRestClient {
             .then(response => this.marathon.newMarathonResult(response.jsonHash))
     }
 
+    getAllApplications():IFuture<IList<string>> {
+        const restClientAsPromised = this.rest.newRestClient(this.marathonURL);
+        return restClientAsPromised.get(`/v2/apps`)
+            .then(response =>  this.marathon.newMarathonResult(response.jsonHash).apps)
+            .then(appsJson => appsJson.map(appjson => appjson.stringPropertyNamed(`id`)))
+    }
+
 }

@@ -16,4 +16,5 @@ export interface IMarathonRestClient {
     getAllApplicationIdsInGroup(groupName:string) :IFuture<IList<string>>;
     getTaskStatus(appId:string):IFuture<string>;
     getResult(appId:string):IFuture<IMarathonResult>;
+    getAllApplications():IFuture<IList<string>>;
 }

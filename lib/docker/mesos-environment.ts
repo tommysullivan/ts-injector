@@ -142,4 +142,9 @@ export class MesosEnvironment implements IMesosEnvironment {
             });
     }
 
+    killAllApps():IFuture<IList<any>> {
+        return this.marathonRestClient.getAllApplications()
+            .then(appIds => appIds.map(appId => this.marathonRestClient.killApplication(appId)));
+    }
+
 }
