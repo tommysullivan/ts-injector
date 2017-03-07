@@ -5,7 +5,13 @@ import {IRepository} from "./i-repository";
 export class AptPackageManager implements IPackageManager {
 
     clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string):string {
-        return repository.packages.hasAtLeastOne(singlePacakge => (singlePacakge.tags.contain(`core`)) && parseFloat(singlePacakge.version.toString()) <= 5.2)
+        return repository.packages.hasAtLeastOne(singlePacakge => {
+            // Version string manipulation to get around the repo layout issue
+            const versionString  = singlePacakge.version.toString();
+            const replacedVersion = versionString.substring(versionString.indexOf(`.`)).replace(/\./g, '');
+            const obtainedVersion = `${versionString.substring(0,versionString.indexOf(`.`))}.${replacedVersion}`;
+            return ((singlePacakge.tags.contain(`core`)) && parseFloat(obtainedVersion) <= 5.2)
+        })
                 ? `deb ${repository.url} mapr optional`
                 : `deb ${repository.url} binary trusty`;
     }
