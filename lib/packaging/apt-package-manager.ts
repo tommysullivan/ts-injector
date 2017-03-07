@@ -5,7 +5,7 @@ import {IRepository} from "./i-repository";
 export class AptPackageManager implements IPackageManager {
 
     clientConfigurationFileContentFor(repository:IRepository, descriptiveName:string):string {
-        return repository.packages.hasAtLeastOne(singlePacakge => (singlePacakge.tags.contain(`core`)) && parseFloat(singlePacakge.version.toString()) < 6.0)
+        return repository.packages.hasAtLeastOne(singlePacakge => (singlePacakge.tags.contain(`core`)) && parseFloat(singlePacakge.version.toString()) <= 5.2)
                 ? `deb ${repository.url} mapr optional`
                 : `deb ${repository.url} binary trusty`;
     }
