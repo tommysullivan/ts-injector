@@ -76,4 +76,8 @@ export class RestClientForBrowser implements IRestClient {
                 .fail(e => reject(e));
         });
     }
+
+    postPlainText(path: string, postString: string): IFuture<IRestResponse> {
+        throw new NotImplementedError();
+    }
 }

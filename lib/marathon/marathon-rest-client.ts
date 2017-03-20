@@ -110,4 +110,17 @@ export class MarathonRestClient implements IMarathonRestClient {
             .then(appsJson => appsJson.map(appjson => appjson.stringPropertyNamed(`id`)))
     }
 
+    getAllDeployments():IFuture<IList<string>> {
+        const restClientAsPromised = this.rest.newRestClient(this.marathonURL);
+        return restClientAsPromised.get(`/v2/deployments`)
+            .then(response =>  response.bodyAsListOfJsonObjects)
+            .then(appsJson => appsJson.map(appjson => appjson.stringPropertyNamed(`id`)))
+    }
+
+    killDeployment(depId:string):IFuture<IMarathonResult> {
+        const restClientAsPromised = this.rest.newRestClient(this.marathonURL);
+        return restClientAsPromised.delete(`/v2/deployments/${depId}?force=true`)
+            .then(response => this.marathon.newMarathonResult(response.jsonBody));
+    }
+
 }

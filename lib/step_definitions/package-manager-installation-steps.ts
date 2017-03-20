@@ -1,4 +1,3 @@
-import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 import {INode} from "../clusters/i-node";
 import {IPackage} from "../packaging/i-package";
@@ -11,29 +10,30 @@ declare const $:ICucumberStepHelper;
 declare const module:any;
 declare const __dirname;
 
-@steps()
-export class PackageManagerInstallationSteps {
+module.exports = function() {
 
-    private atsInstallationNode:INode;
+    let atsInstallationNode:INode;
 
-    @given(/^I have updated the package manager$/)
-    updatePackageManagerOnAllNodes():PromisedAssertion {
+    this.Before(function () {
+        atsInstallationNode = undefined;
+    });
+
+    this.Given(/^I have updated the package manager$/, ():PromisedAssertion  => {
         return $.expectAll(
             $.clusterUnderTest.nodes.map(n=>n.executeShellCommand(n.packageManager.packageUpdateCommand))
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @when(/^I install the latest patch, respecting the current variant, on all nodes list it as a dependency$/)
-    installLatestPatchWithRespectToVariant():PromisedAssertion {
+    this.When(/^I install the latest patch, respecting the current variant, on all nodes list it as a dependency$/, ():PromisedAssertion => {
         return $.expectAll(
             $.clusterUnderTest.nodes.map(n => {
                 const command = n.packageManager.installPackageCommand('mapr-patch');
                 return n.executeShellCommand(command);
             })
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    repositoriesContainingTaggedPackages(nodes:IList<INode>, tagName:string, releaseName:string, functionThatYieldsCommandToRun:(node:INode, packageNames:IList<string>)=>string):IList<IFuture<IList<ISSHResult>>> {
+    function repositoriesContainingTaggedPackages(nodes:IList<INode>, tagName:string, releaseName:string, functionThatYieldsCommandToRun:(node:INode, packageNames:IList<string>)=>string):IList<IFuture<IList<ISSHResult>>> {
         return nodes.map(node=>{
             const taggedPackages = node.packages.where(p=>p.tags.contain(tagName));
             const uniqueRepos = taggedPackages.map((p:IPackage)=>
@@ -62,22 +62,20 @@ export class PackageManagerInstallationSteps {
         })
     }
 
-    @when(/^I install packages with the "([^"]*)" tag$/)
-    installPackagesWithTag(tagName:string):PromisedAssertion {
+    this.When(/^I install packages with the "([^"]*)" tag$/, (tagName:string):PromisedAssertion  => {
         return $.expectAll(
-            this.repositoriesContainingTaggedPackages(
+            repositoriesContainingTaggedPackages(
                 $.clusterUnderTest.nodes,
                 tagName,
                 $.testing.defaultRelease.name,
                 (node, packageNames) => node.packageManager.installPackagesCommand(packageNames)
             )
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @then(/^I update packages with the "([^"]*)" tag to release version "([^"]*)"$/)
-    updatePackagesForGivenTag(tagName:string, releaseName:string):PromisedAssertion {
+    this.Then(/^I update packages with the "([^"]*)" tag to release version "([^"]*)"$/, (tagName:string, releaseName:string):PromisedAssertion => {
         return $.expectAll(
-            this.repositoriesContainingTaggedPackages(
+            repositoriesContainingTaggedPackages(
                 $.clusters.newCluster(
                     $.clusters.clusterConfigurationWithId($.clusterId),
                     $.releasing.defaultReleases.releaseNamed(releaseName).phaseNamed($.testing.defaultPhaseName)
@@ -87,10 +85,9 @@ export class PackageManagerInstallationSteps {
                 (node, packageNames) => node.packageManager.updatePackagesCommand(packageNames)
             )
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I prepare the disk\.list file$/)
-    prepareDiskListFile(): PromisedAssertion {
+    this.Given(/^I prepare the disk\.list file$/, (): PromisedAssertion => {
         const diskCheckCmd = `sfdisk -l`;
         const diskListCommand = `sfdisk -l | grep "/dev/sd[a-z]" |grep -v "/dev/sd[a-z][0-9]" | sort |cut -f2 -d' ' | tr ":" " "`;
         const dockerVolumeLocalPath = $.docker.newMesosEnvironmentFromConfig($.clusterId.split(`:`)[0]).dockerVolumeLocalPath;
@@ -122,10 +119,9 @@ export class PackageManagerInstallationSteps {
             );
             return $.expectAll(diskListResult).to.eventually.be.fulfilled;
         }
-    }
+    });
 
-    @given(/^I run configure\.sh on all nodes$/)
-    runConfigureOnAllNodes():PromisedAssertion {
+    this.Given(/^I run configure\.sh on all nodes$/, ():PromisedAssertion => {
         const cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(n=>n.host).join(',');
         const zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
         const historyHostString:string = $.clusterUnderTest.nodesHosting(`mapr-historyserver`).isEmpty ? `` : `-HS ${$.clusterUnderTest.nodeHosting('mapr-historyserver').host}`;
@@ -141,10 +137,9 @@ export class PackageManagerInstallationSteps {
             );
             return $.expect(result).to.eventually.be.fulfilled;
         }
-    }
+    });
 
-    @given(/^I install the license on cluster$/)
-    installLicenseOnCluster():PromisedAssertion {
+    this.Given(/^I install the license on cluster$/, ():PromisedAssertion => {
         const downloadLicense = `wget http://maprqa:maprqa@stage.mapr.com/license/LatestDemoLicense-M7.txt`;
         const licenseCommand = `maprcli license add -license LatestDemoLicense-M7.txt -is_file true`;
         const removeLicenseCommand = `rm -f LatestDemoLicense-M7.txt`;
@@ -154,28 +149,25 @@ export class PackageManagerInstallationSteps {
             removeLicenseCommand
         );
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I run configure\.sh for spyglass components$/)
-    runConfigureForSpyglassComponents():PromisedAssertion {
+    this.Given(/^I run configure\.sh for spyglass components$/, ():PromisedAssertion => {
         const opentsdbHostsString:string = $.clusterUnderTest.nodesHosting(`mapr-opentsdb`).isEmpty ? `` : `-OT ${$.clusterUnderTest.nodesHosting('mapr-opentsdb').map(n=>n.host).join(',')}`;
         const elasticsearchHostsString:string = $.clusterUnderTest.nodesHosting(`mapr-elasticsearch`).isEmpty ? `` : `-ES ${$.clusterUnderTest.nodesHosting('mapr-elasticsearch').map(n=>n.host).join(',')}`;
         const configCommand =`/opt/mapr/server/configure.sh ${opentsdbHostsString} ${elasticsearchHostsString} -R`;
         const result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I use the package manager to install the "([^"]*)" package$/)
-    usePackageManagerToInstallSpecifiedPackage(packageName:string):PromisedAssertion {
+    this.Given(/^I use the package manager to install the "([^"]*)" package$/, (packageName:string):PromisedAssertion  => {
         return $.expectAll(
             $.clusterUnderTest.nodes.map(
                 n=>n.executeShellCommand(n.packageManager.installPackageCommand(packageName))
             )
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I remove all non-core components$/)
-    removeAllSpyglassComponents():PromisedAssertion {
+    this.Given(/^I remove all non-core components$/, ():PromisedAssertion => {
         return $.expectAll(
             $.clusterUnderTest.nodes.map(n=>{
                 const spyglassServices = n.packages.where(p=>!p.tags.contain('core'));
@@ -187,20 +179,18 @@ export class PackageManagerInstallationSteps {
                     return;
             })
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I remove all the core components$/)
-    removeAllCoreComponents():PromisedAssertion {
+    this.Given(/^I remove all the core components$/, ():PromisedAssertion  => {
         const result = $.clusterUnderTest.nodes.map(n=> {
                 const checkPackagesCommand:string = `${n.packageManager.packageListCommand} | grep mapr`;
                 return n.executeShellCommands(checkPackagesCommand, n.packageManager.uninstallAllPackagesWithMapRInTheName)
                     .catch(e => console.log(`No packages to Uninstall or some packages failed to get removed`));
         });
         return $.expectAll(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I clear all mapr data$/)
-    clearAllMapRDataDirectories():PromisedAssertion {
+    this.Given(/^I clear all mapr data$/, ():PromisedAssertion => {
         return $.expectAll(
             $.clusterUnderTest.nodes.map(n => {
                 return n.executeShellCommands(
@@ -211,33 +201,29 @@ export class PackageManagerInstallationSteps {
                 );
             })
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I run configure\.sh on all nodes without \-F$/)
-    runConfigureOnAllNodesWithoutDashFOption():PromisedAssertion {
+    this.Given(/^I run configure\.sh on all nodes without \-F$/, ():PromisedAssertion => {
         const cldbHostsString = $.clusterUnderTest.nodesHosting('mapr-cldb').map(n=>n.host).join(',');
         const zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
         const historyHostString = $.clusterUnderTest.nodeHosting('mapr-historyserver').host;
         const configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} -HS ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name}`;
         const result = $.clusterUnderTest.executeShellCommandOnEachNode(configCommand);
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I set the mfs instance to "([^"]*)"$/)
-    setMFSInstance(mfsInstances:string):PromisedAssertion {
+    this.Given(/^I set the mfs instance to "([^"]*)"$/, (mfsInstances:string):PromisedAssertion  => {
         return $.expect(
             $.clusterUnderTest.nodes.first.executeShellCommand(`maprcli config save -values '{"multimfs.numinstances.pernode":"${mfsInstances}}'`)
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I add the user "([^"]*)" to secondary group "([^"]*)"$/)
-    addUserToSecondaryGroup(user:string, secondaryGroup:string):PromisedAssertion {
+    this.Given(/^I add the user "([^"]*)" to secondary group "([^"]*)"$/, (user:string, secondaryGroup:string):PromisedAssertion => {
         const userToGroupCommand = `usermod -G ${secondaryGroup} ${user}`;
-        return $.expect(this.atsInstallationNode.executeShellCommand(userToGroupCommand)).to.eventually.be.fulfilled;
-    }
+        return $.expect(atsInstallationNode.executeShellCommand(userToGroupCommand)).to.eventually.be.fulfilled;
+    });
 
-    @given(/^I install maven on a non\-cldb node$/)
-   installMavenOnNonCLDBNode():PromisedAssertion {
+    this.Given(/^I install maven on a non\-cldb node$/, ():PromisedAssertion => {
         const getMvn =`wget https://archive.apache.org/dist/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz`;
         const untarMvn =`tar -zxf apache-maven-3.0.5-bin.tar.gz`;
         const copyMvn =`cp -R apache-maven-3.0.5 /usr/local`;
@@ -245,11 +231,11 @@ export class PackageManagerInstallationSteps {
         const delMvn = `rm apache-maven-3.0.5-bin.tar.gz`;
         const nodes = $.clusterUnderTest.nodes;
         const withoutCLDB = n=>!n.isHostingService('mapr-cldb');
-        this.atsInstallationNode = nodes.hasAtLeastOne(withoutCLDB)
+        atsInstallationNode = nodes.hasAtLeastOne(withoutCLDB)
             ? nodes.firstWhere(withoutCLDB)
             : nodes.first;
-        const result = this.atsInstallationNode.executeShellCommands(`mvn -v`).catch(e =>
-            (this.atsInstallationNode.executeShellCommands(
+        const result = atsInstallationNode.executeShellCommands(`mvn -v`).catch(e =>
+            (atsInstallationNode.executeShellCommands(
                 getMvn,
                 untarMvn,
                 copyMvn,
@@ -258,83 +244,74 @@ export class PackageManagerInstallationSteps {
             ))
         );
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I install git on the non\-cldb node$/)
-    installGitOnNonCLDBNode():PromisedAssertion {
-        const gitInstallCommand = this.atsInstallationNode.packageManager.installPackageCommand('git');
-        const result = this.atsInstallationNode.executeShellCommand(gitInstallCommand);
+    this.Given(/^I install git on the non\-cldb node$/, () => {
+        const gitInstallCommand = atsInstallationNode.packageManager.installPackageCommand('git');
+        const result = atsInstallationNode.executeShellCommand(gitInstallCommand);
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I copy the maven settings file to the non\-cldb node$/)
-    copyMavenSettingsFileToNonCldbNode():PromisedAssertion {
+    this.Given(/^I copy the maven settings file to the non\-cldb node$/, () => {
         const settingsPath:string = __dirname + '/../../ats-files/settings.xml';
-        const result = this.atsInstallationNode.executeShellCommand("mkdir -p /root/.m2")
-            .then(r => this.atsInstallationNode.upload(settingsPath, '/root/.m2/'));
+        const result = atsInstallationNode.executeShellCommand("mkdir -p /root/.m2")
+            .then(r => atsInstallationNode.upload(settingsPath, '/root/.m2/'));
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I clone ATS on the node from "([^"]*)"$/)
-    cloneATSOnNodeFrom(atsPath:string):PromisedAssertion {
-        const result = this.atsInstallationNode.executeShellCommand(`git clone ${atsPath}`);
+    this.Given(/^I clone ATS on the node from "([^"]*)"$/, (atsPath:string):PromisedAssertion => {
+        const result = atsInstallationNode.executeShellCommand(`git clone ${atsPath}`);
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I setup passwordless ssh from non\-cldb node to all other nodes$/)
-    setupPasswordlessSSHFromCLDBNodeToOtherNodes():PromisedAssertion {
-        const resultList = this.atsInstallationNode.executeShellCommand(`echo -e  'y' | ssh-keygen -t rsa -P '' -f /root/.ssh/id_rsa`)
-            .then(_ => this.atsInstallationNode.executeShellCommand(`cat /root/.ssh/id_rsa.pub`))
+    this.Given(/^I setup passwordless ssh from non\-cldb node to all other nodes$/, ():PromisedAssertion => {
+        const resultList = atsInstallationNode.executeShellCommand(`echo -e  'y' | ssh-keygen -t rsa -P '' -f /root/.ssh/id_rsa`)
+            .then(_ => atsInstallationNode.executeShellCommand(`cat /root/.ssh/id_rsa.pub`))
             .then(result => {
                 const rsaKey = result.processResult.stdoutLines.join('\n');
                 return $.clusterUnderTest.nodes.mapToFutureList(node => node.executeShellCommand(`mkdir -p /root/.ssh`)
                     .then(_ => node.executeShellCommand(`echo "${rsaKey}" > /root/.ssh/authorized_keys`)));
             });
         return $.expect(resultList).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I set StrictHostKeyChecking option to no on non\-cldb node$/)
-    setStrictHostKeyCheckingToNoNonCLDBNode():PromisedAssertion {
-        return $.expect(this.atsInstallationNode.executeShellCommand('echo "StrictHostKeyChecking no" > /root/.ssh/config')).to.eventually.be.fulfilled;
-    }
+    this.Given(/^I set StrictHostKeyChecking option to no on non\-cldb node$/, ():PromisedAssertion => {
+        return $.expect(atsInstallationNode.executeShellCommand('echo "StrictHostKeyChecking no" > /root/.ssh/config')).to.eventually.be.fulfilled;
+    });
 
-    @given(/^I set the git ssh key$/)
-    setGitSSHKey():PromisedAssertion {
+    this.Given(/^I set the git ssh key$/, ():PromisedAssertion  => {
         const createSSHDirCmd = 'mkdir -p /root/.ssh';
         const idRSAPath:string = __dirname + '/../../ats-files/maprqa_id_rsa';
         const changePerm =`chmod 600 /root/.ssh/maprqa_id_rsa`;
         const addToConfig = `echo -e "StrictHostKeyChecking no\nhost github.com\nHostName github.com\nIdentityFile /root/.ssh/maprqa_id_rsa\nUser git" > /root/.ssh/config`;
-        const results = this.atsInstallationNode.executeShellCommand(createSSHDirCmd)
-            .then(_ => this.atsInstallationNode.upload(idRSAPath, '/root/.ssh/'))
-            .then(_ => this.atsInstallationNode.executeShellCommands(
+        const results = atsInstallationNode.executeShellCommand(createSSHDirCmd)
+            .then(_ => atsInstallationNode.upload(idRSAPath, '/root/.ssh/'))
+            .then(_ => atsInstallationNode.executeShellCommands(
                 changePerm,
                 addToConfig
             ));
         return $.expect(results).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I remove the git ssh key$/)
-    removeGitSSHKey():PromisedAssertion {
+    this.Given(/^I remove the git ssh key$/, () => {
         const deleteKey = `rm -rf /root/.ssh/maprqa_id_rsa`;
         const deleteConfig = `rm -rf /root/.ssh/config`;
-        const resultList = this.atsInstallationNode.executeShellCommands(
+        const resultList = atsInstallationNode.executeShellCommands(
             deleteKey,
             deleteConfig
         );
         return $.expect(resultList).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I query all the installed packages for the "([^"]*)" metadata$/)
-    public queryPackageForMetadata (metaData:string): PromisedAssertion {
+    this.Given(/^I query all the installed packages for the "([^"]*)" metadata$/, (metaData:string):PromisedAssertion => {
         const result = $.clusterUnderTest.nodes.mapToFutureList(node => {
             const commandList = node.expectedServiceNames.map(serviceName => `${node.packageManager.queryMetadataCommand} ${serviceName} | grep ${metaData}`);
             return node.executeShellCommands(...commandList.toArray())
         });
         return $.expect(result).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^I query all the installed packages on "([^"]*)" for the "([^"]*)" metadata$/)
-    public queryPackageMetadataOnOS (osName, metaData): PromisedAssertion {
+    this.Given(/^I query all the installed packages on "([^"]*)" for the "([^"]*)" metadata$/, (osName:string, metaData:string):PromisedAssertion => {
         if(osName == $.clusterUnderTest.nodes.first.operatingSystem.name) {
             const result = $.clusterUnderTest.nodes.mapToFutureList(node => {
                 const commandList = node.expectedServiceNames.map(serviceName => `${node.packageManager.queryMetadataCommand} ${serviceName} | grep ${metaData}`);
@@ -342,6 +319,5 @@ export class PackageManagerInstallationSteps {
             });
             return $.expect(result).to.eventually.be.fulfilled;
         }
-    }
-}
-module.exports = PackageManagerInstallationSteps;
+    });
+};

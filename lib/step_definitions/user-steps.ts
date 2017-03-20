@@ -1,14 +1,11 @@
-import { binding as steps, given } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 
 declare const $:ICucumberStepHelper;
 declare const module:any;
 
-@steps()
-export class UserSteps {
-    @given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/)
-    createNewLinuxUser(username:string, numericUserId:string, userGroupName:string, password:string):PromisedAssertion {
+module.exports = function() {
+    this.Given(/^I create the user "([^"]*)" with id "([^"]*)" group "([^"]*)" and password "([^"]*)"$/, (username:string, numericUserId:string, userGroupName:string, password:string):PromisedAssertion => {
         const userCreateComamnd = `id -u ${username} || useradd -u ${numericUserId} -g ${userGroupName} -p $(openssl passwd -1 ${password}) ${username}`;
         const groupCreateCommand = `getent group ${userGroupName} || groupadd -g ${numericUserId} ${userGroupName}`;
         const resultList = $.clusterUnderTest.nodes.map(
@@ -18,6 +15,5 @@ export class UserSteps {
             )
         );
         return $.expectAll(resultList).to.eventually.be.fulfilled;
-    }
-}
-module.exports = UserSteps;
+    });
+};

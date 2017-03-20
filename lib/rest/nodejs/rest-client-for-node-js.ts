@@ -46,6 +46,17 @@ export class RestClientForNodeJS implements IRestClient {
         );
     }
 
+    postPlainText(path:string, postString:string):IFuture<IRestResponse> {
+        return this.newFutureRestResponse(
+            path,
+            (url, handler) => this.builtInNodeJSRequestor.post(
+                url,
+                this.createNativeTextRequestOptions(postString),
+                handler
+            )
+        );
+    }
+
     getWithQueryString(path:string, queryStringParams:IJSONHash):IFuture<IRestResponse> {
         return this.get(path, {
             queryString: queryStringParams
@@ -119,6 +130,14 @@ export class RestClientForNodeJS implements IRestClient {
         return {
             body: requestBody ? JSON.stringify(requestBody) : null,
             headers: options ? options.headers : undefined,
+            qs: options ? options.queryString : null
+        }
+    }
+
+    private createNativeTextRequestOptions(requestBody:string, options?:IRestRequestOptions):INativeRequestOptions {
+        return {
+            body: requestBody ? requestBody : null,
+            headers: options ? options.headers : `Content-Type: text/plain`,
             qs: options ? options.queryString : null
         }
     }

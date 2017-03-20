@@ -135,7 +135,7 @@ export class MesosEnvironment implements IMesosEnvironment {
     destroyGroupOrImage(imageIDOnMarathon:string):IFuture<string> {
         return this.marathonRestClient
             .killApplication(imageIDOnMarathon)
-            .then(result => `Application killed: ${result.id}`)
+            .then(result => `Application killed: ${imageIDOnMarathon}`)
             .catch(e =>{
                 console.log(`No application present. Trying to clear group`);
                 return this.marathonRestClient.clearGroup(imageIDOnMarathon);

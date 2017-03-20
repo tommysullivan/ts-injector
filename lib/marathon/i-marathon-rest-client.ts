@@ -17,4 +17,6 @@ export interface IMarathonRestClient {
     getTaskStatus(appId:string):IFuture<string>;
     getResult(appId:string):IFuture<IMarathonResult>;
     getAllApplications():IFuture<IList<string>>;
+    getAllDeployments():IFuture<IList<string>>
+    killDeployment(depId:string):IFuture<IMarathonResult>;
 }

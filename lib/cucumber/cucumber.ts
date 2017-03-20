@@ -39,6 +39,9 @@ import {IDocker} from "../docker/i-docker";
 import {IClusterTestingConfiguration} from "../cluster-testing/i-cluster-testing-configuration";
 import {IClusters} from "../clusters/i-clusters";
 import {ITesting} from "../testing/i-testing";
+import {ICluster} from "../clusters/i-cluster";
+import {IFuture} from "../futures/i-future";
+import {WorldConstructor, ICustomWorld} from "./i-custom-world";
 
 export class Cucumber implements ICucumber {
     constructor(
@@ -69,27 +72,28 @@ export class Cucumber implements ICucumber {
         );
     }
 
-   world(clusterUnderTestReferencer:IClusterUnderTestReferencer):Function {
+   world(clusterUnderTestReferencer:IClusterUnderTestReferencer):WorldConstructor {
        const timeout = this.cucumberConfig.defaultCucumberStepTimeoutMS;
-       if(this.isClusterIdInExistingClusters()){
-           const clusterUnderTest = this.clusterTestingConfiguration.clusterIds.length > 0
-               ? this.clusters.clusterForId(this.clusterTestingConfiguration.clusterIds[0], this.testing.defaultReleasePhase)
-               : null;
-           return function setupCucumberWorldObject() {
-               this.Before(() => clusterUnderTestReferencer.clusterUnderTest = clusterUnderTest);
-               this.setDefaultTimeout(timeout);
-           }
-       }
-       else {
-           console.log(this.getMesosEnvIdFromClusterId());
-           console.log(this.getMarathonAppIdFromClusterId());
-           const loadResult = this.docker.newMesosEnvironmentFromConfig(this.getMesosEnvIdFromClusterId())
-               .loadCluster(this.getMarathonAppIdFromClusterId());
-           return function setupCucumberWorldObject() {
-               this.Before(() => loadResult.then(cluster => clusterUnderTestReferencer.clusterUnderTest = cluster));
-               this.setDefaultTimeout(timeout);
-           }
-       }
+       const loadCluster = async ():IFuture<ICluster> => {
+            return this.isClusterIdInExistingClusters()
+                ? this.clusterTestingConfiguration.clusterIds.length > 0
+                    ? this.clusters.clusterForId(this.clusterTestingConfiguration.clusterIds[0], this.testing.defaultReleasePhase)
+                    : null
+                : await this.docker
+                    .newMesosEnvironmentFromConfig(this.getMesosEnvIdFromClusterId())
+                    .loadCluster(this.getMarathonAppIdFromClusterId());
+
+       };
+       return function(this:ICustomWorld):void {
+           this.Before(function(this:ICustomWorld) {
+               this.sharedData = {
+                   lastCommandResultSet: null,
+                   mountPath: null
+               };
+               return loadCluster().then(cluster => clusterUnderTestReferencer.clusterUnderTest = cluster);
+           });
+           this.setDefaultTimeout(timeout);
+       };
    }
 
     isClusterIdInExistingClusters(): boolean {

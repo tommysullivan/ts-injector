@@ -15,7 +15,7 @@ export class ExpectationWrapper implements IExpectationWrapper {
     ) {}
 
     expect(target:any, message?:string):Assertion {
-        if(typeof(target['then'])=='function') {
+        if(target !== undefined && typeof(target['then'])=='function') {
             const targetAsPromise:IFuture<any> = target;
             const targetWithErrorMessageHelper = targetAsPromise
                 .catch(error=>{

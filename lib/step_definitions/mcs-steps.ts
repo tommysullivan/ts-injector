@@ -1,4 +1,3 @@
-import { binding as steps, given, when, then } from "cucumber-tsflow";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
 import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {MCSDashboardInfo} from "../mcs/mcs-dashboard-info";
@@ -9,55 +8,53 @@ import {IMCSRestSession} from "../mcs/i-mcs-rest-session";
 declare const $:ICucumberStepHelper;
 declare const module:any;
 
-@steps()
-export class MCSSteps {
-    private mcsSession:IMCSRestSession;
-    private dashboardInfo:IMCSDashboardInfo;
-    private appLinks:IList<string>;
+module.exports = function() {
+    let mcsRestSession:IMCSRestSession;
+    let mcsDashboardInfo:IMCSDashboardInfo;
+    let appLinks:IList<string>;
 
-    @given(/^I have an authenticated MCS Rest Client Session$/)
-    getAuthenticatedMCSRestClient():PromisedAssertion {
+    this.Before(function () {
+        mcsRestSession = undefined;
+        mcsDashboardInfo = undefined;
+        appLinks = undefined;
+    });
+
+    this.Given(/^I have an authenticated MCS Rest Client Session$/, ():PromisedAssertion => {
         const futureMCSSession = $.clusterUnderTest.newAuthedMCSSession()
-            .then(mcsSession=>this.mcsSession = mcsSession);
+            .then(mcsSession=> mcsRestSession= mcsSession);
         return $.expect(futureMCSSession).to.eventually.not.be.null;
-    }
+    });
 
-    @given(/^I use the MCS Rest Client Session to retrieve dashboardInfo$/)
-    retrieveDashboardInfo():PromisedAssertion {
-        const futureDashboardInfo = this.mcsSession.dashboardInfo
-            .then(dashboardInfo => this.dashboardInfo = dashboardInfo);
+    this.Given(/^I use the MCS Rest Client Session to retrieve dashboardInfo$/, ():PromisedAssertion => {
+        const futureDashboardInfo = mcsRestSession.dashboardInfo
+            .then(dashboardInfo => mcsDashboardInfo = dashboardInfo);
         return $.expect(futureDashboardInfo).to.eventually.not.be.null;
-    }
+    });
 
-    @when(/^I ask for a link to the following applications:$/)
-    getLinkToRequestedApplications(table):PromisedAssertion {
+    this.When(/^I ask for a link to the following applications:$/, (table:string):PromisedAssertion => {
         const applicationNames = $.cucumber.getListOfStringsFromTable(table);
-        const allAppLinks = applicationNames.mapToFutureList(a => this.mcsSession.applicationLinkFor(a))
-            .then(allLinks => this.appLinks = allLinks);
+        const allAppLinks = applicationNames.mapToFutureList(a => mcsRestSession.applicationLinkFor(a))
+            .then(allLinks => appLinks = allLinks);
         return $.expect(allAppLinks).to.eventually.be.fulfilled;
-    }
+    });
 
-    @given(/^a GET request of each URL does not return an error status code$/)
-    verifyAllLinksAreValidAndWorking():PromisedAssertion {
+    this.Given(/^a GET request of each URL does not return an error status code$/, ():PromisedAssertion => {
         return $.expectAll(
-            this.appLinks.map(
+            appLinks.map(
                 url=>$.rest.newRestClient().get(url)
             )
         ).to.eventually.be.fulfilled;
-    }
+    });
 
-    @when(/^I purposely take down (.*) on one or more nodes$/)
-    purposelyTakeDownNodes(serviceName:string, callback:any):void {
+    this.When(/^I purposely take down (.*) on one or more nodes$/, (serviceName:string, callback:any):void => {
        callback.pending();
-    }
+    });
 
-    @then(/^I see that (.*) is in the list within "([^"]*)" seconds$/)
-    verifyServiceIsInUnhealthyServiceListWithin(serviceName:string, maxTimeToShowUp:string, callback:any):void {
+    this.Then(/^I see that (.*) is in the list within "([^"]*)" seconds$/, (serviceName:string, maxTimeToShowUp:string, callback:any):void => {
        callback.pending();
-    }
+    });
 
-    @then(/^all health checkable services are healthy$/)
-    verifyAllHealthCheckableServicesAreReportingHealthy():PromisedAssertion {
+    this.Then(/^all health checkable services are healthy$/, (): PromisedAssertion=> {
         const healthCheckableServiceNames = $.packaging.defaultPackageSets.all.firstWhere(ps=>ps.id=='healthCheckable').packages.map(p=>p.name);
         const healthCheckableInstalledServiceNames = healthCheckableServiceNames.filter(serviceName => $.clusterUnderTest.isHostingService(serviceName));
         const futureUnhealthyServices = $.clusterUnderTest.newAuthedMCSSession()
@@ -73,6 +70,5 @@ export class MCSSteps {
                 return unhealthyOrAbsentServices.toArray();
             });
         return $.expect(futureUnhealthyServices).to.eventually.be.empty;
-    }
-}
-module.exports = MCSSteps;
+    });
+};

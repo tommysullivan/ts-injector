@@ -106,7 +106,12 @@ export class ClusterTesterCliHelper {
                     } else {
                         this.console.log(`Test ${clusterTestResults.first.passed ? 'passed' : 'failed'}`)
                     }
-                    return this.destroyOnDemandClusters(clusterIds).then(_ => this.process.exit(allPassed ? 0 : 1));
+                    return this.destroyOnDemandClusters(clusterIds)
+                        .then(_ => this.process.exit(allPassed ? 0 : 1))
+                        .catch(e => {
+                            this.console.error(e);
+                            this.process.exit(1);
+                        });
                 });
         });
     }
