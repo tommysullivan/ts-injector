@@ -90,8 +90,6 @@ module.exports = function() {
     this.Given(/^I prepare the disk\.list file$/, (): PromisedAssertion => {
         const diskCheckCmd = `sfdisk -l`;
         const diskListCommand = `sfdisk -l | grep "/dev/sd[a-z]" |grep -v "/dev/sd[a-z][0-9]" | sort |cut -f2 -d' ' | tr ":" " "`;
-        const dockerVolumeLocalPath = $.docker.newMesosEnvironmentFromConfig($.clusterId.split(`:`)[0]).dockerVolumeLocalPath;
-        const listDockerDisks = `ls ${dockerVolumeLocalPath}`;
         if($.clusters.allIds.contain($.clusterId)) {
             const diskListResult = $.clusterUnderTest.nodes.map(n =>
                 n.executeShellCommand(diskListCommand)
@@ -110,6 +108,8 @@ module.exports = function() {
             return $.expectAll(diskListResult).to.eventually.be.fulfilled;
         }
         else {
+            const dockerVolumeLocalPath = $.docker.newMesosEnvironmentFromConfig($.clusterId.split(`:`)[0]).dockerVolumeLocalPath;
+            const listDockerDisks = `ls ${dockerVolumeLocalPath}`;
             const diskListResult = $.clusterUnderTest.nodes.map(n => n.executeShellCommand(listDockerDisks)
                 .then(result => result.processResult.stdoutLines)
                 .then(outLine => {
