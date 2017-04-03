@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -e
+set -x
+
+SCRIPT_DEPLOY_LOCATION="http://artifactory.devops.lab/artifactory/local-flatfiles/"
+
+export PATH
+export gitCloneURL
+export gitSHA=`git rev-parse HEAD`
+
+case $1 in
+    "prepare-development-environment")
+        curl "${SCRIPT_DEPLOY_LOCATION}devops/install-node-environment.sh" | sh
+        curl "${SCRIPT_DEPLOY_LOCATION}devops/prepare-local-git-commit-hooks.sh" | sh
+    ;;
+    "pre-commit-verification")
+        echo ""
+        echo "Pre-Commit verification... please ensure your NVM environment is loaded and using the correct node version"
+        echo "See https://maprdrill.atlassian.net/browse/DIA-305 for more details on this bug should you have trouble"
+        echo ""
+        curl "${SCRIPT_DEPLOY_LOCATION}devops/verify-npm-package-version-is-unique.sh" | sh
+        npm run build
+        npm run localTest
+    ;;
+    "handle-pull-request")
+        devops/pipeline prepare-development-environment
+        curl "${SCRIPT_DEPLOY_LOCATION}devops/verify-npm-package-version-is-unique.sh" | sh
+        npm run build
+        npm test
+    ;;
+    "handle-merge-to-official-fork")
+        devops/pipeline handle-pull-request
+        npm publish
+    ;;
+    *)
+        echo "Usage:"
+        echo ""
+        echo "devops/pipeline prepare-development-environment"
+        echo "devops/pipeline pre-commit-verification (automatic if devops/pipeline prepare-development-environment was run)"
+        echo "devops/pipeline handle-pull-request"
+        echo "devops/pipeline handle-merge-to-official-fork"
+        echo ""
+    ;;
+esac

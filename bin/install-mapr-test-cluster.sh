@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-bin/prepare-dependencies.sh
+devops/pipeline prepare-development-environment
 export release=mapr6.0.0
 export lifecyclePhase=development
 export onDemandClusters=MesosDockerFarm:baseCentOS1Node,MesosDockerFarm:baseUbuntu141Node

@@ -67,6 +67,70 @@ Instead of typing out the feature files in the order you'd like to run them as a
 instead opt to run a featureSet, which uses the id of a list of feature files in the configuration/config.json file:
 
     > bin/devops-automation run featureSet [featureSetName] [optional cucumber args here]
+    
+###  Adding Releasing, Repo and Phases
+
+We assume there is a target release and many lifecycle phases in each release. Each phase has its own repo URL.
+We break down the products into groups such as core, ecosystem and spyglass called packageSets.
+
+
+    Terminologies :
+    defaultRelease - refers to the targeted release, say mapr6.0 or MEP1.1
+    defaultLifecyclePhase - refers to the phase of work in the release, development/testing/staging/release
+    repositories - has a list of all URLs
+    packageSets - groups package versions by core/ecosystem etc
+    releases - list of release(name to be used in defaultRelease) and package sets associated with a release
+
+How to go about adding a new release ?
+
+1) Add a packageSet under packaging.packageSets which includes an Id, version and list of packages. Each package is
+    associated with a name, version and tag(core/ecosystem/spyglass)
+2) Add a new url under packaging.repositories and add list of packages which refers to the packageSets contained in the URL,
+    specify a promotionLevel (development/testing/staging) and the OS (ubuntu/centOS)
+3) Under releasing.releases add a new release, give it a new name and add a list of phases. Each phase has a packageSetRef,
+    version and promotionLevel which is the lifecyclephase.
+
+#### Example of adding a repo
+
+Consider adding a new repo for mapr 6.0 release :
+
+Add a packageSet :
+
+    {
+         "id": "core",
+         "version": "6.0.0",
+         "packages": [
+           { "name": "mapr-cldb", "version": "6.0.0", "tags": ["core"] },
+           .....
+         ]
+    }
+
+Adding a URL for the package which in turn refers to the above packageSet and has a version 6.0.0 and promotionLevel is development with OS ubuntu :
+
+    {
+          "url": "http://apt.qa.lab/mapr",
+          "packages": [
+            { "packageSetRef": "core", "version": "6.0.0", "promotionLevel": "development", "operatingSystems": ["ubuntu"]}
+          ]
+
+    }
+
+Adding a new release called mapr6.0 and adding development phase with packageSet defined above :
+
+    {
+          "name": "mapr6.0",
+          "phases": [
+            {
+              "name": "development",
+              "packages": [
+                { "packageSetRef": "core", "version": "6.0.0", "promotionLevel": "development" },
+              ]
+            }
+          ]
+    }
+
+After the above steps are complete we can set the defaultRelease=mapr6.0 and defaultLifecyclePhase=development
+   
 
 ### List Available Cluster Ids
 

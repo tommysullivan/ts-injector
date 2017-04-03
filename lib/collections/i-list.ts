@@ -43,4 +43,5 @@ export interface IList<T> extends IJSONSerializable {
     sum:number;
     zip<T2>(list1:IList<T2>):IList<[T, T2]>;
     zip2<T2, T3>(list1:IList<T2>, list2:IList<T3>):IList<[T, T2, T3]>;
+    reverse:IList<T>;
 }

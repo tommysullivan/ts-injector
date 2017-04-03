@@ -2,4 +2,3 @@
 require('source-map-support').install();
 var yargs = require('yargs')
 yargs.commandDir('../dist/yargs-cli', {extensions: ['js']}).demand(1).help('h').argv;
-

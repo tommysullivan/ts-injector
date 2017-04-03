@@ -1,4 +1,3 @@
-*.iml
 node_modules
 data/test-run-output
 data/tmp

@@ -1,8 +1,6 @@
 import {IList} from "./i-list";
 import {IComparator} from "./i-comparator";
 import {IFuture} from "../futures/i-future";
-import {ILogCaptureConfiguration} from "../clusters/i-log-capture-configuration";
-import {IJSONObject} from "../typed-json/i-json-object";
 
 export class List<T> implements IList<T> {
     constructor(
@@ -222,5 +220,11 @@ export class List<T> implements IList<T> {
 
     zip2<T2, T3>(list1: IList<T2>, list2: IList<T3>): IList<[T,T2,T3]> {
         return this.map((element, index) => <[T,T2,T3]>[element, list1.itemAt(index), list2.itemAt(index)]);
+    }
+
+    get reverse():IList<T> {
+        let copy = this.toArray();
+        copy.reverse();
+        return new List<T>(copy, this.createFutureList);
     }
 }
