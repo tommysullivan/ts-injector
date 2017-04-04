@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-set -x
 
 SCRIPT_DEPLOY_LOCATION="http://artifactory.devops.lab/artifactory/local-flatfiles/"
 
