@@ -67,7 +67,42 @@ Instead of typing out the feature files in the order you'd like to run them as a
 instead opt to run a featureSet, which uses the id of a list of feature files in the configuration/config.json file:
 
     > bin/devops-automation run featureSet [featureSetName] [optional cucumber args here]
+   
+## Mesos Environment 
+ 
+ The framework supports running tests on Docker Images running on a Mesos Cluster.
+ This provides dynamic infrastructure and resource sharing.
+ We use the following variable to control the launch on clusters on Mesos.
+  - EnvironmentId represents the current environment to spin up a cluster
+  - TemplateId is the template of the MapR cluster or base nodes to start up.
     
+   The current environmentID and templateId are defined in the configuration project under dockerInfrastructure :
+   https://github.com/mapr/private-devops-configuration/blob/master/devops-configuration/config.json
+
+ ### On Demand clusters to run test
+  
+  Set the environment variable onDemandClusters a , separated list of clusters.
+  The specified clusters are created before a test run and destroyed.
+  Format for the on demand cluster id is <EnvironmentId>:<TemplateID>
+    
+        export onDemandClusters=MesosDockerFarm:baseCentOS1Node
+
+  The above creates a base 1 node CentOS image and runs the tests.
+  
+  ### Manually bring up clusters 
+  
+  Use the cli 
+  
+        bin/devops docker launch -e <EnvID> -d <dockerTemplateID>
+  
+  The above command generates an ID. To use the above cluster set the clusterID variable to following:
+  
+        export clusterId=MesosDockerFarm:<aboveId>
+  
+  Please kill the image after completing the tests.
+  
+        bin/devops docker kill -c <clusterID> [In the above format]
+ 
 ###  Adding Releasing, Repo and Phases
 
 We assume there is a target release and many lifecycle phases in each release. Each phase has its own repo URL.
