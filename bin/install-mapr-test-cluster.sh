@@ -8,6 +8,3 @@ export portalId=lab
 export testName=core-6.0-promotion
 npm run build
 bin/devops run featureSet --featureSetId dockerInstallAndPackageCheck
-export release=mapr5.2.1
-export testName=core-5.2.1-promotion
-bin/devops run featureSet --featureSetId dockerInstallAndPackageCheck
