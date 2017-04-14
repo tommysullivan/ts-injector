@@ -32,6 +32,10 @@ export class DockerClusterConfig implements IDockerClusterTemplateConfiguration 
           return this.dockerImageJson.numericPropertyNamed(`defaultMemoryPerContainer`);
     }
 
+    get defaultConstraints(): Array<string> {
+        return this.dockerImageJson.listNamedOrDefaultToEmpty<string>(`defaultConstraints`).toArray();
+    }
+
     toJSON(): any {
         return this.dockerImageJson.toJSON();
     }

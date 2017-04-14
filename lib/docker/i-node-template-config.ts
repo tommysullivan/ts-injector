@@ -5,4 +5,5 @@ export interface INodeTemplateConfig extends IJSONSerializable {
     instances: number;
     diskProvider?: boolean;
     serviceNames?: Array<string>;
+    constraints?: Array<string>;
 }

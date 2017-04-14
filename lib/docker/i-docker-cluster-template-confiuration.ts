@@ -7,4 +7,5 @@ export interface IDockerClusterTemplateConfiguration extends IJSONSerializable {
     nodeTemplates:Array<INodeTemplateConfig>;
     defaultCPUsPerContainer:number;
     defaultMemoryPerContainer:number;
+    defaultConstraints?: Array<string>;
 }

@@ -29,6 +29,10 @@ export class NodeTemplateConfig implements INodeTemplateConfig {
       return this.imageJSON.listNamedOrDefaultToEmpty<string>(`serviceNames`).toArray();
     }
 
+    get constraints(): Array<string> {
+        return this.imageJSON.listNamedOrDefaultToEmpty<string>(`constraints`).toArray();
+    }
+
     toJSON():any {
         return this.imageJSON.toJSON();
     }

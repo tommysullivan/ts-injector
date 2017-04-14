@@ -149,6 +149,15 @@ export class ClusterTemplate implements IClusterTemplate {
         return this.collections.newList(this.dockerClusterTemplateConfiguration.nodeTemplates);
     }
 
+    private templateConstraints(nodeTemplate: INodeTemplateConfig): string[] | string[][] {
+        if (nodeTemplate.constraints.length > 0)
+            return this.collections.newList(nodeTemplate.constraints).map(condition => condition.split(` `)).toArray();
+        else
+            return this.dockerClusterTemplateConfiguration.defaultConstraints.length > 0
+                ? this.collections.newList(this.dockerClusterTemplateConfiguration.defaultConstraints).map(condition => condition.split(` `)).toArray()
+                : []
+    }
+
     generateJsonToLaunchDocker(nodeTemplate: INodeTemplateConfig, envVariables: IDictionary<string>, targetEnvironment:IMesosEnvironment): IJSONObject {
         const jsonMarathonRequest = {
             id: envVariables.get(`generatedApplicationName`),
@@ -179,7 +188,9 @@ export class ClusterTemplate implements IClusterTemplate {
                 DISKLIST: envVariables.get(`diskList`),
                 MEMTOTAL: envVariables.get(`memTotal`)
             },
-            labels: this.templateServiceListAsJson(nodeTemplate).toJSON()
+            labels: this.templateServiceListAsJson(nodeTemplate).toJSON(),
+            constraints: this.templateConstraints(nodeTemplate)
+
         };
         return this.typedJson.newJSONObject(jsonMarathonRequest);
     }
