@@ -1,5 +1,5 @@
 node_modules
-data/test-run-output
+data/test-run-output/**/*.json
 data/tmp
 dist
 npm-debug.log
