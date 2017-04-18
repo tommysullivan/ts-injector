@@ -126,6 +126,8 @@ module.exports = function() {
         const zookeeperHostsString = $.clusterUnderTest.nodesHosting('mapr-zookeeper').map(n=>n.host).join(',');
         const historyHostString:string = $.clusterUnderTest.nodesHosting(`mapr-historyserver`).isEmpty ? `` : `-HS ${$.clusterUnderTest.nodeHosting('mapr-historyserver').host}`;
         const configCommand =`/opt/mapr/server/configure.sh -C ${cldbHostsString} -Z ${zookeeperHostsString} ${historyHostString} -u mapr -g mapr -N ${$.clusterUnderTest.name} `;
+        // Workaround to limit the MFS cache memory
+        const limitMFSCache = `echo mfs.cache.memory=6000 >> /opt/mapr/conf/mfs.conf`;
         if($.clusters.allIds.contain($.clusterId)) {
             const result = $.clusterUnderTest.executeShellCommandOnEachNode(`${configCommand} -F /root/disk.list`);
             return $.expect(result).to.eventually.be.fulfilled;
@@ -133,7 +135,7 @@ module.exports = function() {
         else {
             const result = $.clusterUnderTest.nodes.mapToFutureList(node =>
                 node.executeShellCommand(`cat /root/disk.list`)
-                    .then(sshResult => node.executeShellCommand(`${configCommand} -D ${sshResult.processResult.stdoutLines.first}`))
+                    .then(sshResult => node.executeShellCommands(limitMFSCache, `${configCommand} -D ${sshResult.processResult.stdoutLines.first}`))
             );
             return $.expect(result).to.eventually.be.fulfilled;
         }

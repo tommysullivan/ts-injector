@@ -26,11 +26,12 @@ export class MultiClusterTester implements IMultiClusterTester {
 
     runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(clusterIds:IList<string>, cucumberPassThruCommands:IList<string>):IFuture<IList<ITestResult>> {
         const testRunUUID = this.uuidGenerator.v4();
-        this.urlCalculator.writeUrlsToPropertiesFile(
-            clusterIds.map(
-                clusterId => this.urlCalculator.calculateURL(`${testRunUUID}_${clusterId}_user-${this.process.currentUserName}`)
-            )
-        );
+        if (this.process.environmentVariables.hasKey('portalId'))
+            this.urlCalculator.writeUrlsToPropertiesFile(
+                clusterIds.map(
+                    clusterId => this.urlCalculator.calculateURL(`${testRunUUID}_${clusterId}_user-${this.process.currentUserName}`)
+                )
+            );
         return clusterIds
             .mapToFutureList(clusterId => this.runCucumberForClusterAndSaveResultToPortalIfApplicable(
                 testRunUUID,

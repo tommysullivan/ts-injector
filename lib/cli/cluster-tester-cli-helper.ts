@@ -95,7 +95,6 @@ export class ClusterTesterCliHelper {
         const futureOnDemandClusters = this.process.environmentVariables.hasKey('onDemandClusters')
             ? this.createOnDemandClusters()
             : this.futures.newFutureForImmediateValue(this.collections.newEmptyList<ICluster>());
-
         return futureOnDemandClusters.then(onDemandClusters => {
             const clusterIds = onDemandClusters.map(c=>c.id).append(this.collections.newList(this.clusterTestingConfiguration.clusterIds));
             return this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(clusterIds, cucumberPassThruCommands)
@@ -113,6 +112,9 @@ export class ClusterTesterCliHelper {
                             this.process.exit(1);
                         });
                 });
+        }).catch(e => {
+            this.console.error(e.stack);
+            this.process.exit(1);
         });
     }
 

@@ -41,7 +41,7 @@ import {IClusters} from "../clusters/i-clusters";
 import {ITesting} from "../testing/i-testing";
 import {ICluster} from "../clusters/i-cluster";
 import {IFuture} from "../futures/i-future";
-import {WorldConstructor, ICustomWorld} from "./i-custom-world";
+import {ICustomWorld, WorldConstructor} from "./i-custom-world";
 
 export class Cucumber implements ICucumber {
     constructor(
@@ -103,10 +103,14 @@ export class Cucumber implements ICucumber {
     }
 
     getMesosEnvIdFromClusterId(): string {
+        if (!this.clusterTestingConfiguration.clusterIds[0])
+            throw new Error(`Environment ClusterId missing`);
         return this.clusterTestingConfiguration.clusterIds[0].split(`:`)[0];
     }
 
     getMarathonAppIdFromClusterId(): string {
+        if (!this.clusterTestingConfiguration.clusterIds[0])
+            throw new Error(`Environment ClusterId missing`);
         return this.clusterTestingConfiguration.clusterIds[0].split(`:`)[1];
     }
 
