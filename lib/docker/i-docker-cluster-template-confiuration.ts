@@ -1,5 +1,6 @@
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
 import {INodeTemplateConfig} from "./i-node-template-config";
+import {IOperatingSystemConfig} from "../operating-systems/i-operating-system-config";
 
 export interface IDockerClusterTemplateConfiguration extends IJSONSerializable {
     id:string;
@@ -8,4 +9,5 @@ export interface IDockerClusterTemplateConfiguration extends IJSONSerializable {
     defaultCPUsPerContainer:number;
     defaultMemoryPerContainer:number;
     defaultConstraints?: Array<string>;
+    defaultOperatingSystem?: IOperatingSystemConfig;
 }

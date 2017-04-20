@@ -2,6 +2,8 @@ import {IDockerClusterTemplateConfiguration} from "./i-docker-cluster-template-c
 import {IJSONObject} from "../typed-json/i-json-object";
 import {INodeTemplateConfig} from "./i-node-template-config";
 import {NodeTemplateConfig} from "./node-template-config";
+import {IOperatingSystemConfig} from "../operating-systems/i-operating-system-config";
+import {OperatingSystemConfig} from "../operating-systems/operating-system-config";
 
 export class DockerClusterConfig implements IDockerClusterTemplateConfiguration {
 
@@ -34,6 +36,12 @@ export class DockerClusterConfig implements IDockerClusterTemplateConfiguration 
 
     get defaultConstraints(): Array<string> {
         return this.dockerImageJson.listNamedOrDefaultToEmpty<string>(`defaultConstraints`).toArray();
+    }
+
+    get defaultOperatingSystem(): IOperatingSystemConfig {
+        return this.dockerImageJson.hasPropertyNamed(`defaultOperatingSystem`)
+            ? new OperatingSystemConfig(this.dockerImageJson.jsonObjectNamed(`defaultOperatingSystem`))
+            : null;
     }
 
     toJSON(): any {

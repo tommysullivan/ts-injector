@@ -1,5 +1,7 @@
 import {IJSONObject} from "../typed-json/i-json-object";
 import {INodeTemplateConfig} from "./i-node-template-config";
+import {IOperatingSystemConfig} from "../operating-systems/i-operating-system-config";
+import {OperatingSystemConfig} from "../operating-systems/operating-system-config";
 
 export class NodeTemplateConfig implements INodeTemplateConfig {
     constructor (
@@ -31,6 +33,12 @@ export class NodeTemplateConfig implements INodeTemplateConfig {
 
     get constraints(): Array<string> {
         return this.imageJSON.listNamedOrDefaultToEmpty<string>(`constraints`).toArray();
+    }
+
+    get operatingSystem(): IOperatingSystemConfig {
+        return this.imageJSON.hasPropertyNamed(`operatingSystem`)
+            ? new OperatingSystemConfig(this.imageJSON.jsonObjectNamed(`operatingSystem`))
+            : null;
     }
 
     toJSON():any {

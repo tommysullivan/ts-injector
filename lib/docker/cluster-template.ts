@@ -158,18 +158,29 @@ export class ClusterTemplate implements IClusterTemplate {
                 : []
     }
 
+    private allVolumesForTemplate(nodeTemplate: INodeTemplateConfig, envVariables: IDictionary<string>, targetEnvironment: IMesosEnvironment): any {
+        const operatingSystem = nodeTemplate.operatingSystem
+            ? nodeTemplate.operatingSystem
+            : this.dockerClusterTemplateConfiguration.defaultOperatingSystem;
+
+        return [
+            {
+                hostPath: this.mountFullMountPath(envVariables.get(`clusterName`), targetEnvironment),
+                containerPath: targetEnvironment.dockerVolumeLocalPath,
+                mode: "RW"
+            }
+        ].concat(operatingSystem && operatingSystem.name == 'centos' && parseInt(operatingSystem.version) >= 7
+            ? {hostPath: "/sys/fs/cgroup", containerPath: "/sys/fs/cgroup", mode: "RO"}
+            : []
+        );
+    }
+
     generateJsonToLaunchDocker(nodeTemplate: INodeTemplateConfig, envVariables: IDictionary<string>, targetEnvironment:IMesosEnvironment): IJSONObject {
         const jsonMarathonRequest = {
             id: envVariables.get(`generatedApplicationName`),
             container: {
                 type: "DOCKER",
-                volumes: [
-                    {
-                        hostPath: this.mountFullMountPath(envVariables.get(`clusterName`), targetEnvironment),
-                        containerPath: targetEnvironment.dockerVolumeLocalPath,
-                        mode: "RW"
-                    }
-                ],
+                volumes: this.allVolumesForTemplate(nodeTemplate, envVariables, targetEnvironment),
                 docker: {
                     image: `${this.dockerRepo}/${nodeTemplate.dockerImageName}`,
                     network: "BRIDGE",
