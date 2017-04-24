@@ -66,4 +66,12 @@ export class YumPackageManager implements IPackageManager {
     get queryMetadataCommand():string {
         return `rpm -qi`;
     }
+
+    get extension(): string {
+        return `rpm`;
+    }
+
+    get repoLocation(): string {
+        return `/etc/yum.repos.d/`;
+    }
 }

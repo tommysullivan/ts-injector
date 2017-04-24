@@ -63,4 +63,12 @@ export class AptPackageManager implements IPackageManager {
     get queryMetadataCommand():string {
         return `dpkg-query -p`;
     }
+
+    get extension(): string {
+        return `deb`;
+    }
+
+    get repoLocation(): string {
+        return `/etc/apt/sources.list.d/`;
+    }
 }

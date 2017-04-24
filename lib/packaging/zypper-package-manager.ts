@@ -66,4 +66,13 @@ export class ZypperPackageManager implements IPackageManager {
     get queryMetadataCommand():string {
         return `zypper info`;
     }
+
+
+    get extension(): string {
+        return `rpm`;
+    }
+
+    get repoLocation(): string {
+        return `/etc/zypp/repos.d/`;
+    }
 }
