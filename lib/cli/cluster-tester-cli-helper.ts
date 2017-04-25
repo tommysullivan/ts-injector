@@ -108,7 +108,7 @@ export class ClusterTesterCliHelper {
                     return this.destroyOnDemandClusters(clusterIds)
                         .then(_ => this.process.exit(allPassed ? 0 : 1))
                         .catch(e => {
-                            this.console.error(e);
+                            this.console.error(e.stack ? e.stack : e);
                             this.process.exit(1);
                         });
                 });

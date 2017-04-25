@@ -14,6 +14,12 @@ export class Dictionary<ValueType> implements IDictionary<ValueType> {
     }
 
     add(key:string, value:ValueType):IDictionary<ValueType> {
+        if(this.hasKey(key)) throw new Error(`Cannot add key ${key}, it already exists with value ${value}`);
+        this.hash[key]=value;
+        return this;
+    }
+
+    addOrUpdate(key:string, value:ValueType):IDictionary<ValueType> {
         this.hash[key]=value;
         return this;
     }

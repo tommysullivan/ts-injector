@@ -19,12 +19,14 @@ case $1 in
         echo ""
         curl "${SCRIPT_DEPLOY_LOCATION}devops/verify-npm-package-version-is-unique.sh" | sh
         npm run build
+        npm run unitTests
         npm run localTest
     ;;
     "handle-pull-request")
         devops/pipeline prepare-development-environment
         curl "${SCRIPT_DEPLOY_LOCATION}devops/verify-npm-package-version-is-unique.sh" | sh
         npm run build
+        npm run unitTests
         npm test
     ;;
     "handle-merge-to-official-fork")

@@ -8,122 +8,146 @@ import {INativeServerRequestor} from "./i-native-server-requestor";
 import {IRestForNodeJS} from "./i-rest-for-node-js";
 import {INativeServerResponse} from "./i-native-server-response";
 import {INativeServerResponseHandler} from "./i-native-server-response-handler";
-import {IError} from "../../errors/i-error";
 import {IHash} from "../../collections/i-hash";
 import {IJSONValue, IJSONHash} from "../../typed-json/i-json-value";
 import {IRestRequestOptions} from "../common/i-rest-request-options";
+import {IHTTPClientCache} from "../common/i-http-client-cache";
 
-type INativeInvoker = (fullURL:string, nativeResponseHandler:INativeServerResponseHandler)=>any;
+type INativeHttpRequestMethod = (url:string, options:INativeRequestOptions, responseHandler:INativeServerResponseHandler) => void;
 
 export class RestClientForNodeJS implements IRestClient {
     constructor(
         private futures:IFutures,
-        private builtInNodeJSRequestor:INativeServerRequestor,
+        private nativeRequestor:INativeServerRequestor,
         private baseUrl:string,
         private rest:IRest,
-        private restForNodeJS:IRestForNodeJS
+        private restForNodeJS:IRestForNodeJS,
+        private httpClientCache:IHTTPClientCache
     ) {}
 
     postFormEncodedBody(path: string, formKeyValuePairs: IHash<string>): IFuture<IRestResponse> {
-        return this.newFutureRestResponse(
+        return this.performRequest(
             path,
-            (url, handler) => this.builtInNodeJSRequestor.post(
-                url,
-                { form: formKeyValuePairs },
-                handler
-            )
+            { form: formKeyValuePairs },
+            this.nativeRequestor.post,
+            false
         );
     }
 
     post(path:string, jsonObjectToStringify?:IJSONValue):IFuture<IRestResponse> {
-        return this.newFutureRestResponse(
+        return this.performRequest(
             path,
-            (url, handler) => this.builtInNodeJSRequestor.post(
-                url,
-                this.createNativeRequestOptions(jsonObjectToStringify),
-                handler
-            )
+            this.createNativeRequestOptions(jsonObjectToStringify),
+            this.nativeRequestor.post,
+            false
         );
     }
 
     postPlainText(path:string, postString:string):IFuture<IRestResponse> {
-        return this.newFutureRestResponse(
+        return this.performRequest(
             path,
-            (url, handler) => this.builtInNodeJSRequestor.post(
-                url,
-                this.createNativeTextRequestOptions(postString),
-                handler
-            )
+            {
+                body: postString,
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            },
+            this.nativeRequestor.post,
+            false
         );
     }
 
     getWithQueryString(path:string, queryStringParams:IJSONHash):IFuture<IRestResponse> {
-        return this.get(path, {
-            queryString: queryStringParams
-        });
+        return this.performRequest(
+            path,
+            {
+                qs: queryStringParams
+            },
+            this.nativeRequestor.get,
+            true
+        );
     }
 
     getPlainText(path: string): IFuture<IRestResponse> {
-        return this.get(path, {
-            headers: {
-                Accept: 'text/plain'
-            }
-        });
+        return this.performRequest(
+            path,
+            {
+                headers: {
+                    Accept: 'text/plain'
+                }
+            },
+            this.nativeRequestor.get,
+            true
+        );
     }
 
     getJSONWithSpecificContentType(path:string, contentType:string):IFuture<IRestResponse> {
-        return this.get(path, {
-            headers: {
-                'Content-Type': contentType
-            }
-        });
+        return this.performRequest(
+            path,
+            {
+                headers: {
+                    Accept: contentType
+                }
+            },
+            this.nativeRequestor.get,
+            true
+        );
     }
 
     get(path:string, options?:IRestRequestOptions):IFuture<IRestResponse> {
-        return this.newFutureRestResponse(
+        return this.performRequest(
             path,
-            (url, handler) => this.builtInNodeJSRequestor.get(
-                url,
-                this.createNativeRequestOptions(null, options),
-                handler
-            )
+            this.createNativeRequestOptions(null, options),
+            this.nativeRequestor.get,
+            true
         );
     }
 
     patch(path:string, jsonObjectToStringify?:IJSONValue):IFuture<IRestResponse> {
-        return this.newFutureRestResponse(
+        return this.performRequest(
             path,
-            (url, handler) => this.builtInNodeJSRequestor.patch(
-                url,
-                this.createNativeRequestOptions(jsonObjectToStringify),
-                handler
-            )
+            this.createNativeRequestOptions(jsonObjectToStringify),
+            this.nativeRequestor.patch,
+            false
         );
     }
 
     delete(path:string):IFuture<IRestResponse> {
-        //TODO: Will delete also need options?
-        return this.newFutureRestResponse(
+        return this.performRequest(
             path,
-            (url, handler) => this.builtInNodeJSRequestor.delete(url, handler)
+            {},
+            this.nativeRequestor.delete,
+            false
         );
     }
 
     put(path:string, jsonObjectToStringify:IJSONValue, options?:IRestRequestOptions):IFuture<IRestResponse> {
-        return this.newFutureRestResponse(
+        return this.performRequest(
             path,
-            (url, handler) => this.builtInNodeJSRequestor.put(
-                url,
-                this.createNativeRequestOptions(jsonObjectToStringify, options),
-                handler
-            )
+            this.createNativeRequestOptions(jsonObjectToStringify, options),
+            this.nativeRequestor.put,
+            false
         );
     }
 
-    private jsonBodyWrapperFor(jsonObjectToStringify:IJSONValue):IJSONValue {
-        return {
-            body: JSON.stringify(jsonObjectToStringify)
-        }
+    private performRequest(path:string, requestOptions:INativeRequestOptions, nativeHttpRequestMethod:INativeHttpRequestMethod, useCache:boolean):IFuture<IRestResponse> {
+        const url = this.fullPath(path);
+        return this.futures.newFuture((resolve, reject) => {
+            nativeHttpRequestMethod(
+                url,
+                this.httpClientCache.addCacheHeadersIfApplicable(url, requestOptions),
+                (error:Error, response:INativeServerResponse) => {
+                    if(useCache && response.statusCode==304 && this.httpClientCache.containsCachedResponseFor(url)) {
+                        resolve(this.httpClientCache.previousResponseForUrl(url));
+                    } else {
+                        const responseWrapper = this.restForNodeJS.newRestResponse(error, response, url);
+                        this.httpClientCache.addResponseIfApplicable(responseWrapper);
+                        if(responseWrapper.isError) reject(this.rest.newRestError(responseWrapper));
+                        else resolve(responseWrapper);
+                    }
+                }
+            );
+        });
     }
 
     private createNativeRequestOptions(requestBody:IJSONValue, options?:IRestRequestOptions):INativeRequestOptions {
@@ -134,45 +158,10 @@ export class RestClientForNodeJS implements IRestClient {
         }
     }
 
-    private createNativeTextRequestOptions(requestBody:string, options?:IRestRequestOptions):INativeRequestOptions {
-        return {
-            body: requestBody ? requestBody : null,
-            headers: options ? options.headers : `Content-Type: text/plain`,
-            qs: options ? options.queryString : null
-        }
-    }
-
-    private newFutureRestResponse(potentiallyFullOrPartialPath:string, nativeInvoker:INativeInvoker):IFuture<IRestResponse> {
-        const url = this.fullPath(potentiallyFullOrPartialPath);
-        return this.futures.newFuture((resolve, reject) => nativeInvoker(
-            url,
-            this.createNativeResponseHandler(url, resolve, reject)
-        ));
-    }
-
-    private createNativeResponseHandler(url:string, resolve:(response:IRestResponse)=>any, reject:(error:IError)=>any):INativeServerResponseHandler {
-        return (error:Error, response:INativeServerResponse) => {
-            const responseWrapper = this.restForNodeJS.newRestResponse(error, response, url);
-            if(responseWrapper.isError) reject(this.rest.newRestError(responseWrapper));
-            else resolve(responseWrapper);
-        }
-    }
-
     private fullPath(potentiallyFullOrPartialPath:string):string {
         return potentiallyFullOrPartialPath.indexOf('://')>=0
             ? potentiallyFullOrPartialPath
             : `${this.baseUrl}${potentiallyFullOrPartialPath}`;
     }
 
-    private request(method:Function, path:string, options?:INativeRequestOptions):IFuture<IRestResponse> {
-        const url = this.fullPath(path);
-        return this.futures.newFuture((resolve, reject) => {
-            const responseHandler = (error, response, body) => {
-                const responseWrapper = this.restForNodeJS.newRestResponse(error, response, url);
-                if(responseWrapper.isError) reject(this.rest.newRestError(responseWrapper));
-                else resolve(responseWrapper);
-            };
-            method.call(this.builtInNodeJSRequestor, url, options, responseHandler.bind(this));
-        });
-    }
 }

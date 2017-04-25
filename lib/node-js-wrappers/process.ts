@@ -66,7 +66,7 @@ export class Process implements IProcess {
     executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFuture<IProcessResult> {
         const env = environmentVariables.clone();
         const nodeExecutable = this.pathToNodeJSExecutable;
-        env.add('PATH', `${env.get('PATH')}:${nodeExecutable}`);
+        env.addOrUpdate('PATH', `${env.get('PATH')}:${nodeExecutable}`);
 
         return this.futures.newFuture((resolve, reject) => {
             var stdOutIndices:Array<number> = [];

@@ -39,10 +39,6 @@ export class FrameworkForBrowser extends Framework implements IFramework {
         return new Error(`The requested implementation, ${implementationName}, is not available in the DIA Framework Browser context.`);
     }
 
-    get promiseModule():any {
-        return this.nativePromise;
-    }
-
     get console():IConsole {
         return new ConsoleForBrowser(this.nativeConsole);
     }
@@ -55,7 +51,8 @@ export class FrameworkForBrowser extends Framework implements IFramework {
         return new RESTForBrowser(
             this.nativeJQuery,
             this.futures,
-            this.typedJSON
+            this.typedJSON,
+            this.collections
         );
     }
 

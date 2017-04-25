@@ -1,10 +1,8 @@
 import {RestResponseForNodeJS} from "./rest-response-for-node-js";
 import {RestClientForNodeJS} from "../nodejs/rest-client-for-node-js";
-import {RestError} from "../common/rest-error";
 import {ITypedJSON} from "../../typed-json/i-typed-json";
 import {IRestClient} from "../common/i-rest-client";
 import {IRestResponse} from "../common/i-rest-response";
-import {IError} from "../../errors/i-error";
 import {IFutures} from "../../futures/i-futures";
 import {INativeServerRequestModule} from "../nodejs/i-request-module";
 import {IRestForNodeJS} from "./i-rest-for-node-js";
@@ -12,15 +10,19 @@ import {INativeServerRequestor} from "./i-native-server-requestor";
 import {INativeServerResponse} from "./i-native-server-response";
 import {IRestConfiguration} from "../common/i-rest-configuration";
 import {ICollections} from "../../collections/i-collections";
+import {Rest} from "../common/rest";
 
-export class RestForNodeJS implements IRestForNodeJS {
+export class RestForNodeJS extends Rest implements IRestForNodeJS {
+
     constructor(
         private futures:IFutures,
         private requestModule:INativeServerRequestModule,
         private restConfiguration:IRestConfiguration,
         private typedJSON:ITypedJSON,
-        private collections:ICollections
-    ) {}
+        collections:ICollections
+    ) {
+        super(collections);
+    }
 
     newRestClient(baseURL?:string):IRestClient {
         return new RestClientForNodeJS(
@@ -28,7 +30,8 @@ export class RestForNodeJS implements IRestForNodeJS {
             this.newNativeServerRequestor(),
             baseURL,
             this,
-            this
+            this,
+            this.singletonHTTPClientCache
         );
     }
 
@@ -55,9 +58,5 @@ export class RestForNodeJS implements IRestForNodeJS {
             this.typedJSON.jsonParser,
             this.collections
         );
-    }
-
-    newRestError(restResponse:IRestResponse):IError {
-        return new RestError(restResponse);
     }
 }

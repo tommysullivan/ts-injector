@@ -1,19 +1,21 @@
-import {IRest} from "../common/i-rest";
 import {IRestClient} from "../common/i-rest-client";
 import {IRestResponse} from "../common/i-rest-response";
-import {IError} from "../../errors/i-error";
 import {RestClientForBrowser} from "./rest-client-for-browser";
 import {IFutures} from "../../futures/i-futures";
-import {RestError} from "../common/rest-error";
 import {ITypedJSON} from "../../typed-json/i-typed-json";
 import {RestResponseForBrowser} from "./rest-response-for-browser";
+import {Rest} from "../common/rest";
+import {ICollections} from "../../collections/i-collections";
 
-export class RESTForBrowser implements IRest {
+export class RESTForBrowser extends Rest {
     constructor(
         private nativeJQuery:any,
         private futures:IFutures,
-        private typedJSON:ITypedJSON
-    ) {}
+        private typedJSON:ITypedJSON,
+        collections:ICollections
+    ) {
+        super(collections);
+    }
 
     newRestClient(baseURL?:string):IRestClient {
         return new RestClientForBrowser(
@@ -30,9 +32,5 @@ export class RESTForBrowser implements IRest {
             this.typedJSON.jsonParser,
             this.typedJSON
         )
-    }
-
-    newRestError(restResponse:IRestResponse):IError {
-        return new RestError(restResponse);
     }
 }
