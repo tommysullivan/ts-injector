@@ -6,6 +6,7 @@ import {ITypedJSON} from "../../typed-json/i-typed-json";
 import {RestResponseForBrowser} from "./rest-response-for-browser";
 import {Rest} from "../common/rest";
 import {ICollections} from "../../collections/i-collections";
+import {IJQueryXHR} from "./i-jquery-xhr";
 
 export class RESTForBrowser extends Rest {
     constructor(
@@ -21,16 +22,18 @@ export class RESTForBrowser extends Rest {
         return new RestClientForBrowser(
             this.futures,
             this.nativeJQuery,
-            (n, path) => this.newRestResponseForBrowser(n, path)
+            this.newRestResponseForBrowser.bind(this)
         );
     }
 
-    newRestResponseForBrowser(nativeJQueryResponseBody:string, originalURL:string):IRestResponse {
+    newRestResponseForBrowser(nativeJQueryResponseBody:string, originalURL:string, xhr:IJQueryXHR):IRestResponse {
         return new RestResponseForBrowser(
             nativeJQueryResponseBody,
             originalURL,
             this.typedJSON.jsonParser,
-            this.typedJSON
+            this.typedJSON,
+            xhr,
+            this.collections
         )
     }
 }

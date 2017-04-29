@@ -47,7 +47,13 @@ export class TypedJSON implements ITypedJSON {
     }
 
     isJSON(json:any):boolean{
-        return json && json.constructor === {}.constructor;
+        try {
+            JSON.stringify(json);
+            return true;
+        }
+        catch(e) {
+            return false;
+        }
     }
 
     newJSONMerger():IJSONMerger {

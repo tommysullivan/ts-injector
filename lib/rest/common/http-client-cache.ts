@@ -34,4 +34,8 @@ export class HTTPClientCache implements IHTTPClientCache {
     containsCachedResponseFor(url:string):boolean {
         return this.cache.hasKey(url);
     }
+
+    shouldSendPreviousResponse(currentResponse:IRestResponse):boolean {
+        return currentResponse.statusCode==304 && this.containsCachedResponseFor(currentResponse.originalUrl);
+    }
 }

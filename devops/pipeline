@@ -11,6 +11,7 @@ case $1 in
     "prepare-development-environment")
         curl "${SCRIPT_DEPLOY_LOCATION}devops/install-node-environment.sh" | sh
         curl "${SCRIPT_DEPLOY_LOCATION}devops/prepare-local-git-commit-hooks.sh" | sh
+        npm update
     ;;
     "pre-commit-verification")
         echo ""

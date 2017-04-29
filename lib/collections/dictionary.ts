@@ -52,4 +52,12 @@ export class Dictionary<ValueType> implements IDictionary<ValueType> {
     clone():IDictionary<ValueType> {
         return this.collections.newDictionary<ValueType>(this.toJSON());
     }
+
+    getOrDefault(key:string, defaultValue:ValueType):ValueType  {
+        return this.hasKey(key) ? this.get(key) : defaultValue;
+    }
+
+    getOrLazyDefault(key:string, defaultValue:()=>ValueType):ValueType {
+        return this.hasKey(key) ? this.get(key) : defaultValue();
+    }
 }

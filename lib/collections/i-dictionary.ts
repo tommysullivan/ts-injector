@@ -9,4 +9,6 @@ export interface IDictionary<ValueType> extends IJSONSerializable {
     clone():IDictionary<ValueType>;
     hasKey(key:string):boolean;
     keys:IList<string>;
+    getOrDefault(key:string, defaultValue:ValueType):ValueType;
+    getOrLazyDefault(key:string, defaultValue:()=>ValueType):ValueType;
 }

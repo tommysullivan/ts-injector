@@ -6,12 +6,13 @@ import {IHash} from "../../collections/i-hash";
 import {IJSONValue, IJSONHash} from "../../typed-json/i-json-value";
 import {NotImplementedError} from "../../errors/not-implemented-error";
 import {IRestRequestOptions} from "../common/i-rest-request-options";
+import {IJQueryXHR} from "./i-jquery-xhr";
 
 export class RestClientForBrowser implements IRestClient {
     constructor(
         private futures:IFutures,
         private $:any,
-        private newRestResponse:(nativeJQueryResponseBody:string, originalURL:string)=>IRestResponse
+        private newRestResponse:(nativeJQueryResponseBody:string, originalURL:string, xhr:IJQueryXHR)=>IRestResponse
     ) {}
 
     postFormEncodedBody(path: string, formKeyValuePairs: IHash<string>): IFuture<IRestResponse> {
@@ -22,7 +23,7 @@ export class RestClientForBrowser implements IRestClient {
         const headers = options && options.headers ? options.headers : { Accept: "application/json" };
         return this.futures.newFuture((resolve, reject) => {
             this.$.ajax({ url: path, type: 'GET', headers: headers })
-                .then(r => resolve(this.newRestResponse(r, path)))
+                .then((data, status, xhr) => resolve(this.newRestResponse(data, path, xhr)))
                 .fail(e => reject(e));
         });
     }
@@ -48,7 +49,7 @@ export class RestClientForBrowser implements IRestClient {
                 url: path,
             };
             this.$.ajax(ajaxArgs)
-                .then(r => resolve(this.newRestResponse(r, path)))
+                .then((data, status, xhr) => resolve(this.newRestResponse(data, path, xhr)))
                 .fail(e => reject(e));
         });
     }
@@ -56,7 +57,7 @@ export class RestClientForBrowser implements IRestClient {
     delete(path:string):IFuture<IRestResponse> {
         return this.futures.newFuture((resolve, reject) => {
             this.$.ajax({ url: path, type: 'DELETE' })
-                .then(r => resolve(this.newRestResponse(r, path)))
+                .then((data, status, xhr) => resolve(this.newRestResponse(data, path, xhr)))
                 .fail(e => reject(e));
         });
     }
@@ -64,7 +65,7 @@ export class RestClientForBrowser implements IRestClient {
     put(path:string, json:IJSONValue, options?:IRestRequestOptions):IFuture<IRestResponse> {
         return this.futures.newFuture((resolve, reject) => {
             this.$.ajax({ url: path, data: JSON.stringify(json), type: 'PUT', headers: options ? options.headers : null })
-                .then(r => resolve(this.newRestResponse(r, path)))
+                .then((data, status, xhr) => resolve(this.newRestResponse(data, path, xhr)))
                 .fail(e => reject(e));
         });
     }
@@ -72,7 +73,7 @@ export class RestClientForBrowser implements IRestClient {
     post(path:string, json:IJSONValue, options?:IRestRequestOptions):IFuture<IRestResponse> {
         return this.futures.newFuture((resolve, reject) => {
             this.$.ajax({ url: path, data: JSON.stringify(json), type: 'POST', headers: options ? options.headers : null })
-                .then(r => resolve(this.newRestResponse(r, path)))
+                .then((data, status, xhr) => resolve(this.newRestResponse(data, path, xhr)))
                 .fail(e => reject(e));
         });
     }

@@ -130,17 +130,17 @@ export class RestClientForNodeJS implements IRestClient {
         );
     }
 
-    private performRequest(path:string, requestOptions:INativeRequestOptions, nativeHttpRequestMethod:INativeHttpRequestMethod, useCache:boolean):IFuture<IRestResponse> {
+    private performRequest(path:string, requestOptions:INativeRequestOptions, nativeHttpRequestMethod:INativeHttpRequestMethod, isCacheableOperation:boolean):IFuture<IRestResponse> {
         const url = this.fullPath(path);
         return this.futures.newFuture((resolve, reject) => {
             nativeHttpRequestMethod(
                 url,
                 this.httpClientCache.addCacheHeadersIfApplicable(url, requestOptions),
                 (error:Error, response:INativeServerResponse) => {
-                    if(useCache && response.statusCode==304 && this.httpClientCache.containsCachedResponseFor(url)) {
+                    const responseWrapper = this.restForNodeJS.newRestResponse(error, response, url);
+                    if(isCacheableOperation && this.httpClientCache.shouldSendPreviousResponse(responseWrapper)) {
                         resolve(this.httpClientCache.previousResponseForUrl(url));
                     } else {
-                        const responseWrapper = this.restForNodeJS.newRestResponse(error, response, url);
                         this.httpClientCache.addResponseIfApplicable(responseWrapper);
                         if(responseWrapper.isError) reject(this.rest.newRestError(responseWrapper));
                         else resolve(responseWrapper);

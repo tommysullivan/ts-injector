@@ -5,6 +5,7 @@ export interface IHTTPClientCache {
     addResponseIfApplicable(response:IRestResponse):void;
     addCacheHeadersIfApplicable(url:string, requestOptions:IRestRequestOptions):IRestRequestOptions;
     containsCachedResponseFor(url:string):boolean;
+    shouldSendPreviousResponse(currentResponse:IRestResponse):boolean;
     previousResponseForUrl(url:string):IRestResponse;
     clear():void;
 }

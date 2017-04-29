@@ -6,13 +6,17 @@ import {NotImplementedError} from "../../errors/not-implemented-error";
 import {IList} from "../../collections/i-list";
 import {ITypedJSON} from "../../typed-json/i-typed-json";
 import {IDictionary} from "../../collections/i-dictionary";
+import {IJQueryXHR} from "./i-jquery-xhr";
+import {ICollections} from "../../collections/i-collections";
 
 export class RestResponseForBrowser implements IRestResponse {
     constructor(
         private nativeJQueryResponseBody:string,
         private _originalURL:string,
         private jsonParser:IJSONParser,
-        private typedJSON:ITypedJSON
+        private typedJSON:ITypedJSON,
+        private xhr:IJQueryXHR,
+        private collections:ICollections
     ) {}
 
     get isError():boolean {
@@ -24,7 +28,9 @@ export class RestResponseForBrowser implements IRestResponse {
     }
 
     get body():string {
-        return this.nativeJQueryResponseBody;
+        return typeof(this.nativeJQueryResponseBody) == 'string'
+            ? this.nativeJQueryResponseBody
+            : JSON.stringify(this.nativeJQueryResponseBody);
     }
 
     get jsonBody():IJSONValue {
@@ -32,11 +38,11 @@ export class RestResponseForBrowser implements IRestResponse {
     }
 
     get jsonHash():IJSONHash {
-        return <IJSONHash> this.jsonParser.parse(this.body);
+        return this.jsonParser.parse(this.body) as IJSONHash;
     }
 
     get jsonArray():IJSONArray {
-        return <IJSONArray> this.jsonParser.parse(this.body);
+        return this.jsonParser.parse(this.body) as IJSONArray;
     }
 
     get bodyAsJsonObject():IJSONObject {
@@ -52,7 +58,16 @@ export class RestResponseForBrowser implements IRestResponse {
     }
 
     get headers():IDictionary<string> {
-        throw new NotImplementedError();
+        const headerHash = this.xhr.getAllResponseHeaders().split("\n").filter(line => line.trim() != "").map(line => {
+            const [name, ...values] = line.split(':');
+            return { [name.trim()]: values.join(':').trim() }
+        }).reduce((previous, current) => {
+            return {
+                ...previous,
+                ...current
+            }
+        }, {});
+        return this.collections.newDictionary(headerHash);
     }
 
     toJSON(): IJSONValue {
