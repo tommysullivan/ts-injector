@@ -214,12 +214,6 @@ module.exports = function() {
         return $.expect(result).to.eventually.be.fulfilled;
     });
 
-    this.Given(/^I set the mfs instance to "([^"]*)"$/, (mfsInstances:string):PromisedAssertion  => {
-        return $.expect(
-            $.clusterUnderTest.nodes.first.executeShellCommand(`maprcli config save -values '{"multimfs.numinstances.pernode":"${mfsInstances}}'`)
-        ).to.eventually.be.fulfilled;
-    });
-
     this.Given(/^I add the user "([^"]*)" to secondary group "([^"]*)"$/, (user:string, secondaryGroup:string):PromisedAssertion => {
         const userToGroupCommand = `usermod -G ${secondaryGroup} ${user}`;
         return $.expect(atsInstallationNode.executeShellCommand(userToGroupCommand)).to.eventually.be.fulfilled;

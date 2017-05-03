@@ -85,12 +85,14 @@ export class Cucumber implements ICucumber {
 
        };
        return function(this:ICustomWorld):void {
+           this.BeforeFeatures(function (this: ICustomWorld) {
+               return loadCluster().then(cluster => clusterUnderTestReferencer.clusterUnderTest = cluster)
+           });
            this.Before(function(this:ICustomWorld) {
                this.sharedData = {
                    lastCommandResultSet: null,
                    mountPath: null
                };
-               return loadCluster().then(cluster => clusterUnderTestReferencer.clusterUnderTest = cluster);
            });
            this.setDefaultTimeout(timeout);
        };

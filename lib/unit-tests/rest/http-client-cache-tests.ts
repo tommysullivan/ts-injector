@@ -1,5 +1,5 @@
-import './prepare-test-environment';
-import {expect} from 'chai';
+import "../prepare-test-environment";
+import {expect} from "chai";
 import {Let} from "mocha-let-ts";
 import {HTTPClientCache} from "../../rest/common/http-client-cache";
 import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";

@@ -5,7 +5,7 @@ import {IClusterTestingConfiguration} from "./i-cluster-testing-configuration";
 import {ClusterInstallerConfig} from "../installer/cluster-installer-config";
 import {IClusterInstallerConfig} from "../installer/i-cluster-installer-config";
 import {ILogCaptureConfiguration} from "../clusters/i-log-capture-configuration";
-import {NotImplementedError} from "../errors/not-implemented-error";
+import {LogCaptureConfiguration} from "../clusters/log-capture-configuration";
 
 export class ClusterTestingConfiguration implements IClusterTestingConfiguration {
     constructor(
@@ -15,7 +15,8 @@ export class ClusterTestingConfiguration implements IClusterTestingConfiguration
     ) {}
 
     get logsToCapture():Array<ILogCaptureConfiguration> {
-        return this.configJSON.listNamed<ILogCaptureConfiguration>('logsToCapture').toArray();
+        return this.configJSON.listOfJSONObjectsNamed('logsToCapture')
+            .map(jsonObj => new LogCaptureConfiguration(jsonObj)).toArray();
     }
 
     get clusterInstaller():IClusterInstallerConfig {

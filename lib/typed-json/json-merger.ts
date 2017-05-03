@@ -10,16 +10,16 @@ export class JSONMerger implements IJSONMerger {
         private typedJSON:ITypedJSON
     ) {}
 
-    mergeJSON(json1:IJSONValue, json2:IJSONValue):IJSONValue {
+    mergeJSON(json1: IJSONValue, json2: IJSONValue): IJSONValue {
         var result = null;
         if(this.typedJSON.isJSON(json2)){
             result = {} ;
             if(this.typedJSON.isJSON(json1)){
-                for(var key in <any> json1){
+                for (var key in <any> json1) {
                     result[key] = json1[key] ;
                 }
             }
-            for(var key in <any> json2){
+            for (var key in <any> json2) {
                 if(typeof result[key] === "object" && typeof json2 === "object"){
                     result[key] = this.mergeJSON(result[key], json2[key]) ;
                 }else{

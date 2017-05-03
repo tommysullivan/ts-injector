@@ -34,6 +34,12 @@ module.exports = function() {
         return $.expect(snapshotInfoRequest).to.eventually.be.fulfilled;
     });
 
+    this.When(/^I revert the cluster to its configured "([^"]*)" state$/, (desiredStateName: string): PromisedAssertion => {
+        const revertRequest = $.clusterUnderTest.revertToState(desiredStateName)
+            .catch(e => this.ensureFailureOutputWorksWithChaiAsPromised(e));
+        return $.expect(revertRequest).to.eventually.be.fulfilled;
+    });
+
     this.Then(/^I manually update the configured "([^"]*)" state for the cluster with the snapshot ids$/, () => null );
 
 };

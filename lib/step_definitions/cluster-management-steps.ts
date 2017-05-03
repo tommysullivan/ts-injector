@@ -2,6 +2,7 @@ import {IClusterVersionGraph} from "../versioning/i-cluster-version-graph";
 import {IList} from "../collections/i-list";
 import {ICucumberStepHelper} from "../clusters/i-cucumber-step-helper";
 import {PromisedAssertion} from "../chai-as-promised/promised-assertion";
+import {ICustomWorld} from "../cucumber/i-custom-world";
 
 declare const $:ICucumberStepHelper;
 declare const module:any;
@@ -28,7 +29,7 @@ module.exports = function() {
         return $.expect($.clusterUnderTest.powerOff()).to.eventually.be.fulfilled;
     });
 
-    this.Then(/^the cluster does not have MapR Installed$/, ():PromisedAssertion => {
+    this.Then(/^the cluster does not have MapR Installed$/, function (this: ICustomWorld): PromisedAssertion {
         return $.expect($.clusterUnderTest.verifyMapRNotInstalled()).to.eventually.be.fulfilled;
     });
 
