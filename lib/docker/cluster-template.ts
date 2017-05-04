@@ -11,10 +11,12 @@ import {IDockerClusterTemplateConfiguration} from "./i-docker-cluster-template-c
 import {IClusterRunningInMesos} from "./i-cluster-running-in-mesos";
 import {IMesosEnvironment} from "./i-mesos-environment";
 import {ITypedJSON} from "../typed-json/i-typed-json";
+import {IProcess} from "../node-js-wrappers/i-process";
 
 export class ClusterTemplate implements IClusterTemplate {
     constructor(
         private uuidGenerator:IUUIDGenerator,
+        private process: IProcess,
         private futures:IFutures,
         private collections:ICollections,
         private typedJson:ITypedJSON,
@@ -93,7 +95,8 @@ export class ClusterTemplate implements IClusterTemplate {
             return this.generatedCusterId;
         }
         else {
-            this.generatedCusterId = `${this.uuidGenerator.v4()}`;
+            const uniqueId = this.uuidGenerator.v4();
+            this.generatedCusterId = `${this.process.currentUserName}.${uniqueId.substring(0, uniqueId.indexOf(`-`))}`;
             return this.generatedCusterId;
         }
     }

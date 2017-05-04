@@ -16,9 +16,13 @@ export class DockerCliHelper implements IDockerCliHelper {
 
     provisionCluster(clusterTemplateId:string, mesosEnvironmentId:string):IFuture<any> {
         this.console.info(`Provisioning cluster...`);
+        if (!this.docker.allEnvironments().contain(mesosEnvironmentId))
+            throw new Error(`Mesos Environment not found. Please run devops docker environmentIds`);
+        if (!this.docker.allTemplates().contain(clusterTemplateId))
+            throw new Error(`Docker template  not found. Please run devops docker templatesIds`);
         const targetMesosEnvironment = this.docker.newMesosEnvironmentFromConfig(mesosEnvironmentId);
         return this.docker.newClusterTemplateFromConfig(clusterTemplateId).provision(targetMesosEnvironment)
-            .then(cluster => this.console.info(`Provisioning complete. When finished, please destroy cluster via "devops docker kill ${cluster.id}`))
+            .then(cluster => this.console.info(`Provisioning complete. When finished, please destroy cluster via "devops docker kill -c ${cluster.id}`))
             .catch(e => {
                 this.cliHelper.logError(e);
                 this.process.exit(1);
@@ -38,5 +42,13 @@ export class DockerCliHelper implements IDockerCliHelper {
 
     destroyAllApplications(mesosEnvironmentId:string):IFuture<any> {
         return this.docker.newMesosEnvironmentFromConfig(mesosEnvironmentId).killAllApps();
+    }
+
+    listAllClusterTemplates(): void {
+        console.log(`TemplateIDs : ${this.docker.allTemplates().sort()}`);
+    }
+
+    listAllEnvironments(): void {
+        console.log(`TemplateIDs : ${this.docker.allEnvironments().sort()}`);
     }
 }

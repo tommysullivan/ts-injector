@@ -148,6 +148,7 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.operatingSystems,
             this.packaging,
             this.futures,
+            this.process
         );
     }
 

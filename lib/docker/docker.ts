@@ -28,6 +28,7 @@ import {IMesosEnvironment} from "./i-mesos-environment";
 import {IDockerClusterTemplateConfiguration} from "./i-docker-cluster-template-confiuration";
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
 import {MesosClusterConfiguration} from "./mesos-cluster-configuration";
+import {IProcess} from "../node-js-wrappers/i-process";
 
 export class Docker implements IDocker {
 
@@ -46,12 +47,14 @@ export class Docker implements IDocker {
         private elasticSearch:IElasticsearch,
         private operatingSystems:IOperatingSystems,
         private packaging:IPackaging,
-        private futures:IFutures
+        private futures: IFutures,
+        private process: IProcess
     ) {}
 
     newClusterTemplateFromConfig(templateId:string):IClusterTemplate {
         return new ClusterTemplate(
             this.uuidGenerator,
+            this.process,
             this.futures,
             this.collections,
             this.typedJson,
@@ -121,5 +124,13 @@ export class Docker implements IDocker {
             maprClusterName,
             nodes
         );
+    }
+
+    allTemplates(): IList<string> {
+        return this.collections.newList(this.dockerInfraConfig.dockerClusterTemplates.map(template => template.id))
+    }
+
+    allEnvironments(): IList<string> {
+        return this.collections.newList(this.dockerInfraConfig.mesosClusters.map(cluster => cluster.id))
     }
 }

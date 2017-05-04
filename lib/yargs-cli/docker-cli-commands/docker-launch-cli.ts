@@ -17,5 +17,9 @@ export const builder = {
     }
 };
 export const handler = (argv) => {
-    frameworkForNodeJSInstance.cli.newDockerCliHelper().provisionCluster(argv.dockerClusterTemplateId, argv.mesosEnvironmentId);
+    frameworkForNodeJSInstance.cli.newDockerCliHelper().provisionCluster(argv.dockerClusterTemplateId, argv.mesosEnvironmentId)
+        .catch(e => {
+            console.log(e);
+            process.exit(1);
+        });
 };

@@ -12,4 +12,6 @@ export interface IDocker {
     newMesosNode(hostIp:string, username:string, password:string, osName:string,releasePhase:IPhase, serviceNames:IList<string>):INode;
     newClusterRunningInMesos(friendlyName:string, environmentId:string, nodes:IList<INode>):ICluster;
     newMesosClusterConfiguration(clusterId:string, maprClusterName:string, nodes:IList<INode>): IJSONSerializable;
+    allTemplates(): IList<string>;
+    allEnvironments(): IList<string>;
 }
