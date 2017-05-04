@@ -1,6 +1,6 @@
 {
   "name": "private-devops-automation-framework",
-  "version": "8.2.0",
+  "version": "8.3.0",
   "description": "collection of libraries for testing and automating infrastructure asynchronously",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,8 @@
     "tsc": "rm -rdf dist && tsc -w",
     "cucumber": "cucumber.js --require dist/support --require dist/step_definitions",
     "mesosSetup": "bin/setup-mesos-slaves.js",
-    "unitTests": "mocha -u bdd-lazy-var/getter -r ts-node/register lib/unit-tests/**/*.ts"
+    "unitTests": "mocha -u bdd-lazy-var/getter -r ts-node/register lib/unit-tests/**/*.ts",
+    "unitTestWatcher": "mocha --watch -u bdd-lazy-var/getter -r ts-node/register lib/unit-tests/**/*.ts"
   },
   "files": [
     "dist/*",
@@ -63,11 +64,13 @@
     "@types/chai": "^3.5.1",
     "@types/mocha": "^2.2.41",
     "@types/sinon": "^2.1.3",
+    "@types/sinon-chai": "^2.7.27",
     "bower": "^1.7.9",
     "chai": "^3.5.0",
     "mocha": "^3.3.0",
     "mocha-let-ts": "^1.0.0",
     "sinon": "^2.1.0",
+    "sinon-chai": "^2.10.0",
     "ts-node": "^3.0.2",
     "typescript": "^2.1.1"
   },

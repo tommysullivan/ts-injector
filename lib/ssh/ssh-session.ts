@@ -1,5 +1,5 @@
 import {IList} from "../collections/i-list";
-import {ISSHSession} from "./i-ssh-session";
+import {IProcessOutputProgress, ISSHSession} from "./i-ssh-session";
 import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
 import {ICollections} from "../collections/i-collections";
 import {ISSHResult} from "./i-ssh-result";
@@ -11,6 +11,7 @@ import {IPath} from "../node-js-wrappers/i-path";
 import {IErrors} from "../errors/i-errors";
 import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
+import {IFutureWithProgress} from "../futures/i-future-with-progress";
 
 export class SSHSession implements ISSHSession {
 
@@ -56,13 +57,17 @@ export class SSHSession implements ISSHSession {
         });
     }
 
-    executeCommand(command:string):IFuture<ISSHResult> {
+    executeCommand(command:string):IFutureWithProgress<IProcessOutputProgress, ISSHResult> {
         if(this.writeCommandsToStdout) console.log(command);
-        return this.futures.newFuture((resolve, reject) => {
+        return this.futures.newFutureWithProgress((resolve, reject, progress) => {
             this.nodemiralSession.onError(error=>{
                 reject(this.api.newSSHError(error, null));
             });
-            this.nodemiralSession.execute(command, (err:string, code:number, logs:any) => {
+            const options = {
+                onStdout: (value) => progress({stdOut:value, stdErr:null}),
+                onStderr: (value) => progress({stdOut:null, stdErr:value})
+            };
+            this.nodemiralSession.execute(command, options, (err:string, code:number, logs:any) => {
                 const processResult = this.nodeWrapperFactory.newProcessResultForSeparateStdAndErrorStreams(
                     command,
                     code,

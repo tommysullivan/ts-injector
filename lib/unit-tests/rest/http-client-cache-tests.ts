@@ -1,10 +1,10 @@
-import "../prepare-test-environment";
-import {expect} from "chai";
+import '../support/prepare-test-environment';
+import {expect} from 'chai';
 import {Let} from "mocha-let-ts";
+import {mock} from "../support/mock";
 import {HTTPClientCache} from "../../rest/common/http-client-cache";
 import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 import {IRestResponse} from "../../rest/common/i-rest-response";
-import {mock} from "./mock";
 import {IRestRequestOptions} from "../../rest/common/i-rest-request-options";
 import {IDictionary} from "../../collections/i-dictionary";
 
@@ -34,7 +34,7 @@ describe('rest', () => {
                 urlToCheck(()=>urlForCacheHitCondition);
                 const headers = Let<IDictionary<string>>();
                 const response = Let<IRestResponse>(() => mock<IRestResponse>({
-                    originalUrl: urlForCacheHitCondition,
+                    originalUrl: urlToCheck(),
                     headers: headers()
                 }));
                 const addResponseIfApplicable = () => subject().addResponseIfApplicable(response());

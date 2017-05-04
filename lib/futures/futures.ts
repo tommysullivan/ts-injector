@@ -4,6 +4,7 @@ import {ICollections} from "../collections/i-collections";
 import {IFuture} from "./i-future";
 import {IFutures} from "./i-futures";
 import {IPair, ITriplet, I4Tuple} from "../collections/tuples";
+import {IFutureWithProgress, IProgressCallback} from "./i-future-with-progress";
 
 export class Futures implements IFutures {
     private promiseModule:any;
@@ -110,5 +111,27 @@ export class Futures implements IFutures {
 
     newFuture4Tuple<T1, T2, T3, T4>(item1:IFuture<T1>, item2:IFuture<T2>, item3:IFuture<T3>, item4:IFuture<T4>):IFuture<I4Tuple<T1, T2, T3, T4>> {
         return this.newFuture4TupleFrom4Tuple(this.collections.new4Tuple(item1, item2, item3, item4));
+    }
+
+    newFutureWithProgress<ProgressType, ResultType>(
+            resolver:(
+                resolve: (value?: ResultType) => void,
+                reject: (reason: any) => void,
+                progress: (progressInfo:ProgressType) => void
+            ) => void
+        ): IFutureWithProgress<ProgressType, ResultType> {
+            const progressListeners = [];
+            const progress = function(progressInfo:ProgressType) {
+                progressListeners.forEach(progressListener => progressListener(progressInfo));
+            };
+            const future = this.newFuture((resolve, reject) => resolver(resolve, reject, progress));
+            return {
+                onProgress(progressCallback:IProgressCallback<ProgressType>):IFutureWithProgress<ProgressType, ResultType> {
+                    progressListeners.push(progressCallback);
+                    return this;
+                },
+                then: future.then.bind(future),
+                catch: future.catch.bind(future)
+            }
     }
 }

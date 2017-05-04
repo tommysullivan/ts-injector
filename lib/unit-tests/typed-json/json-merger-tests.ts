@@ -1,4 +1,4 @@
-import "../prepare-test-environment";
+import "../support/prepare-test-environment";
 import {Let} from "mocha-let-ts";
 import {frameworkForNodeJSInstance} from "../../framework/nodejs/framework-for-node-js-instance";
 import {JSONMerger} from "../../typed-json/json-merger";
