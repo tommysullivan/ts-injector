@@ -83,7 +83,7 @@ export class ClusterTesterCliHelper {
     }
 
     private destroyOnDemandClusters(clusterIds: IList<string>): IFuture<IList<string>> {
-        return clusterIds.filter(id => id.indexOf(`:`)>-1).mapToFutureList(clusterId => {
+        return clusterIds.filter(id => id.indexOf(`:`) > -1).mapToFutureList(clusterId => {
             const [mesosEnvironmentId, marathonApplicationId] = clusterId.split(':');
             return this.docker.newMesosEnvironmentFromConfig(mesosEnvironmentId)
                 .loadCluster(marathonApplicationId)
@@ -105,12 +105,14 @@ export class ClusterTesterCliHelper {
                     } else {
                         this.console.log(`Test ${clusterTestResults.first.passed ? 'passed' : 'failed'}`)
                     }
-                    return this.destroyOnDemandClusters(clusterIds)
+                    return this.process.environmentVariables.hasKey('onDemandClusters')
+                        ? this.destroyOnDemandClusters(clusterIds)
                         .then(_ => this.process.exit(allPassed ? 0 : 1))
                         .catch(e => {
                             this.console.error(e.stack ? e.stack : e);
                             this.process.exit(1);
-                        });
+                        })
+                        : this.process.exit(allPassed ? 0 : 1)
                 });
         }).catch(e => {
             this.console.error(e.stack);
