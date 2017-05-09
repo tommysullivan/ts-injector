@@ -2,7 +2,6 @@ import {IDictionary} from "./i-dictionary";
 import {ICollections} from "./i-collections";
 import {IList} from "./i-list";
 import {IHash} from "./i-hash";
-import {IJSONValue} from "../typed-json/i-json-value";
 
 export class Dictionary<ValueType> implements IDictionary<ValueType> {
     private hash:IHash<ValueType>;
@@ -30,6 +29,11 @@ export class Dictionary<ValueType> implements IDictionary<ValueType> {
 
     get(key:string):ValueType {
         return <ValueType> this.hash[key];
+    }
+
+    remove(key: string): IDictionary<ValueType> {
+        delete this.hash[key];
+        return this
     }
 
     getOrThrow(key:string, errorMessageIfNotExist?:string):ValueType {

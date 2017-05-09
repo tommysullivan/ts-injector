@@ -47,7 +47,7 @@ export class MultiClusterTester implements IMultiClusterTester {
     private runCucumberForClusterAndSaveResultToPortalIfApplicable(testRunUUID: string, clusterId, cucumberPassThruCommands: IList<string>):IFuture<ITestResult> {
         const uniqueFileIdentifier = `${testRunUUID}_${clusterId}_user-${this.process.currentUserName}`;
         const envVars = this.process.environmentVariables.clone();
-        const envVarsWithClusterId = envVars.addOrUpdate('clusterId', clusterId);
+        const envVarsWithClusterId = envVars.remove(`clusterIds`).addOrUpdate('clusterId', clusterId);
         return this.cucumberCli.configureAndRunCucumber(uniqueFileIdentifier, cucumberPassThruCommands, envVarsWithClusterId)
             .then(cucumberTestResult => this.clusterResultPreparer.prepareClusterResult(
                     clusterId,

@@ -36,7 +36,7 @@ module.exports = function() {
 
     this.When(/^I revert the cluster to its configured "([^"]*)" state$/, (desiredStateName: string): PromisedAssertion => {
         const revertRequest = $.clusterUnderTest.revertToState(desiredStateName)
-            .catch(e => this.ensureFailureOutputWorksWithChaiAsPromised(e));
+            .catch(e => ensureFailureOutputWorksWithChaiAsPromised(e));
         return $.expect(revertRequest).to.eventually.be.fulfilled;
     });
 

@@ -150,4 +150,35 @@ module.exports = function() {
         return $.expectAll(commandRunResult).to.eventually.be.fulfilled;
     });
 
+    this.Then(/^I verify the cluster objects obtained match config$/, () => {
+        const setClusterId = $.process.environmentVariables.hasKey(`clusterId`)
+            ? $.process.environmentVariableNamed(`clusterId`)
+            : `nothing`;
+        switch (setClusterId) {
+            case `ubuntu14` : {
+                $.expect($.clusterUnderTest.name).to.be.equal(`ubunu14.devops.lab`);
+                break;
+            }
+            case `ubuntu14` : {
+                $.expect($.clusterUnderTest.name).to.be.equal(`ubunu12.devops.lab`);
+                break;
+            }
+            case `centos7.1` : {
+                $.expect($.clusterUnderTest.name).to.be.equal(`centos7-1.devops.lab`);
+                break;
+            }
+            case `centos6.5` : {
+                $.expect($.clusterUnderTest.name).to.be.equal(`centos6-5.devops.lab`);
+                break;
+            }
+            case `suse12` : {
+                $.expect($.clusterUnderTest.name).to.be.equal(`suse12.devops.lab`);
+                break;
+            }
+            default:
+                break;
+        }
+
+    });
+
 };

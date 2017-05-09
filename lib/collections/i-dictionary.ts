@@ -11,4 +11,5 @@ export interface IDictionary<ValueType> extends IJSONSerializable {
     keys:IList<string>;
     getOrDefault(key:string, defaultValue:ValueType):ValueType;
     getOrLazyDefault(key:string, defaultValue:()=>ValueType):ValueType;
+    remove(key: string): IDictionary<ValueType>;
 }
