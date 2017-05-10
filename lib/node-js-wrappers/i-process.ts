@@ -13,6 +13,7 @@ export interface IProcess {
     getArgvOrThrow(argName:string, index:number):string;
     currentUserName:string;
     pathToNodeJSExecutable:string;
+    executeCommand(command: string, environmentVariables: IDictionary<string>): IFuture<IProcessResult>;
     executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFuture<IProcessResult>;
     processName:string;
 }

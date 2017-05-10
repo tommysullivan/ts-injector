@@ -63,57 +63,67 @@ export class Process implements IProcess {
         return this.nativeProcess.execPath;
     }
 
-    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFuture<IProcessResult> {
-        const env = environmentVariables.clone();
-        const nodeExecutable = this.pathToNodeJSExecutable;
-        env.addOrUpdate('PATH', `${env.get('PATH')}:${nodeExecutable}`);
-
+    private execute(completeCommand: string, envVariables: IDictionary<string>): IFuture<IProcessResult> {
         return this.futures.newFuture((resolve, reject) => {
-            var stdOutIndices:Array<number> = [];
-            var stdErrIndices:Array<number> = [];
-            var allOutput:Array<string> = [];
+            var stdOutIndices: Array<number> = [];
+            var stdErrIndices: Array<number> = [];
+            var allOutput: Array<string> = [];
 
-            const cukeProcess = this.nativeChildProcessModule.exec(
-                `${nodeExecutable} ${command}`,
+            const process = this.nativeChildProcessModule.exec(
+                `${completeCommand}`,
                 {
-                    env: env.toJSON(),
+                    env: envVariables.toJSON(),
                     maxBuffer: 10 * 1024 * 1024
                 }
             );
 
-            const addTo = (index:Array<number>) => (data:string) => index.push(allOutput.push(data) - 1);
-            cukeProcess.stdout.on('data', addTo(stdOutIndices));
-            cukeProcess.stderr.on('data', addTo(stdErrIndices));
+            const addTo = (index: Array<number>) => (data: string) => index.push(allOutput.push(data) - 1);
+            process.stdout.on('data', addTo(stdOutIndices));
+            process.stderr.on('data', addTo(stdErrIndices));
 
             var closed = false;
             var exited = false;
 
             const attemptToResolvePromise = (processExitCode) => {
-                if(closed && exited) {
+                if (closed && exited) {
                     const processResult = this.nodeWrapperFactory.newProcessResult(
-                        command,
+                        completeCommand,
                         processExitCode,
                         stdOutIndices,
                         stdErrIndices,
                         allOutput,
                         null
                     );
-                    if(processResult.hasError) reject(processResult);
+                    if (processResult.hasError) reject(processResult);
                     else resolve(processResult);
                 }
             };
 
-            cukeProcess.on('close', processExitCode => {
+            process.on('close', processExitCode => {
                 closed = true;
                 attemptToResolvePromise(processExitCode);
             });
 
-            cukeProcess.on('exit', (processExitCode, signal) => {
+            process.on('exit', (processExitCode, signal) => {
                 exited = true;
                 attemptToResolvePromise(processExitCode);
             });
 
         });
+
+    }
+
+    executeCommand(command: string, environmentVariables: IDictionary<string>): IFuture<IProcessResult> {
+        const env = environmentVariables.clone();
+        return this.execute(command, env);
+    }
+
+    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFuture<IProcessResult> {
+        const env = environmentVariables.clone();
+        const nodeExecutable = this.pathToNodeJSExecutable;
+        env.addOrUpdate('PATH', `${env.get('PATH')}:${nodeExecutable}`);
+
+        return this.execute(`${nodeExecutable} ${command}`, env);
     }
 
     get processName():string {
