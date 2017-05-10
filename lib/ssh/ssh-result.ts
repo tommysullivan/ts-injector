@@ -1,22 +1,12 @@
 import {ISSHResult} from "./i-ssh-result";
 import {IProcessResult} from "../node-js-wrappers/i-process-result";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export class SSHResult implements ISSHResult {
-    private _host:string;
-    private _processResult:IProcessResult;
-
-    constructor(host:string, processResult:IProcessResult) {
-        this._host = host;
-        this._processResult = processResult;
-    }
-
-    get host():string {
-        return this._host;
-    }
-
-    get processResult():IProcessResult {
-        return this._processResult;
-    }
+    constructor(
+        public readonly host:string,
+        public readonly processResult:IProcessResult
+    ) {}
 
     toJSON():any {
         return {
@@ -27,5 +17,9 @@ export class SSHResult implements ISSHResult {
 
     toString():string {
         return JSON.stringify(this.toJSON(), null, 3);
+    }
+
+    get stdoutAsJSON():IJSONValue {
+        return this.processResult.stdoutAsJSON;
     }
 }

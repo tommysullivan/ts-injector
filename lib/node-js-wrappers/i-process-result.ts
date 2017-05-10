@@ -1,5 +1,6 @@
 import {IList} from "../collections/i-list";
 import {IJSONSerializable} from "../typed-json/i-json-serializable";
+import {IJSONValue} from "../typed-json/i-json-value";
 
 export interface IProcessResult extends IJSONSerializable {
     hasError:boolean;
@@ -9,4 +10,5 @@ export interface IProcessResult extends IJSONSerializable {
     allOutputLines:IList<string>;
     processExitCode:number;
     shellInvocationError:string;
+    stdoutAsJSON:IJSONValue;
 }

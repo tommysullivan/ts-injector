@@ -45,4 +45,8 @@ export class BaseProcessResult implements IProcessResult {
     toJSON():IJSONValue {
         throw new NotImplementedError();
     }
+
+    get stdoutAsJSON():IJSONValue {
+        throw new NotImplementedError();
+    }
 }

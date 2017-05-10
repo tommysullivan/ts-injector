@@ -58,4 +58,8 @@ export class ProcessResultForSeparateStdAndErrorStreams implements IProcessResul
             shellInvocationError: this.shellInvocationError
         }
     }
+
+    get stdoutAsJSON():IJSONValue {
+        return JSON.parse(this.stdoutLines.join(""));
+    }
 }

@@ -59,4 +59,7 @@ export class ProcessResult implements IProcessResult {
         return JSON.stringify(this.toJSON(), null, 3);
     }
 
+    get stdoutAsJSON():IJSONValue {
+        return JSON.parse(this.stdoutLines.join(""));
+    }
 }
