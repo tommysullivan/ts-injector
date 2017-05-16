@@ -101,7 +101,6 @@ export class FrameworkForNodeJS extends Framework implements IFramework {
             this.frameworkConfig.testing,
             this.console,
             this.typedJSON.newJSONSerializer(),
-            this.collections,
             this.futures,
             this.nodeWrapperFactory.path,
             this.rest,

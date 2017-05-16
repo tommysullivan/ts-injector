@@ -12,8 +12,8 @@ export class FilesystemResultReporter implements IResultReporter {
         private path:IPath,
         private console:IConsole
     ) {}
-    
-    reportResult(uniqueFileIdentifier:string, portalCompatibleJSONResultString:string):IFuture<any>  {
+
+    reportResult(uniqueFileIdentifier: string, portalCompatibleJSONResultString: string): IFuture<string> {
         const outputFileName = `${uniqueFileIdentifier}.json`;
         if(!this.fileSystem.checkFileExistSync(this.testingConfiguration.frameworkOutputPath))
             this.fileSystem.makeDirRecursive(this.testingConfiguration.frameworkOutputPath);

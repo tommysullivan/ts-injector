@@ -77,15 +77,16 @@ export class MesosEnvironment implements IMesosEnvironment {
 
     private osName(ipAddress:string):IFuture<string> {
         return this.sshClient.connect(ipAddress, this.mesosEnvironmentConfiguration.dockerImagesUserName, this.mesosEnvironmentConfiguration.dockerImagesPassword)
-            .then(sshSession => sshSession.executeCommand(`cat /etc/issue`))
-            .then(sshResult => {
+            .then(sshSession => sshSession.executeCommand(`cat /etc/issue`).then(sshResult => {
                 if (sshResult.processResult.stdoutLines.join(``).indexOf(`CentOS`) > -1)
                     return `CentOS`;
                 else if (sshResult.processResult.stdoutLines.join(``).indexOf(`Ubuntu`) > -1)
                     return `Ubuntu`;
+                else if (sshSession.executeCommand(`cat /etc/redhat-release || echo`).then(res => res.processResult.stdoutLines.contains(`CentOS`)))
+                    return `CentOS`;
                 else
                     return `SuSE`;
-            });
+            }));
     }
 
     getMarathonRestClient(): IMarathonRestClient {

@@ -1,16 +1,14 @@
 import {IResultReporter} from "./i-result-reporter";
-import {IList} from "../collections/i-list";
 import {IFuture} from "../futures/i-future";
 
 export class MultiplexDelegateResultReporter implements IResultReporter {
 
-    constructor(
-        private reportersToDelegateTo:IList<IResultReporter>
+    constructor(private fileSystemReporter: IResultReporter,
+                private portalReporter: IResultReporter
     ) {}
 
-    reportResult(uniqueFileIdentifier:string, portalCompatibleJSONResultString:string):IFuture<any> {
-        return this.reportersToDelegateTo.mapToFutureList(
-            r=>r.reportResult(uniqueFileIdentifier, portalCompatibleJSONResultString)
-        );
+    async reportResult(uniqueFileIdentifier: string, portalCompatibleJSONResultString: string): IFuture<string> {
+        await this.fileSystemReporter.reportResult(uniqueFileIdentifier, portalCompatibleJSONResultString);
+        return this.portalReporter.reportResult(uniqueFileIdentifier, portalCompatibleJSONResultString);
     }
 }

@@ -28,7 +28,6 @@ import {ChaiStatic} from "../../chai/chai-static";
 import {IFutures} from "../../futures/i-futures";
 import {ITesting} from "../../testing/i-testing";
 import {IMarathon} from "../../marathon/i-marathon";
-import {IClusterLoaderForMesosEnvironment} from "../../clusters/i-mesos-cluster-loader";
 import {IDocker} from "../../docker/i-docker";
 
 export interface IFramework {

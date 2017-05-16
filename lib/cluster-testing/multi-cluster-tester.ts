@@ -11,6 +11,11 @@ import {IURLCalculator} from "../testing/i-url-calculator";
 import {IFuture} from "../futures/i-future";
 import {ITestResult} from "../testing/i-test-result";
 
+export interface IReportedResult {
+    testResult: ITestResult,
+    url: string
+}
+
 export class MultiClusterTester implements IMultiClusterTester {
 
     constructor(
@@ -24,7 +29,7 @@ export class MultiClusterTester implements IMultiClusterTester {
         private urlCalculator:IURLCalculator
     ) {}
 
-    runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(clusterIds:IList<string>, cucumberPassThruCommands:IList<string>):IFuture<IList<ITestResult>> {
+    runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(clusterIds: IList<string>, cucumberPassThruCommands: IList<string>): IFuture<IList<IReportedResult>> {
         const testRunUUID = this.uuidGenerator.v4();
         if (this.process.environmentVariables.hasKey('portalId'))
             this.urlCalculator.writeUrlsToPropertiesFile(
@@ -44,7 +49,7 @@ export class MultiClusterTester implements IMultiClusterTester {
             });
     }
 
-    private runCucumberForClusterAndSaveResultToPortalIfApplicable(testRunUUID: string, clusterId, cucumberPassThruCommands: IList<string>):IFuture<ITestResult> {
+    private runCucumberForClusterAndSaveResultToPortalIfApplicable(testRunUUID: string, clusterId, cucumberPassThruCommands: IList<string>): IFuture<IReportedResult> {
         const uniqueFileIdentifier = `${testRunUUID}_${clusterId}_user-${this.process.currentUserName}`;
         const envVars = this.process.environmentVariables.clone();
         const envVarsWithClusterId = envVars.remove(`clusterIds`).addOrUpdate('clusterId', clusterId);
@@ -57,11 +62,12 @@ export class MultiClusterTester implements IMultiClusterTester {
                 )
             )
             .then(clusterTestResult =>
-                this.resultReporter.reportResult(
-                    uniqueFileIdentifier,
-                    this.jsonSerializer.serializeToString(clusterTestResult)
-                )
-                .then(_ => clusterTestResult)
+                this.resultReporter
+                    .reportResult(
+                        uniqueFileIdentifier,
+                        this.jsonSerializer.serializeToString(clusterTestResult)
+                    )
+                    .then(url => ({testResult: clusterTestResult, url: url}))
             );
     }
 }

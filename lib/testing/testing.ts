@@ -14,7 +14,6 @@ import {FilesystemResultReporter} from "./filesystem-result-reporter";
 import {IResultReporter} from "./i-result-reporter";
 import {PortalResultReporter} from "./portal-result-reporter";
 import {MultiplexDelegateResultReporter} from "./multiplex-delegate-result-reporter";
-import {ICollections} from "../collections/i-collections";
 import {IPath} from "../node-js-wrappers/i-path";
 import {IRest} from "../rest/common/i-rest";
 import {IRelease} from "../releasing/i-release";
@@ -33,7 +32,6 @@ export class Testing implements ITesting {
         private testingConfiguration:ITestingConfiguration,
         private console:IConsole,
         private jsonSerializer:IJSONSerializer,
-        private collections:ICollections,
         private futures:IFutures,
         private path:IPath,
         private rest:IRest,
@@ -76,10 +74,8 @@ export class Testing implements ITesting {
 
     newResultReporter():IResultReporter {
         return new MultiplexDelegateResultReporter(
-            this.collections.newList([
-                this.newFilesystemResultReporter(),
-                this.newPortalResultReporter()
-            ])
+            this.newFilesystemResultReporter(),
+            this.newPortalResultReporter()
         );
     }
 

@@ -36,14 +36,23 @@ export class ClusterTesterCliHelper {
             this.collections.newList(argv._)
                 .everythingAfterIndex(1).map(val => val.toString())
         );
-        this.runCucumberOncePerClusterId(cucumberPassThruCommands);
+        this.runCucumberOncePerClusterId(cucumberPassThruCommands)
+            .then(results => this.process.exit(results.allPassed ? 0 : 1))
+            .catch(e => {
+                this.console.error(e.stack ? e.stack : e);
+                this.process.exit(1);
+            });
     }
-    
-    runCucumberInstallCommand(secure:boolean):void {
-        if(secure)
-            this.runCucumberOncePerClusterId(this.collections.newList(["--tags", "@packageInstallationSecure"]));
-        else
-            this.runCucumberOncePerClusterId(this.collections.newList(["--tags", "@packageInstallation"]));
+
+    runCucumberInstallCommand(secure: boolean): void {
+        try {
+            secure ? this.runCucumberOncePerClusterId(this.collections.newList(["--tags", "@packageInstallationSecure"]))
+                : this.runCucumberOncePerClusterId(this.collections.newList(["--tags", "@packageInstallation"]));
+        }
+        catch (e) {
+            this.console.error(e.stack ? e.stack : e);
+            this.process.exit(1);
+        }
     }
 
     runCommand(argv:any):void {
@@ -91,7 +100,7 @@ export class ClusterTesterCliHelper {
         })
     }
 
-    public runCucumberOncePerClusterId(cucumberPassThruCommands:IList<string>):IFuture<any> {
+    public runCucumberOncePerClusterId(cucumberPassThruCommands: IList<string>): IFuture<{ allPassed: boolean, urls: IList<string> }> {
         const futureOnDemandClusters = this.process.environmentVariables.hasKey('onDemandClusters')
             ? this.createOnDemandClusters()
             : this.futures.newFutureForImmediateValue(this.collections.newEmptyList<ICluster>());
@@ -99,25 +108,20 @@ export class ClusterTesterCliHelper {
             const clusterIds = onDemandClusters.map(c=>c.id).append(this.collections.newList(this.clusterTestingConfiguration.clusterIds));
             return this.multiClusterTester.runCucumberForEachClusterAndSaveResultsToPortalIfApplicable(clusterIds, cucumberPassThruCommands)
                 .then(clusterTestResults => {
-                    const allPassed = clusterTestResults.all(t=>t.passed);
+                    const urls = clusterTestResults.map(t => t.url);
+                    const allPassed = clusterTestResults.all(t => t.testResult.passed);
                     if(clusterTestResults.length > 1) {
                         this.console.log(`Multi Cluster Test of ${clusterTestResults.length} clusters ${allPassed ? 'Passed' : 'Failed'}.`);
                     } else {
-                        this.console.log(`Test ${clusterTestResults.first.passed ? 'passed' : 'failed'}`)
+                        this.console.log(`Test ${clusterTestResults.first.testResult.passed ? 'passed' : 'failed'}`)
                     }
+                    const result = {allPassed: allPassed, urls: urls};
                     return this.process.environmentVariables.hasKey('onDemandClusters')
                         ? this.destroyOnDemandClusters(clusterIds)
-                        .then(_ => this.process.exit(allPassed ? 0 : 1))
-                        .catch(e => {
-                            this.console.error(e.stack ? e.stack : e);
-                            this.process.exit(1);
-                        })
-                        : this.process.exit(allPassed ? 0 : 1)
+                            .then(_ => (result))
+                        : (result);
                 });
-        }).catch(e => {
-            this.console.error(e.stack);
-            this.process.exit(1);
-        });
+        })
     }
 
     private nodesRunningRequestedServices(cluster:ICluster):IList<INode> {
