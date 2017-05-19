@@ -142,9 +142,12 @@ module.exports = function() {
     });
 
     this.Given(/^I install the license on cluster$/, ():PromisedAssertion => {
-        const downloadLicense = `wget http://maprqa:maprqa@stage.mapr.com/license/LatestDemoLicense-M7.txt`;
-        const licenseCommand = `maprcli license add -license LatestDemoLicense-M7.txt -is_file true`;
-        const removeLicenseCommand = `rm -f LatestDemoLicense-M7.txt`;
+        const licenseFile = ($.process.environmentVariables.hasKey(`licenseType`) && $.process.environmentVariableNamed(`licenseType`)) == `M5`
+            ? `LatestDemoLicense-M5.txt`
+            : `LatestDemoLicense-M7.txt`;
+        const downloadLicense = `wget http://maprqa:maprqa@stage.mapr.com/license/${licenseFile}`;
+        const licenseCommand = `maprcli license add -license ${licenseFile} -is_file true`;
+        const removeLicenseCommand = `rm -f ${licenseFile}`;
         const result = $.clusterUnderTest.nodes.first.executeShellCommands(
             downloadLicense,
             licenseCommand,
