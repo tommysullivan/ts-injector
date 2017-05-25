@@ -30,17 +30,19 @@ export class ProcessResult implements IProcessResult {
     }
 
     get stdoutLines():IList<string> {
-        return this.collections.newList(this.stdOutIndices)
-            .map(index=>this.allOutput[index]);
+        return this.collections.newList(
+            this.stdOutIndices.map(index=>this.allOutput[index]).join("").split("\n")
+        );
     }
 
     get stderrLines():IList<string> {
-        return this.collections.newList(this.stdErrIndices)
-            .map(index=>this.allOutput[index]);
+        return this.collections.newList(
+            this.stdErrIndices.map(index=>this.allOutput[index]).join("").split("\n")
+        );
     }
 
     get allOutputLines():IList<string> {
-        return this.collections.newList(this.allOutput);
+        return this.collections.newList(this.allOutput.join("").split("\n"));
     }
 
     toJSON():IJSONValue {

@@ -2,6 +2,8 @@ import {IList} from "../collections/i-list";
 import {IDictionary} from "./../collections/i-dictionary";
 import {IFuture} from "../futures/i-future";
 import {IProcessResult} from "./i-process-result";
+import {IFutureWithProgress} from "../futures/i-future-with-progress";
+import {IProcessOutputProgress} from "../ssh/i-ssh-session";
 
 export interface IProcess {
     environmentVariables:IDictionary<string>;
@@ -13,7 +15,7 @@ export interface IProcess {
     getArgvOrThrow(argName:string, index:number):string;
     currentUserName:string;
     pathToNodeJSExecutable:string;
-    executeCommand(command: string, environmentVariables: IDictionary<string>): IFuture<IProcessResult>;
-    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFuture<IProcessResult>;
+    executeCommand(command: string, environmentVariables: IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult>;
+    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult>;
     processName:string;
 }

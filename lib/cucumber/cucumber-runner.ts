@@ -35,6 +35,10 @@ export class CucumberRunner implements ICucumberRunner {
         );
         const envVars = this.collections.newDictionary(runConfig.environmentVariables);
         return this.process.executeNodeProcess(runCucumberCommand, envVars)
+            .onProgress(progress => {
+                if(progress.stdErr) this.console.error(progress.stdErr);
+                else this.console.log(progress.stdOut);
+            })
             .then(
                 r => this.onCucumberProcessComplete(r, runConfig, startTime),
                 r => this.onCucumberProcessComplete(r, runConfig, startTime)

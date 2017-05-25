@@ -6,6 +6,8 @@ import {ICollections} from "../collections/i-collections";
 import {IFutures} from "../futures/i-futures";
 import {IDictionary} from "../collections/i-dictionary";
 import {IFuture} from "../futures/i-future";
+import {IFutureWithProgress} from "../futures/i-future-with-progress";
+import {IProcessOutputProgress} from "../ssh/i-ssh-session";
 
 export class Process implements IProcess {
     constructor(
@@ -63,11 +65,11 @@ export class Process implements IProcess {
         return this.nativeProcess.execPath;
     }
 
-    private execute(completeCommand: string, envVariables: IDictionary<string>): IFuture<IProcessResult> {
-        return this.futures.newFuture((resolve, reject) => {
-            var stdOutIndices: Array<number> = [];
-            var stdErrIndices: Array<number> = [];
-            var allOutput: Array<string> = [];
+    private execute(completeCommand: string, envVariables: IDictionary<string>): IFutureWithProgress<IProcessOutputProgress, IProcessResult> {
+        return this.futures.newFutureWithProgress((resolve, reject, progress) => {
+            const stdOutIndices: Array<number> = [];
+            const stdErrIndices: Array<number> = [];
+            const allOutput: Array<string> = [];
 
             const process = this.nativeChildProcessModule.exec(
                 `${completeCommand}`,
@@ -77,12 +79,17 @@ export class Process implements IProcess {
                 }
             );
 
-            const addTo = (index: Array<number>) => (data: string) => index.push(allOutput.push(data) - 1);
-            process.stdout.on('data', addTo(stdOutIndices));
-            process.stderr.on('data', addTo(stdErrIndices));
+            const addTo = (index: Array<number>) => (data: string) => {
+                index.push(allOutput.push(data) - 1);
+            };
 
-            var closed = false;
-            var exited = false;
+            process.stdout.on('data', addTo(stdOutIndices));
+            process.stdout.on('data', data => progress({stdOut: data}));
+            process.stderr.on('data', addTo(stdErrIndices));
+            process.stderr.on('data', data => progress({stdErr: data}));
+
+            let closed = false;
+            let exited = false;
 
             const attemptToResolvePromise = (processExitCode) => {
                 if (closed && exited) {
@@ -113,12 +120,12 @@ export class Process implements IProcess {
 
     }
 
-    executeCommand(command: string, environmentVariables: IDictionary<string>): IFuture<IProcessResult> {
+    executeCommand(command: string, environmentVariables: IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult>{
         const env = environmentVariables.clone();
         return this.execute(command, env);
     }
 
-    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFuture<IProcessResult> {
+    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult> {
         const env = environmentVariables.clone();
         const nodeExecutable = this.pathToNodeJSExecutable;
         env.addOrUpdate('PATH', `${env.get('PATH')}:${nodeExecutable}`);
