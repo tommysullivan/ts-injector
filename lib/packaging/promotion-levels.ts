@@ -1,1 +1,0 @@
-export type PromotionLevels = 'development' | 'testing' | 'staging' | 'release';
