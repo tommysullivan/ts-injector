@@ -5,6 +5,10 @@ import {IProcessResult} from "./i-process-result";
 import {IFutureWithProgress} from "../futures/i-future-with-progress";
 import {IProcessOutputProgress} from "../ssh/i-ssh-session";
 
+export interface IChildProcess extends IFutureWithProgress<IProcessOutputProgress, IProcessResult> {
+    kill():IFuture<{processExitCode:number, signal:string}>;
+}
+
 export interface IProcess {
     environmentVariables:IDictionary<string>;
     environmentVariableNamed(name:string):string;
@@ -15,7 +19,7 @@ export interface IProcess {
     getArgvOrThrow(argName:string, index:number):string;
     currentUserName:string;
     pathToNodeJSExecutable:string;
-    executeCommand(command: string, environmentVariables: IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult>;
-    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult>;
+    executeCommand(command: string, environmentVariables: IDictionary<string>):IChildProcess;
+    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IChildProcess;
     processName:string;
 }

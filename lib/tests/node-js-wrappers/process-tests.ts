@@ -27,5 +27,24 @@ describe('node-js-wrappers', () => {
                 }).timeout(6000);
             });
         });
+
+        describe('kill()', () => {
+            it('kills the process and returns the status code and signal', async () => {
+                const childProcess = process.executeCommand(slowBashCommandWithProgressUpdates, frameworkForNodeJSInstance.process.environmentVariables);
+                const killResult = await childProcess.kill();
+                expect(killResult.processExitCode).to.equal(null);
+                expect(killResult.signal).to.equal("SIGTERM");
+                let error = null;
+                try {
+                    await childProcess
+                }
+                catch(e) {
+                    error = e
+                }
+                finally {
+                    expect(error).to.exist;
+                }
+            });
+        });
     });
 });
