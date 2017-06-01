@@ -2,6 +2,7 @@
 set -e
 
 function handlePullRequest {
+    npm install
     npm run build
     npm test
 }
