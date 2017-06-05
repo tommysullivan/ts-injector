@@ -227,4 +227,8 @@ export class List<T> implements IList<T> {
         copy.reverse();
         return new List<T>(copy, this.createFutureList);
     }
+
+    reduce<T2>(reducer:(previous:T2, current:T)=>T2, startingValue:T2):T2 {
+        return this.listItems.reduce(reducer, startingValue);
+    }
 }

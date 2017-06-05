@@ -1,4 +1,4 @@
-import {IProcess} from "./i-process";
+import {IChildProcess, IProcess} from "./i-process";
 import {IList} from "../collections/i-list";
 import {IProcessResult} from "./i-process-result";
 import {INodeWrapperFactory} from "./i-node-wrapper-factory";
@@ -6,7 +6,7 @@ import {ICollections} from "../collections/i-collections";
 import {IFutures} from "../futures/i-futures";
 import {IDictionary} from "../collections/i-dictionary";
 import {IFuture} from "../futures/i-future";
-import {IFutureWithProgress} from "../futures/i-future-with-progress";
+import {IFutureWithProgress, IProgressCallback} from "../futures/i-future-with-progress";
 import {IProcessOutputProgress} from "../ssh/i-ssh-session";
 
 export class Process implements IProcess {
@@ -65,19 +65,20 @@ export class Process implements IProcess {
         return this.nativeProcess.execPath;
     }
 
-    private execute(completeCommand: string, envVariables: IDictionary<string>): IFutureWithProgress<IProcessOutputProgress, IProcessResult> {
-        return this.futures.newFutureWithProgress((resolve, reject, progress) => {
+    private execute(completeCommand: string, envVariables: IDictionary<string>):IChildProcess {
+        const process = this.nativeChildProcessModule.exec(
+            `${completeCommand}`,
+            {
+                env: envVariables.toJSON(),
+                maxBuffer: 10 * 1024 * 1024
+            }
+        );
+        const futureWithProgress = this.futures.newFutureWithProgress((resolve, reject, progress) => {
             const stdOutIndices: Array<number> = [];
             const stdErrIndices: Array<number> = [];
             const allOutput: Array<string> = [];
 
-            const process = this.nativeChildProcessModule.exec(
-                `${completeCommand}`,
-                {
-                    env: envVariables.toJSON(),
-                    maxBuffer: 10 * 1024 * 1024
-                }
-            );
+
 
             const addTo = (index: Array<number>) => (data: string) => {
                 index.push(allOutput.push(data) - 1);
@@ -117,15 +118,28 @@ export class Process implements IProcess {
             });
 
         });
-
+        const newFuture = this.futures.newFuture.bind(this.futures);
+        return {
+            kill() {
+                return newFuture((resolve, reject) => {
+                    process.on('exit', (processExitCode, signal) => {
+                        resolve({processExitCode:processExitCode, signal:signal});
+                    });
+                    process.kill();
+                });
+            },
+            then: futureWithProgress.then.bind(futureWithProgress),
+            catch: futureWithProgress.catch.bind(futureWithProgress),
+            onProgress: futureWithProgress.onProgress.bind(futureWithProgress)
+        };
     }
 
-    executeCommand(command: string, environmentVariables: IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult>{
+    executeCommand(command: string, environmentVariables: IDictionary<string>):IChildProcess{
         const env = environmentVariables.clone();
         return this.execute(command, env);
     }
 
-    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IFutureWithProgress<IProcessOutputProgress, IProcessResult> {
+    executeNodeProcess(command:string, environmentVariables:IDictionary<string>):IChildProcess {
         const env = environmentVariables.clone();
         const nodeExecutable = this.pathToNodeJSExecutable;
         env.addOrUpdate('PATH', `${env.get('PATH')}:${nodeExecutable}`);
