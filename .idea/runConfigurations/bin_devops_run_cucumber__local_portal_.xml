@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="bin/devops run cucumber (local portal)" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="bin/devops" application-parameters="run cucumber -- --tags @rest" working-dir="$PROJECT_DIR$">
-    <envs>
-      <env name="portalId" value="local" />
-    </envs>
-    <method />
-  </configuration>
-</component>
