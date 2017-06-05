@@ -30,7 +30,7 @@ describe('node-js-wrappers', () => {
 
         describe('kill()', () => {
             it('kills the process and returns the status code and signal', async () => {
-                const childProcess = process.executeCommand(slowBashCommandWithProgressUpdates, frameworkForNodeJSInstance.process.environmentVariables);
+                const childProcess = process().executeCommand(slowBashCommandWithProgressUpdates, primitives().process.environmentVariables);
                 const killResult = await childProcess.kill();
                 expect(killResult.processExitCode).to.equal(null);
                 expect(killResult.signal).to.equal("SIGTERM");
