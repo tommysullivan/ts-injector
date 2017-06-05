@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tommysullivan/private-devops-ts-primitives"
+    "url": "https://github.com/mapr/private-devops-ts-primitives"
   },
   "keywords": [
     "devops"
