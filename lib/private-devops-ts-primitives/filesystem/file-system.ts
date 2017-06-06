@@ -4,7 +4,6 @@ import {IJSONObject} from "../typed-json/i-json-object";
 import {IList} from "../collections/i-list";
 import {ICollections} from "../collections/i-collections";
 import {IErrors} from "../errors/i-errors";
-import {INodeWrapperFactory} from "./i-node-wrapper-factory";
 import {IFileStream} from "./i-file-stream";
 import {IFileStats} from "./i-file-stats";
 import {FileStats} from "./file-stats";
@@ -12,6 +11,7 @@ import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
 import {IJSONHash, IJSONValue} from "../typed-json/i-json-value";
 import {IJSONParser} from "../typed-json/i-json-parser";
+import {FileStream} from "./file-stream";
 
 export class FileSystem implements IFileSystem {
     constructor(
@@ -19,7 +19,6 @@ export class FileSystem implements IFileSystem {
         private typedJSON:ITypedJSON,
         private collections:ICollections,
         private errors:IErrors,
-        private nodeWrapperFactory:INodeWrapperFactory,
         private futures:IFutures,
         private mkdirp:any,
         private jsonParser:IJSONParser
@@ -79,9 +78,7 @@ export class FileSystem implements IFileSystem {
     }
 
     createReadStream(path:string):IFileStream {
-        return this.nodeWrapperFactory.newFileStream(
-            this.fsModule.createReadStream(path)
-        );
+        return new FileStream(this.fsModule.createReadStream(path));
     }
 
     readJSONFileSync(filePath:string):IJSONValue {

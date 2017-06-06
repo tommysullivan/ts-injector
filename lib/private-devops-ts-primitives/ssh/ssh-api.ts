@@ -1,5 +1,4 @@
 import {ISSHClient} from "./i-ssh-client";
-import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {ISSHSession} from "./i-ssh-session";
 import {ISSHAPI} from "./i-ssh-api";
 import {SSHClient} from "./ssh-client";
@@ -7,17 +6,18 @@ import {SSHSession} from "./ssh-session";
 import {ISSHResult} from "./i-ssh-result";
 import {SSHError} from "./ssh-error";
 import {SSHResult} from "./ssh-result";
-import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
 import {ICollections} from "../collections/i-collections";
 import {SSHMultiCommandError} from "./ssh-multi-command-error";
 import {IList} from "../collections/i-list";
 import {ShellEscaper} from "./shell-escaper";
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";
-import {IPath} from "../node-js-wrappers/i-path";
 import {IErrors} from "../errors/i-errors";
 import {NodemiralPatcher} from "./nodemiral-patcher";
 import {ISSHConfiguration} from "./i-ssh-configuration";
 import {IFutures} from "../futures/i-futures";
+import {IPrimitives} from "../api/common/i-primitives";
+import {IPath} from "../filesystem/i-path";
+import {IProcessResult} from "../process/i-process-result";
 
 declare const require:any;
 
@@ -32,7 +32,7 @@ export class SSHAPI implements ISSHAPI {
     constructor(
         private nodemiralModule:any,
         private futures:IFutures,
-        private nodeWrapperFactory:INodeWrapperFactory,
+        private primitives:IPrimitives,
         private collections:ICollections,
         private sshConfiguration:ISSHConfiguration,
         private uuidGenerator:IUUIDGenerator,
@@ -44,12 +44,12 @@ export class SSHAPI implements ISSHAPI {
         return new SSHSession(
             nodemiralSession,
             this.futures,
-            this.nodeWrapperFactory,
+            this.primitives,
             this.collections,
             this,
             host,
             this.sshConfiguration.writeCommandsToStdout,
-            this.nodeWrapperFactory.fileSystem(),
+            this.primitives.fileSystem,
             scp2Module,
             username,
             password,

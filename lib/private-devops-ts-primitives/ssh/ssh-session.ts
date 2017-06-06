@@ -1,24 +1,26 @@
 import {IList} from "../collections/i-list";
 import {IProcessOutputProgress, ISSHSession} from "./i-ssh-session";
-import {INodeWrapperFactory} from "../node-js-wrappers/i-node-wrapper-factory";
 import {ICollections} from "../collections/i-collections";
 import {ISSHResult} from "./i-ssh-result";
 import {ISSHError} from "./i-ssh-error";
 import {ISSHAPI} from "./i-ssh-api";
-import {IFileSystem} from "../node-js-wrappers/i-filesystem";
 import {IUUIDGenerator} from "../uuid/i-uuid-generator";
-import {IPath} from "../node-js-wrappers/i-path";
 import {IErrors} from "../errors/i-errors";
 import {IFutures} from "../futures/i-futures";
 import {IFuture} from "../futures/i-future";
 import {IFutureWithProgress} from "../futures/i-future-with-progress";
+import {IPrimitives} from "../api/common/i-primitives";
+import {IFileSystem} from "../filesystem/i-filesystem";
+import {IPath} from "../filesystem/i-path";
+import {ProcessResultForSeparateStdAndErrorStreams} from "../process/process-result-for-separate-std-and-error-streams";
+import {BaseProcessResult} from "../process/base-process-result";
 
 export class SSHSession implements ISSHSession {
 
     constructor(
         private nodemiralSession:any,
         private futures:IFutures,
-        private nodeWrapperFactory:INodeWrapperFactory,
+        private primitives:IPrimitives,
         private collections:ICollections,
         private api:ISSHAPI,
         private host:string,
@@ -68,12 +70,11 @@ export class SSHSession implements ISSHSession {
                 onStderr: (value) => progress({stdOut:null, stdErr:value})
             };
             this.nodemiralSession.execute(command, options, (err:string, code:number, logs:any) => {
-                const processResult = this.nodeWrapperFactory.newProcessResultForSeparateStdAndErrorStreams(
-                    command,
-                    code,
+                const processResult = new ProcessResultForSeparateStdAndErrorStreams(
+                    new BaseProcessResult(command, code, err),
                     this.collections.newList<string>(logs.stdout.split("\n")),
                     this.collections.newList<string>(logs.stderr.split("\n")),
-                    err
+                    this.collections
                 );
                 const result = this.api.newSSHResult(this.host, processResult);
                 if(err) reject(this.api.newSSHError(err, result));
@@ -146,7 +147,7 @@ export class SSHSession implements ISSHSession {
 
     write(fileContent:string, destinationPath:string):IFuture<any> {
         return this.writeGeneral(
-            this.nodeWrapperFactory.newStringBuffer(fileContent),
+            new Buffer(fileContent),
             destinationPath
         );
     }

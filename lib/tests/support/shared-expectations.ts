@@ -1,8 +1,8 @@
 import {expect} from 'chai';
 import * as sinon from 'sinon';
-import {IProcessResult} from "../../private-devops-ts-primitives/node-js-wrappers/i-process-result";
 import {IProcessOutputProgress} from "../../private-devops-ts-primitives/ssh/i-ssh-session";
 import {IProgressCallback} from "../../private-devops-ts-primitives/futures/i-future-with-progress";
+import {IProcessResult} from "../../private-devops-ts-primitives/process/i-process-result";
 
 export const slowBashCommandWithProgressUpdates = 'sleep 1; echo "1"; sleep 1; (>&2 echo "error"); sleep 1; echo "2"; sleep 1; echo "3"';
 

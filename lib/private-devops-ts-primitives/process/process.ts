@@ -1,20 +1,18 @@
 import {IChildProcess, IProcess} from "./i-process";
 import {IList} from "../collections/i-list";
-import {IProcessResult} from "./i-process-result";
-import {INodeWrapperFactory} from "./i-node-wrapper-factory";
 import {ICollections} from "../collections/i-collections";
 import {IFutures} from "../futures/i-futures";
 import {IDictionary} from "../collections/i-dictionary";
-import {IFuture} from "../futures/i-future";
-import {IFutureWithProgress, IProgressCallback} from "../futures/i-future-with-progress";
-import {IProcessOutputProgress} from "../ssh/i-ssh-session";
+import {IPrimitives} from "../api/common/i-primitives";
+import {ProcessResult} from "./process-result";
+import {BaseProcessResult} from "./base-process-result";
 
 export class Process implements IProcess {
     constructor(
         private nativeProcess:any,
         private futures:IFutures,
         private nativeChildProcessModule:any,
-        private nodeWrapperFactory:INodeWrapperFactory,
+        private primitives:IPrimitives,
         private collections:ICollections
     ) {}
 
@@ -94,13 +92,12 @@ export class Process implements IProcess {
 
             const attemptToResolvePromise = (processExitCode) => {
                 if (closed && exited) {
-                    const processResult = this.nodeWrapperFactory.newProcessResult(
-                        completeCommand,
-                        processExitCode,
+                    const processResult = new ProcessResult(
+                        new BaseProcessResult(completeCommand, processExitCode, null),
                         stdOutIndices,
                         stdErrIndices,
                         allOutput,
-                        null
+                        this.collections
                     );
                     if (processResult.hasError) reject(processResult);
                     else resolve(processResult);
