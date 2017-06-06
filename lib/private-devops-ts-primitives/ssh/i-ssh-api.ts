@@ -1,9 +1,9 @@
 import {ISSHResult} from "./i-ssh-result";
-import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {ISSHClient} from "./i-ssh-client";
 import {SSHMultiCommandError} from "./ssh-multi-command-error";
 import {IList} from "../collections/i-list";
 import {ShellEscaper} from "./shell-escaper";
+import {IProcessResult} from "../process/i-process-result";
 
 export interface ISSHAPI {
     newSSHClient():ISSHClient;

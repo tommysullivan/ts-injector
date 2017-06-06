@@ -55,3 +55,5 @@ export class Collections implements ICollections {
         return { _1:item1, _2:item2, _3:item3, _4:item4}
     }
 }
+
+export {List} from "./list";

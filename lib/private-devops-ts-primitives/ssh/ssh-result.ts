@@ -1,6 +1,6 @@
 import {ISSHResult} from "./i-ssh-result";
-import {IProcessResult} from "../node-js-wrappers/i-process-result";
 import {IJSONValue} from "../typed-json/i-json-value";
+import {IProcessResult} from "../process/i-process-result";
 
 export class SSHResult implements ISSHResult {
     constructor(

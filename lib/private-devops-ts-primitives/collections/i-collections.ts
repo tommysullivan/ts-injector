@@ -14,3 +14,5 @@ export interface ICollections {
     newTriplet<T1, T2, T3>(item1:T1, item2:T2, item3:T3):ITriplet<T1, T2, T3>;
     new4Tuple<T1, T2, T3, T4>(item1:T1, item2:T2, item3:T3, item4:T4):I4Tuple<T1, T2, T3, T4>;
 }
+
+export * from "./i-list";

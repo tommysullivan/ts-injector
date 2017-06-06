@@ -6,6 +6,9 @@ import {IErrors} from "../../errors/i-errors";
 import {TypedJSON} from "../../typed-json/typed-json";
 import {ITypedJSON} from "../../typed-json/i-typed-json";
 import {IFutures} from "../../futures/i-futures";
+import {ProcessResult} from "../../process/process-result";
+import {IProcessResult} from "../../process/i-process-result";
+import {BaseProcessResult} from "../../process/base-process-result";
 
 export abstract class Primitives {
     abstract get futures():IFutures;

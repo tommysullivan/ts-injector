@@ -1,14 +1,10 @@
-import {INodeWrapperFactory} from "../../node-js-wrappers/i-node-wrapper-factory";
 import {IFutures} from "../../futures/i-futures";
 import {IConsole} from "../../console/i-console";
-import {IProcess} from "../../node-js-wrappers/i-process";
-import {IFileSystem} from "../../node-js-wrappers/i-filesystem";
 import {IRest} from "../../rest/common/i-rest";
 import {ISSHAPI} from "../../ssh/i-ssh-api";
 import {IPrimitives} from "../common/i-primitives";
 import {IPrimitivesConfiguration} from "./i-primitives-configuration";
 
-import {NodeWrapperFactory} from "../../node-js-wrappers/node-wrapper-factory";
 import {Futures} from "../../futures/futures";
 import {RestForNodeJS} from "../../rest/nodejs/rest-for-node-js";
 import {SSHAPI} from "../../ssh/ssh-api";
@@ -23,6 +19,13 @@ import * as mkdirp from "mkdirp";
 import * as fs from "fs";
 import * as request from "request";
 import {PrimitivesConfigurationDefault} from "../primitives-configuration-default";
+import {IProcess} from "../../process/i-process";
+import {IFileSystem} from "../../filesystem/i-filesystem";
+import {Process} from "../../process/process";
+import {FileSystem} from "../../filesystem/file-system";
+import {ProcessResultForSeparateStdAndErrorStreams} from "../../process/process-result-for-separate-std-and-error-streams";
+import {IProcessResult} from "../../process/i-process-result";
+import {IList} from "../../collections/i-list";
 
 export class PrimitivesForNodeJS extends Primitives implements IPrimitives {
     constructor(
@@ -40,8 +43,27 @@ export class PrimitivesForNodeJS extends Primitives implements IPrimitives {
         );
     }
 
-    get process():IProcess { return this.nodeWrapperFactory.newProcess(this.nativeProcess); }
-    get fileSystem():IFileSystem { return this.nodeWrapperFactory.fileSystem(); }
+    get process():IProcess {
+        return new Process(
+            this.nativeProcess,
+            this.futures,
+            child_process,
+            this,
+            this.collections
+        );
+    }
+
+    get fileSystem():IFileSystem {
+        return new FileSystem(
+            fs,
+            this.typedJSON,
+            this.collections,
+            this.errors,
+            this.futures,
+            mkdirp,
+            JSON
+        )
+    }
 
     get rest():IRest {
         return new RestForNodeJS(
@@ -57,25 +79,12 @@ export class PrimitivesForNodeJS extends Primitives implements IPrimitives {
         return new SSHAPI(
             nodemiral,
             this.futures,
-            this.nodeWrapperFactory,
+            this,
             this.collections,
             this.configuration.ssh,
             this.uuidGenerator,
-            this.nodeWrapperFactory.path,
-            this.errors
-        );
-    }
-
-    get nodeWrapperFactory():INodeWrapperFactory {
-        return new NodeWrapperFactory(
-            this.futures,
-            child_process,
-            this.collections,
-            fs,
-            this.typedJSON,
-            this.errors,
             path,
-            mkdirp
+            this.errors
         );
     }
 
