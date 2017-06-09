@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha -u bdd-lazy-var/getter -r ts-node/register lib/tests/**/*.ts",
+    "build": "tsc",
     "tsc": "tsc -w"
   },
   "files": [
