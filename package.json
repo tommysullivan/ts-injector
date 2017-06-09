@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha -u bdd-lazy-var/getter -r ts-node/register lib/tests/**/*.ts",
-    "build": "tsc"
+    "tsc": "tsc -w"
   },
   "files": [
     "dist/private-devops-ts-primitives/*"
@@ -36,8 +36,7 @@
     "scp2": "^0.4.0",
     "shell-escape": "^0.2.0",
     "source-map-support": "^0.4.0",
-    "valid-url": "^1.0.9",
-    "readline-sync": "^1.4.1"
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "@types/chai": "^3.5.1",

@@ -23,9 +23,6 @@ import {IProcess} from "../../process/i-process";
 import {IFileSystem} from "../../filesystem/i-filesystem";
 import {Process} from "../../process/process";
 import {FileSystem} from "../../filesystem/file-system";
-import {ProcessResultForSeparateStdAndErrorStreams} from "../../process/process-result-for-separate-std-and-error-streams";
-import {IProcessResult} from "../../process/i-process-result";
-import {IList} from "../../collections/i-list";
 
 export class PrimitivesForNodeJS extends Primitives implements IPrimitives {
     constructor(

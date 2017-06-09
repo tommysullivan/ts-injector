@@ -41,15 +41,15 @@ export class Console implements IConsole {
     }
 
     info(...args): void {
-        this.logHeaderFor(`INFO @ ${moment().calendar()}`, ...args);
+        this.logHeaderFor('INFO', ...args);
     }
 
     warn(...args): void {
-        this.logHeaderFor(`WARN @ ${moment().calendar()}`, ...args);
+        this.logHeaderFor('WARN', ...args);
     }
 
     error(...args): void {
-        this.logHeaderFor(`ERROR @ ${moment().calendar()}`, ...args);
+        this.logHeaderFor('ERROR', ...args);
     }
 
     askQuestion(questionText:string):string {
