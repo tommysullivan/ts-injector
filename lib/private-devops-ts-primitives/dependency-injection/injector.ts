@@ -1,4 +1,3 @@
-import {NotImplementedError} from "../errors/not-implemented-error";
 import {ErrorWithCause} from "../errors/error-with-cause";
 
 export interface NativeClassReference<T> {
@@ -7,6 +6,7 @@ export interface NativeClassReference<T> {
 
 export interface IInjector {
     createInstanceOf<ClassToInstantiate>(theClass:NativeClassReference<ClassToInstantiate>):ClassToInstantiate;
+    argumentValue(argDescription:IArgument):any;
 }
 
 export interface IType {
@@ -192,7 +192,7 @@ export interface IArgumentMetadata {
 }
 
 export interface ICustomValueResolver {
-    instanceForType(type: IType):any;
+    instanceForType(type: IType, injector:IInjector):any;
     resolveArgumentValue(arg:IArgument):any;
     instanceForTypeWhenAutomaticConstructionFails(type:IType):any;
 }
@@ -206,7 +206,7 @@ export class Injector implements IInjector {
     createInstanceOf<ClassToInstantiate>(nativeClassReference: NativeClassReference<ClassToInstantiate>): ClassToInstantiate {
         const theClass = this.reflector.classOf(nativeClassReference);
         try {
-            const potentialInstance = this.customValueResolver.instanceForType(theClass);
+            const potentialInstance = this.customValueResolver.instanceForType(theClass, this);
             if(potentialInstance) return potentialInstance;
             const theConstructor = theClass.getConstructor();
             try {
@@ -224,7 +224,7 @@ export class Injector implements IInjector {
         }
     }
 
-    private argumentValue(argDescription:IArgument):any {
+    argumentValue(argDescription:IArgument):any {
         try {
             return argDescription.type.isPrimitive
                 ? this.customValueResolver.resolveArgumentValue(argDescription)
@@ -244,7 +244,7 @@ export class Injector implements IInjector {
     }
 
     private valueForNonPrimitiveAbstraction(argDescription:IArgument):any {
-        const potentialInstance = this.customValueResolver.instanceForType(argDescription.type);
+        const potentialInstance = this.customValueResolver.instanceForType(argDescription.type, this);
         if(potentialInstance) return potentialInstance;
         return this.customValueResolver.resolveArgumentValue(argDescription);
     }

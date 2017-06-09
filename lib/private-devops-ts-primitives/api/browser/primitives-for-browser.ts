@@ -10,12 +10,13 @@ import {Futures} from "../../futures/futures";
 import {RESTForBrowser} from "../../rest/browser/rest-for-browser";
 import {Primitives} from "../common/primitives";
 import {NotImplementedError} from "../../errors/not-implemented-error";
+import {IInjector} from "../../dependency-injection/injector";
 
 export class PrimitivesForBrowser extends Primitives implements IPrimitives {
     constructor(
-        private nativeConsole:any,
         private nativePromise:any,
-        private nativeJQuery:any
+        private nativeJQuery:any,
+        private injector:IInjector
     ) {
         super();
     }
@@ -25,7 +26,7 @@ export class PrimitivesForBrowser extends Primitives implements IPrimitives {
     }
 
     get console():IConsole {
-        return new ConsoleForBrowser(this.nativeConsole);
+        return this.injector.createInstanceOf(ConsoleForBrowser);
     }
 
     get futures():IFutures  {

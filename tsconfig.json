@@ -15,7 +15,7 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "moduleResolution": "node",
-    "lib": ["es5", "es2015.promise"]
+    "lib": ["es5", "es2015.promise", "dom"]
   },
   "reflectionEnabled": true,
   "exclude": [

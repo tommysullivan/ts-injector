@@ -2,7 +2,7 @@ import "../support/prepare-test-environment";
 import {expect} from "chai";
 import {Let} from "mocha-let-ts";
 import {
-    Class, IArgument, ICustomValueResolver, Injector, IType,
+    Class, IArgument, ICustomValueResolver, IInjector, Injector, IReflector, IType,
     Reflector
 } from "../../private-devops-ts-primitives/dependency-injection/injector";
 import {NotImplementedError} from "../../private-devops-ts-primitives/errors/not-implemented-error";
@@ -10,6 +10,9 @@ import {Console, LogLevel} from "../../private-devops-ts-primitives/console/cons
 import * as readLineSync from "readline-sync";
 import {mock} from "mocha-let-ts/dist/mocha-let-ts/mock";
 import * as sinon from "sinon";
+import {ConsoleForBrowser} from "../../private-devops-ts-primitives/console/console-for-browser";
+import {PrimitivesForBrowser} from "../../private-devops-ts-primitives/api/browser/primitives-for-browser";
+import * as $ from 'jquery';
 
 describe('injector @wip', () => {
     class NoArgConstructorClass {}
@@ -55,6 +58,20 @@ describe('injector @wip', () => {
                     { "name": "readLineSyncModule", "typeName": "any"},
                     { "name": "logLevel", "typeName": "LogLevel"}
                 ]
+            },
+            {
+                "name": "ConsoleForBrowser",
+                "constructorArgs": [
+                    { "name": "nativeBrowserConsole", "typeName": "any"}
+                ]
+            },
+            {
+                "name": "PrimitivesForBrowser",
+                "constructorArgs": [
+                    { "name": "nativeConsole", "typeName": "any"},
+                    { "name": "nativePromise", "typeName": "any"},
+                    { "name": "injector", "typeName": "IInjector"}
+                ]
             }
         ]
     };
@@ -63,32 +80,45 @@ describe('injector @wip', () => {
         NoArgConstructorClass,
         ClassWhoseConstructorDependsOnNoArgConstructorClass,
         MultiLevelClass,
-        Console
+        Console,
+        ConsoleForBrowser,
+        PrimitivesForBrowser,
     ];
 
     const mockNativeConsole = Let(() => mock<any>({log() {}}));
 
     class CustomValueResolver implements ICustomValueResolver {
+        constructor(private readonly reflector:IReflector) {}
 
-        //TODO: Cool way to provide custom factory with most work done by DI before calling it
-        customLogLevel(readLineSyncModule:any, logLevel:LogLevel):Console {
-            const nativeConsole = console;
-            return new Console(nativeConsole, readLineSyncModule, logLevel);
-        }
+        // TODO: Elegant custom factory methods with dependency injected params
+        // createConsole(nativeConsole:any, readLineSyncModule:any):Console {
+        //     return new Console(nativeConsole, readLineSyncModule, 'INFO');
+        // }
 
-        instanceForType(type: IType, injector):any {
-            if(type.name=='LogLevel') return 'INFO';
+        instanceForType(type: IType, injector:IInjector):any {
+            if(type.name=='Console') {
+                const constructorArgDescriptions = this.reflector.classOf(Console).getConstructor().args;
+                return new Console(
+                    injector.argumentValue(constructorArgDescriptions[0]),
+                    injector.argumentValue(constructorArgDescriptions[1]),
+                    'INFO'
+                );
+            }
+            if(type.name=='IInjector') return injector;
         }
 
         resolveArgumentValue(arg: IArgument): any {
             if(arg.name=='nativeConsole') return mockNativeConsole();
             else if(arg.name=='readLineSyncModule') return readLineSync;
+            else if(arg.name=='nativeBrowserConsole') return console;
+            else if(arg.name=='nativePromise') return Promise;
+            else if(arg.name=='nativeJQuery') return $;
         }
 
         instanceForTypeWhenAutomaticConstructionFails(type: IType): any {}
     }
 
-    const customValueResolver = Let(() => new CustomValueResolver());
+    const customValueResolver = Let(() => new CustomValueResolver(reflector()));
     const reflector = Let(() => new Reflector(fakeTypeMetadata, nativeClassReferences));
     const injector = Let(() => new Injector(reflector(), customValueResolver()));
     const theClass = Let<any>(() => { throw new NotImplementedError() });
@@ -137,6 +167,12 @@ describe('injector @wip', () => {
                 expect(mockNativeConsole().log).to.have.been.calledWith(sinon.match.string, 'some error');
                 expect(mockNativeConsole().log).to.have.been.calledWith(sinon.match.string, 'some warning');
                 expect(mockNativeConsole().log).to.have.been.calledWith(sinon.match.string, 'some info');
+            });
+        });
+
+        context('Primitives Usage', () => {
+            it('works', () => {
+                expect(injector().createInstanceOf(PrimitivesForBrowser).console).to.be.an.instanceOf(ConsoleForBrowser);
             });
         });
     });
