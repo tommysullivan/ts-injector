@@ -4,15 +4,8 @@ import {Let} from "mocha-let-ts";
 import {
     Class, IArgument, ICustomValueResolver, IInjector, Injector, IReflector, IType,
     Reflector
-} from "../../private-devops-ts-primitives/dependency-injection/injector";
-import {NotImplementedError} from "../../private-devops-ts-primitives/errors/not-implemented-error";
-import {Console, LogLevel} from "../../private-devops-ts-primitives/console/console";
-import * as readLineSync from "readline-sync";
-import {mock} from "mocha-let-ts/dist/mocha-let-ts/mock";
-import * as sinon from "sinon";
-import {ConsoleForBrowser} from "../../private-devops-ts-primitives/console/console-for-browser";
-import {PrimitivesForBrowser} from "../../private-devops-ts-primitives/api/browser/primitives-for-browser";
-import * as $ from 'jquery';
+} from "../../private-devops-ts-injector/dependency-injection/injector";
+import {NotImplementedError} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/errors/not-implemented-error";
 
 describe('injector @wip', () => {
     class NoArgConstructorClass {}
@@ -79,13 +72,8 @@ describe('injector @wip', () => {
     const nativeClassReferences = [
         NoArgConstructorClass,
         ClassWhoseConstructorDependsOnNoArgConstructorClass,
-        MultiLevelClass,
-        Console,
-        ConsoleForBrowser,
-        PrimitivesForBrowser,
+        MultiLevelClass
     ];
-
-    const mockNativeConsole = Let(() => mock<any>({log() {}}));
 
     class CustomValueResolver implements ICustomValueResolver {
         constructor(private readonly reflector:IReflector) {}
@@ -96,24 +84,10 @@ describe('injector @wip', () => {
         // }
 
         instanceForType(type: IType, injector:IInjector):any {
-            if(type.name=='Console') {
-                const constructorArgDescriptions = this.reflector.classOf(Console).getConstructor().args;
-                return new Console(
-                    injector.argumentValue(constructorArgDescriptions[0]),
-                    injector.argumentValue(constructorArgDescriptions[1]),
-                    'INFO'
-                );
-            }
             if(type.name=='IInjector') return injector;
         }
 
-        resolveArgumentValue(arg: IArgument): any {
-            if(arg.name=='nativeConsole') return mockNativeConsole();
-            else if(arg.name=='readLineSyncModule') return readLineSync;
-            else if(arg.name=='nativeBrowserConsole') return console;
-            else if(arg.name=='nativePromise') return Promise;
-            else if(arg.name=='nativeJQuery') return $;
-        }
+        resolveArgumentValue(arg: IArgument): any {}
 
         instanceForTypeWhenAutomaticConstructionFails(type: IType): any {}
     }
@@ -156,23 +130,6 @@ describe('injector @wip', () => {
                 expect(instance.c).to.have.property('a').that.is.instanceOf(NoArgConstructorClass);
                 expect(instance.b).to.not.equal(instance.c);
                 expect(instance.c.a).to.not.equal(instance.b.a);
-            });
-        });
-
-        context('Console Usage', () => {
-            it('works', () => {
-                injector().createInstanceOf(Console).info('some info');
-                injector().createInstanceOf(Console).warn('some warning');
-                injector().createInstanceOf(Console).error('some error');
-                expect(mockNativeConsole().log).to.have.been.calledWith(sinon.match.string, 'some error');
-                expect(mockNativeConsole().log).to.have.been.calledWith(sinon.match.string, 'some warning');
-                expect(mockNativeConsole().log).to.have.been.calledWith(sinon.match.string, 'some info');
-            });
-        });
-
-        context('Primitives Usage', () => {
-            it('works', () => {
-                expect(injector().createInstanceOf(PrimitivesForBrowser).console).to.be.an.instanceOf(ConsoleForBrowser);
             });
         });
     });

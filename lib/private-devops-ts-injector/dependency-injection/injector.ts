@@ -1,5 +1,4 @@
-import {ErrorWithCause} from "../errors/error-with-cause";
-
+import {ErrorWithCause} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/errors/error-with-cause";
 export interface NativeClassReference<T> {
     new (...args:any[]):T;
 }

@@ -1,11 +1,8 @@
-private-devops-ts-primitives
+private-devops-ts-injector
 ----------------------------
 
-A set of primitives for:
-
-1) Functional Immutable Lists
-2) Async SSH and Process APIs
-3) Typesafe JSON readers
-4) Deprecation Annotations
-5) ErrorWithCause (ala java)
-6) REST Basics
+Dependency Injection for Typescript. This library uses a generator at compile time to produce type
+metadata that is lost during the traditional typescript compile. The runtime Reflector and Injector
+libraries then consume that metadata as well as native runtime reflection capabilities in order to
+implement constructor injection without a need for additional repetitive annotations or string based
+type names.
