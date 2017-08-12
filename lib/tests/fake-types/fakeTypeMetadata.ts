@@ -1,8 +1,10 @@
 export const typeMetadataFakedForTestPurposes = {
     "classes": [
         {
-            "name": "Person",
-            "constructorArgs": []
+            "name": "PersonA",
+            "constructorArgs": [
+                { "name": "a", "typeName": "number"}
+            ]
         },
         {
             "name": "NoArgConstructorClass",

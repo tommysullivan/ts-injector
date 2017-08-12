@@ -13,7 +13,9 @@ export class CustomValueResolver implements ICustomValueResolver {
         if(type.name=='IInjector') return injector;
     }
 
-    resolveArgumentValue(arg: IArgument): any {}
+    resolveArgumentValue(arg: IArgument): any {
+        // if(arg.type.name=='number') return 7;
+    }
 
     instanceForTypeWhenAutomaticConstructionFails(type: IType): any {}
 }

@@ -14,6 +14,14 @@ export class MultiLevelClass {
     ) {}
 }
 
+export class PersonA implements IPerson {
+    constructor(public a:number, public b:IOther) {}
+    firstName ='tommy';
+    lastName = 'sullivan';
+}
+
+//UNTESTED BELOW
+
 export interface IPerson {
     firstName:string;
     lastName:string;
@@ -23,19 +31,7 @@ export interface IOther {
     myes:string;
 }
 
-export class PersonA implements IPerson {
-    constructor(public a:number, public b:IOther) {}
-    firstName ='tommy';
-    lastName = 'sullivan';
-}
-
 export class PersonB implements IPerson {
     firstName = 'matt';
     lastName = 'Tastula';
 }
-
-export const nativeClassReferences = [
-    NoArgConstructorClass,
-    ClassWhoseConstructorDependsOnNoArgConstructorClass,
-    MultiLevelClass
-];

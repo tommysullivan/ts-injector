@@ -52,7 +52,7 @@ export class Injector implements IInjector {
     argumentValue(argDescription:IArgument):any {
         try {
             return argDescription.type.isPrimitive
-                ? this.customValueResolver.resolveArgumentValue(argDescription)
+                ? this.valueForPrimitive(argDescription)
                 : this.valueForNonPrimitive(argDescription);
         }
         catch(e) {
@@ -60,11 +60,17 @@ export class Injector implements IInjector {
         }
     }
 
+    private valueForPrimitive(argDescription:IArgument):any {
+        const primitiveValue = this.customValueResolver.resolveArgumentValue(argDescription);
+        if(primitiveValue==undefined) throw new Error('Problem getting primitive value using customValueResolver.resolveArgumentValue.');
+        return primitiveValue;
+    }
+
     private valueForNonPrimitive(argDescription:IArgument):any {
         const resolvedValue = argDescription.type.isClass
             ? this.createInstanceOf(argDescription.type.nativeTypeReference)
             : this.valueForNonPrimitiveAbstraction(argDescription);
-        if(resolvedValue==null) throw new Error(`Could not resolve value for argument ${argDescription}`);
+        if(resolvedValue==null) throw new Error(`Could not resolve value for non primitive argument ${argDescription}`);
         return resolvedValue;
     }
 
