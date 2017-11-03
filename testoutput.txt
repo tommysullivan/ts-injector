@@ -1,0 +1,28 @@
+
+> private-devops-ts-injector@1.0.0 test /Users/thomassullivan/Code/private-devops-ts-injector
+> mocha -u bdd-lazy-var/getter -r ts-node/register lib/tests/**/*.ts
+
+
+
+  injector
+    constructor
+      ✓ returns an instance
+    createInstanceOf<ClassToInstantiate>(theClass: NativeClassReference<ClassToInstantiate>)
+      when classUnderTest is class named "NoArgConstructorClass"
+        - returns a new instance
+      when classUnderTest is class named "ClassWhoseConstructorDependsOnNoArgConstructorClass"
+        - returns a new instance
+      MultiLevelClass
+        - has properties a, b, and c each with their respective, distinct instances of correct type
+
+  primitives
+    - is instantiable
+
+  reflection
+    when i reflect on the MultiLevelClass class
+      - has name "MultiLevelClass"
+
+
+  1 passing (78ms)
+  5 pending
+

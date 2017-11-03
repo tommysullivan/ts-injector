@@ -13,25 +13,3 @@ export class MultiLevelClass {
         public readonly c:ClassWhoseConstructorDependsOnNoArgConstructorClass
     ) {}
 }
-
-export class PersonA implements IPerson {
-    constructor(public a:number, public b:IOther) {}
-    firstName ='tommy';
-    lastName = 'sullivan';
-}
-
-//UNTESTED BELOW
-
-export interface IPerson {
-    firstName:string;
-    lastName:string;
-}
-
-export interface IOther {
-    myes:string;
-}
-
-export class PersonB implements IPerson {
-    firstName = 'matt';
-    lastName = 'Tastula';
-}

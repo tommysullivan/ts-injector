@@ -27,7 +27,7 @@
   "homepage": "https://github.com/tommysullivan/private-devops-ts-injector#readme",
   "dependencies": {
     "@types/node": "^7.0.5",
-    "private-devops-ts-primitives": "^1.0.2",
+    "private-devops-ts-primitives": "^1.8.0",
     "source-map-support": "^0.4.0"
   },
   "devDependencies": {
