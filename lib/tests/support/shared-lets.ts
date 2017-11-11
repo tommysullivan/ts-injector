@@ -14,7 +14,7 @@ import {IReflectionDigest} from "../../private-devops-ts-injector/reflection/int
 import {ReflectionDigestForTesting} from "./fake-types/ReflectionDigestForTesting";
 
 export const injectorProxy = Let<IInjector>(() => new InjectorProxy(() => injector()));
-export const reflectionDigest = Let<IReflectionDigest>(() => new ReflectionDigestForTesting());
+export const reflectionDigest = Let<IReflectionDigest>(() => new ReflectionDigestForTesting(collections()));
 export const reflector = Let(() => new Reflector(reflectionDigest()));
 export const injector = Let(() => new Injector(reflector(), argumentValueResolver()));
 export const primitives = Let(() => new PrimitivesForNodeJS());

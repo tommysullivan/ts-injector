@@ -13,3 +13,17 @@ export class MultiLevelClass {
         public readonly c:ClassWhoseConstructorDependsOnNoArgConstructorClass
     ) {}
 }
+
+export interface IDependencyInterface {
+    a:NoArgConstructorClass;
+}
+
+export class InterfaceImplementor implements IDependencyInterface {
+    constructor(public readonly a:NoArgConstructorClass) {}
+}
+
+export class ClassWithInterfaceParameter {
+    constructor(
+        public readonly a:IDependencyInterface
+    ) {}
+}

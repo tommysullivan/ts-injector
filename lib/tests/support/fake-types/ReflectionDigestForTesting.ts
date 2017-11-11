@@ -3,11 +3,17 @@ import {
     IClass, IInterface, IReflectionDigest, IType, NativeClassReference
 } from "../../../private-devops-ts-injector/reflection/interfaces";
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
-import {collections} from "../shared-lets";
 import {Class} from "../../../private-devops-ts-injector/reflection/Class";
-import {ClassWhoseConstructorDependsOnNoArgConstructorClass, MultiLevelClass, NoArgConstructorClass} from "./fakeTypes";
+import {
+    ClassWhoseConstructorDependsOnNoArgConstructorClass, ClassWithInterfaceParameter, IDependencyInterface,
+    InterfaceImplementor,
+    MultiLevelClass,
+    NoArgConstructorClass
+} from "./fakeTypes";
 import {Constructor} from "../../../private-devops-ts-injector/reflection/Constructor";
 import {Argument} from "../../../private-devops-ts-injector/reflection/Argument";
+import {Interface} from "../../../private-devops-ts-injector/reflection/Interface";
+import {ICollections} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-collections";
 
 interface IArgDescriptor {
     name:string,
@@ -16,6 +22,8 @@ interface IArgDescriptor {
 }
 
 export class ReflectionDigestForTesting implements IReflectionDigest {
+    constructor(private readonly collections:ICollections) {}
+
     private newArguments(argDescriptors:IArgDescriptor[]):IArgument[] {
         return argDescriptors.map(
             (argDescriptor, index) => new Argument(
@@ -29,7 +37,7 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
 
     private newClass(nativeClassReference:NativeClassReference<any>, args:IArgument[]) {
         return new Class(
-            new Constructor(collections().newList(args), nativeClassReference),
+            new Constructor(this.collections.newList(args), nativeClassReference),
             nativeClassReference
         );
     }
@@ -58,13 +66,45 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
         );
     }
 
-    classes: IList<IClass<any>> = collections().newList([
-        this.NoArgConstructorClass,
-        this.ClassWhoseConstructorDependsOnNoArgConstructorClass,
-        this.MultiLevelClass
-    ]);
+    get ClassWithInterfaceParameter():IClass<ClassWithInterfaceParameter> {
+        return this.newClass(
+            ClassWithInterfaceParameter,
+            this.newArguments([
+                {name: 'a', type: this.IDependencyInterface }
+            ])
+        );
+    }
 
-    interfaces: IList<IInterface<any>> = collections().newList([
+    get InterfaceImplementor():IClass<InterfaceImplementor> {
+        return this.newClass(
+            InterfaceImplementor,
+            this.newArguments([
+                {name: 'a', type: this.NoArgConstructorClass }
+            ])
+        );
+    }
 
-    ]);
+    get IDependencyInterface():IInterface<IDependencyInterface> {
+        return new Interface(
+            'IDependencyInterface',
+            this.collections.newList([
+                this.InterfaceImplementor
+            ])
+        );
+    }
+
+    get classes(): IList<IClass<any>> {
+        return this.collections.newList([
+            this.NoArgConstructorClass,
+            this.ClassWhoseConstructorDependsOnNoArgConstructorClass,
+            this.MultiLevelClass,
+            this.ClassWithInterfaceParameter
+        ]);
+    }
+
+    get interfaces():IList<IInterface<any>> {
+        return this.collections.newList([
+            this.IDependencyInterface
+        ]);
+    }
 }

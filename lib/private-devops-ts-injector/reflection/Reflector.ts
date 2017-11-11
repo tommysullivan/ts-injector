@@ -28,7 +28,7 @@ export class Reflector implements IReflector {
 
     interface<T>(interfaceType: IType): IInterface<T> {
         try {
-            if(interfaceType.isInterface) throw new Error(`Attempted to look up interface using IType for which isInterface returned false`)
+            if(!interfaceType.isInterface) throw new Error(`Attempted to look up interface using IType for which isInterface returned false`);
             return this.reflectionDigest.interfaces.firstWhere(i => i.name == interfaceType.name);
         }
         catch(e) {

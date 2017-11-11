@@ -10,10 +10,15 @@ export class Interface<T> implements IInterface<T> {
     isPrimitive: boolean = false;
     isClass: boolean = false;
     isInterface: boolean = true;
+
     get nativeTypeReference():any {
         throw new Error([
             `Cannot get nativeTypeReference for interface since javascript runtime has no concept of interface`,
             `name: ${this.name}`
         ].join("\n"));
+    }
+
+    toString():string {
+        return `Interface { name: ${this.name} }`;
     }
 }

@@ -2,13 +2,13 @@ import "../support/prepare-test-environment";
 import {expect} from "chai";
 import {Let} from "mocha-let-ts";
 import { Injector } from "../../private-devops-ts-injector/dependency-injection/Injector";
-import {Class} from "../../private-devops-ts-injector/reflection/Class";
-import { ClassWhoseConstructorDependsOnNoArgConstructorClass, MultiLevelClass, NoArgConstructorClass } from "../support/fake-types/fakeTypes";
-import {injector} from "../support/shared-lets";
-import {Constructor} from "../../private-devops-ts-injector/reflection/Constructor";
+import {
+    ClassWhoseConstructorDependsOnNoArgConstructorClass, ClassWithInterfaceParameter, InterfaceImplementor,
+    MultiLevelClass,
+    NoArgConstructorClass
+} from "../support/fake-types/fakeTypes";
+import {collections, injector} from "../support/shared-lets";
 import {ReflectionDigestForTesting} from "../support/fake-types/ReflectionDigestForTesting";
-
-const xcontext = xdescribe;
 
 describe('injector', () => {
     describe('constructor', () => {
@@ -19,8 +19,6 @@ describe('injector', () => {
 
         const theClass = Let<any>();
         const instanceCreationResult = Let(() => injector().createInstanceOf(theClass()));
-
-        // MultiLevelClass
 
         function expectClassToBeInstantiable() {
             it('returns a new instance', () => {
@@ -59,8 +57,18 @@ describe('injector', () => {
 
             context('when we try to invoke its constructor with too few params', () => {
                 it('yields an error', () => {
-                    expect(() => new ReflectionDigestForTesting().MultiLevelClass.constructor.invoke([])).to.throw;
+                    expect(() => new ReflectionDigestForTesting(collections()).MultiLevelClass.constructor.invoke([])).to.throw;
                 });
+            });
+        });
+
+        context(ClassWithInterfaceParameter.name, () => {
+            theClass(() => ClassWithInterfaceParameter);
+            expectClassToBeInstantiable();
+            it(`has been constructed with the right implementation`, () => {
+                const instance = instanceCreationResult() as ClassWithInterfaceParameter;
+                expect(instance.a).to.be.an.instanceOf(InterfaceImplementor);
+                expect(instance.a.a).to.be.an.instanceOf(NoArgConstructorClass);
             });
         });
 
