@@ -1,10 +1,10 @@
 import {ErrorWithCause} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/errors/error-with-cause";
 import {
     IReflector, IValueProviderBasedOnIClass,
-    NativeClassReference, IValueProvider
+    NativeClassReference, IValueProviderBasedOnClass
 } from "../reflection/interfaces";
 
-export class ValueProviderBasedOnClass<TypeOfValueDesired> implements IValueProvider<NativeClassReference<TypeOfValueDesired>, TypeOfValueDesired> {
+export class ValueProviderBasedOnClass<TypeOfValueDesired> implements IValueProviderBasedOnClass<TypeOfValueDesired> {
     constructor(
         private readonly reflector:IReflector,
         private readonly valueProviderBasedOnIClass:IValueProviderBasedOnIClass<TypeOfValueDesired>

@@ -2,6 +2,8 @@ import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primiti
 
 export type IDecisionCriteria<TypeOfValueDesired> = IType<TypeOfValueDesired> | IArgument<TypeOfValueDesired> | NativeClassReference<TypeOfValueDesired>
 
+//TODO: May need to explicitly make separate interfaces for IType, IArgument and NativeClassReference since the APIs are
+//TODO: totally different and the generics cannot track everything
 export interface IValueProvider<TDecisionCriteria extends IDecisionCriteria<TypeOfValueDesired>, TypeOfValueDesired> {
     provideValueBasedOn(decisionCriteria:TDecisionCriteria):TypeOfValueDesired;
     canProvideValueBasedOn(decisionCriteria:TDecisionCriteria):boolean;
@@ -11,7 +13,9 @@ export type IValueProviderBasedOnArgument<TypeOfValueDesired> = IValueProvider<I
 export type IValueProviderBasedOnIClass<TypeOfValueDesired> = IValueProvider<IClass<TypeOfValueDesired>, TypeOfValueDesired>;
 export type IValueProviderBasedOnFunctionSignature<TypeOfValueDesired> = IValueProvider<IFunctionSignature<TypeOfValueDesired>, TypeOfValueDesired>;
 export type IValueProviderBasedOnInterface<TypeOfValueDesired> = IValueProvider<IInterface<TypeOfValueDesired>, TypeOfValueDesired>;
+export type IValueProviderBasedOnClass<TypeOfValueDesired> = IValueProvider<NativeClassReference<TypeOfValueDesired>, TypeOfValueDesired>
 
+//TODO: Could IType be a discriminated union?
 export interface IType<T> {
     isFunction:boolean;
     isNonFunctionPrimitive:boolean;
