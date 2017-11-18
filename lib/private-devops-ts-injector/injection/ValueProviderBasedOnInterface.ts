@@ -1,9 +1,9 @@
 import {
-    IValueProviderBasedOnInterface, IInterface, IClass,
+    IValueProviderBasedOnInterface, IInterface,
     IValueProviderBasedOnIClass
 } from "../reflection/interfaces";
 
-export class TypeValueResolverForInterfaces<TypeOfValueDesired> implements IValueProviderBasedOnInterface<TypeOfValueDesired> {
+export class ValueProviderBasedOnInterface<TypeOfValueDesired> implements IValueProviderBasedOnInterface<TypeOfValueDesired> {
     constructor(
         private readonly valueProviderBasedOnClass:IValueProviderBasedOnIClass<TypeOfValueDesired>
     ) {}
@@ -12,7 +12,7 @@ export class TypeValueResolverForInterfaces<TypeOfValueDesired> implements IValu
         const possibleImplementations = theType.asInterface.implementations;
         if(possibleImplementations.hasMany) {
             throw new Error([
-                `Tried to resolve value for interface type, but there were too many implementations`,
+                `Tried to resolve value for interface type, but there were too many implementations without any rules how to choose the preferred one`,
                 ...possibleImplementations.map(i => i.toString()).toArray()
             ].join("\n"));
         }
@@ -29,6 +29,6 @@ export class TypeValueResolverForInterfaces<TypeOfValueDesired> implements IValu
     }
 
     toString():string {
-        return 'TypeValueResolverForInterfaces';
+        return 'ValueProviderBasedOnInterface';
     }
 }

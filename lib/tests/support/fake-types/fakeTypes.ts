@@ -1,4 +1,6 @@
-export class NoArgConstructorClass {}
+export class NoArgConstructorClass {
+    isNoArgConstructorClass = true;
+}
 
 export class ClassWhoseConstructorDependsOnNoArgConstructorClass {
     constructor(
@@ -15,11 +17,11 @@ export class MultiLevelClass {
 }
 
 export interface IDependencyInterface {
-    a:NoArgConstructorClass;
+    d:NoArgConstructorClass;
 }
 
 export class InterfaceImplementor implements IDependencyInterface {
-    constructor(public readonly a:NoArgConstructorClass) {}
+    constructor(public readonly d:NoArgConstructorClass) {}
 }
 
 export class ClassWhoseConstructorTakesAnInterfaceParameter {
@@ -28,12 +30,12 @@ export class ClassWhoseConstructorTakesAnInterfaceParameter {
     ) {}
 }
 
-export class ClassThatNeedsFactory {
+export class ClassWhoseConstructorRequiresFactoryThatWhenCalledAfterConstructionHasCompeltedYieldsIDependencyInterface {
     constructor(
-        public readonly newDependencyInterface:()=>IDependencyInterface
+        public readonly newDependencyInterfsssace:()=>IDependencyInterface
     ) {}
 
     get noArgConstructorClassInstance():NoArgConstructorClass {
-        return this.newDependencyInterface().a;
+        return this.newDependencyInterfsssace().d;
     }
 }

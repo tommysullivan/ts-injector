@@ -1,14 +1,16 @@
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
 
-export interface IValueProvider<TDecisionCriteria, TypeOfValueDesired> {
+export type IDecisionCriteria<TypeOfValueDesired> = IType<TypeOfValueDesired> | IArgument<TypeOfValueDesired> | NativeClassReference<TypeOfValueDesired>
+
+export interface IValueProvider<TDecisionCriteria extends IDecisionCriteria<TypeOfValueDesired>, TypeOfValueDesired> {
     provideValueBasedOn(decisionCriteria:TDecisionCriteria):TypeOfValueDesired;
     canProvideValueBasedOn(decisionCriteria:TDecisionCriteria):boolean;
 }
 
 export type IValueProviderBasedOnArgument<TypeOfValueDesired> = IValueProvider<IArgument<any>, TypeOfValueDesired>;
-export type IValueProviderBasedOnIClass<TypeOfValueDesired> = IValueProvider<IClass<any>, TypeOfValueDesired>;
-export type IValueProviderBasedOnFunction<TypeOfValueDesired> = IValueProvider<IFunctionSignature<any>, TypeOfValueDesired>;
-export type IValueProviderBasedOnInterface<TypeOfValueDesired> = IValueProvider<IInterface<any>, TypeOfValueDesired>;
+export type IValueProviderBasedOnIClass<TypeOfValueDesired> = IValueProvider<IClass<TypeOfValueDesired>, TypeOfValueDesired>;
+export type IValueProviderBasedOnFunctionSignature<TypeOfValueDesired> = IValueProvider<IFunctionSignature<TypeOfValueDesired>, TypeOfValueDesired>;
+export type IValueProviderBasedOnInterface<TypeOfValueDesired> = IValueProvider<IInterface<TypeOfValueDesired>, TypeOfValueDesired>;
 
 export interface IType<T> {
     isFunction:boolean;
@@ -34,7 +36,7 @@ export interface IReflector {
 
 export interface IClass<T> extends IType<T> {
     theConstructor:IConstructor<T>;
-    name:string; //
+    name:string;
 }
 
 export interface IInterface<T> extends IType<T> {

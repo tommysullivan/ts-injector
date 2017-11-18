@@ -5,7 +5,7 @@ import {
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
 import {Class} from "../../../private-devops-ts-injector/reflection/Class";
 import {
-    ClassThatNeedsFactory,
+    ClassWhoseConstructorRequiresFactoryThatWhenCalledAfterConstructionHasCompeltedYieldsIDependencyInterface,
     ClassWhoseConstructorDependsOnNoArgConstructorClass, ClassWhoseConstructorTakesAnInterfaceParameter, IDependencyInterface,
     InterfaceImplementor,
     MultiLevelClass,
@@ -51,10 +51,9 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
     get ClassWhoseConstructorDependsOnNoArgConstructorClass():IClass<ClassWhoseConstructorDependsOnNoArgConstructorClass> {
         return this.newClass(
             ClassWhoseConstructorDependsOnNoArgConstructorClass,
-            null
-            // this.newArguments([
-            //     // {name: 'a', type: this.NoArgConstructorClass }
-            // ])
+            this.newArguments([
+                {name: 'a', type: this.NoArgConstructorClass }
+            ])
         );
     }
 
@@ -82,14 +81,14 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
         return this.newClass(
             InterfaceImplementor,
             this.newArguments([
-                {name: 'a', type: this.NoArgConstructorClass }
+                {name: 'd', type: this.NoArgConstructorClass }
             ])
         );
     }
 
-    get ClassThatNeedsFactory():IClass<ClassThatNeedsFactory> {
+    get ClassThatNeedsFactory():IClass<ClassWhoseConstructorRequiresFactoryThatWhenCalledAfterConstructionHasCompeltedYieldsIDependencyInterface> {
         return this.newClass(
-            ClassThatNeedsFactory,
+            ClassWhoseConstructorRequiresFactoryThatWhenCalledAfterConstructionHasCompeltedYieldsIDependencyInterface,
             this.newArguments([
                 {
                     name: 'newDependencyInterface',
@@ -118,7 +117,8 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
             this.ClassWhoseConstructorDependsOnNoArgConstructorClass,
             this.MultiLevelClass,
             this.ClassWithInterfaceParameter,
-            this.ClassThatNeedsFactory
+            this.ClassThatNeedsFactory,
+            this.InterfaceImplementor
         ]);
     }
 
