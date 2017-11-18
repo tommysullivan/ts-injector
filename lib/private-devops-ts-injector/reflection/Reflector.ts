@@ -1,6 +1,6 @@
 import {
-    IClass, IReflectionDigest, IInterface,
-    IReflector, IType,
+    IReflectionDigest, IInterface,
+    IReflector, IClass,
     NativeClassReference
 } from "./interfaces";
 import {ErrorWithCause} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/errors/error-with-cause";
@@ -26,9 +26,8 @@ export class Reflector implements IReflector {
         }
     }
 
-    interface<T>(interfaceType: IType): IInterface<T> {
+    interfaceOf<T>(interfaceType: IInterface<T>): IInterface<T> {
         try {
-            if(!interfaceType.isInterface) throw new Error(`Attempted to look up interface using IType for which isInterface returned false`);
             return this.reflectionDigest.interfaces.firstWhere(i => i.name == interfaceType.name);
         }
         catch(e) {

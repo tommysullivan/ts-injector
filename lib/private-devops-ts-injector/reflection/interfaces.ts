@@ -1,15 +1,27 @@
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
 
-export interface IType {
-    isPrimitive:boolean;
-    isClass:boolean;
-    isInterface:boolean;
-    nativeTypeReference:any;
-    name:string;
+export interface IValueProvider<TDecisionCriteria, TypeOfValueDesired> {
+    provideValueBasedOn(decisionCriteria:TDecisionCriteria):TypeOfValueDesired;
+    canProvideValueBasedOn(decisionCriteria:TDecisionCriteria):boolean;
 }
 
-export interface IArgument {
-    type:IType;
+export type IValueProviderBasedOnArgument<TypeOfValueDesired> = IValueProvider<IArgument<any>, TypeOfValueDesired>;
+export type IValueProviderBasedOnIClass<TypeOfValueDesired> = IValueProvider<IClass<any>, TypeOfValueDesired>;
+export type IValueProviderBasedOnFunction<TypeOfValueDesired> = IValueProvider<IFunctionSignature<any>, TypeOfValueDesired>;
+export type IValueProviderBasedOnInterface<TypeOfValueDesired> = IValueProvider<IInterface<any>, TypeOfValueDesired>;
+
+export interface IType<T> {
+    isFunction:boolean;
+    isNonFunctionPrimitive:boolean;
+    isClass:boolean;
+    isInterface:boolean;
+    asClass:IClass<T>;
+    asInterface:IInterface<T>;
+    asFunctionSignature:IFunctionSignature<T>;
+}
+
+export interface IArgument<T> {
+    type:IType<T>;
     name:string;
     index:number;
     position:number;
@@ -18,21 +30,32 @@ export interface IArgument {
 
 export interface IReflector {
     classOf<T>(someClass:NativeClassReference<T>):IClass<T>;
-    interface<T>(interfaceType:IType):IInterface<T>;
 }
 
-export interface IClass<T> extends IType {
-    constructor:IConstructor<T>;
+export interface IClass<T> extends IType<T> {
+    theConstructor:IConstructor<T>;
+    name:string; //
+}
+
+export interface IInterface<T> extends IType<T> {
+    implementations:IList<IClass<T>>;
+    equals(other:IInterface<T>):boolean;
     name:string;
 }
 
-export interface IInterface<T> extends IType {
-    implementations:IList<IClass<T>>;
+export interface IFunctionSignature<ReturnType> extends IType<ReturnType> {
+    args:IList<IArgument<any>>;
+    returnType:IType<ReturnType>;
+}
+
+export interface IFunction<ReturnType> {
+    invoke(args:any[]):ReturnType;
+    signature:IFunctionSignature<ReturnType>
 }
 
 export interface IConstructor<T>{
-    invoke(args:any[]):T;
-    args:IList<IArgument>;
+    invoke(...args:any[]):T;
+    args:IList<IArgument<any>>;
 }
 
 export interface NativeClassReference<T> {
@@ -42,19 +65,5 @@ export interface NativeClassReference<T> {
 export interface IReflectionDigest {
     classes:IList<IClass<any>>;
     interfaces:IList<IInterface<any>>;
+    functionSignatures:IList<IFunctionSignature<any>>;
 }
-
-// export interface ITypesMetadata {
-//     classes:IClassMetadata[];
-// }
-//
-// export interface IClassMetadata {
-//     name: string,
-//     constructorArgs: IArgumentMetadata[];
-// }
-//
-// export interface IArgumentMetadata {
-//     name: string,
-//     typeName: string,
-//     isOptional: boolean
-// }

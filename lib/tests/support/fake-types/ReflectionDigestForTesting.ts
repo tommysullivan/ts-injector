@@ -1,11 +1,12 @@
 import {
     IArgument,
-    IClass, IInterface, IReflectionDigest, IType, NativeClassReference
+    IFunctionSignature, IInterface, IReflectionDigest, IClass, NativeClassReference, IType
 } from "../../../private-devops-ts-injector/reflection/interfaces";
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
 import {Class} from "../../../private-devops-ts-injector/reflection/Class";
 import {
-    ClassWhoseConstructorDependsOnNoArgConstructorClass, ClassWithInterfaceParameter, IDependencyInterface,
+    ClassThatNeedsFactory,
+    ClassWhoseConstructorDependsOnNoArgConstructorClass, ClassWhoseConstructorTakesAnInterfaceParameter, IDependencyInterface,
     InterfaceImplementor,
     MultiLevelClass,
     NoArgConstructorClass
@@ -14,17 +15,18 @@ import {Constructor} from "../../../private-devops-ts-injector/reflection/Constr
 import {Argument} from "../../../private-devops-ts-injector/reflection/Argument";
 import {Interface} from "../../../private-devops-ts-injector/reflection/Interface";
 import {ICollections} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-collections";
+import {FunctionSignature} from "../../../private-devops-ts-injector/reflection/FunctionSignature";
 
-interface IArgDescriptor {
+interface IArgDescriptor<T> {
     name:string,
-    type:IType,
+    type:IType<T>,
     isOptional?:boolean
 }
 
 export class ReflectionDigestForTesting implements IReflectionDigest {
     constructor(private readonly collections:ICollections) {}
 
-    private newArguments(argDescriptors:IArgDescriptor[]):IArgument[] {
+    private newArguments(argDescriptors:IArgDescriptor<any>[]):IArgument<any>[] {
         return argDescriptors.map(
             (argDescriptor, index) => new Argument(
                 argDescriptor.name,
@@ -35,7 +37,7 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
         );
     }
 
-    private newClass(nativeClassReference:NativeClassReference<any>, args:IArgument[]) {
+    private newClass<T>(nativeClassReference:NativeClassReference<T>, args:IArgument<any>[]):IClass<T> {
         return new Class(
             new Constructor(this.collections.newList(args), nativeClassReference),
             nativeClassReference
@@ -49,9 +51,10 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
     get ClassWhoseConstructorDependsOnNoArgConstructorClass():IClass<ClassWhoseConstructorDependsOnNoArgConstructorClass> {
         return this.newClass(
             ClassWhoseConstructorDependsOnNoArgConstructorClass,
-            this.newArguments([
-                {name: 'a', type: this.NoArgConstructorClass }
-            ])
+            null
+            // this.newArguments([
+            //     // {name: 'a', type: this.NoArgConstructorClass }
+            // ])
         );
     }
 
@@ -66,9 +69,9 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
         );
     }
 
-    get ClassWithInterfaceParameter():IClass<ClassWithInterfaceParameter> {
+    get ClassWithInterfaceParameter():IClass<ClassWhoseConstructorTakesAnInterfaceParameter> {
         return this.newClass(
-            ClassWithInterfaceParameter,
+            ClassWhoseConstructorTakesAnInterfaceParameter,
             this.newArguments([
                 {name: 'a', type: this.IDependencyInterface }
             ])
@@ -82,6 +85,22 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
                 {name: 'a', type: this.NoArgConstructorClass }
             ])
         );
+    }
+
+    get ClassThatNeedsFactory():IClass<ClassThatNeedsFactory> {
+        return this.newClass(
+            ClassThatNeedsFactory,
+            this.newArguments([
+                {
+                    name: 'newDependencyInterface',
+                    type: this.newDependencyInterface
+                }
+            ])
+        );
+    }
+
+    get newDependencyInterface():IFunctionSignature<IDependencyInterface> {
+        return new FunctionSignature(this.collections.newEmptyList<IArgument<any>>(), this.IDependencyInterface);
     }
 
     get IDependencyInterface():IInterface<IDependencyInterface> {
@@ -98,13 +117,20 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
             this.NoArgConstructorClass,
             this.ClassWhoseConstructorDependsOnNoArgConstructorClass,
             this.MultiLevelClass,
-            this.ClassWithInterfaceParameter
+            this.ClassWithInterfaceParameter,
+            this.ClassThatNeedsFactory
         ]);
     }
 
     get interfaces():IList<IInterface<any>> {
         return this.collections.newList([
             this.IDependencyInterface
+        ]);
+    }
+
+    get functionSignatures():IList<IFunctionSignature<any>> {
+        return this.collections.newList([
+            this.newDependencyInterface
         ]);
     }
 }

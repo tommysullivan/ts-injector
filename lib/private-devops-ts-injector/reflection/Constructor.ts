@@ -1,11 +1,11 @@
-import {IArgument, IConstructor} from "./interfaces";
+import {IArgument, IConstructor, NativeClassReference} from "./interfaces";
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
 import {ErrorWithCause} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/errors/error-with-cause";
 
 export class Constructor<T> implements IConstructor<T> {
     constructor(
-        public readonly args:IList<IArgument>,
-        private readonly actualConstructor:any //TODO: define constructor type
+        public readonly args:IList<IArgument<any>>,
+        private readonly actualConstructor:NativeClassReference<T>
     ) {}
 
     invoke(args: any[]): T {

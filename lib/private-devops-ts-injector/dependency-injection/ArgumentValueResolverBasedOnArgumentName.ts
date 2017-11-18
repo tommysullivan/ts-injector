@@ -1,15 +1,14 @@
-import {IArgumentValueResolver} from "./Injector";
-import {IArgument} from "../reflection/interfaces";
+import {IArgument, IValueProvider} from "../reflection/interfaces";
 import {IDictionary} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-dictionary";
 
-export class ArgumentValueResolverBasedOnArgumentName implements IArgumentValueResolver {
+export class ValueProviderUsingDictionaryWhereKeyIsArgumentName<TTypeOfValueDesired> implements IValueProvider<IArgument<any>, TTypeOfValueDesired> {
     constructor(private readonly nameToValueDictionary:IDictionary<any>) {}
 
-    resolveArgumentValue(arg: IArgument): any {
+    provideValueBasedOn(arg: IArgument<any>): TTypeOfValueDesired {
         return this.nameToValueDictionary.get(arg.name);
     }
 
-    canResolveArgumentValue(arg: IArgument): boolean {
+    canProvideValueBasedOn(arg: IArgument<TTypeOfValueDesired>): boolean {
         return this.nameToValueDictionary.hasKey(arg.name);
     }
 

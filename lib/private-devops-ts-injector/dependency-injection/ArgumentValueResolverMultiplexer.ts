@@ -1,14 +1,15 @@
-import {IArgumentValueResolver} from "./Injector";
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
-import {IArgument} from "../reflection/interfaces";
+import {IArgument, IValueProviderBasedOnArgument} from "../reflection/interfaces";
 import {ErrorWithCause} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/errors/error-with-cause";
 
-export class ArgumentValueResolverMultiplexer implements IArgumentValueResolver {
-    constructor(private readonly argumentValueResolvers:IList<IArgumentValueResolver>) {}
+export class ArgumentValueResolverMultiplexer<TypeOfValueDesired> implements IValueProviderBasedOnArgument<TypeOfValueDesired> {
+    constructor(
+        private readonly argumentValueResolvers:IList<IValueProviderBasedOnArgument<TypeOfValueDesired>>
+    ) {}
 
-    resolveArgumentValue(arg: IArgument): any {
+    provideValueBasedOn(arg: IArgument<any>):TypeOfValueDesired {
         try {
-            return this.argumentValueResolvers.firstWhere(r => r.canResolveArgumentValue(arg)).resolveArgumentValue(arg);
+            return this.argumentValueResolvers.firstWhere(r => r.canProvideValueBasedOn(arg)).provideValueBasedOn(arg);
         }
         catch(e) {
             const message = [
@@ -24,7 +25,7 @@ export class ArgumentValueResolverMultiplexer implements IArgumentValueResolver 
         }
     }
 
-    canResolveArgumentValue(arg: IArgument): boolean {
-        return this.argumentValueResolvers.hasAtLeastOne(r => r.canResolveArgumentValue(arg));
+    canProvideValueBasedOn(arg: IArgument<any>): boolean {
+        return this.argumentValueResolvers.hasAtLeastOne(r => r.canProvideValueBasedOn(arg));
     }
 }

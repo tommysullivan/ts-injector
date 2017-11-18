@@ -1,24 +1,27 @@
 import "../support/prepare-test-environment";
 import {expect} from "chai";
 import {Let} from "mocha-let-ts";
-import { Injector } from "../../private-devops-ts-injector/dependency-injection/Injector";
 import {
-    ClassWhoseConstructorDependsOnNoArgConstructorClass, ClassWithInterfaceParameter, InterfaceImplementor,
+    ClassThatNeedsFactory,
+    ClassWhoseConstructorDependsOnNoArgConstructorClass, ClassWhoseConstructorTakesAnInterfaceParameter, InterfaceImplementor,
     MultiLevelClass,
     NoArgConstructorClass
 } from "../support/fake-types/fakeTypes";
-import {collections, injector} from "../support/shared-lets";
+import {collections, valueProviderBasedOnClass} from "../support/shared-lets";
 import {ReflectionDigestForTesting} from "../support/fake-types/ReflectionDigestForTesting";
+import {ValueProviderBasedOnIClass} from "../../private-devops-ts-injector/dependency-injection/ValueProviderBasedOnIClass";
+import {NativeClassReference} from "../../private-devops-ts-injector/reflection/interfaces";
+import {ValueProviderBasedOnClass} from "../../private-devops-ts-injector/dependency-injection/ValueProviderBasedOnClass";
 
-describe('injector', () => {
-    describe('constructor', () => {
-        it('returns an instance', () => expect(injector()).to.be.an.instanceof(Injector));
-    });
+const xcontext = xdescribe;
+
+describe('ValueProviderBasedOnIClass', () => {
+    it('is instantiable', () => expect(valueProviderBasedOnClass()).to.be.an.instanceof(ValueProviderBasedOnClass));
 
     describe("createInstanceOf<ClassToInstantiate>(theClass: NativeClassReference<ClassToInstantiate>)", () => {
 
-        const theClass = Let<any>();
-        const instanceCreationResult = Let(() => injector().createInstanceOf(theClass()));
+        const theClass = Let<NativeClassReference<any>>();
+        const instanceCreationResult = Let(() => valueProviderBasedOnClass().provideValueBasedOn(theClass()));
 
         function expectClassToBeInstantiable() {
             it('returns a new instance', () => {
@@ -57,20 +60,37 @@ describe('injector', () => {
 
             context('when we try to invoke its constructor with too few params', () => {
                 it('yields an error', () => {
-                    expect(() => new ReflectionDigestForTesting(collections()).MultiLevelClass.constructor.invoke([])).to.throw;
+                    expect(() => new ReflectionDigestForTesting(collections()).MultiLevelClass.theConstructor.invoke([])).to.throw;
                 });
             });
         });
 
-        context(ClassWithInterfaceParameter.name, () => {
-            theClass(() => ClassWithInterfaceParameter);
+        context(ClassWhoseConstructorTakesAnInterfaceParameter.name, () => {
+            theClass(() => ClassWhoseConstructorTakesAnInterfaceParameter);
             expectClassToBeInstantiable();
             it(`has been constructed with the right implementation`, () => {
-                const instance = instanceCreationResult() as ClassWithInterfaceParameter;
+                const instance = instanceCreationResult() as ClassWhoseConstructorTakesAnInterfaceParameter;
                 expect(instance.a).to.be.an.instanceOf(InterfaceImplementor);
                 expect(instance.a.a).to.be.an.instanceOf(NoArgConstructorClass);
             });
+
+            //TODO: Test for what happens when there are multiple implementors (should yield an error)
         });
+
+        context(ClassThatNeedsFactory.name, () => {
+            theClass(() => ClassThatNeedsFactory);
+            expectClassToBeInstantiable();
+            it(`can successfully call factory and produce an injected result`, () => {
+                const instance = instanceCreationResult() as ClassThatNeedsFactory;
+                expect(instance.noArgConstructorClassInstance).to.be.an.instanceOf(NoArgConstructorClass);
+            });
+        });
+
+        //TODO: Support Factories
+        //TODO: Support Choosing an Implementation of Interface when multiple exist
+        //TODO: Support most general instantiation hook that could work for either above special cases
+        //TODO: Support lifecycles - singleton (one per injector) vs. normal (create instances every time)
+        //TODO: Support Proxying Object creation until objects are needed
 
     });
 });

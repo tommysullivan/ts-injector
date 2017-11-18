@@ -22,8 +22,18 @@ export class InterfaceImplementor implements IDependencyInterface {
     constructor(public readonly a:NoArgConstructorClass) {}
 }
 
-export class ClassWithInterfaceParameter {
+export class ClassWhoseConstructorTakesAnInterfaceParameter {
     constructor(
         public readonly a:IDependencyInterface
     ) {}
+}
+
+export class ClassThatNeedsFactory {
+    constructor(
+        public readonly newDependencyInterface:()=>IDependencyInterface
+    ) {}
+
+    get noArgConstructorClassInstance():NoArgConstructorClass {
+        return this.newDependencyInterface().a;
+    }
 }
