@@ -27,7 +27,7 @@ export class Injection {
         )
     }
 
-    //TODO: Eliminate any -
+    //TODO: Eliminate any - fixing this will force the correct type definitions for IDecisionCriteria
     valueProviderBasedOnIType<T>():IValueProvider<IType<T>, T> {
         return new ValueProviderUsesFirstWorkableProvider(
             this.collections.newList<IValueProvider<IType<any>, any>>([
