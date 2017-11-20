@@ -47,6 +47,7 @@ export class Injection {
                     new ValueProviderUsesTypeOfArgument(
                         this.valueProviderBasedOnIType()
                     )
+                    //TODO: Test whether a non argument type of provider would cause a compiler error (if not, a runtime?)
                 ])
             )
         )
