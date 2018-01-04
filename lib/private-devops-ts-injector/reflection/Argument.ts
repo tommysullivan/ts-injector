@@ -8,6 +8,8 @@ export class Argument<T> implements IArgument<T> {
         public readonly isOptional:boolean
     ) {}
 
+    readonly kind = 'IArgument';
+
     get position():number { return this.index + 1; }
 
     toString():string {

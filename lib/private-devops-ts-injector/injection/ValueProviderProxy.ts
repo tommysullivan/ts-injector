@@ -1,6 +1,6 @@
-import {IType, IValueProvider} from "../reflection/interfaces";
+import {IDecisionCriteria, IValueProvider} from "../reflection/interfaces";
 
-export class ValueProviderProxy<TDecisionCriteria extends IType<TypeOfValueDesired>, TypeOfValueDesired> implements IValueProvider<TDecisionCriteria, TypeOfValueDesired> {
+export class ValueProviderProxy<TDecisionCriteria extends IDecisionCriteria<TypeOfValueDesired>, TypeOfValueDesired>  implements IValueProvider<TDecisionCriteria, TypeOfValueDesired> {
     constructor(
         private readonly actualInjectorProvider:()=>IValueProvider<TDecisionCriteria, TypeOfValueDesired>
     ) {}
@@ -9,8 +9,13 @@ export class ValueProviderProxy<TDecisionCriteria extends IType<TypeOfValueDesir
         return this.actualInjectorProvider().provideValueBasedOn(decisionCriteria);
     }
 
-    canProvideValueBasedOn(decisionCriteria: TDecisionCriteria): boolean {
-        return this.actualInjectorProvider().canProvideValueBasedOn(decisionCriteria);
+    canProvideValueBasedOn(decisionCriteria: IDecisionCriteria<TypeOfValueDesired>): boolean {
+        const result = this.actualInjectorProvider().canProvideValueBasedOn(decisionCriteria);
+        // console.log(`ValueProviderProxy.canProvideValueBasedOn decisionCriteria=${decisionCriteria} result=${result}`);
+        return result;
+    }
+
+    toString():string {
+        return `ValueProviderProxy - proxies actual provider: ${this.actualInjectorProvider()}`;
     }
 }
-

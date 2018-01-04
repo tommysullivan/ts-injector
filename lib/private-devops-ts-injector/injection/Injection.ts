@@ -7,11 +7,8 @@ import {ICollections} from "private-devops-ts-primitives/dist/private-devops-ts-
 import {ValueProviderUsingDictionaryWhereKeyIsArgumentName} from "./ValueProviderUsingDictionaryWhereKeyIsArgumentName";
 import {ValueProviderUsesTypeOfArgument} from "./ValueProviderUsesTypeOfArgument";
 import {
-    IReflectionDigest, IType, IValueProvider, IValueProviderBasedOnClass,
-    IValueProviderBasedOnIClass, IValueProviderBasedOnInterface
+    IValueProviderBasedOnIClass, IValueProviderBasedOnInterface, IValueProviderBasedOnType
 } from "../reflection/interfaces";
-import {ValueProviderBasedOnClass} from "./ValueProviderBasedOnClass";
-import {Reflector} from "../reflection/Reflector";
 
 export class Injection {
     constructor(
@@ -27,14 +24,13 @@ export class Injection {
         )
     }
 
-    //TODO: Eliminate any - fixing this will force the correct type definitions for IDecisionCriteria
-    valueProviderBasedOnIType<T>():IValueProvider<IType<T>, T> {
+    valueProviderBasedOnIType<T>():IValueProviderBasedOnType<T> {
         return new ValueProviderUsesFirstWorkableProvider(
-            this.collections.newList<IValueProvider<IType<any>, any>>([
+            this.collections.newList<IValueProviderBasedOnType<T>>([
                 new ValueProviderProxy(
-                    () => this.valueProviderBasedOnIClass()
+                    () => this.valueProviderBasedOnIClass<T>()
                 ),
-                this.valueProviderBasedOnInterface()
+                this.valueProviderBasedOnInterface<T>()
             ])
         )
     }
@@ -45,7 +41,7 @@ export class Injection {
                 this.collections.newList([
                     new ValueProviderUsingDictionaryWhereKeyIsArgumentName(this.argumentNameToValueDictionaryProvider()),
                     new ValueProviderUsesTypeOfArgument(
-                        this.valueProviderBasedOnIType()
+                        this.valueProviderBasedOnIType<any>()
                     )
                     //TODO: Test whether a non argument type of provider would cause a compiler error (if not, a runtime?)
                 ])
@@ -53,13 +49,13 @@ export class Injection {
         )
     }
 
-    valueProviderBasedOnClass<T>(reflectionDigest:IReflectionDigest):IValueProviderBasedOnClass<T> {
-        return new ValueProviderBasedOnClass<T>(
-            new Reflector(
-                reflectionDigest
-            ),
-            this.valueProviderBasedOnIClass<T>()
-        )
-    }
+    // valueProviderBasedOnClass<T>(reflectionDigest:IReflectionDigest):IValueProviderBasedOnClass<T> {
+    //     return new ValueProviderBasedOnClass<T>(
+    //         new Reflector(
+    //             reflectionDigest
+    //         ),
+    //         this.valueProviderBasedOnIClass<T>()
+    //     )
+    // }
 
 }

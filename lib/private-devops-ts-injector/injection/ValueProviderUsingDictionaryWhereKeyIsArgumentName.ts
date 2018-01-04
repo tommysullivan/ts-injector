@@ -1,4 +1,4 @@
-import {IArgument, IType, IValueProvider} from "../reflection/interfaces";
+import {IArgument, IDecisionCriteria, IType, IValueProvider} from "../reflection/interfaces";
 import {IDictionary} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-dictionary";
 
 export class ValueProviderUsingDictionaryWhereKeyIsArgumentName<TypeOfValueDesired extends IType<TypeOfValueDesired>> implements IValueProvider<IArgument<any>, TypeOfValueDesired> {
@@ -8,8 +8,9 @@ export class ValueProviderUsingDictionaryWhereKeyIsArgumentName<TypeOfValueDesir
         return this.nameToValueDictionary.get(arg.name);
     }
 
-    canProvideValueBasedOn(arg: IArgument<TypeOfValueDesired>): boolean {
-        return this.nameToValueDictionary.hasKey(arg.name);
+    canProvideValueBasedOn(decisionCriteria: IDecisionCriteria<TypeOfValueDesired>): boolean {
+        return decisionCriteria.kind == 'IArgument'
+            && this.nameToValueDictionary.hasKey(decisionCriteria.name);
     }
 
     toString():string {

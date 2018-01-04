@@ -1,15 +1,15 @@
 import {
     IValueProviderBasedOnInterface, IInterface,
-    IValueProviderBasedOnIClass
+    IValueProviderBasedOnIClass, IDecisionCriteria
 } from "../reflection/interfaces";
 
 export class ValueProviderBasedOnInterface<TypeOfValueDesired> implements IValueProviderBasedOnInterface<TypeOfValueDesired> {
     constructor(
-        private readonly valueProviderBasedOnClass:IValueProviderBasedOnIClass<TypeOfValueDesired>
+        private readonly valueProviderBasedOnIClass:IValueProviderBasedOnIClass<TypeOfValueDesired>
     ) {}
 
-    provideValueBasedOn(theType: IInterface<TypeOfValueDesired>):TypeOfValueDesired {
-        const possibleImplementations = theType.asInterface.implementations;
+    provideValueBasedOn(theInterface: IInterface<TypeOfValueDesired>):TypeOfValueDesired {
+        const possibleImplementations = theInterface.implementations;
         if(possibleImplementations.hasMany) {
             throw new Error([
                 `Tried to resolve value for interface type, but there were too many implementations without any rules how to choose the preferred one`,
@@ -21,11 +21,11 @@ export class ValueProviderBasedOnInterface<TypeOfValueDesired> implements IValue
                 `Tried to resolve value for interface type, but no implementing classes were found`,
             ].join("\n"));
         }
-        return this.valueProviderBasedOnClass.provideValueBasedOn(possibleImplementations.first);
+        return this.valueProviderBasedOnIClass.provideValueBasedOn(possibleImplementations.first);
     }
 
-    canProvideValueBasedOn(theType:  IInterface<TypeOfValueDesired>): boolean {
-        return theType.isInterface;
+    canProvideValueBasedOn(decisionCriteria:IDecisionCriteria<any>):boolean {
+        return decisionCriteria.kind=='IInterface';
     }
 
     toString():string {

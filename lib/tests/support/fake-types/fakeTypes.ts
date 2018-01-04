@@ -30,12 +30,14 @@ export class ClassWhoseConstructorTakesAnInterfaceParameter {
     ) {}
 }
 
+//works for above
+
 export class ClassWhoseConstructorRequiresFactoryThatWhenCalledAfterConstructionHasCompeltedYieldsIDependencyInterface {
     constructor(
-        public readonly newDependencyInterfsssace:()=>IDependencyInterface
+        public readonly newDependencyInterface:()=>IDependencyInterface
     ) {}
 
     get noArgConstructorClassInstance():NoArgConstructorClass {
-        return this.newDependencyInterfsssace().d;
+        return this.newDependencyInterface().d;
     }
 }

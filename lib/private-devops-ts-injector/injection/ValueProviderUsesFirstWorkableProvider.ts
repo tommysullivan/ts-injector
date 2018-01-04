@@ -9,7 +9,10 @@ export class ValueProviderUsesFirstWorkableProvider<TDecisionCriteria extends ID
 
     provideValueBasedOn(decisionCriteria:TDecisionCriteria):TypeOfValueDesired {
         try {
-            return this.valueProviders.firstWhere(r => r.canProvideValueBasedOn(decisionCriteria)).provideValueBasedOn(decisionCriteria);
+            // console.log(`ValueProviderUsesFirstWorkableProvider.provideValueBasedOn shouldBeInvoked=${this.canProvideValueBasedOn(decisionCriteria)} decisionCriteria=${decisionCriteria}`);
+            return this.valueProviders
+                .firstWhere(r => r.canProvideValueBasedOn(decisionCriteria))
+                .provideValueBasedOn(decisionCriteria);
         }
         catch(e) {
             const message = [
@@ -25,7 +28,13 @@ export class ValueProviderUsesFirstWorkableProvider<TDecisionCriteria extends ID
         }
     }
 
-    canProvideValueBasedOn(arg:TDecisionCriteria): boolean {
-        return this.valueProviders.hasAtLeastOne(r => r.canProvideValueBasedOn(arg));
+    canProvideValueBasedOn(decisionCriteria:IDecisionCriteria<any>): boolean {
+        const result = this.valueProviders.hasAtLeastOne(vp => vp.canProvideValueBasedOn(decisionCriteria));
+        // console.log(`ValueProviderUsesFirstWorkableProvider.canProvideValueBasedOn decisionCriteria=${decisionCriteria} result=${result}`);
+        return result;
+    }
+
+    toString():string {
+        return `ValueProviderUsesFirstWorkableProvider valueProviders: ${this.valueProviders.map(i => i.toString()).toArray()}`;
     }
 }

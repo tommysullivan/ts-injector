@@ -1,6 +1,6 @@
 import {
     IArgument,
-    IFunctionSignature, IInterface, IReflectionDigest, IClass, NativeClassReference, IType
+    IFunctionSignature, IInterface, IReflectionDigest, IClass, NativeClassReference, IType, IVoid
 } from "../../../private-devops-ts-injector/reflection/interfaces";
 import {IList} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-list";
 import {Class} from "../../../private-devops-ts-injector/reflection/Class";
@@ -16,6 +16,7 @@ import {Argument} from "../../../private-devops-ts-injector/reflection/Argument"
 import {Interface} from "../../../private-devops-ts-injector/reflection/Interface";
 import {ICollections} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/collections/i-collections";
 import {FunctionSignature} from "../../../private-devops-ts-injector/reflection/FunctionSignature";
+import {Void} from "../../../private-devops-ts-injector/reflection/Void";
 
 interface IArgDescriptor<T> {
     name:string,
@@ -91,15 +92,33 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
             ClassWhoseConstructorRequiresFactoryThatWhenCalledAfterConstructionHasCompeltedYieldsIDependencyInterface,
             this.newArguments([
                 {
-                    name: 'newDependencyInterface',
-                    type: this.newDependencyInterface
+                    name: 'FunctionThatReturnsIDependencyInterface',
+                    type: this.FunctionThatReturnsIDependencyInterface
                 }
             ])
         );
     }
 
-    get newDependencyInterface():IFunctionSignature<IDependencyInterface> {
-        return new FunctionSignature(this.collections.newEmptyList<IArgument<any>>(), this.IDependencyInterface);
+    get FunctionThatReturnsIDependencyInterface():IFunctionSignature<IDependencyInterface> {
+        return new FunctionSignature(
+            this.emptyArgumentsList,
+            this.IDependencyInterface
+        );
+    }
+
+    get emptyArgumentsList():IList<IArgument<any>> {
+        return this.collections.newEmptyList<IArgument<any>>()
+    }
+
+    get FunctionThatReteurnsVoid():IFunctionSignature<void> {
+        return new FunctionSignature(
+            this.emptyArgumentsList,
+            this.Void
+        );
+    }
+
+    get Void():IVoid {
+        return Void;
     }
 
     get IDependencyInterface():IInterface<IDependencyInterface> {
@@ -130,7 +149,7 @@ export class ReflectionDigestForTesting implements IReflectionDigest {
 
     get functionSignatures():IList<IFunctionSignature<any>> {
         return this.collections.newList([
-            this.newDependencyInterface
+            this.FunctionThatReturnsIDependencyInterface
         ]);
     }
 }

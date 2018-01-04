@@ -1,11 +1,13 @@
-import {IClass, IValueProviderBasedOnArgument, IValueProviderBasedOnIClass} from "../reflection/interfaces";
+import {
+    IClass, IDecisionCriteria, IValueProviderBasedOnArgument,
+    IValueProviderBasedOnIClass
+} from "../reflection/interfaces";
 import {ErrorWithCause} from "private-devops-ts-primitives/dist/private-devops-ts-primitives/errors/error-with-cause";
 
 export class ValueProviderBasedOnIClass<TypeOfValueDesired> implements IValueProviderBasedOnIClass<TypeOfValueDesired> {
     constructor(private readonly argumentValueResolver:IValueProviderBasedOnArgument<any>) {}
 
-    provideValueBasedOn(theType: IClass<TypeOfValueDesired>):TypeOfValueDesired {
-        const theClass = theType.asClass;
+    provideValueBasedOn(theClass:IClass<TypeOfValueDesired>):TypeOfValueDesired {
         try {
             const theConstructor = theClass.theConstructor;
             const constructorParameters = theConstructor.args.map(
@@ -24,8 +26,10 @@ export class ValueProviderBasedOnIClass<TypeOfValueDesired> implements IValuePro
         }
     }
 
-    canProvideValueBasedOn(theType: IClass<TypeOfValueDesired>): boolean {
-        return theType.isClass;
+    canProvideValueBasedOn(decisionCriteria:IDecisionCriteria<any>):boolean {
+        const result = decisionCriteria.kind == 'IClass';
+        // console.log(`ValueProviderBasedOnIClass.canProvideValueBasedOn decisionCriteria=${decisionCriteria} decisionCriteria.kind=${decisionCriteria.kind} result=${result}`);
+        return result;
     }
 
     toString():string {
